@@ -66,6 +66,29 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyQuestion" />
         <AssociationConnector Association="TrainingTrackerModel.Fk_User_Team" />
         <AssociationConnector Association="TrainingTrackerModel.Fk_UserId_TeamManager" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="1.5" PointX="7.9801263976749617" PointY="28.276682658249829" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicContentMap" Width="1.5" PointX="11.699014132702263" PointY="8.56792524855953" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentUserMap" Width="1.5" PointX="2.4659008004078178" PointY="21.618554184966978" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Course" Width="1.5" PointX="0.0062141697882740618" PointY="27.440290478728848" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopic" Width="1.5" PointX="4.7608168333586383" PointY="12.766914731248708" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopicDiscussion" Width="1.5" PointX="7.0245973481911221" PointY="18.504865923200207" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContent" Width="1.5" PointX="8.5002478419338576" PointY="11.41214937503084" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContentUserMap" Width="1.5" PointX="0.64148649603197649" PointY="5.8547843125903904" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Assignment_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicContentMap_Assignment" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicContentMap_SubtopicContent" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUseraMap_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Course_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopic_Course" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopic_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopicDiscussion_CourseSubtopic" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_CourseSubtopic" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopicDiscussion_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

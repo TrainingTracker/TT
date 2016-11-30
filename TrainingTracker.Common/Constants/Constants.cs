@@ -10,6 +10,8 @@ namespace TrainingTracker.Common.Constants
         /// SalesTracker Common Encryption Key
         /// </summary>
         public const string SalesTrackerEncryptionKey = "!#$a54?3";
+
+        public const string DefaultCourseIcon = "DefaultCourse.jpg";
     }
     /// <summary>
     /// Contains all user roles.

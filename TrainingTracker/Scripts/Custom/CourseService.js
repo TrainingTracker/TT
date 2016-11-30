@@ -1,0 +1,68 @@
+﻿$(document).ready(function (my) {
+    "use strict";
+    my.courseService = {
+
+        addCourse: function (courseData, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddCourse", courseData, callback);
+        },
+
+        getAllCourses: function (callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetAllCoursesWithSubtopics", null, callback);
+        },
+
+        addSubtopic: function (subtopicData, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddCourseSubtopic", subtopicData, callback);
+        },
+
+        addSubtopicContent: function (data, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddSubtopicContent", data, callback);
+        },
+
+        addAssignment : function(data, callback){
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddAssignment", data, callback);
+        },
+
+        updateCourse: function (courseData, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateCourse", courseData, callback);
+        },
+
+        uploadImage: function (imagefile, callback) {
+            my.ajaxService.ajaxUploadImage(my.rootUrl + "/LearningPath/UploadImage", imagefile, callback);
+        },
+
+        getSubtopicContents : function(subtopicId, callback){
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetSubtopicContents?subtopicId=" + subtopicId, null, callback);
+        },
+
+        updateSubtopic: function (subtopicData, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateCourseSubtopic", subtopicData, callback);
+        },
+
+        updateSubtopicContent: function (data, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateSubtopicContent", data, callback);
+        },
+
+        updateAssignment : function(data, callback){
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateAssignment", data, callback);
+        },
+
+        deleteSubtopic: function (id, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/DeleteCourseSubtopic?id=" + id, null, callback);
+        },
+
+        deleteSubtopicContent: function (id, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/DeleteSubtopicContent?id=" + id, null, callback);
+        },
+          
+        deleteAssignment: function (id, callback)
+        {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/DeleteAssignment?id=" + id, null, callback);
+        },
+
+        getAssignments: function (id, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetAssignments?subtopicContentId=" + id, null, callback);
+        }
+
+
+    };
+}(my));

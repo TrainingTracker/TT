@@ -116,6 +116,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authorization\CustomAuthorize.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\LearningPathController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
@@ -149,12 +150,15 @@
     <Content Include="Scripts\Chart.bundle.min.js" />
     <Content Include="Scripts\Chart.Core.min.js" />
     <Content Include="Scripts\Chart.Scatter.min.js" />
+    <Content Include="Scripts\ckeditor.js" />
     <Content Include="Scripts\Custom\AddEditProfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\CourseEditor.js" />
+    <Content Include="Scripts\Custom\CourseService.js" />
     <Content Include="Scripts\Custom\Dashboard.js" />
     <Content Include="Scripts\Custom\FeedbackChart.js" />
     <Content Include="Scripts\Custom\FeedbackThread.js" />
@@ -204,6 +208,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
+    <Content Include="StyleSheets\CourseEditor.css" />
     <Content Include="StyleSheets\CustomButtons.css" />
     <Content Include="StyleSheets\Dashboard.css" />
     <Content Include="StyleSheets\FeedbackPlot.css" />
@@ -243,9 +248,12 @@
     <Content Include="Views\Unauthorized\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Release\Release.cshtml" />
     <Content Include="Views\Shared\_FeedbackThread.cshtml" />
+    <Content Include="Views\LearningPath\CourseEditor.cshtml" />
+    <Content Include="Views\LearningPath\Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\CourseIcon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

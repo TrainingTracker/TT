@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\FeedbackDal.cs" />
+    <Compile Include="DataAccess\LearningPathDal.cs" />
     <Compile Include="DataAccess\NotificationDal.cs" />
     <Compile Include="DataAccess\ProjectDal.cs" />
     <Compile Include="DataAccess\QuestionDal.cs" />
@@ -56,7 +57,25 @@
     <Compile Include="DataAccess\SurveyDal.cs" />
     <Compile Include="DataAccess\TeamDal.cs" />
     <Compile Include="DataAccess\UserDal.cs" />
+    <Compile Include="EntityFramework\Assignment.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AssignmentSubtopicContentMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AssignmentUserMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\Comment.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Course.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CourseSubtopic.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CourseSubtopicDiscussion.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Feedback.cs">
@@ -102,6 +121,12 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Skill.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SubtopicContent.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SubtopicContentUserMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Survey.cs">
@@ -162,6 +187,7 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IFeedbackDal.cs" />
+    <Compile Include="Interface\ILearningPathDal.cs" />
     <Compile Include="Interface\INotificationDal.cs" />
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />

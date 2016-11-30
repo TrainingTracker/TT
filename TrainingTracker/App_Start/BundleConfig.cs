@@ -80,6 +80,11 @@ namespace TrainingTracker
             bundles.Add(new ScriptBundle("~/bundles/AllProfileViewScripts").Include(
             "~/Scripts/Custom/AllProfile.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
+         "~/Scripts/Custom/CourseEditor.js",
+         "~/Scripts/Custom/CourseService.js"
+         ));
             #endregion
 
             #region Styles
@@ -118,6 +123,7 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/AllProfileViewStyles").Include(
              "~/StyleSheets/AllProfiles.css" 
              ));
+  
             #endregion
 
         }
