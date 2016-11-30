@@ -1,0 +1,16 @@
+*.suo
+*.puo
+*.user
+*.dll
+*.pdb
+*.dbmdl
+*.cache
+
+.vs
+_ReSharper.*
+bin
+obj
+packages
+
+TrainingTracker.DAL/App.Config
+TrainingTracker/Web.config

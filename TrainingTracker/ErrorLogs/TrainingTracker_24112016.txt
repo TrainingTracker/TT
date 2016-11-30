@@ -1,0 +1,8 @@
+Source        : TrainingTracker.DAL
+Method        : SaveWeeklySurveyResponseForTrainee
+Date        : 5:05:13 PM
+Time        : 11/24/2016
+Computer    : shekharp7
+Error        : Object reference not set to an instance of an object.
+Stack Trace    : at TrainingTracker.DAL.DataAccess.SurveyDal.SaveWeeklySurveyResponseForTrainee(SurveyResponse response, Survey survey) in d:\Projects\Traning-Tracker\TrainingTracker.DAL\DataAccess\SurveyDal.cs:line 101
+^^-----------------------------------------------------^^

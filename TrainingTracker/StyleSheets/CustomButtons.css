@@ -1,0 +1,143 @@
+﻿/*Button Lightgreen*/
+
+.btn-lightgreen { 
+  color: #141414; 
+  background-color: #90EE90; 
+  border-color: #90EE90; 
+} 
+ 
+.btn-lightgreen:hover, 
+.btn-lightgreen:focus, 
+.btn-lightgreen:active, 
+.btn-lightgreen.active, 
+.open .dropdown-toggle.btn-lightgreen { 
+  color: #141414; 
+  background-color: #5FED5F; 
+  border-color: #90EE90; 
+} 
+ 
+.btn-lightgreen:active, 
+.btn-lightgreen.active, 
+.open .dropdown-toggle.btn-lightgreen { 
+  background-image: none; 
+} 
+ 
+.btn-lightgreen.disabled, 
+.btn-lightgreen[disabled], 
+fieldset[disabled] .btn-lightgreen, 
+.btn-lightgreen.disabled:hover, 
+.btn-lightgreen[disabled]:hover, 
+fieldset[disabled] .btn-lightgreen:hover, 
+.btn-lightgreen.disabled:focus, 
+.btn-lightgreen[disabled]:focus, 
+fieldset[disabled] .btn-lightgreen:focus, 
+.btn-lightgreen.disabled:active, 
+.btn-lightgreen[disabled]:active, 
+fieldset[disabled] .btn-lightgreen:active, 
+.btn-lightgreen.disabled.active, 
+.btn-lightgreen[disabled].active, 
+fieldset[disabled] .btn-lightgreen.active { 
+  background-color: #90EE90; 
+  border-color: #90EE90; 
+} 
+ 
+.btn-lightgreen .badge { 
+  color: #90EE90; 
+  background-color: #141414; 
+}
+
+/*Button cadetblue*/
+
+.btn-cadetblue { 
+  color: #141414; 
+  background-color: #5F9EA0; 
+  border-color: #5F9EA0; 
+} 
+ 
+.btn-cadetblue:hover, 
+.btn-cadetblue:focus, 
+.btn-cadetblue:active, 
+.btn-cadetblue.active, 
+.open .dropdown-toggle.btn-cadetblue { 
+  color: #141414; 
+  background-color: #649294; 
+  border-color: #5F9EA0; 
+} 
+ 
+.btn-cadetblue:active, 
+.btn-cadetblue.active, 
+.open .dropdown-toggle.btn-cadetblue { 
+  background-image: none; 
+} 
+ 
+.btn-cadetblue.disabled, 
+.btn-cadetblue[disabled], 
+fieldset[disabled] .btn-cadetblue, 
+.btn-cadetblue.disabled:hover, 
+.btn-cadetblue[disabled]:hover, 
+fieldset[disabled] .btn-cadetblue:hover, 
+.btn-cadetblue.disabled:focus, 
+.btn-cadetblue[disabled]:focus, 
+fieldset[disabled] .btn-cadetblue:focus, 
+.btn-cadetblue.disabled:active, 
+.btn-cadetblue[disabled]:active, 
+fieldset[disabled] .btn-cadetblue:active, 
+.btn-cadetblue.disabled.active, 
+.btn-cadetblue[disabled].active, 
+fieldset[disabled] .btn-cadetblue.active { 
+  background-color: #5F9EA0; 
+  border-color: #5F9EA0; 
+} 
+ 
+.btn-cadetblue .badge { 
+  color: #5F9EA0; 
+  background-color: #141414; 
+}
+
+/*Button coral*/
+
+.btn-coral { 
+  color: #141414; 
+  background-color: #FF7F50; 
+  border-color: #FF7F50; 
+} 
+ 
+.btn-coral:hover, 
+.btn-coral:focus, 
+.btn-coral:active, 
+.btn-coral.active, 
+.open .dropdown-toggle.btn-coral { 
+  color: #141414; 
+  background-color: #FA713F; 
+  border-color: #FF7F50; 
+} 
+ 
+.btn-coral:active, 
+.btn-coral.active, 
+.open .dropdown-toggle.btn-coral { 
+  background-image: none; 
+} 
+ 
+.btn-coral.disabled, 
+.btn-coral[disabled], 
+fieldset[disabled] .btn-coral, 
+.btn-coral.disabled:hover, 
+.btn-coral[disabled]:hover, 
+fieldset[disabled] .btn-coral:hover, 
+.btn-coral.disabled:focus, 
+.btn-coral[disabled]:focus, 
+fieldset[disabled] .btn-coral:focus, 
+.btn-coral.disabled:active, 
+.btn-coral[disabled]:active, 
+fieldset[disabled] .btn-coral:active, 
+.btn-coral.disabled.active, 
+.btn-coral[disabled].active, 
+fieldset[disabled] .btn-coral.active { 
+  background-color: #FF7F50; 
+  border-color: #FF7F50; 
+} 
+ 
+.btn-coral .badge { 
+  color: #FF7F50; 
+  background-color: #141414; 
+}

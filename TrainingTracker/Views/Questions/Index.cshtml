@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles
+{
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="~/StyleSheets/Questions.css" rel="stylesheet" />
+    <link href="~/StyleSheets/CustomButtons.css" rel="stylesheet" />
+}
+
+
+<div id="divQuestionWrapper" class="container-fluid" style="display: none" data-bind="visible: true">
+    <div class="row no-gutter">
+        <div class="col-lg-2  category-pane">
+            <div class="input-group category-list-search">
+                <input type="text" class="form-control" placeholder="search catagories..." data-bind="value: categoryFilter, valueUpdate:'afterkeydown'">
+                <div class="input-group-btn">
+                    <div class="btn btn-default"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+            </div>
+            <div class="category-list">
+                <div data-bind="visible:filterCategory().length == 0">
+                    <div class="alert alert-info" role="alert">
+                        Oh! It seems we don't have this category created yet. You can add this category by clicking on the Add button here.
+                        <br /><br />
+                        <button class="btn btn-primary" data-bind="click:function(){addCategory();}"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
+                    </div>
+                </div>
+                <div class="list-group" data-bind="foreach: filterCategory">
+                    <div data-bind="click: function(){$parent.userSelections.skillId(SkillId); $parent.getQuestionsBySkillAndExperience();}">
+                        <a href="#" class="list-group-item" data-bind="css: {active: $parent.userSelections.skillId() == SkillId}">
+                            <span data-bind="text: Name"></span>
+                            <span class="badge" data-bind="text:Count"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div data-bind="css:{'col-lg-10': userSelections.addNew() == false, 'col-lg-4': userSelections.addNew() == true}">
+            <div style="padding-bottom: 10px;">
+                <label>Experience</label>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default"
+                            data-bind="click:function(){userSelections.startExperience(0);userSelections.endExperience(1);getQuestionsBySkillAndExperience();}">
+                        0-1 <i data-bind="visible: userSelections.startExperience() == 0" class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            data-bind="click:function(){userSelections.startExperience(1);userSelections.endExperience(2);getQuestionsBySkillAndExperience();}">
+                        1-2 <i data-bind="visible: userSelections.startExperience() == 1" class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            data-bind="click:function(){userSelections.startExperience(2);userSelections.endExperience(3);getQuestionsBySkillAndExperience();}">
+                        2-3 <i data-bind="visible: userSelections.startExperience() == 2" class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            data-bind="click:function(){userSelections.startExperience(3);userSelections.endExperience(4);getQuestionsBySkillAndExperience();}">
+                        3-4 <i data-bind="visible: userSelections.startExperience() == 3" class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            data-bind="click:function(){userSelections.startExperience(4);userSelections.endExperience(10);getQuestionsBySkillAndExperience();}">
+                        4+ <i data-bind="visible: userSelections.startExperience() == 4" class="glyphicon glyphicon-ok"></i>
+                    </button>
+                </div>
+                <a class="top" title="" data-placement="right" data-toggle="tooltip"
+                   href="#" data-original-title="Click here to show/hide add question panel." data-bind="visible: userSelections.skillId() != 0">
+                    <div class="btn btn-primary" data-bind="click: function(){userSelections.addNew(!userSelections.addNew());}">
+                        <i class="glyphicon" data-bind="css:{'glyphicon-plus': userSelections.addNew() == false, 'glyphicon-minus': userSelections.addNew() == true}"></i>&nbsp; <strong>Q</strong>
+                    </div>
+                </a>
+            </div>
+            <div data-bind="visible: userSelections.skillId() != 0">
+                <div class="level-selector">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li data-bind="css:{active: userSelections.level() ==1}, click:function(){userSelections.level(1);}">
+                            <a href="#"><span>Basic&nbsp;&nbsp;&nbsp;</span><span class="badge" data-bind="text:questionCounts.basic"></span> </a>
+                        </li>
+                        <li data-bind="css:{active: userSelections.level() ==2}, click:function(){userSelections.level(2);}">
+                            <a href="#"><span>Intermediate&nbsp;&nbsp;&nbsp;</span><span class="badge" data-bind="text:questionCounts.intermediate"></span></a>
+                        </li>
+                        <li data-bind="css:{active: userSelections.level() ==3}, click:function(){userSelections.level(3);}">
+                            <a href="#"><span>Core&nbsp;&nbsp;&nbsp;</span><span class="badge" data-bind="text:questionCounts.core"></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-group" data-bind="foreach: nowShowingQuestions">
+                    <a href="#" class="list-group-item" data-toggle="collapse" data-bind="attr: { 'data-target': '#q_' + $index() }">
+                        <div class="list-group-item-heading">
+                            <h4 data-bind="text: QuestionText"></h4>
+                        </div>
+                        <div data-bind="attr: { 'id': 'q_' + $index() }" class="collapse">
+                            <span style="white-space:pre-wrap" class="list-group-item-text" data-bind="text: Description"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div data-bind="visible: userSelections.skillId() == 0">
+                <div class="alert alert-info" role="alert">
+                    <p>Select a category and experience range to view questions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6" data-bind="css:{'hidden': userSelections.addNew() == false}">
+            <div class="add-question-pane">
+                <div class="add-question-header">
+                    <h3>Add a Question</h3>
+                </div>
+                <div class="alert alert-danger" data-bind="visible: alerts.questionValidation() != ''">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <div data-bind="text:alerts.questionValidation"></div>
+                </div>
+                <div class="alert alert-success" data-bind="visible: alerts.questionAddedSuccess() != ''">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <div data-bind="text:alerts.questionAddedSuccess"></div>
+                </div>
+                <div style="padding-bottom: 10px;">
+                    <label>Experience Level &nbsp;&nbsp;</label>
+                    <div class="btn-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    data-bind="css:{'btn-default': questionLevels.expLevel0.questionLevel() == 0,'btn-lightgreen': questionLevels.expLevel0.questionLevel() == 1,'btn-cadetblue': questionLevels.expLevel0.questionLevel() == 2,'btn-coral': questionLevels.expLevel0.questionLevel() == 3}">
+                                0-1 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="li-basic" data-bind="click: function(){setQuestionLevel(questionLevels.expLevel0, 1);}"><a href="#">Basic</a></li>
+                                <li class="li-intermediate" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel0, 2);}"><a href="#">Intermediate</a></li>
+                                <li class="li-core" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel0,3);}"><a href="#">Core</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    data-bind="css:{'btn-default': questionLevels.expLevel1.questionLevel() == 0,'btn-lightgreen': questionLevels.expLevel1.questionLevel() == 1,'btn-cadetblue': questionLevels.expLevel1.questionLevel() == 2,'btn-coral': questionLevels.expLevel1.questionLevel() == 3}">
+                                1-2 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="li-basic" data-bind="click: function(){setQuestionLevel(questionLevels.expLevel1, 1);}"><a href="#">Basic</a></li>
+                                <li class="li-intermediate" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel1, 2);}"><a href="#">Intermediate</a></li>
+                                <li class="li-core" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel1,3);}"><a href="#">Core</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    data-bind="css:{'btn-default': questionLevels.expLevel2.questionLevel() == 0,'btn-lightgreen': questionLevels.expLevel2.questionLevel() == 1,'btn-cadetblue': questionLevels.expLevel2.questionLevel() == 2,'btn-coral': questionLevels.expLevel2.questionLevel() == 3}">
+                                2-3 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="li-basic" data-bind="click: function(){ setQuestionLevel(questionLevels.expLevel2, 1);}"><a href="#">Basic</a></li>
+                                <li class="li-intermediate" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel2, 2);}"><a href="#">Intermediate</a></li>
+                                <li class="li-core" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel2,3);}"><a href="#">Core</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    data-bind="css:{'btn-default': questionLevels.expLevel3.questionLevel() == 0,'btn-lightgreen': questionLevels.expLevel3.questionLevel() == 1,'btn-cadetblue': questionLevels.expLevel3.questionLevel() == 2,'btn-coral': questionLevels.expLevel3.questionLevel() == 3}">
+                                3-4 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="li-basic" data-bind="click: function(){ setQuestionLevel(questionLevels.expLevel3, 1);}"><a href="#">Basic</a></li>
+                                <li class="li-intermediate" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel3, 2);}"><a href="#">Intermediate</a></li>
+                                <li class="li-core" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel3,3);}"><a href="#">Core</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    data-bind="css:{'btn-default': questionLevels.expLevel4.questionLevel() == 0,'btn-lightgreen': questionLevels.expLevel4.questionLevel() == 1,'btn-cadetblue': questionLevels.expLevel4.questionLevel() == 2,'btn-coral': questionLevels.expLevel4.questionLevel() == 3}">
+                                4+ <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="li-basic" data-bind="click: function(){ setQuestionLevel(questionLevels.expLevel4, 1);}"><a href="#">Basic</a></li>
+                                <li class="li-intermediate" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel4, 2);}"><a href="#">Intermediate</a></li>
+                                <li class="li-core" data-bind="click:function(){setQuestionLevel(questionLevels.expLevel4,3);}"><a href="#">Core</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bind="click:clearLevelSelection">
+                        Clear <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="type your question"
+                           data-bind="value:newQuestion.QuestionText">
+                    <textarea type="text" class="form-control answer-textarea"
+                              placeholder="answer, hints or intent for the question"
+                              data-bind="value:newQuestion.Description"></textarea>
+                </div>
+                <button type="button"
+                        data-bind="click: validateAndAddQuestion"
+                        class="btn btn-primary pull-right">
+                    Submit Question
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/Custom/QuestionsService.js"></script>
+    <script src="~/Scripts/Custom/Questions.js"></script>
+}

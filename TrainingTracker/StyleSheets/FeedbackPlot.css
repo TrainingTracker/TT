@@ -1,0 +1,118 @@
+﻿.legend-drawing-subset > span:nth-child(2) {
+         margin-left: 4%;
+ }
+ .legend-drawing-subset > span.legends {
+        margin-top: 4%;
+ }
+ 
+ .legends-box {
+     width: 10px;
+     height: 10px;
+     top: 3px;
+ }
+
+ .rotate-ninty-anti-clock {
+
+/* Safari */
+-webkit-transform: rotate(-90deg);
+
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+ /*canvas,#divTimeLineChart,#divHorizontalTab,#divDonutChart {
+     height: 100%;
+ }
+ canvas,#divHorizontalTab {    
+     background-color: red;
+ }*/
+
+ .fixed-height-parent {
+     min-height: 400px;
+     overflow: hidden;
+     position: relative !important;
+ }
+ .fixed-height-children {
+     height: 100%;
+     width: 98%;
+     margin: auto;
+     position: absolute !important;
+     right: 0;
+     top: 0;
+ }
+  #divHorizontalTab div.disabled-navigation {
+     background-color: #ccc !important;
+     color: #fff !important;
+     cursor: not-allowed !important;
+ }
+
+  #divHorizontalTab div.disabled-navigation > div {
+      border-bottom: 3px solid #ccc !important;
+  }
+ #divHorizontalTab div.rotate-ninty-anti-clock {
+     background-color: #0a0b0c;
+     color: #fff0f5;
+     cursor: pointer;
+ }
+
+ .active-tab >div{
+         border-bottom: 3px solid red !important;
+ }
+
+ #navCr {
+     width: 200%; height: 33%; 
+ }
+
+ #navWeekly {
+     width: 200%; height: 33%; 
+ }
+
+ #navAss {
+    width: 200%; height: 33%; 
+ }
+ 
+  #navCr > div,#navWeekly  > div , #navAss > div {
+         height: 50%;
+    width: 100%;
+    position: absolute;
+      color: #ffffff;
+     border-bottom: 3px solid #0a0b0c;
+ }
+
+  #navCr > div > span,#navWeekly  > div  > span, #navAss > div > span {
+       
+           position: relative;
+    top: 44%;
+    right: -28%;
+      }
+ 
+  #navWeekly  > div >span {
+       right: -42%;
+  }
+
+  @media (min-width: 992px) and (max-width: 1200px) {
+      
+#navWeekly > div >span {
+    right: -42%;
+}
+#navCr,#navWeekly,#navAss {
+    width: 263%;
+}
+#navCr > div, #navWeekly  > div, #navAss > div {
+    height: 40%;
+}
+
+#navCr > div > span, #navWeekly  > div  > span, #navAss > div > span {
+    top: 45%;
+}
+  }

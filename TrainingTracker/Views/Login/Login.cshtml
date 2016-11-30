@@ -1,0 +1,39 @@
+﻿@model TrainingTracker.Common.Entity.LoginModel
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link id="linkRootUrl" href="~/" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/StyleSheets/Login.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+    <body>
+        @using (Html.BeginForm())
+        {
+            <div class="login-page">
+            <div class="form">
+                <label class="col-xs-4" for="">UserName :</label> 
+                @Html.TextBoxFor(u=>u.UserName,new {@class="col-xs-8"})
+
+                <label class="col-xs-4">Password :</label>
+                @Html.PasswordFor(u=>u.Password,new {@class="col-xs-8"})
+
+                @*<input data-bind="value:userName" type="text" placeholder="username" />*@
+                    @*<input data-bind="value:password" type="password" placeholder="password" />*@
+                    <input type="submit" value="Log Me In" class=" btn-info col-xs-8 pull-right"/>
+                <br />
+                @Html.ValidationSummary(true,"",new {@class="col-xs-12 validation-error"})
+            </div>
+        </div>
+        }       
+    </body>
+</html>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

@@ -1,0 +1,81 @@
+﻿
+<div class="col-xs-12">
+    <div class="col-xs-12 col-md-7 no-left-margin no-right-margin">
+        <div class=" no-left-margin no-right-margin">
+            <div class="col-xs-12 no-left-margin no-right-margin">
+                <div class="legend-drawing-subset col-xs-4">
+                    <span class="legends col-xs-2" style="border-bottom: solid; border-bottom-color: green"></span>
+                    <span>Code Review</span>
+                </div>
+                <div class="legend-drawing-subset col-xs-4">
+                    <span class="legends col-xs-2" style="border-bottom: solid; border-bottom-color: red"></span>
+                    <span>Weekly</span>
+                </div>
+                <div class="legend-drawing-subset col-xs-4">
+                    <span class="legends col-xs-2" style="border-bottom: solid; border-bottom-color: yellow"></span>
+                    <span>Assignment</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-5 no-left-margin no-right-margin">
+        <div class="col-xs-10 col-xs-offset-2">
+            <div class="legend-drawing-subset col-xs-12 col-md-6">
+                <span class="legends-box col-xs-2" style="background-color: green"></span>
+                <span>Excep.</span>
+            </div>
+            <div class="legend-drawing-subset col-xs-12 col-md-6">
+                <span class="legends-box col-xs-2" style="background-color: blue"></span>
+                <span>Fast</span>
+            </div>
+            <div class="legend-drawing-subset col-xs-12 col-md-6">
+                <span class="legends-box col-xs-2" style="background-color: orange"></span>
+                <span>Average</span>
+            </div>
+            <div class="legend-drawing-subset col-xs-12 col-md-6">
+                <span class="legends-box col-xs-2" style="background-color: red"></span>
+                <span>Slow</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12">
+    <div class="col-xs-12 col-md-7 no-left-margin no-right-margin">
+        <div id="divTimeLineChart" class="col-xs-12 no-left-margin no-right-margin fixed-height-parent ">
+            <canvas  class="col-xs-12 no-left-margin  fixed-height-children"  data-bind="chartType: 'Line',
+                                                                                                        chartData: my.chartVm.timelineData(),
+                                                                                                        chartOptions: my.chartVm.settings.lineDateSettings" >
+                
+            </canvas>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-5 no-left-margin no-right-margin ">
+        <div id="divHorizontalTab" class="col-xs-2 fixed-height-parent no-left-margin no-right-margin" style="max-width: 80px;">
+            <div class="col-xs-12 fixed-height-children no-left-margin no-right-margin" >
+                <div id="navCr" class="col-xs-12 rotate-ninty-anti-clock no-left-margin no-right-margin" style="" data-bind="css: { 'disabled-navigation': my.chartVm.settings.feedbackTypeNavBar().indexOf('4') < 0, 'active-tab': my.chartVm.settings.activeTab()==4}, click: function () { my.chartVm.loadCountChart('CR'); }">
+                    <div class="" style="position: absolute;"><span>Code Review</span></div>
+                </div>
+                <div id="navWeekly" class="col-xs-12 rotate-ninty-anti-clock no-left-margin no-right-margin" style=" /* top: 8%; */" data-bind="css: { 'disabled-navigation': my.chartVm.settings.feedbackTypeNavBar().indexOf('5') < 0, 'active-tab': my.chartVm.settings.activeTab()==5 }, click: function () { my.chartVm.loadCountChart('WF'); }">
+                    <div class="" style="/* width: 166%; */
+                             position: absolute;"><span>Weekly</span></div>
+                </div>
+                <div id="navAss" class="col-xs-12 rotate-ninty-anti-clock no-left-margin no-right-margin" style="" data-bind="css: { 'disabled-navigation': my.chartVm.settings.feedbackTypeNavBar().indexOf('3') < 0, 'active-tab': my.chartVm.settings.activeTab()==3 }, click: function () { my.chartVm.loadCountChart('Ass'); }">
+                    <div class="" style=" position: absolute;"><span>Assignment</span></div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="divDonutChart" class=" col-xs-10 no-left-margin no-right-margin fixed-height-parent" >
+            <canvas class="col-xs-12 no-left-margin no-right-margin fixed-height-children"  data-bind="chartType: 'Doughnut',
+                                     
+                                      chartData: my.chartVm.totalCountData(),
+                                      chartOptions : my.chartVm.settings.doughnutSettings">
+                
+            </canvas>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+﻿.profile-img {
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: auto;
+}
+
+.username {
+    /*text-align: center;
+    margin-top: 10px;*/
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    /*font-size: 1.5em;*/
+    /*color: azure;*/
+}
+
+.designation {
+    text-align: center;
+    font-size: .75em;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.container-fluid {
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+}

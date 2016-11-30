@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Sessions";
+}
+
+@section Styles
+{
+    @Styles.Render("~/bundles/SessionViewStyles")
+}
+
+<div class="container-fluid col-xs-10 col-xs-offset-1">
+    <div class="panel panel-white post panel-shadow">
+        <div class="col-xs-12 col-md-3 session-filter-padding meta">
+            <label class="label-session-filter">Session Count:</label>
+            <select class="input-sm form-control filter-session-count"
+                    data-bind="options: my.sessionVm.filter.pageSize(), value: selectedFilter.pageSize, optionsCaption: 'Select page size'"></select>
+        </div>
+        <div class="col-xs-12 col-md-3 session-filter-padding meta">
+            <label class="label-session-filter">Session Type:</label>
+            <select class="input-sm form-control filter-session-type"
+                    data-bind="options: filter.seminarType(), optionsText: 'Description',
+                                optionsValue: 'Id', value: selectedFilter.seminarType, optionsCaption: 'All'"></select>
+        </div>
+        <div class="col-xs-12 col-md-3 session-filter-padding meta">
+            <button data-bind="click: getSessionsOnFilter" type="button" class="feedback-button form-control btn btn-info  input-sm button-apply-filter">
+                Apply Filter
+                <i class="glyphicon glyphicon-filter"></i>
+            </button>
+        </div>
+        <div class="col-xs-12 col-md-3 session-filter-padding meta">
+            <button data-bind="click: openSessionDailog" type="button"
+                    class="pull-right feedback-button form-control btn btn-info input-sm button-add-session">
+                Add New Session
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="panel panel-white post panel-shadow">
+        <div class="post-heading table-responsive table-bordered">
+            <table class="table-style">
+                <thead class="thead-style">
+                    <tr>
+                        <th>Date</th>
+                        <th>Topic</th>
+                        <th>Description</th>
+                        <th>Presenter</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="visible: my.sessionVm.sessions().length > 0, foreach: my.sessionVm.sessions">
+                    <tr>
+                        <td><span data-bind="text: moment(Date).format('MMMM Do YYYY')"></span></td>
+                        <td><span data-bind="text: Title"></span></td>
+                        <td><span data-bind="text: Description.substring(0, 30) + (Description.length > 30 ? '...' : '')"></span></td>
+                        <td><span data-bind="text: PresenterFullName"></span></td>
+                        <td>
+                            <span data-bind="wzTooltip: { tittle: 'Scheduled', HtmlTag:'false', ClickSticky:'false', ClickClose:'true'},
+                                  visible:(moment(moment(Date).format('MM/DD/YYYY')).isSameOrAfter(moment(my.sessionVm.todayDate).format('MM/DD/YYYY')))">
+                                <i class="glyphicon glyphicon glyphicon-time scheduled-session-status"></i>
+                            </span>
+                            <span data-bind="wzTooltip: { tittle: 'Presented', HtmlTag:'false', ClickSticky:'false', ClickClose:'true'},
+                                            visible:!(moment(moment(Date).format('MM/DD/YYYY')).isSameOrAfter(moment(my.sessionVm.todayDate).format('MM/DD/YYYY')))">
+                                <i class="glyphicon glyphicon glyphicon-ok presented-session-status"></i>
+                            </span>
+                        </td>                       
+                        <td>
+                            <div>
+                                <button data-bind="wzTooltip: { tittle: 'Session Details', HtmlTag:'false',
+                                                   ClickSticky:'false', ClickClose:'true', Width:'-1', Padding:'8'},
+                                                   visible: (Presenter != my.sessionVm.currentUser.UserId),
+                                                   click: function () { my.sessionVm.loadSessionDetails(Id, 'View') } " type="button"
+                                        class="form-control btn btn-info  input-sm table-button">
+                                    <i class="glyphicon glyphicon-eye-open icon-eye"></i>
+                                </button>
+                                <button data-bind="wzTooltip: { tittle: 'Edit Session', HtmlTag:'false',
+                                         ClickSticky:'false',  ClickClose:'true', Width:'-1', Padding:'8'},
+                                         visible: Presenter == my.sessionVm.currentUser.UserId,
+                                        click: function () { my.sessionVm.loadSessionDetails(Id, 'Edit') } "
+                                     type="button" class="form-control btn btn-info  input-sm table-button">
+                                    <i class="glyphicon glyphicon-pencil icon-pencil"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <button data-bind="wzTooltip: { tittle: 'Buffer Session Video', HtmlTag:'false', ClickSticky:'false',
+                                         ClickClose:'true', Width:'-1', Padding:'8'}, visible: (!VideoFileName == ''), 
+                                        click: function () { my.sessionVm.loadSessionVideo(VideoFileName) } " 
+                                        data-toggle="modal" data-target="#videoModal" type="button" 
+                                        class="form-control btn btn-info input-sm table-button">
+                                    <i class="glyphicon glyphicon-facetime-video icon-video"></i></button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                 <button type="button" data-bind="wzTooltip: {
+                                        tittle: 'Download Session Slide', HtmlTag: 'false', ClickSticky: 'false',
+                                        ClickClose: 'true', Width: '-1', Padding: '8'
+                                    }, visible: (!SlideName == ''),
+                                        click: function () { my.sessionVm.downloadSessionSlide(SlideName) }"
+                                        class="form-control btn btn-info input-sm table-button">
+                                    <i class="glyphicon glyphicon-download "></i></button>
+
+                             
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+                <tbody data-bind="visible: my.sessionVm.sessions().length == 0">
+                    <tr><td colspan="5">No Sessions to display for the matching Filters.</tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="videoModal" role="dialog">
+        <div class="modal-dialog div-video-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <video id="my-video" class="video-js vjs-default-skin vjs-volume-control"
+                           controls preload="auto" width="720" height="320"
+                           poster="~/Uploads/video_poster.jpg"
+                           data-setup='{ "children": { "controlBar": { "children": { "volumeMenuButton": { "volumeBar": { "vertical": true } },
+                            "muteToggle": false, "volumeControl": false }}}}'>
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                    </video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnStopVideo" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12" id="sessionModal" data-bind="fadeVisible: my.sessionVm.showDialog(), visible: my.sessionVm.showDialog()">
+    <div id="modelWrapper" data-bind="click: my.sessionVm.showDialogueFunction"></div>
+    <div id="divAddEditSession" class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bind="click: my.sessionVm.showDialogueFunction" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-bind="text: my.sessionVm.sessionSettings.sessionHeader()"></h4>
+            </div>
+            <div class="modal-body col-xs-12 ">
+                <div class="col-xs-8 no-left-margin ">
+                    <h5>Title</h5>
+                    <input type="text" class="form-control" data-bind="value: my.sessionVm.sessionDetails.Title, 
+                           attr: { readonly: !(my.sessionVm.sessionSettings.isNewSession() || my.sessionVm.sessionSettings.isEditable()) }" />
+                    <h5>Description</h5>
+                    <textarea class="form-control" rows="8" data-bind="value: my.sessionVm.sessionDetails.Description,
+                               attr: { readonly: !(my.sessionVm.sessionSettings.isNewSession() || my.sessionVm.sessionSettings.isEditable()) }">
+                    </textarea>
+                    <h5>Session Date</h5>
+                    <!-- ko if: (my.sessionVm.sessionSettings.isNewSession() || my.sessionVm.sessionSettings.isEditable()) -->
+                    <input type="text" class="form-control" data-bind="datepicker: my.sessionVm.sessionDetails.Date, startDate: new Date(), value: my.sessionVm.sessionDetails.Date" />
+                    <!-- /ko -->
+                    <!-- ko if: !(my.sessionVm.sessionSettings.isNewSession() || my.sessionVm.sessionSettings.isEditable()) -->
+                    <input type="text" class="form-control" data-bind="value: my.sessionVm.sessionDetails.Date" readonly="readonly" />
+                    <!-- /ko -->
+                    <span class="error" data-bind="text: my.sessionVm.sessionSettings.errorText, value: my.sessionVm.sessionSettings.errorText"></span>
+                </div>
+                <div class="col-xs-4 no-left-margin no-right-margin div-attendee">
+                    <h5>Attendees</h5>
+                    <div class="form-control div-attendee-section">
+                        <div class="row" data-bind="visible: my.sessionVm.currentUser.UserId == my.sessionVm.sessionDetails.Presenter() && moment(moment(my.sessionVm.sessionDetails.Date()).format('MM/DD/YYYY')).isSameOrAfter(moment(my.sessionVm.todayDate).format('MM/DD/YYYY'))">
+                            <div class="col-xs-12">
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" data-bind="click: function () { checkboxSelectAll(); return true; }, checked: my.sessionVm.sessionSettings.allSelected" id="ckbSelectAll" />
+                                    <span class="box">
+                                        <span class="tick"></span>
+                                    </span>
+                                </span>
+                                <label for="ckbSelectAll" class="lblForCheckbox make-checkbox-label-in-align" data-bind="text: my.sessionVm.sessionSettings.allSelectedText">Select All</label>
+                            </div>
+                        </div>
+                        <div data-bind="foreach: my.sessionVm.allAttendees">
+                            <div class="row" data-bind="visible: my.sessionVm.currentUser.UserId == my.sessionVm.sessionDetails.Presenter() && moment(moment(my.sessionVm.sessionDetails.Date()).format('MM/DD/YYYY')).isSameOrAfter(moment(my.sessionVm.todayDate).format('MM/DD/YYYY'))">
+                                <div class="col-xs-12">
+                                    <span class="custom-checkbox">
+                                        <input type="checkbox" data-bind="attr: { id: 'ckb_' + UserId, value: UserId }, checked: my.sessionVm.sessionDetails.Attendee, click: function () { my.sessionVm.observeAttendee(); return true; }" />
+                                        <span class="box">
+                                            <span class="tick"></span>
+                                        </span>
+                                    </span>
+                                    <label data-bind="attr: { 'for': 'ckb_' + UserId }, text: FirstName + ' ' + LastName"
+                                            for="ckbSelectAll" class="lblForCheckbox make-checkbox-label-in-align">
+                                            Select All
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row" data-bind="visible: my.sessionVm.currentUser.UserId != my.sessionVm.sessionDetails.Presenter() || moment(moment(my.sessionVm.sessionDetails.Date()).format('MM/DD/YYYY')).isBefore(moment(my.sessionVm.todayDate).format('MM/DD/YYYY'))">
+                                <div class="col-xs-12" data-bind="visible: my.sessionVm.sessionDetails.Attendee().indexOf(UserId.toString()) > -1">
+                                    <label data-bind="text: FirstName + ' ' + LastName" class="lblForCheckbox make-checkbox-label-in-align"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6" data-bind="visible: !my.sessionVm.sessionSettings.isNewSession()">
+                    <form id="videoUploadForm" enctype="multipart/form-data" 
+                          data-bind="visible: (my.sessionVm.sessionDetails.Presenter() == my.sessionVm.currentUser.UserId)">
+                        <label class="form-control lable-upload" data-bind="style: { backgroundColor: !my.isNullorEmpty(my.sessionVm.sessionDetails.VideoFileName()) ? '#ccc' : 'blue' }">
+                            <span class="glyphicon glyphicon-film"></span>
+                            <span class="" data-bind='text: my.isNullorEmpty(my.sessionVm.sessionDetails.VideoFileName()) ? "Upload Session Video" : "Video Already uploaded"'>
+                          
+                        </span>
+                            <input type="file" name="file" data-bind="fileInput: sessionVideo, disable: !my.isNullorEmpty(my.sessionVm.sessionDetails.VideoFileName())" class="hidden" accept="video/mp4,video/*" />
+                        </label>
+                       @* <span class="upload-status" data-bind='visible: !my.isNullorEmpty(my.sessionVm.sessionDetails.VideoFileName())'>
+                             Associate video for this session was uploaded
+                        </span>*@
+                        <span class="upload-message">Accept only mp4, webm, ogg</span>
+                    </form>
+                </div>
+                <div class="col-xs-6" data-bind="visible: !my.sessionVm.sessionSettings.isNewSession()">
+                    <form id="slideUploadForm" enctype="multipart/form-data"
+                          data-bind="visible: my.sessionVm.sessionDetails.Presenter() == my.sessionVm.currentUser.UserId">
+                        <label class="form-control lable-upload" data-bind="style:{backgroundColor : !my.isNullorEmpty(my.sessionVm.sessionDetails.SlideName())?'#ccc':'blue'}">
+                            <span class="glyphicon glyphicon-file"></span>
+                           <span class="" data-bind='text: my.isNullorEmpty(my.sessionVm.sessionDetails.SlideName()) ? "Upload Session Slide" : "Slide Already uploaded"'>                         
+                           </span>
+                            <input type="file" name="file" data-bind="fileInput: sessionSlide,disable:!my.isNullorEmpty(my.sessionVm.sessionDetails.SlideName())"
+                                   class="hidden" accept=".ppt,.pptx" />
+                        </label>
+                     @*   <span class="upload-status" data-bind='text:!my.isNullorEmpty(my.sessionVm.sessionDetails.SlideName())? "Upload Session Slide" : "Slide Already uploaded"'>
+                          
+                        </span>*@
+                        <span class="upload-message">Accept only .ppt file</span>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bind="click: my.sessionVm.showDialogueFunction">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click: my.sessionVm.addSession, visible: (my.sessionVm.sessionSettings.isNewSession)" id="btnAddSession">Add Session</button>
+                <button type="button" class="btn btn-primary" data-bind="click: my.sessionVm.editSession, visible: my.sessionVm.sessionSettings.isEditable" id="btnEditSession">Save Session</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/SessionViewScripts")
+}
+

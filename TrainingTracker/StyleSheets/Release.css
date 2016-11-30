@@ -1,0 +1,162 @@
+﻿.nopadding-left {
+    padding-left: 0px;
+}
+
+.nopadding-right {
+    padding-right: 0px;
+}
+
+.modal-content {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.button-release {
+    margin-bottom: 10px;
+    float: right;
+    width: 50%;
+    padding: 11px;
+}
+
+.noPadding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.release-header {
+    margin-top: -1%;
+}
+
+#divNewRelease {
+    position: fixed;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10000;
+}
+
+th {
+    background: #fff;
+    border-bottom: 1px solid #fff !important;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #cdcdcd;
+    font-size: 20px;
+    font-weight: 300;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #cdcdcd;
+    padding: 2px;
+}
+
+.padding-top {
+    padding-top: 10px;
+}
+
+.modal-footer button.btn {
+    padding: 10px 20px 10px 20px;
+}
+
+#divNewRelease {
+        display: none;
+    }
+
+@media only screen and (max-width: 760px),(min-devise-width: 768px) and (max-device-width: 1024px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding-left: 50%;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border-bottom: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        top: 7px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(1):before {
+        content: "Version";
+    }
+
+    td:nth-of-type(2):before {
+        content: "Description";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Release Date";
+    }
+}
+
+@media only screen and (min-device-width:320px) and (max-device-width:480px) {
+}
+
+.navbar-nav {
+    margin: 0;
+}
+
+.release-table table th {
+    text-align: center;
+    background-color: #46b8da;
+    border: 1px solid #fff;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 20px;
+}
+
+    .release-table table th:nth-child(5), .release-table table td:nth-child(5) {
+        background-color: #fff;
+    }
+
+.release-table table tr, .release-table table td, .release-table table {
+    border: 1px solid #fff;
+}
+
+
+.release-panel {
+    border: 1px solid #dddddd;
+    box-shadow: rgb(243, 235, 235);
+}
+
+.edit-release {
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+#modelWrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: #ccc;
+    opacity: 0.5;
+    overflow: hidden;
+}

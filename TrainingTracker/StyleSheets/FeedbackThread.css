@@ -1,0 +1,143 @@
+﻿
+  #divFeedbackThread  #divThreadWrapper {
+    background: #000;
+    opacity: 0.5;
+    min-height: 100vh;
+      cursor: pointer;
+}
+  #divFeedbackThread #divFeedbackContainer {
+      width: 71%;
+      position: absolute;
+      top: 0;
+      z-index: 10000;
+      margin-left : 26.7%;
+      margin-top: 5%;
+       transition-property: all;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+#divFeedbackThread   {
+    margin: 0;
+    position: absolute;         
+    margin-left: -15px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 1001;
+    transition-property: all;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+#divCommentThreads img ,#divNewThread img{
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    margin-right: 15px;
+}
+#divCommentThreads > div {
+    background: #fff;
+    
+}
+
+#divCommentThreads .panel-white .row {
+        padding: 10px 20px 0 20px;
+}
+
+#divCommentThreads .panel-white {
+   padding: 10px 0 10px 0;  
+       border-radius: 4px;
+}
+
+#divCommentThreads .panel-white .row .col-xs-12 {
+    border-bottom: 1px solid #ccc;
+}
+
+#divCommentThreads .panel-white .row:last-child .col-xs-12{
+    border-bottom:none;
+}
+
+#divNewThread > .panel-white {
+    background-color: #fff;
+    padding: 6px 6px 6px 23px;
+    border-radius: 4px;
+}
+   
+#divNewThread {
+    padding: 10px 0 10px 0;
+}
+
+#divCloseModalButton {
+    position: absolute;
+    top: 7%;
+    zoom: 3;
+    right: 1%;
+    z-index: 100000;
+    /* background: #ccc; */
+    border-radius: 71%;
+    cursor: pointer;
+}
+
+
+#divFeedbackThread .weekly-feedback  code
+{
+     padding:0;
+     color: black; 
+     background-color: #fff; 
+         white-space: pre-line;
+}
+
+#divFeedbackThread .weekly-feedback code label {
+    display: block;
+    font: inherit;
+    font-size: 14px;
+}
+
+
+#divFeedbackThread .weekly-feedback code .feedback-question label {
+    font-size: 17px;
+}
+
+#divFeedbackThread .weekly-feedback code .feedback-answer label {
+          margin-bottom: 5px;
+    font-size: 14px;
+    margin-left: 1%;
+    color: green;
+}
+
+#divFeedbackThread .weekly-feedback code .feedback-answer label:before {
+    content: "- ";
+}
+
+#divFeedbackThread .weekly-feedback code .feedback-notes>label {
+   margin-left: 3%;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFF8DC;
+    border-left: 3px solid #ffeb8e;
+}
+#divSurveyCodeReview  .feedback-notes li {
+    margin-left: 0; 
+}
+
+#divSurveyCodeReview  .feedback-notes {
+    padding: 0px 0 0px 30px;
+}
+    
+
+#divFeedbackThread .weekly-feedback code .feedback-notes label q {
+  quotes: "“" "”" "‘" "’";
+}
+#divFeedbackThread .weekly-feedback code .feedback-notes label q:before {
+    content: open-quote;
+}
+#divFeedbackThread .weekly-feedback code .feedback-notes label q:after {
+    content: close-quote;
+}
+
+#divFeedbackThread #divSurveyCodeReview li {
+    list-style: none;
+    font-size: 14px;
+}
+    

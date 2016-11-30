@@ -1,0 +1,275 @@
+﻿.post-heading table th {
+    text-align: center;
+    background-color: #50E8DD;
+    border: 1px solid #ebe4e4;
+    padding: 6px 0 6px 0;
+    color: #fff;
+    font-size: 14px;
+}
+    .post-heading table th:nth-child(6),table th:nth-child(5), table td:nth-child(6), table td:nth-child(5) {
+        width: 6%;
+    }
+    table td:nth-child(6)> div, table td:nth-child(7) > div, table td:nth-child(8) > div
+    {
+        margin-top: 2px;
+    }
+       
+    .icon-pencil,.icon-eye,.icon-video{
+         margin:-5%;
+    }
+.download-slide-icon {
+    cursor: pointer;  
+    font-size:15px;
+}
+#sessionModal{
+     display: none;
+}
+.button-apply-filter{
+    width:60%;
+}
+.button-add-session{
+    width:65%;
+}
+.div-attendee-section {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.div-attendee{
+    height:313px;
+}
+.div-video-modal{
+    width:55%;
+}
+.table-style
+ {
+    width: 100%;
+}
+.presented-session-status{
+    color:green;
+    font-size:15px;
+    margin-top:5px;
+}
+.scheduled-session-status{
+    color:blue;
+    font-size:15px;
+    margin-top:5px;
+}
+.thead-style{
+    text-align: center;
+}
+.label-session-filter {
+    display: inline-block;
+}
+
+.filter-session-count {
+    display: inline-block;
+    width: 35%;
+}
+.filter-session-type{
+    display:inline-block;
+    width:58%;
+}
+.lable-upload {
+    cursor: pointer;
+    margin-top: 2%;
+    width: 45%;
+    color: floralwhite;
+    background-color: blue;
+    display: inline-block;
+}
+
+.upload-message {
+    font-style: oblique;
+    font-size: x-small;
+    display: block;
+}
+
+.upload-status {
+    color: green;
+}
+
+.post-heading table td:nth-child(3) {
+    padding-left: 5px;
+    text-align: left;
+}
+
+.post-heading table table th:nth-child(7), table th:nth-child(8), table td:nth-child(7), table td:nth-child(8) {
+    width: 4%;
+}
+
+.post-heading table th:nth-child(1), table td:nth-child(1) {
+    width: 16%;
+}
+
+.post-heading table th:nth-child(4), table th:nth-child(2), table td:nth-child(4), table td:nth-child(2) {
+    width: 15%;
+}
+
+.post-heading table button {
+    width: 38px !important;
+    margin-top: -2px;
+    height: 29px;
+    margin-left: 5%;
+}
+
+.post-heading table tbody tr:nth-child(odd) {
+    /*background-color: #CFFAF5;*/
+}
+
+.post-heading table tbody tr:nth-child(even) {
+    /*background-color: #E7DFF5;*/
+}
+
+.post-heading table td {
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #ebe4e4;
+    padding: 2px 0 2px 0;
+}
+
+.session-filter-padding {
+    padding: 10px;
+}
+
+.panel {
+    overflow: auto;
+}
+
+.post .post-heading {
+    height: 100%;
+}
+
+.error {
+    color: red;
+}
+
+.modal-content {
+    overflow: auto;
+}
+
+
+.no-left-margin {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.no-right-margin {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#divAddEditSession.modal-dialog {
+    width: 80% !important;
+}
+
+#divAddEditSession {
+    position: fixed;
+    margin-top: 0;
+    margin-left: 12%;
+}
+
+/*Custom checkbox*/
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+
+    .custom-checkbox > .box {
+        position: relative;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #838383;
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
+
+        .custom-checkbox > .box > .tick {
+            display: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            position: absolute;
+            top: 3px;
+            box-shadow: inset 10px -7px 2px #838383;
+            left: 3px;
+        }
+
+    .custom-checkbox > input:checked + .box > .tick {
+        display: block;
+    }
+
+    .custom-checkbox > input {
+        position: absolute;
+        outline: none;
+        top: 0;
+        padding: 0;
+        width: 16px;
+        height: 16px;
+        border: none;
+        margin: 0;
+        opacity: 0;
+        z-index: 1;
+        width: 50px;
+    }
+
+        .custom-checkbox > input:active + .box {
+            border-color: #838383;
+            background-color: #ffffff;
+        }
+
+.label-for-checkbox {
+    display: inline-block;
+}
+
+.contentSubSectionElements > div {
+    background: #f7fafc;
+    border-top: #ccc 2px solid;
+    border-radius: 5px;
+    border: #cccccc 1px solid;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.make-checkbox-label-in-align {
+    margin-top: -4px;
+}
+
+.feedback-button {
+    height: 34px;
+}
+
+#modelWrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: #ccc;
+    opacity: 0.5;
+    overflow: hidden;
+}
+
+#sessionModal {
+    margin: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    right: 15px;
+    top: 0;
+    z-index: 1001;
+}
+
+.vjs-volume-menu-button .vjs-menu-content {
+    transform: rotate(-90deg);
+    margin-bottom: 35px !important;
+}
+
+div#WzTtDiV {
+    padding: 0 !important;
+}
+
+div#WzBoDy {
+    width: auto !important;
+}

@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link id="linkRootUrl" href="~/" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    @Styles.Render("~/bundles/LayoutViewStyles")
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div id="loaderWrapper" data-bind="visible:true">
+        <div class='uil-ripple-css' style='transform:scale(0.99);'>
+            <div></div><div></div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+          
+            <div class="col-md-8">
+                  
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">TT</a>
+                </div>
+
+                <ul class="nav navbar-nav" id="navPages">
+                    @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                    {
+                        <li class="menu-li"><a href="~/Dashboard"><label style="height: 30px;">Dashboard</label></a></li>
+                   
+                        <li class="dropdown menu-li">
+                            <a href="~/Profile/AllProfiles"><label style="height:30px;">All Profiles</label> <span class="glyphicon glyphicon-chevron-down" style="top: 2px;"></span></a>                           
+                            <ul class="dropdown-menu dropdown-menu-pop-over-list">
+                                
+                                <li class="dropdown menu-li"><a href="#">Trainee<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-pop-over-list" data-bind="foreach:my.meta.allTrainee">
+                                        <li class="menu-li">
+                                            <a data-bind="attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + UserId }">
+                                                <img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                <span data-bind="text: FirstName + ' ' + LastName  "></span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown menu-li"><a href="#">Mentors<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-pop-over-list" data-bind="foreach: my.meta.allMentor">
+                                        <li class="menu-li">
+                                            <a data-bind="attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + UserId }"> 
+                                                <img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                <span data-bind="text: FirstName + ' ' + LastName  "></span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-li"><a href="~/Session"><label style="height:30px;">Sessions</label></a></li>
+                        <li class="menu-li"><a href="~/Questions"><img class="profile-pic img" style="visibility: hidden"/><label style="">Questions</label></a></li>
+                    }
+                    else
+                    {
+                        <li class="menu-li"><a data-bind="attr: { href: my.meta.userProfileUrl }"><label style="height:30px;">My Profile</label></a></li>
+                        <li class="menu-li"><a href="~/Session"><img style="visibility: hidden"/><label  style="height:30px;">Sessions</label></a></li>
+                    }
+                </ul> 
+            </div>
+            <div class="col-md-4" style="padding:0">
+                   <div class="col-xs-offset-3 col-lg-offset-3" id="navbarNotification">
+                        <ul id="nav">
+                            
+                            <li id="notification_li">
+                              
+                                <span id="notification_count" data-bind="text: my.meta.noOfNotification, visible: my.meta.notifications().length > 0" style="display: none;">0</span>
+                                <a href="#" id="notificationLink"> <span class="" id="notification-icon"><i class="glyphicon glyphicon-bell" style="font-size: 26px;"></i></span></a>
+                                  
+                                <div id="notificationContainer">
+                                    <div id="notificationTitle">
+                                        <span class="">Notifications</span>
+                                        <span class="pull-right" data-bind="click: function () { my.meta.markAllNotificationAsRead();}">
+                                             <a href="#" >Mark All as Read</a>
+                                        </span>
+                                    </div>
+                                    <div id="notificationsBody" >
+                                        <ul>
+                                            <li data-bind="visible:my.meta.notifications().length == 0">
+                                                <a href="#" style="padding:0; display:block;" >
+                                                    <div>
+                                                        <div class="col-xs-2 image" style="margin: 0;">
+                                                            <img src="~/Uploads/ProfilePicture/system_notification.jpg" class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;"  />
+                                                        </div>
+                                                        <div class="col-xs-10" style="margin: 0">
+                                                            <p id="notificationDetail" style="margin:0 !important;">
+                                                                <span style="color:royalblue" class="font-weight-bold display-block" >No New Notification.</span>
+                                                                <span class="font-weight-bold display-block" >No unseen notification.</span>                            
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a> 
+                                            </li>
+                                            <!-- ko foreach: my.meta.notifications.slice(0).reverse() -->
+                                            <li class="menu-li list-style" style="    width: 100%;" data-bind="visible: my.meta.notifications().length > 0, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
+                                                <a style="padding:0; display:block;" data-bind="attr: { href: my.rootUrl + Link, title: Description }">
+                                                    <div>
+                                                        <div class="col-xs-2 image" style="margin: 0;">
+                                                            <img class="   avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;" data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                        </div>
+                                                        <div class="col-xs-10" style="margin: 0">
+                                                            <p id="notificationDetail" style="margin:0 !important;">
+                                                                <span style="color:royalblue" class="font-weight-bold display-block" data-bind="text: Title"></span>
+                                                                @* <span class="display-block" data-bind="text: Action" style="font-size:13px;"> </span>*@
+                                                                <span class="font-weight-bold display-block" data-bind="text: AddedBy, visible: TypeOfNotification != 1 "></span>
+                                                                <span data-bind="text: moment.duration(moment(new Date()).diff(moment(AddedOn))).humanize() + ' ago'" style="font-size:13px;"></span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- /ko -->
+                                        </ul>
+                                    </div>
+                                    <div id="notificationFooter">@*<a href="#">See All</a>*@</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+            <ul class="nav navbar-nav navbar-right">               
+                <li class="dropdown menu-li">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img id="avatar" class="img-circle  profile-pic">
+                        <strong class="text"></strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="padding:0;">
+                        <li class="menu-li">
+                            <div id="userDetail">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <ul class="pop-over-list">
+                                            <li>
+                                                <a href="#" data-bind="click: my.addUserVm.openUserProfile" type="button"
+                                                   class="">
+                                                    My Profile
+                                                </a>
+                                            </li>
+                                            @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                                            {
+                                                <li>
+                                                    <a href="#" data-bind="click: my.addUserVm.openAllUsersProfile, visible: (my.meta.isAdministrator() || my.meta.isManager())" type="button"
+                                                       class="">
+                                                        Manage User
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <hr/>
+                                        <ul class="pop-over-list ">
+                                            <li>
+                                                <a href="~/Release"
+                                                   class="  ">
+                                                    Bugs & Features
+                                                </a>
+                                            </li>     
+                                        </ul>
+                                        <hr/>
+                                        <ul class="pop-over-list danger">
+                                            <li>
+                                                <a href="~/Login/SignOut"
+                                                   class="  ">
+                                                    Sign out
+                                                </a>
+                                            </li>                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            </div>
+         
+                  
+        </nav>
+    </div>
+    <div id="page-wrapper">
+        <div class="container-fluid" style="display:none;" data-bind="visible:true">
+            <div>
+                @RenderBody()
+            </div>
+            <div>
+                @Html.Partial("_PartialProfile")
+            </div>
+        </div>
+    </div>
+    <!--common js file-->
+    @Scripts.Render("~/bundles/LayoutViewScripts")
+    @RenderSection("Scripts", false)
+</body>
+</html>

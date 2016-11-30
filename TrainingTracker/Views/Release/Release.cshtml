@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Release";
+}
+
+@section Styles
+{
+   @Styles.Render("~/bundles/ReleaseViewStyles")
+}
+
+<div class="container-fluid noPadding">
+    <div class="col-xs-8 release-header noPadding">
+        <h3>Release Requests</h3>
+    </div>
+    <div class="col-xs-4 noPadding">
+        <button type="button" class="btn btn-primary btn-sm button-release"
+                data-bind="click: my.allReleaseVm.openReleaseDialogue">
+            <span data-bind="text: my.meta.isAdministrator() ? 'Publish Release' : 'Request Feature'"></span>
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+    </div>
+    <!-- Modal -->
+    <div class="col-xs-12 col-md-8 col-xs-offset-0 col-md-offset-2 noPadding  " id="divNewRelease"
+         data-bind="visible: my.allReleaseVm.showModal, style: { display: my.allReleaseVm.showModal() ? 'block' : 'none' }">
+        <div id="modelWrapper" data-bind="click: my.allReleaseVm.closeReleaseDialogue"></div>
+        <div class="modal-dialog " style="width: 50%;" data-bind="fadeVisible: my.allReleaseVm.showModal()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bind="click:my.allReleaseVm.closeReleaseDialogue">&times;</button>
+                    <h4 class="modal-title" data-bind="text:releaseCaption"></h4>
+                </div>
+                <div class="modal-body col-xs-12">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label>Title:</label>
+                            <input type="text" class="form-control"
+                                   data-bind="textInput:my.allReleaseVm.releaseDetails.ReleaseTitle, disable:my.allReleaseVm.isViewMode" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-xs-12">
+                            <label>Description:</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <textarea rows="5" cols="15" class="form-control" typeof="text" 
+                                      data-bind="textInput:my.allReleaseVm.releaseDetails.Description, disable:my.allReleaseVm.isViewMode"
+                                      placeholder="Add release/ bug/ feature's  description here"></textarea>
+                        </div>
+                    </div>
+                    @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") )
+                    {
+                        <div class="from-group">
+                            <div class="col-xs-12" data-bind="disable:my.allReleaseVm.isViewMode">
+                                <label>Publish this release:</label>
+                                <input type="checkbox" data-bind="checked: my.allReleaseVm.releaseDetails.IsPublished, disable: my.allReleaseVm.isViewMode" />
+                            </div>
+                        </div>
+
+                        <div data-bind="visible:my.allReleaseVm.releaseDetails.IsPublished">
+                            <div class="col-xs-2 padding-top">
+                                <label data-bind="text:my.allReleaseVm.selectCaption"></label>
+                            </div>
+                            <div class="col-xs-12 col-md-2 padding-top">
+                                <div class="form-group nopadding-left nopadding-right">
+                                    <input class="col-xs-3" type="radio" name="version" value="Major" data-bind="checked: selectedReleaseType, disable:my.allReleaseVm.isViewMode" />
+                                    <label class="col-xs-9 nopadding-left">Major</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-2 padding-top">
+                                <div class="form-group">
+                                    <input class="col-xs-3" type="radio" name="version" value="Minor" data-bind="checked: selectedReleaseType, disable:my.allReleaseVm.isViewMode" />
+                                    <label class="col-xs-9 nopadding-left">Minor</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-2 padding-top">
+                                <div class="form-group">
+                                    <input class="col-xs-3" type="radio" name="version" value="Patch" data-bind="checked: selectedReleaseType, disable:my.allReleaseVm.isViewMode " />
+                                    <label class="col-xs-9 nopadding-left nopadding-right">Patch</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 padding-top">
+                                <div class="form-group nopadding-left nopadding-right">
+                                    <label class="col-xs-2  nopadding-left nopadding-right">Version:</label>
+                                    <div class="col-xs-4 nopadding-right" >
+                                        <input class="form-control" type="text" data-bind="value:newVersion, visible: my.allReleaseVm.isVisibleNewVersion" disabled />
+                                        <input class="form-control" type="text" data-bind="value:my.allReleaseVm.currentVersion, visible: my.allReleaseVm.isViewMode" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 padding-top">
+                                <div class="form-group nopadding-left nopadding-right">
+                                    <label class="col-xs-2 nopadding-left nopadding-right">Release date:</label>       
+                                    <div class="col-xs-4 nopadding-right">
+                                        <input type="text" class="form-control"
+                                               data-bind="value: moment(my.allReleaseVm.releaseDetails.ReleaseDate()).format('DD/MM/YYYY')" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <div class="col-xs-12 col-md-6">
+                        <span class="error" style="color:red" data-bind="text: my.allReleaseVm.errorText"></span>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button type="button"  class="btn btn-primary btn-sm" data-bind="click: addRelease, visible: !my.allReleaseVm.releaseDetails.IsPublished() ">Submit</button>
+                        
+                         @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
+                         {
+                            <button type="button" class="btn btn-primary btn-sm" data-bind="click: function () { updateRelease() }, visible:( my.allReleaseVm.isVisiblePublishButton() && my.allReleaseVm.releaseDetails.IsPublished())">Publish</button>
+                         }
+
+                        <button type="button" class="btn btn-primary btn-sm" data-bind="click:my.allReleaseVm.closeReleaseDialogue">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="release-table ">
+            <table class="table table-striped" style="width:100%">
+                <thead style="text-align: center">
+                    <tr>
+                        <th>Version</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Added By</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="visible: my.allReleaseVm.releases().length > 0,foreach: releases" style="text-align: center">
+                    <tr>
+                        <td data-label="Version" data-bind="text: Version"></td>
+                        <td data-label="Title" data-bind="text: ReleaseTitle"></td>
+
+                        <td data-label="Release date" data-bind="text: ReleaseDate"></td>
+                        <td data-label="Added By" data-bind="text: AddedBy.FullName"></td>
+                        <td>
+                            <button data-bind="visible: IsPublished , click: function(){ my.allReleaseVm.loadReleaseDetails(ReleaseId, 'View')}"
+                                    style="width:60%" type="button" class="form-control btn btn-info">
+                                View
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                            </button>
+                            <button data-bind="visible: !IsPublished, click: function(){ my.allReleaseVm.loadReleaseDetails(ReleaseId, 'Edit')}"
+                                    style="width:60%" type="button" class="form-control btn btn-info">
+                                Edit
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{  
+     @Scripts.Render("~/bundles/ReleaseViewScripts")
+}

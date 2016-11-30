@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "AllProfiles";
+}
+
+@section Styles
+{
+    @Styles.Render("~/bundles/AllProfileViewStyles")
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">All Profiles</a></li>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel-group">
+                <ul class="list-inline" data-bind="foreach: users()">
+                    <li>
+                        <a data-bind="attr: {href: my.rootUrl + 'Profile/UserProfile?userId=' + UserId}">
+                            <div data-bind="css: { 'panel-success': IsTrainer, 'panel-info': IsTrainee, 'panel-danger': IsManager}"
+                                 class="panel" style="width:250px">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <img data-bind="attr: {src: PhotoUrl}" class="img-responsive img-circle profile-img">
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div data-bind="text: FirstName"class="username"></div>
+                                            <div data-bind="text: Designation"class="designation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/AllProfileViewScripts")
+}

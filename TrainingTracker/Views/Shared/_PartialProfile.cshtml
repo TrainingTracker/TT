@@ -1,0 +1,195 @@
+﻿
+<div id="" class="modal" style="display: none" data-bind="fadeVisible: my.addUserVm.showDialog(), visible: my.addUserVm.showDialog(), style: { display: my.addUserVm.showDialog() ? 'block' : 'none' }">
+    <div class="modal-content" data-bind="css: { 'col-xs-12': my.addUserVm.showAllUsersProfile(), 'col-xs-8 col-xs-offset-2': !my.addUserVm.showAllUsersProfile() }">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-bind="click: my.addUserVm.closeDialogue" aria-hidden="true">&times;</button>
+            <span class="modal-title" data-bind="text: my.addUserVm.message"></span>
+        </div>
+        <div class="modal-body col-xs-12">
+            @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+            {
+                <div data-bind="visible: my.addUserVm.showAllUsersProfile(), css: { 'col-xs-12 col-md-4': my.addUserVm.showAllUsersProfile() }">
+                    <div class="row" style="overflow-y: scroll; height:400px;">
+                        <ul data-bind="foreach: my.addUserVm.lstUsers" class="list-group">
+                            <li class="list-group-item" data-bind="click:function(){ my.addUserVm.showProfile(my.addUserVm.lstUsers()[$index()])}" style="cursor: pointer">
+                                <a data-bind="text: FullName"
+                                   href="#" type="button" class="btn btnProfile "></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <button data-bind="click: my.addUserVm.addProfile"
+                                type="button" class="btn btn-sm btn-block btn-primary">
+                            Add Profile
+                        </button>
+                    </div>
+                </div>
+            }
+            <div data-bind="css: { 'col-xs-12 col-md-8': my.addUserVm.showAllUsersProfile(), 'col-xs-12': !my.addUserVm.showAllUsersProfile() }">
+                <div class="col-xs-12 col-md-4 imgWrap">
+                    <form enctype="multipart/form-data">
+                        <img data-bind="attr: { src: my.addUserVm.user.PhotoUrl() }" alt="Profile image not found!"
+                             class="img-responsive img-circle profile-img user-profile-img">
+                        <label for="form-file" data-bind="visible: (!my.addUserVm.user.IsReadOnly())" class="imgDescription"><span class="glyphicon glyphicon-camera"></span>&nbsp;&nbsp; Upload an image</label>
+                        <input type="file" name="file" id="form-file" data-bind="fileSrc: my.addUserVm.user.fileData, name: file, visible: (!my.addUserVm.user.IsReadOnly())" class="imgDescription hidden user-profile-img" accept="image/*" />
+                    </form>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <form class="form-horizontal">
+                        <div data-bind="enableChildren: ((!my.meta.isTrainee()) && (!my.addUserVm.user.IsReadOnly()))">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-md-4 ">Name</label>
+                                    <div class="col-xs-12 col-md-4">
+                                        <input data-bind="value: my.addUserVm.user.FirstName"
+                                               type="text" class="form-control" placeholder="First Name">
+                                    </div>
+                                    <div class="col-xs-12 col-md-4">
+                                        <input data-bind="value: my.addUserVm.user.LastName"
+                                               type="text" class="form-control" placeholder="Last Name">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-md-4 ">Username</label>
+                                    <div class="col-xs-12 col-md-8">
+                                        <input data-bind="value: my.addUserVm.user.UserName"
+                                               type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-md-4 ">Gender</label>
+                                    <div class="col-md-8">
+                                        <label class="radio-inline">
+                                            <input data-bind="checked: my.addUserVm.genderSelection"
+                                                   type="radio" value="false" name="genderRadio">Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input data-bind="checked: my.addUserVm.genderSelection"
+                                                   type="radio" value="true" name="genderRadio">Female
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-md-4 ">Email</label>
+                                    <div class="col-md-8">
+                                        <input data-bind="value: my.addUserVm.user.Email"
+                                               type="email" class="form-control" placeholder="">
+                                    </div>
+                                    <label class="col-lg-4"></label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-md-4 ">Designation</label>
+                                    <div class="col-md-8">
+                                        <select data-bind="value: my.addUserVm.user.Designation, enable: ((my.meta.isAdministrator() || my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))"
+                                                class="form-control">
+                                            <option>Sr. Software Engineer</option>
+                                            <option>Associate Lead</option>
+                                            <option>Delivery Manager</option>
+                                            <option>Trainee Software Engineer</option>
+                                            <option>HR/Admin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                        {
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-xs-4  hidden-sm">Active</label>
+                                    <div class="col-xs-8">
+                                        <label class="checkbox-label">
+                                            <input data-bind="checked: my.addUserVm.user.IsActive, enable: ((my.meta.isAdministrator() || my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))"
+                                                   type="checkbox" value="">
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 ">Role</label>
+                                    <div class="col-xs-12 col-md-8" data-bind="enableChildren: ((my.meta.isAdministrator() || my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))">
+                                        <label class="checkbox-label no-left-margin no-right-margin col-xs-12 col-lg-6">
+                                            <input data-bind="checked: my.addUserVm.user.IsAdministrator"
+                                                   type="checkbox" value=""><span>Administrator</span>
+                                        </label>
+                                        <label class="checkbox-label no-left-margin no-right-margin col-xs-12 col-lg-6">
+                                            <input data-bind="checked: my.addUserVm.user.IsTrainer"
+                                                   type="checkbox" value=""><span>Trainer</span>
+                                        </label>
+                                        <label class="checkbox-label no-left-margin no-right-margin col-xs-12 col-lg-6">
+                                            <input data-bind="checked: my.addUserVm.user.IsTrainee"
+                                                   type="checkbox" value=""><span>Trainee</span>
+                                        </label>
+                                        <label class="checkbox-label no-left-margin no-right-margin col-xs-12 col-lg-6">
+                                            <input data-bind="checked: my.addUserVm.user.IsManager"
+                                                   type="checkbox" value=""><span>Manager</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" data-bind="visible: (my.meta.isAdministrator() || my.meta.isManager()) && my.addUserVm.user.Designation() != 'HR/Admin'">
+                                <div class="form-group">
+                                    <label class="col-md-4 ">Team Mapping</label>
+                                  <div class="col-xs-12 col-md-8" data-bind="enableChildren: ((my.meta.isAdministrator() || my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))">
+                                      <select data-bind="options: my.addUserVm.lstTeams,
+                                                            optionsCaption: 'Select Team',
+                                                           optionsText: 'TeamName',
+                                                           optionsValue: 'TeamId',
+                                                           value: my.addUserVm.user.TeamId"
+                                                class="form-control">
+                                          
+                                        </select>                                  
+                                    </div>
+                                    </div>
+                            </div>
+                        }
+                        <div class="col-xs-12" data-bind="visible: (!(my.addUserVm.user.IsReadOnly()) && !(my.addUserVm.user.IsNewProfile()))">
+                            <div class="form-group">
+                                <div class="col-xs-8 col-lg-offset-4">
+                                    <label class="checkbox-label">
+                                        <input data-bind="checked: my.addUserVm.user.enableChangePassword"
+                                               type="checkbox" value=""><span>Would you like to change password ?</span>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" data-bind="visible: (my.addUserVm.user.enableChangePassword() || (my.addUserVm.user.IsNewProfile()))">
+                            <div class="form-group">
+                                <label class="col-md-4">Password</label>
+                                <div class="col-xs-12 col-md-8">
+                                    <input data-bind="value: my.addUserVm.user.Password"
+                                           type="password" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button data-bind="visible: (my.addUserVm.user.IsReadOnly()), click: my.addUserVm.editProfile"
+                    type="button" class="btn btn-sm btn-primary ">
+                Edit
+            </button>
+            <button data-bind="click: my.addUserVm.saveUser, visible: !my.addUserVm.user.IsReadOnly()"
+                    type="button" class="btn btn-sm btn-primary ">
+                Save
+            </button>
+            <button type="button" class="btn btn-sm btn-primary" data-bind="click: my.addUserVm.closeDialogue">Close</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>

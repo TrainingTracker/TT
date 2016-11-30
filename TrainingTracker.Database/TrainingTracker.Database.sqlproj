@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>TrainingTracker.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{2da0c305-d630-4704-8231-772481b8ed9b}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>TrainingTracker.Database</RootNamespace>
+    <AssemblyName>TrainingTracker.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Comments.sql" />
+    <Build Include="dbo\Tables\Feedback.sql" />
+    <Build Include="dbo\Tables\FeedbackThread.sql" />
+    <Build Include="dbo\Tables\FeedbackType.sql" />
+    <Build Include="dbo\Tables\LearningSource.sql" />
+    <Build Include="dbo\Tables\Notification.sql" />
+    <Build Include="dbo\Tables\NotificationType.sql" />
+    <Build Include="dbo\Tables\Plans.sql" />
+    <Build Include="dbo\Tables\PlanSkillMapping.sql" />
+    <Build Include="dbo\Tables\Project.sql" />
+    <Build Include="dbo\Tables\ProjectPlanMapping.sql" />
+    <Build Include="dbo\Tables\QuestionLevelMapping.sql" />
+    <Build Include="dbo\Tables\Questions.sql" />
+    <Build Include="dbo\Tables\Release.sql" />
+    <Build Include="dbo\Tables\Session.sql" />
+    <Build Include="dbo\Tables\Skills.sql" />
+    <Build Include="dbo\Tables\Survey.sql" />
+    <Build Include="dbo\Tables\SurveyAnswer.sql" />
+    <Build Include="dbo\Tables\SurveyCompletedMetaData.sql" />
+    <Build Include="dbo\Tables\SurveyQuestion.sql" />
+    <Build Include="dbo\Tables\SurveyQuestionResponseType.sql" />
+    <Build Include="dbo\Tables\SurveyResponse.sql" />
+    <Build Include="dbo\Tables\SurveySection.sql" />
+    <Build Include="dbo\Tables\Team.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\UserNotificationMapping.sql" />
+    <Build Include="dbo\Tables\UserProjectMapping.sql" />
+    <Build Include="dbo\Tables\UserSessionMapping.sql" />
+    <Build Include="dbo\Tables\UserSkillMapping.sql" />
+    <Build Include="dbo\Tables\WeeklyFeedbackSurveyMapping.sql" />
+    <Build Include="dbo\Functions\ufn_CSVToTable.sql" />
+    <Build Include="dbo\Stored Procedures\ADD_FEEDBACK.sql" />
+    <Build Include="dbo\Stored Procedures\ADD_UPDATE_SESSION_DETAILS.sql" />
+    <Build Include="dbo\Stored Procedures\ADD_USER.sql" />
+    <Build Include="dbo\Stored Procedures\GET_ALL_USERS.sql" />
+    <Build Include="dbo\Stored Procedures\GET_APPLICATION_SKILLS.sql" />
+    <Build Include="dbo\Stored Procedures\GET_DASHBOARD_DATA.sql" />
+    <Build Include="dbo\Stored Procedures\GET_PROJECTS_BY_USER_ID.sql" />
+    <Build Include="dbo\Stored Procedures\GET_SESSIONS_BY_USER_ID.sql" />
+    <Build Include="dbo\Stored Procedures\GET_SESSIONS_ON_FILTERS.sql" />
+    <Build Include="dbo\Stored Procedures\GET_SKILLS_BY_USER_ID.sql" />
+    <Build Include="dbo\Stored Procedures\GET_USER.sql" />
+    <Build Include="dbo\Stored Procedures\GET_USER_FEEDBACKS.sql" />
+    <Build Include="dbo\Stored Procedures\UPDATE_USER.sql" />
+    <Build Include="dbo\Stored Procedures\VALIDATE_USER.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SchemaToHarsh.scmp" />
+    <None Include="SchemaToShekhar.scmp" />
+    <None Include="SchemaToUday.scmp" />
+  </ItemGroup>
+</Project>
