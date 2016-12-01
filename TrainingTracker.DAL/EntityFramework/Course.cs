@@ -26,6 +26,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public int AddedBy { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime CreatedOn { get; set; }
+        public bool IsPublished { get; set; }
     
         public virtual User User { get; set; }
         public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }

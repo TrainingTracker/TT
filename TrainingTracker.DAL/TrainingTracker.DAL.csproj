@@ -60,7 +60,7 @@
     <Compile Include="EntityFramework\Assignment.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\AssignmentSubtopicContentMap.cs">
+    <Compile Include="EntityFramework\AssignmentSubtopicMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\AssignmentUserMap.cs">

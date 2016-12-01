@@ -2,7 +2,6 @@
 
     
     my.addCourseVm = function () {
-      
         var courseToAdd = {
             Id : 0,
             Name : ko.observable(''),
@@ -496,5 +495,9 @@
     }();
 
     my.addCourseVm.getAllCourses();
+
+
+
+
 
 });

@@ -376,7 +376,7 @@ namespace TrainingTracker.DAL.DataAccess
                     context.Assignments.Add(newEntity);
                     context.SaveChanges();
                     id = newEntity.Id;
-                    AddAssignmentSubtopicContentMapping(id, dataToAdd.SubtopicContentId);
+                    AddAssignmentSubtopicMapping(id, dataToAdd.SubtopicId);
                     return true;
                 }
             }
@@ -389,19 +389,19 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
 
-        public bool AddAssignmentSubtopicContentMapping(int assignmentId, int subtopicContentId)
+        public bool AddAssignmentSubtopicMapping(int assignmentId, int subtopicId)
         {
             try
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    EntityFramework.AssignmentSubtopicContentMap newEntity = new EntityFramework.AssignmentSubtopicContentMap
+                    EntityFramework.AssignmentSubtopicMap newEntity = new EntityFramework.AssignmentSubtopicMap
                     {
                         AssignmentId = assignmentId,
-                        SubtopicContentId = subtopicContentId
+                        SubtopicId = subtopicId
                     };
 
-                    context.AssignmentSubtopicContentMaps.Add(newEntity);
+                    context.AssignmentSubtopicMaps.Add(newEntity);
                     context.SaveChanges();
                     return true;
                 }
@@ -456,7 +456,7 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-        public List<Assignment> GetAssignments(int subtopicContentId)
+        public List<Assignment> GetAssignments(int subtopicId)
         {
             try
             {
@@ -465,8 +465,8 @@ namespace TrainingTracker.DAL.DataAccess
                     //var entity = context.Assignments.Where(a => a.IsActive && a.ia.AssignmentSubtopicContentMaps.Where(c => c.SubtopicContentId == subtopicContentId));
                     var entity = 
                          context.Assignments
-                        .Join(context.AssignmentSubtopicContentMaps
-                        .Where(x => x.SubtopicContentId == subtopicContentId), a => a.Id, s => s.AssignmentId, (a, s) =>
+                        .Join(context.AssignmentSubtopicMaps
+                        .Where(x => x.SubtopicId == subtopicId), a => a.Id, s => s.AssignmentId, (a, s) =>
                             new Assignment
                             {
                                 Name = a.Name,
@@ -474,8 +474,10 @@ namespace TrainingTracker.DAL.DataAccess
                                 Id = a.Id,
                                 AddedBy = a.AddedBy,
                                 CreatedOn = a.CreatedOn,
-                                IsActive = a.IsActive
-                            }).ToList(); ;
+                                IsActive = a.IsActive,
+                                SubtopicId = s.SubtopicId
+                            }).ToList(); 
+
                     return entity;
                 }
             }

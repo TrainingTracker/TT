@@ -20,6 +20,11 @@ namespace TrainingTracker.Controllers
              return View();
          }
 
+         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+         public ActionResult CourseEditorNew()
+         {
+             return View();
+         }
 
          [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
          public ActionResult Courses()

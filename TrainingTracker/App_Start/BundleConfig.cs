@@ -82,9 +82,16 @@ namespace TrainingTracker
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
-         "~/Scripts/Custom/CourseEditor.js",
-         "~/Scripts/Custom/CourseService.js"
-         ));
+                "~/Scripts/ckeditor/ckeditor.js",
+                "~/Scripts/Custom/CourseEditor.js",
+                "~/Scripts/Custom/CourseService.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/CourseEditorNewViewScripts").Include(
+               "~/Scripts/ckeditor/ckeditor.js",
+                "~/Scripts/Custom/CourseEditorNew.js",
+                "~/Scripts/Custom/CourseService.js"
+            ));
             #endregion
 
             #region Styles

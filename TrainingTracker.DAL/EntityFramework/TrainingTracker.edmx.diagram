@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1aefa74447d74829b003883bebc78c75" Name="Diagram1" ZoomLevel="51">
+      <Diagram DiagramId="1aefa74447d74829b003883bebc78c75" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="TrainingTrackerModel.Comment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingTrackerModel.Feedback" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingTrackerModel.FeedbackType" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -67,7 +67,6 @@
         <AssociationConnector Association="TrainingTrackerModel.Fk_User_Team" />
         <AssociationConnector Association="TrainingTrackerModel.Fk_UserId_TeamManager" />
         <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="1.5" PointX="7.9801263976749617" PointY="28.276682658249829" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicContentMap" Width="1.5" PointX="11.699014132702263" PointY="8.56792524855953" />
         <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentUserMap" Width="1.5" PointX="2.4659008004078178" PointY="21.618554184966978" />
         <EntityTypeShape EntityType="TrainingTrackerModel.Course" Width="1.5" PointX="0.0062141697882740618" PointY="27.440290478728848" />
         <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopic" Width="1.5" PointX="4.7608168333586383" PointY="12.766914731248708" />
@@ -75,9 +74,7 @@
         <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContent" Width="1.5" PointX="8.5002478419338576" PointY="11.41214937503084" />
         <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContentUserMap" Width="1.5" PointX="0.64148649603197649" PointY="5.8547843125903904" />
         <AssociationConnector Association="TrainingTrackerModel.FK_Assignment_User" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicContentMap_Assignment" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_User" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicContentMap_SubtopicContent" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUseraMap_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" />
         <AssociationConnector Association="TrainingTrackerModel.FK_Course_User" />
@@ -89,6 +86,9 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_User" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="1.0894572777158846" PointY="8.7594636719485113" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

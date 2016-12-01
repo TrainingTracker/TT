@@ -33,5 +33,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual User User { get; set; }
         public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
         public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
+        public virtual AssignmentSubtopicMap AssignmentSubtopicMap { get; set; }
     }
 }

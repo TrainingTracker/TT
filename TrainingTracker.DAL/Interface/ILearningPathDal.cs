@@ -10,7 +10,7 @@ namespace TrainingTracker.DAL.Interface
         int AddCourseSubtopic(CourseSubtopic subtopicToAdd);
         bool AddSubtopicContent(SubtopicContent dataToAdd, out int id);
         bool AddAssignment(Assignment dataToAdd, out int id);
-        bool AddAssignmentSubtopicContentMapping(int assignmentId, int subtopicContentId);
+        bool AddAssignmentSubtopicMapping(int assignmentId, int subtopicId);
 
         bool UpdateCourse(Course courseToUpdate);
         bool UpdateCourseSubtopic(CourseSubtopic subtopicToUpdate);
