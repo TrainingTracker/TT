@@ -145,8 +145,11 @@
 }
 
 .courses-list-item .title.description {
-    font-weight: normal;
+    font-weight: 400;
+    width: 90%;
+    margin-left: 5%;
     font-size: 14px;
+    color:#beb5b9;
 }
 
 .courses-list-item .box-second-row input 
@@ -184,11 +187,11 @@
 }
 
 .courses-list-item .lec-info {
-      width: 0%;
+      width: 100%;
     position: absolute;
     background-color: #ccc;
      display: block;
-    height: 100% !important;
+    height: 0% !important;
     opacity: 0.8;
     color: #000;
     max-width: 100%;
@@ -198,17 +201,17 @@
     z-index: 10;
         font-size: 20px;
             text-align: center;
-    transition: all 0.25s linear;
+    transition: all 0.25s ease-in;
 }
 
 .courses-list-item .course-thumb:hover .lec-info {
   
-    width: 100% !important;
+    height: 100% !important;
     horiz-align: center;
     font-weight: normal !important;
    /*// height: 100% !important;*/
 
-    transition: width 0.25s linear;
+    transition: height 0.25s ease-in;
 }
 
 .courses-list-item .course-thumb .lec-info i,.courses-list-item .course-thumb .lec-info span{
@@ -217,22 +220,13 @@
        
 }
 
-/*.courses-list-item .course-thumb .lec-info span {
-    font-size: 20px
-}*/
 
 .courses-list-item .course-thumb:hover .lec-info i,.courses-list-item .course-thumb:hover .lec-info span {
         
-      visibility: visible;
-    
+      visibility: visible;  
 
 }
 
-
-
-.courses-list-item .course-thumb:hover .lec-info {
-    
-}
 .display-flex{
     /* display: flex; */
     -webkit-flex-direction: column;
@@ -246,4 +240,8 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
+}
+
+#divContentArea {
+    padding: 10px 0;
 }
