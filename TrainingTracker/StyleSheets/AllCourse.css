@@ -33,7 +33,7 @@
     margin-bottom: 0 !important;
 }
 
-.form-control {
+#divCoursesContainer .form-control {
     /*border: 2px solid #ccc;*/
     height: 37px;
     padding: 26px 12px;
@@ -42,7 +42,7 @@
 }
 
 .input-group-addon {
-       padding: 10.5px 20px;
+    padding: 10.5px 20px;
     font-size: 26px;
     color: #ffffff;
     border-radius: 0;
@@ -55,6 +55,8 @@
     background: #fff;
     display: block;
         height: 50% !important;
+            background-image: linear-gradient(90deg, transparent 1%, #abced4 1%, #abced4 2%, transparent 2%), linear-gradient(#eee 1px, transparent 1px);
+    background-size: 100% 17px;
 }
 
 .pos-r {
@@ -68,8 +70,7 @@
 #divTagline {
     text-align: center;
     color: #ffffff;
-        padding: 1% 0 1% 0;
-   
+    padding: 1% 0 1% 0;   
 }
 
 #divSearch {
@@ -91,7 +92,7 @@
 }
 
 .courses-list-item .mask {
-        height: 94%;
+    height: 94%;
     background: #fff;
     color: #353535;
     display: block;
@@ -103,8 +104,25 @@
 .courses-list-item .mask:hover
  {
      box-shadow: 0 6px 40px rgba(0,0,0,.15);
+   
     transition: all .5s ease;
 }
+
+.courses-list-item .mask:after {
+    position: absolute;
+    content: "";
+    border-bottom: 3px solid red;
+    width: 0;
+    top: 100%;
+    left: 5%;
+}
+
+.courses-list-item .mask:hover:after {
+    width: 90%;
+    transition: width 0.5s linear; 
+}
+
+
 
 .courses-list-item {
   height:250px; 
