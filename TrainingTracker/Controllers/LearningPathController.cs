@@ -137,6 +137,17 @@ namespace TrainingTracker.Controllers
          {
              return Json(new LearningPathBL().GetAssignments(subtopicContentId), JsonRequestBehavior.AllowGet);
          }
+
+         /// <summary>
+         /// Request Handler for fetching and filtering courses
+         /// </summary>
+         /// <param name="searchKeyword">search keyword for free text</param>
+         /// <returns>json result for courses set</returns>
+         public JsonResult FilterCourses(string searchKeyword)
+         {
+             return Json(new LearningPathBL().FilterCourses(searchKeyword) , JsonRequestBehavior.AllowGet);
+         }
+
          [HttpPost]
          public JsonResult UploadImage()
          {

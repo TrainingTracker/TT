@@ -49,7 +49,6 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-
         public bool UpdateCourse(Course courseToUpdate)
         {
             try
@@ -73,6 +72,42 @@ namespace TrainingTracker.DAL.DataAccess
                 LogUtility.ErrorRoutine(ex);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Data access method for filtering courses on search keyword
+        /// </summary>
+        /// <param name="searchKeyword">search keyword for free text search</param>
+        /// <returns>List of courses matching search keyword</returns>
+        public List<Course> FilterCourses(string searchKeyword)
+        {
+             try
+             {
+                 // To search on multiple words
+                string[] splittedKeywords = !string.IsNullOrEmpty(searchKeyword) ? searchKeyword.Split(new char[] {' ', ',', '+'}, StringSplitOptions.RemoveEmptyEntries)
+                                                                            : new string[] {} ;
+                 int length = splittedKeywords.Length;
+
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    return context.Courses
+                                  .Where(x => ( length == 0 || splittedKeywords.Any(y => x.Name.Contains(y) || x.Description.Contains(y))) 
+                                                && x.IsActive 
+                                                && x.IsPublished )
+                                  .Select(x=> new Course
+                                  {
+                                      Id = x.Id,
+                                      Name = x.Name,
+                                      Description = x.Description,
+                                      Icon = x.Icon                                     
+                                  }).ToList();                                           
+                }
+            }
+             catch (Exception ex)
+             {
+                 LogUtility.ErrorRoutine(ex);
+                 return new List<Course>();
+             }
         }
 
         public bool DeleteCourse(int id)

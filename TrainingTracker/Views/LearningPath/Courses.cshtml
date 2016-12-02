@@ -1,10 +1,52 @@
-﻿
+﻿@{
+    ViewBag.Title = "Courses";
+}
+
+@section Styles
+{
+    @Styles.Render("~/bundles/AllCoursesViewStyles")
+}
 
 <div class="container-fluid">
-<h1>Courses</h1>
+    <div class="col-xs-12 no-right-margin no-left-margin" id="divSearchbar">
+        <div id="divTagline" class="col-xs-8 col-xs-offset-2" >
+            <h1>Spreading Knowledge <b><span class="smiley">:)</span></b></h1>
+            <p>Unlocking the world of knowledge. Keep Learning, Keep Sharing.</p>
+        </div>
+        <div id="divSearch" class="input-group col-xs-6 col-xs-offset-3 " >
+            <input data-bind="value: my.allCoursesVm.searchKeyword" type="text" class="form-control" placeholder="QBasics, Fortran, C.."/>
+            <span class="input-group-addon" data-bind="click: my.allCoursesVm.loadCourses">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        
+        </div>
+    </div>
+    <div class="col-xs-12 no-right-margin no-left-margin">
+        <div class="col-xs-10 col-xs-offset-1 " data-bind="foreach: my.allCoursesVm.allCourses">
+            <div class="col-xs-3 courses-list-item no-right-margin no-left-margin"  data-bind="style:{'bottom':'0px'}">
+                <div class="mask"  >                    
+                    <span class="course-thumb pos-r dib" >
+                         @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                         {
+                             <span data-bind="click: function (event) { my.allCoursesVm.navigateToCourse(Id); event.stopPropagation(); }" class="lec-info display-flex">
+                                 <span>Edit</span>
+                                 <i class="glyphicon glyphicon-pencil"></i>                                 
+                             </span>
+                         }
+                        <img data-bind="attr:{ 'src':  my.rootUrl + '/Uploads/CourseIcon/' + Icon  }"/> 
+                    </span>
+                    <span class="box-second-row" data-bind="click: function () { alert('Men a work'); }">                      
+                        <span class="title" data-bind="text: Name"></span>   
+                        <span class="title description" data-bind="text: Description"></span>   
+                        <input type="button" data-bind="" value="Get Started"/>
+                    </span>               
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts
 {
-    @Scripts.Render("~/bundles/AllProfileViewScripts")
+    @Scripts.Render("~/bundles/AllCoursesViewScripts")
 }

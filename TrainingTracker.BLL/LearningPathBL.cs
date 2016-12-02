@@ -19,6 +19,15 @@ namespace TrainingTracker.BLL
             return (LearningPathDataAccessor.AddCourse(courseToAdd));
         }
 
+        /// <summary>
+        /// Fetches all courses based on filter 
+        /// </summary>
+        /// <param name="searchKeyword">search keyword for free text search</param>
+        /// <returns>List of Courses on filter</returns>
+        public List<Course> FilterCourses(string searchKeyword)
+        {
+            return LearningPathDataAccessor.FilterCourses(searchKeyword);
+        }
 
         public bool UpdateCourse(Course courseToUpdate)
         {

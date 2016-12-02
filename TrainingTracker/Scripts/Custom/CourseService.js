@@ -61,6 +61,10 @@
 
         getAssignments: function (id, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetAssignments?subtopicContentId=" + id, null, callback);
+        },
+        
+        filterCourses : function(searchKeyword, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/FilterCourses?searchKeyword=" + searchKeyword, null, callback);
         }
 
 
