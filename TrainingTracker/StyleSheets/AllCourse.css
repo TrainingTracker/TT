@@ -68,12 +68,12 @@
 #divTagline {
     text-align: center;
     color: #ffffff;
-        padding: 5% 0 5% 0;
+        padding: 1% 0 1% 0;
    
 }
 
 #divSearch {
-    padding-bottom: 5%;
+    padding-bottom: 2%;
 }
 
 .courses-list-item .course-thumb>img {
@@ -244,4 +244,14 @@
 
 #divContentArea {
     padding: 10px 0;
+}
+
+span.course-thumb:after {
+    border-bottom: 2px solid #ECEAEB;
+    position: absolute;
+    /* height: 10px; */
+    width: 96%;
+    top: 100%;
+    right: 2%;
+    content: "";
 }
