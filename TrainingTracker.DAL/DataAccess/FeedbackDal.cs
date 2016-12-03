@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -76,44 +77,40 @@ namespace TrainingTracker.DAL.DataAccess
         {
             var feedbacks = new List<Feedback>();
 
-            var prms = new List<SqlParameter>
-            {
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.PARAM_USER_ID, SqlDbType.Int, userId),
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.FEEDBACK_ID, SqlDbType.Int, feedbackId),
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.PARAM_PAGE_SIZE, SqlDbType.Int, count),
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.PARAM_OFFSET, SqlDbType.Int, 0),
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.START_ADDED_ON, SqlDbType.Date, startAddedOn),
-                SqlUtility.CreateParameter(SPGetUserFeedbacks.END_ADDED_ON, SqlDbType.Date, endAddedOn)
-            };
-
             try
             {
-                var dt = SqlUtility.ExecuteAndGetTable(SPGetUserFeedbacks.NAME,
-                    CommandType.StoredProcedure, SPGetUserFeedbacks.TABLE_NAME, prms);
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var query = context.Feedbacks.Where(x => x.AddedFor == userId);
+                    if (feedbackId != null) query = query.Where(x => x.FeedbackType == feedbackId);
+                    if (startAddedOn != null && endAddedOn != null) query = query.Where(x => x.StartDate >= startAddedOn && x.EndDate >= endAddedOn
+                    && x.AddedOn >= startAddedOn && (x.AddedOn <= endAddedOn));
 
-                feedbacks.AddRange(from DataRow row in dt.Rows
-                                   select new Feedback
-                                   {
-                                       FeedbackId = Convert.ToInt32(row["FeedbackId"]),
-                                       FeedbackText = row["FeedbackText"].ToString(),
-                                       Title = row["Title"].ToString(),
-                                       FeedbackType = new FeedbackType
-                                       {
-                                           FeedbackTypeId = Convert.ToInt32(row["FeedbackType"]),
-                                           Description = row["FeedbackTypeName"].ToString(),
-                                       },
-                                       Rating = Convert.ToInt32(row["Rating"]),
-                                       AddedOn = Convert.ToDateTime(row["AddedOn"]),
-                                       AddedBy = new User
-                                       {
-                                           UserId = Convert.ToInt32(row["AddedBy"]),
-                                           FullName = row["AddedByUser"].ToString(),
-                                           ProfilePictureName = row["AddedByUserImage"].ToString(),
-                                       },
-                                       StartDate = Convert.ToDateTime(row["StartDate"]),
-                                       EndDate = Convert.ToDateTime(row["EndDate"]),
-                                       ThreadCount = Convert.ToInt32(row["ThreadCount"])
-                                   });
+                    feedbacks = query.Include(x => x.User).Include(x => x.FeedbackThreads).Include(x => x.FeedbackType1)
+                        .OrderByDescending(x => x.AddedOn).Take(count)
+                        .Select(f => new Feedback
+                        {
+                            FeedbackId = f.FeedbackId,
+                            FeedbackText = f.FeedbackText,
+                            Title = f.Title,
+                            FeedbackType = new FeedbackType
+                            {
+                                FeedbackTypeId = f.FeedbackType1.FeedbackTypeId,
+                                Description = f.FeedbackType1.Description,
+                            },
+                            Rating = f.Rating == null ? 0 : (int)f.Rating,
+                            AddedOn = (DateTime)f.AddedOn,
+                            AddedBy = new User
+                            {
+                                UserId = f.User.UserId,
+                                FullName = f.User.FirstName + " " + f.User.LastName,
+                                ProfilePictureName = f.User.ProfilePictureName,
+                            },
+                            StartDate = f.StartDate ?? new DateTime(),
+                            EndDate = f.EndDate ?? new DateTime(),
+                            ThreadCount = f.FeedbackThreads.Count
+                        }).ToList();
+                }
             }
             catch (Exception ex)
             {
