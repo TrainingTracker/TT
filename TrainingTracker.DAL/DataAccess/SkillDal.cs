@@ -74,11 +74,11 @@ namespace TrainingTracker.DAL.DataAccess
                 using (var context = new TrainingTrackerEntities())
                 {
                     return context.Skills.OrderBy(c => c.Name).Select(x => new Skill
-                            {
-                                SkillId = x.SkillId,
-                                Name = x.Name,
-                                Count = context.Questions.Count(q => q.SkillId == x.SkillId)
-                            }).ToList();
+                    {
+                        SkillId = x.SkillId,
+                        Name = x.Name,
+                        Count = context.Questions.Count(q => q.SkillId == x.SkillId)
+                    }).ToList();
                 }
             }
             catch (Exception ex)
@@ -109,5 +109,31 @@ namespace TrainingTracker.DAL.DataAccess
                 return false;
             }
         }
+
+        public void AddUserSkillMapping(int skillId, int userId, int addedByUser)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var skillMapping =
+                        context.UserSkillMappings.SingleOrDefault(x => x.SkillId == skillId && x.UserId == userId);
+                    if (skillMapping == null) return;
+                    context.UserSkillMappings.Add(new UserSkillMapping
+                    {
+                        SkillId = skillId,
+                        AddedBy = addedByUser,
+                        UserId = userId,
+                        AddedOn = DateTime.Now
+                    });
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+            }
+        }
+
     }
 }
