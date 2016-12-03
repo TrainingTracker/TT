@@ -8,11 +8,6 @@ namespace TrainingTracker.DAL.Interface
     /// </summary>
     public interface IProjectDal
     {
-        /// <summary>
-        /// Inteface method to fetch projects by user
-        /// </summary>
-        /// <param name="userId">User id</param>
-        /// <returns>instance of list of project</returns>
-        List<Project> GetProjectsByUserId(int userId);
+
     }
 }

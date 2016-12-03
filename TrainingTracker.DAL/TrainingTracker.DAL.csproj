@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\FeedbackDal.cs" />
-    <Compile Include="DataAccess\LearningPathDal.cs" />
+    <Compile Include="DataAccess\LearningPathDal.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataAccess\NotificationDal.cs" />
     <Compile Include="DataAccess\ProjectDal.cs" />
     <Compile Include="DataAccess\QuestionDal.cs" />
@@ -187,7 +189,9 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IFeedbackDal.cs" />
-    <Compile Include="Interface\ILearningPathDal.cs" />
+    <Compile Include="Interface\ILearningPathDal.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interface\INotificationDal.cs" />
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />

@@ -117,6 +117,10 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.GetAllCoursesWithSubtopics();
         }
 
+        public Course GetCourseWithSubtopics(int courseId)
+        {
+            return LearningPathDataAccessor.GetCourseWithSubtopics(courseId);
+        }
 
         public List<SubtopicContent> GetSubtopicContents(int subtopicId)
         {

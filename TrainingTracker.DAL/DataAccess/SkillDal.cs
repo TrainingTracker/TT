@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
-using Question = TrainingTracker.Common.Entity.Question;
 using Skill = TrainingTracker.Common.Entity.Skill;
 
 namespace TrainingTracker.DAL.DataAccess
@@ -16,24 +13,21 @@ namespace TrainingTracker.DAL.DataAccess
         public List<Skill> GetSkillsByUserId(int userId)
         {
             var skills = new List<Skill>();
-
-            var prms = new List<SqlParameter>
-            {
-                SqlUtility.CreateParameter(SPGetSkillsByUserID.PARAM_USER_ID, SqlDbType.Int, userId)
-            };
-
             try
             {
-                var dt = SqlUtility.ExecuteAndGetTable(SPGetSkillsByUserID.NAME,
-                    CommandType.StoredProcedure, SPGetSkillsByUserID.TABLE_NAME, prms);
-
-                skills.AddRange(from DataRow row in dt.Rows
-                                select new Skill
-                                {
-                                    Name = row["Name"].ToString(),
-                                    SkillId = Convert.ToInt32(row["SkillId"]),
-                                    Rating = (row["Rating"] == DBNull.Value) ? 0 : Convert.ToInt32(row["Rating"])
-                                });
+                using (var context = new TrainingTrackerEntities())
+                {
+                    skills = context.Feedbacks.Join(context.Skills, f => f.SkillId, s => s.SkillId, (f, s) => new { f, s })
+                        .Where(x => x.f.AddedFor == userId)
+                        .GroupBy(a => a.f.SkillId).Select(g => new { g.Key, Item = g.FirstOrDefault(), AverageRating = g.Average(x => x.f.Rating) })
+                            .Select(x => new Skill
+                            {
+                                Name = x.Item.s.Name,
+                                SkillId = x.Item.f.SkillId ?? 0,
+                                Rating = (int)x.AverageRating
+                            }
+                        ).ToList();
+                }
             }
             catch (Exception ex)
             {
@@ -46,24 +40,21 @@ namespace TrainingTracker.DAL.DataAccess
         public List<Skill> GetAllSkillsForApp()
         {
             var skills = new List<Skill>();
-
             try
             {
-                var dt = SqlUtility.ExecuteAndGetTable(SPGetApplicationSkills.NAME,
-                    CommandType.StoredProcedure, SPGetApplicationSkills.TABLE_NAME, null);
-
-                skills.AddRange(from DataRow row in dt.Rows
-                                select new Skill
-                                {
-                                    Name = row["Name"].ToString(),
-                                    SkillId = Convert.ToInt32(row["SkillId"]),
-                                });
+                using (var context = new TrainingTrackerEntities())
+                {
+                    skills = context.Skills.OrderBy(x => x.Name).Select(x => new Skill
+                    {
+                        Name = x.Name,
+                        SkillId = x.SkillId
+                    }).ToList();
+                }
             }
             catch (Exception ex)
             {
                 LogUtility.ErrorRoutine(ex);
             }
-
             return skills;
         }
 
@@ -74,11 +65,11 @@ namespace TrainingTracker.DAL.DataAccess
                 using (var context = new TrainingTrackerEntities())
                 {
                     return context.Skills.OrderBy(c => c.Name).Select(x => new Skill
-                            {
-                                SkillId = x.SkillId,
-                                Name = x.Name,
-                                Count = context.Questions.Count(q => q.SkillId == x.SkillId)
-                            }).ToList();
+                    {
+                        SkillId = x.SkillId,
+                        Name = x.Name,
+                        Count = context.Questions.Count(q => q.SkillId == x.SkillId)
+                    }).ToList();
                 }
             }
             catch (Exception ex)
@@ -109,5 +100,31 @@ namespace TrainingTracker.DAL.DataAccess
                 return false;
             }
         }
+
+        public void AddUserSkillMapping(int skillId, int userId, int addedByUser)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var skillMapping =
+                        context.UserSkillMappings.SingleOrDefault(x => x.SkillId == skillId && x.UserId == userId);
+                    if (skillMapping == null) return;
+                    context.UserSkillMappings.Add(new UserSkillMapping
+                    {
+                        SkillId = skillId,
+                        AddedBy = addedByUser,
+                        UserId = userId,
+                        AddedOn = DateTime.Now
+                    });
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+            }
+        }
+
     }
 }

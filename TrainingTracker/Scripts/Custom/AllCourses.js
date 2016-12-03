@@ -4,6 +4,7 @@
         var allCourses = ko.observableArray();
 
         var loadCourses = function() {
+			
             my.courseService.filterCourses(searchKeyword(), loadCoursesCallback);
         };
 
@@ -18,7 +19,7 @@
         };
 
         var navigateToCourse = function(courseId) {
-            window.location.href = my.rootUrl + 'CourseEditor/CourseId=' + courseId;
+            window.location.href = my.rootUrl + 'CourseEditorNew?courseId=' + courseId;
         };
         
         return {
@@ -28,7 +29,7 @@
             navigateToCourse: navigateToCourse
         };
     }();
-
-    my.allCoursesVm.loadCourses();
     ko.applyBindings(my.allCoursesVm);
+    my.allCoursesVm.loadCourses();
+    
 });

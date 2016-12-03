@@ -133,6 +133,53 @@ namespace TrainingTracker.DAL.DataAccess
 
         }
 
+
+        public Course GetCourseWithSubtopics(int courseId) 
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                     return context.Courses
+                                   .Where(c => c.IsActive && c.Id == courseId)
+                                   .AsEnumerable()
+                                   .Select(c => new Course
+                                                {
+                                                    Id = c.Id,
+                                                    Name = c.Name,
+                                                    Icon = c.Icon,
+                                                    Description = c.Description,
+                                                    AddedBy = c.AddedBy,
+                                                    CreatedOn = c.CreatedOn,
+                                                    IsPublished = c.IsPublished,
+                                                    CourseSubtopics = c.CourseSubtopics
+                                                                        .Where(s => s.IsActive)
+                                                                        .Select(s => new CourseSubtopic
+                                                                                      {
+                                                                                          Id = s.Id,
+                                                                                          Name = s.Name,
+                                                                                          CourseId = s.CourseId,
+                                                                                          Description = s.Description,
+                                                                                          AddedBy = s.AddedBy,
+                                                                                          SortOrder = s.SortOrder,
+                                                                                          CreatedOn = s.CreatedOn
+
+                                                                                      })
+                                                                        .ToList()
+
+                                                })
+                                    .FirstOrDefault();
+                                   
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }   
+        }
+
+
         //ToDo: This function can be refactored and reused
         public List<Course> GetAllCoursesWithSubtopics()
         {
@@ -140,63 +187,33 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using(var context = new TrainingTrackerEntities())
                 {
-                    var courseList = context.Courses.Where(c => c.IsActive).ToList();
+                    return context.Courses.Where(c => c.IsActive)
+                                          .AsEnumerable()
+                                          .Select(c => new Course
+                                                       {
+                                                           Id = c.Id,
+                                                           Name = c.Name,
+                                                           Icon = c.Icon,
+                                                           Description = c.Description,
+                                                           AddedBy = c.AddedBy,
+                                                           CreatedOn = c.CreatedOn,
+                                                           CourseSubtopics = c.CourseSubtopics.ToList()
+                                                                               .Where(s => s.IsActive)
+                                                                               .Select(s => new CourseSubtopic
+                                                                                       {
+                                                                                           Id = s.Id,
+                                                                                           Name = s.Name,
+                                                                                           CourseId = s.CourseId,
+                                                                                           Description = s.Description,
+                                                                                           AddedBy = s.AddedBy,
+                                                                                           SortOrder = s.SortOrder,
+                                                                                           CreatedOn = s.CreatedOn
 
-                    var allCourses = courseList.Where(c => c.IsActive)
-                                             .Select(c => new Course
-                                                          {
-                                                              Id = c.Id,
-                                                              Name = c.Name,
-                                                              Icon = c.Icon,
-                                                              Description = c.Description,
-                                                              AddedBy = c.AddedBy,
-                                                              CreatedOn = c.CreatedOn
-                                                          }).ToList();
-                    int i = 0;
-                    foreach (var course in allCourses)
-                    {
-                        course.CourseSubtopics = courseList[i++].CourseSubtopics.ToList()
-                                                                .Where(s => s.IsActive)
-                                                                 .Select(s => new CourseSubtopic
-                                                                 {
-                                                                     Id = s.Id,
-                                                                     Name = s.Name,
-                                                                     CourseId = s.CourseId,
-                                                                     Description = s.Description,
-                                                                     AddedBy = s.AddedBy,
-                                                                     SortOrder = s.SortOrder,
-                                                                     CreatedOn = s.CreatedOn
+                                                                                       })
+                                                                                .ToList()
 
-                                                                 }).ToList();
-                    }
-                    return allCourses;
+                                                       }).ToList();
 
-                     //var allCourses = context.Courses.Where(c => c.IsActive)
-                     //                        .Select(c => new Course
-                     //                                     {
-                     //                                         Id = c.Id,
-                     //                                         Name = c.Name,
-                     //                                         Icon = c.Icon,
-                     //                                         Description = c.Description,
-                     //                                         AddedBy = c.AddedBy,
-                     //                                         CreatedOn = c.CreatedOn,
-                     //                                         CourseSubtopics = c.CourseSubtopics.ToList()
-                     //                                                               .Where(s => s.IsActive)
-                     //                                                                   .Select(s => new CourseSubtopic
-                     //                                                                           {
-                     //                                                                               Id = s.Id,
-                     //                                                                               Name = s.Name,
-                     //                                                                               CourseId = s.CourseId,
-                     //                                                                               Description = s.Description,
-                     //                                                                               AddedBy = s.AddedBy,
-                     //                                                                               SortOrder = s.SortOrder,
-                     //                                                                               CreatedOn = s.CreatedOn
-
-                     //                                                                           }).ToList()
-
-                     //                                     }).ToList();
-
-                     //return allCourses;
                 }
             }
             catch(Exception ex)

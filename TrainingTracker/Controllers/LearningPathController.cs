@@ -52,6 +52,17 @@ namespace TrainingTracker.Controllers
              return Json(new LearningPathBL().UpdateCourse(courseToUpdate));
          }
 
+         public JsonResult GetCourseWithSubtopics(int courseId)
+         {
+             if (courseId > 0)
+             {
+                 return Json(new LearningPathBL().GetCourseWithSubtopics(courseId), JsonRequestBehavior.AllowGet);
+             }
+             else 
+             {
+                 return null;
+             }
+         }
 
          public JsonResult GetAllCoursesWithSubtopics()
          {

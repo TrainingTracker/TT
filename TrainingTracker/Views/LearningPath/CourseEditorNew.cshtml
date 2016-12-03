@@ -2,9 +2,118 @@
 <link href="~/StyleSheets/CourseEditorNew.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
+<div class="container-fluid editor-page">
+    
+    <div class="col-sm-3 left-panel">
 
+        <div class="row">
+            <div class="col-sm-3 ">
+                <img data-bind="attr: { src: course.IconUrl() }" alt="Image not found!" />
+            </div>
+            <div class="col-sm-9">
+                <div class="row header">
+                    <div class="col-sm-10"><h3 class='course-heading' data-bind="text: course.Name(), click: function () { $root.edit($data, 'course'); }"></h3></div>
+                    <div class="col-sm-2">
+                        <i data-bind="visible: course.IsEditInProgress()" class="fa fa-gear rotate"></i>
+                        <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
+                    
+                </div>
+                <span class="pull-right label label-info" data-bind="visible: !course.IsPublished()">Publish</span>
+            </div>
+        </div>
+        <hr/>
+        <br/>
+        <span class="pull-right add-topic"><i class="fa fa-plus" aria-hidden="true"> Add Topic</i></span>
 
-<h2>Hello</h2>
+        <ul data-bind="foreach: subtopicsList">
+            <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }" >
+                <span data-bind="text: Name()"></span>
+                <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
+                <span class="pull-right"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+            </li>
+        </ul>
+        
+        <div class="searched-list" data-bind="visible: filteredCourseList().length > 0">
+            <ul data-bind="foreach: filteredCourseList">
+                <li><span data-bind="text: Name"></span><i class="fa fa-pencil pull-right" aria-hidden="true"></i></li>
+            </ul>
+        </div>    
+        <input type="text" data-bind="textInput: searchKeyword, click: getFilteredCourses, hasFocus: courseSearchHasFocus" class="search-course" placeholder="Search Courses..."/>
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </div>
+    
+    <div class="col-sm-6  middle-panel" >
+        <div class="no-contents" data-bind="visible : ! editorContent.HasContent()"><h2> No Content is Selected to Edit...</h2></div>
+        <div data-bind="visible: editorContent.HasContent()">
+            <div>
+                <span class="pull-right save-editor-content"><i class="fa fa-floppy-o" aria-hidden="true"> Save Changes</i></span>
+                 &nbsp;
+                <span class="pull-right delete-editor-content"><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="col-sm-2">Heading:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-bind="value: editorContent.Name()" placeholder="Heading"/>
+                </div>
+            </div>
+            
+           <form enctype="multipart/form-data" id="course-icon-upload-form" data-bind="visible: editorContent.HasIcon(), submit: $root.uploadImage">
+                <div class="row">
+                    <div class="col-sm-5"> 
+                        <img data-bind="attr: { src: editorContent.IconUrl() }" alt="Image not found!" />
+                        <input type="file" data-bind="attr: { id: 'form-file' + editorContent.Id() }" accept="image/*" />
+                    </div>
+                    <div class="col-sm-7">
+                         <ul>
+                             <li><label data-bind="attr: { for: 'form-file' + editorContent.Id() }" >Choose Image</label></li>
+                             <li><button type="submit" class="btn btn-warning btn-sm" ><i class="fa fa-cloud-upload" aria-hidden="true"></i>Upload</button></li>
+                         </ul>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="form-group" data-bind="visible: editorContent.HasUrl()" >
+                <label class="col-sm-2">Url:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-bind=" value: editorContent.Url()" placeholder="Url"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea rows="10" id ="ckeditor" data-bind="CKEDITOR: editorContent.Description"></textarea>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="col-sm-3 right-panel">
+        
+        <div id="subtopic-content" >
+            <h4 class="header">Subtopic Contents</h4>
+            <p data-bind="visible: subtopicContentsList().length == 0">No Contents found </p>
+            <ul data-bind="foreach: subtopicContentsList">
+                <li data-bind=" click: function () { $root.edit($data, 'subtopicContent'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
+                    <span data-bind="text: Name()"></span>
+                    <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
+                    <span class="pull-right"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+
+        <div id="assignment">
+            <h4 class="header">Assignments</h4>
+            <p data-bind="visible: assignmentsList().length == 0">No Assignments found </p>
+            <ul data-bind="foreach: assignmentsList">
+                <li data-bind="text: Name"></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
 @section Scripts
 {

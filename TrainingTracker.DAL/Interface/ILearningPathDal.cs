@@ -33,6 +33,7 @@ namespace TrainingTracker.DAL.Interface
         List<Assignment> GetAssignments(int subtopicContentId);
         List<Course> GetAllCoursesWithSubtopics();
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
+        Course GetCourseWithSubtopics(int courseId);
         
         
         
