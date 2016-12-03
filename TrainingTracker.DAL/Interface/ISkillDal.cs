@@ -24,5 +24,6 @@ namespace TrainingTracker.DAL.Interface
         List<Skill> GetSkillsWithQuestionCount();
 
         bool AddSkill(Skill skill);
+        void AddUserSkillMapping(int skillId, int userId, int addedByUser);
     }
 }
