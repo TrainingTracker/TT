@@ -49,6 +49,8 @@
 
         var editorContent = {
             Id: ko.observable(0),
+            CourseId: 0,//FK
+            CourseSubtopicId: 0,//FK
             Name: ko.observable(''),
             Description: ko.observable(''),
             Icon: ko.observable('DefaultCourse.jpg'),
@@ -72,6 +74,8 @@
 
         }
 
+        var dataToBeRefreshed = null;
+
         var searchKeyword = ko.observable('');
 
         var courseSearchHasFocus = ko.observable(false);
@@ -92,6 +96,8 @@
 
         var resetEditor = function () {
             editorContent.Id(0);
+            editorContent.CourseId = 0;
+            editorContent.CourseSubtopicId = 0;
             editorContent.Name('');
             editorContent.Description('');
             editorContent.Icon('DefaultCourse.jpg');
@@ -172,6 +178,11 @@
                 my.courseService.getCourseWithSubtopics(courseId, getCourseWithSubtopicsCallback);
             }
             else {
+                getAllCourses();
+                filteredCourseList.push({Name:'hi'});
+                ko.utils.arrayForEach(courseList(), function (item) {
+                        filteredCourseList.push(item);
+                });
                 //For course Id undefined or 0 need to so some operation
                 alert(courseId);
             }
@@ -289,12 +300,43 @@
             my.courseService.getAllCourses(getAllCoursesCallback);
         };
 
-        var edit = function (data, dataType) {
+        var navigateToAnotherCourse = function (id) {
+            window.location.href = my.rootUrl + '/LearningPath/CourseEditorNew?courseId='+ id;
+        }
+
+        var saveChangesCallback = function (jsonData) {
+            if (jsonData) {
+                dataToBeRefreshed.Name(editorContent.Name());
+                dataToBeRefreshed.Description(editorContent.Description());
+                if(editorContent.HasUrl()){
+                    dataToBeRefreshed.Url(editorContent.Url());
+                }
+                alert('saved');
+            }
+        };
+
+        var saveChanges = function () {
             
+            if (editorContent.ContentType() == 'course') {
+                 my.courseService.updateCourse(editorContent, saveChangesCallback);
+            }
+            else if (editorContent.ContentType() == 'subtopic') {
+                my.courseService.updateSubtopic(editorContent, saveChangesCallback);
+            }
+            else if (editorContent.ContentType() == 'subtopicContent') {
+                my.courseService.updateSubtopicContent(editorContent, saveChangesCallback);
+            }
+            else {
+                alert('no content type matched');
+            }
+        }
+
+        var edit = function (data, dataType) {
             
             editorContent.ContentType(dataType);
 
             if (dataType == 'course') {
+
                 data = data.course;
                 editorContent.HasIcon(true);
                 editorContent.Icon(data.Icon());
@@ -303,9 +345,13 @@
                 };
                 editorContent.HasUrl(false);
                 editorContent.HasSortOrder(false);
+
+                unselectListItems(subtopicsList);
+                unselectListItems(subtopicContentsList);
             }
             else if (dataType == 'subtopic') {
                 
+                editorContent.CourseId = data.CourseId;
                 editorContent.HasUrl(false);
                 editorContent.SortOrder(data.SortOrder());
                 editorContent.HasSortOrder(true);
@@ -319,6 +365,7 @@
             }
             else if (dataType == 'subtopicContent') {
 
+                editorContent.CourseSubtopicId = data.CourseSubtopicId;
                 editorContent.SortOrder(data.SortOrder());
                 editorContent.HasSortOrder(true);
                 editorContent.HasIcon(false);
@@ -342,6 +389,7 @@
             editorContent.Name(data.Name());
             editorContent.Description(data.Description());
            
+            dataToBeRefreshed = data;
 
         };
 
@@ -353,14 +401,18 @@
             editorContent: editorContent,
             searchKeyword: searchKeyword,
             filteredCourseList: filteredCourseList,
-            courseSearchHasFocus : courseSearchHasFocus,
-            
+            courseSearchHasFocus: courseSearchHasFocus,
+            courseList: courseList,
+
+            navigateToAnotherCourse: navigateToAnotherCourse,
             uploadImage : uploadImage,
             edit: edit,
+            saveChanges : saveChanges,
             getAssignments : getAssignments,
             getSubtopicContents : getSubtopicContents,
             getCourseWithSubtopics: getCourseWithSubtopics,
-            getFilteredCourses: getFilteredCourses
+            getFilteredCourses: getFilteredCourses,
+            getAllCourses : getAllCourses
         }
     }();
     

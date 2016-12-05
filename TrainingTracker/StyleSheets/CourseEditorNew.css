@@ -212,6 +212,7 @@
     height: 150px;
     margin-top: 50px;
     width:60%;
+    margin-bottom: 15px;
 }
 #course-icon-upload-form  img {
     width:140px;
@@ -245,11 +246,23 @@
     color: #666;
     padding: 10px;
 }
+
 #subtopic-content {
     height:50%;
 }
+#subtopic-content .add-subtopic-content {
+    color: black;
+    padding: 3px;
+    cursor: pointer;
+}
+#subtopic-content .add-subtopic-content:hover {
+    background-color: #b4fff8;
+    color: black;
+    border-radius:3px;
+}
 #subtopic-content ul , #assignment ul{
     list-style-type:none;
+    clear:both;
 }
 #subtopic-content li , #assignment li{
     padding:5px;
@@ -299,3 +312,18 @@
     margin-top: -5px;
     padding: 10px;
 }
+#assignment .add-assignment {
+    color: black;
+    padding: 3px;
+    cursor: pointer;
+}
+#assignment .add-assignment:hover{
+    background-color: #b4fff8;
+    color:black;
+    border-radius:3px;
+}
+
+#subtopic-content p, #assignment p {
+    clear:both;
+}
+

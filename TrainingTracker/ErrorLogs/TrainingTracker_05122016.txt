@@ -1,0 +1,11 @@
+Source        : EntityFramework
+Method        : SaveChanges
+Date        : 1:28:40 PM
+Time        : 12/5/2016
+Computer    : udayc7
+Error        : Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at TrainingTracker.DAL.DataAccess.LearningPathDal.UpdateCourseSubtopic(CourseSubtopic subtopicToUpdate) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 270
+^^-----------------------------------------------------^^
