@@ -27,33 +27,33 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackThread> FeedbackThreads { get; set; }
         public DbSet<FeedbackType> FeedbackTypes { get; set; }
         public DbSet<LearningSource> LearningSources { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<PlanSkillMapping> PlanSkillMappings { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectPlanMapping> ProjectPlanMappings { get; set; }
-        public DbSet<Session> Sessions { get; set; }
-        public DbSet<Skill> Skills { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserProjectMapping> UserProjectMappings { get; set; }
-        public DbSet<UserSessionMapping> UserSessionMappings { get; set; }
-        public DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public DbSet<QuestionLevelMapping> QuestionLevelMappings { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<Release> Releases { get; set; }
-        public DbSet<UserNotificationMapping> UserNotificationMappings { get; set; }
-        public DbSet<FeedbackThread> FeedbackThreads { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveyAnswer> SurveyAnswers { get; set; }
-        public DbSet<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
         public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
         public DbSet<SurveyQuestionResponseType> SurveyQuestionResponseTypes { get; set; }
         public DbSet<SurveyResponse> SurveyResponses { get; set; }
         public DbSet<SurveySection> SurveySections { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserNotificationMapping> UserNotificationMappings { get; set; }
+        public DbSet<UserProjectMapping> UserProjectMappings { get; set; }
+        public DbSet<UserSessionMapping> UserSessionMappings { get; set; }
+        public DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
+        public DbSet<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
     }
 }
