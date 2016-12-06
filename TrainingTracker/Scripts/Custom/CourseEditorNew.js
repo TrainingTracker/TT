@@ -341,6 +341,9 @@
                 if (editorContent.HasUrl()) {
                     dataToBeRefreshed.Url(editorContent.Url());
                 }
+                if (editorContent.HasIcon()) {
+                    dataToBeRefreshed.Icon(editorContent.Icon());
+                }
                 alert('saved');
             }
             else {
@@ -400,6 +403,7 @@
                     course.Id(jsonData);
                     course.Name(dataToAdd.Name());
                     course.Description(dataToAdd.Description());
+                    course.Icon(dataToAdd.Icon());
                 }
             }
             else {
