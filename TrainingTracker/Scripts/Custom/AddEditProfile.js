@@ -219,6 +219,7 @@
             },
             openUserProfile = function () {
                 closeDialogue();
+                my.addUserVm.getUsers();
                 my.addUserVm.showDialog(true);
                 my.addUserVm.setUser(my.meta.currentUser);
             },
