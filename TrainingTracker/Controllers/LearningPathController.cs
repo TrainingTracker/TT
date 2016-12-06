@@ -86,6 +86,10 @@ namespace TrainingTracker.Controllers
              return Json(new LearningPathBL().UpdateCourseSubtopic(subtopicToUpdate));
          }
 
+         public JsonResult DeleteCourse(int id) {
+
+             return Json(new LearningPathBL().DeleteCourse(id), JsonRequestBehavior.AllowGet);
+         }
 
          public JsonResult DeleteCourseSubtopic(int id)
          {
@@ -141,7 +145,7 @@ namespace TrainingTracker.Controllers
 
          public JsonResult DeleteAssignment(int id)
          {
-             return Json(new LearningPathBL().DeleteAssignment(id));
+             return Json(new LearningPathBL().DeleteAssignment(id), JsonRequestBehavior.AllowGet);
          }
 
          public JsonResult GetAssignments(int subtopicContentId)

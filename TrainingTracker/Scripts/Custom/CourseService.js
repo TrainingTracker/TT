@@ -48,6 +48,10 @@
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateAssignment", data, callback);
         },
 
+        deleteCourse: function (id, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/DeleteCourse?id=" + id, null, callback);
+        },
+
         deleteSubtopic: function (id, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/DeleteCourseSubtopic?id=" + id, null, callback);
         },

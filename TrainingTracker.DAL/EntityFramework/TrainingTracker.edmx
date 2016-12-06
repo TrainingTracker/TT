@@ -698,13 +698,13 @@
         </Association>
         <Association Name="FK_AssignmentSubtopicMap_CourseSubtopic">
           <End Role="CourseSubtopic" Type="TrainingTrackerModel.Store.CourseSubtopic" Multiplicity="1" />
-          <End Role="AssignmentSubtopicMap" Type="TrainingTrackerModel.Store.AssignmentSubtopicMap" Multiplicity="0..1" />
+          <End Role="AssignmentSubtopicMap" Type="TrainingTrackerModel.Store.AssignmentSubtopicMap" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseSubtopic">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AssignmentSubtopicMap">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="SubtopicId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2257,7 +2257,7 @@
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_CourseSubtopic_User" FromRole="CourseSubtopic" ToRole="User" />
           <NavigationProperty Name="CourseSubtopicDiscussions" Relationship="TrainingTrackerModel.FK_CourseSubtopicDiscussion_CourseSubtopic" FromRole="CourseSubtopic" ToRole="CourseSubtopicDiscussion" />
           <NavigationProperty Name="SubtopicContents" Relationship="TrainingTrackerModel.FK_SubtopicContent_CourseSubtopic" FromRole="CourseSubtopic" ToRole="SubtopicContent" />
-          <NavigationProperty Name="AssignmentSubtopicMap" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" FromRole="CourseSubtopic" ToRole="AssignmentSubtopicMap" />
+          <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" FromRole="CourseSubtopic" ToRole="AssignmentSubtopicMap" />
         </EntityType>
         <EntityType Name="CourseSubtopicDiscussion">
           <Key>
@@ -2481,13 +2481,13 @@
         </Association>
         <Association Name="FK_AssignmentSubtopicMap_CourseSubtopic">
           <End Type="TrainingTrackerModel.CourseSubtopic" Role="CourseSubtopic" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.AssignmentSubtopicMap" Role="AssignmentSubtopicMap" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.AssignmentSubtopicMap" Role="AssignmentSubtopicMap" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseSubtopic">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AssignmentSubtopicMap">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="SubtopicId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

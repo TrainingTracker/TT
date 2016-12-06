@@ -1,95 +1,7 @@
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 1:28:40 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.UpdateCourseSubtopic(CourseSubtopic subtopicToUpdate) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 270
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 6:14:45 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 6:20:24 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 6:27:25 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 6:29:49 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 7:00:59 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 7:01:30 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddCourseSubtopic(CourseSubtopic subtopicToAdd) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 244
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 7:14:03 PM
-Time        : 12/5/2016
-Computer    : udayc7
-Error        : An error occurred while updating the entries. See the inner exception for details.
-Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   at System.Data.Entity.DbContext.SaveChanges()
-   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddSubtopicContent(SubtopicContent dataToAdd, Int32& id) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 350
-^^-----------------------------------------------------^^
-Source        : EntityFramework
-Method        : SaveChanges
-Date        : 9:11:13 PM
-Time        : 12/5/2016
+Date        : 11:27:09 AM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
@@ -99,8 +11,8 @@ Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
 ^^-----------------------------------------------------^^
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 9:11:58 PM
-Time        : 12/5/2016
+Date        : 11:34:42 AM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
@@ -110,8 +22,8 @@ Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
 ^^-----------------------------------------------------^^
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 9:20:21 PM
-Time        : 12/5/2016
+Date        : 11:37:02 AM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
@@ -121,8 +33,8 @@ Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
 ^^-----------------------------------------------------^^
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 9:34:44 PM
-Time        : 12/5/2016
+Date        : 11:46:04 AM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
@@ -132,8 +44,8 @@ Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
 ^^-----------------------------------------------------^^
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 9:47:38 PM
-Time        : 12/5/2016
+Date        : 12:04:53 PM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
@@ -143,8 +55,41 @@ Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
 ^^-----------------------------------------------------^^
 Source        : EntityFramework
 Method        : SaveChanges
-Date        : 9:48:16 PM
-Time        : 12/5/2016
+Date        : 12:05:38 PM
+Time        : 12/6/2016
+Computer    : udayc7
+Error        : An error occurred while updating the entries. See the inner exception for details.
+Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddAssignmentSubtopicMapping(Int32 assignmentId, Int32 subtopicId) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 457
+^^-----------------------------------------------------^^
+Source        : EntityFramework
+Method        : SaveChanges
+Date        : 12:09:55 PM
+Time        : 12/6/2016
+Computer    : udayc7
+Error        : An error occurred while updating the entries. See the inner exception for details.
+Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddAssignmentSubtopicMapping(Int32 assignmentId, Int32 subtopicId) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 457
+^^-----------------------------------------------------^^
+Source        : EntityFramework
+Method        : SaveChanges
+Date        : 12:13:24 PM
+Time        : 12/6/2016
+Computer    : udayc7
+Error        : An error occurred while updating the entries. See the inner exception for details.
+Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at TrainingTracker.DAL.DataAccess.LearningPathDal.AddAssignmentSubtopicMapping(Int32 assignmentId, Int32 subtopicId) in d:\Projects\TT\TrainingTracker.DAL\DataAccess\LearningPathDal.cs:line 457
+^^-----------------------------------------------------^^
+Source        : EntityFramework
+Method        : SaveChanges
+Date        : 12:15:09 PM
+Time        : 12/6/2016
 Computer    : udayc7
 Error        : An error occurred while updating the entries. See the inner exception for details.
 Stack Trace    : at System.Data.Entity.Internal.InternalContext.SaveChanges()

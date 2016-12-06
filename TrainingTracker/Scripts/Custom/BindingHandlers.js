@@ -1,5 +1,25 @@
 ﻿var windowURL = window.URL || window.webkitURL;
 
+ko.bindingHandlers.showMessage = {
+
+    init: function (element, valueAccessor) {
+       // var value = ko.unwrap(valueAccessor());
+       // $(element).toggle(value);
+    },
+
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        var duration = allBindings.get('slideDuration') || 400; 
+
+        if (valueUnwrapped !== '')
+            $(element).slideDown(duration);
+        else
+            $(element).slideUp(duration);  
+    }
+};
+
 ko.bindingHandlers.CKEDITOR = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var ckEditorValue = valueAccessor();

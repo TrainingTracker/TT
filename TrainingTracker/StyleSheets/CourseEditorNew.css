@@ -94,7 +94,7 @@
     padding:inherit ;
     list-style:none;
     overflow : auto;
-    height:63vh;
+    height:61vh;
     clear:both;
     padding-top:10px;
 }
@@ -223,6 +223,17 @@
 #course-icon-upload-form ul {
     margin-top:20px;
 }
+#course-icon-upload-form ul > li:hover{
+    cursor:pointer;
+}
+#course-icon-upload-form button {
+    background-color:#2596f1;
+    border: none;
+    color:white;
+    padding:5px;
+    border-radius:2px;
+    cursor:pointer;
+}
 
 .middle-panel > .no-contents > h2 {
     text-align: center;
@@ -272,31 +283,31 @@
     cursor : pointer;
     color:#111;
 }
-#subtopic-content li.selected-content {
+#subtopic-content li.selected-content,  #assignment li.selected-content{
     color:#4fc3f7;
     font-weight:700;
 }
-#subtopic-content  li.selected-content:hover .fa-pencil  {
+#subtopic-content  li.selected-content:hover .fa-pencil, #assignment  li.selected-content:hover .fa-pencil {
     color:#4fc3f7;
 }
-#subtopic-content  li.editing-mode .fa-gear {
+#subtopic-content  li.editing-mode .fa-gear, #assignment  li.editing-mode .fa-gear{
     font-size:20px;
     color:#111;
 }
-#subtopic-content li.editing-mode {
+#subtopic-content li.editing-mode, #assignment li.editing-mode  {
     color: white;
     font-weight: 700;
     background-color: #4fc3f7;
     padding: 2px 10px;
 }
-#subtopic-content  li.editing-mode:hover .fa-pencil  {
+#subtopic-content  li.editing-mode:hover .fa-pencil, #assignment  li.editing-mode:hover .fa-pencil {
     visibility:hidden;
 }
 
-#subtopic-content li:hover .fa-pencil {
+#subtopic-content li:hover .fa-pencil, #assignment li:hover .fa-pencil {
     visibility:visible;
 }
-#subtopic-content li .fa-pencil {
+#subtopic-content li .fa-pencil, #assignment li .fa-pencil {
     font-size:16px;
     visibility:hidden;
 }
@@ -327,3 +338,12 @@
     clear:both;
 }
 
+#message-div{
+    position: absolute;
+    top: 17vh;
+    left: 43%;
+    color: #2596f1;
+    background-color: black;
+    z-index: 1;
+    padding: 10px;
+}

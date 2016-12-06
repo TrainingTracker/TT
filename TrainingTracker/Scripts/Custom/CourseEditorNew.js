@@ -15,8 +15,7 @@
             IsActive: true,
             IsEditInProgress: ko.observable(false),
             IsPublished: ko.observable(false),
-            CreatedOn: '',
-            IsEditInProgress: ko.observable(false)
+            CreatedOn: ''
 
         };
 
@@ -69,12 +68,22 @@
 
         var assignment = {
             Id: ko.observable(0),
+            CourseSubtopicId : 0,
             Name: ko.observable(''),
             Description: ko.observable(''),
+            AddedBy: 0,
+            IsActive: true,
+            CreatedOn: '',
+            IsSelected: ko.observable(false),
+            IsEditInProgress: ko.observable(false)
 
         }
 
         var dataToBeRefreshed = null;
+
+        var dataToAdd = null;
+
+        var selectedSubtopicId = ko.observable(0);
 
         var searchKeyword = ko.observable('');
 
@@ -107,6 +116,23 @@
             editorContent.SortOrder('');
             editorContent.HasSortOrder(false);
             editorContent.ContentType('');
+            editorContent.HasContent(false);
+        }
+
+        var resetCourse = function () {
+            course.Id(0);
+            course.Name('');
+            course.Description('');
+            course.Icon('DefaultCourse.jpg');
+            course.IconUrl = function () {
+                return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
+            };
+            course.AddedBy = 0;
+            course.IsActive = true;
+            course.IsEditInProgress(false);
+            course.IsPublished(false);
+            course.CreatedOn = '';
+            
         }
 
         var resetSubtopicsList = function () {
@@ -178,13 +204,14 @@
                 my.courseService.getCourseWithSubtopics(courseId, getCourseWithSubtopicsCallback);
             }
             else {
-                getAllCourses();
-                filteredCourseList.push({Name:'hi'});
-                ko.utils.arrayForEach(courseList(), function (item) {
-                        filteredCourseList.push(item);
-                });
+                course.IconUrl = function () {
+                    return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
+                };
+                
+                ko.applyBindings(my.courseEditorVm);
+                edit(course, 'course');
                 //For course Id undefined or 0 need to so some operation
-                alert(courseId);
+                
             }
         };
 
@@ -222,13 +249,16 @@
 
                     assignmentClone.Id(item.Id);
                     assignmentClone.Name(item.Name);
-                    assignmentClone.Description(item.Description),
+                    assignmentClone.Description(item.Description);
+                    assignmentClone.CourseSubtopicId = item.CourseSubtopicId;
+                    assignmentClone.AddedBy = item.AddedBy;
+                    assignmentClone.CreatedOn = item.CreatedOn;
 
                     assignmentsList.push(assignmentClone);
                 });
             }
             else {
-                alert('no assignmnet found');
+                alert('no assignment found');
             }
         }
 
@@ -308,36 +338,196 @@
             if (jsonData) {
                 dataToBeRefreshed.Name(editorContent.Name());
                 dataToBeRefreshed.Description(editorContent.Description());
-                if(editorContent.HasUrl()){
+                if (editorContent.HasUrl()) {
                     dataToBeRefreshed.Url(editorContent.Url());
                 }
                 alert('saved');
             }
+            else {
+                alert('error occured while in saving data');
+            }
         };
 
+        var addChangesCallback = function (jsonData) {
+            if (jsonData > 0)
+            {
+                editorContent.Id(jsonData);
+
+                if (editorContent.ContentType() == 'subtopic') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(subtopic));
+
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseId = dataToAdd.CourseId;
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
+
+                    dataToBeRefreshed = newData;
+                    subtopicsList.push(newData);
+                    selectedSubtopicId(jsonData);
+
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(subtopicContent));
+
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseSubtopicId = dataToAdd.CourseSubtopicId;
+                    newData.Url(dataToAdd.Url());
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
+
+                    dataToBeRefreshed = newData;
+                    subtopicContentsList.push(newData);
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(assignment));
+
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseSubtopicId = dataToAdd.CourseSubtopicId;
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
+
+                    dataToBeRefreshed = newData;
+                    assignmentsList.push(newData);
+
+                }
+                else if (editorContent.ContentType() == 'course') {
+                    course.Id(jsonData);
+                    course.Name(dataToAdd.Name());
+                    course.Description(dataToAdd.Description());
+                }
+            }
+            else {
+                alert('error occured while in saving data');
+            }
+        }
+
         var saveChanges = function () {
-            
+            if (validateEditorContents()) {
+
+                if (editorContent.ContentType() == 'course') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateCourse(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        my.courseService.addCourse(editorContent, addChangesCallback);
+                    }
+                }
+                else if (editorContent.ContentType() == 'subtopic') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateSubtopic(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        //  editorContent.CourseId = course.Id();
+                        my.courseService.addSubtopic(editorContent, addChangesCallback)
+                    }
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateSubtopicContent(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        //editorContent.CourseId = course.Id();
+                        //editorContent.CourseSubtopicId = selectedSubtopicId;
+                        my.courseService.addSubtopicContent(editorContent, addChangesCallback);
+                    }
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateAssignment(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        my.courseService.addAssignment(editorContent, addChangesCallback);
+                    }
+                }
+                else {
+                    alert('no content type matched');
+                }
+            }
+        }
+
+        var deleteCallback = function (jsonData) {
+            if (jsonData) {
+             
+                var indexOfItem = -1;
+                if (editorContent.ContentType() == 'course') {
+                    
+                    selectedSubtopicId(0);
+                    resetCourse();
+                    resetAssignmentsList();
+                    resetSubtopicContentsList();
+                    resetSubtopicsList();
+                }
+                else if (editorContent.ContentType() == 'subtopic') {
+                    selectedSubtopicId(0);
+                    resetAssignmentsList();
+                    resetSubtopicContentsList();
+                    ko.utils.arrayForEach(subtopicsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id())
+                        {
+                            indexOfItem = index;
+                        }
+                    });
+                    subtopicsList.splice(indexOfItem, 1);
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                   
+                    ko.utils.arrayForEach(subtopicContentsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id()) {
+                            indexOfItem = index;
+                        }
+                    });
+                    subtopicContentsList.splice(indexOfItem, 1);
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    ko.utils.arrayForEach(assignmentsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id()) {
+                            indexOfItem = index;
+                        }
+                    });
+                    assignmentsList.splice(indexOfItem, 1);
+                }
+                resetEditor();
+            }
+            else {
+                alert('server refuses to delete');
+            }
+
+        }
+
+        var deleteData = function () {
             if (editorContent.ContentType() == 'course') {
-                 my.courseService.updateCourse(editorContent, saveChangesCallback);
+                my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
+                
             }
             else if (editorContent.ContentType() == 'subtopic') {
-                my.courseService.updateSubtopic(editorContent, saveChangesCallback);
+                my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
             }
             else if (editorContent.ContentType() == 'subtopicContent') {
-                my.courseService.updateSubtopicContent(editorContent, saveChangesCallback);
+                my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
+            }
+            else if (editorContent.ContentType() == 'assignment') {
+                my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
             }
             else {
                 alert('no content type matched');
             }
+        
         }
 
         var edit = function (data, dataType) {
-            
             editorContent.ContentType(dataType);
 
             if (dataType == 'course') {
-
-                data = data.course;
+                if (data.course !== undefined) {
+                    data = data.course;
+                }
+                
                 editorContent.HasIcon(true);
                 editorContent.Icon(data.Icon());
                 editorContent.IconUrl = function () {
@@ -346,12 +536,21 @@
                 editorContent.HasUrl(false);
                 editorContent.HasSortOrder(false);
 
+                selectedSubtopicId(0);
                 unselectListItems(subtopicsList);
                 unselectListItems(subtopicContentsList);
             }
             else if (dataType == 'subtopic') {
-                
-                editorContent.CourseId = data.CourseId;
+                if (data.Id() == 0) {
+                    resetSubtopicContentsList();
+                }
+                selectedSubtopicId(data.Id());
+                if (data.CourseId > 0) {
+                    editorContent.CourseId = data.CourseId;
+                }
+                else {
+                    editorContent.CourseId = course.Id();
+                }
                 editorContent.HasUrl(false);
                 editorContent.SortOrder(data.SortOrder());
                 editorContent.HasSortOrder(true);
@@ -359,13 +558,20 @@
 
                 if (data.hasOwnProperty('IsSelected')) {
                     unselectListItems(subtopicsList);
-                    data.IsSelected(true);
+                    unselectListItems(subtopicContentsList);
+                    
                 }
                 
             }
             else if (dataType == 'subtopicContent') {
 
-                editorContent.CourseSubtopicId = data.CourseSubtopicId;
+                if (data.CourseSubtopicId > 0) {
+                    editorContent.CourseSubtopicId = data.CourseSubtopicId;
+                }
+                else {
+                    editorContent.CourseSubtopicId = selectedSubtopicId();
+                }
+                
                 editorContent.SortOrder(data.SortOrder());
                 editorContent.HasSortOrder(true);
                 editorContent.HasIcon(false);
@@ -374,40 +580,90 @@
                 editorContent.Url(data.Url());
                 if (data.hasOwnProperty('IsSelected')) {
                     unselectListItems(subtopicContentsList);
-                    data.IsSelected(true);
+                    unselectListItems(assignmentsList);
                 }
+                
+            }
+            else if (dataType == 'assignment') {
+                if (data.SubtopicId > 0) {
+                    editorContent.CourseSubtopicId = data.SubtopicId;
+                }
+                else {
+                    editorContent.CourseSubtopicId = selectedSubtopicId();
+                }
+                editorContent.HasSortOrder(false);
+                editorContent.HasIcon(false);
+                editorContent.HasUrl(false);
+
+                unselectListItems(subtopicContentsList);
+                unselectListItems(assignmentsList);
                 
             }
 
             resetEditInProgressKeyOfListItems(subtopicsList);
             resetEditInProgressKeyOfListItems(subtopicContentsList);
+            resetEditInProgressKeyOfListItems(assignmentsList);
             course.IsEditInProgress(false);
-            data.IsEditInProgress(true);
+            
 
             editorContent.HasContent(true);
             editorContent.Id(data.Id());
             editorContent.Name(data.Name());
             editorContent.Description(data.Description());
-           
-            dataToBeRefreshed = data;
+            
+            if (data.Id() > 0) {
+                dataToBeRefreshed = data;
+                data.IsEditInProgress(true);
+                if (data.hasOwnProperty('IsSelected')) { 
+                    data.IsSelected(true);
+                }
+                dataToAdd = null;
+            }
+            else {
+                dataToAdd = editorContent;
+                dataToBeRefreshed = null;
+            }
 
         };
 
+        var validateEditorContents = function () {
+            if (editorContent.Name() == '') {
+                alert('Heading cannot be empty');
+                return false;
+            }
+            else if (editorContent.HasUrl())
+            {   
+                var urlRegExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+                if (editorContent.Url() !== '' && !urlRegExp.test(editorContent.Url()))
+                {
+                    alert('enter proper url');
+                    return false;
+                }
+            }
+            return true;
+           
+        }
         return {
             course: course,
+            subtopic: subtopic,
+            subtopicContent: subtopicContent,
+            assignment: assignment,
             subtopicsList: subtopicsList,
             subtopicContentsList: subtopicContentsList,
+            selectedSubtopicId : selectedSubtopicId,
             assignmentsList : assignmentsList,
             editorContent: editorContent,
             searchKeyword: searchKeyword,
             filteredCourseList: filteredCourseList,
             courseSearchHasFocus: courseSearchHasFocus,
             courseList: courseList,
+            dataToBeRefreshed : dataToBeRefreshed,
 
             navigateToAnotherCourse: navigateToAnotherCourse,
             uploadImage : uploadImage,
             edit: edit,
-            saveChanges : saveChanges,
+            saveChanges: saveChanges,
+            deleteData : deleteData,
             getAssignments : getAssignments,
             getSubtopicContents : getSubtopicContents,
             getCourseWithSubtopics: getCourseWithSubtopics,

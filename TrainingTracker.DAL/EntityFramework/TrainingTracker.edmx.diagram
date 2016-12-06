@@ -86,7 +86,7 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_User" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="1.0894572777158846" PointY="8.7594636719485113" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="5.7353958029930459" PointY="24.344541426908478" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" />
         </Diagram>

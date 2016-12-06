@@ -428,7 +428,7 @@ namespace TrainingTracker.DAL.DataAccess
                     context.Assignments.Add(newEntity);
                     context.SaveChanges();
                     id = newEntity.Id;
-                    AddAssignmentSubtopicMapping(id, dataToAdd.SubtopicId);
+                    AddAssignmentSubtopicMapping(id, dataToAdd.CourseSubtopicId);
                     return true;
                 }
             }
@@ -527,7 +527,7 @@ namespace TrainingTracker.DAL.DataAccess
                                 AddedBy = a.AddedBy,
                                 CreatedOn = a.CreatedOn,
                                 IsActive = a.IsActive,
-                                SubtopicId = s.SubtopicId
+                                CourseSubtopicId = s.SubtopicId
                             }).ToList(); 
 
                     return entity;
