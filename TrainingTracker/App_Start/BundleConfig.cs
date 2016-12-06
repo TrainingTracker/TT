@@ -91,6 +91,8 @@ namespace TrainingTracker
             bundles.Add(new ScriptBundle("~/bundles/CourseEditorNewViewScripts").Include(
                 "~/Scripts/ko.mapping.js",
                "~/Scripts/ckeditor/ckeditor.js",
+               "~/Scripts/jquery-ui.js",
+               "~/Scripts/knockout-sortable.js",
                "~/Scripts/Custom/CourseService.js",
                 "~/Scripts/Custom/CourseEditorNew.js"
                 

@@ -71,7 +71,15 @@
         
         filterCourses : function(searchKeyword, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/FilterCourses?searchKeyword=" + searchKeyword, null, callback);
-        }
+        },
+
+        saveSubtopicOrder: function (data, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/SaveSubtopicOrder", data, callback);
+        },
+
+        saveSubtopicContentOrder: function (data, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/SaveSubtopicContentOrder", data, callback);
+        },
 
 
     };

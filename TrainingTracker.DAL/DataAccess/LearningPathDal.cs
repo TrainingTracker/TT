@@ -166,6 +166,8 @@ namespace TrainingTracker.DAL.DataAccess
 
                                                                                       })
                                                                         .ToList()
+                                                                        .OrderBy(x => x.SortOrder)
+                                                                        .ToList()
 
                                                 })
                                     .FirstOrDefault();
@@ -319,7 +321,8 @@ namespace TrainingTracker.DAL.DataAccess
                                         AddedBy = s.AddedBy,
                                         SortOrder = s.SortOrder
 
-                                    }).ToList();
+                                    }).OrderBy(x => x.SortOrder)
+                                    .ToList();
                 }
             }
             catch (Exception ex)
@@ -528,7 +531,7 @@ namespace TrainingTracker.DAL.DataAccess
                                 CreatedOn = a.CreatedOn,
                                 IsActive = a.IsActive,
                                 CourseSubtopicId = s.SubtopicId
-                            }).ToList(); 
+                            }).ToList().Where(x => x.IsActive).ToList(); 
 
                     return entity;
                 }
@@ -539,6 +542,54 @@ namespace TrainingTracker.DAL.DataAccess
                 return null;
             }
         }
-   
+
+
+        public bool SaveSubtopicOrder(List<CourseSubtopic> data)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    data.ForEach(x =>
+                    {
+                        var entity = context.CourseSubtopics.Find(x.Id);
+                        entity.SortOrder = x.SortOrder;
+                        context.SaveChanges();
+                    }
+                    );
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
+
+        public bool SaveSubtopicContentOrder(List<SubtopicContent> data)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    data.ForEach(x =>
+                    {
+                        var entity = context.SubtopicContents.Find(x.Id);
+                        entity.SortOrder = x.SortOrder;
+                        context.SaveChanges();
+                    }
+                    );
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
     }
 }

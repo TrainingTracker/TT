@@ -35,7 +35,8 @@ namespace TrainingTracker.DAL.Interface
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
         Course GetCourseWithSubtopics(int courseId);
         
-        
+        bool SaveSubtopicOrder(List<CourseSubtopic> data);
+        bool SaveSubtopicContentOrder(List<SubtopicContent> data);
         
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using TrainingTracker.Authorize;
 using TrainingTracker.BLL;
 using TrainingTracker.Common.Constants;
@@ -10,17 +11,16 @@ using TrainingTracker.Common.Utility;
 
 namespace TrainingTracker.Controllers
 {
-     [CustomAuthorizeAttribute]
+    [CustomAuthorizeAttribute]
+    [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
     public class LearningPathController : Controller
     {
         
-         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
          public ActionResult CourseEditor()
          {
              return View();
          }
 
-         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
          public ActionResult CourseEditorNew()
          {
              return View();
@@ -34,7 +34,6 @@ namespace TrainingTracker.Controllers
 
 
          [HttpPost]
-         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
          public JsonResult AddCourse(Course courseToAdd)
          {
              //ToDo: Find a better way to fetch loged in user id
@@ -153,11 +152,21 @@ namespace TrainingTracker.Controllers
              return Json(new LearningPathBL().GetAssignments(subtopicContentId), JsonRequestBehavior.AllowGet);
          }
 
+         public JsonResult SaveSubtopicOrder(List<CourseSubtopic> data) {
+
+             return Json(new LearningPathBL().SaveSubtopicOrder(data), JsonRequestBehavior.AllowGet);
+         }
+
+         public JsonResult SaveSubtopicContentOrder(List<SubtopicContent> data) {
+
+            return Json(new LearningPathBL().SaveSubtopicContentOrder(data), JsonRequestBehavior.AllowGet);
+         }
          /// <summary>
          /// Request Handler for fetching and filtering courses
          /// </summary>
          /// <param name="searchKeyword">search keyword for free text</param>
          /// <returns>json result for courses set</returns>
+         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
          public JsonResult FilterCourses(string searchKeyword)
          {
              return Json(new LearningPathBL().FilterCourses(searchKeyword) , JsonRequestBehavior.AllowGet);

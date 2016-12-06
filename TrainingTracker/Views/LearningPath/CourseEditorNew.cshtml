@@ -24,9 +24,11 @@
         </div>
         <hr/>
         <br/>
+        
+        <span class="save-order" data-bind="click: function () { $root.saveOrder('subtopic'); }, visible: course.Id() > 0 && subtopicsList().length > 1 && IsTopicOrderChanged()">save order</span>
         <span data-bind="click: function () { $root.edit($root.subtopic, 'subtopic')}, visible: course.Id() > 0" class="pull-right add-topic"><i class="fa fa-plus" aria-hidden="true"> Add Topic</i></span>
 
-        <ul data-bind="foreach: subtopicsList">
+        <ul data-bind="sortable: subtopicsList">
             <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }" >
                 <span data-bind="text: Name()"></span>
                 <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
@@ -44,8 +46,8 @@
     </div>
     
     <div class="col-sm-6  middle-panel" >
-        @*<div id="message-div">
-            Hi new topic Added.
+       @* <div id="message-div" data-bind="showMessage: message">
+            
         </div>*@
 
         <div class="no-contents" data-bind="visible : ! editorContent.HasContent()"><h2> No Content is Selected to Edit...</h2></div>
@@ -96,10 +98,13 @@
     <div class="col-sm-3 right-panel">
         
         <div id="subtopic-content" >
-            <h4 class="header">Subtopic Contents</h4>
+            <h4 class="header">Links</h4>
+
+            <span class='save-order' data-bind="click: function () { $root.saveOrder('subtopicContent'); },  visible: $root.selectedSubtopicId() > 0 && $root.subtopicContentsList().length > 1 && IsSubtopicContentOrderChanged()">save order</span>
+            
             <span data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); }, visible: $root.selectedSubtopicId() > 0" class="pull-right add-subtopic-content"><i class="fa fa-plus" aria-hidden="true"> Add Content</i></span>
-            <p data-bind="visible: subtopicContentsList().length == 0">No Contents found </p>
-            <ul data-bind="foreach: subtopicContentsList">
+            <p data-bind="visible: subtopicContentsList().length == 0">No Links found </p>
+            <ul data-bind="sortable: subtopicContentsList">
                 <li data-bind=" click: function () { $root.edit($data, 'subtopicContent'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
                     <span data-bind="text: Name()"></span>
                     <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>

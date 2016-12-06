@@ -78,10 +78,13 @@
             IsEditInProgress: ko.observable(false)
 
         }
-
+        
         var dataToBeRefreshed = null;
 
         var dataToAdd = null;
+
+        var IsTopicOrderChanged = ko.observable(false);
+        var IsSubtopicContentOrderChanged = ko.observable(false);
 
         var selectedSubtopicId = ko.observable(0);
 
@@ -191,6 +194,8 @@
 
                     subtopicsList.push(subtopicClone);
                 });
+                IsSubtopicContentOrderChanged(false);
+                IsTopicOrderChanged(false);
             }
             else {
                 alert('no courses found');
@@ -200,6 +205,7 @@
         };
 
         var getCourseWithSubtopics = function () {
+            
             if (courseId > 0) {
                 my.courseService.getCourseWithSubtopics(courseId, getCourseWithSubtopicsCallback);
             }
@@ -215,6 +221,34 @@
             }
         };
 
+        var saveOrderCallback = function (jsonData) {
+            if (jsonData) {
+                alert('reordered');
+            }
+            else {
+                alert('error');
+            }
+        }
+        var saveOrder = function (type) {
+            var sortedList = [];
+            if (type == 'subtopic') {
+                ko.utils.arrayForEach(subtopicsList(), function (item, index) {
+                    item.SortOrder(index + 1);
+                    sortedList.push({ id: item.Id(), SortOrder: item.SortOrder() });
+                });
+                my.courseService.saveSubtopicOrder(sortedList, saveOrderCallback);
+                IsTopicOrderChanged(false);
+            }
+            else if (type == 'subtopicContent') {
+                ko.utils.arrayForEach(subtopicContentsList(), function (item, index) {
+                    item.SortOrder(index + 1);
+                    sortedList.push({ id: item.Id(), SortOrder: item.SortOrder() });
+                    });
+                my.courseService.saveSubtopicContentOrder(sortedList, saveOrderCallback);
+                IsSubtopicContentOrderChanged(false);
+            }
+            
+        }
 
         var uploadImageCallback = function (jsonData) {
             if (!my.isNullorEmpty(jsonData)) {
@@ -268,6 +302,7 @@
 
         var getSubtopicContentsCallback = function (jsonData) {
             if (jsonData !== null) {
+
                 resetSubtopicContentsList();
 
                 ko.utils.arrayForEach(jsonData, function (item, index) {
@@ -283,6 +318,7 @@
                     content.SortOrder(item.SortOrder);
 
                     subtopicContentsList.push(content);
+                    IsSubtopicContentOrderChanged(false);
                 });
             }
             else {
@@ -368,6 +404,7 @@
 
                     dataToBeRefreshed = newData;
                     subtopicsList.push(newData);
+                    IsTopicOrderChanged(false);
                     selectedSubtopicId(jsonData);
 
                 }
@@ -384,6 +421,7 @@
 
                     dataToBeRefreshed = newData;
                     subtopicContentsList.push(newData);
+                    IsSubtopicContentOrderChanged(false);
                 }
                 else if (editorContent.ContentType() == 'assignment') {
                     var newData = ko.mapping.fromJS(ko.mapping.toJS(assignment));
@@ -478,6 +516,7 @@
                         }
                     });
                     subtopicsList.splice(indexOfItem, 1);
+                    IsTopicOrderChanged(false);
                 }
                 else if (editorContent.ContentType() == 'subtopicContent') {
                    
@@ -487,6 +526,7 @@
                         }
                     });
                     subtopicContentsList.splice(indexOfItem, 1);
+                    IsSubtopicContentOrderChanged(false);
                 }
                 else if (editorContent.ContentType() == 'assignment') {
                     ko.utils.arrayForEach(assignmentsList(), function (item, index) {
@@ -647,6 +687,7 @@
             return true;
            
         }
+
         return {
             course: course,
             subtopic: subtopic,
@@ -661,8 +702,11 @@
             filteredCourseList: filteredCourseList,
             courseSearchHasFocus: courseSearchHasFocus,
             courseList: courseList,
-            dataToBeRefreshed : dataToBeRefreshed,
+            dataToBeRefreshed: dataToBeRefreshed,
+            IsTopicOrderChanged: IsTopicOrderChanged,
+            IsSubtopicContentOrderChanged: IsSubtopicContentOrderChanged,
 
+            saveOrder : saveOrder,
             navigateToAnotherCourse: navigateToAnotherCourse,
             uploadImage : uploadImage,
             edit: edit,
@@ -679,5 +723,13 @@
     my.courseEditorVm.getCourseWithSubtopics();
     my.courseEditorVm.searchKeyword.subscribe(function () {
         my.courseEditorVm.getFilteredCourses();
+    });
+    my.courseEditorVm.subtopicsList.subscribe(function () {
+        my.courseEditorVm.IsTopicOrderChanged(true);
+        
+    });
+    my.courseEditorVm.subtopicContentsList.subscribe(function () {
+        my.courseEditorVm.IsSubtopicContentOrderChanged(true);
+        
     });
 });

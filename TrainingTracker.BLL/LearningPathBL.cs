@@ -131,5 +131,15 @@ namespace TrainingTracker.BLL
         {
             return LearningPathDataAccessor.GetAssignments(subtopicContentId);
         }
+
+        public bool SaveSubtopicOrder(List<CourseSubtopic> data) 
+        {
+            return LearningPathDataAccessor.SaveSubtopicOrder(data);
+        }
+
+        public bool SaveSubtopicContentOrder(List<SubtopicContent> data)
+        {
+            return LearningPathDataAccessor.SaveSubtopicContentOrder(data);
+        }
     }
 }
