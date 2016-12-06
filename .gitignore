@@ -11,6 +11,7 @@ _ReSharper.*
 bin
 obj
 packages
+TrainingTracker/ErrorLogs
 
 TrainingTracker.DAL/App.Config
 TrainingTracker/Web.config
