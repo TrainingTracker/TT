@@ -518,4 +518,14 @@ li.selected-subtopic, li.selected-content
           background-color: #2596F1;
      }
    
-  
+    div#divTopicHeader.course-in-edit:before {
+    left: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 100%;
+    
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #2596F1;
+    border-width: 32px;
+    
+}

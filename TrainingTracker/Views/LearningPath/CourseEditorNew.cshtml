@@ -26,14 +26,14 @@
             <div id="divTopicList" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
 
 
-                <ul lass="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
-                    <li>
+                <ul  data-bind="sortable: subtopicsList " class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
+                    @*<li>
                         <span data-bind="click: function () { $root.edit($root.subtopic, 'subtopic') }, visible: course.Id() > 0" class=" add-topic">
                             <i class="fa fa-plus" aria-hidden="true">Add New Topic</i>
                         </span>
-                    </li>
+                    </li>*@
 
-                    <!-- ko foreach: subtopicsList -->
+ 
                     <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
                         <span class="pull-right">
@@ -41,7 +41,7 @@
                             <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
                         </span>
                     </li>
-                    <!-- /ko -->
+
                 </ul>
             </div>
 
