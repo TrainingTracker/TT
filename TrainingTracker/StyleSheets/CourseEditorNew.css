@@ -232,10 +232,17 @@
     cursor:pointer;
 }
 
-.middle-panel > .no-contents > h2 {
+ .no-contents {
+     height: 100%;
+     width: 100%;
+     display: table;
+ }
+
+ .no-contents > h2 {
+    display: table-cell;
+    vertical-align: middle;
     text-align: center;
-    color: #999;
-    margin-top: 30%;
+    color: #ccc;
 }
 .save-editor-content {
     color:#4fc3f7;
