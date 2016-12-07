@@ -44,10 +44,7 @@
     -ms-animation-timing-function: linear;
 }
 
-.editor-page {
-    margin: -20px -15px;
-    padding: 0px;
-}
+
 .left-panel {
     background-color: #192940;
     height: 90vh;
@@ -208,11 +205,11 @@
     display:none;
 }
 #course-icon-upload-form {
-    border: 2px solid #d1d1d1;
-    height: 150px;
-    margin-top: 50px;
-    width:60%;
-    margin-bottom: 15px;
+       border: 2px solid #d1d1d1;
+    /* height: 150px; */
+    margin-left: 15px;
+    width: 80%;
+    /* margin-bottom: 15px; */
 }
 #course-icon-upload-form  img {
     width:140px;
@@ -355,12 +352,163 @@
     padding: 10px;
 }
 
-.notifyjs-happyblue-base {
-  white-space: nowrap;
-  background-color: lightblue;
-  padding: 5px;
+#divTopicHeader {
+    height: 10%;
+    cursor: pointer;
 }
-.notifyjs-happyblue-superblue {
-  color: white;
-  background-color: blue;
+
+#divTopicList {
+    height: 84%;
+    overflow-y: auto;
 }
+
+ #divTopicSearch {
+     padding: 1%;
+     height: 5%;
+ }
+
+ #divTopicSearch input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font-size: 14px;
+    border-radius: 0;
+    border: 2px;
+ }
+
+#divTopicSearch .input-group-addon {
+       /* padding: 20px; */
+    font-size: 14px;
+    height: 98%;
+    width: 20%;
+    color: #ffffff;
+    border-radius: 0;
+    border: 2px solid #e62020;
+    cursor: pointer;
+    background-color: red;
+}
+
+#divSearchTopicList {
+        position: absolute;
+    bottom: 6%;
+    left: 2%;
+    width: 96%;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent ul{
+     padding: 3%;
+}
+
+div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtopicContent ul li {
+    list-style: none;
+    padding: 2% 13px;
+    transition: background-color .25s ease;
+    cursor: pointer;
+    margin: 2px;
+}
+
+div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul li:hover,#divSubtopicContent ul li:hover {
+    background-color: #2596F1;
+}
+
+
+div#divTopicList ul li:nth-child(1),#divAssignment ul li:nth-child(1),#divSubtopicContent ul li:nth-child(1) {
+     background-color: red;
+     text-align: center;
+}
+#divSearchTopicList ul{
+    background: red;
+    margin: 0;
+}
+    
+div#divTopicList ul li:after,#divSearchTopicList ul li:after 
+{
+       content: "";
+    /*border: 0.5px solid #ccc;*/
+    position: relative;
+    display: block;
+    bottom: -26%;
+    /* width: 90%; */
+    /*height: 1;*/
+    /* right: 100%; */
+}
+
+li.selected-subtopic, li.selected-content
+{
+    background-color: #2596F1;
+}
+
+#divTopicHeader:after {
+        content: "";
+    border: 0.5px solid #ccc;
+    position: absolute;
+    display: block;
+    bottom: 0;
+    width: 90%;
+    right: 5%;
+}
+
+.layout-right-panel > div {
+    height: 50%;
+}
+
+
+.layout-right-panel > div .sub-panel-header {
+    height: 10%;
+    text-align: center;
+}
+
+.layout-right-panel > div .sub-panel-header:after {
+    content: "";
+    border: 0.5px solid #ccc;
+    position: relative;
+    display: block;
+    top: 25%;
+    width: 90%;
+    left: 5%;
+}
+
+#divSubtopicContent {
+    border-bottom: 1px solid #fff;
+}
+
+.sub-panel-header span {
+    vertical-align: middle;
+}
+
+#divEditorButtonSection .btn {
+        padding: 3px;
+}
+   #divEditorButtonSection {
+       padding: 2%;
+   } 
+
+   #divEditorButtonSection .btn i {
+        padding: 3px;
+       margin-top: 2px;
+}
+
+   #divTopicHeader > div {
+     
+       height: 100%;
+   }
+
+    #divTopicHeader > div > div {
+       display: table;
+       height: 100%;
+   }
+
+     #divTopicHeader > div > div >span{
+       display: table-cell;
+         vertical-align: middle;
+   }
+
+     #divTopicHeader.course-in-edit,#divTopicHeader:hover
+     {
+         cursor: pointer;
+         transition: background-color .25s ease;
+          background-color: #2596F1;
+     }
+   
+  
