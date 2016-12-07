@@ -141,5 +141,10 @@ namespace TrainingTracker.BLL
         {
             return LearningPathDataAccessor.SaveSubtopicContentOrder(data);
         }
+
+        public bool PublishCourse(int id) {
+
+            return LearningPathDataAccessor.PublishCourse(id);
+        }
     }
 }

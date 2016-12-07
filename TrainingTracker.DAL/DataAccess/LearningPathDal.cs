@@ -591,5 +591,27 @@ namespace TrainingTracker.DAL.DataAccess
                 return false;
             }
         }
+
+        public bool PublishCourse(int id)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var course = context.Courses.Find(id);
+                    if (course != null) {
+                        course.IsPublished = true;
+                        context.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
     }
 }

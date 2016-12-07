@@ -37,6 +37,7 @@ namespace TrainingTracker.DAL.Interface
         
         bool SaveSubtopicOrder(List<CourseSubtopic> data);
         bool SaveSubtopicContentOrder(List<SubtopicContent> data);
+        bool PublishCourse(int id);
         
     }
 }

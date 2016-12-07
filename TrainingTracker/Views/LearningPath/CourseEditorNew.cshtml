@@ -19,21 +19,20 @@
                             <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i> 
                         </span>   
                     </div>
-
-                    <span class="col-xs-6 col-xs-offset-6 label label-info" data-bind="visible: !course.IsPublished()">Publish</span>
                 </div>
             </div>
             <div id="divTopicList" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
 
+                <div data-bind="click: function () { $root.edit($root.subtopic, 'subtopic') }, visible: course.Id() > 0">
+                    <span>
+                        <i class="fa fa-plus" aria-hidden="true">Add New Topic</i>
+                    </span>
+                </div>
+                <div data-bind="click: function () { $root.saveOrder('subtopic'); }, visible: course.Id() > 0 && subtopicsList().length > 1 && IsTopicOrderChanged()">
+                    save order
+                </div>
 
                 <ul  data-bind="sortable: subtopicsList " class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
-                    @*<li>
-                        <span data-bind="click: function () { $root.edit($root.subtopic, 'subtopic') }, visible: course.Id() > 0" class=" add-topic">
-                            <i class="fa fa-plus" aria-hidden="true">Add New Topic</i>
-                        </span>
-                    </li>*@
-
- 
                     <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
                         <span class="pull-right">
@@ -69,7 +68,7 @@
             </div>
             
             <div class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right " data-bind="visible: editorContent.HasContent()">
-                <div id="divEditorButtonSection" class="col-xs-4 col-xs-offset-8 no-padding-left no-padding-right  no-margin-right">
+                <div id="divEditorButtonSection" class="col-xs-6 col-xs-offset-6 no-padding-left no-padding-right  no-margin-right">
                     <button class=" btn btn-success" data-bind="click: $root.saveChanges">
                         <span data-bind="text: editorContent.Id() > 0 ? 'Save Changes' : 'Save '" ></span>
                         <i class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></i>
@@ -77,6 +76,10 @@
                     <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
                         <span> Delete </span>
                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                    </button>  
+                    <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished()" class="btn btn-primary">
+                        <span> Publish </span>
+                        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
                     </button>                   
                 </div>
              
@@ -123,15 +126,21 @@
 
             <div id="divSubtopicContent">
                 <div class="sub-panel-header">
-                    <span class="">Subtopic Contents</span>
+                    <span class="">Links</span>
                 </div>
-                <ul>
-                    <li data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); }">
-                        <span  class=" add-subtopic-content">
-                            <i class="fa fa-plus" aria-hidden="true">Add New Subtopic</i>
-                        </span>
-                    </li>
-                    <!-- ko foreach: subtopicContentsList -->
+                
+                <div data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); }">
+                    <span>
+                        <i class="fa fa-plus" aria-hidden="true">Add New Link</i>
+                    </span>
+                </div>
+
+                <div data-bind="click: function () { $root.saveOrder('subtopicContent'); }, visible: $root.selectedSubtopicId() > 0 && $root.subtopicContentsList().length > 1 && IsSubtopicContentOrderChanged()">
+                    save order
+                </div>
+
+                <ul data-bind="sortable: subtopicContentsList ">
+                    
                     <li data-bind=" click: function () { $root.edit($data, 'subtopicContent'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
                        
@@ -140,7 +149,7 @@
                             <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
                         </span>
                     </li>
-                    <!-- /ko -->
+                    
                 </ul>
             </div>
             <div id="divAssignment">

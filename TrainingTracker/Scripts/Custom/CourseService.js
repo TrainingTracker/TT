@@ -81,6 +81,9 @@
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/SaveSubtopicContentOrder", data, callback);
         },
 
+        publishCourse: function (id, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/PublishCourse?id=" + id, null, callback);
+        }
 
     };
 }(my));

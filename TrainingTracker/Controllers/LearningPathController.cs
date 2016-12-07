@@ -161,6 +161,11 @@ namespace TrainingTracker.Controllers
 
             return Json(new LearningPathBL().SaveSubtopicContentOrder(data), JsonRequestBehavior.AllowGet);
          }
+
+         public JsonResult PublishCourse(int id) { 
+
+            return Json(new LearningPathBL().PublishCourse(id), JsonRequestBehavior.AllowGet);
+         }
          /// <summary>
          /// Request Handler for fetching and filtering courses
          /// </summary>
