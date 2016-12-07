@@ -565,6 +565,28 @@
         }
 
         var edit = function (data, dataType) {
+            $.notify.addStyle('test', {
+                html: "<div data-notify-text /div>",
+                classes: {
+                    base: {
+                        "white-space": "nowrap",
+                        "background-color": "red"
+                    },
+                    superblack: {
+                        "color": "black",
+                        "background-color": "green",
+                        "padding": "5px 15px",
+                        "position" : "fixed",
+                        "top": "0px",
+                        "left": "45%"
+                        
+                    }
+                }
+            });
+            $.notify("Access granted", {
+                style: 'test', className: 'superblack'
+            });
+
             editorContent.ContentType(dataType);
 
             if (dataType == 'course') {

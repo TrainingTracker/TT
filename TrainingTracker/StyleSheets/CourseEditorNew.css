@@ -354,3 +354,13 @@
     z-index: 1;
     padding: 10px;
 }
+
+.notifyjs-happyblue-base {
+  white-space: nowrap;
+  background-color: lightblue;
+  padding: 5px;
+}
+.notifyjs-happyblue-superblue {
+  color: white;
+  background-color: blue;
+}
