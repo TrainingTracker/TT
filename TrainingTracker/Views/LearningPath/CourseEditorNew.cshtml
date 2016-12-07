@@ -129,7 +129,7 @@
                     <span class="">Links</span>
                 </div>
                 
-                <div data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); }">
+                <div data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); },  visible: $root.selectedSubtopicId() > 0">
                     <span>
                         <i class="fa fa-plus" aria-hidden="true">Add New Link</i>
                     </span>
@@ -156,9 +156,8 @@
                 <div class="sub-panel-header">
                     <span class="">Assignments</span>
                 </div>
-
                 <ul>
-                    <li data-bind="click: function () { $root.edit($root.assignment, 'assignment'); }">
+                    <li data-bind="click: function () { $root.edit($root.assignment, 'assignment'); }, visible: $root.selectedSubtopicId() > 0">
                         <span  class=" add-subtopic-content">
                             <i class="fa fa-plus" aria-hidden="true">Add New Assignment</i>
                         </span>

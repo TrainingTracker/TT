@@ -404,9 +404,14 @@
     width: 96%;
     border: 1px solid #fff;
     border-radius: 4px;
+    max-height:50%;
 }
 div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent ul{
      padding: 3%;
+}
+#divSearchTopicList ul {
+    max-height:100%;
+    overflow:auto;
 }
 div#divTopicList ul {
     overflow:auto;
@@ -422,6 +427,7 @@ div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtop
     transition: background-color .25s ease;
     cursor: pointer;
     margin: 2px;
+    
 }
 
 div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul li:hover,#divSubtopicContent ul li:hover {

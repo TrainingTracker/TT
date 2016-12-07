@@ -19,7 +19,7 @@
         };
 
         var navigateToCourse = function(courseId) {
-            window.location.href = my.rootUrl + 'CourseEditorNew?courseId=' + courseId;
+            window.location.href = my.rootUrl + '/LearningPath/CourseEditorNew?courseId=' + courseId;
         };
         
         return {

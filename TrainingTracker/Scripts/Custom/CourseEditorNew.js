@@ -633,7 +633,6 @@
         }
 
         var edit = function (data, dataType) {
-            
            
 
             editorContent.ContentType(dataType);
