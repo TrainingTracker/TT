@@ -358,22 +358,28 @@
     z-index: 1;
     padding: 10px;
 }
-
+.ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
 
 
 #divTopicHeader {
-    height: 10%;
+    height: 25%;
     cursor: pointer;
+    background-color: #194a71;
+    padding-bottom: 10%;
+    padding-top:10%;
 }
 
 #divTopicList {
-    height: 84%;
-    overflow-y: auto;
+    height: 69%;
 }
 
  #divTopicSearch {
-     padding: 1%;
-     height: 5%;
+     padding-top: 1%;
+    height: 6%;
  }
 
  #divTopicSearch input {
@@ -392,9 +398,9 @@
     width: 20%;
     color: #ffffff;
     border-radius: 0;
-    border: 2px solid #e62020;
+    border: 2px solid #194a71;
     cursor: pointer;
-    background-color: red;
+    background-color: #194a71;
 }
 
 #divSearchTopicList {
@@ -402,8 +408,7 @@
     bottom: 6%;
     left: 2%;
     width: 96%;
-    border: 1px solid #fff;
-    border-radius: 4px;
+    border: 1px solid #9d9d9d;
     max-height:50%;
 }
 div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent ul{
@@ -415,11 +420,13 @@ div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent
 }
 div#divTopicList ul {
     overflow:auto;
-    height:80%;
+    height:90%;
+    padding-top:12%;
 }
 #divAssignment ul, #divSubtopicContent ul {
-    height:60%;
+    height:68%;
     overflow:auto;
+    padding-top: 4%;
 }
 div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtopicContent ul li {
     list-style: none;
@@ -427,15 +434,23 @@ div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtop
     transition: background-color .25s ease;
     cursor: pointer;
     margin: 2px;
+
+     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
     
 }
 
 div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul li:hover,#divSubtopicContent ul li:hover {
     background-color: #2596F1;
+    
+}
+#divAssignment ul li:hover, #divSubtopicContent ul li:hover {
+    color:white;
 }
 
 #divTopicList > div:first-child {
-    background-color: red;
+    background-color: #DC4749;
     text-align: center;
     padding: 5px;
     width: 90%;
@@ -452,12 +467,24 @@ div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul l
     color: white;
 }
 
-#divAssignment ul li:nth-child(1){
-     background-color: red;
-     text-align: center;
+/*#divAssignment ul li:nth-child(1){
+    background-color: #194a71;
+    text-align: center;
+    color: white;
+}*/
+
+#divAssignment > div:nth-child(2) {
+    background-color: #194a71;
+    text-align: center;
+    padding: 5px;
+    color: white;
+    width: 90%;
+    margin: 5% 5% 0%;
+    cursor: pointer;
 }
+
 #divSearchTopicList ul{
-    background: red;
+    background: #194a71;
     margin: 0;
 }
     
@@ -475,47 +502,59 @@ li.selected-subtopic, li.selected-content
 {
     background-color: #2596F1;
 }
+li.selected-content {
+    color:white;
+}
 
-#divTopicHeader:after {
+/*#divTopicHeader:after {
         content: "";
-    border: 0.5px solid #ccc;
+    border:0.5px solid #2596f1;
     position: absolute;
     display: block;
     bottom: 0;
     width: 90%;
     right: 5%;
+}*/
+.layout-right-panel {
+    background-color:white;
 }
-
 .layout-right-panel > div {
     height: 50%;
 }
 
 
 .layout-right-panel > div .sub-panel-header {
-    height: 10%;
+    height: 15%;
     text-align: center;
+    padding-top: 5%;
+    font-weight: 600;
+    background-color: #fafafa;
 }
 
-.layout-right-panel > div .sub-panel-header:after {
+.layout-middle-panel > div {
+    padding-left:7%;
+}
+/*.layout-right-panel > div .sub-panel-header:after {
     content: "";
-    border: 0.5px solid #ccc;
+    border: 0.5px solid #2596f1;
     position: relative;
     display: block;
     top: 25%;
-    width: 90%;
-    left: 5%;
-}
+    width: 100%;
+    left: 0;
+}*/
 
-#divSubtopicContent {
+/*#divSubtopicContent {
     border-bottom: 1px solid #fff;
-}
+}*/
 #divSubtopicContent > div:nth-child(2) {
-    background-color: red;
+    background-color: #194a71;
     text-align: center;
     padding: 5px;
+    color: white;
     width: 90%;
     margin: 5% 5% 0%;
-    cursor:pointer;
+    cursor: pointer;
 }
 #divSubtopicContent > div:nth-child(3) {
     background-color: #62cec4;
@@ -538,34 +577,65 @@ li.selected-subtopic, li.selected-content
        padding: 2%;
    } 
 
-   #divEditorButtonSection .btn i {
-        padding: 3px;
-       margin-top: 2px;
-}
+   #divEditorButtonSection button:first-child {
+    background-color: #2090b6;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 10px;
+    box-shadow: 3px 3px 5px black;
+    }
+    #divEditorButtonSection button:active {
+        transform:scale(.95,0.95);
+        box-shadow:none;
+    }
+    #divEditorButtonSection button:nth-child(2) {
+    background-color: #b63f20;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 10px;
+    box-shadow: 3px 3px 5px black;
+    }
 
-   #divTopicHeader > div {
+#divTopicHeader > div:first-child{
+    height: 80%;
+    padding-bottom: 0px;
+}
+#divTopicHeader > div:first-child> img {
+    max-height: 100%;
+    margin: auto;
+}
+#divTopicHeader  > div:nth-child(2) {
+    height: 20%;
+    text-align: center;
+}
+   /*#divTopicHeader > div {
      
        height: 100%;
-   }
+   }*/
 
     #divTopicHeader > div > div {
        display: table;
+       text-align:center;
        height: 100%;
    }
 
      #divTopicHeader > div > div >span{
        display: table-cell;
-         vertical-align: middle;
+       font-weight:600;
+       text-transform: uppercase;
+       vertical-align: middle;
    }
 
-     #divTopicHeader.course-in-edit,#divTopicHeader:hover
+     #divTopicHeader.course-in-edit/*,#divTopicHeader:hover*/
      {
          cursor: pointer;
          transition: background-color .25s ease;
           background-color: #2596F1;
      }
    
-    div#divTopicHeader.course-in-edit:before {
+    /*div#divTopicHeader.course-in-edit:before {
     left: 100%;
     border: solid transparent;
     content: " ";
@@ -573,6 +643,6 @@ li.selected-subtopic, li.selected-content
     position:absolute;
     border-color: rgba(136, 183, 213, 0);
     border-left-color: #2596F1;
-    border-width: 32px;
+    border-width: 30px;
     
-}
+}*/

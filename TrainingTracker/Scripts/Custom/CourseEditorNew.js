@@ -400,7 +400,6 @@
                     dataToBeRefreshed.Icon(editorContent.Icon());
                 }
                 $.notify("Changes saved", { style: 'customAlert', className: 'green' });
-                alert('saved');
             }
             else {
                 alert('error occured while in saving data');
