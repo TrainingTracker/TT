@@ -571,20 +571,22 @@ li.selected-content {
     vertical-align: middle;
 }
 
-.layout-middle-panel > div > div.editor-header {
-    padding-bottom:4%;
-}
+
 .layout-middle-panel > div > div.editor-header:after{
-    content:'';
-    height:0.5px;
-    color:#a5a5a5;
-    width:100%;
-    position:absolute;
+    content: '';
+    background-color: #e6e6e6;
+    margin-bottom: 1%;
+    height: 2px;
+    width: 98%;
+    bottom: 0;
+    left: 0%;
+    position: absolute;
 }
 
 #divBreadcrumb {
     padding-top: 3%;
     color: #A5A5A5;
+    cursor:pointer;
 }
 
 #divBreadcrumb > span:after {
