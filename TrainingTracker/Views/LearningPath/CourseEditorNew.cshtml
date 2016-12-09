@@ -5,13 +5,19 @@
 <div class="container-fluid editor-page">
     <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right layout-wrapper">
         <div class="col-xs-2 no-padding-left no-padding-right no-margin-left no-margin-right layout-section layout-left-panel">
-            <div id="divTopicHeader" class="row col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right" data-bind="css:{'course-in-edit':course.IsEditInProgress()}">
+            <div id="divTopicHeader" class="row col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right" data-bind="css: { 'course-in-edit': course.IsEditInProgress() }, click: function () { $root.edit($data, 'course'); }">
+                <div class="col-xs-12">
+                    <span>
+                        <i data-bind="visible: course.IsEditInProgress()" class="fa fa-gear rotate"></i>
+                        <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i> 
+                    </span> 
+                </div>
                 <div class="col-xs-12  no-margin-left no-margin-right ">
                     <img class="img-responsive" data-bind="attr: { src: course.IconUrl() }" alt="Image not found!" />
                 </div>
                 <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right">
                     <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right">
-                        <span class='course-heading' data-bind="text: course.Name() == '' ? 'New Course' : course.Name(), click: function () { $root.edit($data, 'course'); }"></span>
+                        <span class='course-heading' data-bind="text: course.Name() == '' ? 'New Course' : course.Name()"></span>
                     </div>
                     @*<div class="col-xs-2 no-margin-left no-margin-right no-padding-left no-padding-right">
                         <span>
@@ -21,6 +27,7 @@
                     </div>*@
                 </div>
             </div>
+           
             <div id="divTopicList" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
 
                 <div data-bind="click: function () { $root.edit($root.subtopic, 'subtopic') }, visible: course.Id() > 0">
@@ -51,8 +58,6 @@
                 </ul>
             </div>
 
-
-
             <div id="divTopicSearch" class="input-group col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
                 <input type="text" class="form-control" data-bind="textInput: searchKeyword, click: getFilteredCourses, hasFocus: courseSearchHasFocus" class="search-course" placeholder="Search Courses..." />
                 <span class="input-group-addon" data-bind="click: getFilteredCourses">
@@ -68,21 +73,26 @@
             </div>
             
             <div class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right " data-bind="visible: editorContent.HasContent()">
-                <div id="divEditorButtonSection" class="col-xs-6 col-xs-offset-6 no-padding-left no-padding-right  no-margin-right">
-                    <button class=" btn btn-success" data-bind="click: $root.saveChanges">
-                        <span data-bind="text: editorContent.Id() > 0 ? 'Save Changes' : 'Save '" ></span>
-                        <i class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></i>
-                    </button>
-                    <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
-                        <span> Delete </span>
-                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                    </button>  
-                    <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished()" class="btn btn-primary">
-                        <span> Publish </span>
-                        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
-                    </button>                   
+                <div class=" col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right editor-header">
+                    <div id="divBreadcrumb"  data-bind="foreach: $root.breadcrumb" class="col-xs-6 no-padding-left no-padding-right  no-margin-right">
+                        <span data-bind="click: function () { $root.edit($data, Type) }, text: Id() > 0 ? Name() : 'New'"></span>
+                    </div>
+                    <div id="divEditorButtonSection" class="col-xs-6 no-padding-left no-padding-right  no-margin-right">
+                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished()" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>                        
+                            <span> &nbsp;Publish</span>
+                        </button>  
+                        <button class=" btn btn-success" data-bind="click: $root.saveChanges">
+                            <i class="fa fa-floppy-o" aria-hidden="true" ></i>                        
+                            <span> &nbsp;Save</span>
+                        </button>
+                        <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>                        
+                            <span> &nbsp;Delete</span>
+                        </button>  
+                                         
+                    </div>
                 </div>
-             
                 <div class=" col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right form-group">
                     <span class="col-xs-10">Heading:</span>
                     <div class="col-xs-11">
@@ -105,7 +115,7 @@
                         </div>
                 </form>
 
-                <div class="col-xs-12 no-margin-right no-padding-left no-padding-right" data-bind="visible: editorContent.HasUrl()">
+                <div class="col-xs-12 no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.HasUrl()">
                     <span class="col-xs-10">Url:</span>
                     <div class="col-xs-11">
                         <input type="text" class="form-control" data-bind=" value: editorContent.Url" placeholder="Url" />

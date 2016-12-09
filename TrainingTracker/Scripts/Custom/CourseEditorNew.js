@@ -15,7 +15,8 @@
             IsActive: true,
             IsEditInProgress: ko.observable(false),
             IsPublished: ko.observable(false),
-            CreatedOn: ''
+            CreatedOn: '',
+            Type:'course'
 
         };
 
@@ -29,7 +30,8 @@
             CreatedOn: '',
             SortOrder: ko.observable(''),
             IsSelected: ko.observable(false),
-            IsEditInProgress: ko.observable(false)
+            IsEditInProgress: ko.observable(false),
+            Type:'subtopic'
         };
 
         var subtopicContent = {
@@ -43,7 +45,8 @@
             CreatedOn: '',
             SortOrder: ko.observable(''),
             IsSelected: ko.observable(false),
-            IsEditInProgress: ko.observable(false)
+            IsEditInProgress: ko.observable(false),
+            Type:'subtopicContent'
         }
 
         var editorContent = {
@@ -62,7 +65,8 @@
             SortOrder: ko.observable(''),
             HasSortOrder: ko.observable(false),
             HasContent: ko.observable(false),
-            ContentType : ko.observable('')
+            ContentType: ko.observable(''),
+            Type:'assignment'
 
         }
 
@@ -105,6 +109,8 @@
         var subtopicContentsList = ko.observableArray([]);
 
         var assignmentsList = ko.observableArray([]);
+
+        var breadcrumb = ko.observableArray([]);
 
         var courseId = my.queryParams["courseId"];
 
@@ -200,6 +206,8 @@
                 });
                 IsSubtopicContentOrderChanged(false);
                 IsTopicOrderChanged(false);
+                breadcrumb([]);
+                breadcrumb.push(course);
             }
             else {
                 alert('no courses found');
@@ -219,6 +227,8 @@
                     return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
                 };
                 
+                breadcrumb([]);
+                breadcrumb.push(course);
                 ko.applyBindings(my.courseEditorVm);
                 edit(course, 'course');
                 //For course Id undefined or 0 need to so some operation
@@ -632,15 +642,15 @@
         }
 
         var edit = function (data, dataType) {
-           
-
+            dataType = ko.toJS(dataType);
+            
             editorContent.ContentType(dataType);
 
             if (dataType == 'course') {
                 if (data.course !== undefined) {
                     data = data.course;
                 }
-                
+
                 editorContent.HasIcon(true);
                 editorContent.Icon(data.Icon());
                 editorContent.IconUrl = function () {
@@ -652,6 +662,9 @@
                 selectedSubtopicId(0);
                 unselectListItems(subtopicsList);
                 unselectListItems(subtopicContentsList);
+
+                breadcrumb([]);
+                breadcrumb.push(course);
             }
             else if (dataType == 'subtopic') {
                 if (data.Id() == 0) {
@@ -669,9 +682,14 @@
                 editorContent.HasSortOrder(true);
                 editorContent.HasIcon(false);
 
+                breadcrumb([]);
+                breadcrumb.push(course);
+                breadcrumb.push(data);
+
                 if (data.hasOwnProperty('IsSelected')) {
                     unselectListItems(subtopicsList);
                     unselectListItems(subtopicContentsList);
+                    unselectListItems(assignmentsList);
                     
                 }
                 
@@ -695,7 +713,9 @@
                     unselectListItems(subtopicContentsList);
                     unselectListItems(assignmentsList);
                 }
-                
+
+                breadcrumb.splice(2, 1);
+                breadcrumb.push(data);
             }
             else if (dataType == 'assignment') {
                 if (data.SubtopicId > 0) {
@@ -710,7 +730,9 @@
 
                 unselectListItems(subtopicContentsList);
                 unselectListItems(assignmentsList);
-                
+
+                breadcrumb.splice(2, 1);
+                breadcrumb.push(data);
             }
 
             resetEditInProgressKeyOfListItems(subtopicsList);
@@ -792,7 +814,8 @@
             getCourseWithSubtopics: getCourseWithSubtopics,
             getFilteredCourses: getFilteredCourses,
             getAllCourses: getAllCourses,
-            publishCourse: publishCourse
+            publishCourse: publishCourse,
+            breadcrumb : breadcrumb
         }
     }();
     

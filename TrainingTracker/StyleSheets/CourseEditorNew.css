@@ -6,12 +6,12 @@
 }
  
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px #f5f5f5; 
+    -webkit-box-shadow: inset 0 0 3px #62cec4; 
    
 }
  
 ::-webkit-scrollbar-thumb {
-    background-color:#f5f5f5;   
+    background-color:#62cec4;   
 }
 
 @-webkit-keyframes rotate
@@ -367,10 +367,10 @@
 
 #divTopicHeader {
     height: 25%;
-    cursor: pointer;
-    background-color: #194a71;
+    background-color: #1a2942;
     padding-bottom: 10%;
     padding-top:10%;
+    cursor:pointer;
 }
 
 #divTopicList {
@@ -420,8 +420,9 @@ div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent
 }
 div#divTopicList ul {
     overflow:auto;
-    height:90%;
-    padding-top:12%;
+    height: 80%;
+    bottom: 1%;
+    margin-top: 5%;
 }
 #divAssignment ul, #divSubtopicContent ul {
     height:68%;
@@ -570,43 +571,80 @@ li.selected-content {
     vertical-align: middle;
 }
 
-#divEditorButtonSection .btn {
-        padding: 3px;
+.layout-middle-panel > div > div.editor-header {
+    padding-bottom:4%;
+}
+.layout-middle-panel > div > div.editor-header:after{
+    content:'';
+    height:0.5px;
+    color:#a5a5a5;
+    width:100%;
+    position:absolute;
+}
+
+#divBreadcrumb {
+    padding-top: 3%;
+    color: #A5A5A5;
+}
+
+#divBreadcrumb > span:after {
+    content:'>';
+    padding:3%;
+}
+#divBreadcrumb > span:last-child {
+    color:#2596f1;
+}
+
+#divBreadcrumb > span:last-child:after {
+    content:'';
+}
+
+#divEditorButtonSection button {
+    border: none;
+    border-radius: 4px;
+    color: white;
+    width: 30%;
+    padding: 1% 0%;
+    margin: 1% 1%
 }
    #divEditorButtonSection {
        padding: 2%;
+       text-align:right;
    } 
 
    #divEditorButtonSection button:first-child {
     background-color: #2090b6;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    padding: 5px 10px;
-    box-shadow: 3px 3px 5px black;
+    
     }
     #divEditorButtonSection button:active {
         transform:scale(.95,0.95);
         box-shadow:none;
     }
     #divEditorButtonSection button:nth-child(2) {
-    background-color: #b63f20;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    padding: 5px 10px;
-    box-shadow: 3px 3px 5px black;
+    background-color: #3BD273;
+    }
+    #divEditorButtonSection button:nth-child(3) {
+    background-color: #DC4749;
     }
 
 #divTopicHeader > div:first-child{
-    height: 80%;
+    height: 15%;
     padding-bottom: 0px;
 }
-#divTopicHeader > div:first-child> img {
+#divTopicHeader > div:first-child > span{
+    position:absolute;
+    right:10%;
+}
+
+#divTopicHeader > div:nth-child(2){
+    height: 70%;
+    padding-bottom: 0px;
+}
+#divTopicHeader > div:nth-child(2)> img {
     max-height: 100%;
     margin: auto;
 }
-#divTopicHeader  > div:nth-child(2) {
+#divTopicHeader  > div:nth-child(3) {
     height: 20%;
     text-align: center;
 }
@@ -628,12 +666,12 @@ li.selected-content {
        vertical-align: middle;
    }
 
-     #divTopicHeader.course-in-edit/*,#divTopicHeader:hover*/
+     /*#divTopicHeader.course-in-edit,#divTopicHeader:hover
      {
          cursor: pointer;
          transition: background-color .25s ease;
           background-color: #2596F1;
-     }
+     }*/
    
     /*div#divTopicHeader.course-in-edit:before {
     left: 100%;
