@@ -398,7 +398,19 @@
         }
 
         var publishCourse = function () {
-            my.courseService.publishCourse(course.Id(), publishCourseCallback);
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Make sure you have completed the course <b>' + editorContent.Name() +'</b>',
+                buttons: {
+                    confirm: function () {
+                        my.courseService.publishCourse(course.Id(), publishCourseCallback);
+                    },
+                    cancel: function () {
+                        $.alert(course.Name() + ' is not published');
+                    }
+                }
+            });
+           
         }
 
         var saveChangesCallback = function (jsonData) {
@@ -596,36 +608,33 @@
             var confirmDelete = false;
             $.confirm({
                 title: 'Confirm!',
-                content: 'Do You really want to DELETE '+ editorContent.Name(),
+                content: 'Do You really want to DELETE <b>'+ editorContent.Name() +'</b>',
                 buttons: {
                     confirm: function () {
-                        confirmDelete = true;
+                        if (editorContent.ContentType() == 'course') {
+                            my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
+
+                        }
+                        else if (editorContent.ContentType() == 'subtopic') {
+                            isTopicDeleted(true);
+                            my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
+                        }
+                        else if (editorContent.ContentType() == 'subtopicContent') {
+                            isSubtopicContentDeleted(true);
+                            my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
+                        }
+                        else if (editorContent.ContentType() == 'assignment') {
+                            my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
+                        }
+                        else {
+                            alert('no content type matched');
+                        }
                     },
                     cancel: function () {
                         $.alert('Delete action cancelled');
                     }
                 }
             });
-            if (confirmDelete) {
-                if (editorContent.ContentType() == 'course') {
-                    my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
-
-                }
-                else if (editorContent.ContentType() == 'subtopic') {
-                    isTopicDeleted(true);
-                    my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
-                }
-                else if (editorContent.ContentType() == 'subtopicContent') {
-                    isSubtopicContentDeleted(true);
-                    my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
-                }
-                else if (editorContent.ContentType() == 'assignment') {
-                    my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
-                }
-                else {
-                    alert('no content type matched');
-                }
-            }
         }
 
         var notifyStyle = function () {
