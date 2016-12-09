@@ -1,6 +1,12 @@
-﻿<link href="~/StyleSheets/CourseEditorNew.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link href="~/Content/Site.css" rel="stylesheet" />
+﻿@{
+    ViewBag.Title = "Course Editor";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+     @Styles.Render("~/bundles/CoursesEditorViewStyles")
+}
 
 <div class="container-fluid editor-page">
     <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right layout-wrapper">
@@ -86,7 +92,6 @@
                             <img class="img-responsive" data-bind="attr: { src: editorContent.IconUrl() }" alt="Image not found!" />
                             <div class="dib btn  upload-file"> Choose File <input type="file" name="file" id="form-file" data-bind="fileSrc: $root.course.FileData, name: file" class=" hide-file" accept="image/*" /></div> 
                         </div>
-                        
                      </form>
 
                     <div class="col-xs-12 no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.HasUrl()">
@@ -104,7 +109,7 @@
                     </div>
 
                      <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right">
-                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished()" class="btn btn-primary">
+                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
                             <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>                        
                             <span> &nbsp;Publish</span>
                         </button>  

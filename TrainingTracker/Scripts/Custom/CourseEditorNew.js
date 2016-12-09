@@ -489,6 +489,7 @@
         }
 
         var saveChanges = function () {
+           
             if (validateEditorContents()) {
 
                 if (editorContent.ContentType() == 'course') {
@@ -592,25 +593,39 @@
         }
 
         var deleteData = function () {
-            if (editorContent.ContentType() == 'course') {
-                my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
-                
+            var confirmDelete = false;
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Do You really want to DELETE '+ editorContent.Name(),
+                buttons: {
+                    confirm: function () {
+                        confirmDelete = true;
+                    },
+                    cancel: function () {
+                        $.alert('Delete action cancelled');
+                    }
+                }
+            });
+            if (confirmDelete) {
+                if (editorContent.ContentType() == 'course') {
+                    my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
+
+                }
+                else if (editorContent.ContentType() == 'subtopic') {
+                    isTopicDeleted(true);
+                    my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    isSubtopicContentDeleted(true);
+                    my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
+                }
+                else {
+                    alert('no content type matched');
+                }
             }
-            else if (editorContent.ContentType() == 'subtopic') {
-                isTopicDeleted(true);
-                my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
-            }
-            else if (editorContent.ContentType() == 'subtopicContent') {
-                isSubtopicContentDeleted(true);
-                my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
-            }
-            else if (editorContent.ContentType() == 'assignment') {
-                my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
-            }
-            else {
-                alert('no content type matched');
-            }
-        
         }
 
         var notifyStyle = function () {

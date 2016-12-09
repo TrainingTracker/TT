@@ -146,6 +146,12 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/AllCoursesViewStyles").Include(
             "~/StyleSheets/AllCourse.css"
             ));
+
+            bundles.Add(new StyleBundle("~/bundles/CoursesEditorViewStyles").Include(
+                    "~/StyleSheets/CourseEditorNew.css",
+                   "~/StyleSheets/jquery-confirm.css" ,
+                   "~/Content/site.css"
+          ));
   
             #endregion
 
