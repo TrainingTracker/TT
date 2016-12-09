@@ -358,12 +358,11 @@
     z-index: 1;
     padding: 10px;
 }
-.ellipsis {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden
-}
 
+.move-right {
+    position: absolute;
+    right: 8%;
+}
 
 #divTopicHeader {
     height: 25%;
@@ -507,15 +506,6 @@ li.selected-content {
     color:white;
 }
 
-/*#divTopicHeader:after {
-        content: "";
-    border:0.5px solid #2596f1;
-    position: absolute;
-    display: block;
-    bottom: 0;
-    width: 90%;
-    right: 5%;
-}*/
 .layout-right-panel {
     background-color:white;
 }
@@ -533,7 +523,7 @@ li.selected-content {
 }
 
 .layout-middle-panel > div {
-    padding-left:7%;
+    padding: 0% 3%;
 }
 /*.layout-right-panel > div .sub-panel-header:after {
     content: "";
@@ -548,6 +538,19 @@ li.selected-content {
 /*#divSubtopicContent {
     border-bottom: 1px solid #fff;
 }*/
+
+#divEditorForm {
+    background-color: white;
+    padding: 5% 3% 2%;
+    border: 1px solid #e6e6e6;
+}
+#divEditorForm label{
+    text-align:left;
+    color:#282828;
+}
+#divEditorForm input[type='text']{
+    box-shadow:none;
+}
 #divSubtopicContent > div:nth-child(2) {
     background-color: #194a71;
     text-align: center;
@@ -572,12 +575,12 @@ li.selected-content {
 }
 
 
-.layout-middle-panel > div > div.editor-header:after{
+#divBreadcrumb:after{
     content: '';
     background-color: #e6e6e6;
     margin-bottom: 1%;
     height: 2px;
-    width: 98%;
+    width: 100%;
     bottom: 0;
     left: 0%;
     position: absolute;
@@ -585,13 +588,14 @@ li.selected-content {
 
 #divBreadcrumb {
     padding-top: 3%;
+    padding-bottom:3%;
     color: #A5A5A5;
     cursor:pointer;
 }
 
 #divBreadcrumb > span:after {
     content:'>';
-    padding:3%;
+    padding:2%;
 }
 #divBreadcrumb > span:last-child {
     color:#2596f1;
@@ -605,12 +609,12 @@ li.selected-content {
     border: none;
     border-radius: 4px;
     color: white;
-    width: 30%;
+    width: 20%;
     padding: 1% 0%;
     margin: 1% 1%
 }
    #divEditorButtonSection {
-       padding: 2%;
+       padding: 0;
        text-align:right;
    } 
 

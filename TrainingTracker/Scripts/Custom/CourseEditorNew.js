@@ -770,7 +770,7 @@
             else if (editorContent.HasUrl())
             {   
                 var urlRegExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-                if (editorContent.Url() !== '' && !urlRegExp.test(editorContent.Url()))
+                if (editorContent.Url() !== '' && editorContent.Url() !== null && !urlRegExp.test(editorContent.Url()))
                 {
                     alert('enter proper url');
                     $.notify("Enter proper url or leave empty", { style: 'customAlert', className: 'red' });
