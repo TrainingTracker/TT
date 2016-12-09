@@ -107,3 +107,14 @@
     background-color:#f5f5f5;
     color:#383838;
 }
+
+.hide-file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
