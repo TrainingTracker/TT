@@ -16,6 +16,7 @@
             IsEditInProgress: ko.observable(false),
             IsPublished: ko.observable(false),
             CreatedOn: '',
+            FileData:ko.observable(""),
             Type:'course'
 
         };
@@ -277,18 +278,19 @@
 
         var uploadImage = function (data, event) {
             
-            var fileUpload = data[0];
-            if (fileUpload.files.length > 0) {
-                var files = fileUpload.files;
-                var fileData = new FormData();
-                fileData.append(files[0].name, files[0]);
+            //var fileUpload = data[0];
+            var formData = new FormData($('form')[0]);
+            //if (fileUpload.files.length > 0) {
+            //    var files = fileUpload.files;
+            //    var fileData = new FormData();
+            //    fileData.append(files[0].name, files[0]);
 
-                my.courseService.uploadImage(fileData, uploadImageCallback);
-            }
-            else {
-                $.notify("No file Choosen", { style: 'customAlert', className: 'red' });
-                alert("no file choosen");
-            }
+                my.courseService.uploadImage(formData, uploadImageCallback);
+            //}
+            //else {
+            //    $.notify("No file Choosen", { style: 'customAlert', className: 'red' });
+            //    alert("no file choosen");
+            //}
             
         };
 
@@ -844,5 +846,13 @@
             my.courseEditorVm.isSubtopicContentAdded(false);
         }
         
+    });
+    my.courseEditorVm.course.FileData.subscribe(function () {
+        if (my.courseEditorVm.course.Icon() == "") {
+            my.courseEditorVm.course.Icon("DefaultCourse.jpg")
+        }
+        else {
+            my.courseEditorVm.uploadImage();
+        }
     });
 });

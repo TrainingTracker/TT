@@ -89,16 +89,10 @@
                     <form class="col-xs-12  form-group" enctype="multipart/form-data" id="course-icon-upload-form" data-bind="visible: editorContent.HasIcon(), submit: $root.uploadImage">                   
                         <div class="col-xs-5">
                             <img data-bind="attr: { src: editorContent.IconUrl() }" alt="Image not found!" />
-                            <input type="file" data-bind="attr: { id: 'form-file' + editorContent.Id() }" accept="image/*" />
+                            <label for="form-file" >Change</label>
+                            <input type="file" name="file" id="form-file" data-bind="fileSrc: $root.course.FileData, name: file" class="hidden" accept="image/*" />
                         </div>
-                        <div class="col-xs-7">
-                            <ul>
-                                <li>
-                                    <label data-bind="attr: { for: 'form-file' + editorContent.Id() }">Choose Image</label></li>
-                                <li>
-                                    <button type="submit"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Upload</button></li>
-                            </ul>
-                        </div>
+                        
                      </form>
 
                     <div class="col-xs-12 no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.HasUrl()">
