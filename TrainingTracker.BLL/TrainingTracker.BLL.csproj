@@ -42,6 +42,7 @@
     <Compile Include="Base\BussinessBase.cs" />
     <Compile Include="DashboardBl.cs" />
     <Compile Include="FeedbackBl.cs" />
+    <Compile Include="LearningPathBL.cs" />
     <Compile Include="LoginBl.cs" />
     <Compile Include="NotificationBl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

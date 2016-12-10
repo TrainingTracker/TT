@@ -61,11 +61,20 @@
                         </li>
                         <li class="menu-li"><a href="~/Session"><label style="height:30px;">Sessions</label></a></li>
                         <li class="menu-li"><a href="~/Questions"><img class="profile-pic img" style="visibility: hidden"/><label style="">Questions</label></a></li>
+                        <li class="dropdown menu-li">
+                            <a href="#"><label style="height:30px;">Learning Path</label> <span class="glyphicon glyphicon-chevron-down" style="top: 2px;"></span></a>                           
+                            @*<a class="dropdown-toggle" data-toggle="dropdown">Learning Path*@
+                            <ul class="dropdown-menu dropdown-menu-pop-over-list">
+                                <li  class="menu-li"><a href="~/LearningPath/Courses">Courses</a></li>
+                                <li  class="menu-li"><a href="~/LearningPath/CourseEditor">Editor</a></li>
+                            </ul>
+                        </li>
                     }
                     else
                     {
                         <li class="menu-li"><a data-bind="attr: { href: my.meta.userProfileUrl }"><label style="height:30px;">My Profile</label></a></li>
                         <li class="menu-li"><a href="~/Session"><img style="visibility: hidden"/><label  style="height:30px;">Sessions</label></a></li>
+                        <li class="menu-li"><a href="~/LearningPath/Courses"><label  style="height:30px;">Courses</label></a></li>
                     }
                 </ul> 
             </div>

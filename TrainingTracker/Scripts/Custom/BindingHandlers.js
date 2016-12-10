@@ -1,5 +1,51 @@
 ﻿var windowURL = window.URL || window.webkitURL;
 
+ko.bindingHandlers.showMessage = {
+
+    init: function (element, valueAccessor) {
+       // var value = ko.unwrap(valueAccessor());
+       // $(element).toggle(value);
+    },
+
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        var duration = allBindings.get('slideDuration') || 400; 
+
+        if (valueUnwrapped !== '')
+            $(element).slideDown(duration);
+        else
+            $(element).slideUp(duration);  
+    }
+};
+
+ko.bindingHandlers.CKEDITOR = {
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var ckEditorValue = valueAccessor();
+        var id = $(element).attr('id');
+        var options = allBindings().EditorOptions;
+        var ignoreChanges = false;
+
+        var instance = CKEDITOR.replace(id, {
+            on: {
+                change: function () {
+                    ignoreChanges = true;
+                    ckEditorValue(instance.getData());
+                    ignoreChanges = false;
+                }
+            }
+        });
+
+        ckEditorValue.subscribe(function (newValue) {
+            if (!ignoreChanges) {
+                instance.setData(newValue);
+            }
+        });
+
+    }
+};
+
 ko.bindingHandlers.datepicker = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
 
@@ -633,6 +679,8 @@ $(document).ready(function () {
 
         }
     };
+
+
 });
 
 

@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Course Editor";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+     @Styles.Render("~/bundles/CoursesEditorViewStyles")
+}
+
+<div class="container-fluid editor-page">
+    <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right layout-wrapper">
+        <div class="col-xs-2 no-padding-left no-padding-right no-margin-left no-margin-right layout-section layout-left-panel">
+            <div id="divTopicHeader" class="row col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right" data-bind="css: { 'course-in-edit': course.IsEditInProgress() }, click: function () { $root.edit($data, 'course'); }">
+                <div class="col-xs-12">
+                    <span>
+                        <i data-bind="visible: course.IsEditInProgress()" class="fa fa-gear rotate"></i>
+                        <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i> 
+                    </span> 
+                </div>
+                <div class="col-xs-12  no-margin-left no-margin-right ">
+                    <img class="img-responsive" data-bind="attr: { src: course.IconUrl() }" alt="Image not found!" />
+                </div>
+                <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right">
+                    <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right">
+                        <span class='course-heading' data-bind="text: course.Name() == '' ? 'New Course' : course.Name()"></span>
+                    </div>
+                </div>
+            </div>
+           
+            <div id="divTopicList" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
+
+                <div data-bind="click: function () { $root.edit($root.subtopic, 'subtopic') }, visible: course.Id() > 0">
+                    <span>
+                        <i class="fa fa-plus" aria-hidden="true"> Add New Topic</i>
+                    </span>
+                </div>
+                <div data-bind="click: function () { $root.saveOrder('subtopic'); }, visible: course.Id() > 0 && subtopicsList().length > 1 && IsTopicOrderChanged()">
+                    Save Order
+                </div>
+
+                <ul  data-bind="sortable:{data: subtopicsList, connectClass: false}" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right ">
+                    <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }">
+                        <span data-bind="text: Name()"></span>
+                        <span class="move-right">
+                            <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
+                            <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div id="divSearchTopicList" data-bind="visible: filteredCourseList().length > 0">
+                <ul data-bind="foreach: filteredCourseList">
+                    <li data-bind="click: function () { $root.navigateToAnotherCourse(Id); }"><span data-bind="    text: Name"></span>
+                        <i class="fa fa-pencil move-right" aria-hidden="true"></i></li>
+                </ul>
+            </div>
+
+            <div id="divTopicSearch" class="input-group col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right">
+                <input type="text" class="form-control" data-bind="textInput: searchKeyword, click: getFilteredCourses, hasFocus: courseSearchHasFocus" class="search-course" placeholder="Search Courses..." />
+                <span class="input-group-addon" data-bind="click: getFilteredCourses">
+                    <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-xs-7 layout-section layout-middle-panel no-padding-left no-padding-right no-margin-left no-margin-right">
+
+            <div class="no-contents" data-bind="visible: !editorContent.HasContent()">
+                <h2>No Content is Selected to Edit...</h2>
+            </div>
+            
+            <div class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right " data-bind="visible: editorContent.HasContent()">
+               
+               <div id="divBreadcrumb"  data-bind="foreach: $root.breadcrumb" class="col-xs-12 no-padding-left no-padding-right  no-margin-right">
+                   <span  data-bind="click: function () { $root.edit($data, Type) }, text: Id() > 0 ? Name() : 'New'"></span>
+               </div>
+               <h3 class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right" data-bind="text:$root.editorContent.Name(), visible:$root.editorContent.Id() > 0 "></h3>
+               <div id="divEditorForm" class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right form-horizontal">
+                    <div class=" col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right form-group">
+                        <label class="control-label col-sm-2">Heading:</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control" data-bind="value: editorContent.Name" placeholder="Heading" />
+                        </div>
+                    </div>
+
+                    <form class="col-xs-12  form-group" enctype="multipart/form-data" id="course-icon-upload-form" data-bind="visible: editorContent.HasIcon(), submit: $root.uploadImage">                   
+                      <label class="control-label col-sm-2">Icon:</label> 
+                       <div class="col-xs-3">
+                            <img class="img-responsive" data-bind="attr: { src: editorContent.IconUrl() }" alt="Image not found!" />
+                            <div class="dib btn  upload-file"> Choose File <input type="file" name="file" id="form-file" data-bind="fileSrc: $root.course.FileData, name: file" class=" hide-file" accept="image/*" /></div> 
+                        </div>
+                     </form>
+
+                    <div class="col-xs-12 no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.HasUrl()">
+                    <label class="control-label col-sm-2">URL:</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" data-bind=" value: editorContent.Url" placeholder="Url" />
+                    </div>
+                </div>
+
+                    <div class="col-xs-12  no-margin-right no-padding-left no-padding-right form-group">
+                        <label class="control-label col-sm-2" >Description: </label>
+                        <div class="col-xs-10">
+                              <textarea class="form-control" rows="5" id="ckeditor" data-bind="CKEDITOR: editorContent.Description, autoResizeTextArea: true"></textarea>
+                        </div>                  
+                    </div>
+
+                     <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right">
+                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>                        
+                            <span> &nbsp;Publish</span>
+                        </button>  
+                        <button class=" btn btn-success" data-bind="click: $root.saveChanges">
+                            <i class="fa fa-floppy-o" aria-hidden="true" ></i>                        
+                            <span> &nbsp;Save</span>
+                        </button>
+                        <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>                        
+                            <span> &nbsp;Delete</span>
+                        </button>                   
+                     </div>
+                
+                </div>
+
+                
+            </div>
+        </div>
+
+        <div class="col-xs-2 no-padding-left no-padding-right no-margin-left no-margin-right layout-section layout-right-panel">
+
+            <div id="divSubtopicContent">
+                <div class="sub-panel-header">
+                    <span class="">LINKS</span>
+                </div>
+                
+                <div data-bind="click: function () { $root.edit($root.subtopicContent, 'subtopicContent'); },  visible: $root.selectedSubtopicId() > 0">
+                    <span>
+                        <i class="fa fa-plus" aria-hidden="true"> Add New Link</i>
+                    </span>
+                </div>
+
+                <div data-bind="click: function () { $root.saveOrder('subtopicContent'); }, visible: $root.selectedSubtopicId() > 0 && $root.subtopicContentsList().length > 1 && IsSubtopicContentOrderChanged()">
+                    Save Order
+                </div>
+
+                <ul data-bind="sortable:{data: subtopicContentsList,connectClass:false}" >
+                    
+                    <li data-bind=" click: function () { $root.edit($data, 'subtopicContent'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
+                        <span data-bind="text: Name()"></span>
+                       
+                        <span class="move-right">
+                             <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
+                            <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
+                        </span>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div id="divAssignment">
+                <div class="sub-panel-header">
+                    <span class="">ASSIGNMENTS</span>
+                </div>
+                <div data-bind="click: function () { $root.edit($root.assignment, 'assignment'); }, visible: $root.selectedSubtopicId() > 0">
+                    <span  class=" add-subtopic-content">
+                        <i class="fa fa-plus" aria-hidden="true"> Add New Assignment</i>
+                    </span>
+                </div>
+                <ul>
+                    
+                    <!-- ko foreach: assignmentsList -->
+                    <li data-bind=" click: function () { $root.edit($data, 'assignment'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
+                        <span data-bind="text: Name()"></span>
+                        
+                        <span class="move-right">
+                            <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
+                            <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
+                        </span>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/CourseEditorNewViewScripts")
+}

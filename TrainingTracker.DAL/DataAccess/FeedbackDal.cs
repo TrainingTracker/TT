@@ -82,7 +82,7 @@ namespace TrainingTracker.DAL.DataAccess
                 using (var context = new TrainingTrackerEntities())
                 {
                     var query = context.Feedbacks.Where(x => x.AddedFor == userId);
-                    if (feedbackId != null) query = query.Where(x => x.FeedbackType == feedbackId);
+                    if (feedbackId != null && feedbackId > 0) query = query.Where(x => x.FeedbackType == feedbackId);
                     if (startAddedOn != null && endAddedOn != null) query = query.Where(x => x.StartDate >= startAddedOn && x.EndDate >= endAddedOn
                     && x.AddedOn >= startAddedOn && (x.AddedOn <= endAddedOn));
 

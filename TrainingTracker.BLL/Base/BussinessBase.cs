@@ -129,6 +129,7 @@ namespace TrainingTracker.BLL.Base
             get { return _teamDataAccesor ?? (_teamDataAccesor = new TeamDal()); }
         }
 
+
         /// <summary>
         /// Private Survey dal accessor
         /// </summary>
@@ -141,5 +142,20 @@ namespace TrainingTracker.BLL.Base
         {
             get { return _surveyDataAccesor ?? (_surveyDataAccesor = new SurveyDal()); }
         }
+
+
+        /// <summary>
+        /// Private variable for LearningPathDal accessor.
+        /// </summary>
+        private ILearningPathDal _learningPathDataAccessor;
+
+        /// <summary>
+        /// Public property to get the LearningPathDal object.
+        /// </summary>
+        public ILearningPathDal LearningPathDataAccessor
+        {
+            get { return _learningPathDataAccessor ?? (_learningPathDataAccessor = new LearningPathDal()); }
+        }
+
     }
 }

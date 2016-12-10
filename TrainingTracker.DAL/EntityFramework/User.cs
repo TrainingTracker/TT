@@ -28,6 +28,14 @@ namespace TrainingTracker.DAL.EntityFramework
             this.FeedbackThreads = new HashSet<FeedbackThread>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
             this.Teams = new HashSet<Team>();
+            this.Assignments = new HashSet<Assignment>();
+            this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
+            this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
+            this.Courses = new HashSet<Course>();
+            this.CourseSubtopics = new HashSet<CourseSubtopic>();
+            this.CourseSubtopicDiscussions = new HashSet<CourseSubtopicDiscussion>();
+            this.SubtopicContents = new HashSet<SubtopicContent>();
+            this.SubtopicContentUserMaps = new HashSet<SubtopicContentUserMap>();
         }
     
         public int UserId { get; set; }
@@ -60,5 +68,13 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
         public virtual Team Team { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }
+        public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
+        public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
+        public virtual ICollection<SubtopicContentUserMap> SubtopicContentUserMaps { get; set; }
     }
 }

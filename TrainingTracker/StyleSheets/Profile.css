@@ -337,7 +337,7 @@ p {
      padding:0;
      color: black; 
      background-color: #fff; 
-         white-space: pre-line;
+     white-space: pre-line;
 }
 
 #feedbackSection .weekly-feedback code label,#divWizardFeedbackPreview .weekly-feedback code label {
@@ -346,13 +346,12 @@ p {
     font-size: 14px;
 }
 
-
 #feedbackSection .weekly-feedback code .feedback-question label,#divWizardFeedbackPreview .weekly-feedback code .feedback-question label {
     font-size: 17px;
 }
 
 #feedbackSection .weekly-feedback code .feedback-answer label,#divWizardFeedbackPreview .weekly-feedback code .feedback-answer label {
-              margin-bottom: 5px;
+    margin-bottom: 5px;
     font-size: 14px;
     margin-left: 1%;
     color: green;

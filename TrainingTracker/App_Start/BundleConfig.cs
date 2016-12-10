@@ -80,6 +80,30 @@ namespace TrainingTracker
             bundles.Add(new ScriptBundle("~/bundles/AllProfileViewScripts").Include(
             "~/Scripts/Custom/AllProfile.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
+                "~/Scripts/ckeditor/ckeditor.js",
+                "~/Scripts/Custom/CourseService.js",
+                "~/Scripts/Custom/CourseEditor.js"
+                
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/CourseEditorNewViewScripts").Include(
+                "~/Scripts/ko.mapping.js",
+               "~/Scripts/ckeditor/ckeditor.js",
+               "~/Scripts/jquery-confirm.js",
+               "~/Scripts/notify.js",
+               "~/Scripts/jquery-ui.js",
+               "~/Scripts/knockout-sortable.js",
+               "~/Scripts/Custom/CourseService.js",
+                "~/Scripts/Custom/CourseEditorNew.js"
+                
+            ));
+
+             bundles.Add(new ScriptBundle("~/bundles/AllCoursesViewScripts").Include(
+               "~/Scripts/Custom/CourseService.js",
+               "~/Scripts/Custom/AllCourses.js"
+            ));
             #endregion
 
             #region Styles
@@ -118,6 +142,17 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/AllProfileViewStyles").Include(
              "~/StyleSheets/AllProfiles.css" 
              ));
+
+            bundles.Add(new StyleBundle("~/bundles/AllCoursesViewStyles").Include(
+            "~/StyleSheets/AllCourse.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/CoursesEditorViewStyles").Include(
+                    "~/StyleSheets/CourseEditorNew.css",
+                   "~/StyleSheets/jquery-confirm.css" ,
+                   "~/Content/site.css"
+          ));
+  
             #endregion
 
         }
