@@ -1,6 +1,6 @@
 ﻿var windowURL = window.URL || window.webkitURL;
 
-ko.bindingHandlers.showMessage = {
+ko.bindingHandlers.slider = {
 
     init: function (element, valueAccessor) {
        // var value = ko.unwrap(valueAccessor());

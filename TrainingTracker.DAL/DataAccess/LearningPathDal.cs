@@ -35,7 +35,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                                  Icon = courseToAdd.Icon,
                                                                  AddedBy = courseToAdd.AddedBy,
                                                                  IsActive = courseToAdd.IsActive,
-                                                                 CreatedOn = courseToAdd.CreatedOn
+                                                                 CreatedOn = courseToAdd.CreatedOn,
+                                                                 Duration = courseToAdd.Duration
                                                              };
                     context.Courses.Add(newCourseEntity);
                     context.SaveChanges();
@@ -62,6 +63,7 @@ namespace TrainingTracker.DAL.DataAccess
                     courseEntity.Name = courseToUpdate.Name;
                     courseEntity.Description = courseToUpdate.Description;
                     courseEntity.Icon = courseToUpdate.Icon;
+                    courseEntity.Duration = courseToUpdate.Duration;
                     context.SaveChanges();
 
                     return true;
@@ -152,6 +154,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                     AddedBy = c.AddedBy,
                                                     CreatedOn = c.CreatedOn,
                                                     IsPublished = c.IsPublished,
+                                                    Duration = c.Duration,
                                                     CourseSubtopics = c.CourseSubtopics
                                                                         .Where(s => s.IsActive)
                                                                         .Select(s => new CourseSubtopic
@@ -165,7 +168,6 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                           CreatedOn = s.CreatedOn
 
                                                                                       })
-                                                                        .ToList()
                                                                         .OrderBy(x => x.SortOrder)
                                                                         .ToList()
 
@@ -183,7 +185,7 @@ namespace TrainingTracker.DAL.DataAccess
 
 
         //ToDo: This function can be refactored and reused
-        public List<Course> GetAllCoursesWithSubtopics()
+        public List<Course> GetAllCourses()
         {
             try
             {
@@ -199,20 +201,21 @@ namespace TrainingTracker.DAL.DataAccess
                                                            Description = c.Description,
                                                            AddedBy = c.AddedBy,
                                                            CreatedOn = c.CreatedOn,
-                                                           CourseSubtopics = c.CourseSubtopics.ToList()
-                                                                               .Where(s => s.IsActive)
-                                                                               .Select(s => new CourseSubtopic
-                                                                                       {
-                                                                                           Id = s.Id,
-                                                                                           Name = s.Name,
-                                                                                           CourseId = s.CourseId,
-                                                                                           Description = s.Description,
-                                                                                           AddedBy = s.AddedBy,
-                                                                                           SortOrder = s.SortOrder,
-                                                                                           CreatedOn = s.CreatedOn
+                                                           Duration = c.Duration
+                                                           //CourseSubtopics = c.CourseSubtopics.ToList()
+                                                           //                    .Where(s => s.IsActive)
+                                                           //                    .Select(s => new CourseSubtopic
+                                                           //                            {
+                                                           //                                Id = s.Id,
+                                                           //                                Name = s.Name,
+                                                           //                                CourseId = s.CourseId,
+                                                           //                                Description = s.Description,
+                                                           //                                AddedBy = s.AddedBy,
+                                                           //                                SortOrder = s.SortOrder,
+                                                           //                                CreatedOn = s.CreatedOn
 
-                                                                                       })
-                                                                                .ToList()
+                                                           //                            })
+                                                           //                     .ToList()
 
                                                        }).ToList();
 

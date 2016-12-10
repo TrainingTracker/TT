@@ -21,11 +21,7 @@ namespace TrainingTracker.Controllers
              return View();
          }
 
-         public ActionResult CourseEditorNew()
-         {
-             return View();
-         }
-
+        
          [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
          public ActionResult Courses()
          {
@@ -63,9 +59,9 @@ namespace TrainingTracker.Controllers
              }
          }
 
-         public JsonResult GetAllCoursesWithSubtopics()
+         public JsonResult GetAllCourses()
          {
-             return Json(new LearningPathBL().GetAllCoursesWithSubtopics(), JsonRequestBehavior.AllowGet);
+             return Json(new LearningPathBL().GetAllCourses(), JsonRequestBehavior.AllowGet);
          }
 
 

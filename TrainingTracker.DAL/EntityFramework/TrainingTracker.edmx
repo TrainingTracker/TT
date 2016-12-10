@@ -281,6 +281,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -2240,6 +2241,7 @@
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Course_User" FromRole="Course" ToRole="User" />
           <NavigationProperty Name="CourseSubtopics" Relationship="TrainingTrackerModel.FK_CourseSubtopic_Course" FromRole="Course" ToRole="CourseSubtopic" />
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
+          <Property Type="Int32" Name="Duration" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -2882,6 +2884,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="TrainingTrackerModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
