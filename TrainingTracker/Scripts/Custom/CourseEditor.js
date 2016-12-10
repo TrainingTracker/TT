@@ -390,7 +390,7 @@
         };
 
         var navigateToAnotherCourse = function (id) {
-            window.location.href = my.rootUrl + '/LearningPath/CourseEditorNew?courseId='+ id;
+            window.location.href = my.rootUrl + '/LearningPath/CourseEditor?courseId='+ id;
         }
 
         var publishCourseCallback = function (jsonData) {
@@ -700,6 +700,7 @@
             else if (dataType == 'subtopic') {
                 if (data.Id() == 0) {
                     resetSubtopicContentsList();
+                    resetAssignmentsList();
                 }
                 selectedSubtopicId(data.Id());
                 if (data.CourseId > 0) {

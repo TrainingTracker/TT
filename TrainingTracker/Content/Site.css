@@ -59,6 +59,9 @@
 }
 .dib {
     display: inline-block;
+    width:30%;
+    padding:0px;
+    cursor:pointer;
 }
 
 .display-flex{
@@ -109,11 +112,12 @@
 }
 
 .hide-file {
-    position: absolute;
+   position: relative;
     z-index: 1000;
     opacity: 0;
+    /* margin: 3px; */
     cursor: pointer;
-    right: 0;
+    right: 0%;
     top: 0;
     height: 100%;
     width: 100%;
