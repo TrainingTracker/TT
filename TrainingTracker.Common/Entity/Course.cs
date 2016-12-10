@@ -12,6 +12,7 @@ namespace TrainingTracker.Common.Entity
         public int AddedBy { get; set; }
         public bool IsActive { get; set; }
         public bool IsPublished { get; set; }
+        public int Duration { get; set; }
         public DateTime CreatedOn { get; set; }
 
         public List<CourseSubtopic> CourseSubtopics { get; set; }

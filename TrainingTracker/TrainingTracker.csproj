@@ -251,7 +251,6 @@
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
     <Content Include="Scripts\Custom\CourseEditor.js" />
-    <Content Include="Scripts\Custom\CourseEditorNew.js" />
     <Content Include="Scripts\Custom\CourseService.js" />
     <Content Include="Scripts\Custom\Dashboard.js" />
     <Content Include="Scripts\Custom\FeedbackChart.js" />
@@ -310,7 +309,6 @@
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
     <Content Include="StyleSheets\CourseEditor.css" />
-    <Content Include="StyleSheets\CourseEditorNew.css" />
     <Content Include="StyleSheets\CustomButtons.css" />
     <Content Include="StyleSheets\Dashboard.css" />
     <Content Include="StyleSheets\FeedbackPlot.css" />
@@ -327,7 +325,7 @@
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
     <Content Include="Uploads\ProfilePicture\harshw.JPG" />
-    <Content Include="Views\LearningPath\CourseEditorNew.cshtml" />
+    <Content Include="Views\LearningPath\CourseEditor.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -354,7 +352,6 @@
     <Content Include="Views\Unauthorized\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Release\Release.cshtml" />
     <Content Include="Views\Shared\_FeedbackThread.cshtml" />
-    <Content Include="Views\LearningPath\CourseEditor.cshtml" />
     <Content Include="Views\LearningPath\Courses.cshtml" />
     <Content Include="StyleSheets\fontawesome-animation.css" />
   </ItemGroup>

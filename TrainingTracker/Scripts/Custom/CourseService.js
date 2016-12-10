@@ -7,7 +7,7 @@
         },
 
         getAllCourses: function (callback) {
-            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetAllCoursesWithSubtopics", null, callback);
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetAllCourses", null, callback);
         },
         getCourseWithSubtopics: function (courseId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithSubtopics?courseId=" + courseId, null, callback);

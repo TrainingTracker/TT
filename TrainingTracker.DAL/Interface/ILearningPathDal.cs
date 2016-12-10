@@ -31,7 +31,7 @@ namespace TrainingTracker.DAL.Interface
         bool DeleteAssignment(int id);
 
         List<Assignment> GetAssignments(int subtopicContentId);
-        List<Course> GetAllCoursesWithSubtopics();
+        List<Course> GetAllCourses();
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
         Course GetCourseWithSubtopics(int courseId);
         

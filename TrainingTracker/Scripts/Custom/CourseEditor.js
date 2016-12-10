@@ -1,47 +1,29 @@
 ﻿$(document).ready(function () {
 
-    
-    my.addCourseVm = function () {
-        var courseToAdd = {
-            Id : 0,
-            Name : ko.observable(''),
+    my.courseEditorVm = function () {
+
+        /********All the Objects *******/
+        var course = {
+            Id: ko.observable(0),
+            Name: ko.observable(''),
             Description: ko.observable(''),
             Icon: ko.observable('DefaultCourse.jpg'),
-            IconUrl : function () {
+            IconUrl: function () {
                 return my.rootUrl + "/Uploads/CourseIcon/" + Icon();
             },
             AddedBy: 0,
             IsActive: true,
+            Duration:ko.observable(5),
+            IsEditInProgress: ko.observable(false),
+            IsPublished: ko.observable(false),
             CreatedOn: '',
-            CourseSubtopics: ko.observableArray([]),
-            SubtopicNameToAdd : ko.observable('')
+            FileData:ko.observable(""),
+            Type:'course'
+
         };
 
-        var subtopicToAdd = {
-            Id: 0,
-            CourseId: 0,
-            Name: ko.observable(''),
-            Description: ko.observable(''),
-            AddedBy: 0,
-            IsActive: true,
-            CreatedOn: '',
-            SortOrder: ko.observable('')
-        };
-
-        var subtopicContentToAdd = {
-            Id:ko.observable(0),
-            CourseSubtopicId: 0,
-            Name: ko.observable(''),
-            Description: ko.observable(''),
-            Url: ko.observable(''),
-            AddedBy: 0,
-            IsActive: true,
-            CreatedOn: '',
-            SortOrder: ko.observable('')
-        }
-       
-        var currentSubtopic = {
-            Id: 0,
+        var subtopic = {
+            Id: ko.observable(0),
             CourseId: 0,
             Name: ko.observable(''),
             Description: ko.observable(''),
@@ -49,10 +31,12 @@
             IsActive: true,
             CreatedOn: '',
             SortOrder: ko.observable(''),
-            IsVisible: ko.observable(false)
+            IsSelected: ko.observable(false),
+            IsEditInProgress: ko.observable(false),
+            Type:'subtopic'
         };
-        
-        var selectedSubtopicContent = {
+
+        var subtopicContent = {
             Id: ko.observable(0),
             CourseSubtopicId: 0,
             Name: ko.observable(''),
@@ -62,22 +46,234 @@
             IsActive: true,
             CreatedOn: '',
             SortOrder: ko.observable(''),
-            IsVisible: ko.observable(false),
-            ShowUrlField: ko.observable(false)
+            IsSelected: ko.observable(false),
+            IsEditInProgress: ko.observable(false),
+            Type:'subtopicContent'
+        }
+
+        var editorContent = {
+            Id: ko.observable(0),
+            CourseId: 0,//FK
+            CourseSubtopicId: 0,//FK
+            Duration: ko.observable(0),
+            Name: ko.observable(''),
+            Description: ko.observable(''),
+            Icon: ko.observable('DefaultCourse.jpg'),
+            IconUrl: function () {
+                return my.rootUrl + "/Uploads/CourseIcon/" + editorContent.Icon();
+            },
+            HasIcon: ko.observable(false),
+            Url: ko.observable(''),
+            HasUrl: ko.observable(false),
+            SortOrder: ko.observable(''),
+            HasSortOrder: ko.observable(false),
+            HasContent: ko.observable(false),
+            ContentType: ko.observable(''),
+            Type:'assignment'
+
+        }
+
+        var assignment = {
+            Id: ko.observable(0),
+            CourseSubtopicId : 0,
+            Name: ko.observable(''),
+            Description: ko.observable(''),
+            AddedBy: 0,
+            IsActive: true,
+            CreatedOn: '',
+            IsSelected: ko.observable(false),
+            IsEditInProgress: ko.observable(false)
+
+        }
+        
+        var dataToBeRefreshed = null;
+
+        var dataToAdd = null;
+
+        var IsTopicOrderChanged = ko.observable(false);
+        var IsSubtopicContentOrderChanged = ko.observable(false);
+        var isTopicDeleted = ko.observable(false);// used to check the the array is sorted or not
+        var isSubtopicContentDeleted = ko.observable(false);
+        var isTopicAdded = ko.observable(false);// used to check the the array is sorted or not
+        var isSubtopicContentAdded =ko.observable(false);
+
+        var selectedSubtopicId = ko.observable(0);
+
+        var searchKeyword = ko.observable('');
+
+        var courseSearchHasFocus = ko.observable(false);
+
+        var courseList = ko.observableArray([]);
+
+        var filteredCourseList = ko.observableArray([]);
+
+        var subtopicsList = ko.observableArray([]);
+
+        var subtopicContentsList = ko.observableArray([]);
+
+        var assignmentsList = ko.observableArray([]);
+
+        var breadcrumb = ko.observableArray([]);
+
+        var courseId = my.queryParams["courseId"];
+
+        /******** Reset Funtions**********/
+
+        var resetEditor = function () {
+            editorContent.Id(0);
+            editorContent.CourseId = 0;
+            editorContent.CourseSubtopicId = 0;
+            editorContent.Name('');
+            editorContent.Description('');
+            editorContent.Icon('DefaultCourse.jpg');
+            editorContent.HasIcon(false);
+            editorContent.Url('');
+            editorContent.HasUrl(false);
+            editorContent.SortOrder('');
+            editorContent.HasSortOrder(false);
+            editorContent.ContentType('');
+            editorContent.HasContent(false);
+        }
+
+        var resetCourse = function () {
+            course.Id(0);
+            course.Name('');
+            course.Duration(5);
+            course.Description('');
+            course.Icon('DefaultCourse.jpg');
+            course.IconUrl = function () {
+                return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
+            };
+            course.AddedBy = 0;
+            course.IsActive = true;
+            course.IsEditInProgress(false);
+            course.IsPublished(false);
+            course.CreatedOn = '';
+            
+        }
+
+        var resetSubtopicsList = function () {
+            subtopicsList([]);
+        }
+
+        var resetSubtopicContentsList = function () {
+            subtopicContentsList([]);
+        }
+
+        var resetAssignmentsList = function () {
+            assignmentsList([]);
         };
 
-       
-        //var hideCourseEditorPanel = ko.observable(true);
-        var courses = ko.observableArray([]);
-        var currentSubtopicContents = ko.observableArray([]);
-        var currentAssignments = ko.observableArray(['Assignment1', 'Assignment2', 'Assignment3']);
+        var unselectListItems = function (list) {
+            ko.utils.arrayForEach(list(), function (item, index) {
+                if (item.hasOwnProperty('IsSelected')) {
+                    item.IsSelected(false);
+                }
+            });
+        }
 
-        var courseIndexForIconUpdate = null;
+        var resetEditInProgressKeyOfListItems = function (list) {
+            ko.utils.arrayForEach(list(), function (item, index) {
+                if (item.hasOwnProperty('IsEditInProgress')) {
+                    item.IsEditInProgress(false);
+                }
+            });
+        }
+
+        /***************************/
+
+        var getCourseWithSubtopicsCallback = function (jsonData) {
+            if (jsonData !== null) {
+                course.Id(jsonData.Id);
+                course.Name(jsonData.Name);
+                course.Description(jsonData.Description);
+                course.Icon(jsonData.Icon);
+                course.IconUrl = function () {
+                    return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
+                };
+                course.AddedBy = jsonData.AddedBy;
+                course.IsPublished(jsonData.IsPublished);
+                course.CreatedOn = jsonData.CreatedOn;
+                course.Duration(jsonData.Duration);
+
+                ko.utils.arrayForEach(jsonData.CourseSubtopics, function (item) {
+                    var subtopicClone = ko.mapping.fromJS(ko.mapping.toJS(subtopic));
+                    
+                    subtopicClone.Id(item.Id);
+                    subtopicClone.Name(item.Name);
+                    subtopicClone.CourseId = item.CourseId;
+                    subtopicClone.Description(item.Description),
+                    subtopicClone.AddedBy = item.AddedBy;
+                    subtopicClone.CreatedOn = item.CreatedOn;
+                    subtopicClone.SortOrder(item.SortOrder);
+
+                    subtopicsList.push(subtopicClone);
+                });
+                IsSubtopicContentOrderChanged(false);
+                IsTopicOrderChanged(false);
+                breadcrumb([]);
+                breadcrumb.push(course);
+            }
+            else {
+                alert('no courses found');
+            }
+
+            ko.applyBindings(my.courseEditorVm);
+        };
+
+        var getCourseWithSubtopics = function () {
+            notifyStyle();
+
+            if (courseId > 0) {
+                my.courseService.getCourseWithSubtopics(courseId, getCourseWithSubtopicsCallback);
+            }
+            else {
+                course.IconUrl = function () {
+                    return my.rootUrl + "/Uploads/CourseIcon/" + course.Icon();
+                };
+                
+                breadcrumb([]);
+                breadcrumb.push(course);
+                ko.applyBindings(my.courseEditorVm);
+                edit(course, 'course');
+                //For course Id undefined or 0 need to so some operation
+                
+            }
+        };
+
+        var saveOrderCallback = function (jsonData) {
+            if (jsonData) {
+                $.notify("Order saved", { style: 'customAlert' });
+            }
+            else {
+                alert('error');
+            }
+        }
+
+        var saveOrder = function (type) {
+            var sortedList = [];
+            if (type == 'subtopic') {
+                ko.utils.arrayForEach(subtopicsList(), function (item, index) {
+                    item.SortOrder(index + 1);
+                    sortedList.push({ id: item.Id(), SortOrder: item.SortOrder() });
+                });
+                my.courseService.saveSubtopicOrder(sortedList, saveOrderCallback);
+                IsTopicOrderChanged(false);
+            }
+            else if (type == 'subtopicContent') {
+                ko.utils.arrayForEach(subtopicContentsList(), function (item, index) {
+                    item.SortOrder(index + 1);
+                    sortedList.push({ id: item.Id(), SortOrder: item.SortOrder() });
+                    });
+                my.courseService.saveSubtopicContentOrder(sortedList, saveOrderCallback);
+                IsSubtopicContentOrderChanged(false);
+            }
+            
+        }
 
         var uploadImageCallback = function (jsonData) {
-            if (!my.isNullorEmpty(jsonData) && !my.isNullorEmpty(courseIndexForIconUpdate)) {
-                courses()[courseIndexForIconUpdate].Icon(jsonData);
-                courseIndexForIconUpdate = null;
+            if (!my.isNullorEmpty(jsonData)) {
+                editorContent.Icon(jsonData);
             }
             else {
                 alert("some error occured while uploading...");
@@ -85,419 +281,609 @@
         };
 
         var uploadImage = function (data, event) {
-            courseIndexForIconUpdate = ko.contextFor(data).$index();
+            
+            //var fileUpload = data[0];
+            var formData = new FormData($('form')[0]);
+            //if (fileUpload.files.length > 0) {
+            //    var files = fileUpload.files;
+            //    var fileData = new FormData();
+            //    fileData.append(files[0].name, files[0]);
 
-            if (my.isNullorEmpty(courseIndexForIconUpdate)) {
-                alert('No course selected');
-            }
-            else {
-                var fileUpload = data[0];
-                if ( fileUpload.files.length > 0) {
-                    var files = fileUpload.files;
-                    var fileData = new FormData();
-                    fileData.append(files[0].name, files[0]);
-
-                    my.courseService.uploadImage(fileData, uploadImageCallback);
-                }
-                else {
-                    alert("no file choosen");
-                }
-            }
-        
-        };
-
-        var getAllCoursesCallback = function (jsonData) {
-            if (jsonData !== null) {
-                ko.utils.arrayForEach(jsonData, function (item) {
-                    item.SubtopicNameToAdd = ko.observable("");
-                    item.Name = ko.observable(item.Name);
-                    item.Description = ko.observable(item.Description);
-                    item.Icon = ko.observable(item.Icon);
-                    item.IconUrl = function () {
-                        return my.rootUrl + "/Uploads/CourseIcon/" + item.Icon();
-                    };
-                    item.FileData = ko.observable('');
-                    // one more thing that can be done is make the properties of objects inside item.CourseSubtopics Array to observable
-                    item.CourseSubtopics = ko.observableArray(item.CourseSubtopics);
-                    courses.push(item);
-                });
-            }
-            else {
-                alert('no courses found');
-            }
-            ko.applyBindings(my.addCourseVm);
-        };
-
-        var getAllCourses = function ()
-        {
-            my.courseService.getAllCourses(getAllCoursesCallback);
-        };
-
-        var addCourseCallback = function (jsonData) {
-            if (jsonData != 0) {
-                
-                var addedCourse = ko.toJS(courseToAdd);
-                addedCourse.IconUrl = function () {
-                    return my.rootUrl + "/Uploads/CourseIcon/" + addedCourse.Icon;
-                },
-                addedCourse.Id = jsonData;
-                courses.push(addedCourse);
-
-                courseToAdd.Name("");
-            }
-        };
-
-        var addCourse = function () {
-            if (courseToAdd.Name() != "") {
-                my.courseService.addCourse(courseToAdd, addCourseCallback);
-            }
-            else {
-                alert('Name cannot be empty');
-            }
-
+                my.courseService.uploadImage(formData, uploadImageCallback);
+            //}
+            //else {
+            //    $.notify("No file Choosen", { style: 'customAlert', className: 'red' });
+            //    alert("no file choosen");
+            //}
             
         };
 
-        var updateCourseCallback = function (jsonData) {
-            if (jsonData) {
-                alert("updated");
-            }
-        };
+        var getAssignmentsCallback = function (jsonData) {
+            resetAssignmentsList();
+            if (jsonData !== null) {
+                ko.utils.arrayForEach(jsonData, function (item) {
+                    var assignmentClone = ko.mapping.fromJS(ko.mapping.toJS(assignment));
 
-        var updateCourse = function (data, event) {
-            var context = ko.contextFor(event.target);
-            var index = context.$index();
-            selectedCourseIndex = index;
+                    assignmentClone.Id(item.Id);
+                    assignmentClone.Name(item.Name);
+                    assignmentClone.Description(item.Description);
+                    assignmentClone.CourseSubtopicId = item.CourseSubtopicId;
+                    assignmentClone.AddedBy = item.AddedBy;
+                    assignmentClone.CreatedOn = item.CreatedOn;
 
-            if (courses()[index].Name() != "") {
-                my.courseService.updateCourse(courses()[index], updateCourseCallback)
-            }
-            else {
-                alert("Empty Field");
-            }
-
-        };
-
-        var addSubtopicCallback = function(jsonData){
-            if (jsonData != 0 ) {
-                ko.utils.arrayForEach(courses(), function (course) {
-                    if (course.Id == subtopicToAdd.CourseId) {
-                        var addedSubtopic = ko.toJS(subtopicToAdd);
-                        addedSubtopic.Id = jsonData;
-                        course.CourseSubtopics.push(addedSubtopic);
-                        course.SubtopicNameToAdd("");
-                    }
+                    assignmentsList.push(assignmentClone);
                 });
-
             }
             else {
-                alert('some error occured while adding');
+                alert('no assignment found');
             }
         }
 
-        var addSubtopic = function (data, event) {
-
-            var context = ko.contextFor(event.target);
-            var index = context.$index();
-            if (courses()[index].SubtopicNameToAdd() != "") {
-                subtopicToAdd.CourseId = courses()[index].Id;
-                subtopicToAdd.Name = courses()[index].SubtopicNameToAdd();
-                my.courseService.addSubtopic(subtopicToAdd, addSubtopicCallback)
-            }
-            else {
-                alert('Name cannot be empty');
-            }
-
-        };
+        var getAssignments = function (data) {
+            my.courseService.getAssignments(data.Id(), getAssignmentsCallback);
+        }
 
         var getSubtopicContentsCallback = function (jsonData) {
-
             if (jsonData !== null) {
-                currentSubtopicContents.splice(0, currentSubtopicContents().length);
-                currentSubtopicContents.push(subtopicContentToAdd);
 
-                ko.utils.arrayForEach(jsonData, function (item) {
-                    item.Id = ko.observable(item.Id);
-                    item.Name = ko.observable(item.Name);
-                    item.Description = ko.observable(item.Description);
-                    item.Url = ko.observable(item.Url);
-                    item.SortOrder = ko.observable(item.SortOrder);
+                resetSubtopicContentsList();
 
-                    currentSubtopicContents.push(item);
+                ko.utils.arrayForEach(jsonData, function (item, index) {
+                    var content = ko.mapping.fromJS(ko.mapping.toJS(subtopicContent));
+                    content.Id(item.Id);
+                    content.CourseSubtopicId = item.CourseSubtopicId;
+                    content.Name(item.Name);
+                    content.Description(item.Description);
+                    content.Url(item.Url);
+                    content.AddedBy = item.AddedBy;
+                    content.IsActive = true;
+                    content.CreatedOn = item.CreatedOn;
+                    content.SortOrder(item.SortOrder);
+
+                    subtopicContentsList.push(content);
+                    IsSubtopicContentOrderChanged(false);
                 });
-               
-                selectedSubtopicContent.Description('');
-                selectedSubtopicContent.Name('');
-                selectedSubtopicContent.Url('');
-                selectedSubtopicContent.IsVisible(false);
             }
             else {
                 alert('No contents found');
             }
-
         };
 
-        var getSubtopicContents = function (data, event) {
-            var data = ko.toJS(data);
-            currentSubtopic.Id = data.Id;
-            currentSubtopic.CourseId = data.CourseId;
-            currentSubtopic.Name(data.Name);
-            currentSubtopic.Description(data.Description);
-            currentSubtopic.AddedBy = data.AddedBy;
-            currentSubtopic.IsActive = true;
-            currentSubtopic.CreatedOn = data.CreatedOn;
-            currentSubtopic.SortOrder(data.SortOrder);
-            currentSubtopic.IsVisible(true);
+        var getSubtopicContents = function (data) {
 
-            my.courseService.getSubtopicContents(data.Id, getSubtopicContentsCallback);
-            
+            if (data.hasOwnProperty('IsSelected')) {
+                unselectListItems(subtopicsList);
+                data.IsSelected(true);
+            }
+            my.courseService.getSubtopicContents(data.Id(), getSubtopicContentsCallback);
         };
 
-        //var getAssignmentsCallback = function (jsonData) {
-        //    ko.utils.arrayForEach(jsonData, function (item) {
-        //        item.Id = ko.observable(item.Id);
-        //        item.Name = ko.observable(item.Name);
-        //        item.Description = ko.observable(item.Description);
-        //        currentAssignments().push(item);
-        //    });
-        //};
-
-        var editSubtopicContent = function (data, event) {
-            selectedSubtopicContent.Id(data.Id());
-            if (data.CourseSubtopicId == 0)
+        var getFilteredCourses = function () {
+            if (courseList().length == 0)
             {
-                data.CourseSubtopicId = currentSubtopic.Id;
+                getAllCourses();
             }
-            selectedSubtopicContent.CourseSubtopicId = data.CourseSubtopicId;
-            selectedSubtopicContent.Name(data.Name);
-            selectedSubtopicContent.Description(data.Description());
-            selectedSubtopicContent.Url(data.Url);
-            selectedSubtopicContent.AddedBy = data.Id;
-            selectedSubtopicContent.IsActive = data.IsActive;
-            selectedSubtopicContent.CreatedOn = data.CreatedOn;
-            selectedSubtopicContent.SortOrder(data.SortOrder);
-            selectedSubtopicContent.IsVisible(true);
-            selectedSubtopicContent.ShowUrlField(true);
+            filteredCourseList([]);
+            var filter = searchKeyword().toLowerCase();
 
-            //my.courseService.getAssignments(data.Id(), getAssignmentsCallback);
+            /******* In first call courseList is not updating( WHY??? )********/
 
-            //selectedContentIndex = ko.contextFor(event.target).$index();
+            if (filter !== "") {
+                ko.utils.arrayForEach(courseList(), function (item) {
+                    //if (ko.utils.stringStartsWith(item.Name.toLowerCase(), filter)) {
+                    if (item.Name.toLowerCase().indexOf(filter) !== -1) {
+                        filteredCourseList.push(item);
+                    }
+                });
+            }
         };
-    
-        var updateSubtopicCallback = function (jsonData) {
+
+        
+        var getAllCoursesCallback = function (jsonData) {
+            ko.utils.arrayForEach(jsonData, function (item) {
+                courseList.push(item);
+            });
+        };
+
+        var getAllCourses = function () {
+            my.courseService.getAllCourses(getAllCoursesCallback);
+        };
+
+        var navigateToAnotherCourse = function (id) {
+            window.location.href = my.rootUrl + '/LearningPath/CourseEditorNew?courseId='+ id;
+        }
+
+        var publishCourseCallback = function (jsonData) {
             if (jsonData) {
-                var courseIndex = -1, subtopicIndex = -1;
-                ko.utils.arrayForEach(courses(), function (item, index) {
-                    if (item.Id == currentSubtopic.CourseId) {
-                        courseIndex = index;
-                    }
-                });
-                var courseList = courses()[courseIndex].CourseSubtopics();
-                ko.utils.arrayForEach(courseList, function (item, index) {
-                    if (item.Id == currentSubtopic.Id) {
-                        subtopicIndex = index;
-                    }
-                });
-                 courses()[courseIndex].CourseSubtopics()[subtopicIndex].Name = currentSubtopic.Name;
-                 courses()[courseIndex].CourseSubtopics()[subtopicIndex].Description = currentSubtopic.Description;
-                 courses()[courseIndex].CourseSubtopics()[subtopicIndex].SortOrder = currentSubtopic.SortOrder;
-                alert('Updated');
+                $.notify("Course Published", { style: 'customAlert' });
+                course.IsPublished(true);
             }
-            else {
-                alert('Some error occured');
-            }
-        };
+        }
 
-        var updateSubtopic = function () {
-            if (currentSubtopic.Name() !== "" && currentSubtopic.Name() !== null) {
-                my.courseService.updateSubtopic(currentSubtopic, updateSubtopicCallback);
-            }
-            else {
-                alert('Name cannot be empty');
-            }
-        };
+        var publishCourse = function () {
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Make sure you have completed the course <b>' + editorContent.Name() +'</b>',
+                buttons: {
+                    confirm: function () {
+                        my.courseService.publishCourse(course.Id(), publishCourseCallback);
+                    },
+                    cancel: function () {
+                        $.alert(course.Name() + ' is not published');
+                    }
+                }
+            });
+           
+        }
 
-        var deleteSubtopicCallback = function (jsonData) {
+        var saveChangesCallback = function (jsonData) {
             if (jsonData) {
-                var courseIndex = -1, subtopicIndex = -1;
-                ko.utils.arrayForEach(courses(), function (item, index) {
-                    if(item.Id == currentSubtopic.CourseId){
-                        courseIndex = index;
-                    }
-                });
-
-                ko.utils.arrayForEach(courses()[courseIndex].CourseSubtopics, function (item, index) {
-                    if (item.Id == currentSubtopic.Id) {
-                        subtopicIndex = index;
-                    }
-                });
-                courses()[courseIndex].CourseSubtopics.splice(subtopicIndex, 1);
-                courseIndex = -1;
-                subtopicIndex = -1;
-
-                currentSubtopic.Id = 0;
-                currentSubtopic.Name('');
-                currentSubtopic.Description('');
-                currentSubtopic.SortOrder('');
-                currentSubtopic.IsVisible(false);
-
-                selectedSubtopicContent.Description('');
-                selectedSubtopicContent.Name('');
-                selectedSubtopicContent.Url('');
-                selectedSubtopicContent.IsVisible(false);
-
-                alert('Deleted');
+                dataToBeRefreshed.Name(editorContent.Name());
+                dataToBeRefreshed.Description(editorContent.Description());
+                if (editorContent.HasUrl()) {
+                    dataToBeRefreshed.Url(editorContent.Url());
+                }
+                if (editorContent.HasIcon()) {
+                    dataToBeRefreshed.Icon(editorContent.Icon());
+                }
+                if (editorContent.ContentType() == 'course') {
+                    dataToBeRefreshed.Duration(editorContent.Duration());
+                }
+                $.notify("Changes saved", { style: 'customAlert', className: 'green' });
             }
             else {
-                alert('Some error occured');
+                alert('error occured while in saving data');
             }
         };
 
-        var deleteSubtopic = function () {
-            my.courseService.deleteSubtopic(currentSubtopic.Id, deleteSubtopicCallback);
-            
-        };
+        var addChangesCallback = function (jsonData) {
+            if (jsonData > 0)
+            {
+                editorContent.Id(jsonData);
 
-        var updateSubtopicContentCallback = function (jsonData) {
-            if (jsonData) {
-                alert('updated');
-            }
-            else {
-                alert('some error occured');
-            }
+                if (editorContent.ContentType() == 'subtopic') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(subtopic));
 
-        };
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseId = dataToAdd.CourseId;
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
 
-        var updateSubtopicContent = function () {
-            if (ko.toJS(selectedSubtopicContent.Name()) !== "") {
-                my.courseService.updateSubtopicContent(selectedSubtopicContent, updateSubtopicContentCallback);
-            }
-            else {
-                alert("Name cannot be empty");
-            }
-        };
+                    dataToBeRefreshed = newData;
+                    subtopicsList.push(newData);
+                //    IsTopicOrderChanged(false);
+                    selectedSubtopicId(jsonData);
 
-        var addSubtopicContentCallback = function (jsonData) {
-            if (jsonData > 0) {
-                var addedSubtopicContent = ko.toJS(selectedSubtopicContent);
-                addedSubtopicContent.Id = ko.observable(jsonData);
-                addedSubtopicContent.Name = ko.observable(addedSubtopicContent.Name);
-                addedSubtopicContent.Description = ko.observable(addedSubtopicContent.Description);
-                addedSubtopicContent.Url = ko.observable(addedSubtopicContent.Url);
+                    $.notify("New Topic Added", { style: 'customAlert' });
 
-                currentSubtopicContents.push(addedSubtopicContent);
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(subtopicContent));
+
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseSubtopicId = dataToAdd.CourseSubtopicId;
+                    newData.Url(dataToAdd.Url());
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
+
+                    dataToBeRefreshed = newData;
+                    subtopicContentsList.push(newData);
+
+                    $.notify("New Link Added", { style: 'customAlert' });
+                //    IsSubtopicContentOrderChanged(false);
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    var newData = ko.mapping.fromJS(ko.mapping.toJS(assignment));
+
+                    newData.Id(jsonData);
+                    newData.Name(dataToAdd.Name());
+                    newData.Description(dataToAdd.Description());
+                    newData.CourseSubtopicId = dataToAdd.CourseSubtopicId;
+                    newData.IsEditInProgress(true);
+                    newData.IsSelected(true);
+
+                    dataToBeRefreshed = newData;
+                    assignmentsList.push(newData);
+                    $.notify("New Assignment Added", { style: 'customAlert'});
+
+                }
+                else if (editorContent.ContentType() == 'course') {
+                    course.Id(jsonData);
+                    course.Name(dataToAdd.Name());
+                    course.Description(dataToAdd.Description());
+                    course.Icon(dataToAdd.Icon());
+                    course.Duration(dataToAdd.Duration());
+
+                    $.notify("New Course Added", { style: 'customAlert'});
+                }
                 
-                subtopicContentToAdd.Id(0);
-                subtopicContentToAdd.Name('');
-                subtopicContentToAdd.Description('');
-                subtopicContentToAdd.Url('');
-                subtopicContentToAdd.SortOrder('');
-                
-
-                selectedSubtopicContent.Description('');
-                selectedSubtopicContent.Name('');
-                selectedSubtopicContent.Url('');
-                
-            } else {
-                alert('some problem occured while adding');
-            }
-        };
-
-        var addSubtopicContent = function () {
-            if (ko.toJS( selectedSubtopicContent.Name()) !== "") {
-                my.courseService.addSubtopicContent(selectedSubtopicContent, addSubtopicContentCallback);
             }
             else {
-                alert("Heading cannot be empty");
+                alert('error occured while in saving data');
             }
-        };
+        }
 
-        var deleteSubtopicContentCallback = function (jsonData) {
-            if (jsonData) {
-                var contentIndex = -1;
-                ko.utils.arrayForEach(currentSubtopicContents(), function (item, index) {
-                    if (item.Id() == selectedSubtopicContent.Id()) {
-                        contentIndex = index;
+        var saveChanges = function () {
+           
+            if (validateEditorContents()) {
+
+                if (editorContent.ContentType() == 'course') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateCourse(editorContent, saveChangesCallback);
                     }
-                });
-
-                if (contentIndex !== -1) {
-                    currentSubtopicContents.splice(contentIndex, 1);
-
-                    selectedSubtopicContent.Description('');
-                    selectedSubtopicContent.Name('');
-                    selectedSubtopicContent.Url('');
-                    selectedSubtopicContent.IsVisible(false);
-                    alert('deleted');
+                    else {
+                        my.courseService.addCourse(editorContent, addChangesCallback);
+                    }
+                }
+                else if (editorContent.ContentType() == 'subtopic') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateSubtopic(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        //  editorContent.CourseId = course.Id();
+                        isTopicAdded(true);
+                        my.courseService.addSubtopic(editorContent, addChangesCallback)
+                    }
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateSubtopicContent(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        isSubtopicContentAdded(true);
+                        //editorContent.CourseId = course.Id();
+                        //editorContent.CourseSubtopicId = selectedSubtopicId;
+                        my.courseService.addSubtopicContent(editorContent, addChangesCallback);
+                    }
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    if (editorContent.Id() > 0) {
+                        my.courseService.updateAssignment(editorContent, saveChangesCallback);
+                    }
+                    else {
+                        my.courseService.addAssignment(editorContent, addChangesCallback);
+                    }
                 }
                 else {
-                    alert('item not found');
+                    alert('no content type matched');
                 }
             }
-            else {
-                alert('some error occured');
+        }
+
+        var deleteCallback = function (jsonData) {
+            if (jsonData) {
+             
+                var indexOfItem = -1;
+                if (editorContent.ContentType() == 'course') {
+                    
+                    selectedSubtopicId(0);
+                    resetCourse();
+                    resetAssignmentsList();
+                    resetSubtopicContentsList();
+                    resetSubtopicsList();
+                    $.notify("Course Deleted", { style: 'customAlert' });
+                }
+                else if (editorContent.ContentType() == 'subtopic') {
+                    selectedSubtopicId(0);
+                    resetAssignmentsList();
+                    resetSubtopicContentsList();
+                    ko.utils.arrayForEach(subtopicsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id())
+                        {
+                            indexOfItem = index;
+                        }
+                    });
+                    subtopicsList.splice(indexOfItem, 1);
+                    $.notify("Subtopic Deleted", { style: 'customAlert'});
+                    //isTopicDeleted = false;
+                  //  IsTopicOrderChanged(false);
+                }
+                else if (editorContent.ContentType() == 'subtopicContent') {
+                    ko.utils.arrayForEach(subtopicContentsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id()) {
+                            indexOfItem = index;
+                        }
+                    });
+                    subtopicContentsList.splice(indexOfItem, 1);
+                    $.notify("Link Deleted", { style: 'customAlert' });
+                   // isSubtopicContentDeleted = true;
+                 //   IsSubtopicContentOrderChanged(false);
+                }
+                else if (editorContent.ContentType() == 'assignment') {
+                    ko.utils.arrayForEach(assignmentsList(), function (item, index) {
+                        if (item.Id() == editorContent.Id()) {
+                            indexOfItem = index;
+                        }
+                    });
+                    assignmentsList.splice(indexOfItem, 1);
+                    $.notify("Assignment Deleted", { style: 'customAlert' });
+                }
+                resetEditor();
+
             }
+            else {
+                alert('server refuses to delete');
+            }
+
+        }
+
+        var deleteData = function () {
+            var confirmDelete = false;
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Do You really want to DELETE <b>'+ editorContent.Name() +'</b>',
+                buttons: {
+                    confirm: function () {
+                        if (editorContent.ContentType() == 'course') {
+                            my.courseService.deleteCourse(editorContent.Id(), deleteCallback);
+
+                        }
+                        else if (editorContent.ContentType() == 'subtopic') {
+                            isTopicDeleted(true);
+                            my.courseService.deleteSubtopic(editorContent.Id(), deleteCallback)
+                        }
+                        else if (editorContent.ContentType() == 'subtopicContent') {
+                            isSubtopicContentDeleted(true);
+                            my.courseService.deleteSubtopicContent(editorContent.Id(), deleteCallback);
+                        }
+                        else if (editorContent.ContentType() == 'assignment') {
+                            my.courseService.deleteAssignment(editorContent.Id(), deleteCallback);
+                        }
+                        else {
+                            alert('no content type matched');
+                        }
+                    },
+                    cancel: function () {
+                        $.alert('Delete action cancelled');
+                    }
+                }
+            });
+        }
+
+        var notifyStyle = function () {
+            $.notify.addStyle('customAlert', {
+                html: "<div data-notify-text /div>",
+                classes: {
+                    base: {
+                        "white-space": "nowrap",
+                        "color": "white",
+                        "font-size": "18px",
+                        "background-color": "#194a71",
+                        "padding": "5px 15px",
+                        "position": "fixed",
+                        "top": "9%",
+                        "left": "60%",
+                        "text-align":"center",
+                        "min-width": "20%"
+                        
+                    },
+                    blue: {
+                        "background-color": "#14588f"
+                    },
+                    red: {
+                        "background-color": "#DC4749"
+                    }
+
+                }
+            });
+        }
+
+        var edit = function (data, dataType) {
+            dataType = ko.toJS(dataType);
+            
+            editorContent.ContentType(dataType);
+
+            if (dataType == 'course') {
+                if (data.course !== undefined) {
+                    data = data.course;
+                }
+                editorContent.Duration(data.Duration());
+                editorContent.HasIcon(true);
+                editorContent.Icon(data.Icon());
+                editorContent.IconUrl = function () {
+                    return my.rootUrl + "/Uploads/CourseIcon/" + editorContent.Icon();
+                };
+                editorContent.HasUrl(false);
+                editorContent.HasSortOrder(false);
+
+                selectedSubtopicId(0);
+                unselectListItems(subtopicsList);
+                unselectListItems(subtopicContentsList);
+
+                breadcrumb([]);
+                breadcrumb.push(course);
+            }
+            else if (dataType == 'subtopic') {
+                if (data.Id() == 0) {
+                    resetSubtopicContentsList();
+                }
+                selectedSubtopicId(data.Id());
+                if (data.CourseId > 0) {
+                    editorContent.CourseId = data.CourseId;
+                }
+                else {
+                    editorContent.CourseId = course.Id();
+                }
+                editorContent.HasUrl(false);
+                editorContent.SortOrder(data.SortOrder());
+                editorContent.HasSortOrder(true);
+                editorContent.HasIcon(false);
+
+                breadcrumb([]);
+                breadcrumb.push(course);
+                breadcrumb.push(data);
+
+                if (data.hasOwnProperty('IsSelected')) {
+                    unselectListItems(subtopicsList);
+                    unselectListItems(subtopicContentsList);
+                    unselectListItems(assignmentsList);
+                    
+                }
+                
+            }
+            else if (dataType == 'subtopicContent') {
+
+                if (data.CourseSubtopicId > 0) {
+                    editorContent.CourseSubtopicId = data.CourseSubtopicId;
+                }
+                else {
+                    editorContent.CourseSubtopicId = selectedSubtopicId();
+                }
+                
+                editorContent.SortOrder(data.SortOrder());
+                editorContent.HasSortOrder(true);
+                editorContent.HasIcon(false);
+
+                editorContent.HasUrl(true);
+                editorContent.Url(data.Url());
+                if (data.hasOwnProperty('IsSelected')) {
+                    unselectListItems(subtopicContentsList);
+                    unselectListItems(assignmentsList);
+                }
+
+                breadcrumb.splice(2, 1);
+                breadcrumb.push(data);
+            }
+            else if (dataType == 'assignment') {
+                if (data.SubtopicId > 0) {
+                    editorContent.CourseSubtopicId = data.SubtopicId;
+                }
+                else {
+                    editorContent.CourseSubtopicId = selectedSubtopicId();
+                }
+                editorContent.HasSortOrder(false);
+                editorContent.HasIcon(false);
+                editorContent.HasUrl(false);
+
+                unselectListItems(subtopicContentsList);
+                unselectListItems(assignmentsList);
+
+                breadcrumb.splice(2, 1);
+                breadcrumb.push(data);
+            }
+
+            resetEditInProgressKeyOfListItems(subtopicsList);
+            resetEditInProgressKeyOfListItems(subtopicContentsList);
+            resetEditInProgressKeyOfListItems(assignmentsList);
+            course.IsEditInProgress(false);
+            
+
+            editorContent.HasContent(true);
+            editorContent.Id(data.Id());
+            editorContent.Name(data.Name());
+            editorContent.Description(data.Description());
+            
+            if (data.Id() > 0) {
+                dataToBeRefreshed = data;
+                data.IsEditInProgress(true);
+                if (data.hasOwnProperty('IsSelected')) { 
+                    data.IsSelected(true);
+                }
+                dataToAdd = null;
+            }
+            else {
+                dataToAdd = editorContent;
+                dataToBeRefreshed = null;
+            }
+
         };
 
-        var deleteSubtopicContent = function () {
-            if (selectedSubtopicContent.Id() > 0) {
-                my.courseService.deleteSubtopicContent(selectedSubtopicContent.Id(), deleteSubtopicContentCallback);
+        var validateEditorContents = function () {
+            if (editorContent.Name() == '') {
+                $.notify("Heading cannot be empty", { style: 'customAlert', className: 'red' });
+                return false;
             }
-            else {
-                alert('This content is not saved yet');
+            else if (editorContent.HasUrl())
+            {   
+                var urlRegExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+                if (editorContent.Url() !== '' && editorContent.Url() !== null && !urlRegExp.test(editorContent.Url()))
+                {
+                    
+                    $.notify("Enter proper url or leave empty", { style: 'customAlert', className: 'red' });
+                    return false;
+                }
             }
-
-        };
+            else if (editorContent.ContentType() == 'course' && editorContent.Duration() == null) {
+                $.notify("Duration cannot be empty", { style: 'customAlert', className: 'red' });
+            }
+            return true;
+           
+        }
 
         return {
-            
-            courses : courses,
-            courseToAdd: courseToAdd,
-            currentSubtopic : currentSubtopic,
-            currentSubtopicContents: currentSubtopicContents,
-            currentAssignments : currentAssignments,
-            selectedSubtopicContent: selectedSubtopicContent,
+            course: course,
+            subtopic: subtopic,
+            subtopicContent: subtopicContent,
+            assignment: assignment,
+            subtopicsList: subtopicsList,
+            subtopicContentsList: subtopicContentsList,
+            selectedSubtopicId : selectedSubtopicId,
+            assignmentsList : assignmentsList,
+            editorContent: editorContent,
+            searchKeyword: searchKeyword,
+            filteredCourseList: filteredCourseList,
+            courseSearchHasFocus: courseSearchHasFocus,
+            courseList: courseList,
+            dataToBeRefreshed: dataToBeRefreshed,
+            IsTopicOrderChanged: IsTopicOrderChanged,
+            IsSubtopicContentOrderChanged: IsSubtopicContentOrderChanged,
+            isTopicDeleted: isTopicDeleted,
+            isSubtopicContentDeleted: isSubtopicContentDeleted,
+            isTopicAdded : isTopicAdded,
+            isSubtopicContentAdded : isSubtopicContentAdded,
 
-            addSubtopic : addSubtopic,
-            addCourse: addCourse,
-            addSubtopicContent: addSubtopicContent,
-
-            addCourseCallback: addCourseCallback,
-            addSubtopicCallback: addSubtopicCallback,
-            addSubtopicContentCallback: addSubtopicContentCallback,
-
-            updateCourse: updateCourse,
-            updateSubtopic: updateSubtopic,
-            updateSubtopicContent : updateSubtopicContent,
-
-            updateCourseCallback: updateCourseCallback,
-            updateSubtopicCallback: updateSubtopicCallback,
-            updateSubtopicContentCallback : updateSubtopicContentCallback,
-
-            deleteSubtopic: deleteSubtopic,
-            deleteSubtopicContent: deleteSubtopicContent,
-
-            deleteSubtopicCallback : deleteSubtopicCallback,
-            deleteSubtopicContentCallback : deleteSubtopicContentCallback, 
-
+            saveOrder : saveOrder,
+            navigateToAnotherCourse: navigateToAnotherCourse,
+            uploadImage : uploadImage,
+            edit: edit,
+            saveChanges: saveChanges,
+            deleteData : deleteData,
+            getAssignments : getAssignments,
+            getSubtopicContents : getSubtopicContents,
+            getCourseWithSubtopics: getCourseWithSubtopics,
+            getFilteredCourses: getFilteredCourses,
             getAllCourses: getAllCourses,
-            getAllCoursesCallback: getAllCoursesCallback,
-
-            uploadImage: uploadImage,
-            uploadImageCallback: uploadImageCallback,
-
-            getSubtopicContentsCallback: getSubtopicContentsCallback,
-            getSubtopicContents: getSubtopicContents,
-
-            editSubtopicContent: editSubtopicContent,
-
-        };
+            publishCourse: publishCourse,
+            breadcrumb : breadcrumb
+        }
     }();
+    
+    my.courseEditorVm.getCourseWithSubtopics();
+    my.courseEditorVm.searchKeyword.subscribe(function () {
+        my.courseEditorVm.getFilteredCourses();
+    });
+    my.courseEditorVm.subtopicsList.subscribe(function () {
+        if (!my.courseEditorVm.isTopicDeleted() && !my.courseEditorVm.isTopicAdded()) {
+            my.courseEditorVm.IsTopicOrderChanged(true);
+        }
+        else {
+            my.courseEditorVm.isTopicDeleted(false);
+            my.courseEditorVm.isTopicAdded(false);
+        }
 
-    my.addCourseVm.getAllCourses();
 
 
-
-
-
+    });
+    my.courseEditorVm.subtopicContentsList.subscribe(function () {
+        if (!my.courseEditorVm.isSubtopicContentDeleted() && !my.courseEditorVm.isSubtopicContentAdded()) {
+            my.courseEditorVm.IsSubtopicContentOrderChanged(true);
+        }
+        else {
+            my.courseEditorVm.isSubtopicContentDeleted(false);
+            my.courseEditorVm.isSubtopicContentAdded(false);
+        }
+        
+    });
+    my.courseEditorVm.course.FileData.subscribe(function () {
+        if (my.courseEditorVm.course.Icon() == "") {
+            my.courseEditorVm.course.Icon("DefaultCourse.jpg")
+        }
+        else {
+            my.courseEditorVm.uploadImage();
+        }
+    });
 });

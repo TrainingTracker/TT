@@ -21,7 +21,7 @@
         };
 
         var navigateToCourse = function(courseId) {
-            window.location.href = my.rootUrl + '/LearningPath/CourseEditorNew?courseId=' + courseId;
+            window.location.href = my.rootUrl + '/LearningPath/CourseEditor?courseId=' + courseId;
         };
 
         var filterCourse = function ()

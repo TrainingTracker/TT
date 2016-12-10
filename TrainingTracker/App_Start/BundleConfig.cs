@@ -82,13 +82,6 @@ namespace TrainingTracker
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
-                "~/Scripts/ckeditor/ckeditor.js",
-                "~/Scripts/Custom/CourseService.js",
-                "~/Scripts/Custom/CourseEditor.js"
-                
-            ));
-
-            bundles.Add(new ScriptBundle("~/bundles/CourseEditorNewViewScripts").Include(
                 "~/Scripts/ko.mapping.js",
                "~/Scripts/ckeditor/ckeditor.js",
                "~/Scripts/jquery-confirm.js",
@@ -96,7 +89,7 @@ namespace TrainingTracker
                "~/Scripts/jquery-ui.js",
                "~/Scripts/knockout-sortable.js",
                "~/Scripts/Custom/CourseService.js",
-                "~/Scripts/Custom/CourseEditorNew.js"
+                "~/Scripts/Custom/CourseEditor.js"
                 
             ));
 
@@ -148,7 +141,7 @@ namespace TrainingTracker
             ));
 
             bundles.Add(new StyleBundle("~/bundles/CoursesEditorViewStyles").Include(
-                    "~/StyleSheets/CourseEditorNew.css",
+                    "~/StyleSheets/CourseEditor.css",
                    "~/StyleSheets/jquery-confirm.css" ,
                    "~/Content/site.css"
           ));
