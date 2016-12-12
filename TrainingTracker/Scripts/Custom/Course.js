@@ -13,11 +13,15 @@
             $.each(topic.SubtopicContents, function (arrayId, item) {
                 my.courseVm.selectedTopic.SubtopicContents.push(item);
             });
+            $.each(topic.Assignments, function (arrayId, item) {
+                my.courseVm.selectedTopic.Assignments.push(item);
+            });
         },
         selectedTopic = {
                 Name: ko.observable(""),
                 Description: ko.observable(""),
-                SubtopicContents: ko.observableArray([])
+                SubtopicContents: ko.observableArray([]),
+                Assignments: ko.observableArray([])
         },
         getCourseCallback = function (jsonData) {
             if (jsonData !== null) {
