@@ -18,16 +18,20 @@
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>
         </div>
-        <div class="row layout-section">
-            <div class="col-xs-2 layout-section layout-left-panel course-index">
+        <div class="row ">
+            <div class="col-xs-2 layout-left-panel course-index" >
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
-                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics">
+                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics" data-spy="affix" data-offset-top="205" >
                     <ul class="subtopic">
                         <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
                             <span data-bind="text: Name"></span>
-                            <ul class="links" data-bind="foreach: SubtopicContents">
+                            <ul class="links">
+                                <!-- ko foreach: SubtopicContents -->
                                 <li><span data-bind="text: Name"></span></li>
+                                <!-- /ko -->
+                                <li data-bind="visible: Assignments.length > 0">Assignment</li>
                             </ul>
+                        
                         </li>
                     </ul>
                 </div>
@@ -50,7 +54,7 @@
                 </div>
                 <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.Assignments">
                     <div class="panel panel-default link-panel">
-                        <div class="panel-heading link-header">
+                        <div class="panel-heading assignment-header">
                             <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                         </div>
                         <div class="panel-body">

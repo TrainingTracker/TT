@@ -94,8 +94,7 @@ namespace TrainingTracker.DAL.DataAccess
                 {
                     return context.Courses
                                   .Where(x => ( length == 0 || splittedKeywords.Any(y => x.Name.Contains(y) || x.Description.Contains(y))) 
-                                                && x.IsActive 
-                                                && x.IsPublished )
+                                                && x.IsActive )
                                   .Select(x=> new Course
                                   {
                                       Id = x.Id,

@@ -11,6 +11,7 @@
             my.courseVm.selectedTopic.Name(topic.Name);
             my.courseVm.selectedTopic.Description(topic.Description);
             my.courseVm.selectedTopic.SubtopicContents([]);
+            my.courseVm.selectedTopic.Assignments([]);
             $.each(topic.SubtopicContents, function (arrayId, item) {
                 my.courseVm.selectedTopic.SubtopicContents.push(item);
             });
