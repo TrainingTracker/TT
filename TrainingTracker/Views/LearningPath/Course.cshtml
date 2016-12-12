@@ -23,7 +23,7 @@
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
                 <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics">
                     <ul class="subtopic">
-                        <li data-bind="click: function(){$parent.showSelectedTopic($data);}">
+                        <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
                             <span data-bind="text: Name"></span>
                             <ul class="links" data-bind="foreach: SubtopicContents">
                                 <li><span data-bind="text: Name"></span></li>

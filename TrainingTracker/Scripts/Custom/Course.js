@@ -7,6 +7,7 @@
             Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg",
         },
         showSelectedTopic = function (topic) {
+            my.courseVm.selectedTopic.Id(topic.Id);
             my.courseVm.selectedTopic.Name(topic.Name);
             my.courseVm.selectedTopic.Description(topic.Description);
             my.courseVm.selectedTopic.SubtopicContents([]);
@@ -18,6 +19,7 @@
             });
         },
         selectedTopic = {
+                Id:ko.observable(0),
                 Name: ko.observable(""),
                 Description: ko.observable(""),
                 SubtopicContents: ko.observableArray([]),

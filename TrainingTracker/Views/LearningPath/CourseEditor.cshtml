@@ -13,6 +13,7 @@
         <div class="col-xs-2 no-padding-left no-padding-right no-margin-left no-margin-right layout-section layout-left-panel">
             <div id="divTopicHeader" class="row col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right" data-bind="css: { 'course-in-edit': course.IsEditInProgress() }, click: function () { $root.edit($data, 'course'); }">
                 <div class="col-xs-12">
+                    <a title="preview", target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/Course?courseId=' + course.Id() }, visible: course.Id() > 0,click: function(){return true;}, clickBubble:false" ><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <span>
                         <i data-bind="visible: course.IsEditInProgress()" class="fa fa-gear rotate"></i>
                         <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i> 
