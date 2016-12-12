@@ -39,7 +39,9 @@
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading link-header">
                             <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
-                            <span class="pull-right" style="display: inline-block"><i class="fa fa-external-link"> Browse Link</i></span>
+                            <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
+                              <a data-bind="attr: { href: Url}"><i class="fa fa-external-link"> Browse Link</i></a>  
+                            </span>
                         </div>
                         <div class="panel-body">
                             <span data-bind="html: Description"></span>
