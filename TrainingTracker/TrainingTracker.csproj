@@ -266,6 +266,7 @@
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\Course.js" />
     <Content Include="Scripts\Custom\CourseEditor.js" />
     <Content Include="Scripts\Custom\CourseService.js" />
     <Content Include="Scripts\Custom\Dashboard.js" />
@@ -324,6 +325,7 @@
     <Content Include="StyleSheets\AddEditProfile.css" />
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
+    <Content Include="StyleSheets\Course.css" />
     <Content Include="StyleSheets\CourseEditor.css" />
     <Content Include="StyleSheets\CustomButtons.css" />
     <Content Include="StyleSheets\Dashboard.css" />
@@ -370,6 +372,7 @@
     <Content Include="Views\Shared\_FeedbackThread.cshtml" />
     <Content Include="Views\LearningPath\Courses.cshtml" />
     <Content Include="StyleSheets\fontawesome-animation.css" />
+    <Content Include="Views\LearningPath\Course.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

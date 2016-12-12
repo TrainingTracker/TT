@@ -1,0 +1,59 @@
+﻿@section Styles
+{
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/StyleSheets/Course.css" rel="stylesheet" />
+}
+
+<div class="container-fluid">
+    <div class="col-md-12 layout-wrapper">
+        <div class="row layout-header-panel">
+            <div class="col-md-2">
+                <img class="course-header-img" data-bind="attr: { src: courseInfo.Icon }" />
+            </div>
+            <div class="col-md-8">
+                <h2 data-bind="text: courseInfo.Course.Name"></h2>
+                <h3 data-bind="html: courseInfo.Course.Description"></h3>
+                <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 layout-section layout-left-panel course-index">
+                <label class="title" data-bind="text: courseInfo.Course.Name"></label>
+                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics">
+                    <ul class="subtopic">
+                        <li data-bind="click: function(){$parent.showSelectedTopic($data);}">
+                            <span data-bind="text: Name"></span>
+                            <ul class="links" data-bind="foreach: SubtopicContents">
+                                <li><span data-bind="text: Name"></span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-9 course-content">
+                <h3 class="subtopic-header"><span data-bind="text: my.courseVm.selectedTopic.Name()"></span></h3>
+                <h4 class="subtopic-description"><span data-bind="html: my.courseVm.selectedTopic.Description()"></span></h4>
+                <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.SubtopicContents">
+                    <div class="panel panel-default link-panel">
+                        <div class="panel-heading link-header">
+                            <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
+                            <span class="pull-right" style="display: inline-block"><i class="fa fa-external-link"> Browse Link</i></span>
+                        </div>
+                        <div class="panel-body">
+                            <span data-bind="html: Description"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/Custom/CourseService.js"></script>
+    <script src="~/Scripts/Custom/Course.js"></script>
+}
