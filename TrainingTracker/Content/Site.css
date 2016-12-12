@@ -122,3 +122,9 @@
     height: 100%;
     width: 100%;
 }
+
+.layout-header-panel {
+    height: 25%;
+    background-color: #1A2942;
+    color: #ffffff;
+}

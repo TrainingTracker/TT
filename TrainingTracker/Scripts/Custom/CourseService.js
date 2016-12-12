@@ -12,6 +12,9 @@
         getCourseWithSubtopics: function (courseId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithSubtopics?courseId=" + courseId, null, callback);
         },
+        getCourseWithAllData: function (courseId, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithAllData?courseId=" + courseId, null, callback);
+        },
         addSubtopic: function (subtopicData, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddCourseSubtopic", subtopicData, callback);
         },

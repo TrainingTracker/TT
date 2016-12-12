@@ -18,16 +18,19 @@ namespace TrainingTracker.DAL.EntityFramework
         {
             this.Feedbacks = new HashSet<Feedback>();
             this.Feedbacks1 = new HashSet<Feedback>();
+            this.FeedbackThreads = new HashSet<FeedbackThread>();
+            this.Notifications = new HashSet<Notification>();
+            this.Questions = new HashSet<Question>();
+            this.Releases = new HashSet<Release>();
             this.Sessions = new HashSet<Session>();
+            this.Skills = new HashSet<Skill>();
+            this.Teams = new HashSet<Team>();
+            this.UserNotificationMappings = new HashSet<UserNotificationMapping>();
             this.UserSessionMappings = new HashSet<UserSessionMapping>();
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
-            this.Questions = new HashSet<Question>();
-            this.Notifications = new HashSet<Notification>();
-            this.UserNotificationMappings = new HashSet<UserNotificationMapping>();
-            this.Releases = new HashSet<Release>();
-            this.FeedbackThreads = new HashSet<FeedbackThread>();
+            this.UserSkillMappings = new HashSet<UserSkillMapping>();
+            this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
-            this.Teams = new HashSet<Team>();
             this.Assignments = new HashSet<Assignment>();
             this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
             this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
@@ -57,17 +60,20 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<Feedback> Feedbacks1 { get; set; }
-        public virtual ICollection<Session> Sessions { get; set; }
-        public virtual ICollection<UserSessionMapping> UserSessionMappings { get; set; }
-        public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual ICollection<UserNotificationMapping> UserNotificationMappings { get; set; }
-        public virtual ICollection<Release> Releases { get; set; }
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
-        public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Release> Releases { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
         public virtual Team Team { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<UserNotificationMapping> UserNotificationMappings { get; set; }
+        public virtual ICollection<UserSessionMapping> UserSessionMappings { get; set; }
+        public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
+        public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
+        public virtual ICollection<UserSkillMapping> UserSkillMappings1 { get; set; }
+        public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
         public virtual ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
         public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }

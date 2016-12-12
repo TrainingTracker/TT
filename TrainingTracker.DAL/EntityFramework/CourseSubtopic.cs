@@ -16,9 +16,9 @@ namespace TrainingTracker.DAL.EntityFramework
     {
         public CourseSubtopic()
         {
+            this.AssignmentSubtopicMaps = new HashSet<AssignmentSubtopicMap>();
             this.CourseSubtopicDiscussions = new HashSet<CourseSubtopicDiscussion>();
             this.SubtopicContents = new HashSet<SubtopicContent>();
-            this.AssignmentSubtopicMaps = new HashSet<AssignmentSubtopicMap>();
         }
     
         public int Id { get; set; }
@@ -30,10 +30,10 @@ namespace TrainingTracker.DAL.EntityFramework
         public bool IsActive { get; set; }
         public System.DateTime CreatedOn { get; set; }
     
+        public virtual ICollection<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
         public virtual Course Course { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
         public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
-        public virtual ICollection<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
     }
 }
