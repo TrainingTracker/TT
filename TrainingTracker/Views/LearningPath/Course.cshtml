@@ -9,16 +9,16 @@
 <div class="container-fluid">
     <div class="col-md-12 layout-wrapper">
         <div class="row layout-header-panel">
-            <div class="col-md-2">
+            <div class="col-md-2 layout-section">
                 <img class="course-header-img" data-bind="attr: { src: courseInfo.Icon }" />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 course-header-info">
                 <h2 data-bind="text: courseInfo.Course.Name"></h2>
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>
         </div>
-        <div class="row">
+        <div class="row layout-section">
             <div class="col-xs-2 layout-section layout-left-panel course-index">
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
                 <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics">
