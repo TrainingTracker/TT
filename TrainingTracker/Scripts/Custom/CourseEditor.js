@@ -692,7 +692,8 @@
 
                 selectedSubtopicId(0);
                 unselectListItems(subtopicsList);
-                unselectListItems(subtopicContentsList);
+                resetSubtopicContentsList();
+                resetAssignmentsList();
 
                 breadcrumb([]);
                 breadcrumb.push(course);
@@ -803,13 +804,21 @@
                 var urlRegExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
                 if (editorContent.Url() !== '' && editorContent.Url() !== null && !urlRegExp.test(editorContent.Url()))
                 {
-                    
                     $.notify("Enter proper url or leave empty", { style: 'customAlert', className: 'red' });
                     return false;
                 }
             }
             else if (editorContent.ContentType() == 'course' && editorContent.Duration() == null) {
                 $.notify("Duration cannot be empty", { style: 'customAlert', className: 'red' });
+                return false;
+            }
+            else if (editorContent.ContentType() == 'course' && editorContent.Duration() < 1) {
+                $.notify("Duration should be greater than or equal to 1 day", { style: 'customAlert', className: 'red' });
+                return false;
+            }
+            else if (editorContent.ContentType() == 'course' && editorContent.Duration() != parseInt(editorContent.Duration())) {
+                $.notify("Duration should be of integer type", { style: 'customAlert', className: 'red' });
+                return false;
             }
             return true;
            
