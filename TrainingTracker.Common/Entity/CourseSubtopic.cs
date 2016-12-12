@@ -14,6 +14,7 @@ namespace TrainingTracker.Common.Entity
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public ICollection<SubtopicContent> SubtopicContents { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
         
         // ToDo: Add CourseSubtopicDiscussion and SubtopicContent classes in Entity
         //public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }

@@ -7,17 +7,24 @@
             Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg",
         },
         showSelectedTopic = function (topic) {
+            my.courseVm.selectedTopic.Id(topic.Id);
             my.courseVm.selectedTopic.Name(topic.Name);
             my.courseVm.selectedTopic.Description(topic.Description);
             my.courseVm.selectedTopic.SubtopicContents([]);
+            my.courseVm.selectedTopic.Assignments([]);
             $.each(topic.SubtopicContents, function (arrayId, item) {
                 my.courseVm.selectedTopic.SubtopicContents.push(item);
             });
+            $.each(topic.Assignments, function (arrayId, item) {
+                my.courseVm.selectedTopic.Assignments.push(item);
+            });
         },
         selectedTopic = {
+                Id:ko.observable(0),
                 Name: ko.observable(""),
                 Description: ko.observable(""),
-                SubtopicContents: ko.observableArray([])
+                SubtopicContents: ko.observableArray([]),
+                Assignments: ko.observableArray([])
         },
         getCourseCallback = function (jsonData) {
             if (jsonData !== null) {

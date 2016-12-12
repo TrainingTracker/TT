@@ -94,8 +94,7 @@ namespace TrainingTracker.DAL.DataAccess
                 {
                     return context.Courses
                                   .Where(x => ( length == 0 || splittedKeywords.Any(y => x.Name.Contains(y) || x.Description.Contains(y))) 
-                                                && x.IsActive 
-                                                && x.IsPublished )
+                                                && x.IsActive )
                                   .Select(x=> new Course
                                   {
                                       Id = x.Id,
@@ -189,7 +188,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    return context.Courses
+                    var coursewithalldata = context.Courses
                                   .Where(c => c.IsActive && c.Id == courseId)
                                   .AsEnumerable()
                                   .Select(c => new Course
@@ -224,7 +223,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                IsActive = d.IsActive,
                                                                                AddedBy = d.AddedBy,
                                                                                SortOrder = d.SortOrder
-                                                                           }).ToList()
+                                                                           }).ToList(),
+                                                                           Assignments = GetAssignments(s.Id)
                                                                        })
                                                                        .OrderBy(x => x.SortOrder)
                                                                        .ToList()
@@ -232,6 +232,7 @@ namespace TrainingTracker.DAL.DataAccess
                                   })
                                    .FirstOrDefault();
 
+                    return coursewithalldata;
                 }
             }
             catch (Exception ex)

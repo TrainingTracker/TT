@@ -631,6 +631,12 @@ li.selected-content {
     height: 15%;
     padding-bottom: 0px;
 }
+#divTopicHeader > div:first-child > a{
+    color:white;
+}
+#divTopicHeader > div:first-child > a:hover{
+    color:#2596f1;
+}
 #divTopicHeader > div:first-child > span{
     position:absolute;
     right:10%;
