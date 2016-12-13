@@ -18,8 +18,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public int AssignmentId { get; set; }
         public int SubtopicId { get; set; }
     
-        public virtual Assignment Assignment { get; set; }
         public virtual CourseSubtopic CourseSubtopic { get; set; }
-        public virtual CourseSubtopic CourseSubtopic1 { get; set; }
     }
 }

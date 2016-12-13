@@ -21,7 +21,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public bool IsDeleted { get; set; }
         public System.DateTime DateInserted { get; set; }
     
-        public virtual LearningMap LearningMap { get; set; }
         public virtual Course Course { get; set; }
+        public virtual LearningMap LearningMap { get; set; }
     }
 }
