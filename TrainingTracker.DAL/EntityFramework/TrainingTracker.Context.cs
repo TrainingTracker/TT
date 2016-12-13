@@ -58,10 +58,13 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
         public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
-        public DbSet<Course> Courses { get; set; }
         public DbSet<CourseSubtopic> CourseSubtopics { get; set; }
         public DbSet<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
         public DbSet<SubtopicContent> SubtopicContents { get; set; }
         public DbSet<SubtopicContentUserMap> SubtopicContentUserMaps { get; set; }
+        public DbSet<LearningMap> LearningMaps { get; set; }
+        public DbSet<LearningMapCourseMappping> LearningMapCourseMapppings { get; set; }
+        public DbSet<LearningMapUserMappping> LearningMapUserMapppings { get; set; }
+        public DbSet<Course> Courses { get; set; }
     }
 }

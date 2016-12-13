@@ -12,14 +12,14 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class AssignmentSubtopicMap
+    public partial class LearningMapUserMappping
     {
         public int Id { get; set; }
-        public int AssignmentId { get; set; }
-        public int SubtopicId { get; set; }
+        public int LearningMapId { get; set; }
+        public int UserId { get; set; }
+        public System.DateTime DateInserted { get; set; }
     
-        public virtual Assignment Assignment { get; set; }
-        public virtual CourseSubtopic CourseSubtopic { get; set; }
-        public virtual CourseSubtopic CourseSubtopic1 { get; set; }
+        public virtual LearningMap LearningMap { get; set; }
+        public virtual User User { get; set; }
     }
 }

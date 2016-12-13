@@ -17,6 +17,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public Team()
         {
             this.Users = new HashSet<User>();
+            this.LearningMaps = new HashSet<LearningMap>();
         }
     
         public int TeamId { get; set; }
@@ -29,5 +30,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual Survey Survey { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual User User { get; set; }
+        public virtual ICollection<LearningMap> LearningMaps { get; set; }
     }
 }
