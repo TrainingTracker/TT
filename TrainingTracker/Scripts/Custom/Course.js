@@ -20,11 +20,11 @@
             });
         },
         selectedTopic = {
-                Id:ko.observable(0),
-                Name: ko.observable(""),
-                Description: ko.observable(""),
-                SubtopicContents: ko.observableArray([]),
-                Assignments: ko.observableArray([])
+            Id: ko.observable(0),
+            Name: ko.observable(""),
+            Description: ko.observable(""),
+            SubtopicContents: ko.observableArray([]),
+            Assignments: ko.observableArray([])
         },
         getCourseCallback = function (jsonData) {
             if (jsonData !== null) {

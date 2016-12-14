@@ -48,6 +48,7 @@
     <Compile Include="Entity\Feedback.cs" />
     <Compile Include="Entity\FeedbackPlot.cs" />
     <Compile Include="Entity\FeedbackType.cs" />
+    <Compile Include="Entity\LearningMap.cs" />
     <Compile Include="Entity\LoginModel.cs" />
     <Compile Include="Entity\Notification.cs" />
     <Compile Include="Entity\Project.cs" />
