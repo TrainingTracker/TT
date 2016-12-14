@@ -30,13 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\FeedbackDal.cs" />
+    <Compile Include="DataAccess\LearningPathDal.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataAccess\NotificationDal.cs" />
     <Compile Include="DataAccess\ProjectDal.cs" />
     <Compile Include="DataAccess\QuestionDal.cs" />
@@ -56,7 +71,25 @@
     <Compile Include="DataAccess\SurveyDal.cs" />
     <Compile Include="DataAccess\TeamDal.cs" />
     <Compile Include="DataAccess\UserDal.cs" />
+    <Compile Include="EntityFramework\Assignment.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AssignmentSubtopicMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AssignmentUserMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\Comment.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Course.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CourseSubtopic.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CourseSubtopicDiscussion.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Feedback.cs">
@@ -102,6 +135,12 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Skill.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SubtopicContent.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SubtopicContentUserMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Survey.cs">
@@ -162,6 +201,9 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IFeedbackDal.cs" />
+    <Compile Include="Interface\ILearningPathDal.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interface\INotificationDal.cs" />
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
@@ -180,30 +222,30 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="EntityFramework\TrainingTracker.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TrainingTracker.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="EntityFramework\TrainingTracker.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TrainingTracker.edmx</DependentUpon>
-      <LastGenOutput>TrainingTracker.Context.cs</LastGenOutput>
-    </None>
     <None Include="EntityFramework\TrainingTracker.edmx.diagram">
       <DependentUpon>TrainingTracker.edmx</DependentUpon>
-    </None>
-    <None Include="EntityFramework\TrainingTracker.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TrainingTracker.edmx</DependentUpon>
-      <LastGenOutput>TrainingTracker.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\TrainingTracker.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TrainingTracker.edmx</DependentUpon>
+      <LastGenOutput>TrainingTracker.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\TrainingTracker.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TrainingTracker.edmx</DependentUpon>
+      <LastGenOutput>TrainingTracker.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

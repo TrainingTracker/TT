@@ -1,0 +1,75 @@
+﻿@section Styles
+{
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/StyleSheets/Course.css" rel="stylesheet" />
+}
+
+<div class="container-fluid">
+    <div class="col-md-12 layout-wrapper">
+        <div class="row layout-header-panel">
+            <div class="col-md-2 layout-section">
+                <img class="course-header-img" data-bind="attr: { src: courseInfo.Icon }" />
+            </div>
+            <div class="col-md-8 course-header-info">
+                <h2 data-bind="text: courseInfo.Course.Name"></h2>
+                <h3 data-bind="html: courseInfo.Course.Description"></h3>
+                <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-xs-2 layout-left-panel course-index" >
+                <label class="title" data-bind="text: courseInfo.Course.Name"></label>
+                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics" data-spy="affix" data-offset-top="205" >
+                    <ul class="subtopic">
+                        <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
+                            <span data-bind="text: Name"></span>
+                            <ul class="links">
+                                <!-- ko foreach: SubtopicContents -->
+                                <li><span data-bind="text: Name"></span></li>
+                                <!-- /ko -->
+                                <li data-bind="visible: Assignments.length > 0">Assignment</li>
+                            </ul>
+                        
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-9 course-content">
+                <h3 class="subtopic-header"><span data-bind="text: my.courseVm.selectedTopic.Name()"></span></h3>
+                <h4 class="subtopic-description"><span data-bind="html: my.courseVm.selectedTopic.Description()"></span></h4>
+                <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.SubtopicContents">
+                    <div class="panel panel-default link-panel">
+                        <div class="panel-heading link-header">
+                            <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
+                            <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
+                                <a data-bind="attr: { href: (my.isNullorEmpty(Url) || Url.toUpperCase().indexOf('HTTP') > -1) ? Url : ('http://' + Url) }" target="_blank"><i class="fa fa-external-link"> Browse Link</i></a>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <span data-bind="html: Description"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.Assignments">
+                    <div class="panel panel-default link-panel">
+                        <div class="panel-heading assignment-header">
+                            <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <span data-bind="html: Description"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/Custom/CourseService.js"></script>
+    <script src="~/Scripts/Custom/Course.js"></script>
+}

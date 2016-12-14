@@ -16,9 +16,9 @@ namespace TrainingTracker.DAL.EntityFramework
     {
         public Survey()
         {
-            this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
             this.SurveySections = new HashSet<SurveySection>();
             this.Teams = new HashSet<Team>();
+            this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
         }
     
         public int SurveyId { get; set; }
@@ -26,8 +26,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public bool IsOpen { get; set; }
         public System.DateTime DateCreated { get; set; }
     
-        public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
         public virtual ICollection<SurveySection> SurveySections { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
     }
 }
