@@ -19,5 +19,9 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<int> AddedBy { get; set; }
+    
+        public virtual Skill Skill { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

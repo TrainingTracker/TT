@@ -1,0 +1,294 @@
+﻿.no-right-margin {
+    margin-right: 0;
+    padding-right: 0;
+}
+.no-left-margin {
+    margin-left: 0;
+    padding: 0;
+    padding-left: 0;
+}
+
+.container-fluid {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    margin-right: 0 !important;
+}
+
+#divSearchbar::before {
+       position: absolute;
+    content: "";
+    height: 100%;
+    /* left: -4%; */
+    width: 100%;
+    background-color: #192741;
+}
+
+#page-wrapper {
+    background-color: #ECEAEB;
+        min-height: 100vh;
+}
+
+
+.navbar
+{
+    margin-bottom: 0 !important;
+}
+
+#divCoursesContainer .form-control {
+    /*border: 2px solid #ccc;*/
+    height: 37px;
+    padding: 26px 12px;
+    border-radius: 0;
+    font-size: 25px;
+}
+
+.input-group-addon {
+    padding: 10.5px 20px;
+    font-size: 26px;
+    color: #ffffff;
+    border-radius: 0;
+    border:  2px solid #e62020;
+    cursor: pointer;
+    background-color: red;
+}
+
+.courses-list-item .course-thumb {
+    background: #fff;
+    display: block;
+        height: 50% !important;
+            /*background-image: linear-gradient(90deg, transparent 1%, #abced4 1%, #abced4 2%, transparent 2%), linear-gradient(#eee 1px, transparent 1px);*/
+    background-size: 100% 17px;
+}
+
+.pos-r {
+    position: relative;
+}
+.dib {
+    display: inline-block;
+}
+
+
+#divTagline {
+    text-align: center;
+    color: #ffffff;
+    padding: 1% 0 1% 0;   
+}
+
+#divSearch {
+    padding-bottom: 2%;
+}
+
+.courses-list-item .course-thumb>img {
+    margin: auto;   
+    max-height: 100%;
+    vertical-align: middle;
+    -ms-interpolation-mode: bicubic;
+}
+
+
+
+.courses-list-item .mask {
+    height: 94%;
+    background: #fff;
+    color: #353535;
+    display: block;
+    font-size: small;
+    overflow: hidden;
+    margin-top: 15px !important;
+    margin: 15px 15px 15px 15px;
+  
+}
+
+.courses-list-item .add-new-course {
+   background: none;
+    border: 2px dashed;
+    height: 94%;
+    width: 90%;
+    position: static;
+    display: table;
+    font-size: small;
+    overflow: hidden;
+    margin-top: 15px !important;
+    margin: 15px 15px 15px 15px;
+   
+}
+
+.courses-list-item .add-new-course > span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center
+}
+
+.courses-list-item .mask:hover
+ {
+     box-shadow: 0 6px 40px rgba(0,0,0,.15);
+   
+    transition: all .5s ease;
+}
+
+.courses-list-item .mask:after {
+    position: absolute;
+    content: "";
+    border-bottom: 3px solid red;
+    width: 0;
+    top: 100%;
+    left: 5%;
+}
+
+.courses-list-item .mask:hover:after {
+    width: 90%;
+    transition: width 0.5s linear; 
+}
+
+
+
+.courses-list-item {
+  height:250px; 
+  bottom: 0px !important;
+  /*transition: all .5s linear;
+  transition-delay: 2s;*/
+    cursor: pointer;
+}
+
+.courses-list-item .box-second-row .title {
+    height: 34px;
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    display: box !important;
+    line-clamp: 2;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.courses-list-item .box-second-row .title {
+    -moz-line-clamp: 2;
+    -ms-line-clamp: 2;
+    -o-line-clamp: 2;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    -o-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.courses-list-item .title {
+    display: block;
+    line-height: 1.3;
+        font-weight: 600;
+    font-size: 21px;
+    min-height: 33px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.courses-list-item .title.description {
+    font-weight: 400;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 14px;
+    color:#beb5b9;
+}
+
+.courses-list-item .box-second-row input 
+{
+        margin-left: 36%;
+    margin-top: 5%;
+    -webkit-appearance: button;
+    cursor: pointer;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 10px;
+    font-weight: 200;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.courses-list-item .box-second-row input:hover {
+    background-color: #00a2d2;
+}
+
+.courses-list-item .lec-info {
+      width: 100%;
+    position: absolute;
+    background-color: #ccc;
+     display: block;
+    height: 0% !important;
+    opacity: 0.8;
+    color: #000;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    z-index: 10;
+        font-size: 20px;
+            text-align: center;
+    transition: all 0.25s ease-in;
+}
+
+.courses-list-item .course-thumb:hover .lec-info {
+  
+    height: 100% !important;
+    horiz-align: center;
+    font-weight: normal !important;
+   /*// height: 100% !important;*/
+
+    transition: height 0.25s ease-in;
+}
+
+.courses-list-item .course-thumb .lec-info i,.courses-list-item .course-thumb .lec-info span{
+    visibility: hidden;
+     margin-top: 20%;
+       
+}
+
+
+.courses-list-item .course-thumb:hover .lec-info i,.courses-list-item .course-thumb:hover .lec-info span {
+        
+      visibility: visible;  
+
+}
+
+.display-flex{
+    /* display: flex; */
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+.display-flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+}
+
+#divContentArea {
+    padding: 10px 0;
+}
+
+span.course-thumb:after {
+    border-bottom: 2px solid #ECEAEB;
+    position: absolute;
+    /* height: 10px; */
+    width: 96%;
+    top: 100%;
+    right: 2%;
+    content: "";
+}

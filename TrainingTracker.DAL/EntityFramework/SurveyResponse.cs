@@ -22,7 +22,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public System.DateTime DateCreated { get; set; }
     
         public virtual SurveyAnswer SurveyAnswer { get; set; }
-        public virtual SurveyCompletedMetaData SurveyCompletedMetaData { get; set; }
         public virtual SurveyQuestion SurveyQuestion { get; set; }
+        public virtual SurveyCompletedMetaData SurveyCompletedMetaData { get; set; }
     }
 }

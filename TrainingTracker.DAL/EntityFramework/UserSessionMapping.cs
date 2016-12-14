@@ -20,8 +20,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<int> AddedBy { get; set; }
     
+        public virtual Session Session { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
-        public virtual Session Session { get; set; }
     }
 }

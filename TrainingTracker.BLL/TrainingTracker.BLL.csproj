@@ -42,6 +42,7 @@
     <Compile Include="Base\BussinessBase.cs" />
     <Compile Include="DashboardBl.cs" />
     <Compile Include="FeedbackBl.cs" />
+    <Compile Include="LearningPathBL.cs" />
     <Compile Include="LoginBl.cs" />
     <Compile Include="NotificationBl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +61,9 @@
       <Project>{a7d39acc-a120-440b-ae7c-bd930c086c00}</Project>
       <Name>TrainingTracker.DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
