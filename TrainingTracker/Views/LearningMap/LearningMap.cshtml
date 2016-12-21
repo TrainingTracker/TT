@@ -8,10 +8,22 @@
      @Styles.Render("~/bundles/LearningMapViewStyles")
 }
 
-<div class="container-fluid editor-page">
-    <div class="col-xs-12 no-margin-left no-margin-right no-padding-left no-padding-right layout-wrapper">
-      
+<div class="container-fluid">
+    <div class="col-sm-3">
+        <ul data-bind="foreach: allLearningMaps">
+            <li ><span data-bind="text: Title"></span>                 
+        </ul>
+    </div>
+    <div class="col-sm-6">
 
+    </div>
+    <div class="col-sm-3">
+        <ul data-bind="foreach: allCourses">
+            <li ><span data-bind="text: Name"></span>                 
+        </ul>
+        <ul data-bind="foreach: allTrainees">
+            <li ><span data-bind="text: FirstName"></span>                 
+        </ul>
     </div>
 
 </div>

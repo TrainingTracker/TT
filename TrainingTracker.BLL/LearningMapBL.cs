@@ -14,5 +14,36 @@ namespace TrainingTracker.BLL
         {
             return (LearningMapDataAccessor.GetLearningMapWithAllData(id));
         }
+
+
+        public List<Course> GetAllCourses()
+        {
+            return LearningPathDataAccessor.GetAllCourses();
+        }
+
+
+        public List<LearningMap> GetAllLearningMaps(int teamId)
+        {
+            return (LearningMapDataAccessor.GetAllLearningMaps(teamId));
+        }
+
+
+        public List<User> GetAllTrainees(int teamId)
+        {
+            return (LearningMapDataAccessor.GetAllTrainees(teamId));
+        }
+
+
+        public int AddLearningMap(LearningMap data)
+        {
+            return (LearningMapDataAccessor.AddLearningMap(data));
+        }
+
+
+        public bool UpdateLearningMap(LearningMap data)
+        {
+            return (LearningMapDataAccessor.UpdateLearningMap(data));
+        }
+
     }
 }

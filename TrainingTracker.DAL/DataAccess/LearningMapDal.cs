@@ -75,7 +75,7 @@ namespace TrainingTracker.DAL.DataAccess
                                        DateCreated = l.DateCreated,
                                        Courses = l.LearningMapCourseMapppings
                                                  .Where(s => !s.IsDeleted && s.LearningMapId == id)
-                                                 .Select(s => s.Course)
+                                                 .Select(s => s.Course).Where(s => s.IsPublished)
                                                  .Select(c => new Course
                                                               {
                                                                   Id = c.Id,
@@ -84,57 +84,37 @@ namespace TrainingTracker.DAL.DataAccess
                                                                   Description = c.Description,
                                                                   AddedBy = c.AddedBy,
                                                                   CreatedOn = c.CreatedOn,
-                                                                  Duration = c.Duration
-
+                                                                  Duration = c.Duration,
+                                                                  IsActive = c.IsActive,
+                                                                  IsPublished = c.IsPublished
                                                               })
                                                   .ToList(),
                                        Trainees = l.LearningMapUserMapppings
                                                    .Where(s => s.LearningMapId == id)
-                                                   .Select(s => s.User).Where(s => s.IsActive == true && s.Designation.Equals(UserRoles.Trainee))
-                                                   .Select(c => new User
+                                                   .Select(s => s.User).Where(s => s.IsActive == true && (bool)s.IsTrainee)
+                                                   .Select(x => new User
                                                                 {
-                                                                    UserId = c.UserId,
-                                                                    UserName = c.UserName,
-                                                                    FullName = c.FirstName + c.LastName,
-
+                                                                    UserId = x.UserId,
+                                                                    FirstName = x.FirstName,
+                                                                    LastName = x.LastName,
+                                                                    FullName = x.FirstName + " " + x.LastName,
+                                                                    UserName = x.UserName,
+                                                                    Email = x.Email,
+                                                                    Designation = x.Designation,
+                                                                    ProfilePictureName = x.ProfilePictureName,
+                                                                    IsFemale = x.IsFemale ?? false,
+                                                                    IsTrainee = x.IsTrainee ?? false,
+                                                                    IsActive = x.IsActive ?? false,
+                                                                    DateAddedToSystem = x.DateAddedToSystem,
+                                                                    TeamId = x.TeamId
+                                                                    
                                                                 }).ToList()
 
 
                                    })
                                     .FirstOrDefault();
 
-                    var dataToAdd = new LearningMap
-                    {
-                        Title = "Test",
-                        Notes = "Tes",
-                        Duration = 1,
-                        DateCreated = DateTime.Now,
-                        IsCourseRestricted = false,
-                        TeamId = 1,
-                        CreatedBy = 1,
-                        IsDeleted = false,
-                        Courses = new List<Course>
-                                    {
-                                        new Course
-                                        {
-                                            Id = 1,
-                                            SortOrder = 0,
-                                            IsActive = true,
-                                            CreatedOn= DateTime.Now
-                                        }
-                                    },
-
-                        Trainees = new List<User>()
-                                    {
-                                        new User
-                                        {
-                                            UserId = 1,
-                                            DateAddedToSystem = DateTime.Now
-                                        }
-                                    }
-
-                    };
-                    var x = AddLearningMap(dataToAdd);
+                    
                     return data;
                 }
             }
@@ -147,7 +127,7 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
 
-        List<LearningMap> GetAllLearningMaps(int teamId)
+        public List<LearningMap> GetAllLearningMaps(int teamId)
         {
             try
             {
@@ -177,41 +157,41 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
 
-        //List<User> GetAllTrainees(int ?teamId) 
-        //{
-        //    try
-        //    {
-        //        using (var context = new TrainingTrackerEntities())
-        //        {
-        //            return context.Users.Where(l => l.IsActive && (l.TeamId == teamId))
-        //                .Select(l => new LearningMap
-        //                {
-        //                    Id = l.Id,
-        //                    Title = l.Title,
-        //                    Notes = l.Notes,
-        //                    Duration = l.Duration,
-        //                    IsCourseRestricted = l.IsCourseRestricted,
-        //                    TeamId = l.TeamId,
-        //                    IsDeleted = l.IsDeleted,
-        //                    CreatedBy = l.CreatedBy,
-        //                    DateCreated = l.DateCreated,
-        //                })
-        //                .ToList();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogUtility.ErrorRoutine(ex);
-        //        return null;
-        //    }
-        //}
-
-
-        //List<Course> GetAllCourses() 
-        //{
-
-        //    return null;
-        //}
+        public List<User> GetAllTrainees(int teamId) 
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    return context.Users.Where(l => l.IsActive == true && l.TeamId == teamId && l.IsTrainee == true)
+                        .Select(x => new User
+                        {
+                            UserId = x.UserId,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            FullName = x.FirstName + " " + x.LastName,
+                            UserName = x.UserName,
+                            Email = x.Email,
+                            Designation = x.Designation,
+                            ProfilePictureName = x.ProfilePictureName,
+                            IsFemale = x.IsFemale ?? false,
+                            IsAdministrator = x.IsAdministrator ?? false,
+                            IsTrainer = x.IsTrainer ?? false,
+                            IsTrainee = x.IsTrainee ?? false,
+                            IsManager = x.IsManager ?? false,
+                            IsActive = x.IsActive ?? false,
+                            DateAddedToSystem = x.DateAddedToSystem,
+                            TeamId = x.TeamId
+                        })
+                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
+        }
 
 
         public int AddLearningMap(LearningMap data)
@@ -262,36 +242,72 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
 
-        void AddTraineesInLearningMap(List<User> traineeList, TrainingTrackerEntities context)
-        {
-            traineeList.ForEach(x => context.LearningMapUserMapppings
-                                            .Add(new LearningMapUserMappping
-                                                    {
-                                                        UserId = x.UserId,
-                                                        DateInserted = DateTime.Now
-                                                    }
-                                                ));
-        }
-
-
-        //bool UpdateLearningMap(LearningMap data)
+        //void AddTraineesInLearningMap(List<User> traineeList, TrainingTrackerEntities context)
         //{
-        //    return true;
+        //    traineeList.ForEach(x => context.LearningMapUserMapppings
+        //                                    .Add(new LearningMapUserMappping
+        //                                            {
+        //                                                UserId = x.UserId,
+        //                                                DateInserted = DateTime.Now
+        //                                            }
+        //                                        ));
         //}
 
 
-        void UpdateCoursesOfLearningMap(List<Course> courseList, int learningMapId, TrainingTrackerEntities context)
+        public bool UpdateLearningMap(LearningMap data)
         {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var learningMapEntity = context.LearningMaps.First(x => x.Id == data.Id);
 
-            courseList.ForEach(x => context.LearningMapCourseMapppings
-                                            .Add(new LearningMapCourseMappping
-                                            {
-                                                CourseId = x.Id,
-                                                SortOrder = x.SortOrder,
-                                                IsDeleted = !x.IsActive,
-                                            }
-                                        ));
+                    if (learningMapEntity == null) return false;
+
+                    learningMapEntity.Title = data.Title;
+                    learningMapEntity.Notes = data.Notes;
+                    learningMapEntity.Duration = data.Duration;
+                    learningMapEntity.IsCourseRestricted = data.IsCourseRestricted;
+
+                    // Removing All courses from current learning map
+                    context.LearningMapCourseMapppings.RemoveRange(learningMapEntity.LearningMapCourseMapppings);
+
+                    // Adding Updated list of courses in the current learning map
+                    var courseMappingEntity = data.Courses.Select(x => new LearningMapCourseMappping
+                                                    {
+                                                        LearningMapId = data.Id,
+                                                        CourseId = x.Id,
+                                                        SortOrder = x.SortOrder,
+                                                        IsDeleted = !x.IsActive,
+                                                        DateInserted = DateTime.Now
+                                                    }).ToList();
+                    context.LearningMapCourseMapppings.AddRange(courseMappingEntity);
+
+                    context.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
         }
+
+
+        //void UpdateCoursesOfLearningMap(List<Course> courseList, int learningMapId, TrainingTrackerEntities context)
+        //{
+
+        //    courseList.ForEach(x => context.LearningMapCourseMapppings
+        //                                    .Add(new LearningMapCourseMappping
+        //                                    {
+        //                                        CourseId = x.Id,
+        //                                        SortOrder = x.SortOrder,
+        //                                        IsDeleted = !x.IsActive,
+        //                                    }
+        //                                ));
+        //}
 
     }
 }

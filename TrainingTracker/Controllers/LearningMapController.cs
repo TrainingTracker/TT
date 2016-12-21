@@ -20,9 +20,40 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
-        public JsonResult GetLearningMapWithAllData()
+        public JsonResult GetLearningMapWithAllData(int id)
         { 
-            return Json(new LearningMapBL().GetLearningMapWithAllData(1), JsonRequestBehavior.AllowGet);
+            return Json(new LearningMapBL().GetLearningMapWithAllData(id), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllCourses()
+        {
+            return Json(new LearningMapBL().GetAllCourses(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetAllLearningMaps()
+        {
+            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
+            return Json(new LearningMapBL().GetAllLearningMaps((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetAllTrainees()
+        {
+            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
+            return Json(new LearningMapBL().GetAllTrainees((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult AddLearningMap(LearningMap data)
+        {
+            return Json(new LearningMapBL().AddLearningMap(data), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult UpdateLearningMap(LearningMap data)
+        {
+            return Json(new LearningMapBL().UpdateLearningMap(data), JsonRequestBehavior.AllowGet);
         }
        
     }
