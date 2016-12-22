@@ -47,6 +47,10 @@ namespace TrainingTracker.Controllers
 
         public JsonResult AddLearningMap(LearningMap data)
         {
+            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
+            data.TeamId = (int)currentUser.TeamId;
+            data.CreatedBy = currentUser.UserId;
+
             return Json(new LearningMapBL().AddLearningMap(data), JsonRequestBehavior.AllowGet);
         }
 

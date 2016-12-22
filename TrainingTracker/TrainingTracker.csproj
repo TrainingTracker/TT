@@ -326,6 +326,7 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
     <Content Include="StyleSheets\Course.css" />

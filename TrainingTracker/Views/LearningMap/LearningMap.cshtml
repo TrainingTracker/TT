@@ -9,23 +9,138 @@
 }
 
 <div class="container-fluid">
-    <div class="col-sm-3">
-        <ul data-bind="foreach: allLearningMaps">
-            <li ><span data-bind="text: Title"></span>                 
-        </ul>
-    </div>
-    <div class="col-sm-6">
+    <div class="layout-wrapper">
+        <div class="learning-map-left-panel">
+            <div>
+                <p class="panel-heading">LEARNING MAPS</p>
+                <button data-bind="click: function() { getLearningMapWithAllData(0) }">
+                    <i class="fa fa-plus" aria-hidden="true">&nbsp; Add New Learning Map</i>
+                </button>    
+            </div>
+            
+            <ul data-bind="foreach: allLearningMaps">
+                <li data-bind="click: function(){ $root.getLearningMapWithAllData($data.Id) }, css: {selected : Id == $root.editorContent.Id()}">
+                    <span data-bind="text: Title"></span>
+                    <span class="pull-right">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
+                </li>
+            </ul>
 
-    </div>
-    <div class="col-sm-3">
-        <ul data-bind="foreach: allCourses">
-            <li ><span data-bind="text: Name"></span>                 
-        </ul>
-        <ul data-bind="foreach: allTrainees">
-            <li ><span data-bind="text: FirstName"></span>                 
-        </ul>
-    </div>
+        </div>
+        <div class="learning-map-middle-panel">
+            <p class="panel-heading" data-bind="text: editorContent.Title"></p>
+           
+            <div class="row" id="divEditorForm" data-bind="visible: editorContent.Id() >= 0">
+             <div class="col-xs-12 form-group">
+                 <label class="control-label col-xs-2">Title:</label>
+                 <div class="col-xs-10">
+                     <input type="text" class="form-control" data-bind=" value: editorContent.Title" placeholder="Title" />
+                 </div>
+             </div>
 
+             <div class="col-xs-12 form-group">
+                 <label class="control-label col-xs-2">Estimated Duration(days):</label>
+                 <div class="col-xs-10">
+                     <input disabled="disabled" type="number" class="form-control" data-bind=" value: editorContent.Duration"/>
+                 </div>
+             </div>
+
+             <div class="col-xs-12 form-group">
+                 <label class="control-label col-xs-2">Description:</label>
+                 <div class="col-xs-10">
+                     <textarea rows="3" class="form-control" data-bind="value: editorContent.Notes" ></textarea>
+                 </div>
+             </div>
+
+             <div class="col-xs-12 form-group">
+                 <label class="control-label col-xs-2">Course Included:</label>
+                 <div class="col-xs-10">
+                     <ul >
+                         <li data-bind="visible: editorContent.Courses().length == 0">
+                             No Courses Included
+                         </li>
+                         <!-- ko foreach: editorContent.Courses -->
+                         <li>
+                             <span data-bind="text: Name"></span>
+                             <button class="pull-right" data-bind="click: function() { $root.removeCourse($index()) }">
+                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 &nbsp;Remove
+                             </button>
+                         </li>
+                         <!--/ko-->
+                     </ul>
+                     
+                 </div>
+             </div>
+
+             <div class="col-xs-12 form-group">
+                 <label class="control-label col-xs-2">Trainees Assigned:</label>
+                 <div class="col-xs-10">
+                     <ul>
+                         <li data-bind="visible: editorContent.Trainees().length == 0">
+                             No Trainees Added
+                         </li>
+                         <!-- ko foreach: editorContent.Trainees -->
+                         <li>
+                             <span data-bind="text: FullName"></span>
+                             <button class="pull-right" data-bind="visible : newlyAdded(), click: function() { $root.removeTrainee($index()) }">
+                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 &nbsp;Remove
+                             </button>
+                         </li>
+                         <!--/ko-->
+                     </ul>
+                    
+                 </div>
+             </div>
+             <div class="col-xs-10 col-xs-offset-2" id="divEditorButtons">
+                 <button data-bind="click : $root.updateLearningMap">
+                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                     &nbsp;Save
+                 </button>
+                 <button data-bind="visible: $root.editorContent.Id() > 0">
+                     <i class="fa fa-trash-o" aria-hidden="true"></i>
+                     &nbsp;Delete
+                 </button>
+                 
+             </div>
+         </div>
+
+        </div>
+        <div class="learning-map-right-panel">
+            <div id="coursesDiv">
+                <div class="panel-heading">COURSES</div>
+                <ul>
+                    <li data-bind="visible: availableCourses().length == 0 && editorContent.Id() >= 0"> No Remaining Courses</li>
+                    <!-- ko foreach: availableCourses -->
+                    <li>
+                        <span data-bind="text: Name"></span>
+                        <button class="add-btn pull-right" data-bind="click: function() { $root.addCourse($index()) }">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            &nbsp;Add
+                        </button>
+                    </li>
+                    <!--/ko-->
+                </ul>
+            </div>
+            <div id="traineesDiv">
+                <div class="panel-heading">TRAINEES</div>
+                <ul>
+                    <li data-bind="visible: availableTrainees().length == 0 && editorContent.Id() >= 0"> No Remaining Trainees</li>
+                    <!-- ko foreach: availableTrainees -->
+                    <li>
+                        <span data-bind="text: FirstName"></span>
+                        <button class="add-btn pull-right" data-bind="click: function() { $root.addTrainee($index()) }">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            &nbsp;Add
+                        </button>
+                    </li>
+                    <!--/ko-->
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts

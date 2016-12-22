@@ -113,8 +113,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                                    })
                                     .FirstOrDefault();
-
-                    
                     return data;
                 }
             }
@@ -193,9 +191,15 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Add Learning Map data along with the mapping details of all courses and trainees included in the Learning Map(if any).
+        /// </summary>
+        /// <param name="data">Learning Map object which contain Learning map data along with the Course list(if any) and Trainee
+        /// list(if any) included in the Learning map</param>
+        /// <returns>Id of the Learning map if successfully added otherwise zero</returns>
         public int AddLearningMap(LearningMap data)
         {
+           
             try
             {
                 using (var context = new TrainingTrackerEntities())
@@ -205,28 +209,32 @@ namespace TrainingTracker.DAL.DataAccess
                         Title = data.Title,
                         Notes = data.Notes,
                         Duration = data.Duration,
-                        DateCreated = data.DateCreated,
+                        DateCreated = DateTime.Now,
                         IsCourseRestricted = data.IsCourseRestricted,
                         TeamId = data.TeamId,
                         CreatedBy = data.CreatedBy,
                         IsDeleted = data.IsDeleted,
-                        LearningMapCourseMapppings = data.Courses.Select(x => new LearningMapCourseMappping
-                                                    {
-                                                        //LearningMapId = newLearningMapEntity.Id,
-                                                        CourseId = x.Id,
-                                                        SortOrder = x.SortOrder,
-                                                        IsDeleted = !x.IsActive,
-                                                        DateInserted = DateTime.Now
-                                                    }).ToList(),
+                        LearningMapCourseMapppings = (data.Courses != null) ? data.Courses.Select(x => new LearningMapCourseMappping
+                                                                            {
+                                                                                //LearningMapId = newLearningMapEntity.Id,
+                                                                                CourseId = x.Id,
+                                                                                SortOrder = x.SortOrder,
+                                                                                IsDeleted = false,
+                                                                                DateInserted = DateTime.Now
+                                                                            }).ToList()
+                                                                            : null,
 
-                        LearningMapUserMapppings = data.Trainees.Select(x => new LearningMapUserMappping
+                        LearningMapUserMapppings = (data.Trainees != null) ? data.Trainees.Select(x => new LearningMapUserMappping
                                                     {
                                                         //LearningMapId = newLearningMapEntity.Id,
                                                         UserId = x.UserId,
                                                         DateInserted = DateTime.Now
                                                     }).ToList()
+                                                    : null
 
                     };
+
+
                     context.LearningMaps.Add(newLearningMapEntity);
 
                     context.SaveChanges();
@@ -253,7 +261,13 @@ namespace TrainingTracker.DAL.DataAccess
         //                                        ));
         //}
 
-
+        /// <summary>
+        /// Updates Learning Map data along with the mapping details of all courses included in the Learning Map(if any) and 
+        /// Adds mapping details of new Trainees added in the Learning Map(if any) 
+        /// </summary>
+        /// <param name="data">Learning Map object contains Learning map data with Course list(if any) and newly added Trainee list(if any).
+        /// Trainee list should contains only those trainees which is newly added </param>
+        /// <returns>True if Learning Map data along with the Course and User mapping data is updated successfully otherwise false</returns>
         public bool UpdateLearningMap(LearningMap data)
         {
             try
@@ -273,15 +287,30 @@ namespace TrainingTracker.DAL.DataAccess
                     context.LearningMapCourseMapppings.RemoveRange(learningMapEntity.LearningMapCourseMapppings);
 
                     // Adding Updated list of courses in the current learning map
-                    var courseMappingEntity = data.Courses.Select(x => new LearningMapCourseMappping
-                                                    {
-                                                        LearningMapId = data.Id,
-                                                        CourseId = x.Id,
-                                                        SortOrder = x.SortOrder,
-                                                        IsDeleted = !x.IsActive,
-                                                        DateInserted = DateTime.Now
-                                                    }).ToList();
-                    context.LearningMapCourseMapppings.AddRange(courseMappingEntity);
+                    if (data.Courses != null) // checking if all the courses are removed
+                    { 
+                        var courseMappingEntity = data.Courses.Select(x => new LearningMapCourseMappping
+                                                        {
+                                                            LearningMapId = data.Id,
+                                                            CourseId = x.Id,
+                                                            SortOrder = x.SortOrder,
+                                                            IsDeleted = false,
+                                                            DateInserted = DateTime.Now
+                                                        }).ToList();
+                        context.LearningMapCourseMapppings.AddRange(courseMappingEntity);
+                    }
+
+                    // Trainees can only be added
+                    if(data.Trainees != null)
+                    {
+                        var newTraineesMapping = data.Trainees.Select(x => new LearningMapUserMappping
+                                                   {
+                                                       LearningMapId = data.Id,
+                                                       UserId = x.UserId,
+                                                       DateInserted = DateTime.Now
+                                                   }).ToList();
+                        context.LearningMapUserMapppings.AddRange(newTraineesMapping);
+                    }
 
                     context.SaveChanges();
 

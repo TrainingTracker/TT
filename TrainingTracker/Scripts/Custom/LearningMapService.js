@@ -15,10 +15,10 @@
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningMap/GetAllTrainees", null, callback);
         },
         addLearningMap : function(data, callback){
-            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddLearningMap", data, callback);
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningMap/AddLearningMap", data, callback);
         },
         updateLearningMap : function(data, callback){
-            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateLearningMap", data, callback);
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningMap/UpdateLearningMap", data, callback);
         }
     };
     

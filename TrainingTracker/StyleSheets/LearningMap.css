@@ -1,0 +1,143 @@
+﻿::-webkit-scrollbar {
+    width: 4px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px #62cec4; 
+   
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color:#62cec4;   
+}
+
+
+.panel-heading {
+    text-transform:uppercase;
+    font-size:17px;
+    text-align:center;
+    font-weight: 600;
+}
+
+
+/*Left panel*/
+.learning-map-left-panel li {
+    width:100%;
+    margin-bottom: 2%;
+    padding:3%;
+    padding-left:10%;
+    text-align:left;
+    transition: background-color .25s ease;
+    cursor:pointer;
+
+}
+
+.learning-map-left-panel > ul > li > span:first-child{
+    width: 90%;
+    display: inline-block;
+    word-wrap: break-word;
+}
+.learning-map-left-panel li:hover{
+    background-color:#4fc3f7;
+}
+.learning-map-left-panel li.selected{
+    background-color:#4fc3f7;
+}
+.learning-map-left-panel .panel-heading ~ button {
+    background-color: #DC4749;
+    text-align: center;
+    padding: 5px;
+    width: 90%;
+    margin: 0% 5% 5%;
+    border: none;
+    cursor: pointer;
+}
+#divEditorForm{
+    background-color: white;
+    margin: 0% 4%;
+    padding: 5% 0;
+}
+#divEditorForm input[type='text'], #divEditorForm textarea {
+    border:1px solid #ccc;
+    outline:none;
+    box-shadow:none;
+}
+#divEditorButtons > button {
+    border: none;
+    border-radius: 4px;
+    color: white;
+    width: 20%;
+    padding: 1% 0%;
+    margin: 1% 1%;
+}
+#divEditorButtons > button:first-child{
+    background-color: #3BD273;
+}
+#divEditorButtons > button:nth-child(2){
+    background-color: #DC4749;
+}
+#divEditorForm ul {
+    list-style: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1% 4%;
+}
+#divEditorForm ul> li {
+    padding: 2% 0%;
+    border-bottom:1px solid #ccc;
+}
+#divEditorForm ul> li:last-child {
+    border: none;
+}
+
+#divEditorForm li > button{
+    color: white;
+    background-color: #1a2942;
+    border: none;
+    border-radius: 4px;
+    width: 20%;
+}
+#divEditorForm li > span{
+    word-wrap: break-word;
+    display: inline-block;
+    width: 80%;
+}
+        /*Right Panel*/
+    
+.learning-map-right-panel .panel-heading{
+    background-color: #fafafa;
+    border-bottom: 1px solid #f5f5f5;
+}
+.learning-map-right-panel li {
+    width: 94%;
+    margin: 3%;
+    padding: 4% 2% 4% 0%;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+.learning-map-right-panel li:last-child {
+    border : none;
+}
+
+#coursesDiv, #traineesDiv {
+    height:50%;
+}
+#coursesDiv > ul, #traineesDiv > ul, .learning-map-left-panel > ul {
+    overflow:auto;
+    list-style:none;
+    padding: 0 3%;
+    height: 82%;
+}
+#coursesDiv > ul > li > span, #traineesDiv > ul > li > span {
+    word-wrap: break-word;
+    display: inline-block;
+    width: 60%;
+}
+.add-btn {
+    color: white;
+    background-color: #1a2942;
+    border: none;
+    border-radius: 4px;
+    width: 40%;
+}
+

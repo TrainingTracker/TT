@@ -36,12 +36,26 @@ namespace TrainingTracker.BLL
 
         public int AddLearningMap(LearningMap data)
         {
+            int duration = 0;
+            if (data.Courses == null || (duration = data.Courses.Sum(x => x.Duration)) != data.Duration)
+            {
+                // duration will be 0 if data.Courses is null else sum of duration of all courses
+                data.Duration = duration;
+            }
+            
             return (LearningMapDataAccessor.AddLearningMap(data));
         }
 
 
         public bool UpdateLearningMap(LearningMap data)
         {
+            int duration = 0;
+            if (data.Courses == null || (duration = data.Courses.Sum(x => x.Duration)) != data.Duration)
+            {
+                // duration will be 0 if data.Courses is null else sum of duration of all courses
+                data.Duration = duration;
+            }
+           
             return (LearningMapDataAccessor.UpdateLearningMap(data));
         }
 
