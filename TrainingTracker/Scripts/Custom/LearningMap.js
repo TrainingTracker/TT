@@ -164,17 +164,24 @@
         };
         var updateLearningMap = function () {
             if (validateEditorContent()) {
+
+                ko.utils.arrayForEach(editorContent.Courses(), function (item, index) {
+                    item.SortOrder = index + 1;
+                });
+
                 if (editorContent.Id() == 0) {
                     my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
                 }
                 else {
                     var learningMapData = ko.mapping.toJS(editorContent);
+
                     learningMapData.Trainees = [];
                     ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
                         if (item.newlyAdded()) {
                             learningMapData.Trainees.push(item);
                         }
                     });
+
                     my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
                 }
             }

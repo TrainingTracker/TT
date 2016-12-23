@@ -56,11 +56,10 @@
              <div class="col-xs-12 form-group">
                  <label class="control-label col-xs-2">Course Included:</label>
                  <div class="col-xs-10">
-                     <ul >
-                         <li data-bind="visible: editorContent.Courses().length == 0">
-                             No Courses Included
-                         </li>
-                         <!-- ko foreach: editorContent.Courses -->
+                     <ul data-bind="visible: editorContent.Courses().length == 0">
+                         <li>No Courses Included</li>
+                     </ul>
+                     <ul data-bind="sortable: { data: editorContent.Courses, connectClass: false}, visible: editorContent.Courses().length > 0">
                          <li>
                              <span data-bind="text: Name"></span>
                              <button class="pull-right" data-bind="click: function() { $root.removeCourse($index()) }">
@@ -68,7 +67,6 @@
                                  &nbsp;Remove
                              </button>
                          </li>
-                         <!--/ko-->
                      </ul>
                      
                  </div>

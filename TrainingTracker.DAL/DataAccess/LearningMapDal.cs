@@ -15,43 +15,11 @@ namespace TrainingTracker.DAL.DataAccess
 {
     public class LearningMapDal
     {
-        //List<Course> GetCoursesOfLearningMap (int id)
-        //{
-        //     try
-        //    {
-        //        using(var context = new TrainingTrackerEntities())
-        //        {
-        //            return context.LearningMapCourseMapppings.Where(l => !l.IsDeleted && l.LearningMapId == id)
-        //                                        .Select(l => l.Course)
-        //                                        .Select(c => new Course
-        //                                                     {
-        //                                                         Id = c.Id,
-        //                                                         Name = c.Name,
-        //                                                         Icon = c.Icon,
-        //                                                         Description = c.Description,
-        //                                                         AddedBy = c.AddedBy,
-        //                                                         CreatedOn = c.CreatedOn,
-        //                                                         Duration = c.Duration
-
-        //                                                     }).ToList();
-
-
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        LogUtility.ErrorRoutine(ex);
-        //        return null;
-        //    }
-
-        //}
-
-
-        //List<Course> GetTraineesOfLearningMap()
-        //{
-        //    return null;
-        //}
-
+        /// <summary>
+        /// Get the Learning Map data for the given Learning Map Id along with the Course list and Trainees list associated with this Learning Map.
+        /// </summary>
+        /// <param name="id">Learning Map Id which is used to fetch the data.</param>
+        /// <returns>Learning Map object if successfully fetch the data of given Id and returns null if no data is present or some exception occurs.</returns>
         public LearningMap GetLearningMapWithAllData(int id)
         {
 
@@ -75,7 +43,8 @@ namespace TrainingTracker.DAL.DataAccess
                                        DateCreated = l.DateCreated,
                                        Courses = l.LearningMapCourseMapppings
                                                  .Where(s => !s.IsDeleted && s.LearningMapId == id)
-                                                 .Select(s => s.Course).Where(s => s.IsPublished)
+                                                 .Select(s => s.Course)
+                                                 .Where(s => s.IsPublished)
                                                  .Select(c => new Course
                                                               {
                                                                   Id = c.Id,
@@ -86,9 +55,10 @@ namespace TrainingTracker.DAL.DataAccess
                                                                   CreatedOn = c.CreatedOn,
                                                                   Duration = c.Duration,
                                                                   IsActive = c.IsActive,
-                                                                  IsPublished = c.IsPublished
+                                                                  IsPublished = c.IsPublished,
+                                                                  SortOrder = c.LearningMapCourseMapppings.Where(s => !s.IsDeleted && s.LearningMapId == id).Select(x => x.SortOrder).FirstOrDefault()
                                                               })
-                                                  .ToList(),
+                                                  .OrderBy(c => c.SortOrder).ToList(),
                                        Trainees = l.LearningMapUserMapppings
                                                    .Where(s => s.LearningMapId == id)
                                                    .Select(s => s.User).Where(s => s.IsActive == true && (bool)s.IsTrainee)
@@ -108,7 +78,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                                     DateAddedToSystem = x.DateAddedToSystem,
                                                                     TeamId = x.TeamId
                                                                     
-                                                                }).ToList()
+                                                                })
+                                                   .ToList()
 
 
                                    })
@@ -124,7 +95,11 @@ namespace TrainingTracker.DAL.DataAccess
 
         }
 
-
+        /// <summary>
+        /// Get all the Learning Maps that belong to a specified team.
+        /// </summary>
+        /// <param name="teamId">teamId which is used to fetch the Learning map data of that team only.</param>
+        /// <returns>List of Learning Map object if successfully fetches some data and returns null if no data is present or some exception occurs. </returns>
         public List<LearningMap> GetAllLearningMaps(int teamId)
         {
             try
@@ -154,7 +129,11 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Get all the Trainees List belong to a specified team.
+        /// </summary>
+        /// <param name="teamId">teamId which is used to fetch the Trainees data of that team only.</param>
+        /// <returns>List of User object if successfully fetches some data and returns null if no data is present or some exception occurs. </returns>
         public List<User> GetAllTrainees(int teamId) 
         {
             try
