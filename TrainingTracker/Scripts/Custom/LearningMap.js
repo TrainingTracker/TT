@@ -108,7 +108,7 @@
                 ko.utils.arrayForEach(jsonData, function (item) {
                     allCourses.push(item);
                 });
-
+                notifyStyle();
                 ko.applyBindings(my.learningMap);
             }
         };
@@ -151,6 +151,8 @@
                 ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
                     item.newlyAdded(false);
                 });
+
+                $.notify(editorContent.Title() + ' is Added', { style: 'customAlert' });
             }
         };
         var updateLearningMapCallback = function (jsonData) {
@@ -160,10 +162,11 @@
                         item.Title(editorContent.Title());
                     }
                 });
-
                 ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
                     item.newlyAdded(false);
                 });
+
+                $.notify(editorContent.Title() + ' is Updated', { style: 'customAlert' });
             }
            
         };
@@ -174,20 +177,66 @@
                     item.SortOrder = index + 1;
                 });
 
+                var newTraineesNames = "";
+
+                // If new Learning Map is added
                 if (editorContent.Id() == 0) {
-                    my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
+                   
+                    // creating trainees name string those are included
+                    ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
+                        newTraineesNames = newTraineesNames + item.FullName + ", ";
+                        
+                    });
+
+                    // checkingif any
+                    if (editorContent.Trainees().length > 0) {
+                        $.confirm({
+                            title: 'Confirm!',
+                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>' + newTraineesNames + "</b> into <b>" + editorContent.Title() + "</b>",
+                            buttons: {
+                                confirm: function () {
+                                    my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
+                                },
+                                cancel: function () {
+                                    $.alert('Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
+                    }
+
                 }
                 else {
+
                     var learningMapData = ko.mapping.toJS(editorContent);
 
                     learningMapData.Trainees = [];
                     ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
                         if (item.newlyAdded()) {
                             learningMapData.Trainees.push(item);
+                            newTraineesNames = newTraineesNames + item.FullName + ", ";
                         }
                     });
 
-                    my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
+                    if (learningMapData.Trainees.length > 0) {
+                        $.confirm({
+                            title: 'Confirm!',
+                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>'+ newTraineesNames + "</b> into <b>" + learningMapData.Title + "</b>",
+                            buttons: {
+                                confirm: function () {
+                                    my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
+                                },
+                                cancel: function () {
+                                    $.alert('Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
+                    }
                 }
             }
         
@@ -238,16 +287,52 @@
                         return true;
                     }
                 });
+                $.notify(editorContent.Title() + ' is Deleted', { style: 'customAlert' });
                 resetEditorContent();
             }
         }
         var deleteLearningMap = function () {
-            my.learningMapService.deleteLearningMap(editorContent.Id(), deleteLearningMapCallback);
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Do you really want to <b>delete</b> Learning Map <b>' + editorContent.Title() + '</b>',
+                buttons: {
+                    confirm: function () {
+                        my.learningMapService.deleteLearningMap(editorContent.Id(), deleteLearningMapCallback);
+                    },
+                    cancel: function () {
+                        $.alert('Delete action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                    }
+                }
+            });
+            
+        }
+
+        var notifyStyle = function () {
+            $.notify.addStyle('customAlert', {
+                html: "<div data-notify-text /div>",
+                classes: {
+                    base: {
+                        "white-space": "nowrap",
+                        "color": "white",
+                        "font-size": "18px",
+                        "background-color": "#194a71",
+                        "padding": "5px 15px",
+                        "position": "fixed",
+                        "top": "9%",
+                        "left": "60%",
+                        "text-align": "center",
+                        "min-width": "20%"
+
+                    },
+                    blue: {
+                        "background-color": "#14588f"
+                    }
+                }
+            });
         }
 
         return {
 
-            
             availableCourses : availableCourses,
             allLearningMaps : allLearningMaps,
             availableTrainees: availableTrainees,

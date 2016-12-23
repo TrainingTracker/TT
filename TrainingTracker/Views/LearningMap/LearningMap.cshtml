@@ -18,6 +18,7 @@
                 </button>    
             </div>
             <div class="search-div" data-bind="visible: allLearningMaps().length > 0">
+                <input type="text" placeholder="Search LearningMap"  />
                 <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
             </div>
             <ul data-bind="foreach: allLearningMaps">
@@ -112,6 +113,7 @@
             <div id="coursesDiv">
                 <div class="panel-heading">COURSES</div>
                 <div class="search-div" data-bind="visible: availableCourses().length > 0">
+                    <input type="text" placeholder="Search Course" />
                     <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
                 </div>
                 <ul data-bind="visible: editorContent.Id() >= 0">
@@ -131,6 +133,7 @@
             <div id="traineesDiv">
                 <div class="panel-heading">TRAINEES</div>
                 <div class="search-div" data-bind="visible: availableTrainees().length > 0">
+                    <input type="text" placeholder="Search Trainees"  />
                     <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
                 </div>
                 <ul data-bind="visible: editorContent.Id() >= 0">

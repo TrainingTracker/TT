@@ -158,6 +158,7 @@ namespace TrainingTracker
 
             bundles.Add(new StyleBundle("~/bundles/LearningMapViewStyles").Include(
                  "~/StyleSheets/LearningMap.css",
+                 "~/StyleSheets/jquery-confirm.css",
                  "~/Content/site.css"
             ));
   
