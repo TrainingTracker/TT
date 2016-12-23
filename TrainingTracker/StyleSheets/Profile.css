@@ -1,7 +1,4 @@
-﻿body {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
-}
+﻿
 
 p {
     margin: 1em !important
@@ -18,7 +15,7 @@ p {
 .username {
     text-align: center;
     margin-top: 10px;
-    font-family: Verdana, Geneva, sans-serif;
+    
     font-size: 1.5em;
     font-weight: bold;
     /*color: azure;*/
@@ -26,7 +23,6 @@ p {
 
 .designation {
     text-align: center;
-    font-family: Verdana, Geneva, sans-serif;
 }
 
 .comment-div {
@@ -98,6 +94,11 @@ p {
 .panel-white {
     border: 1px solid #dddddd;
     margin-bottom: 10px;
+        
+}
+
+#divFeedbackArea .panel-white:first-child {
+    border-radius: 0 4px 4px 4px;
 }
 
     .panel-white .panel-heading {

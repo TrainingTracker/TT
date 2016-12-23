@@ -10,11 +10,11 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12 no-right-margin no-left-margin">
-            <div class="col-xs-12 col-md-3 ">
+    <div class="">
+        <div class="col-xs-12 no-right-margin no-left-margin layout-wrapper">
+            <div class="layout-left-panel col-xs-12 col-md-3 no-padding-left no-padding-right ">
                 <div data-bind="css: { 'panel-success': userVm.User.IsTrainer, 'panel-info': userVm.User.IsTrainee, 'panel-danger': userVm.User.IsManager}"
-                     class="panel">
+                     class="">
                     <div class="panel-heading">
                         <img data-bind="attr: {src: userVm.User.PhotoUrl}"
                              class="img-responsive img-circle profile-img">
