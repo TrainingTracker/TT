@@ -20,6 +20,26 @@ ko.bindingHandlers.slider = {
     }
 };
 
+ko.bindingHandlers.IsFieldValidated = {
+    init: function (element, valueAccessor) {
+        // var value = ko.unwrap(valueAccessor());
+        // $(element).toggle(value);
+    },
+
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        var message = allBindings.get('validationMessage').toString();
+
+        if (!valueUnwrapped) {
+            $(element).css({"border-color":"red"}).attr("placeholder", message);
+        }
+        else {
+            $(element).css({ "border-color": "#ccc" });
+        }
+    }
+}
 ko.bindingHandlers.CKEDITOR = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var ckEditorValue = valueAccessor();

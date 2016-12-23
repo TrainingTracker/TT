@@ -11,7 +11,9 @@
         var editorContent = {
             Id : ko.observable(-1),
             Title: ko.observable(''),
+            IsTitleValidated : ko.observable(true),
             Notes: ko.observable(''),
+            IsNotesValidated : ko.observable(true),
             Duration : ko.observable(0),
             IsCourseRestricted: ko.observable(0),
             Courses : ko.observableArray([]),
@@ -161,19 +163,22 @@
            
         };
         var updateLearningMap = function () {
-            if (editorContent.Id() == 0) {
-                my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
+            if (validateEditorContent()) {
+                if (editorContent.Id() == 0) {
+                    my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
+                }
+                else {
+                    var learningMapData = ko.mapping.toJS(editorContent);
+                    learningMapData.Trainees = [];
+                    ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
+                        if (item.newlyAdded()) {
+                            learningMapData.Trainees.push(item);
+                        }
+                    });
+                    my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
+                }
             }
-            else {
-                var learningMapData = ko.mapping.toJS(editorContent);
-                learningMapData.Trainees = [];
-                ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
-                    if (item.newlyAdded()) {
-                        learningMapData.Trainees.push(item);
-                    }
-                });
-                my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
-            }
+        
         };
 
         var removeCourse = function (index) {
@@ -195,6 +200,21 @@
             editorContent.Trainees.push(availableTrainees()[index]);
             availableTrainees.splice(index, 1);
         };
+
+        var validateEditorContent = function () {
+            
+            if (my.isNullorEmpty(editorContent.Title()))
+            {
+                editorContent.IsTitleValidated(false);
+                return false;
+            }
+            if (my.isNullorEmpty(editorContent.Notes())) {
+                editorContent.IsNotesValidated(false);
+                return false;
+            }
+            
+            return true;
+        }
 
         return {
 

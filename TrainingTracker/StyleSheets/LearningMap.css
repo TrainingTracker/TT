@@ -61,6 +61,7 @@
     border:1px solid #ccc;
     outline:none;
     box-shadow:none;
+    max-width: 100%;
 }
 #divEditorButtons > button {
     border: none;

@@ -35,7 +35,7 @@
              <div class="col-xs-12 form-group">
                  <label class="control-label col-xs-2">Title:</label>
                  <div class="col-xs-10">
-                     <input type="text" class="form-control" data-bind=" value: editorContent.Title" placeholder="Title" />
+                     <input type="text" class="form-control" data-bind=" value: editorContent.Title, IsFieldValidated: editorContent.IsTitleValidated(), validationMessage : 'Title cannot be empty', click : editorContent.IsTitleValidated(true)" placeholder="Title" />
                  </div>
              </div>
 
@@ -49,7 +49,7 @@
              <div class="col-xs-12 form-group">
                  <label class="control-label col-xs-2">Description:</label>
                  <div class="col-xs-10">
-                     <textarea rows="3" class="form-control" data-bind="value: editorContent.Notes" ></textarea>
+                     <textarea rows="3" class="form-control" data-bind="value: editorContent.Notes, IsFieldValidated: editorContent.IsNotesValidated(), validationMessage : 'Description cannot be empty', click : editorContent.IsNotesValidated(true)"></textarea>
                  </div>
              </div>
 
