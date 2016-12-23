@@ -33,7 +33,7 @@ ko.bindingHandlers.IsFieldValidated = {
         var message = allBindings.get('validationMessage').toString();
 
         if (!valueUnwrapped) {
-            $(element).css({"border-color":"red"}).attr("placeholder", message);
+            $(element).val('').css({"border-color":"red"}).attr("placeholder", message);
         }
         else {
             $(element).css({ "border-color": "#ccc" });
