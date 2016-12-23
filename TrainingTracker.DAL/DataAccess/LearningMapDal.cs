@@ -303,6 +303,34 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Learning Map data by making its IsDeleted attribute to true.
+        /// </summary>
+        /// <param name="id">Learning Map Id whose data is to be deleted</param>
+        /// <returns>true if Learning Map data is deleted successfully and false if data to be deleted is not found or some other exception occurs.</returns>
+        public bool DeleteLearningMap(int id) 
+        {
+
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var learningMapEntity = context.LearningMaps.First(x => x.Id == id);
+
+                    if (learningMapEntity == null) return false;
+
+                    learningMapEntity.IsDeleted = true;
+                    context.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
 
         //void UpdateCoursesOfLearningMap(List<Course> courseList, int learningMapId, TrainingTrackerEntities context)
         //{

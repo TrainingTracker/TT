@@ -17,5 +17,7 @@ namespace TrainingTracker.DAL.Interface
         
         bool UpdateLearningMap(LearningMap data);
         //bool UpdateCoursesOfLearningMap(List<Course> courseList);
+
+        bool DeleteLearningMap(int id);
     }
 }

@@ -19,7 +19,10 @@
         },
         updateLearningMap : function(data, callback){
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningMap/UpdateLearningMap", data, callback);
-        }
+        },
+        deleteLearningMap : function(id, callback){
+        my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningMap/DeleteLearningMap?id=" + id, null, callback);
+    }
     };
     
 }(my));

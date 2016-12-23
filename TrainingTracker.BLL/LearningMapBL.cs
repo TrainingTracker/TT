@@ -59,5 +59,14 @@ namespace TrainingTracker.BLL
             return (LearningMapDataAccessor.UpdateLearningMap(data));
         }
 
+        public bool DeleteLearningMap(int id)
+        {
+            if (id > 0 )
+            {
+                return LearningMapDataAccessor.DeleteLearningMap(id);
+            }
+            return false;
+        }
+
     }
 }

@@ -19,6 +19,20 @@
     font-weight: 600;
 }
 
+.search-div > input
+{
+   width: 85%;
+    margin-left: 7%;
+    padding: 4% 11% 1% 2%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+.search-div > i {
+    font-size: 16px;
+    margin-left: -10%;
+}
 
 /*Left panel*/
 .learning-map-left-panel li {
@@ -127,7 +141,11 @@
     overflow:auto;
     list-style:none;
     padding: 0 3%;
-    height: 82%;
+    height: 68%;
+    margin-top:2%;
+}
+.learning-map-left-panel > ul {
+        height: 75%;
 }
 #coursesDiv > ul > li > span, #traineesDiv > ul > li > span {
     word-wrap: break-word;

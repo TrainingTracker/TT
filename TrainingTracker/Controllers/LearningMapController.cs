@@ -20,10 +20,12 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
+
         public JsonResult GetLearningMapWithAllData(int id)
         { 
             return Json(new LearningMapBL().GetLearningMapWithAllData(id), JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GetAllCourses()
         {
@@ -60,5 +62,10 @@ namespace TrainingTracker.Controllers
             return Json(new LearningMapBL().UpdateLearningMap(data), JsonRequestBehavior.AllowGet);
         }
        
+
+        public JsonResult DeleteLearningMap(int id)
+        {
+            return Json(new LearningMapBL().DeleteLearningMap(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }
