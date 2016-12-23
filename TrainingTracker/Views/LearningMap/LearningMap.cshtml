@@ -18,11 +18,11 @@
                 </button>    
             </div>
             <div class="search-div" data-bind="visible: allLearningMaps().length > 0">
-                <input type="text" placeholder="Search LearningMap"  />
+                <input type="text" placeholder="Search LearningMap" data-bind="textInput: searchKeyword.LearningMap" />
                 <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
             </div>
             <ul data-bind="foreach: allLearningMaps">
-                <li data-bind="click: function(){ $root.getLearningMapWithAllData($data.Id) }, css: {selected : Id == $root.editorContent.Id()}">
+                <li data-bind="visible: IsVisible(), click: function(){ $root.getLearningMapWithAllData($data.Id) }, css: {selected : Id == $root.editorContent.Id()}">
                     <span data-bind="text: Title"></span>
                     <span class="pull-right">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -112,15 +112,15 @@
         <div class="learning-map-right-panel">
             <div id="coursesDiv">
                 <div class="panel-heading">COURSES</div>
-                <div class="search-div" data-bind="visible: availableCourses().length > 0">
-                    <input type="text" placeholder="Search Course" />
+                <div class="search-div" data-bind="visible: availableCourses().length > 0" >
+                    <input type="text" placeholder="Search Course" data-bind="textInput: searchKeyword.Course" />
                     <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
                 </div>
                 <ul data-bind="visible: editorContent.Id() >= 0">
                     <li data-bind="visible: availableCourses().length == 0"> No Remaining Courses</li>
                     
                     <!-- ko foreach: availableCourses -->
-                    <li>
+                    <li data-bind="visible: IsVisible()">
                         <span data-bind="text: Name"></span>
                         <button class="add-btn pull-right" data-bind="click: function() { $root.addCourse($index()) }">
                             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -133,13 +133,13 @@
             <div id="traineesDiv">
                 <div class="panel-heading">TRAINEES</div>
                 <div class="search-div" data-bind="visible: availableTrainees().length > 0">
-                    <input type="text" placeholder="Search Trainees"  />
+                    <input type="text" placeholder="Search Trainees" data-bind="textInput: searchKeyword.Trainee" />
                     <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
                 </div>
                 <ul data-bind="visible: editorContent.Id() >= 0">
                     <li data-bind="visible: availableTrainees().length == 0"> No Remaining Trainees</li>
                     <!-- ko foreach: availableTrainees -->
-                    <li>
+                    <li data-bind="visible: IsVisible()">
                         <span data-bind="text: FirstName"></span>
                         <button class="add-btn pull-right" data-bind="click: function() { $root.addTrainee($index()) }">
                             <i class="fa fa-plus" aria-hidden="true"></i>

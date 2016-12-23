@@ -23,7 +23,7 @@
         var searchKeyword = {
             Course: ko.observable(''),
             Trainee: ko.observable(''),
-            LearnningMap : ko.observable('')
+            LearningMap : ko.observable('')
         }
 
         var resetEditorContent = function () {
@@ -51,6 +51,7 @@
 
             editorContent.Courses([]);
             ko.utils.arrayForEach(jsonData.Courses, function (item) {
+                item.IsVisible = ko.observable(true);
                 editorContent.Courses.push(item);
                 ko.utils.arrayFirst(availableCourses(), function (v, i) {
                     if (item.Id == v.Id)
@@ -71,6 +72,8 @@
             editorContent.Trainees([]);
             ko.utils.arrayForEach(jsonData.Trainees, function (item) {
                 item.newlyAdded = ko.observable(false);
+                item.IsVisible = ko.observable(true);
+
                 editorContent.Trainees.push(item);
 
                 ko.utils.arrayFirst(availableTrainees(), function (v, i) {
@@ -106,6 +109,7 @@
         var getAllCoursesCallback = function (jsonData) {
             if (jsonData !== null) {
                 ko.utils.arrayForEach(jsonData, function (item) {
+                    item.IsVisible = ko.observable(true);
                     allCourses.push(item);
                 });
                 notifyStyle();
@@ -120,6 +124,7 @@
             if (jsonData !== null) {
                 ko.utils.arrayForEach(jsonData, function (item) {
                     item.Title = ko.observable(item.Title);
+                    item.IsVisible = ko.observable(true);
                     allLearningMaps.push(item);
                 });
 
@@ -133,6 +138,7 @@
             if (jsonData !== null) {
                 ko.utils.arrayForEach(jsonData, function (item) {
                     item.newlyAdded = ko.observable(false);
+                    item.IsVisible = ko.observable(true);
                     allTrainees.push(item);
                 });
             }
@@ -307,6 +313,70 @@
             
         }
 
+        var filterCourse = function () {
+            
+            if (my.isNullorEmpty(searchKeyword.Course())) {
+                ko.utils.arrayForEach(availableCourses(), function (item) {
+                    item.IsVisible(true);
+                    
+                });
+            }
+            else {
+                ko.utils.arrayForEach(availableCourses(), function (item) {
+                    if (item.Name.toUpperCase().includes(searchKeyword.Course().trim().toUpperCase())) {
+                        item.IsVisible(true);
+                    }
+                    else {
+                        item.IsVisible(false);
+                    }
+                });
+            }
+
+        };
+
+        var filterTrainee = function () {
+
+            if (my.isNullorEmpty(searchKeyword.Trainee())) {
+                ko.utils.arrayForEach(availableTrainees(), function (item) {
+                    item.IsVisible(true);
+
+                });
+            }
+            else {
+                ko.utils.arrayForEach(availableTrainees(), function (item) {
+                    if (item.FullName.toUpperCase().includes(searchKeyword.Trainee().trim().toUpperCase())) {
+                        item.IsVisible(true);
+                    }
+                    else {
+                        item.IsVisible(false);
+                    }
+                });
+            }
+
+        };
+
+        var filterLearningMap = function () {
+
+            if (my.isNullorEmpty(searchKeyword.LearningMap())) {
+                ko.utils.arrayForEach(allLearningMaps(), function (item) {
+                    item.IsVisible(true);
+
+                });
+            }
+            else {
+                ko.utils.arrayForEach(allLearningMaps(), function (item) {
+                    if (item.Title().toUpperCase().includes(searchKeyword.LearningMap().trim().toUpperCase())) {
+                        item.IsVisible(true);
+                    }
+                    else {
+                        item.IsVisible(false);
+                    }
+                });
+            }
+
+        };
+
+
         var notifyStyle = function () {
             $.notify.addStyle('customAlert', {
                 html: "<div data-notify-text /div>",
@@ -337,12 +407,17 @@
             allLearningMaps : allLearningMaps,
             availableTrainees: availableTrainees,
             editorContent: editorContent,
-            
-            
+            searchKeyword : searchKeyword,
+            allCourses: allCourses,
+
             removeCourse: removeCourse,
             addCourse: addCourse,
             removeTrainee : removeTrainee,
             addTrainee: addTrainee,
+
+            filterCourse: filterCourse,
+            filterTrainee: filterTrainee,
+            filterLearningMap: filterLearningMap,
 
             getAllCourses: getAllCourses,
             getAllLearningMaps : getAllLearningMaps,
@@ -354,6 +429,17 @@
             deleteLearningMap : deleteLearningMap
         }
     }();
+
+    my.learningMap.searchKeyword.Course.subscribe(function () {
+        my.learningMap.filterCourse();
+    });
+    my.learningMap.searchKeyword.Trainee.subscribe(function () {
+        my.learningMap.filterTrainee();
+    });
+    my.learningMap.searchKeyword.LearningMap.subscribe(function () {
+        my.learningMap.filterLearningMap();
+    });
+
     my.learningMap.getAllLearningMaps();
     my.learningMap.getAllCourses();
     my.learningMap.getAllTrainees();
