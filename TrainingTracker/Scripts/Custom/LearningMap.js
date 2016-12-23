@@ -20,6 +20,22 @@
             Trainees: ko.observableArray([]),
          }
 
+        var searchKeyword = {
+            Course: ko.observable(''),
+            Trainee: ko.observable(''),
+            LearnningMap : ko.observable('')
+        }
+
+        var resetEditorContent = function () {
+            editorContent.Id(-1);
+            editorContent.Title('');
+            editorContent.Notes('');
+            editorContent.Duration(0);
+            editorContent.IsCourseRestricted(0);
+            editorContent.Courses([]);
+            editorContent.Trainees([]);
+        }
+
         var getLearningMapWithAllDataCallback = function (jsonData) {
 
             editorContent.Id(jsonData.Id);
@@ -36,17 +52,14 @@
             editorContent.Courses([]);
             ko.utils.arrayForEach(jsonData.Courses, function (item) {
                 editorContent.Courses.push(item);
-                var index = -1;
-                ko.utils.arrayForEach(availableCourses(), function (v, i) {
+                ko.utils.arrayFirst(availableCourses(), function (v, i) {
                     if (item.Id == v.Id)
                     {
-                        index = i;
+                        availableCourses.splice(i, 1);
+                        return true;
                     }
                 });
 
-                if (index > -1) {
-                    availableCourses.splice(index, 1);
-                }
                 
             });
 
@@ -59,29 +72,21 @@
             ko.utils.arrayForEach(jsonData.Trainees, function (item) {
                 item.newlyAdded = ko.observable(false);
                 editorContent.Trainees.push(item);
-                var index = -1;
-                ko.utils.arrayForEach(availableTrainees(), function (v, i) {
+
+                ko.utils.arrayFirst(availableTrainees(), function (v, i) {
                     if (item.UserId == v.UserId) {
-                        index = i;
+                        availableTrainees.splice(i, 1);
+                        return true;
                     }
                 });
-                if (index > -1) {
-                    availableTrainees.splice(index, 1);
-                }
-
             });
             
         };
 
         var getLearningMapWithAllData = function (id) {
             if (id == 0) {
+                resetEditorContent();
                 editorContent.Id(0);
-                editorContent.Title('');
-                editorContent.Notes('');
-                editorContent.Duration(0);
-                editorContent.IsCourseRestricted(0);
-                editorContent.Courses([]);
-                editorContent.Trainees([]);
 
                 availableTrainees([]);
                 ko.utils.arrayForEach(allTrainees(), function (item) {
@@ -223,6 +228,23 @@
             return true;
         }
 
+        var deleteLearningMapCallback = function (jsonData) {
+            if (jsonData) {
+                
+                ko.utils.arrayFirst(allLearningMaps(), function (v, i) {
+                    if (editorContent.Id() == v.Id)
+                    {
+                        allLearningMaps.splice(i, 1);
+                        return true;
+                    }
+                });
+                resetEditorContent();
+            }
+        }
+        var deleteLearningMap = function () {
+            my.learningMapService.deleteLearningMap(editorContent.Id(), deleteLearningMapCallback);
+        }
+
         return {
 
             
@@ -230,8 +252,7 @@
             allLearningMaps : allLearningMaps,
             availableTrainees: availableTrainees,
             editorContent: editorContent,
-            allTrainees: allTrainees,
-            allCourses : allCourses ,
+            
             
             removeCourse: removeCourse,
             addCourse: addCourse,
@@ -243,7 +264,9 @@
             getAllTrainees: getAllTrainees,
             getLearningMapWithAllData : getLearningMapWithAllData,
 
-            updateLearningMap: updateLearningMap
+            updateLearningMap: updateLearningMap,
+
+            deleteLearningMap : deleteLearningMap
         }
     }();
     my.learningMap.getAllLearningMaps();
