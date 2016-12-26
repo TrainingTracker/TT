@@ -136,103 +136,6 @@
                     </div>
                 </div>
 
-
-                @*      
-                <div id="divWeeklyReviewcollapasable" class="collapse" data-bind="visible: userVm.User.IsTrainee">
-                    <div class="list-group-item ">
-                        <div style="display: inline-block">Latest Feedback : </div>
-                        <div class="pull-right" data-bind="if: my.profileVm.recentWeeklyFeedback().length > 0" style="display: inline-block;">
-                            <div data-bind="css: {
-                                                  'rating-slow': my.profileVm.recentWeeklyFeedback()[0].Rating == 1,
-                                                  'rating-Average': my.profileVm.recentWeeklyFeedback()[0].Rating == 2,
-                                                  'rating-Fast': my.profileVm.recentWeeklyFeedback()[0].Rating == 3,
-                                                  'rating-Exceptional': my.profileVm.recentWeeklyFeedback()[0].Rating == 4
-}">
-                                <!-- ko foreach: new Array(my.profileVm.recentWeeklyFeedback()[0].Rating)  -->
-                                <span class="glyphicon glyphicon-star"
-                                    style="display: inline-block;"></span>
-                                <!-- /ko -->
-                            </div>
-                        </div>
-                        <div class="pull-right" data-bind="if: my.profileVm.recentWeeklyFeedback().length == 0" style="display: inline-block;">
-                            No Feedbacks
-                        </div>
-
-                    </div>
-                    <div class="list-group-item ">
-                        <div style="display: inline-block">Exceptional Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="">
-                        </div>
-                    </div>
-                    <div class="list-group-item ">
-                        <div style="display: inline-block">Fast Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())">
-                        </div>
-                    </div>
-                    <div class="list-group-item ">
-                        <div style="display: inline-block">Average Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentWeeklyFeedback())">
-                        </div>
-                    </div>
-                    <div class="list-group-item ">
-                        <div style="display: inline-block">Slow Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentWeeklyFeedback())">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="list-group" data-bind="visible: userVm.User.IsTrainee" data-toggle="collapse" data-target="#divCodeReviewcollapasable">
-                    <div class="list-group-item active">
-                        <label>Code Review Feedbacks</label>
-                        <span class="pull-right">
-                            <i class="glyphicon  glyphicon-chevron-down custom-glyph"></i>
-                        </span>
-                    </div>
-
-                </div>
-                <div id="divCodeReviewcollapasable" class="in" data-bind="visible: userVm.User.IsTrainee">
-                    <div class="list-group-item collapse">
-                        <div style="display: inline-block">Latest Feedback : </div>
-                        <div class="pull-right" data-bind="if: my.profileVm.recentCodeReviewFeedback().length > 0" style="display: inline-block;">
-                            <div data-bind="css: {
-    'rating-slow': my.profileVm.recentCodeReviewFeedback()[0].Rating == 1,
-    'rating-Average': my.profileVm.recentCodeReviewFeedback()[0].Rating == 2,
-    'rating-Fast': my.profileVm.recentCodeReviewFeedback()[0].Rating == 3,
-    'rating-Exceptional': my.profileVm.recentCodeReviewFeedback()[0].Rating == 4
-}">
-                                <!-- ko foreach: new Array(my.profileVm.recentCodeReviewFeedback()[0].Rating)  -->
-                                <span class="glyphicon glyphicon-star"
-                                    style="display: inline-block;"></span>
-                                <!-- /ko -->
-                            </div>
-                        </div>
-                        <div class="pull-right" data-bind="if: my.profileVm.recentCodeReviewFeedback().length == 0" style="display: inline-block;">
-                            No Feedbacks
-                        </div>
-
-                    </div>
-                    <div class="list-group-item collapse">
-                        <div style="display: inline-block">Exceptional Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())">
-                        </div>
-                    </div>
-                    <div class="list-group-item collapse">
-                        <div style="display: inline-block">Fast Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())">
-                        </div>
-                    </div>
-                    <div class="list-group-item collapse">
-                        <div style="display: inline-block">Average Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentCodeReviewFeedback())">
-                        </div>
-                    </div>
-                    <div class="list-group-item collapse">
-                        <div style="display: inline-block">Slow Feedback Count: </div>
-                        <div class="pull-right" style="display: inline-block;" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentCodeReviewFeedback())">
-                        </div>
-                    </div>
-                </div>
-                *@
               
                 <div class="list-group collapsed" data-bind="visible: userVm.User.IsTrainee" data-toggle="collapse" data-target="#divSkillscollapasable">
                     <div class="list-group-item active">
@@ -293,7 +196,7 @@
                                 <span class="header-Tab">Weekly Feedbacks</span>
                                 <span class="header-Tab">CR</span>
                             </div>
-                            <div>
+                            <div  class="data-counter">
                                 <span data-bind="text: trainorSynopsis().WeeklyFeedbackCount"></span>
                                 <span data-bind="text: trainorSynopsis().CodeReviewFeedbackCount"></span>
                             </div>
@@ -304,7 +207,7 @@
                                 <span class="header-Tab">Assignments</span>
                                 <span class="header-Tab">Skills</span>
                             </div>
-                            <div>
+                            <div  class="data-counter">
                                 <span data-bind="text: trainorSynopsis().AssignmentFeedbackCount"></span>
                                 <span data-bind="text: '--'"></span>
                             </div>
@@ -314,7 +217,7 @@
                                 <span class="header-Tab">Exceptional Ratings</span>
                                 <span class="header-Tab">Fast Ratings</span>
                             </div>
-                            <div>
+                            <div  class="data-counter">
                                 <span data-bind="text: trainorSynopsis().ExceptionalFeedbackCount"></span>
                                 <span data-bind="text: trainorSynopsis().FastFeedbackCount"></span>
                             </div>
@@ -324,7 +227,7 @@
                                 <span class="header-Tab">Average Ratings</span>
                                 <span class="header-Tab">Slow Ratings</span>
                             </div>
-                            <div>
+                            <div  class="data-counter">
                                 <span data-bind="text: trainorSynopsis().AverageFeedbackCount"></span>
                                 <span data-bind="text: trainorSynopsis().SlowFeedbackCount"></span>
 

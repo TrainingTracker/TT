@@ -86,3 +86,7 @@
         background: #194a71;
         color: #fff;
     }
+
+    h4.subtopic-description p {
+        line-height: 1.42;
+    }

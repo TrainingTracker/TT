@@ -55,6 +55,7 @@
 .courses-list-item .course-thumb {
     background: #fff;
     display: block;
+        width: 100%;
         height: 50% !important;
             /*background-image: linear-gradient(90deg, transparent 1%, #abced4 1%, #abced4 2%, transparent 2%), linear-gradient(#eee 1px, transparent 1px);*/
     background-size: 100% 17px;

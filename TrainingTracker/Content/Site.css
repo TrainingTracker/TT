@@ -163,7 +163,8 @@ body {
  .menu-li.separator:after,#notificationLink:after {
     position: absolute;
     height: 30%;
-    width: 100%;
+   right: 0;
+    /* width: 1%; */
     top: 33%;
     CONTENT: "";
     background: transparent;

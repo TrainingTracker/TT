@@ -83,8 +83,8 @@ namespace TrainingTracker.DAL.DataAccess
                 {
                     var query = context.Feedbacks.Where(x => x.AddedFor == userId);
                     if (feedbackId != null && feedbackId > 0) query = query.Where(x => x.FeedbackType == feedbackId);
-                    if (startAddedOn != null && endAddedOn != null) query = query.Where(x => x.StartDate >= startAddedOn && x.EndDate >= endAddedOn
-                    && x.AddedOn >= startAddedOn && (x.AddedOn <= endAddedOn));
+                    if (startAddedOn != null && endAddedOn != null) query = query.Where(x => ((x.StartDate > DateTime.MinValue && x.StartDate >= startAddedOn) && (x.EndDate > DateTime.MinValue && x.EndDate <= endAddedOn))
+                                                                                              || ( x.AddedOn >= startAddedOn && x.AddedOn <= endAddedOn));
 
                     feedbacks = query.Include(x => x.User).Include(x => x.FeedbackThreads).Include(x => x.FeedbackType1)
                         .OrderByDescending(x => x.AddedOn).Take(count)

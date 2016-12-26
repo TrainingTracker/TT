@@ -480,7 +480,7 @@ div#divReviewcollapasable .tab-wrap >div:nth-child(2) span,div#divWeeklyReviewco
     font-size: 20px;
 }
 
-div#divWeeklyReviewcollapasable .tab-wrap .data-counter span {
+div#divWeeklyReviewcollapasable .tab-wrap .data-counter span,div#divReviewcollapasable  .tab-wrap .data-counter span{
     color: #fff;
 }
 
@@ -569,6 +569,24 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 
 .feedback-input input[type=checkbox], .feedback-input input[type=radio]
 {
-    margin: 2px 0 0;
+    margin: 3px -14px;
     line-height: normal;
+}
+
+#page-wrapper .nav-tabs>li>a {
+    color: #000;
+}
+#page-wrapper .nav-tabs > li > a,#page-wrapper .nav-tabs > li > a:hover
+{
+    border-color: #ccc #ccc #ccc;
+        font-size: 10px;
+}
+
+
+#page-wrapper .nav-tabs>li.active>a,#page-wrapper .nav-tabs>li.active>a:focus,#page-wrapper .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: pointer;
+    background-color: #2596F1;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
 }

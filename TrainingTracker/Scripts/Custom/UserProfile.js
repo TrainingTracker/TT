@@ -268,7 +268,7 @@
                 $.confirm({
                     title: 'Missing Code Review Feedback!',
                     content: 'Weekly survey automatically captures code review for the week, but no CR added for ' + my.profileVm.userVm.User.FirstName + '  in between ' + moment(my.profileVm.feedbackPost.StartDate()).format("dddd, MMMM Do YYYY") + ' and ' + moment(my.profileVm.feedbackPost.EndDate()).format("dddd, MMMM Do YYYY") +'.' + '</br><label>Do you want to add CR?</label>',
-                    columnClass : 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1' ,
+                    columnClass : 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10' ,
                     useBootstrap: true,
                     buttons: {
                         confirm:
