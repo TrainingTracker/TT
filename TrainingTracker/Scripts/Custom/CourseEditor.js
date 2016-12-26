@@ -795,14 +795,14 @@
         };
 
         var validateEditorContents = function () {
-            if (editorContent.Name() == '') {
+            if (my.isNullorEmpty(editorContent.Name().trim())) {
                 $.notify("Heading cannot be empty", { style: 'customAlert', className: 'red' });
                 return false;
             }
             else if (editorContent.HasUrl())
             {   
                 var urlRegExp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-                if (editorContent.Url() !== '' && editorContent.Url() !== null && !urlRegExp.test(editorContent.Url()))
+                if (editorContent.Url().trim() !== '' && editorContent.Url() !== null && !urlRegExp.test(editorContent.Url()))
                 {
                     $.notify("Enter proper url or leave empty", { style: 'customAlert', className: 'red' });
                     return false;
