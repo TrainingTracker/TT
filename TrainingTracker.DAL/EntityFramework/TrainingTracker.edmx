@@ -17,8 +17,8 @@
           <EntitySet Name="FeedbackThread" EntityType="TrainingTrackerModel.Store.FeedbackThread" store:Type="Tables" Schema="trainingtracker" />
           <EntitySet Name="FeedbackType" EntityType="TrainingTrackerModel.Store.FeedbackType" store:Type="Tables" Schema="trainingtracker" />
           <EntitySet Name="LearningMap" EntityType="TrainingTrackerModel.Store.LearningMap" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningMapCourseMappping" EntityType="TrainingTrackerModel.Store.LearningMapCourseMappping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningMapUserMappping" EntityType="TrainingTrackerModel.Store.LearningMapUserMappping" store:Type="Tables" Schema="trainingtracker" />
+          <EntitySet Name="LearningMapCourseMapping" EntityType="TrainingTrackerModel.Store.LearningMapCourseMapping" store:Type="Tables" Schema="trainingtracker" />
+          <EntitySet Name="LearningMapUserMapping" EntityType="TrainingTrackerModel.Store.LearningMapUserMapping" store:Type="Tables" Schema="trainingtracker" />
           <EntitySet Name="LearningSource" EntityType="TrainingTrackerModel.Store.LearningSource" store:Type="Tables" Schema="trainingtracker" />
           <EntitySet Name="Notification" EntityType="TrainingTrackerModel.Store.Notification" store:Type="Tables" Schema="trainingtracker" />
           <EntitySet Name="NotificationType" EntityType="TrainingTrackerModel.Store.NotificationType" store:Type="Tables" Schema="trainingtracker" />
@@ -121,19 +121,19 @@
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_Course" Association="TrainingTrackerModel.Store.FK_LearningMapCourseMappping_Course">
             <End Role="Course" EntitySet="Course" />
-            <End Role="LearningMapCourseMappping" EntitySet="LearningMapCourseMappping" />
+            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_LearningMap" Association="TrainingTrackerModel.Store.FK_LearningMapCourseMappping_LearningMap">
             <End Role="LearningMap" EntitySet="LearningMap" />
-            <End Role="LearningMapCourseMappping" EntitySet="LearningMapCourseMappping" />
+            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_LearningMap" Association="TrainingTrackerModel.Store.FK_LearningMapUserMappping_LearningMap">
             <End Role="LearningMap" EntitySet="LearningMap" />
-            <End Role="LearningMapUserMappping" EntitySet="LearningMapUserMappping" />
+            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_User" Association="TrainingTrackerModel.Store.FK_LearningMapUserMappping_User">
             <End Role="User" EntitySet="User" />
-            <End Role="LearningMapUserMappping" EntitySet="LearningMapUserMappping" />
+            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_Notification_NotificationType" Association="TrainingTrackerModel.Store.fk_Notification_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationType" />
@@ -379,7 +379,7 @@
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="LearningMapCourseMappping">
+        <EntityType Name="LearningMapCourseMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -390,7 +390,7 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="DateInserted" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="LearningMapUserMappping">
+        <EntityType Name="LearningMapUserMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -924,48 +924,48 @@
         </Association>
         <Association Name="FK_LearningMapCourseMappping_Course">
           <End Role="Course" Type="TrainingTrackerModel.Store.Course" Multiplicity="1" />
-          <End Role="LearningMapCourseMappping" Type="TrainingTrackerModel.Store.LearningMapCourseMappping" Multiplicity="*" />
+          <End Role="LearningMapCourseMapping" Type="TrainingTrackerModel.Store.LearningMapCourseMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapCourseMappping">
+            <Dependent Role="LearningMapCourseMapping">
               <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapCourseMappping_LearningMap">
           <End Role="LearningMap" Type="TrainingTrackerModel.Store.LearningMap" Multiplicity="1" />
-          <End Role="LearningMapCourseMappping" Type="TrainingTrackerModel.Store.LearningMapCourseMappping" Multiplicity="*" />
+          <End Role="LearningMapCourseMapping" Type="TrainingTrackerModel.Store.LearningMapCourseMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapCourseMappping">
+            <Dependent Role="LearningMapCourseMapping">
               <PropertyRef Name="LearningMapId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_LearningMap">
           <End Role="LearningMap" Type="TrainingTrackerModel.Store.LearningMap" Multiplicity="1" />
-          <End Role="LearningMapUserMappping" Type="TrainingTrackerModel.Store.LearningMapUserMappping" Multiplicity="*" />
+          <End Role="LearningMapUserMapping" Type="TrainingTrackerModel.Store.LearningMapUserMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapUserMappping">
+            <Dependent Role="LearningMapUserMapping">
               <PropertyRef Name="LearningMapId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_User">
           <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="1" />
-          <End Role="LearningMapUserMappping" Type="TrainingTrackerModel.Store.LearningMapUserMappping" Multiplicity="*" />
+          <End Role="LearningMapUserMapping" Type="TrainingTrackerModel.Store.LearningMapUserMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="LearningMapUserMappping">
+            <Dependent Role="LearningMapUserMapping">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1334,8 +1334,8 @@
           <EntitySet Name="FeedbackThreads" EntityType="TrainingTrackerModel.FeedbackThread" />
           <EntitySet Name="FeedbackTypes" EntityType="TrainingTrackerModel.FeedbackType" />
           <EntitySet Name="LearningMaps" EntityType="TrainingTrackerModel.LearningMap" />
-          <EntitySet Name="LearningMapCourseMapppings" EntityType="TrainingTrackerModel.LearningMapCourseMappping" />
-          <EntitySet Name="LearningMapUserMapppings" EntityType="TrainingTrackerModel.LearningMapUserMappping" />
+          <EntitySet Name="LearningMapCourseMappings" EntityType="TrainingTrackerModel.LearningMapCourseMapping" />
+          <EntitySet Name="LearningMapUserMappings" EntityType="TrainingTrackerModel.LearningMapUserMapping" />
           <EntitySet Name="LearningSources" EntityType="TrainingTrackerModel.LearningSource" />
           <EntitySet Name="Notifications" EntityType="TrainingTrackerModel.Notification" />
           <EntitySet Name="NotificationTypes" EntityType="TrainingTrackerModel.NotificationType" />
@@ -1394,7 +1394,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_Course" Association="TrainingTrackerModel.FK_LearningMapCourseMappping_Course">
             <End Role="Course" EntitySet="Courses" />
-            <End Role="LearningMapCourseMappping" EntitySet="LearningMapCourseMapppings" />
+            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseSubtopic_User" Association="TrainingTrackerModel.FK_CourseSubtopic_User">
             <End Role="User" EntitySet="Users" />
@@ -1446,15 +1446,15 @@
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_LearningMap" Association="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap">
             <End Role="LearningMap" EntitySet="LearningMaps" />
-            <End Role="LearningMapCourseMappping" EntitySet="LearningMapCourseMapppings" />
+            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_LearningMap" Association="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap">
             <End Role="LearningMap" EntitySet="LearningMaps" />
-            <End Role="LearningMapUserMappping" EntitySet="LearningMapUserMapppings" />
+            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_User" Association="TrainingTrackerModel.FK_LearningMapUserMappping_User">
             <End Role="User" EntitySet="Users" />
-            <End Role="LearningMapUserMappping" EntitySet="LearningMapUserMapppings" />
+            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMappings" />
           </AssociationSet>
           <AssociationSet Name="FK__UserNotif__Notif__47A6A41B" Association="TrainingTrackerModel.FK__UserNotif__Notif__47A6A41B">
             <End Role="Notification" EntitySet="Notifications" />
@@ -1630,7 +1630,7 @@
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Course_User" FromRole="Course" ToRole="User" />
           <NavigationProperty Name="CourseSubtopics" Relationship="TrainingTrackerModel.FK_CourseSubtopic_Course" FromRole="Course" ToRole="CourseSubtopic" />
-          <NavigationProperty Name="LearningMapCourseMapppings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="Course" ToRole="LearningMapCourseMappping" />
+          <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="Course" ToRole="LearningMapCourseMapping" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -1721,10 +1721,10 @@
           <Property Type="DateTime" Name="DateCreated" Nullable="false" />
           <NavigationProperty Name="Team" Relationship="TrainingTrackerModel.FK_LearningMap_Team" FromRole="LearningMap" ToRole="Team" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_LearningMap_User" FromRole="LearningMap" ToRole="User" />
-          <NavigationProperty Name="LearningMapCourseMapppings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMap" ToRole="LearningMapCourseMappping" />
-          <NavigationProperty Name="LearningMapUserMapppings" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" FromRole="LearningMap" ToRole="LearningMapUserMappping" />
+          <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMap" ToRole="LearningMapCourseMapping" />
+          <NavigationProperty Name="LearningMapUserMappings" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" FromRole="LearningMap" ToRole="LearningMapUserMapping" />
         </EntityType>
-        <EntityType Name="LearningMapCourseMappping">
+        <EntityType Name="LearningMapCourseMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1734,10 +1734,10 @@
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="DateTime" Name="DateInserted" Nullable="false" />
-          <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="LearningMapCourseMappping" ToRole="Course" />
-          <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMapCourseMappping" ToRole="LearningMap" />
+          <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="LearningMapCourseMapping" ToRole="Course" />
+          <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMapCourseMapping" ToRole="LearningMap" />
         </EntityType>
-        <EntityType Name="LearningMapUserMappping">
+        <EntityType Name="LearningMapUserMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1745,8 +1745,8 @@
           <Property Type="Int32" Name="LearningMapId" Nullable="false" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="DateTime" Name="DateInserted" Nullable="false" />
-          <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" FromRole="LearningMapUserMappping" ToRole="LearningMap" />
-          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_User" FromRole="LearningMapUserMappping" ToRole="User" />
+          <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" FromRole="LearningMapUserMapping" ToRole="LearningMap" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_User" FromRole="LearningMapUserMapping" ToRole="User" />
         </EntityType>
         <EntityType Name="LearningSource">
           <Key>
@@ -2056,7 +2056,7 @@
           <NavigationProperty Name="Feedbacks1" Relationship="TrainingTrackerModel.fk_Feedback_AddedFor" FromRole="User" ToRole="Feedback" />
           <NavigationProperty Name="FeedbackThreads" Relationship="TrainingTrackerModel.FK_User_Threads" FromRole="User" ToRole="FeedbackThread" />
           <NavigationProperty Name="LearningMaps" Relationship="TrainingTrackerModel.FK_LearningMap_User" FromRole="User" ToRole="LearningMap" />
-          <NavigationProperty Name="LearningMapUserMapppings" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_User" FromRole="User" ToRole="LearningMapUserMappping" />
+          <NavigationProperty Name="LearningMapUserMappings" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_User" FromRole="User" ToRole="LearningMapUserMapping" />
           <NavigationProperty Name="Notifications" Relationship="TrainingTrackerModel.fk_Notification_User" FromRole="User" ToRole="Notification" />
           <NavigationProperty Name="Questions" Relationship="TrainingTrackerModel.FK_Questions_UserId" FromRole="User" ToRole="Question" />
           <NavigationProperty Name="Releases" Relationship="TrainingTrackerModel.FK_Release_UserId" FromRole="User" ToRole="Release" />
@@ -2211,12 +2211,12 @@
         </Association>
         <Association Name="FK_LearningMapCourseMappping_Course">
           <End Type="TrainingTrackerModel.Course" Role="Course" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.LearningMapCourseMappping" Role="LearningMapCourseMappping" Multiplicity="*" />
+          <End Type="TrainingTrackerModel.LearningMapCourseMapping" Role="LearningMapCourseMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapCourseMappping">
+            <Dependent Role="LearningMapCourseMapping">
               <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2367,36 +2367,36 @@
         </Association>
         <Association Name="FK_LearningMapCourseMappping_LearningMap">
           <End Type="TrainingTrackerModel.LearningMap" Role="LearningMap" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.LearningMapCourseMappping" Role="LearningMapCourseMappping" Multiplicity="*" />
+          <End Type="TrainingTrackerModel.LearningMapCourseMapping" Role="LearningMapCourseMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapCourseMappping">
+            <Dependent Role="LearningMapCourseMapping">
               <PropertyRef Name="LearningMapId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_LearningMap">
           <End Type="TrainingTrackerModel.LearningMap" Role="LearningMap" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.LearningMapUserMappping" Role="LearningMapUserMappping" Multiplicity="*" />
+          <End Type="TrainingTrackerModel.LearningMapUserMapping" Role="LearningMapUserMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningMapUserMappping">
+            <Dependent Role="LearningMapUserMapping">
               <PropertyRef Name="LearningMapId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_User">
           <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.LearningMapUserMappping" Role="LearningMapUserMappping" Multiplicity="*" />
+          <End Type="TrainingTrackerModel.LearningMapUserMapping" Role="LearningMapUserMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="LearningMapUserMappping">
+            <Dependent Role="LearningMapUserMapping">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2881,9 +2881,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LearningMapCourseMapppings">
-            <EntityTypeMapping TypeName="TrainingTrackerModel.LearningMapCourseMappping">
-              <MappingFragment StoreEntitySet="LearningMapCourseMappping">
+          <EntitySetMapping Name="LearningMapCourseMappings">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.LearningMapCourseMapping">
+              <MappingFragment StoreEntitySet="LearningMapCourseMapping">
                 <ScalarProperty Name="DateInserted" ColumnName="DateInserted" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
@@ -2893,9 +2893,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LearningMapUserMapppings">
-            <EntityTypeMapping TypeName="TrainingTrackerModel.LearningMapUserMappping">
-              <MappingFragment StoreEntitySet="LearningMapUserMappping">
+          <EntitySetMapping Name="LearningMapUserMappings">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.LearningMapUserMapping">
+              <MappingFragment StoreEntitySet="LearningMapUserMapping">
                 <ScalarProperty Name="DateInserted" ColumnName="DateInserted" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LearningMapId" ColumnName="LearningMapId" />

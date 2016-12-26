@@ -36,8 +36,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<FeedbackThread> FeedbackThreads { get; set; }
         public DbSet<FeedbackType> FeedbackTypes { get; set; }
         public DbSet<LearningMap> LearningMaps { get; set; }
-        public DbSet<LearningMapCourseMappping> LearningMapCourseMapppings { get; set; }
-        public DbSet<LearningMapUserMappping> LearningMapUserMapppings { get; set; }
+        public DbSet<LearningMapCourseMapping> LearningMapCourseMappings { get; set; }
+        public DbSet<LearningMapUserMapping> LearningMapUserMappings { get; set; }
         public DbSet<LearningSource> LearningSources { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }

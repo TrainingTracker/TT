@@ -26,7 +26,7 @@ namespace TrainingTracker.DAL.EntityFramework
             this.Feedbacks1 = new HashSet<Feedback>();
             this.FeedbackThreads = new HashSet<FeedbackThread>();
             this.LearningMaps = new HashSet<LearningMap>();
-            this.LearningMapUserMapppings = new HashSet<LearningMapUserMappping>();
+            this.LearningMapUserMappings = new HashSet<LearningMapUserMapping>();
             this.Notifications = new HashSet<Notification>();
             this.Questions = new HashSet<Question>();
             this.Releases = new HashSet<Release>();
@@ -67,7 +67,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<Feedback> Feedbacks1 { get; set; }
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
         public virtual ICollection<LearningMap> LearningMaps { get; set; }
-        public virtual ICollection<LearningMapUserMappping> LearningMapUserMapppings { get; set; }
+        public virtual ICollection<LearningMapUserMapping> LearningMapUserMappings { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Release> Releases { get; set; }

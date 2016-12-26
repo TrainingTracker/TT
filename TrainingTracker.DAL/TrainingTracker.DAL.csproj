@@ -105,10 +105,10 @@
     <Compile Include="EntityFramework\LearningMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\LearningMapCourseMappping.cs">
+    <Compile Include="EntityFramework\LearningMapCourseMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\LearningMapUserMappping.cs">
+    <Compile Include="EntityFramework\LearningMapUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\LearningSource.cs">
