@@ -152,7 +152,6 @@
                 editorContent.Id(jsonData);
                 var newLearningMap = ko.mapping.toJS(editorContent);
                 newLearningMap.Title = ko.observable(newLearningMap.Title);
-                newLearningMap.IsVisible = ko.observable(true);
                 allLearningMaps.push(newLearningMap);
 
                 ko.utils.arrayForEach(editorContent.Trainees(), function (item) {
@@ -291,8 +290,6 @@
                     if (editorContent.Id() == v.Id)
                     {
                         allLearningMaps.splice(i, 1);
-                        availableCourses([]);
-                        availableTrainees([]);
                         return true;
                     }
                 });

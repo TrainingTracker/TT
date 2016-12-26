@@ -44,7 +44,7 @@ namespace TrainingTracker.DAL.DataAccess
                                        Courses = l.LearningMapCourseMappings
                                                  .Where(s => !s.IsDeleted && s.LearningMapId == id)
                                                  .Select(s => s.Course)
-                                                 //.Where(s => s.IsPublished)
+                                                 .Where(s => s.IsPublished)
                                                  .Select(c => new Course
                                                               {
                                                                   Id = c.Id,
