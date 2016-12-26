@@ -12,19 +12,16 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Skill
+    public partial class LearningMapCourseMapping
     {
-        public Skill()
-        {
-            this.Questions = new HashSet<Question>();
-        }
+        public int Id { get; set; }
+        public int LearningMapId { get; set; }
+        public int CourseId { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsDeleted { get; set; }
+        public System.DateTime DateInserted { get; set; }
     
-        public int SkillId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
-        public Nullable<int> AddedBy { get; set; }
-    
-        public virtual ICollection<Question> Questions { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual LearningMap LearningMap { get; set; }
     }
 }

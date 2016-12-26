@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\FeedbackDal.cs" />
+    <Compile Include="DataAccess\LearningMapDal.cs" />
     <Compile Include="DataAccess\LearningPathDal.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +100,15 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\FeedbackType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LearningMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LearningMapCourseMapping.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LearningMapUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\LearningSource.cs">
@@ -201,6 +211,7 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IFeedbackDal.cs" />
+    <Compile Include="Interface\ILearningMapDal.cs" />
     <Compile Include="Interface\ILearningPathDal.cs">
       <SubType>Code</SubType>
     </Compile>

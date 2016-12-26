@@ -12,26 +12,27 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class LearningMap
     {
-        public Course()
+        public LearningMap()
         {
-            this.CourseSubtopics = new HashSet<CourseSubtopic>();
             this.LearningMapCourseMappings = new HashSet<LearningMapCourseMapping>();
+            this.LearningMapUserMappings = new HashSet<LearningMapUserMapping>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Icon { get; set; }
-        public int AddedBy { get; set; }
-        public bool IsActive { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public bool IsPublished { get; set; }
+        public string Title { get; set; }
+        public string Notes { get; set; }
         public int Duration { get; set; }
+        public bool IsCourseRestricted { get; set; }
+        public int TeamId { get; set; }
+        public bool IsDeleted { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
+        public virtual Team Team { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }
         public virtual ICollection<LearningMapCourseMapping> LearningMapCourseMappings { get; set; }
+        public virtual ICollection<LearningMapUserMapping> LearningMapUserMappings { get; set; }
     }
 }

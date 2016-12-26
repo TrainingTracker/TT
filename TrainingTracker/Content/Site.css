@@ -121,6 +121,32 @@ body {
     color:#383838;
 }
 
+.layout-wrapper .learning-map-left-panel
+{
+    width:18%;
+    background-color: #1A2942;
+    color: #ffffff;
+    float:left;
+    height:100%;
+}
+.layout-wrapper .learning-map-right-panel {
+    width:17%;
+    background-color: white;
+    color:#747273;
+    float:left;
+    height:100%;
+}
+.layout-wrapper .learning-map-middle-panel {
+    width:65% !important;
+    background-color:#f5f5f5;
+    color:#383838;
+    float:left;
+    height:100%;
+    overflow: auto;
+}
+
+
+
 .hide-file {
    position: relative;
     z-index: 1000;
