@@ -24,7 +24,7 @@ namespace TrainingTracker
                       "~/Scripts/respond.js"));
 
              bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/site.css"));
 
             #region Scripts
@@ -101,7 +101,6 @@ namespace TrainingTracker
 
             #region Styles
             bundles.Add(new StyleBundle("~/bundles/LayoutViewStyles").Include(
-                      "~/Content/bootstrap.min.css" ,
                       "~/StyleSheets/Layout.css",
                       "~/StyleSheets/AddEditProfile.css"
                       ));
