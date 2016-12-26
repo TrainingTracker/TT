@@ -46,7 +46,11 @@ ko.bindingHandlers.CKEDITOR = {
         var id = $(element).attr('id');
         var options = allBindings().EditorOptions;
         var ignoreChanges = false;
-
+        CKEDITOR.on('dialogDefinition', function (ev) {
+            if (ev.data.name == 'link') {
+                ev.data.definition.getContents('target').get('linkTargetType')['default'] = '_blank';
+            }
+        });
         var instance = CKEDITOR.replace(id, {
             on: {
                 change: function () {
