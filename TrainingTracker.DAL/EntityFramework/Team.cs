@@ -16,6 +16,7 @@ namespace TrainingTracker.DAL.EntityFramework
     {
         public Team()
         {
+            this.LearningMaps = new HashSet<LearningMap>();
             this.Users = new HashSet<User>();
         }
     
@@ -26,6 +27,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public System.DateTime DateInserted { get; set; }
         public int WeeklySurveyId { get; set; }
     
+        public virtual ICollection<LearningMap> LearningMaps { get; set; }
         public virtual Survey Survey { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual User User { get; set; }

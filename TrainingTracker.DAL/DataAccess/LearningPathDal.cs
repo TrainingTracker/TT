@@ -223,7 +223,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                IsActive = d.IsActive,
                                                                                AddedBy = d.AddedBy,
                                                                                SortOrder = d.SortOrder
-                                                                           }).ToList(),
+                                                                           }).OrderBy(x => x.SortOrder)
+                                                                             .ToList(),
                                                                            Assignments = GetAssignments(s.Id)
                                                                        })
                                                                        .OrderBy(x => x.SortOrder)
@@ -260,20 +261,6 @@ namespace TrainingTracker.DAL.DataAccess
                                                            AddedBy = c.AddedBy,
                                                            CreatedOn = c.CreatedOn,
                                                            Duration = c.Duration
-                                                           //CourseSubtopics = c.CourseSubtopics.ToList()
-                                                           //                    .Where(s => s.IsActive)
-                                                           //                    .Select(s => new CourseSubtopic
-                                                           //                            {
-                                                           //                                Id = s.Id,
-                                                           //                                Name = s.Name,
-                                                           //                                CourseId = s.CourseId,
-                                                           //                                Description = s.Description,
-                                                           //                                AddedBy = s.AddedBy,
-                                                           //                                SortOrder = s.SortOrder,
-                                                           //                                CreatedOn = s.CreatedOn
-
-                                                           //                            })
-                                                           //                     .ToList()
 
                                                        }).ToList();
 

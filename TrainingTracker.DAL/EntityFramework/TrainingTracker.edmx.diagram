@@ -4,80 +4,48 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="920e94f838f84464aa75482a8532f81e" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="TrainingTrackerModel.Comment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Feedback" Width="1.5" PointX="10.5" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.FeedbackThread" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.FeedbackType" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.LearningSource" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Notification" Width="1.5" PointX="13.5" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.NotificationType" Width="1.5" PointX="11.25" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Plan" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.PlanSkillMapping" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Project" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.ProjectPlanMapping" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.QuestionLevelMapping" Width="1.5" PointX="15" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Question" Width="1.5" PointX="12.75" PointY="23.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Release" Width="1.5" PointX="10.5" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Session" Width="1.5" PointX="10.5" PointY="28.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Skill" Width="1.5" PointX="10.5" PointY="32.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Survey" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyAnswer" Width="1.5" PointX="7.5" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyQuestion" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyQuestionResponseType" Width="1.5" PointX="3" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyResponse" Width="1.5" PointX="15.75" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveySection" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Team" Width="1.5" PointX="6" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.User" Width="1.5" PointX="8.25" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.UserNotificationMapping" Width="1.5" PointX="18.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.UserProjectMapping" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.UserSessionMapping" Width="1.5" PointX="15.75" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.UserSkillMapping" Width="1.5" PointX="15.75" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.WeeklyFeedbackSurveyMapping" Width="1.5" PointX="15.75" PointY="15" IsExpanded="true" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_AddedBy" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_AddedFor" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_FeedbackType" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_Feedback_Threads" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_WeeklyFeedbackSurveyMapping_Feedback" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_User_Threads" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK__UserNotif__Notif__5D95E53A" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Notification_NotificationType" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Notification_User" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_QuestionLevelMapping_QuestionId" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_Questions_SkillId" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_Questions_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_Release_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Session_User" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_Session" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_Skills_User" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSkillMapping_SkillId" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveySection_Survey" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_Team_Survey" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyAnswer_SurveyQuestion" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyAnswer" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyQuestion_SurveyQuestionResponseType" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyQuestion_SurveySection" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyQuestion" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.Fk_User_Team" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.Fk_UserId_TeamManager" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.FK__UserNotif__UserI__5E8A0973" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_AddedBy" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_User" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSkillMapping_USER" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyCompletedMetaData" Width="1.5" PointX="10.5" PointY="21.5" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyCompletedMetaData_Survey" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyCompletedMetaData_SurveyUser" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyCompletedMetaData" />
-        <AssociationConnector Association="TrainingTrackerModel.FK_WeeklyFeedbackSurveyMapping_SurveyCompletedMetaData" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="1.5" PointX="10.5" PointY="36.125" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="18" PointY="23.375" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentUserMap" Width="1.5" PointX="12.75" PointY="27.125" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.Course" Width="1.5" PointX="10.5" PointY="6.375" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopic" Width="1.5" PointX="15.75" PointY="9.875" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopicDiscussion" Width="1.5" PointX="21" PointY="15.125" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContent" Width="1.5" PointX="18" PointY="11.75" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContentUserMap" Width="1.5" PointX="21.25" PointY="19.125" />
+      <Diagram DiagramId="920e94f838f84464aa75482a8532f81e" Name="Diagram1" ZoomLevel="49">
+        <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="2" PointX="1.25" PointY="252" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="2.75" PointX="3" PointY="253.5" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentUserMap" Width="2.625" PointX="6" PointY="255" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Comment" Width="1.5" PointX="7.0687438990309577" PointY="6.5441167534068772" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Course" Width="1.5" PointX="7.0208779624760513" PointY="17.734413438352949" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopic" Width="1.5" PointX="9.0423594718064919" PointY="31.256406560193938" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CourseSubtopicDiscussion" Width="1.5" PointX="6.9959281268510631" PointY="31.191774844746931" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Feedback" Width="1.5" PointX="10.751547451481013" PointY="14.179968065666021" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.FeedbackThread" Width="1.5" PointX="10.700600673770811" PointY="6.4323401332052148" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.FeedbackType" Width="1.5" PointX="9.6012826792901773" PointY="13.130278295432348" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.LearningMap" Width="1.5" PointX="9.6610742871002628" PointY="15.747876129927056" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.LearningMapCourseMapping" Width="1.5" PointX="8.739673458384198" PointY="1.9884080300053619" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.LearningMapUserMapping" Width="1.5" PointX="7.2089493680787031" PointY="0.34113760308415519" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.LearningSource" Width="1.5" PointX="2.6006489296446782" PointY="8.6144904832423155" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Notification" Width="1.5" PointX="11.848323225904407" PointY="12.610598644526023" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.NotificationType" Width="1.5" PointX="9.839995414875446" PointY="31.324077546281774" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Plan" Width="1.5" PointX="4.0446468033104424" PointY="4.0449596513272077" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.PlanSkillMapping" Width="1.5" PointX="4.9675322514807494" PointY="8.9746149522134164" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Project" Width="1.5" PointX="9.05472855132759" PointY="15.950974322832643" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ProjectPlanMapping" Width="1.5" PointX="4.5920709839985108" PointY="26.95854986969314" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.QuestionLevelMapping" Width="1.5" PointX="2.5041027546413721" PointY="20.034012997538788" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Question" Width="1.5" PointX="3.0308118104146846" PointY="28.04558066839612" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Release" Width="1.5" PointX="4.8103858944076974" PointY="12.879470071233563" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Session" Width="1.5" PointX="11.346331497349929" PointY="13.959925136510249" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Skill" Width="1.5" PointX="6.025944602687817" PointY="10.899767254898217" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContent" Width="1.5" PointX="9.6518471136930621" PointY="19.730919131883848" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SubtopicContentUserMap" Width="1.5" PointX="10.53714010610112" PointY="28.546641482294834" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Survey" Width="1.5" PointX="8.3800597378891233" PointY="25.947168854040637" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyAnswer" Width="1.5" PointX="11.669217919776783" PointY="17.466209568766043" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyCompletedMetaData" Width="1.5" PointX="3.4623112974047245" PointY="5.3518470401651443" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyQuestion" Width="1.5" PointX="10.404411708193091" PointY="10.235493247506904" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyQuestionResponseType" Width="1.5" PointX="2.6057205566231723" PointY="6.1117425887434473" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveyResponse" Width="1.5" PointX="8.81040962450691" PointY="24.788881045202203" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.SurveySection" Width="1.5" PointX="7.6765056567622842" PointY="14.610848686942294" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.Team" Width="1.5" PointX="6.7293833152993505" PointY="19.696178251735947" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.User" Width="1.5" PointX="8.2627594732971676" PointY="12.583960807222855" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.UserNotificationMapping" Width="1.5" PointX="9.8200565659534451" PointY="30.644870608413996" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.UserProjectMapping" Width="1.5" PointX="2.4197516061457582" PointY="5.7288517680619151" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.UserSessionMapping" Width="1.5" PointX="2.874641738307961" PointY="27.260215220628407" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.UserSkillMapping" Width="1.5" PointX="7.9352671168443134" PointY="6.3443949103096475" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.WeeklyFeedbackSurveyMapping" Width="1.5" PointX="0.78159510380662744" PointY="24.975138675875559" />
         <AssociationConnector Association="TrainingTrackerModel.FK_Assignment_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" />
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_User" />
@@ -86,14 +54,51 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" />
         <AssociationConnector Association="TrainingTrackerModel.FK_Course_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopic_Course" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopic_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopicDiscussion_CourseSubtopic" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_CourseSubtopic" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseSubtopicDiscussion_User" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_AddedBy" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_AddedFor" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Feedback_FeedbackType" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Feedback_Threads" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_WeeklyFeedbackSurveyMapping_Feedback" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_User_Threads" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMap_Team" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMap_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_LearningMapUserMappping_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK__UserNotif__Notif__47A6A41B" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Notification_NotificationType" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Notification_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_QuestionLevelMapping_QuestionId" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Questions_SkillId" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Questions_UserId" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Release_UserId" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_Session_User" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_Session" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContent_User" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubtopicContentUserMap_User" />
-        </Diagram>
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyCompletedMetaData_Survey" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveySection_Survey" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_Team_Survey" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyAnswer_SurveyQuestion" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyAnswer" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyCompletedMetaData_SurveyUser" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyCompletedMetaData" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_WeeklyFeedbackSurveyMapping_SurveyCompletedMetaData" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyQuestion_SurveyQuestionResponseType" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyQuestion_SurveySection" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_SurveyResponse_SurveyQuestion" />
+        <AssociationConnector Association="TrainingTrackerModel.Fk_User_Team" />
+        <AssociationConnector Association="TrainingTrackerModel.Fk_UserId_TeamManager" />
+        <AssociationConnector Association="TrainingTrackerModel.FK__UserNotif__UserI__489AC854" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_AddedBy" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_UserSessionMapping_User" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
