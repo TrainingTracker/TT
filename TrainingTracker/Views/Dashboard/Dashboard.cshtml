@@ -8,12 +8,12 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="col-xs-12 no-padding-left no-padding-right">
         <div class=" col-xs-12  ">
-            <div id="divHeaderWrapper" class="col-xs-12 " >
+            <div id="divHeaderWrapper" class="col-xs-12 no-left-margin no-right-margin " >
                 <div id="traineeDashboardHeader" class="col-xs-12 no-left-margin no-right-margin" >
-                    <div id="divTraineeSnapshotMainHeader" class="col-xs-12 spacer-top-bottom"><span>Trainee Snapshot</span></div>
-                    <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom"><span>Trainee</span></div>
+                    <div id="divTraineeSnapshotMainHeader" class="col-xs-12 spacer-top-bottom font-bold"><span>TRAINEE SNAPSHOT</span></div>
+                    <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom"><span style="margin-left: 15px;">Trainee</span></div>
                     <div class="col-xs-1 no-left-margin no-right-margin margin-top spacer-top-bottom">
                         <span>WF</span>
                         <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { tittle: 'Last Week\'s weekly Feedback', HtmlTag: 'false', ClickSticky: 'false', ClickClose: 'true' }"></span>
@@ -23,10 +23,10 @@
                         <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { tittle: 'Code Review in last 2 week', HtmlTag: 'false', ClickSticky: 'false', ClickClose: 'true' }"></span>
                     </div>
                     <div class="col-xs-7 no-left-margin no-right-margin spacer-top-bottom">
-                        <div><span class="col-xs-12 no-left-margin no-right-margin" style="border-bottom: 1px solid #FFF">Last Feedbacks</span>
-                            <span class="col-xs-5 no-left-margin no-right-margin" >Type</span>
-                            <span class="col-xs-2 no-left-margin no-right-margin" >Rating</span>
-                            <span class="col-xs-5 no-left-margin no-right-margin" >Added By</span></div>
+                        <div><span class="col-xs-12 no-left-margin no-right-margin" style="border-bottom: 2px solid #ccc; text-align: center;">Last Feedbacks</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Type</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Rating</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Added By</span></div>
                     </div>
                 </div>
             </div>
@@ -41,17 +41,12 @@
                     </div>
                     <div class="dashboard-users col-xs-12 spacer-top-bottom " >
                         <div class="col-xs-3 no-left-margin no-right-margin">
-                            <!-- <a class="col-xs-4" data-bind="attr: { href: '/Profile/UserProfile?userId=' + User.UserId }">
-                                     <img data-bind="attr: { src: PhotoUrl }"
-                                          class="img-responsive img-circle profile-img ">
-                                 </a> -->
+                           
                           <a data-bind="attr:{href:my.rootUrl + 'Profile/UserProfile?userId='+ User.UserId}" >  <span class="col-xs-11 col-xs-offset-1 no-left-margin no-right-margin " data-bind="    text: User.FullName" style="color:blue"></span></a>
-                            <!-- <span class=" col-xs-1">
-                                     <i class="glyphicon glyphicon glyphicon-edit"></i>
-                                 </span> -->
+                           
                         </div>                      
                         <div class="col-xs-1 no-left-margin no-right-margin">
-                            <div data-bind="if: LastWeekFeedbackAdded === false" style="margin-left: 36%;">
+                            <div data-bind="if: LastWeekFeedbackAdded === false" style="margin-left: 6%;">
                                 <span data-bind="event: { mouseover:function () { my.dashboardVm.loadWeekForFeedbackNotPresent(WeekForFeedbackNotPresent) }},text:WeekForFeedbackNotPresent.length, wzTooltip: {HtmlId:'listNoFeedBack',HtmlTag:'true'}" class="feedback-pending badge"></span>
 
                                 <ul style="display:none; " id="listNoFeedBack" class="feedback-pending-contents list-unstyled" data-bind="foreach:my.dashboardVm.eachUserPendingFeedbackWeek(), visible:false">
@@ -79,17 +74,17 @@
                             </div>
                         </div>
                         <div class="col-xs-1 no-left-margin no-right-margin">
-                             <div style="margin-left: 36%;">
+                             <div style="margin-left: 6%;">
                                 <span  data-bind="css: { 'feedback-pending': IsCodeReviewAdded == false, 'feedback-success': IsCodeReviewAdded == true }"></span>
                             </div>
                         </div>
                             <div class="col-xs-7 no-left-margin no-right-margin">
                                                    
                                 <div data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === true">
-                                    <span class="col-xs-5  " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
-                                    <span class="col-xs-5 " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 4 ">Code Review</span>  
-                                    <span class="col-xs-5 " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>  
-                                    <div class="col-xs-2" data-bind="css: {
+                                    <span class="col-xs-4 no-padding-left no-padding-right " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 4 ">Code Review</span>  
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>  
+                                    <div class="col-xs-4 no-padding-left no-padding-right" data-bind="css: {
                                                         'rating-slow': my.dashboardVm.feedback.Rating == 1,
                                                         'rating-Average': my.dashboardVm.feedback.Rating == 2,
                                                         'rating-Fast': my.dashboardVm.feedback.Rating == 3,
@@ -100,9 +95,9 @@
                                               style="display: inline-block;"></span><!-- /ko -->
                                    
                                     </div>
-                                    <span class=" col-xs-5" data-bind="text: my.dashboardVm.feedback.AddedBy.FullName"></span></div>
-                                <div data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === false">
-                                    ---
+                                    <span class=" col-xs-4 no-padding-left  no-padding-right" data-bind="text: my.dashboardVm.feedback.AddedBy.FullName"></span></div>
+                                <div class="col-xs-offset-5 " data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === false" style="color:red">
+                                    No Feedbacks
                                 </div>
                             </div>
                        
@@ -115,12 +110,12 @@
                         <div class="col-xs-1 no-left-margin no-right-margin">
                         </div>
                         <div class="col-xs-7 no-left-margin no-right-margin">
-                            <div data-bind="if: my.dashboardVm.getFeedback('5', 'All', User.UserId) === true">
-                                <div data-bind="foreach: my.dashboardVm.feedback">
-                                    <span class="col-xs-5 spacer-top-bottom " data-bind="visible :FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
-                                    <span class="col-xs-5 spacer-top-bottom " data-bind="visible: FeedbackType.FeedbackTypeId == 4 ">Code Review</span>   
-                                    <span class="col-xs-5 spacer-top-bottom " data-bind="visible: FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>                                   
-                                    <div class="col-xs-2 spacer-top-bottom " data-bind="css: {
+                            <div class="col-xs-12 no-padding-left no-padding-right" data-bind="if: my.dashboardVm.getFeedback('5', 'All', User.UserId) === true">
+                                <div class="col-xs-12 no-padding-left no-padding-right" data-bind="foreach: my.dashboardVm.feedback">
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible :FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible: FeedbackType.FeedbackTypeId == 4 ">Code Review</span>   
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right " data-bind="visible: FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>                                   
+                                    <div class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="css: {
                                                         'rating-slow': Rating == 1,
                                                         'rating-Average': Rating == 2,
                                                         'rating-Fast': Rating == 3,
@@ -132,7 +127,7 @@
                                         <!-- /ko -->
                                    
                                     </div>
-                                    <div class="col-xs-5 spacer-top-bottom ">
+                                    <div class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right name-trainee">
                                         <span class="" data-bind="text:AddedBy.FullName"></span></div>
                                 </div> 
                             </div>
