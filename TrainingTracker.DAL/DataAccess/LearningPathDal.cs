@@ -223,7 +223,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                IsActive = d.IsActive,
                                                                                AddedBy = d.AddedBy,
                                                                                SortOrder = d.SortOrder
-                                                                           }).ToList(),
+                                                                           }).OrderBy(x => x.SortOrder)
+                                                                             .ToList(),
                                                                            Assignments = GetAssignments(s.Id)
                                                                        })
                                                                        .OrderBy(x => x.SortOrder)
