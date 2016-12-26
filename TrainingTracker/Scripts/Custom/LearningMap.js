@@ -200,12 +200,19 @@
                         $.confirm({
                             title: 'Confirm!',
                             content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>' + newTraineesNames.slice(0,-2) + "</b> into <b>" + editorContent.Title() + "</b>",
+                            columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                            useBootstrap: true,
                             buttons: {
                                 confirm: function () {
                                     my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
                                 },
                                 cancel: function () {
-                                    $.alert('Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                                    $.alert({
+                                        title:'Alert!!!',
+                                        columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                                        useBootstrap: true,
+                                        content: 'Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>'
+                                    });
                                 }
                             }
                         });
@@ -230,13 +237,21 @@
                     if (learningMapData.Trainees.length > 0) {
                         $.confirm({
                             title: 'Confirm!',
+                            columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                            useBootstrap: true,
                             content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>'+ newTraineesNames.slice(0,-2) + "</b> into <b>" + learningMapData.Title + "</b>",
                             buttons: {
                                 confirm: function () {
                                     my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
                                 },
                                 cancel: function () {
-                                    $.alert('Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                                    $.alert(
+                                    {
+                                        title:'Alert!!!',
+                                        columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                                        useBootstrap: true,
+                                        content: 'Save action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>'
+                                });
                                 }
                             }
                         });
@@ -269,10 +284,9 @@
             availableTrainees.splice(index, 1);
         };
 
-        var validateEditorContent = function () {
-            
-            if (my.isNullorEmpty(editorContent.Title()))
-            {
+        var validateEditorContent = function() {
+
+            if (my.isNullorEmpty(editorContent.Title())) {
                 editorContent.IsTitleValidated(false);
                 return false;
             }
@@ -280,16 +294,15 @@
                 editorContent.IsNotesValidated(false);
                 return false;
             }
-            
-            return true;
-        }
 
-        var deleteLearningMapCallback = function (jsonData) {
+            return true;
+        };
+
+        var deleteLearningMapCallback = function(jsonData) {
             if (jsonData) {
-                
-                ko.utils.arrayFirst(allLearningMaps(), function (v, i) {
-                    if (editorContent.Id() == v.Id)
-                    {
+
+                ko.utils.arrayFirst(allLearningMaps(), function(v, i) {
+                    if (editorContent.Id() == v.Id) {
                         allLearningMaps.splice(i, 1);
                         availableCourses([]);
                         availableTrainees([]);
@@ -299,17 +312,24 @@
                 $.notify(editorContent.Title() + ' is Deleted', { style: 'customAlert' });
                 resetEditorContent();
             }
-        }
+        };
         var deleteLearningMap = function () {
             $.confirm({
                 title: 'Confirm!',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
                 content: 'Do you really want to <b>delete</b> Learning Map <b>' + editorContent.Title() + '</b>',
                 buttons: {
                     confirm: function () {
                         my.learningMapService.deleteLearningMap(editorContent.Id(), deleteLearningMapCallback);
                     },
                     cancel: function () {
-                        $.alert('Delete action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>');
+                        $.alert({
+                            title: 'Alert!!!',
+                            columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                            useBootstrap: true,
+                            content: 'Delete action for <b>' + editorContent.Title() + '</b> is <em>cancelled</em>'
+                    });
                     }
                 }
             });

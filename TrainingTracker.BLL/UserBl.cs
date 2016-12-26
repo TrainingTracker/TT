@@ -189,7 +189,7 @@ namespace TrainingTracker.BLL
                         objfeedbackPlot.WeeklyFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId , 1000 , type)
                                                                               .Where(x =>
                                                                                      (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
-                                                                                             ((!startDate.HasValue || x.StartDate > startDate.Value.AddDays(-1)) ||
+                                                                                             ((!startDate.HasValue || x.StartDate > startDate.Value.AddDays(-1)) &&
                                                                                              (!endDate.HasValue || x.EndDate < endDate.Value.AddDays(1)))
                                                                                      )
                                                                                  .ToList();

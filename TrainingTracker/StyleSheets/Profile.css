@@ -1,7 +1,4 @@
-﻿body {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
-}
+﻿
 
 p {
     margin: 1em !important
@@ -18,15 +15,15 @@ p {
 .username {
     text-align: center;
     margin-top: 10px;
-    font-family: Verdana, Geneva, sans-serif;
+    
     font-size: 1.5em;
     font-weight: bold;
-    /*color: azure;*/
+   color: #fff;
 }
 
 .designation {
     text-align: center;
-    font-family: Verdana, Geneva, sans-serif;
+     color: #fff;
 }
 
 .comment-div {
@@ -66,19 +63,19 @@ p {
 }
 
 .rating-slow {
-    color: red;
+    color: red !important;
 }
 
 .rating-Average {
-    color: orange;
+    color: orange !important;
 }
 
 .rating-Fast {
-    color: blue;
+    color: blue !important;
 }
 
 .rating-Exceptional {
-    color: green;
+    color: green !important;
 }
 
 .collapsed .custom-glyph:before {
@@ -98,6 +95,11 @@ p {
 .panel-white {
     border: 1px solid #dddddd;
     margin-bottom: 10px;
+        
+}
+
+#divFeedbackArea .panel-white:first-child {
+    border-radius: 0 4px 4px 4px;
 }
 
     .panel-white .panel-heading {
@@ -137,7 +139,7 @@ p {
  }
 
 .post .post-heading .meta .time {
-    margin-top: 8px;
+    margin-top: 0;
     color: #999;
 }
 
@@ -427,7 +429,7 @@ div#divReviewcollapasable .tab-wrap>div:nth-child(2) span::after,div#divWeeklyRe
     display: block;
     /* background-color: red; */
     content: "";
-    border-bottom: 2px solid;
+    border-bottom: 1px solid #ccc;
    
     position: relative;
     top: 100%;
@@ -468,22 +470,31 @@ div#divReviewcollapasable .tab-wrap span.header-Tab,div#divWeeklyReviewcollapasa
         font-size: 10px;
     height: 100%;
     vertical-align: middle;
+        color: #fff;
 
 }
 
 div#divReviewcollapasable .tab-wrap >div:nth-child(2) span,div#divWeeklyReviewcollapasable .tab-wrap >div:nth-child(2) span {
     font-family: 'Orbitron';
         line-height: 1;
-    font-size: 30px;
+    font-size: 20px;
+}
+
+div#divWeeklyReviewcollapasable .tab-wrap .data-counter span,div#divReviewcollapasable  .tab-wrap .data-counter span{
+    color: #fff;
+}
+
+div#divReviewcollapasable .tab-wrap > div:nth-child(2):not(:last-child) span {
+    color: #fff !important;
 }
 
 div#divWeeklyReviewcollapasable .tab-wrap:nth-child(1) {
     min-height: 20px;
-    color: #31708f;
+    color: #fff;
 }
 div#divWeeklyReviewcollapasable .tab-wrap:nth-child(6) {
     min-height: 20px;
-    color: #31708f;
+    color: #fff;
 }
 
 div#divWeeklyReviewcollapasable .tab-wrap:nth-child(6) div:nth-child(2) > span  {
@@ -503,4 +514,79 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
     -moz-osx-font-smoothing: grayscale;
 }
 
-    
+#divUserDetails {
+    background-color: #1A2942;
+    min-height: 100%;
+}
+
+.list-group {
+    padding-left: 0;
+    margin-bottom: 0;
+    border: none !important;
+   
+}
+
+.list-group-item {
+  
+     background-color: inherit !important;
+    border: none;
+    border-radius: 0 !important;
+    padding: 5px 15px;
+}
+
+.list-group .list-group-item label,.list-group .list-group-item span,
+#divSkillscollapasable .list-group-item span:not(.glyphicon),
+#divSkillscollapasable .list-group-item > div:nth-child(1),
+#divSessioncollapasable .list-group-item span:not(.glyphicon),
+#divSessioncollapasable .list-group-item div:first-child
+{
+     font-size: 10px !important;
+      color: #fff  !important;
+}
+
+.list-group:not(.collapsed) .list-group-item label,.list-group:not(.collapsed) .list-group-item span {
+    color: #2196f3  !important;
+}
+
+#divSkillscollapasable:after,#divSessioncollapasable:after {
+    content: "";
+    position: absolute;
+    width: 90%;
+    /* height: 100%; */
+    /* top: 0; */
+    left: 5%;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-info {
+    background-color: #2196f3 !important;
+}
+
+.feedback-input label,div.text-muted {
+    font-size: 12px;
+}
+
+
+.feedback-input input[type=checkbox], .feedback-input input[type=radio]
+{
+    margin: 3px -14px;
+    line-height: normal;
+}
+
+#page-wrapper .nav-tabs>li>a {
+    color: #000;
+}
+#page-wrapper .nav-tabs > li > a,#page-wrapper .nav-tabs > li > a:hover
+{
+    border-color: #ccc #ccc #ccc;
+        font-size: 10px;
+}
+
+
+#page-wrapper .nav-tabs>li.active>a,#page-wrapper .nav-tabs>li.active>a:focus,#page-wrapper .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: pointer;
+    background-color: #2596F1;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
