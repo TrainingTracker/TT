@@ -198,7 +198,7 @@
                     if (editorContent.Trainees().length > 0) {
                         $.confirm({
                             title: 'Confirm!',
-                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>' + newTraineesNames + "</b> into <b>" + editorContent.Title() + "</b>",
+                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>' + newTraineesNames.slice(0,-2) + "</b> into <b>" + editorContent.Title() + "</b>",
                             buttons: {
                                 confirm: function () {
                                     my.learningMapService.addLearningMap(editorContent, addLearningMapCallback);
@@ -229,7 +229,7 @@
                     if (learningMapData.Trainees.length > 0) {
                         $.confirm({
                             title: 'Confirm!',
-                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>'+ newTraineesNames + "</b> into <b>" + learningMapData.Title + "</b>",
+                            content: 'Once you assign new Trainees to the Learning Map you would not be able to remove them later.Please confirm that you have assigned <b>'+ newTraineesNames.slice(0,-2) + "</b> into <b>" + learningMapData.Title + "</b>",
                             buttons: {
                                 confirm: function () {
                                     my.learningMapService.updateLearningMap(learningMapData, updateLearningMapCallback);
