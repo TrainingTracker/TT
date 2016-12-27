@@ -88,7 +88,9 @@
     font-weight: bold !important;
 }
 
+.custom-margin-top-10 {
     margin-top: 10px;
+}
 
 #page-wrapper{
     height: 90%;
