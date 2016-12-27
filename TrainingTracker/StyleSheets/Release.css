@@ -134,7 +134,8 @@ td, th {
 }
 
     .release-table table th:nth-child(5), .release-table table td:nth-child(5) {
-        background-color: #fff;
+          background-color: #ECEAEB;
+    border: 1px solid #eceaeb !important;
     }
 
 .release-table table tr, .release-table table td, .release-table table {

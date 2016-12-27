@@ -88,6 +88,8 @@
     font-weight: bold !important;
 }
 
+    margin-top: 10px;
+
 #page-wrapper{
     height: 90%;
 }
@@ -96,12 +98,21 @@ body {
     background-color: #ECEAEB;       
 }
 
-#wrapper>.navbar {
-    margin-bottom: 0;
-      
-}
-#page-wrapper>div>div:nth-child(1),#page-wrapper .container-fluid,.layout-wrapper,.layout-section {
+div#wrapper>.navbar, div#wrapper>.navbar>div, div#wrapper>.navbar>div>ul, div#wrapper>.navbar>div>ul>li, div#wrapper>.navbar>div>ul>li>a {
     height: 100%;
+}
+div#wrapper>.navbar>div>ul>li>a {
+    display: table;
+}
+
+div#wrapper>.navbar>div>ul>li>a * {
+    display: table-cell;
+    vertical-align: middle;
+    margin: auto;
+}
+
+div#wrapper>.navbar>div>ul>li>a span.glyphicon {
+      padding: 0 0px 0 10px;
 }
 
 .layout-wrapper .layout-left-panel

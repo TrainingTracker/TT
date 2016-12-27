@@ -172,7 +172,7 @@
                                     <span>My Profile</span>
                                 </a>
                             </li>
-                             @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                             @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
                              {
                                  <li class="menu-li">
                                       <a href="#" data-bind="click: my.addUserVm.openAllUsersProfile, visible: (my.meta.isAdministrator() || my.meta.isManager())" type="button" class="">
