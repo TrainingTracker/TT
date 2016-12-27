@@ -22,7 +22,6 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public int TeamId { get; set; }
         public string TeamName { get; set; }
-        public int TeamManager { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime DateInserted { get; set; }
         public int WeeklySurveyId { get; set; }
@@ -30,6 +29,5 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<LearningMap> LearningMaps { get; set; }
         public virtual Survey Survey { get; set; }
         public virtual ICollection<User> Users { get; set; }
-        public virtual User User { get; set; }
     }
 }

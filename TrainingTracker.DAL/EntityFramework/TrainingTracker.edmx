@@ -231,10 +231,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="FeedbackThread" EntitySet="FeedbackThread" />
           </AssociationSet>
-          <AssociationSet Name="Fk_UserId_TeamManager" Association="TrainingTrackerModel.Store.Fk_UserId_TeamManager">
-            <End Role="User" EntitySet="User" />
-            <End Role="Team" EntitySet="Team" />
-          </AssociationSet>
           <AssociationSet Name="fk_UserSessionMapping_AddedBy" Association="TrainingTrackerModel.Store.fk_UserSessionMapping_AddedBy">
             <End Role="User" EntitySet="User" />
             <End Role="UserSessionMapping" EntitySet="UserSessionMapping" />
@@ -266,6 +262,7 @@
           <Property Name="AddedBy" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bool" Nullable="false" />
           <Property Name="CreatedOn" Type="timestamp" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AssignmentAsset" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="AssignmentSubtopicMap">
           <Key>
@@ -636,7 +633,6 @@
           </Key>
           <Property Name="TeamId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TeamName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TeamManager" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bool" Nullable="false" />
           <Property Name="DateInserted" Type="datetime" Nullable="false" Precision="6" />
           <Property Name="WeeklySurveyId" Type="int" Nullable="false" />
@@ -1262,18 +1258,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_UserId_TeamManager">
-          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="1" />
-          <End Role="Team" Type="TrainingTrackerModel.Store.Team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Team">
-              <PropertyRef Name="TeamManager" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_UserSessionMapping_AddedBy">
           <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="0..1" />
           <End Role="UserSessionMapping" Type="TrainingTrackerModel.Store.UserSessionMapping" Multiplicity="*" />
@@ -1572,10 +1556,6 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="Fk_UserId_TeamManager" Association="TrainingTrackerModel.Fk_UserId_TeamManager">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Team" EntitySet="Teams" />
-          </AssociationSet>
           <AssociationSet Name="FK__UserNotif__UserI__489AC854" Association="TrainingTrackerModel.FK__UserNotif__UserI__489AC854">
             <End Role="User" EntitySet="Users" />
             <End Role="UserNotificationMapping" EntitySet="UserNotificationMappings" />
@@ -1599,6 +1579,7 @@
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AssignmentAsset" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Assignment_User" FromRole="Assignment" ToRole="User" />
           <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" FromRole="Assignment" ToRole="AssignmentSubtopicMap" />
           <NavigationProperty Name="AssignmentUserMaps" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_User" FromRole="Assignment" ToRole="AssignmentUserMap" />
@@ -2039,14 +2020,12 @@
           </Key>
           <Property Type="Int32" Name="TeamId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="TeamName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="TeamManager" Nullable="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="DateTime" Name="DateInserted" Nullable="false" />
           <Property Type="Int32" Name="WeeklySurveyId" Nullable="false" />
           <NavigationProperty Name="LearningMaps" Relationship="TrainingTrackerModel.FK_LearningMap_Team" FromRole="Team" ToRole="LearningMap" />
           <NavigationProperty Name="Survey" Relationship="TrainingTrackerModel.FK_Team_Survey" FromRole="Team" ToRole="Survey" />
           <NavigationProperty Name="Users" Relationship="TrainingTrackerModel.Fk_User_Team" FromRole="Team" ToRole="User" />
-          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.Fk_UserId_TeamManager" FromRole="Team" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -2087,7 +2066,6 @@
           <NavigationProperty Name="SubtopicContentUserMaps" Relationship="TrainingTrackerModel.FK_SubtopicContentUserMap_User" FromRole="User" ToRole="SubtopicContentUserMap" />
           <NavigationProperty Name="SurveyCompletedMetaDatas" Relationship="TrainingTrackerModel.FK_SurveyCompletedMetaData_SurveyUser" FromRole="User" ToRole="SurveyCompletedMetaData" />
           <NavigationProperty Name="Team" Relationship="TrainingTrackerModel.Fk_User_Team" FromRole="User" ToRole="Team" />
-          <NavigationProperty Name="Teams" Relationship="TrainingTrackerModel.Fk_UserId_TeamManager" FromRole="User" ToRole="Team" />
           <NavigationProperty Name="UserNotificationMappings" Relationship="TrainingTrackerModel.FK__UserNotif__UserI__489AC854" FromRole="User" ToRole="UserNotificationMapping" />
           <NavigationProperty Name="UserSessionMappings" Relationship="TrainingTrackerModel.fk_UserSessionMapping_AddedBy" FromRole="User" ToRole="UserSessionMapping" />
           <NavigationProperty Name="UserSessionMappings1" Relationship="TrainingTrackerModel.fk_UserSessionMapping_User" FromRole="User" ToRole="UserSessionMapping" />
@@ -2723,18 +2701,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_UserId_TeamManager">
-          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.Team" Role="Team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Team">
-              <PropertyRef Name="TeamManager" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__UserNotif__UserI__489AC854">
           <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
           <End Type="TrainingTrackerModel.UserNotificationMapping" Role="UserNotificationMapping" Multiplicity="*" />
@@ -2780,6 +2746,7 @@
           <EntitySetMapping Name="Assignments">
             <EntityTypeMapping TypeName="TrainingTrackerModel.Assignment">
               <MappingFragment StoreEntitySet="Assignment">
+                <ScalarProperty Name="AssignmentAsset" ColumnName="AssignmentAsset" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
@@ -3191,7 +3158,6 @@
                 <ScalarProperty Name="WeeklySurveyId" ColumnName="WeeklySurveyId" />
                 <ScalarProperty Name="DateInserted" ColumnName="DateInserted" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="TeamManager" ColumnName="TeamManager" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
                 <ScalarProperty Name="TeamId" ColumnName="TeamId" />
               </MappingFragment>

@@ -34,7 +34,6 @@ namespace TrainingTracker.DAL.EntityFramework
             this.SubtopicContents = new HashSet<SubtopicContent>();
             this.SubtopicContentUserMaps = new HashSet<SubtopicContentUserMap>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
-            this.Teams = new HashSet<Team>();
             this.UserNotificationMappings = new HashSet<UserNotificationMapping>();
             this.UserSessionMappings = new HashSet<UserSessionMapping>();
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
@@ -76,7 +75,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<SubtopicContentUserMap> SubtopicContentUserMaps { get; set; }
         public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
         public virtual Team Team { get; set; }
-        public virtual ICollection<Team> Teams { get; set; }
         public virtual ICollection<UserNotificationMapping> UserNotificationMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
