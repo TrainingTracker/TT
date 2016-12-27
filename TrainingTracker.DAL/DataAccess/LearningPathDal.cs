@@ -473,7 +473,8 @@ namespace TrainingTracker.DAL.DataAccess
                         Description = dataToAdd.Description,
                         AddedBy = dataToAdd.AddedBy,
                         IsActive = dataToAdd.IsActive,
-                        CreatedOn = dataToAdd.CreatedOn
+                        CreatedOn = dataToAdd.CreatedOn,
+                        AssignmentAsset = dataToAdd.AssignmentAsset
                     };
 
                     context.Assignments.Add(newEntity);
@@ -544,7 +545,7 @@ namespace TrainingTracker.DAL.DataAccess
                 using (var context = new TrainingTrackerEntities())
                 {
                     var entity = context.Assignments.Where( a => a.IsActive && a.Id == dataToUpdate.Id).FirstOrDefault();
-
+                    entity.AssignmentAsset = dataToUpdate.AssignmentAsset;
                     entity.Description = dataToUpdate.Description;
                     entity.Name = dataToUpdate.Name;
                     
@@ -578,7 +579,8 @@ namespace TrainingTracker.DAL.DataAccess
                                 AddedBy = a.AddedBy,
                                 CreatedOn = a.CreatedOn,
                                 IsActive = a.IsActive,
-                                CourseSubtopicId = s.SubtopicId
+                                CourseSubtopicId = s.SubtopicId,
+                                AssignmentAsset = a.AssignmentAsset
                             }).ToList().Where(x => x.IsActive).ToList(); 
 
                     return entity;

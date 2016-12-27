@@ -347,6 +347,10 @@
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
     <Content Include="Uploads\ProfilePicture\harshw.JPG" />
+    <Content Include="Uploads\Temp\52ff94d2-063f-4de2-a25a-3de1dcf87e28.jpg" />
+    <Content Include="Uploads\Temp\a7bda3fd-17a0-4ca5-a149-2c74e1651a1a.jpg" />
+    <Content Include="Uploads\Temp\aa1b666b-8fc4-42ff-82d6-b9725092ad28.jpg" />
+    <Content Include="Uploads\Temp\f91248c3-3f34-4c12-9090-d0d8628e9e45.jpg" />
     <Content Include="Views\LearningPath\CourseEditor.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

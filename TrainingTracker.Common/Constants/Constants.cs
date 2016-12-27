@@ -74,6 +74,11 @@ namespace TrainingTracker.Common.Constants
     public static class LearningAssetsPath
     {
         /// <summary>
+        /// Virtual path for Temperory files
+        /// </summary>
+        public const string TempFile = "~/Uploads/Temp/";
+
+        /// <summary>
         /// Virtual path for Course Icons
         /// </summary>
         public const string CourseIcon = "~/Uploads/CourseIcon/";

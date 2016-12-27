@@ -116,23 +116,35 @@
                               <textarea class="form-control" rows="5" id="ckeditor" data-bind="CKEDITOR: editorContent.Description, autoResizeTextArea: true"></textarea>
                         </div>                  
                     </div>
+                    <div class="col-xs-12  no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.ContentType() == 'assignment'">
+                        <form class="col-xs-12 form-group " data-bind="submit: uploadAssignment" enctype="multipart/form-data" id="assignmentAssetForm">
+                            <label class="control-label col-sm-3">File:</label>
+                            <div class="col-xs-9">
+                                <a href="#">Assignment</a>
+                                <input type="file" name="file" id="form-file" />
+                                <button type="submit"><i class="fa fa-cloud-upload" aria-hidden="true">Upload</i></button>
+                                
+                            </div>
+                        </form>
+                    </div>
 
-                     <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right form-group">
-                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>                        
-                            <span> &nbsp;Publish</span>
-                        </button>  
-                        <button class=" btn btn-success" data-bind="click: $root.saveChanges">
-                            <i class="fa fa-floppy-o" aria-hidden="true" ></i>                        
-                            <span> &nbsp;Save</span>
-                        </button>
-                        <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>                        
-                            <span> &nbsp;Delete</span>
-                        </button>                   
-                     </div>
-                
-                </div>
+
+                       <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right form-group">
+                           <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
+                               <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+                               <span> &nbsp;Publish</span>
+                           </button>
+                           <button class=" btn btn-success" data-bind="click: $root.saveChanges">
+                               <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                               <span> &nbsp;Save</span>
+                           </button>
+                           <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
+                               <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                               <span> &nbsp;Delete</span>
+                           </button>
+                       </div>
+
+                   </div>
 
                 
             </div>

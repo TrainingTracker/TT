@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.Common.Utility;
 
 namespace TrainingTracker.BLL
 {
@@ -95,14 +97,27 @@ namespace TrainingTracker.BLL
             dataToAdd.CreatedOn = DateTime.Now;
             dataToAdd.IsActive = true;
 
-            return LearningPathDataAccessor.AddAssignment(dataToAdd, out id);
+            bool fileCopied = true;
+            if (!String.IsNullOrEmpty(dataToAdd.AssignmentAsset) && (fileCopied = CopyFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            {
+                DeleteFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile);
+            }
+            
+            return LearningPathDataAccessor.AddAssignment(dataToAdd, out id) && fileCopied;
         }
 
 
         public bool UpdateAssignment(Assignment dataToUpdate)
         {
             dataToUpdate.Description = dataToUpdate.Description ?? "";
-            return LearningPathDataAccessor.UpdateAssignment(dataToUpdate);
+
+            bool fileCopied = true;
+            if (!String.IsNullOrEmpty(dataToUpdate.AssignmentAsset) && (fileCopied = CopyFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            {
+                DeleteFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile);
+            }
+
+            return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
         }
 
 
@@ -148,6 +163,41 @@ namespace TrainingTracker.BLL
         public bool PublishCourse(int id) {
 
             return LearningPathDataAccessor.PublishCourse(id);
+        }
+
+        public bool CopyFile(string fileName, string sourcePath, string targetPath)
+        {
+            if (!String.IsNullOrEmpty(fileName))
+            {
+                string targetFile = Path.Combine(targetPath, fileName);
+                string sourceFile = Path.Combine(sourcePath, fileName);
+
+
+                if (!Directory.Exists(targetPath))
+                {
+                    Directory.CreateDirectory(targetPath);
+                }
+
+                File.Copy(sourceFile, targetFile, true);
+                return File.Exists(targetFile);
+                
+            }
+            return false;
+        }
+
+        public bool DeleteFile(string fileName, string filePath)
+        {
+            string sourceFile = Path.Combine(filePath, fileName);
+            try
+            {
+                File.Delete(sourceFile);
+            }
+            catch (Exception e)
+            {
+                LogUtility.ErrorRoutine(e);
+                return false;
+            }
+            return true;
         }
     }
 }

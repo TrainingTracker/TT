@@ -537,7 +537,7 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 .list-group .list-group-item label,.list-group .list-group-item span,
 #divSkillscollapasable .list-group-item span:not(.glyphicon),
 #divSkillscollapasable .list-group-item > div:nth-child(1),
-#divSessioncollapasable .list-group-item span:not(.glyphicon),
+#divSessioncollapasable .list-group-item,
 #divSessioncollapasable .list-group-item div:first-child
 {
      font-size: 10px !important;

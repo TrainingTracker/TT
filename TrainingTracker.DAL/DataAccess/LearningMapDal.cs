@@ -13,7 +13,7 @@ using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.DAL.DataAccess
 {
-    public class LearningMapDal
+    public class LearningMapDal : ILearningMapDal
     {
         /// <summary>
         /// Get the Learning Map data for the given Learning Map Id along with the Course list and Trainees list associated with this Learning Map.
