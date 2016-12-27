@@ -266,6 +266,7 @@
           <Property Name="AddedBy" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bool" Nullable="false" />
           <Property Name="CreatedOn" Type="timestamp" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AssignmentAsset" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="AssignmentSubtopicMap">
           <Key>
@@ -1599,6 +1600,7 @@
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AssignmentAsset" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Assignment_User" FromRole="Assignment" ToRole="User" />
           <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" FromRole="Assignment" ToRole="AssignmentSubtopicMap" />
           <NavigationProperty Name="AssignmentUserMaps" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_User" FromRole="Assignment" ToRole="AssignmentUserMap" />
@@ -2780,6 +2782,7 @@
           <EntitySetMapping Name="Assignments">
             <EntityTypeMapping TypeName="TrainingTrackerModel.Assignment">
               <MappingFragment StoreEntitySet="Assignment">
+                <ScalarProperty Name="AssignmentAsset" ColumnName="AssignmentAsset" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
