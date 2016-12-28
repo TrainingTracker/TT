@@ -98,9 +98,9 @@ namespace TrainingTracker.BLL
             dataToAdd.IsActive = true;
 
             bool fileCopied = true;
-            if (!String.IsNullOrEmpty(dataToAdd.AssignmentAsset) && (fileCopied = CopyFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            if (!String.IsNullOrEmpty(dataToAdd.AssignmentAsset) && (fileCopied = UtilityFunctions.CopyFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
             {
-                DeleteFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile);
+                UtilityFunctions.DeleteFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile);
             }
             
             return LearningPathDataAccessor.AddAssignment(dataToAdd, out id) && fileCopied;
@@ -112,9 +112,9 @@ namespace TrainingTracker.BLL
             dataToUpdate.Description = dataToUpdate.Description ?? "";
 
             bool fileCopied = true;
-            if (!String.IsNullOrEmpty(dataToUpdate.AssignmentAsset) && (fileCopied = CopyFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            if (!String.IsNullOrEmpty(dataToUpdate.AssignmentAsset) && (fileCopied = UtilityFunctions.CopyFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
             {
-                DeleteFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile);
+                UtilityFunctions.DeleteFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile);
             }
 
             return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
@@ -165,13 +165,23 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.PublishCourse(id);
         }
 
+        
         public bool CopyFile(string fileName, string sourcePath, string targetPath)
         {
             if (!String.IsNullOrEmpty(fileName))
             {
-                string targetFile = Path.Combine(targetPath, fileName);
-                string sourceFile = Path.Combine(sourcePath, fileName);
+                string strPath = AppDomain.CurrentDomain.BaseDirectory;
 
+                targetPath = strPath + targetPath;
+                sourcePath = strPath + sourcePath;
+
+                string targetFile =  targetPath + fileName;
+                string sourceFile = sourcePath + fileName;
+
+                if (!File.Exists(sourceFile))
+                {
+                    return File.Exists(targetFile);
+                }
 
                 if (!Directory.Exists(targetPath))
                 {
@@ -187,7 +197,9 @@ namespace TrainingTracker.BLL
 
         public bool DeleteFile(string fileName, string filePath)
         {
-            string sourceFile = Path.Combine(filePath, fileName);
+            string strPath = AppDomain.CurrentDomain.BaseDirectory;
+            filePath = strPath + filePath;
+            string sourceFile = filePath + fileName;
             try
             {
                 File.Delete(sourceFile);

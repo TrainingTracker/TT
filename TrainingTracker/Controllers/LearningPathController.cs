@@ -192,13 +192,8 @@ namespace TrainingTracker.Controllers
                     Guid gId;
                     gId = Guid.NewGuid();
 
-                    string extension = String.Empty;
-                    string[] splitedString = file.FileName.Split('.');
-                    if (splitedString.Length > 0)
-                    {
-                        extension = splitedString[splitedString.Length - 1];
-                    }
-                    strFileName = gId.ToString().Trim() + '.' + extension;
+                    string extension = Path.GetExtension(file.FileName);
+                    strFileName = gId.ToString().Trim()  + extension;
 
                     bool folderExists = Directory.Exists(Server.MapPath(LearningAssetsPath.CourseIcon));
 
@@ -222,39 +217,14 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public JsonResult UploadFile()
         {
-            HttpPostedFileBase file = Request.Files[0];// work only is single file is uploaded. HttpFileCollectionBase can be used for multiple files
-            string strFileName = string.Empty;
-            try
-            {
-                if (file != null && file.ContentLength > 0)
-                {
-                    Guid gId;
-                    gId = Guid.NewGuid();
+            return Json(UtilityFunctions.UploadFile(Request.Files));
+        }
 
-                    string extension = String.Empty;
-                    string[] splitedString = file.FileName.Split('.');
-                    if (splitedString.Length > 0)
-                    {
-                        extension = splitedString[splitedString.Length - 1];
-                    }
-                    strFileName = gId.ToString().Trim() + '.' + extension;
 
-                    bool folderExists = Directory.Exists(Server.MapPath(LearningAssetsPath.TempFile));
-
-                    if (!folderExists)
-                    {
-                        Directory.CreateDirectory(Server.MapPath(LearningAssetsPath.TempFile));
-                    }
-                    var path = Path.Combine(Server.MapPath(LearningAssetsPath.TempFile), strFileName);
-                    file.SaveAs(path);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogUtility.ErrorRoutine(ex);
-                return null;
-            }
-            return Json(strFileName);
+        public FileResult DownloadAssignment(string fileName)
+        {
+            var FileVirtualPath = LearningAssetsPath.AppRootToAssignment + fileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
     }
 }

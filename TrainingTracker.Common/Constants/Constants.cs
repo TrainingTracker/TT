@@ -76,7 +76,7 @@ namespace TrainingTracker.Common.Constants
         /// <summary>
         /// Virtual path for Temperory files
         /// </summary>
-        public const string TempFile = "~/Uploads/Temp/";
+        public const string TempFile = "\\Uploads\\Temp\\";
 
         /// <summary>
         /// Virtual path for Course Icons
@@ -86,6 +86,11 @@ namespace TrainingTracker.Common.Constants
         /// <summary>
         /// Virtual path for Assignment documents
         /// </summary>
-        public const string Assignment = "~/Uploads/Assignment/";
+        public const string Assignment = "\\Uploads\\Assignment\\";
+
+        /// <summary>
+        /// Virtual path for Assignment documents starts from application root
+        /// </summary>
+        public const string AppRootToAssignment = "~/Uploads/Assignment/";
     }
 }
