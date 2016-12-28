@@ -311,6 +311,7 @@
                     assignmentClone.CourseSubtopicId = item.CourseSubtopicId;
                     assignmentClone.AddedBy = item.AddedBy;
                     assignmentClone.CreatedOn = item.CreatedOn;
+                    assignmentClone.AssignmentAsset(item.AssignmentAsset);
 
                     assignmentsList.push(assignmentClone);
                 });
@@ -430,6 +431,9 @@
                 if (editorContent.ContentType() == 'course') {
                     dataToBeRefreshed.Duration(editorContent.Duration());
                 }
+                if (editorContent.ContentType() == 'assignment') {
+                    dataToBeRefreshed.AssignmentAsset(editorContent.AssignmentAsset());
+                }
                 $.notify("Changes saved", { style: 'customAlert', className: 'green' });
             }
             else {
@@ -486,6 +490,7 @@
                     newData.CourseSubtopicId = dataToAdd.CourseSubtopicId;
                     newData.IsEditInProgress(true);
                     newData.IsSelected(true);
+                    newData.AssignmentAsset(dataToAdd.AssignmentAsset());
 
                     dataToBeRefreshed = newData;
                     assignmentsList.push(newData);
@@ -797,24 +802,16 @@
         };
 
         var uploadAssignmentCallback = function (jsonData) {
-            if (!my.isNullorEmpty(jsonData)) {
-                editorContent.AssignmentAsset(jsonData);
+            if (!my.isNullorEmpty(jsonData) && jsonData.length > 0) {
+                editorContent.AssignmentAsset(jsonData[0]);
             }
         }
         var uploadAssignment = function () {
-            //var fileUpload = data[0];
+            
             var formData = new FormData($('#assignmentAssetForm')[0]);
-            //if (fileUpload.files.length > 0) {
-            //    var files = fileUpload.files;
-            //    var fileData = new FormData();
-            //    fileData.append(files[0].name, files[0]);
-
-            my.courseService.uploadFile(formData, uploadAssignmentCallback);
-            //}
-            //else {
-            //    $.notify("No file Choosen", { style: 'customAlert', className: 'red' });
-            //    alert("no file choosen");
-            //}
+            if (!my.isNullorEmpty(formData)) {
+                my.courseService.uploadFile(formData, uploadAssignmentCallback);
+            }
         }
 
         var validateEditorContents = function () {
