@@ -191,15 +191,17 @@ namespace TrainingTracker.Controllers
                 {
                     Guid gId;
                     gId = Guid.NewGuid();
-                    strFileName = gId.ToString().Trim() + ".jpg";
 
-                    bool folderExists = Directory.Exists(Server.MapPath("~/Uploads/CourseIcon/"));
+                    string extension = Path.GetExtension(file.FileName);
+                    strFileName = gId.ToString().Trim()  + extension;
+
+                    bool folderExists = Directory.Exists(Server.MapPath(LearningAssetsPath.CourseIcon));
 
                     if (!folderExists)
                     {
-                        Directory.CreateDirectory(Server.MapPath("~/Uploads/CourseIcon/"));
+                        Directory.CreateDirectory(Server.MapPath(LearningAssetsPath.CourseIcon));
                     }
-                    var path = Path.Combine(Server.MapPath("~/Uploads/CourseIcon/"), strFileName);
+                    var path = Path.Combine(Server.MapPath(LearningAssetsPath.CourseIcon), strFileName);
                     file.SaveAs(path);
                 }
             }
@@ -209,6 +211,20 @@ namespace TrainingTracker.Controllers
                 return null;
             }
             return Json(strFileName);
+        }
+
+
+        [HttpPost]
+        public JsonResult UploadFile()
+        {
+            return Json(UtilityFunctions.UploadFile(Request.Files));
+        }
+
+
+        public FileResult DownloadAssignment(string fileName)
+        {
+            var FileVirtualPath = LearningAssetsPath.AppRootToAssignment + fileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
     }
 }

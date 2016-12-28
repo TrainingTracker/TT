@@ -35,6 +35,10 @@
             my.ajaxService.ajaxUploadImage(my.rootUrl + "/LearningPath/UploadImage", imagefile, callback);
         },
 
+        uploadFile: function (file, callback) {
+            my.ajaxService.ajaxUploadImage(my.rootUrl + "/LearningPath/UploadFile", file, callback);
+        },
+        
         getSubtopicContents : function(subtopicId, callback){
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetSubtopicContents?subtopicId=" + subtopicId, null, callback);
         },

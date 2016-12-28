@@ -67,4 +67,30 @@ namespace TrainingTracker.Common.Constants
         /// </summary>
         public const string Ppt = ".ppt";
     }
+
+    /// <summary>
+    /// Contains Learning Map/Path Assets Virtual paths
+    /// </summary>
+    public static class LearningAssetsPath
+    {
+        /// <summary>
+        /// Virtual path for Temperory files
+        /// </summary>
+        public const string TempFile = "\\Uploads\\Temp\\";
+
+        /// <summary>
+        /// Virtual path for Course Icons
+        /// </summary>
+        public const string CourseIcon = "~/Uploads/CourseIcon/";
+
+        /// <summary>
+        /// Virtual path for Assignment documents
+        /// </summary>
+        public const string Assignment = "\\Uploads\\Assignment\\";
+
+        /// <summary>
+        /// Virtual path for Assignment documents starts from application root
+        /// </summary>
+        public const string AppRootToAssignment = "~/Uploads/Assignment/";
+    }
 }

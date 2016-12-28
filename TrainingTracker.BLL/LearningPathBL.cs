@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.Common.Utility;
 
 namespace TrainingTracker.BLL
 {
@@ -95,14 +97,27 @@ namespace TrainingTracker.BLL
             dataToAdd.CreatedOn = DateTime.Now;
             dataToAdd.IsActive = true;
 
-            return LearningPathDataAccessor.AddAssignment(dataToAdd, out id);
+            bool fileCopied = true;
+            if (!String.IsNullOrEmpty(dataToAdd.AssignmentAsset) && (fileCopied = UtilityFunctions.CopyFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            {
+                UtilityFunctions.DeleteFile(dataToAdd.AssignmentAsset, LearningAssetsPath.TempFile);
+            }
+            
+            return LearningPathDataAccessor.AddAssignment(dataToAdd, out id) && fileCopied;
         }
 
 
         public bool UpdateAssignment(Assignment dataToUpdate)
         {
             dataToUpdate.Description = dataToUpdate.Description ?? "";
-            return LearningPathDataAccessor.UpdateAssignment(dataToUpdate);
+
+            bool fileCopied = true;
+            if (!String.IsNullOrEmpty(dataToUpdate.AssignmentAsset) && (fileCopied = UtilityFunctions.CopyFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile, LearningAssetsPath.Assignment)))
+            {
+                UtilityFunctions.DeleteFile(dataToUpdate.AssignmentAsset, LearningAssetsPath.TempFile);
+            }
+
+            return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
         }
 
 
@@ -148,6 +163,53 @@ namespace TrainingTracker.BLL
         public bool PublishCourse(int id) {
 
             return LearningPathDataAccessor.PublishCourse(id);
+        }
+
+        
+        public bool CopyFile(string fileName, string sourcePath, string targetPath)
+        {
+            if (!String.IsNullOrEmpty(fileName))
+            {
+                string strPath = AppDomain.CurrentDomain.BaseDirectory;
+
+                targetPath = strPath + targetPath;
+                sourcePath = strPath + sourcePath;
+
+                string targetFile =  targetPath + fileName;
+                string sourceFile = sourcePath + fileName;
+
+                if (!File.Exists(sourceFile))
+                {
+                    return File.Exists(targetFile);
+                }
+
+                if (!Directory.Exists(targetPath))
+                {
+                    Directory.CreateDirectory(targetPath);
+                }
+
+                File.Copy(sourceFile, targetFile, true);
+                return File.Exists(targetFile);
+                
+            }
+            return false;
+        }
+
+        public bool DeleteFile(string fileName, string filePath)
+        {
+            string strPath = AppDomain.CurrentDomain.BaseDirectory;
+            filePath = strPath + filePath;
+            string sourceFile = filePath + fileName;
+            try
+            {
+                File.Delete(sourceFile);
+            }
+            catch (Exception e)
+            {
+                LogUtility.ErrorRoutine(e);
+                return false;
+            }
+            return true;
         }
     }
 }
