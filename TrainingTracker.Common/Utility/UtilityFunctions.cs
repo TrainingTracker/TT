@@ -208,6 +208,7 @@ namespace TrainingTracker.Common.Utility
                 //for(HttpPostedFileBase file)
                 int count = 0;
                 HttpPostedFileBase file;
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
                 while (count < files.Count)//HttpPostedFileBase file in files)
                 {
                     file = files[count++];
@@ -219,13 +220,13 @@ namespace TrainingTracker.Common.Utility
                         string extension = Path.GetExtension(file.FileName);
                         fileNamesList.Add(gId.ToString().Trim() + extension);
 
-                        bool folderExists = Directory.Exists(HttpContext.Current.Server.MapPath(LearningAssetsPath.TempFile));
+                        bool folderExists = Directory.Exists(basePath + LearningAssetsPath.TempFile);
 
                         if (!folderExists)
                         {
-                            Directory.CreateDirectory(HttpContext.Current.Server.MapPath(LearningAssetsPath.TempFile));
+                            Directory.CreateDirectory(basePath + LearningAssetsPath.TempFile);
                         }
-                        var path = Path.Combine(HttpContext.Current.Server.MapPath(LearningAssetsPath.TempFile), fileNamesList.Last());
+                        var path = basePath + LearningAssetsPath.TempFile + fileNamesList.Last();
                         file.SaveAs(path);
 
                     }
