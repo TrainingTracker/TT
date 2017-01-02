@@ -35,6 +35,7 @@ namespace TrainingTracker.Authorize
                     
                     var userIdRequested = httpContext.Request.Params["userId"] != null ? Convert.ToInt16(httpContext.Request.Params["userId"]) : 0;
                     var requestedFeedbackId = httpContext.Request.Params["feedbackId"] != null ? Convert.ToInt16(httpContext.Request.Params["feedbackId"]) : 0;
+                    var requestedCourseId = httpContext.Request.Params["courseId"] != null ? Convert.ToInt16(httpContext.Request.Params["courseId"]) : 0;
 
                     List<string> currentUserRoles = new List<string>();
 
@@ -60,17 +61,16 @@ namespace TrainingTracker.Authorize
 
 
                     isAuthorized =  (string.IsNullOrEmpty(this.Roles)) || (this.Roles.Split(',').ToList().Any(userPrincipal.IsInRole));
-                    //isAuthorized = isAuthorized && (userIdRequested <= 0 || (currentUser.UserId.Equals(userIdRequested) 
-                    //                                                     || (currentUser.IsAdministrator && !new UserBl().GetUserByUserId(currentUser.UserId).TeamId.HasValue)
-                    //                                                     || (new UserBl().GetUserByUserId(userIdRequested).TeamId == new UserBl().GetUserByUserId(currentUser.UserId).TeamId)));
+                   
 
-                      isAuthorized = isAuthorized && (userIdRequested <= 0 || (currentUser.UserId.Equals(userIdRequested) ||
-                                                                           ((currentUser.IsManager || currentUser.IsTrainer) &&
-                                                                            new UserBl().GetUserByUserId(userIdRequested).TeamId == new UserBl().GetUserByUserId(currentUser.UserId).TeamId)
-                                                                             || (currentUser.IsAdministrator && !new UserBl().GetUserByUserId(currentUser.UserId).TeamId.HasValue)));
+                    isAuthorized = isAuthorized && (userIdRequested <= 0 || (currentUser.UserId.Equals(userIdRequested) ||
+                                                                         ((currentUser.IsManager || currentUser.IsTrainer) &&
+                                                                          new UserBl().GetUserByUserId(userIdRequested).TeamId == new UserBl().GetUserByUserId(currentUser.UserId).TeamId)
+                                                                           || (currentUser.IsAdministrator && !new UserBl().GetUserByUserId(currentUser.UserId).TeamId.HasValue)));
                 
 
                     isAuthorized = isAuthorized && (requestedFeedbackId <= 0 || new FeedbackBl().AuthorizeCurrentUserForFeedback(requestedFeedbackId,currentUser));
+                    isAuthorized = isAuthorized && (requestedCourseId <= 0 || ( new LearningPathBL().AuthorizeCurrentUserForCourse(requestedCourseId , currentUser)));
                     httpContext.User = userPrincipal;
                 }
             }

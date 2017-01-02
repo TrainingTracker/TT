@@ -169,5 +169,19 @@ namespace TrainingTracker.BLL
         {
             return (subtopicContentId > 0 && userId > 0) ? LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId) : false;
         }
+
+        /// <summary>
+        /// Method validates wether is allowed to access the course or not
+        /// </summary>
+        /// <param name="requestedCourseId">course id to validated to allow access</param>
+        /// <param name="currentUser">requested user instance</param>
+        /// <returns>success flag for user permission to acces the page</returns>
+        public bool AuthorizeCurrentUserForCourse( int requestedCourseId , User currentUser )
+        {
+            // skip check for non trainee role
+            if (currentUser.IsTrainer || currentUser.IsManager || currentUser.IsAdministrator) return true;
+
+            return LearningPathDataAccessor.AuthorizeUserForCourse(requestedCourseId, currentUser);
+        }
     }
 }

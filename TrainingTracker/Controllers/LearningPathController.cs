@@ -14,7 +14,7 @@ namespace TrainingTracker.Controllers
     [CustomAuthorizeAttribute]
     public class LearningPathController : Controller
     {
-        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer )]
         public ActionResult CourseEditor()
         {
             return View();

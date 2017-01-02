@@ -22,7 +22,7 @@
             <div class="panel-group">
                 <ul class="list-inline" data-bind="foreach: users()">
                     <li class="col-xs-6 col-md-4 col-lg-2 ">
-                        <a data-bind="attr: {href: my.rootUrl + 'Profile/UserProfile?userId=' + UserId}">
+                        <a data-bind="attr: {href: my.rootUrl + '/Profile/UserProfile?userId=' + UserId}">
                             <div data-bind="css: { 'panel-success': IsTrainer, 'panel-info': IsTrainee, 'panel-danger': IsManager}" class="panel" >
                                 <div class="panel-heading">
                                     <div class="row">
