@@ -62,5 +62,10 @@ namespace TrainingTracker.Common.ViewModel
         /// Gets and Sets Trainor Synopsis
         /// </summary>
         public TrainerFeedbackSynopsis TrainorSynopsis { get; set; }
+
+        /// <summary>
+        /// Gets And Sets All assigned Courses
+        /// </summary>
+        public List<Course> AllAssignedCourses { get; set; }
     }
 }

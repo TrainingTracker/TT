@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TrainingTracker.Common.Entity
 {
+    /// <summary>
+    /// Entity class for Courses
+    /// </summary>
     public class Course
     {
         public int Id { get; set; }

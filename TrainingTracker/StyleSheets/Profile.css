@@ -538,17 +538,23 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 #divSkillscollapasable .list-group-item span:not(.glyphicon),
 #divSkillscollapasable .list-group-item > div:nth-child(1),
 #divSessioncollapasable .list-group-item,
-#divSessioncollapasable .list-group-item div:first-child
+#divSessioncollapasable .list-group-item div:first-child,
+#divCoursescollapasable .list-group-item
 {
      font-size: 10px !important;
-      color: #fff  !important;
+     color: #fff !important;
 }
+
+#divCoursescollapasable .list-group-item {
+    cursor: pointer;
+}
+
 
 .list-group:not(.collapsed) .list-group-item label,.list-group:not(.collapsed) .list-group-item span {
     color: #2196f3  !important;
 }
 
-#divSkillscollapasable:after,#divSessioncollapasable:after {
+#divSkillscollapasable:after,#divSessioncollapasable:after,#divCoursescollapasable:after {
     content: "";
     position: absolute;
     width: 90%;
