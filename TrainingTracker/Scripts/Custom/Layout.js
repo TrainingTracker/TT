@@ -14,7 +14,7 @@
                 my.meta.isManager(user.IsManager);
                 my.meta.isAdministrator(user.IsAdministrator);
                 my.meta.isTrainee(user.IsTrainee);
-                my.meta.userProfileUrl(my.rootUrl + 'Profile/UserProfile?userId=' + user.UserId);
+                my.meta.userProfileUrl(my.rootUrl + '/Profile/UserProfile?userId=' + user.UserId);
                 my.meta.initializeNavbar();
                 my.meta.getNotification();
                 

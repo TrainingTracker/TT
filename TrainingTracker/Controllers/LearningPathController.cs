@@ -12,10 +12,10 @@ using TrainingTracker.Common.Utility;
 namespace TrainingTracker.Controllers
 {
     [CustomAuthorizeAttribute]
-    [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+   
     public class LearningPathController : Controller
     {
-
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer )]
         public ActionResult CourseEditor()
         {
             return View();
@@ -28,6 +28,7 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public ActionResult Course(int courseId)
         {
             return View();

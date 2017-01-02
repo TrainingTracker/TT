@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TrainingTracker.DAL.Interface;
 using Course = TrainingTracker.Common.Entity.Course;
 using CourseSubtopic = TrainingTracker.Common.Entity.CourseSubtopic;
@@ -663,5 +665,115 @@ namespace TrainingTracker.DAL.DataAccess
                 return false;
             }
         }
+
+       
+
+        /// <summary>
+        /// DataAccess method to fetch the list of Curces assigned to the User
+        /// ** should be modified to fetch the cource details like percentage completed,status etc..
+        /// </summary>
+        /// <param name="traineeId">user id of the trainee</param>
+        /// <exception>All exceptions are handled to return empty List</exception>
+        /// <returns>The implementing method should return the List of Courses for the trainee,or empty list.</returns>
+        public List<Course> GetAllCoursesForTrainee(int traineeId)
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    //return context.LearningMaps
+                    //    .Include(x => x.LearningMapCourseMappings)
+                    //    .Include(x => x.LearningMapCourseMappings.Select(y => y.Course))
+                    //    .Include(x => x.LearningMapUserMappings.Select(y => y.UserId == traineeId))
+                    //    .Select(x => x.LearningMapCourseMappings.All(y => new Course
+                    //    {
+                    //        Id = y.Course.Id,
+                    //        Name = y.Course.Name
+                    //    }));
+
+                    //var courseId 
+
+                    //return context.LearningMapUserMappings
+                    //                      .Where(y => y.UserId == traineeId)
+                    //                      .AsEnumerable()
+                    //                      .Select(y=>y.LearningMap
+                    //                                  .LearningMapCourseMappings
+                    //                                  .Select(z=>new Course
+                    //                                           {
+                    //                                               Id = z.Course.Id,
+                    //                                               Name = z.Course.Name
+                    //                                           }))
+                    //                      .ToList();
+                    //return context.Courses
+                    //              .Include(x => x.LearningMapCourseMappings)
+                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap))
+                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap.LearningMapUserMappings))
+                                
+                    //              .Select(x => new Course
+                    //              {
+                    //                  Id = x.Id ,
+                    //                  Name = x.Name
+                    //              }).ToList();         
+
+                    //return context.LearningMapUserMappings
+                    //               .Where(x=>x.UserId==traineeId)
+                    //               .Include(x=>x.LearningMap.LearningMapCourseMappings.Select(y=>y.Course))
+                    //               .Select(x=> x.LearningMap.LearningMapCourseMappings.Select(y=> new Course
+                    //               {
+                    //                   Id=y.Course.Id,
+                    //                   Name = y.Course.Name
+                    //               }));   
+
+                    //.Join(context.BranchUsers , p => p.LastUpdatedBy , b => b.UserID , ( p , b ) => new { p , b })
+
+                    return context.Courses
+                                  .Join(context.LearningMapCourseMappings,c=>c.Id,lmcm=>lmcm.CourseId,(c,lmcm)=>new {c,lmcm})
+                                  .Join(context.LearningMaps,p=>p.lmcm.LearningMapId,lm=>lm.Id,(p,lm)=>new {p,lm})
+                                  .Join(context.LearningMapUserMappings,q=>q.lm.Id,lmum=>lmum.LearningMapId,(q,lmum)=>new {q,lmum})
+                                  .Join(context.Users,r=>r.lmum.UserId,u=>u.UserId,(r,u)=>new {r,u})
+                                  .Where(x=>x.r.lmum.UserId == traineeId)                                  
+                                  .Select(x=> new Course
+                                  {
+                                      Id = x.r.q.p.c.Id,
+                                      Name = x.r.q.p.c.Name
+                                  })
+                                  .ToList()
+                                  .GroupBy(x=>x.Id)
+                                  .Select(x=>x.First())
+                                  .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return new List<Course>();
+            }
+        }
+
+        /// <summary>
+        /// Signature for method validates whether is allowed to access the course or not
+        /// </summary>
+        /// <param name="requestedCourseId">course id to validated to allow access</param>
+        /// <param name="currentUser">requested user instance</param>
+        /// <returns>success flag for user permission to acces the page</returns>
+        public bool AuthorizeUserForCourse( int requestedCourseId , Common.Entity.User currentUser )
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    return context.LearningMapCourseMappings
+                                  .Any(x => x.CourseId == requestedCourseId &&
+                                       x.LearningMap.LearningMapUserMappings.Any(y => y.UserId == currentUser.UserId));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
+        
     }
 }

@@ -39,6 +39,22 @@ namespace TrainingTracker.DAL.Interface
         bool SaveSubtopicOrder(List<CourseSubtopic> data);
         bool SaveSubtopicContentOrder(List<SubtopicContent> data);
         bool PublishCourse(int id);
-        
+
+        /// <summary>
+        /// Interface Signature to fetch all courses for Trainee,
+        /// </summary>
+        /// <param name="traineeId">user id of the trainee</param>
+        /// <returns>The implementing method should return the List of Courses for the trainee,or empty list.</returns>
+        List<Course> GetAllCoursesForTrainee(int traineeId);
+
+
+        /// <summary>
+        /// Signature for method validates whether is allowed to access the course or not
+        /// </summary>
+        /// <param name="requestedCourseId">course id to validated to allow access</param>
+        /// <param name="currentUser">requested user instance</param>
+        /// <returns>success flag for user permission to acces the page</returns>
+        bool AuthorizeUserForCourse(int requestedCourseId, User currentUser);
+
     }
 }
