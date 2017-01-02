@@ -17,7 +17,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public Skill()
         {
             this.Questions = new HashSet<Question>();
-            this.UserSkillMappings = new HashSet<UserSkillMapping>();
         }
     
         public int SkillId { get; set; }
@@ -27,7 +26,5 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<int> AddedBy { get; set; }
     
         public virtual ICollection<Question> Questions { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
     }
 }

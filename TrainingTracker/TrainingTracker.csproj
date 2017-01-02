@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authorization\CustomAuthorize.cs" />
+    <Compile Include="Controllers\LearningMapController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\LearningPathController.cs">
       <SubType>Code</SubType>
@@ -266,6 +267,8 @@
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\LearningMap.js" />
+    <Content Include="Scripts\Custom\LearningMapService.js" />
     <Content Include="Scripts\Custom\Course.js" />
     <Content Include="Scripts\Custom\CourseEditor.js" />
     <Content Include="Scripts\Custom\CourseService.js" />
@@ -323,6 +326,7 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
     <Content Include="StyleSheets\Course.css" />
@@ -343,6 +347,10 @@
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
     <Content Include="Uploads\ProfilePicture\harshw.JPG" />
+    <Content Include="Uploads\Temp\52ff94d2-063f-4de2-a25a-3de1dcf87e28.jpg" />
+    <Content Include="Uploads\Temp\a7bda3fd-17a0-4ca5-a149-2c74e1651a1a.jpg" />
+    <Content Include="Uploads\Temp\aa1b666b-8fc4-42ff-82d6-b9725092ad28.jpg" />
+    <Content Include="Uploads\Temp\f91248c3-3f34-4c12-9090-d0d8628e9e45.jpg" />
     <Content Include="Views\LearningPath\CourseEditor.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -373,6 +381,7 @@
     <Content Include="Views\LearningPath\Courses.cshtml" />
     <Content Include="StyleSheets\fontawesome-animation.css" />
     <Content Include="Views\LearningPath\Course.cshtml" />
+    <Content Include="Views\LearningMap\LearningMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

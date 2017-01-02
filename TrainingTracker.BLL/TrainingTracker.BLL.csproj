@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,7 @@
     <Compile Include="Base\BussinessBase.cs" />
     <Compile Include="DashboardBl.cs" />
     <Compile Include="FeedbackBl.cs" />
+    <Compile Include="LearningMapBL.cs" />
     <Compile Include="LearningPathBL.cs" />
     <Compile Include="LoginBl.cs" />
     <Compile Include="NotificationBl.cs" />

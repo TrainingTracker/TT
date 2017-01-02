@@ -430,7 +430,13 @@ div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtop
     overflow: hidden
     
 }
-
+div#divTopicList ul li span:first-child,#divSearchTopicList ul li span:first-child,#divAssignment ul li span:first-child,#divSubtopicContent ul li span:first-child {
+width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
 div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul li:hover,#divSubtopicContent ul li:hover {
     background-color: #2596F1;
     
@@ -684,4 +690,16 @@ li.selected-content {
     top: 95%;
     right: 5%;
     border: 1px solid #f5f5f5;
+}
+#assignmentAssetForm input {
+    display:inline;
+
+}
+#assignmentAssetForm button {
+    background-color: #2596f1;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: white;
 }

@@ -1,0 +1,2 @@
+rename table LearningMapUserMappping to LearningMapUserMapping;
+rename table LearningMapCourseMappping to LearningMapCourseMapping;

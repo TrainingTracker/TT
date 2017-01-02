@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
+using System.Web;
+using System.Linq;
 
 namespace TrainingTracker.Common.Utility
 {
@@ -147,6 +151,93 @@ namespace TrainingTracker.Common.Utility
                 }
             };
         }
-        
+
+        public static bool CopyFile(string fileName, string sourcePath, string targetPath)
+        {
+            if (!String.IsNullOrEmpty(fileName))
+            {
+                string strPath = AppDomain.CurrentDomain.BaseDirectory;
+
+                targetPath = strPath + targetPath;
+                sourcePath = strPath + sourcePath;
+
+                string targetFile = targetPath + fileName;
+                string sourceFile = sourcePath + fileName;
+
+                if (!File.Exists(sourceFile))
+                {
+                    return File.Exists(targetFile);
+                }
+
+
+                if (!Directory.Exists(targetPath))
+                {
+                    Directory.CreateDirectory(targetPath);
+                }
+
+                File.Copy(sourceFile, targetFile, true);
+                return File.Exists(targetFile);
+
+            }
+            return false;
+        }
+
+        public static bool DeleteFile(string fileName, string filePath)
+        {
+            string strPath = AppDomain.CurrentDomain.BaseDirectory;
+            filePath = strPath + filePath;
+            string sourceFile = filePath + fileName;
+            try
+            {
+                File.Delete(sourceFile);
+            }
+            catch (Exception e)
+            {
+                LogUtility.ErrorRoutine(e);
+                return false;
+            }
+            return true;
+        }
+
+        public static List<string> UploadFile(HttpFileCollectionBase files)
+        {
+            //HttpPostedFileBase file = files[1];// work only is single file is uploaded. HttpFileCollectionBase can be used for multiple files
+            List<string> fileNamesList = new List<string>();
+            try
+            {
+                //for(HttpPostedFileBase file)
+                int count = 0;
+                HttpPostedFileBase file;
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                while (count < files.Count)//HttpPostedFileBase file in files)
+                {
+                    file = files[count++];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        Guid gId;
+                        gId = Guid.NewGuid();
+
+                        string extension = Path.GetExtension(file.FileName);
+                        fileNamesList.Add(gId.ToString().Trim() + extension);
+
+                        bool folderExists = Directory.Exists(basePath + LearningAssetsPath.TempFile);
+
+                        if (!folderExists)
+                        {
+                            Directory.CreateDirectory(basePath + LearningAssetsPath.TempFile);
+                        }
+                        var path = basePath + LearningAssetsPath.TempFile + fileNamesList.Last();
+                        file.SaveAs(path);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
+            return fileNamesList;
+        }
     }
 }

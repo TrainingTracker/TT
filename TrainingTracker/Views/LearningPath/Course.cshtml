@@ -6,7 +6,7 @@
     <link href="~/StyleSheets/Course.css" rel="stylesheet" />
 }
 
-<div class="container-fluid">
+<div class="col-xs-12 no-padding-left no-padding-right">
     <div class="col-md-12 layout-wrapper">
         <div class="row layout-header-panel">
             <div class="col-md-2 layout-section">
@@ -21,7 +21,7 @@
         <div class="row ">
             <div class="col-xs-2 layout-left-panel course-index" >
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
-                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics" data-spy="affix" data-offset-top="205" >
+                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics"  >
                     <ul class="subtopic">
                         <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
                             <span data-bind="text: Name"></span>
@@ -56,9 +56,11 @@
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading assignment-header">
                             <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
+                            <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
                         <div class="panel-body">
                             <span data-bind="html: Description"></span>
+                            
                         </div>
                     </div>
                 </div>

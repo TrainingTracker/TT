@@ -33,6 +33,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +50,7 @@
     <Compile Include="Entity\Feedback.cs" />
     <Compile Include="Entity\FeedbackPlot.cs" />
     <Compile Include="Entity\FeedbackType.cs" />
+    <Compile Include="Entity\LearningMap.cs" />
     <Compile Include="Entity\LoginModel.cs" />
     <Compile Include="Entity\Notification.cs" />
     <Compile Include="Entity\Project.cs" />

@@ -1,2 +1,0 @@
-ALTER TABLE Course
-ADD Duration INT NOT NULL DEFAULT(0)

@@ -157,5 +157,19 @@ namespace TrainingTracker.BLL.Base
             get { return _learningPathDataAccessor ?? (_learningPathDataAccessor = new LearningPathDal()); }
         }
 
+
+        /// <summary>
+        /// Private variable for LearningMapDal accessor.
+        /// </summary>
+        private ILearningMapDal _learningMapDataAccessor;
+
+        /// <summary>
+        /// Public property to get the LearningPathDal object.
+        /// </summary>
+        public ILearningMapDal LearningMapDataAccessor
+        {
+            get { return _learningMapDataAccessor ?? (_learningMapDataAccessor = new LearningMapDal()); }
+        }
+
     }
 }

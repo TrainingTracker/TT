@@ -1,6 +1,126 @@
-﻿.navbar-default {
+﻿/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+html,body {
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+   max-width: 100%;
+}
+
+body > #wrapper {
     background-color: #2596F1;
-    border-color: #07425d;
+    max-width: 100%;
+    height: 10%;
+    
+}
+
+body > #wrapper ul.nav > li label,#wrapper .dropdown-menu a {
+    font-weight: normal ;
+    font-size: 12px;
+}
+
+body > #wrapper ul.nav > li:first-child label {
+    font-weight: bold ;
+    font-size: 20px;
+}
+
+li#profileNavigation>ul li.hr-separator:before 
+{
+    content: "";
+    left: 5%;
+    position: absolute;
+    border-top: 1px solid #ccc;
+    width: 90%;
+
+} 
+
+li#profileNavigation .dropdown-menu {
+    min-width: 0;
+}
+
+li#profileNavigation>ul li.hr-separator:hover:before {
+    border: none;
+}
+
+body >#page-wrapper {
+     max-width: 100%;
+    top: 10%;
+    min-height: 90%;
+    height: auto;
+        display: flex;
+}
+.nav .glyphicon {
+    top: 0;
+    font-size: 9px;
+}
+
+.dropdown-menu-pop-over-list .glyphicon {
+    top: 3px;
+}
+
+
+.navImage {
+    max-width:  25px !important;    
+    display: inline-block;
+    margin-right: 10px !important;
+}
+.navbar-default {
+    background-color: #2596F1;
+    border: none;
 	}
 
     .navbar-default .navbar-brand {
@@ -17,12 +137,12 @@
     }
 
     .navbar-default .navbar-nav > li > a {
-        color: #e1f5fe;
+        color: #fff;
     }
 
         .navbar-default .navbar-nav > li > a:hover,
         .navbar-default .navbar-nav > li > a:focus {
-            color: #b3e5fc;
+            color: #fff;
         }
 
 .navbar-right
@@ -35,14 +155,14 @@
     .navbar-default .navbar-nav > .active > a:hover,
     .navbar-default .navbar-nav > .active > a:focus {
         color: #b3e5fc;
-        background-color: #29b6f6;
+        background-color: #2596F1;
     }
 
     .navbar-default .navbar-nav > .open > a,
     .navbar-default .navbar-nav > .open > a:hover,
     .navbar-default .navbar-nav > .open > a:focus {
         color: #b3e5fc;
-        background-color: #29b6f6;
+        background-color: #2596F1;
     }
 
     .navbar-default .navbar-toggle {
@@ -51,11 +171,11 @@
 
         .navbar-default .navbar-toggle:hover,
         .navbar-default .navbar-toggle:focus {
-            background-color: #29b6f6;
+            background-color: #2596F1;
         }
 
         .navbar-default .navbar-toggle .icon-bar {
-            background-color: #e1f5fe;
+            background-color: #2596F1;
         }
 
     .navbar-default .navbar-collapse,
@@ -91,27 +211,11 @@
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
         color: #b3e5fc;
-        background-color: #29b6f6;
+        background-color: #2596F1;
     }
 }
 
-/*Font*/
-/* latin-ext */
-@font-face {
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Josefin Sans'), local('JosefinSans'), url(https://fonts.gstatic.com/s/josefinsans/v9/xgzbb53t8j-Mo-vYa23n5j0LW-43aMEzIO6XUTLjad8.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Josefin Sans'), local('JosefinSans'), url(https://fonts.gstatic.com/s/josefinsans/v9/xgzbb53t8j-Mo-vYa23n5ugdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
+
 
 #logo {
     width: 187px;
@@ -124,9 +228,7 @@
     margin-right: 10px;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-}
+
 
 .profile-pic {
     max-width: 30px;
@@ -414,10 +516,13 @@ a {
     position: static;
     display: inline-block;
     left: 5px;
-    margin-top: 16px;
     /* right: 50%; */
     /* margin-right: 221px; */
    
+}
+
+#profileNavigation span.glyphicon {
+    top: -2px;
 }
 
 
@@ -452,15 +557,15 @@ a {
 
 #notificationContainer {
     background-color: #fff;
-    border: 1px solid #4fc3f7;
+     border: 1px solid #2596F1; 
     -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
     overflow: visible;
     position: absolute;
-    top: 30px;
-       top: 39px;
+    /* top: 30px; */
+    top: 100%;
     /* margin-left: -170px; */
-    margin-left: -711%;
-    width: 400px;
+    right: -164px;
+    width: auto;
     z-index: -1;
     display: none;
 }
@@ -511,16 +616,15 @@ a {
 }
 
 #notification_count {
-    padding: 3px 7px 3px 7px;
+        padding: 3px 7px 3px 7px;
     background: #cc0000;
     color: #ffffff;
     font-weight: bold;
-  
-    border-radius: 9px;
+    border-radius: 10px;
     position: absolute;
-        margin-top: -14px;
-    left: 10px;
-    font-size: 11px;
+    top: 7px;
+    left: 23px;
+    font-size: 8px;
 }
 
 .noContent {
@@ -553,7 +657,8 @@ div#notificationsBody  ul {
 }
  
 div#notificationsBody ul li h3 {
-  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  font-size: 20px ;
+    font-weight: bold;
 }
  
 div#notificationsBody ul li img {
@@ -562,7 +667,7 @@ div#notificationsBody ul li img {
 }
  
 div#notificationsBody ul li p {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  font-size:  12px ;
 }
  
 div#notificationsBody  ul li {
@@ -597,14 +702,9 @@ ul.pop-over-list a {
     color:black !important
 }  
 
-ul.pop-over-list a:hover 
-{
-    background-color: #298fca;
-    color: #ffffff !important;
-    transition: all 0.2s ease;
-}
 
-ul.pop-over-list.danger a:hover 
+
+ul.dropdown-menu-pop-over-list .danger a:hover 
 {
     background-color: maroon; 
     transition: all 0.2s ease;
@@ -625,12 +725,12 @@ hr {
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
-#navPages li.dropdown:hover >ul.dropdown-menu {
+#navPages li.dropdown:hover >ul.dropdown-menu,li.dropdown#profileNavigation:hover >ul.dropdown-menu {
     display: inline-block;
 }
 
 ul.dropdown-menu.dropdown-menu-pop-over-list li:hover {
-    background-color: #298fca;
+    background-color: #2596F1;
     color: #FFF !important;
     transition: all 0.2s ease;
 }
@@ -680,24 +780,20 @@ ul.dropdown-menu.dropdown-menu-pop-over-list li:hover > a {
 
 ul.dropdown-menu-pop-over-list a:hover 
 {    
-    background-color: #298fca;
+    background-color: #2596F1;
     color: #ffffff !important;
     transition: all 0.2s ease;
     
 }
 
-
-ul#navPages>li>a>label {
-    margin-bottom: 0;
-}
-
-ul#navPages>li>a {
-    top: 5px;
-}
-ul#navPages>li>a label {
-    font-weight: 300;
-}
-
 ul.dropdown-menu.dropdown-menu-pop-over-list {
-    padding: 0 0;
+    padding: 0;
+}
+
+#page-wrapper >.container-fluid,
+#page-wrapper>.container-fluid>div:first-child,
+#page-wrapper>.container-fluid>div:first-child>.container-fluid,
+#page-wrapper>.container-fluid>div:first-child>.container-fluid>.layout-wrapper {
+    flex: 1;
+    display: flex;
 }

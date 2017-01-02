@@ -24,7 +24,7 @@ namespace TrainingTracker
                       "~/Scripts/respond.js"));
 
              bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/site.css"));
 
             #region Scripts
@@ -97,11 +97,20 @@ namespace TrainingTracker
                "~/Scripts/Custom/CourseService.js",
                "~/Scripts/Custom/AllCourses.js"
             ));
+
+             bundles.Add(new ScriptBundle("~/bundles/LearningMapViewScripts").Include(
+               "~/Scripts/ko.mapping.js",
+               "~/Scripts/jquery-confirm.js",
+               "~/Scripts/notify.js",
+               "~/Scripts/jquery-ui.js",
+               "~/Scripts/knockout-sortable.js",
+               "~/Scripts/Custom/LearningMapService.js",
+               "~/Scripts/Custom/LearningMap.js"
+            ));
             #endregion
 
             #region Styles
             bundles.Add(new StyleBundle("~/bundles/LayoutViewStyles").Include(
-                      "~/Content/bootstrap.min.css" ,
                       "~/StyleSheets/Layout.css",
                       "~/StyleSheets/AddEditProfile.css"
                       ));
@@ -144,7 +153,13 @@ namespace TrainingTracker
                     "~/StyleSheets/CourseEditor.css",
                    "~/StyleSheets/jquery-confirm.css" ,
                    "~/Content/site.css"
-          ));
+             ));
+
+            bundles.Add(new StyleBundle("~/bundles/LearningMapViewStyles").Include(
+                 "~/StyleSheets/LearningMap.css",
+                 "~/StyleSheets/jquery-confirm.css",
+                 "~/Content/site.css"
+            ));
   
             #endregion
 

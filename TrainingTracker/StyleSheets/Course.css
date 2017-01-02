@@ -1,4 +1,4 @@
-﻿a {
+﻿.link-header a {
     color:white;
 }
 
@@ -85,4 +85,11 @@
     .course-content .link-panel > .assignment-header {
         background: #194a71;
         color: #fff;
+    }
+    .course-content .link-panel > .assignment-header a {
+        color: #fff;
+    }
+
+    h4.subtopic-description p {
+        line-height: 1.42;
     }

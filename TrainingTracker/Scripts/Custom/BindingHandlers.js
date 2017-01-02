@@ -20,13 +20,37 @@ ko.bindingHandlers.slider = {
     }
 };
 
+ko.bindingHandlers.IsFieldValidated = {
+    init: function (element, valueAccessor) {
+        // var value = ko.unwrap(valueAccessor());
+        // $(element).toggle(value);
+    },
+
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        var message = allBindings.get('validationMessage').toString();
+
+        if (!valueUnwrapped) {
+            $(element).val('').css({"border-color":"red"}).attr("placeholder", message);
+        }
+        else {
+            $(element).css({ "border-color": "#ccc" });
+        }
+    }
+}
 ko.bindingHandlers.CKEDITOR = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var ckEditorValue = valueAccessor();
         var id = $(element).attr('id');
         var options = allBindings().EditorOptions;
         var ignoreChanges = false;
-
+        CKEDITOR.on('dialogDefinition', function (ev) {
+            if (ev.data.name == 'link') {
+                ev.data.definition.getContents('target').get('linkTargetType')['default'] = '_blank';
+            }
+        });
         var instance = CKEDITOR.replace(id, {
             on: {
                 change: function () {

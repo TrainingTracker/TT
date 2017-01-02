@@ -13,7 +13,7 @@
         <div class="col-xs-2 no-padding-left no-padding-right no-margin-left no-margin-right layout-section layout-left-panel">
             <div id="divTopicHeader" class="row col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right" data-bind="css: { 'course-in-edit': course.IsEditInProgress() }, click: function () { $root.edit($data, 'course'); }">
                 <div class="col-xs-12">
-                    <a title="preview", target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/Course?courseId=' + course.Id() }, visible: course.Id() > 0,click: function(){return true;}, clickBubble:false" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a title="preview" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/Course?courseId=' + course.Id() }, visible: course.Id() > 0,click: function(){return true;}, clickBubble:false" ><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <span>
                         <i data-bind="visible: course.IsEditInProgress()" class="fa fa-gear rotate"></i>
                         <i data-bind="visible: !course.IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i> 
@@ -43,7 +43,7 @@
                 <ul  data-bind="sortable:{data: subtopicsList, connectClass: false}" class="col-xs-12 no-padding-left no-padding-right no-margin-left no-margin-right ">
                     <li data-bind="click: function () { $root.edit($data, 'subtopic'); $root.getSubtopicContents($data); $root.getAssignments($data); }, css: { 'selected-subtopic': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
-                        <span class="move-right">
+                        <span class="pull-right">
                             <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
                             <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
                         </span>
@@ -55,7 +55,7 @@
             <div id="divSearchTopicList" data-bind="visible: filteredCourseList().length > 0">
                 <ul data-bind="foreach: filteredCourseList">
                     <li data-bind="click: function () { $root.navigateToAnotherCourse(Id); }"><span data-bind="    text: Name"></span>
-                        <i class="fa fa-pencil move-right" aria-hidden="true"></i></li>
+                        <i class="fa fa-pencil pull-right" aria-hidden="true"></i></li>
                 </ul>
             </div>
 
@@ -116,23 +116,36 @@
                               <textarea class="form-control" rows="5" id="ckeditor" data-bind="CKEDITOR: editorContent.Description, autoResizeTextArea: true"></textarea>
                         </div>                  
                     </div>
+                    <div class="col-xs-12  no-margin-right no-padding-left no-padding-right form-group" data-bind="visible: editorContent.ContentType() == 'assignment'">
+                        <form class="col-xs-12 form-group " data-bind="submit: uploadAssignment" enctype="multipart/form-data" id="assignmentAssetForm">
+                            <label class="control-label col-sm-3">File:</label>
+                            <div class="col-xs-9">
+                                <a title ="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + editorContent.AssignmentAsset() }, visible: !my.isNullorEmpty(editorContent.AssignmentAsset())">Assignment</a>
+                                &nbsp;
+                                <input type="file" name="file" id="form-file" />
+                                <button type="submit"><i class="fa fa-cloud-upload" aria-hidden="true">Upload</i></buttondata-bind>
+                                
+                            </div>
+                        </form>
+                    </div>
 
-                     <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right form-group">
-                        <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>                        
-                            <span> &nbsp;Publish</span>
-                        </button>  
-                        <button class=" btn btn-success" data-bind="click: $root.saveChanges">
-                            <i class="fa fa-floppy-o" aria-hidden="true" ></i>                        
-                            <span> &nbsp;Save</span>
-                        </button>
-                        <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>                        
-                            <span> &nbsp;Delete</span>
-                        </button>                   
-                     </div>
-                
-                </div>
+
+                       <div id="divEditorButtonSection" class="col-xs-12 no-padding-left no-padding-right  no-margin-right form-group">
+                           <button data-bind="click: $root.publishCourse, visible: editorContent.Id() > 0 && !course.IsPublished() && editorContent.ContentType()=='course'" class="btn btn-primary">
+                               <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+                               <span> &nbsp;Publish</span>
+                           </button>
+                           <button class=" btn btn-success" data-bind="click: $root.saveChanges">
+                               <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                               <span> &nbsp;Save</span>
+                           </button>
+                           <button data-bind="click: $root.deleteData, visible: editorContent.Id() > 0" class="btn btn-warning">
+                               <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                               <span> &nbsp;Delete</span>
+                           </button>
+                       </div>
+
+                   </div>
 
                 
             </div>
@@ -160,7 +173,7 @@
                     <li data-bind=" click: function () { $root.edit($data, 'subtopicContent'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
                        
-                        <span class="move-right">
+                        <span class="pull-right">
                              <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
                             <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
                         </span>
@@ -183,7 +196,7 @@
                     <li data-bind=" click: function () { $root.edit($data, 'assignment'); }, css: { 'selected-content': IsSelected(), 'editing-mode': IsEditInProgress() }">
                         <span data-bind="text: Name()"></span>
                         
-                        <span class="move-right">
+                        <span class="pull-right">
                             <i data-bind="visible: !IsEditInProgress()" class="fa fa-pencil" aria-hidden="true"></i>
                             <i data-bind="visible: IsEditInProgress()" class="fa fa-gear rotate"></i>
                         </span>
