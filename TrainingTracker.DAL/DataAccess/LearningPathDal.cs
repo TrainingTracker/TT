@@ -182,7 +182,7 @@ namespace TrainingTracker.DAL.DataAccess
             }   
         }
 
-        public Course GetCourseWithAllData(int courseId)
+        public Course GetCourseWithAllData(int courseId, int userId = 0)
         {
             try
             {
@@ -222,7 +222,11 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                CreatedOn = d.CreatedOn,
                                                                                IsActive = d.IsActive,
                                                                                AddedBy = d.AddedBy,
-                                                                               SortOrder = d.SortOrder
+                                                                               SortOrder = d.SortOrder,
+                                                                               IsCompleted = (userId == 0) ?
+                                                                                                null : (bool?)(d.SubtopicContentUserMaps
+                                                                                                           .Where(u => u.SubtopicContentId == d.Id && u.UserId == userId)
+                                                                                                           .FirstOrDefault() != null ) 
                                                                            }).OrderBy(x => x.SortOrder)
                                                                              .ToList(),
                                                                            Assignments = GetAssignments(s.Id)
@@ -593,6 +597,31 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
+        public bool SaveSubtopicContentProgress(int subtopicContentId, int userId)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var newEntity = new EntityFramework.SubtopicContentUserMap
+                    {
+                        SubtopicContentId = subtopicContentId,
+                        UserId = userId,
+                        Seen = true,
+                        CreatedOn = DateTime.Now
+                    };
+
+                    context.SubtopicContentUserMaps.Add(newEntity);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
 
         public bool SaveSubtopicOrder(List<CourseSubtopic> data)
         {
