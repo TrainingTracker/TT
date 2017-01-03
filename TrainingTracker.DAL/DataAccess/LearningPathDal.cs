@@ -10,6 +10,7 @@ using SubtopicContent = TrainingTracker.Common.Entity.SubtopicContent;
 using Assignment = TrainingTracker.Common.Entity.Assignment;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.DAL.EntityFramework;
+using TrainingTracker.Common.Entity;
 
 
 namespace TrainingTracker.DAL.DataAccess
@@ -765,7 +766,7 @@ namespace TrainingTracker.DAL.DataAccess
         /// <param name="traineeId">user id of the trainee</param>
         /// <exception>All exceptions are handled to return empty List</exception>
         /// <returns>The implementing method should return the List of Courses for the trainee,or empty list.</returns>
-        public List<Course> GetAllCoursesForTrainee(int traineeId)
+        public List<CourseTrackerDetails> GetAllCoursesForTrainee( int traineeId )
         {
             try
             {
@@ -821,11 +822,17 @@ namespace TrainingTracker.DAL.DataAccess
                                   .Join(context.LearningMaps,p=>p.lmcm.LearningMapId,lm=>lm.Id,(p,lm)=>new {p,lm})
                                   .Join(context.LearningMapUserMappings,q=>q.lm.Id,lmum=>lmum.LearningMapId,(q,lmum)=>new {q,lmum})
                                   .Join(context.Users,r=>r.lmum.UserId,u=>u.UserId,(r,u)=>new {r,u})
-                                  .Where(x=>x.r.lmum.UserId == traineeId)                                  
-                                  .Select(x=> new Course
+                                  .GroupJoin(context.CourseSubtopics , s => s.r.q.p.c.Id , cs => cs.CourseId , ( s , cs) => new { s , cs =  cs.FirstOrDefault() })
+                                  .GroupJoin(context.SubtopicContents , t => t.cs.Id , sc => sc.CourseSubtopicId , ( t , sc ) => new { t , sc = sc.FirstOrDefault() })
+                                  .GroupJoin(context.SubtopicContentUserMaps , u => u.sc.Id , scum => scum.SubtopicContentId , ( u , scum ) => new { u , scum = scum.FirstOrDefault() })
+                                  .Where(x=>x.u.t.s.r.lmum.UserId == traineeId)
+                                  .Select(x => new CourseTrackerDetails
                                   {
-                                      Id = x.r.q.p.c.Id,
-                                      Name = x.r.q.p.c.Name
+                                      Id = x.u.t.s.r.q.p.c.Id ,
+                                      Name = x.u.t.s.r.q.p.c.Name ,
+                                      TotalSubTopicCount = context.SubtopicContents.Count(y => y.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id) ,
+                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId)
+                                      
                                   })
                                   .ToList()
                                   .GroupBy(x=>x.Id)
@@ -836,7 +843,7 @@ namespace TrainingTracker.DAL.DataAccess
             catch (Exception ex)
             {
                 LogUtility.ErrorRoutine(ex);
-                return new List<Course>();
+                return new List<CourseTrackerDetails>();
             }
         }
 
