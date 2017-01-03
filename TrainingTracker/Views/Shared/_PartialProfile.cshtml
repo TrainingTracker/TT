@@ -31,7 +31,7 @@
                     <form enctype="multipart/form-data">
                         <img data-bind="attr: { src: my.addUserVm.user.PhotoUrl() }" alt="Profile image not found!"
                              class="img-responsive img-circle profile-img user-profile-img">
-                        <label for="form-file" data-bind="visible: (!my.addUserVm.user.IsReadOnly())" class="imgDescription"><span class="glyphicon glyphicon-camera"></span>&nbsp;&nbsp; Upload an image</label>
+                        <label for="form-file" data-bind="visible: (!my.addUserVm.user.IsReadOnly())" class="imgDescription"><span class="fa fa-camera"></span>&nbsp;&nbsp; Upload an image</label>
                         <input type="file" name="file" id="form-file" data-bind="fileSrc: my.addUserVm.user.fileData, name: file, visible: (!my.addUserVm.user.IsReadOnly())" class="imgDescription hidden user-profile-img" accept="image/*" />
                     </form>
                 </div>
