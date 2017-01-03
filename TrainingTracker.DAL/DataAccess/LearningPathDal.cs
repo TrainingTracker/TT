@@ -231,7 +231,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                                            .FirstOrDefault() != null ) 
                                                                            }).OrderBy(x => x.SortOrder)
                                                                              .ToList(),
-                                                                           Assignments = GetAssignments(s.Id)
+                                                                           Assignments = GetAssignments(s.Id, userId)
                                                                        })
                                                                        .OrderBy(x => x.SortOrder)
                                                                        .ToList()
@@ -566,36 +566,97 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-        public List<Assignment> GetAssignments(int subtopicId)
+        public List<Assignment> GetAssignments(int subtopicId, int traineeId = 0)
         {
             try
             {
                 using (var context = new TrainingTrackerEntities())
                 {
                     //var entity = context.Assignments.Where(a => a.IsActive && a.ia.AssignmentSubtopicContentMaps.Where(c => c.SubtopicContentId == subtopicContentId));
-                    var entity = 
-                         context.Assignments
-                        .Join(context.AssignmentSubtopicMaps
-                        .Where(x => x.SubtopicId == subtopicId), a => a.Id, s => s.AssignmentId, (a, s) =>
-                            new Assignment
-                            {
-                                Name = a.Name,
-                                Description = a.Description,
-                                Id = a.Id,
-                                AddedBy = a.AddedBy,
-                                CreatedOn = a.CreatedOn,
-                                IsActive = a.IsActive,
-                                CourseSubtopicId = s.SubtopicId,
-                                AssignmentAsset = a.AssignmentAsset
-                            }).ToList().Where(x => x.IsActive).ToList(); 
+                    //var entity = 
+                    //     context.Assignments
+                    //    .Join(context.AssignmentSubtopicMaps
+                    //    .Where(x => x.SubtopicId == subtopicId), a => a.Id, s => s.AssignmentId, (a, s) =>
+                    //        new Assignment
+                    //        {
+                    //            Name = a.Name,
+                    //            Description = a.Description,
+                    //            Id = a.Id,
+                    //            AddedBy = a.AddedBy,
+                    //            CreatedOn = a.CreatedOn,
+                    //            IsActive = a.IsActive,
+                    //            CourseSubtopicId = s.SubtopicId,
+                    //            AssignmentAsset = a.AssignmentAsset
+                    //        }).ToList().Where(x => x.IsActive).ToList();
 
-                    return entity;
+                    return context.AssignmentSubtopicMaps
+                             .Where(s => s.SubtopicId == subtopicId)
+                             .Select(a => new { assignmentData = a.Assignment , traineeData = a.Assignment.AssignmentUserMaps.Where(s => s.TraineeId == traineeId && s.AssignmentId == a.Assignment.Id)})
+                             .Where(a => a.assignmentData.IsActive)
+                             .Select(a => new Assignment
+                             {
+                                 Name = a.assignmentData.Name,
+                                 Description = a.assignmentData.Description,
+                                 Id = a.assignmentData.Id,
+                                 AddedBy = a.assignmentData.AddedBy,
+                                 CreatedOn = a.assignmentData.CreatedOn,
+                                 IsActive = a.assignmentData.IsActive,
+                                 CourseSubtopicId = subtopicId,
+                                 AssignmentAsset = a.assignmentData.AssignmentAsset,
+                                 StartedOn = a.traineeData.Select( b => b.StartedOn).FirstOrDefault(),
+                                 CompletedOn = a.traineeData.Select(b => b.CompletedOn).FirstOrDefault(),
+                                 ApprovedBy = (int)a.traineeData.Select(b => b.ApprovedBy).FirstOrDefault()
+                               
+                             })
+                             .ToList();
+                    
+                    //return entity;
                 }
             }
             catch (Exception ex)
             {
                 LogUtility.ErrorRoutine(ex);
                 return null;
+            }
+        }
+
+        //ToDo: Change this function so that trainer can reuse this function to approve assignment
+        public bool UpdateAssignmentProgress(Assignment data, int traineeId)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    if (data.Id > 0)
+                    {
+                        var entity = context.AssignmentUserMaps.Where( s => s.AssignmentId == data.Id && s.TraineeId == traineeId).FirstOrDefault();
+                        if(entity == null)
+                            return false;
+
+                        // In case someone calls this method to update completion date of an assignment which is already completed.
+                        entity.CompletedOn = entity.CompletedOn ?? DateTime.Now;
+                    }
+                    else
+                    {
+                        var newEntity = new EntityFramework.AssignmentUserMap
+                        {
+                            StartedOn = DateTime.Now,
+                            AssignmentId = data.Id,
+                            TraineeId = traineeId
+                        };
+
+                        context.AssignmentUserMaps.Add(newEntity);
+                    }
+                    
+                    context.SaveChanges();
+                    return true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
             }
         }
 

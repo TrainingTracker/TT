@@ -120,6 +120,14 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
         }
 
+        public bool UpdateAssignmentProgress(Assignment data, int traineeId)
+        {
+            if (data != null && traineeId > 0)
+            {
+                return LearningPathDataAccessor.UpdateAssignmentProgress(data, traineeId);
+            }
+            return false;
+        }
 
         public bool DeleteAssignment(int id)
         {

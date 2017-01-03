@@ -169,6 +169,12 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().GetAssignments(subtopicContentId), JsonRequestBehavior.AllowGet);
         }
 
+        //public JsonResult UpdateAssignmentProgress(Assignment data)
+        //{
+        //    User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
+        //    return Json(new LearningPathBL().UpdateAssignmentProgress(data, currentUser))            
+        //}
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult SaveSubtopicOrder(List<CourseSubtopic> data)
         {
