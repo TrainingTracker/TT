@@ -43,9 +43,12 @@
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading link-header">
                             <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
+                            &nbsp;
+                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: !my.isNullorEmpty(IsCompleted()), click:$root.saveProgress"></i>
                             <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
                                 <a data-bind="attr: { href: (my.isNullorEmpty(Url) || Url.toUpperCase().indexOf('HTTP') > -1) ? Url : ('http://' + Url) }" target="_blank"><i class="fa fa-external-link"> Browse Link</i></a>
                             </span>
+                            
                         </div>
                         <div class="panel-body">
                             <span data-bind="html: Description"></span>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
@@ -136,9 +134,9 @@ namespace TrainingTracker.BLL
         {
             return LearningPathDataAccessor.GetCourseWithSubtopics(courseId);
         }
-        public Course GetCourseWithAllData(int courseId)
+        public Course GetCourseWithAllData(int courseId, int userId = 0)
         {
-            return LearningPathDataAccessor.GetCourseWithAllData(courseId);
+            return LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
         }
         public List<SubtopicContent> GetSubtopicContents(int subtopicId)
         {
@@ -165,51 +163,9 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.PublishCourse(id);
         }
 
-        
-        public bool CopyFile(string fileName, string sourcePath, string targetPath)
+        public bool SaveSubtopicContentProgress(int subtopicContentId, int userId)
         {
-            if (!String.IsNullOrEmpty(fileName))
-            {
-                string strPath = AppDomain.CurrentDomain.BaseDirectory;
-
-                targetPath = strPath + targetPath;
-                sourcePath = strPath + sourcePath;
-
-                string targetFile =  targetPath + fileName;
-                string sourceFile = sourcePath + fileName;
-
-                if (!File.Exists(sourceFile))
-                {
-                    return File.Exists(targetFile);
-                }
-
-                if (!Directory.Exists(targetPath))
-                {
-                    Directory.CreateDirectory(targetPath);
-                }
-
-                File.Copy(sourceFile, targetFile, true);
-                return File.Exists(targetFile);
-                
-            }
-            return false;
-        }
-
-        public bool DeleteFile(string fileName, string filePath)
-        {
-            string strPath = AppDomain.CurrentDomain.BaseDirectory;
-            filePath = strPath + filePath;
-            string sourceFile = filePath + fileName;
-            try
-            {
-                File.Delete(sourceFile);
-            }
-            catch (Exception e)
-            {
-                LogUtility.ErrorRoutine(e);
-                return false;
-            }
-            return true;
+            return (subtopicContentId > 0 && userId > 0) ? LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId) : false;
         }
 
         /// <summary>

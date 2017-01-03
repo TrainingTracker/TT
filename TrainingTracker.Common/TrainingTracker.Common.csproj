@@ -47,6 +47,7 @@
     <Compile Include="Entity\Assignment.cs" />
     <Compile Include="Entity\Course.cs" />
     <Compile Include="Entity\CourseSubtopic.cs" />
+    <Compile Include="Entity\CourseTrackerDetails.cs" />
     <Compile Include="Entity\Feedback.cs" />
     <Compile Include="Entity\FeedbackPlot.cs" />
     <Compile Include="Entity\FeedbackType.cs" />

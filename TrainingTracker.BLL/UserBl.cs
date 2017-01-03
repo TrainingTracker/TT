@@ -100,7 +100,7 @@ namespace TrainingTracker.BLL
                 AllTrainer = currentUser.IsTrainee ? GetAllUsersByTeam(currentUser).Where(x => x.IsTrainer || x.IsManager).ToList() : new List<User>() ,
                 FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) :new TrainerFeedbackSynopsis(),
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId) : new List<Course>() 
+                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId) : new List<CourseTrackerDetails>() 
             };            
         }
 

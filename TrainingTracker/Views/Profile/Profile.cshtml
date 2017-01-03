@@ -4,9 +4,9 @@
 
 @section Styles
 {
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+   
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-@Styles.Render("~/bundles/ProfileViewStyles")
+    @Styles.Render("~/bundles/ProfileViewStyles")
 }
 
 <div class="container-fluid">
@@ -47,45 +47,45 @@
                                 <span class="header-Tab">CR</span>
                             </div>
                         </div>
-                        <div class="tab-wrap">
+                        <div class="tab-wrap rating-Exceptional">
                             <div>
-                                <span class="header-Tab">Exceptional</span>
-                                <span class="header-Tab">Exceptional</span>
+                                <span class="header-Tab rating-Exceptional">Exceptional</span>
+                                <span class="header-Tab rating-Exceptional">Exceptional</span>
                             </div>
-                            <div class="data-counter">
-                                <span data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())"></span>
+                            <div class="data-counter rating-Exceptional">
+                                <span class="rating-Exceptional" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-Exceptional" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
 
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab">Fast</span>
-                                <span class="header-Tab">Fast</span>
+                                <span class="header-Tab rating-Fast">Fast</span>
+                                <span class="header-Tab  rating-Fast">Fast</span>
                             </div>
                             <div class="data-counter">
-                                <span data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-Fast" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-Fast" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab">Average </span>
-                                <span class="header-Tab">Average</span>
+                                <span class="header-Tab rating-Average">Average </span>
+                                <span class="header-Tab rating-Average">Average</span>
                             </div>
                             <div class="data-counter">
-                                <span data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab">Slow</span>
-                                <span class="header-Tab">Slow</span>
+                                <span class="header-Tab rating-slow">Slow</span>
+                                <span class="header-Tab  rating-slow">Slow</span>
                             </div>
                             <div class="data-counter">
-                                <span data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentCodeReviewFeedback())"></span>
 
                             </div>
                         </div>
@@ -149,8 +149,9 @@
                     <div data-bind="foreach: userVm.AllAssignedCourses">
                         <div class="list-group-item collapse" data-bind="click:function(){ window.open(my.rootUrl + '/LearningPath/Course?courseId=' + Id,'_blank')}">
                             <span data-bind="text:Name"></span>
+                            <span class="pull-right" data-bind="text: PercentageCompleted"></span>
                             <span class="pull-right">
-                                <i class="fa fa-external-link custom-glyph"></i>
+                             Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
                             </span>
                         </div>
                     </div>
