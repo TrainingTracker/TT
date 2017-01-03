@@ -83,7 +83,7 @@ namespace TrainingTracker
 
             bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
                 "~/Scripts/ko.mapping.js",
-               "~/Scripts/ckeditor/ckeditor.js",
+             //  "~/Scripts/ckeditor/ckeditor.js",
                "~/Scripts/jquery-confirm.js",
                "~/Scripts/notify.js",
                "~/Scripts/jquery-ui.js",

@@ -6,8 +6,8 @@ p {
 
 
 .profile-img {
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 100px;
     display: block;
     margin: auto;
 }
@@ -24,6 +24,7 @@ p {
 .designation {
     text-align: center;
      color: #fff;
+         font-size: 12px;
 }
 
 .comment-div {
@@ -424,8 +425,8 @@ div#divReviewcollapasable .tab-wrap > div,div#divWeeklyReviewcollapasable .tab-w
           
 div#divReviewcollapasable .tab-wrap>div:nth-child(2) span::after,div#divWeeklyReviewcollapasable .tab-wrap div:nth-child(2) >span::after,div#divWeeklyReviewcollapasable .tab-wrap:nth-child(1)>div:nth-child(1)>span::after {
        /* height: 54px; */
-    width: 80%;
-    margin-left: 10%;
+    width: 60%;
+    margin-left: 20%;
     display: block;
     /* background-color: red; */
     content: "";
@@ -595,4 +596,51 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
     background-color: #2596F1;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
+}
+
+#divCoursescollapasable>div>div {
+    display: table;
+    width: 100%;
+        min-height: 35px;
+}
+
+#divCoursescollapasable>div>div:hover {
+    background-color: #2196f3 !important;
+    transition: all 0.25s ease;
+}
+
+#divCoursescollapasable>div>div:hover span:first-child {
+    color: blue !important;
+}
+
+
+
+#divCoursescollapasable>div>div span {
+    display: table-cell ;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+#divCoursescollapasable>div>div span:nth-child(3) {
+    display: none;
+}
+#divCoursescollapasable>div>div span:nth-child(2) {
+        font-family: 'Orbitron';
+    line-height: 1;
+    /*font-size: 14px;*/
+    display: table-cell;
+}
+
+#divCoursescollapasable>div>div span:nth-child(2):after {
+    content: "%";
+    font-size: 8px;
+}
+
+#divCoursescollapasable>div>div:hover span:nth-child(3) {
+    display: table-cell;
+    font-size: 8px;
+        margin-top: 5px;
+}
+#divCoursescollapasable>div>div:hover span:nth-child(2) {
+    display: none;
 }
