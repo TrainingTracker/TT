@@ -101,6 +101,9 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseUserMapping_Course" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CourseUserMapping_User" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentFeedbackMapping" Width="1.5" PointX="8.7479107178505089" PointY="3.2457696959589466" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

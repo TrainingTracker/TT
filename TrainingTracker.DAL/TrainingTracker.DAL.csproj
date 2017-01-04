@@ -75,6 +75,9 @@
     <Compile Include="EntityFramework\Assignment.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\AssignmentFeedbackMapping.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\AssignmentSubtopicMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -91,6 +94,9 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\CourseSubtopicDiscussion.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Feedback.cs">

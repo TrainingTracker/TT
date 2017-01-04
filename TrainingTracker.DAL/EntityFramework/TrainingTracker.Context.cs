@@ -67,5 +67,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
         public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
         public DbSet<CourseUserMapping> CourseUserMappings { get; set; }
+        public DbSet<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
     }
 }
