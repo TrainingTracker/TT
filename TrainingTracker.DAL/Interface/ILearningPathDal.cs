@@ -24,7 +24,7 @@ namespace TrainingTracker.DAL.Interface
         bool UpdateCourseSubtopic(CourseSubtopic subtopicToUpdate);
         bool UpdateSubtopicContent(SubtopicContent dataToUpdate);
         bool UpdateAssignment(Assignment dataToUpdate);
-        bool UpdateAssignmentProgress(Assignment data, int traineeId);
+        bool UpdateAssignmentProgress(Assignment data);
 
         bool DeleteCourse(int id);
         bool DeleteCourseSubtopic(int id);

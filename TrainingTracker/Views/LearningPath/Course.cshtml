@@ -60,7 +60,7 @@
                         <div class="panel-heading assignment-header">
                             <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                             &nbsp;
-                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: !my.isNullorEmpty(IsCompleted()), click:$root.saveProgress"></i>
+                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: TraineeId > 0, click:$root.updateAssignmentProgress"></i>
                             <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
                         <div class="panel-body">

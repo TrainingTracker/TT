@@ -118,11 +118,23 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
         }
 
-        public bool UpdateAssignmentProgress(Assignment data, int traineeId)
+        public bool UpdateAssignmentProgress(Assignment data, User currentUser)
         {
-            if (data != null && traineeId > 0)
+            if (data != null && data.TraineeId > 0)
             {
-                return LearningPathDataAccessor.UpdateAssignmentProgress(data, traineeId);
+                // trainee will not allowed to approve the completion of assignment.
+                if (data.IsApproved && currentUser.IsTrainee)
+                    return false;
+
+                if (data.TraineeId != currentUser.UserId)
+                    return false;
+
+                if (!currentUser.IsTrainee)
+                {
+                    data.ApprovedBy = currentUser.UserId;
+                }
+              
+                return LearningPathDataAccessor.UpdateAssignmentProgress(data);
             }
             return false;
         }

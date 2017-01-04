@@ -14,10 +14,11 @@ namespace TrainingTracker.Common.Entity
         public System.DateTime CreatedOn { get; set; }
         public string AssignmentAsset { get; set; }
         
-        public System.DateTime StartedOn { get; set; }
-        public System.DateTime? CompletedOn { get; set; }
+        public bool IsCompleted { get; set; }
+        public bool IsApproved { get; set; }
         public int ApprovedBy { get; set; }
         public int CourseSubtopicId { get; set; }
+        public int TraineeId { get; set; }
        // public int SubtopicId { get; set; }
     }
 }

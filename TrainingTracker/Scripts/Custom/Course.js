@@ -3,6 +3,7 @@
     my.courseVm = function () {
         var courseInfo = {
             CourseId: my.queryParams["courseId"],
+            TraineeId: my.queryParams["traineeId"],
             Course: ko.observable(),
             Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg",
         },
@@ -35,6 +36,9 @@
                     ko.utils.arrayForEach(subtopic.SubtopicContents, function (item) {
                         item.IsCompleted = ko.observable(item.IsCompleted);
                     });
+                    ko.utils.arrayForEach(subtopic.Assignments, function (item) {
+                        item.IsCompleted = ko.observable(item.IsCompleted);
+                    });
                 });
                 
                 my.courseVm.courseInfo.Icon = my.rootUrl + "/Uploads/CourseIcon/" + jsonData.Icon;
@@ -45,10 +49,17 @@
             }
         },
         getCourse = function () {
-            my.courseService.getCourseWithAllData(my.courseVm.courseInfo.CourseId, getCourseCallback);
+            if (my.courseVm.courseInfo.TraineeId == undefined) {
+                my.courseVm.courseInfo.TraineeId = null;
+            }
+            my.courseService.getCourseWithAllData(my.courseVm.courseInfo.CourseId, my.courseVm.courseInfo.TraineeId, getCourseCallback);
         },
 
         saveSubtopicContentProgressCallback = function (jsonData) {
+
+        },
+
+        updateAssignmentProgressCallback = function (jsonData) {
 
         },
 
@@ -60,12 +71,20 @@
             
         };
 
+        updateAssignmentProgress = function (data) {
+            if (!data.IsCompleted()) {
+                data.IsCompleted(true);
+                my.courseService.updateAssignmentProgress(data, updateAssignmentProgressCallback);
+            }
+        };
+
         return {
             courseInfo: courseInfo,
             getCourse: getCourse,
             selectedTopic: selectedTopic,
             showSelectedTopic: showSelectedTopic,
-            saveProgress: saveProgress
+            saveProgress: saveProgress,
+            updateAssignmentProgress: updateAssignmentProgress
         }
     }();
     my.courseVm.getCourse();

@@ -59,14 +59,15 @@ namespace TrainingTracker.Controllers
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
-        public JsonResult GetCourseWithAllData(int courseId)
+        public JsonResult GetCourseWithAllData(int courseId, int traineeId)
         {
             if(courseId > 0)
             {
                 User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-                if (currentUser != null && currentUser.IsTrainee && currentUser.UserId > 0)
+                int userId = 0;
+                if (currentUser != null && (currentUser.IsTrainee && (userId = currentUser.UserId) > 0) || (!currentUser.IsTrainee && (userId = traineeId) > 0))
                 {
-                    return Json(new LearningPathBL().GetCourseWithAllData(courseId, currentUser.UserId), JsonRequestBehavior.AllowGet);
+                    return Json(new LearningPathBL().GetCourseWithAllData(courseId, userId), JsonRequestBehavior.AllowGet);
                 }
                 return Json(new LearningPathBL().GetCourseWithAllData(courseId), JsonRequestBehavior.AllowGet);
             }
@@ -169,11 +170,11 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().GetAssignments(subtopicContentId), JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult UpdateAssignmentProgress(Assignment data)
-        //{
-        //    User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-        //    return Json(new LearningPathBL().UpdateAssignmentProgress(data, currentUser))            
-        //}
+        public JsonResult UpdateAssignmentProgress(Assignment data)
+        {
+            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
+            return Json(new LearningPathBL().UpdateAssignmentProgress(data, currentUser));         
+        }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult SaveSubtopicOrder(List<CourseSubtopic> data)
