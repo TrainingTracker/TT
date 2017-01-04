@@ -5,6 +5,7 @@
 
 .user-profile-img {
        width: 10vw !important;
+       margin: auto;
     height: 23vh !important;
 }
 

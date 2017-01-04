@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.DAL.DataAccess;
 
 namespace TrainingTracker.BLL
 {
@@ -18,10 +20,25 @@ namespace TrainingTracker.BLL
         public bool AddFeedback(Feedback feedback)
         {
             feedback.Project = feedback.Project ?? new Project();
-            feedback.Title = string.IsNullOrEmpty(feedback.Title) ? feedback.FeedbackType.Description : feedback.Title;
-          
-            if(feedback.FeedbackType.FeedbackTypeId == 2)
+           
+            if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Skill)
             {
+                if (!string.IsNullOrEmpty(feedback.Title))
+                {
+                    Skill newSkill = new Skill
+                    {
+                        Name = feedback.Title ,
+                        AddedBy = feedback.AddedBy.UserId ,
+                        AddedOn = DateTime.Now
+                    };
+
+                    newSkill.SkillId = SkillDataAccesor.AddNewSkillForId(newSkill);
+
+                    //Since new skill update the skill data
+                    feedback.Skill.SkillId = newSkill.SkillId;
+                    feedback.Skill.Name = feedback.Title;
+                }
+               
                 feedback.Title = feedback.Skill.Name;
                 feedback.Skill = new Skill
                 {
@@ -33,11 +50,14 @@ namespace TrainingTracker.BLL
                 feedback.Skill = new Skill();
             }
 
+
             // no way comment can have feedback rating
-            if (feedback.FeedbackType.FeedbackTypeId == 1)
+            if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Comment)
             {
                 feedback.Rating = 0;
             }
+
+            feedback.Title = string.IsNullOrEmpty(feedback.Title) ? feedback.FeedbackType.Description : feedback.Title;
 
             int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);
            

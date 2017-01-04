@@ -25,5 +25,13 @@ namespace TrainingTracker.DAL.Interface
 
         bool AddSkill(Skill skill);
         void AddUserSkillMapping(int skillId, int userId, int addedByUser);
+
+        /// <summary>
+        /// Method to Add new skill to fetch Id
+        /// </summary>
+        /// <param name="skill">Instances data for new skill to be added</param>
+        /// <exception >On exceptions rethrows the exception,need to handle in calling function</exception>
+        /// <returns>Skill Id</returns>
+        int AddNewSkillForId(Skill skill);
     }
 }

@@ -42,23 +42,30 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 var feedback = new EntityFramework.Feedback
                 {
-                    FeedbackText = feedbackData.FeedbackText.Trim(),
-                    Title = feedbackData.Title,
-                    FeedbackType = feedbackData.FeedbackType.FeedbackTypeId,
-                    ProjectId = feedbackData.Project.ProjectId,
-                    SkillId = feedbackData.Skill.SkillId,
-                    Rating = (short?)feedbackData.Rating,
-                    AddedBy = feedbackData.AddedBy.UserId,
-                    AddedFor = feedbackData.AddedFor.UserId,
-                    StartDate = feedbackData.StartDate,
-                    EndDate = feedbackData.EndDate,
+                    FeedbackText = feedbackData.FeedbackText.Trim() ,
+                    Title = feedbackData.Title ,
+                    FeedbackType = feedbackData.FeedbackType.FeedbackTypeId ,
+                    ProjectId = feedbackData.Project.ProjectId ,
+                    SkillId = feedbackData.Skill.SkillId ,
+                    Rating = (short?) feedbackData.Rating ,
+                    AddedBy = feedbackData.AddedBy.UserId ,
+                    AddedFor = feedbackData.AddedFor.UserId ,
+                    StartDate = feedbackData.StartDate ,
+                    EndDate = feedbackData.EndDate ,
                     AddedOn = feedbackData.AddedOn == DateTime.MinValue ? DateTime.Now : feedbackData.AddedOn
                 };
+              
                 using (var context = new TrainingTrackerEntities())
                 {
                     context.Feedbacks.Add(feedback);
                     context.SaveChanges();
-                    if (feedbackData.FeedbackType.FeedbackTypeId == 2) SkillDal.AddUserSkillMapping(feedbackData.Skill.SkillId, feedbackData.AddedFor.UserId, feedbackData.AddedBy.UserId);
+
+                    // Add new mapping for user and skill 
+                    if (feedbackData.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Skill)
+                    {
+                        SkillDal.AddUserSkillMapping(feedbackData.Skill.SkillId , feedbackData.AddedFor.UserId , feedbackData.AddedBy.UserId);
+                    }
+                        
                     return feedback.FeedbackId;
                 }
             }
