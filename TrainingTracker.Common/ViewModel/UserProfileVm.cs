@@ -66,6 +66,6 @@ namespace TrainingTracker.Common.ViewModel
         /// <summary>
         /// Gets And Sets All assigned Courses
         /// </summary>
-        public List<Course> AllAssignedCourses { get; set; }
+        public List<CourseTrackerDetails> AllAssignedCourses { get; set; }
     }
 }

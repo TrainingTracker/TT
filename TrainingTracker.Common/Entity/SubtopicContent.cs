@@ -13,6 +13,7 @@ namespace TrainingTracker.Common.Entity
         public int AddedBy { get; set; }
         public int SortOrder { get; set; }
         public bool IsActive { get; set; }
+        public bool? IsCompleted { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

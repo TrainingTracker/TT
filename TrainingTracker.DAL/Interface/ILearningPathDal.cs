@@ -34,9 +34,10 @@ namespace TrainingTracker.DAL.Interface
         List<Course> GetAllCourses();
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
         Course GetCourseWithSubtopics(int courseId);
-        Course GetCourseWithAllData(int courseId);
+        Course GetCourseWithAllData(int courseId, int userId = 0);
 
         bool SaveSubtopicOrder(List<CourseSubtopic> data);
+        bool SaveSubtopicContentProgress(int subtopicContentId, int userId);
         bool SaveSubtopicContentOrder(List<SubtopicContent> data);
         bool PublishCourse(int id);
 
@@ -45,7 +46,7 @@ namespace TrainingTracker.DAL.Interface
         /// </summary>
         /// <param name="traineeId">user id of the trainee</param>
         /// <returns>The implementing method should return the List of Courses for the trainee,or empty list.</returns>
-        List<Course> GetAllCoursesForTrainee(int traineeId);
+        List<CourseTrackerDetails> GetAllCoursesForTrainee( int traineeId );
 
 
         /// <summary>

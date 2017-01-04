@@ -8,6 +8,14 @@
 .affix {
     top:20px;
 }
+.fa-check-square-o, .fa-square-o{
+    font-size:18px;
+    font-weight:900;
+}
+.fa-square-o {
+    cursor:pointer;
+}
+
 .course-header-img {
     margin: auto;
     width: 100%;

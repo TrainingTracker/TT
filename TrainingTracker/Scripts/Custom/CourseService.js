@@ -90,6 +90,10 @@
 
         publishCourse: function (id, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/PublishCourse?id=" + id, null, callback);
+        },
+
+        saveSubtopicContentProgress: function (subtopicContentId, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/SaveSubtopicContentProgress?subtopicContentId=" + subtopicContentId, null, callback);
         }
 
     };
