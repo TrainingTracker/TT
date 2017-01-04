@@ -86,12 +86,15 @@
                                     <label class="col-lg-4"></label>
                                 </div>
                             </div>
+                        @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
+                        {
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label class="col-xs-12 col-md-4 ">Designation</label>
                                     <div class="col-md-8">
                                         <select data-bind="value: my.addUserVm.user.Designation, enable: ((my.meta.isAdministrator() || my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))"
                                                 class="form-control">
+                                            <option>Intern Software Engineer</option>
                                             <option>Sr. Software Engineer</option>
                                             <option>Associate Lead</option>
                                             <option>Delivery Manager</option>
@@ -101,6 +104,7 @@
                                     </div>
                                 </div>
                             </div>
+                        }
                         </div>
                         @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") )
                         {
