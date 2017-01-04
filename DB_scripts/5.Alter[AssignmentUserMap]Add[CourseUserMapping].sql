@@ -4,8 +4,7 @@ CREATE TABLE CourseUserMapping(
 	CourseId INT NOT NULL,
 	UserId INT NOT NULL,
 	StartedOn DATETIME NOT NULL,
-	CompletedOn DATETIME NULL,
-	Progress INT NOT NULL,
+	CompletedOn DATETIME NULL
     CONSTRAINT PK_CourseUserMapping PRIMARY KEY (Id),
 	CONSTRAINT FK_CourseUserMapping_Course FOREIGN KEY (CourseId)
 				REFERENCES Course(Id),

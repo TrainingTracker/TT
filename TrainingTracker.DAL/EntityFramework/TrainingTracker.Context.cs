@@ -27,7 +27,6 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
-        public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseSubtopic> CourseSubtopics { get; set; }
@@ -66,5 +65,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<UserSessionMapping> UserSessionMappings { get; set; }
         public DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
+        public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
+        public DbSet<CourseUserMapping> CourseUserMappings { get; set; }
     }
 }
