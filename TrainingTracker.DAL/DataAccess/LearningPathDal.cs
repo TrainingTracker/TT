@@ -628,7 +628,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    var entity = context.AssignmentUserMaps.Where(s => s.AssignmentId == data.Id && s.TraineeId == s.TraineeId).FirstOrDefault();
+                    var entity = context.AssignmentUserMaps.Where(s => s.AssignmentId == data.Id && s.TraineeId == data.TraineeId).FirstOrDefault();
                    
                     if (entity == null)
                     {

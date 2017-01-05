@@ -513,6 +513,15 @@
             my.profileVm.isCommentCollapsed(!my.profileVm.isCommentCollapsed());
         };
 
+        var navigateToCourse = function (courseId) {
+            if (my.profileVm.currentUser.UserId == my.profileVm.userVm.User.UserId) {
+                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId, '_blank')
+            }
+            else {
+                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId + '&traineeId=' + my.profileVm.userVm.User.UserId, '_blank')
+            }
+            
+        }
         return {
             userId: userId,
             getUserCallback: getUserCallback,
@@ -558,7 +567,8 @@
             wizardOnStepChanged: wizardOnStepChanged,
             wizardOnSubmit: wizardOnSubmit,
             loadFeedbackPreview: loadFeedbackPreview,
-            trainorSynopsis: trainorSynopsis
+            trainorSynopsis: trainorSynopsis,
+            navigateToCourse: navigateToCourse
                 
     };
     }();

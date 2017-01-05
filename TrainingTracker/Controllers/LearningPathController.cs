@@ -59,7 +59,7 @@ namespace TrainingTracker.Controllers
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
-        public JsonResult GetCourseWithAllData(int courseId, int traineeId)
+        public JsonResult GetCourseWithAllData(int courseId, int traineeId = 0)
         {
             if(courseId > 0)
             {

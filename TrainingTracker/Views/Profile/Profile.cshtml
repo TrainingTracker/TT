@@ -147,11 +147,11 @@
 
                 <div id="divCoursescollapasable" class="collapse in" data-bind="visible: userVm.User.IsTrainee && userVm.AllAssignedCourses.length > 0">
                     <div data-bind="foreach: userVm.AllAssignedCourses">
-                        <div class="list-group-item collapse" data-bind="click:function(){ window.open(my.rootUrl + '/LearningPath/Course?courseId=' + Id,'_blank')}">
+                        <div class="list-group-item collapse" data-bind="click: function(){ $root.navigateToCourse(Id); }">
                             <span data-bind="text:Name"></span>
                             <span class="pull-right" data-bind="text: PercentageCompleted"></span>
                             <span class="pull-right">
-                             Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
+                                Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
                             </span>
                         </div>
                     </div>

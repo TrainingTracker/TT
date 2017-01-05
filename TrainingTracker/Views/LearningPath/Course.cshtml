@@ -27,7 +27,7 @@
                             <span data-bind="text: Name"></span>
                             <ul class="links">
                                 <!-- ko foreach: SubtopicContents -->
-                                <li><span data-bind="text: Name"></span></li>
+                                <li><i data-bind="visible:IsCompleted()"class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
                                 <!-- /ko -->
                                 <li data-bind="visible: Assignments.length > 0">Assignment</li>
                             </ul>
@@ -48,7 +48,7 @@
                             <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
                                 <a data-bind="attr: { href: (my.isNullorEmpty(Url) || Url.toUpperCase().indexOf('HTTP') > -1) ? Url : ('http://' + Url) }" target="_blank"><i class="fa fa-external-link"> Browse Link</i></a>
                             </span>
-                            
+
                         </div>
                         <div class="panel-body">
                             <span data-bind="html: Description"></span>
@@ -61,11 +61,19 @@
                             <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                             &nbsp;
                             <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: TraineeId > 0, click:$root.updateAssignmentProgress"></i>
+                            &nbsp;
+                            <span class="label label-info" data-bind="visible: IsCompleted() && !IsApproved()">pending for approval</span>
+                            <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()">approved</span>
+                            <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0">reassigned</span>
                             <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
                         <div class="panel-body">
                             <span data-bind="html: Description"></span>
                             
+                        </div>
+                        <div class="panel-footer" data-bind="visible:!my.isNullorEmpty(my.courseVm.courseInfo.TraineeId) && !my.meta.currentUser.IsTrainee && IsCompleted() && !IsApproved()">
+                            <button class="btn btn-primary" data-bind="click:$root.reassignAssignment">Reassign</button>
+                            <button class="btn btn-success" data-bind="click:$root.approveAssignment">Approve</button>
                         </div>
                     </div>
                 </div>

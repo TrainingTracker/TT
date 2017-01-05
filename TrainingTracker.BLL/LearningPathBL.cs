@@ -123,10 +123,11 @@ namespace TrainingTracker.BLL
             if (data != null && data.TraineeId > 0)
             {
                 // trainee will not allowed to approve the completion of assignment.
-                if (data.IsApproved && currentUser.IsTrainee)
-                    return false;
+                //if (data.IsApproved && currentUser.IsTrainee)
+                //    return false;
 
-                if (data.TraineeId != currentUser.UserId)
+                // trainee will not allowed to approve the completion of assignment.
+                if ((currentUser.IsTrainee && data.TraineeId != currentUser.UserId && data.IsApproved) || (!currentUser.IsTrainee && data.IsCompleted && !data.IsApproved))
                     return false;
 
                 if (!currentUser.IsTrainee)

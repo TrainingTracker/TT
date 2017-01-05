@@ -38,6 +38,7 @@
                     });
                     ko.utils.arrayForEach(subtopic.Assignments, function (item) {
                         item.IsCompleted = ko.observable(item.IsCompleted);
+                        item.IsApproved = ko.observable(item.IsApproved);
                     });
                 });
                 
@@ -62,9 +63,8 @@
         updateAssignmentProgressCallback = function (jsonData) {
 
         },
-
         saveProgress = function (data) {
-            if (!data.IsCompleted()) {
+            if (!data.IsCompleted() && my.meta.currentUser.IsTrainee) {
                 data.IsCompleted(true);
                 my.courseService.saveSubtopicContentProgress(data.Id, saveSubtopicContentProgressCallback);
             }
@@ -72,8 +72,20 @@
         };
 
         updateAssignmentProgress = function (data) {
-            if (!data.IsCompleted()) {
+            if (!data.IsCompleted() && my.meta.currentUser.IsTrainee) {
                 data.IsCompleted(true);
+                my.courseService.updateAssignmentProgress(data, updateAssignmentProgressCallback);
+            }
+        };
+        reassignAssignment = function (data) {
+            if (!data.IsApproved()) {
+                data.IsCompleted(false);
+                my.courseService.updateAssignmentProgress(data, updateAssignmentProgressCallback);
+            }
+        };
+        approveAssignment = function (data) {
+            if (data.IsCompleted() && !data.IsApproved()) {
+                data.IsApproved(true);
                 my.courseService.updateAssignmentProgress(data, updateAssignmentProgressCallback);
             }
         };
@@ -84,7 +96,9 @@
             selectedTopic: selectedTopic,
             showSelectedTopic: showSelectedTopic,
             saveProgress: saveProgress,
-            updateAssignmentProgress: updateAssignmentProgress
+            updateAssignmentProgress: updateAssignmentProgress,
+            reassignAssignment: reassignAssignment,
+            approveAssignment: approveAssignment
         }
     }();
     my.courseVm.getCourse();
