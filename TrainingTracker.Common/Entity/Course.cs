@@ -20,6 +20,7 @@ namespace TrainingTracker.Common.Entity
         public DateTime CreatedOn { get; set; }
 
         public string AuthorName { get; set; }
+        public string AuthorMailId { get; set; }
         public List<CourseSubtopic> CourseSubtopics { get; set; }
     }
 }

@@ -16,8 +16,10 @@
                 <h2 data-bind="text: courseInfo.Course.Name"></h2>
                 <h4>
                     <b>
-                        Author : <a target="_blank" data-bind="text : courseInfo.Course.AuthorName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + courseInfo.Course.AddedBy }, click: function(){ return true;}, clickBubble:false "></a>
+                        Author : <span data-bind="text : courseInfo.Course.AuthorName "></span>
                     </b>
+                    <span data-bind="text : '(' + courseInfo.Course.AuthorMailId + ')'"></span>
+                    
                 </h4>
                 
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>

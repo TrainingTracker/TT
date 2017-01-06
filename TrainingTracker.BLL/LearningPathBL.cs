@@ -144,7 +144,9 @@ namespace TrainingTracker.BLL
             var courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
             if(courseDetails != null)
             {
-                courseDetails.AuthorName = UserDataAccesor.GetUserById(courseDetails.AddedBy).FirstName;
+                User userData = UserDataAccesor.GetUserById(courseDetails.AddedBy);
+                courseDetails.AuthorName = userData.FirstName;
+                courseDetails.AuthorMailId = userData.Email;
             }
             return courseDetails;
         }
