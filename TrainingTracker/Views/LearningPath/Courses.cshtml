@@ -15,7 +15,7 @@
         </div>
         <div id="divSearch" class="input-group col-xs-6 col-xs-offset-3 " >
             <input data-bind="textInput: my.allCoursesVm.searchKeyword" type="text" class="form-control" placeholder="QBasic, Fortran, C.."/>
-            <span class="input-group-addon" data-bind="click: my.allCoursesVm.loadCourses">
+            <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
             </span>        
         </div>
@@ -48,7 +48,13 @@
                         </span>
                         <span class="box-second-row" data-bind="click: function () { window.location.href = my.rootUrl + '/LearningPath/Course?courseId='+ Id }">                      
                             <span class="title" data-bind="text: Name"></span>   
-                            <span class="title description" data-bind="html: Description"></span>   
+                            <span class="title description">
+                                <b>Author : </b>
+                                <span data-bind="text : AuthorName "></span>
+                                <span data-bind="text : '(' + AuthorMailId + ')'"></span>
+                            </span>
+                            
+                            @*<span class="title description" data-bind="html : Description"></span>*@   
                             <input type="button" data-bind="" value="Get Started"/>
                         </span>               
                     </div>
