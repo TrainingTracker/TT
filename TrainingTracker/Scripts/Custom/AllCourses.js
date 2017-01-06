@@ -6,7 +6,7 @@
 
         var loadCourses = function() {
 			
-            my.courseService.filterCourses(searchKeyword(), loadCoursesCallback);
+            my.courseService.getAllCourses(loadCoursesCallback);
         };
 
         var loadCoursesCallback = function (courses)
