@@ -15,6 +15,20 @@ namespace TrainingTracker.Controllers
     [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
     public class LearningMapController : Controller
     {
+
+        User CurrentUser
+        {
+            get
+            {
+                if (Session["currentUser"] == null)
+                {
+                    Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
+                }
+
+                return (User)Session["currentUser"];
+            }
+        }
+
         public ViewResult LearningMap()
         {
             return View();
@@ -35,23 +49,20 @@ namespace TrainingTracker.Controllers
 
         public JsonResult GetAllLearningMaps()
         {
-            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-            return Json(new LearningMapBL().GetAllLearningMaps((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
+            return Json(new LearningMapBL().GetAllLearningMaps((int)CurrentUser.TeamId), JsonRequestBehavior.AllowGet);
         }
 
 
         public JsonResult GetAllTrainees()
         {
-            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-            return Json(new UserBl().GetAllTrainees((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetAllTrainees((int)CurrentUser.TeamId), JsonRequestBehavior.AllowGet);
         }
 
 
         public JsonResult AddLearningMap(LearningMap data)
         {
-            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-            data.TeamId = (int)currentUser.TeamId;
-            data.CreatedBy = currentUser.UserId;
+            data.TeamId = (int)CurrentUser.TeamId;
+            data.CreatedBy = CurrentUser.UserId;
 
             return Json(new LearningMapBL().AddLearningMap(data), JsonRequestBehavior.AllowGet);
         }
