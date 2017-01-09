@@ -220,12 +220,16 @@ namespace TrainingTracker.DAL.DataAccess
                                                                 .ForEach(
                                                                         x => {
                                                                                 x.IsDeleted = true;
-                                                                                var course = data.Courses.Where( y=> y.Id == x.CourseId)
-                                                                                                         .FirstOrDefault();
-                                                                                if (course != null)
+
+                                                                                if (data.Courses != null)
                                                                                 {
-                                                                                    x.IsDeleted = false;
-                                                                                    data.Courses.Remove(course);
+                                                                                    var course = data.Courses.Where(y => y.Id == x.CourseId)
+                                                                                                             .FirstOrDefault();
+                                                                                    if (course != null)
+                                                                                    {
+                                                                                        x.IsDeleted = false;
+                                                                                        data.Courses.Remove(course);
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         );
@@ -244,25 +248,25 @@ namespace TrainingTracker.DAL.DataAccess
                     }
               
 
-                    // remove the trainees(data.Trainee) which is already assigned for the current learning map
-                    learningMapEntity.LearningMapUserMappings.Where(x => x.LearningMapId == data.Id)
-                                                               .ToList()
-                                                               .ForEach(
-                                                                       x =>
-                                                                       {
-                                                                           var trainee = data.Trainees.Where(y => y.UserId == x.UserId)
-                                                                                                    .FirstOrDefault();
-                                                                           if (trainee != null)
-                                                                           {
-                                                                               data.Trainees.Remove(trainee);
-                                                                           }
-                                                                       }
-                                                                       );
-
-
+                  
                     // Trainees can only be added
                     if(data.Trainees != null)
                     {
+                        // remove the trainees(data.Trainee) which is already assigned for the current learning map
+                        learningMapEntity.LearningMapUserMappings.Where(x => x.LearningMapId == data.Id)
+                                                                   .ToList()
+                                                                   .ForEach(
+                                                                           x =>
+                                                                           {
+                                                                               var trainee = data.Trainees.Where(y => y.UserId == x.UserId)
+                                                                                                        .FirstOrDefault();
+                                                                               if (trainee != null)
+                                                                               {
+                                                                                   data.Trainees.Remove(trainee);
+                                                                               }
+                                                                           }
+                                                                           );
+
                         var newTraineesMapping = data.Trainees.Select(x => new LearningMapUserMapping
                                                    {
                                                        LearningMapId = data.Id,
