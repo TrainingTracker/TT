@@ -14,6 +14,14 @@
             </div>
             <div class="col-md-8 course-header-info">
                 <h2 data-bind="text: courseInfo.Course.Name"></h2>
+                <h4>
+                    <b>
+                        Author : <span data-bind="text : courseInfo.Course.AuthorName "></span>
+                    </b>
+                    <span data-bind="text : '(' + courseInfo.Course.AuthorMailId + ')'"></span>
+                    
+                </h4>
+                
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>

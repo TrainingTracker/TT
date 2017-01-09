@@ -19,6 +19,8 @@ namespace TrainingTracker.Common.Entity
         public int SortOrder { get; set; }
         public DateTime CreatedOn { get; set; }
 
+        public string AuthorName { get; set; }
+        public string AuthorMailId { get; set; }
         public List<CourseSubtopic> CourseSubtopics { get; set; }
     }
 }

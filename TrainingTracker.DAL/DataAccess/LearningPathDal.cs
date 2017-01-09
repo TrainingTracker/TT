@@ -257,7 +257,8 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using(var context = new TrainingTrackerEntities())
                 {
-                    return context.Courses.Where(c => c.IsActive)
+                    var userDal = new UserDal();
+                     return context.Courses.Where(c => c.IsActive)
                                           .AsEnumerable()
                                           .Select(c => new Course
                                                        {
@@ -267,10 +268,12 @@ namespace TrainingTracker.DAL.DataAccess
                                                            Description = c.Description,
                                                            AddedBy = c.AddedBy,
                                                            CreatedOn = c.CreatedOn,
-                                                           Duration = c.Duration
+                                                           Duration = c.Duration,
+                                                           AuthorName = userDal.GetUserById(c.AddedBy).FirstName,
+                                                           AuthorMailId = userDal.GetUserById(c.AddedBy).Email
 
                                                        }).ToList();
-
+                     
                 }
             }
             catch(Exception ex)

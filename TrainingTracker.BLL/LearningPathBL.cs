@@ -132,11 +132,23 @@ namespace TrainingTracker.BLL
 
         public Course GetCourseWithSubtopics(int courseId)
         {
-            return LearningPathDataAccessor.GetCourseWithSubtopics(courseId);
+            var courseDetails = LearningPathDataAccessor.GetCourseWithSubtopics(courseId);
+            if (courseDetails != null)
+            {
+                courseDetails.AuthorName = UserDataAccesor.GetUserById(courseDetails.AddedBy).FirstName;
+            }
+            return courseDetails;
         }
         public Course GetCourseWithAllData(int courseId, int userId = 0)
         {
-            return LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
+            var courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
+            if(courseDetails != null)
+            {
+                User userData = UserDataAccesor.GetUserById(courseDetails.AddedBy);
+                courseDetails.AuthorName = userData.FirstName;
+                courseDetails.AuthorMailId = userData.Email;
+            }
+            return courseDetails;
         }
         public List<SubtopicContent> GetSubtopicContents(int subtopicId)
         {

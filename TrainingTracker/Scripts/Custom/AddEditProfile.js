@@ -271,5 +271,16 @@
         else {
             my.addUserVm.uploadImage();
         }
-    });    
+    });
+
+    my.addUserVm.user.Designation.subscribe(function ()
+    {
+        if (my.addUserVm.user.Designation() == 'HR/Admin')
+        {
+            my.addUserVm.user.TeamId(null);
+        } else
+        {
+            my.addUserVm.user.TeamId(my.meta.currentUser.TeamId);
+        }
+    });
 });

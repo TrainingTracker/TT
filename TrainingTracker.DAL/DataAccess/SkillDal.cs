@@ -126,5 +126,35 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
+        /// <summary>
+        /// Method to Add new skill to fetch Id
+        /// </summary>
+        /// <param name="skill">Instances data for new skill to be added</param>
+        /// <exception >On exceptions rethrows the exception,need to handle in calling function</exception>
+        /// <returns>Skill Id</returns>
+        public int AddNewSkillForId(Skill skill)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    EntityFramework.Skill newSkill = new EntityFramework.Skill
+                    {
+                        Name = skill.Name ,
+                        AddedBy = skill.AddedBy ,
+                        AddedOn = DateTime.Now
+                    };
+                    context.Skills.Add(newSkill);
+                    context.SaveChanges();
+                    return newSkill.SkillId;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                throw ex;
+            }
+        }
+
     }
 }
