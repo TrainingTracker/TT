@@ -230,6 +230,7 @@
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
+    <Compile Include="ModelMapper\ModelMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +265,7 @@
       <LastGenOutput>TrainingTracker.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
