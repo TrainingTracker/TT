@@ -20,6 +20,15 @@ namespace TrainingTracker.DAL.DataAccess
     /// </summary>
     public class LearningPathDal : ILearningPathDal
     {
+        ModelMapper.ModelMapper _modelMapperObject;
+        ModelMapper.ModelMapper ModelMapper 
+        {
+            get 
+            {
+                return _modelMapperObject ?? (_modelMapperObject = new ModelMapper.ModelMapper());
+            }
+        }
+
         /// <summary>
         /// Add Course
         /// </summary>
@@ -31,7 +40,9 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    EntityFramework.Course newCourseEntity = new EntityFramework.Course 
+
+                    EntityFramework.Course newCourseEntity = ModelMapper.MapToCourseModel(courseToAdd);
+                    EntityFramework.Course newCourseEntity1 = new EntityFramework.Course 
                                                              { 
                                                                  Name = courseToAdd.Name,
                                                                  Description = courseToAdd.Description,
@@ -41,6 +52,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                                  CreatedOn = courseToAdd.CreatedOn,
                                                                  Duration = courseToAdd.Duration
                                                              };
+
                     context.Courses.Add(newCourseEntity);
                     context.SaveChanges();
                     return newCourseEntity.Id;
@@ -144,7 +156,22 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                     return context.Courses
+                    var courseWithSubtopics = context.Courses
+                                   .Where(c => c.IsActive && c.Id == courseId)
+                                   .AsEnumerable()
+                                   .Select(c =>
+                                   {
+                                       var course = ModelMapper.MapFromCourseModel(c);
+                                       course.CourseSubtopics = c.CourseSubtopics
+                                                           .Where(s => s.IsActive)
+                                                           .Select(s => ModelMapper.MapFromCourseSubtopic(s))
+                                                           .OrderBy(x => x.SortOrder)
+                                                           .ToList();
+                                       return course;
+                                   })
+                                    .FirstOrDefault();
+
+                     var courseWithSubtopics1 = context.Courses
                                    .Where(c => c.IsActive && c.Id == courseId)
                                    .AsEnumerable()
                                    .Select(c => new Course
@@ -175,6 +202,8 @@ namespace TrainingTracker.DAL.DataAccess
 
                                                 })
                                     .FirstOrDefault();
+
+                     return courseWithSubtopics;
                                    
                 }
             }
@@ -257,22 +286,19 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using(var context = new TrainingTrackerEntities())
                 {
-                    var userDal = new UserDal();
-                     return context.Courses.Where(c => c.IsActive)
-                                          .AsEnumerable()
-                                          .Select(c => new Course
-                                                       {
-                                                           Id = c.Id,
-                                                           Name = c.Name,
-                                                           Icon = c.Icon,
-                                                           Description = c.Description,
-                                                           AddedBy = c.AddedBy,
-                                                           CreatedOn = c.CreatedOn,
-                                                           Duration = c.Duration,
-                                                           AuthorName = userDal.GetUserById(c.AddedBy).FirstName,
-                                                           AuthorMailId = userDal.GetUserById(c.AddedBy).Email
 
-                                                       }).ToList();
+                    var userDal = new UserDal();
+                    var course = context.Courses.Where(c => c.IsActive)
+                                         .AsEnumerable()
+                                         .Select(c =>
+                                            {
+                                                var courseModel = ModelMapper.MapFromCourseModel(c);
+                                                courseModel.AuthorName = userDal.GetUserById(c.AddedBy).FirstName;
+                                                courseModel.AuthorMailId = userDal.GetUserById(c.AddedBy).Email;
+                                                return courseModel;
+                                            }
+                                         ).ToList();
+                     return course;
                      
                 }
             }

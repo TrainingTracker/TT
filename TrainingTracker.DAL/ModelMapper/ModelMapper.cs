@@ -12,7 +12,7 @@ using TrainingTracker.DAL.EntityFramework;
 namespace TrainingTracker.DAL.ModelMapper
 {
     /// <summary>
-    /// This class contains all the mapper methods which maps the EF generated model to the custom model(Common Entity classes)
+    /// This class contains all the mapper methods which maps the EF generated model to the custom model(Common Entity classes) and vice versa
     /// </summary>
     public class ModelMapper
     {
