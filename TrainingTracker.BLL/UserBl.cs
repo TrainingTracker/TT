@@ -212,5 +212,16 @@ namespace TrainingTracker.BLL
                 AllUser = GetAllUsersByTeam(currentUser)
             };
         }
+
+
+        /// <summary>
+        ///  Get List of all trainees which belongs to given teamId
+        /// </summary>
+        /// <param name="teamId">teamId </param>
+        /// <returns>List of trainees if exists otherwise null</returns>
+        public List<User> GetAllTrainees(int teamId)
+        {
+            return (UserDataAccesor.GetAllTrainees(teamId));
+        }
     }
 }

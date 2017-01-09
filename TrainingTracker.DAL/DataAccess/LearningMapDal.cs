@@ -129,46 +129,7 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-        /// <summary>
-        /// Get all the Trainees List belong to a specified team.
-        /// </summary>
-        /// <param name="teamId">teamId which is used to fetch the Trainees data of that team only.</param>
-        /// <returns>List of User object if successfully fetches some data and returns null if no data is present or some exception occurs. </returns>
-        public List<User> GetAllTrainees(int teamId) 
-        {
-            try
-            {
-                using (var context = new TrainingTrackerEntities())
-                {
-                    return context.Users.Where(l => l.IsActive == true && l.TeamId == teamId && l.IsTrainee == true)
-                        .Select(x => new User
-                        {
-                            UserId = x.UserId,
-                            FirstName = x.FirstName,
-                            LastName = x.LastName,
-                            FullName = x.FirstName + " " + x.LastName,
-                            UserName = x.UserName,
-                            Email = x.Email,
-                            Designation = x.Designation,
-                            ProfilePictureName = x.ProfilePictureName,
-                            IsFemale = x.IsFemale ?? false,
-                            IsAdministrator = x.IsAdministrator ?? false,
-                            IsTrainer = x.IsTrainer ?? false,
-                            IsTrainee = x.IsTrainee ?? false,
-                            IsManager = x.IsManager ?? false,
-                            IsActive = x.IsActive ?? false,
-                            DateAddedToSystem = x.DateAddedToSystem,
-                            TeamId = x.TeamId
-                        })
-                        .ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogUtility.ErrorRoutine(ex);
-                return null;
-            }
-        }
+       
 
         /// <summary>
         /// Add Learning Map data along with the mapping details of all courses and trainees included in the Learning Map(if any).
@@ -228,17 +189,6 @@ namespace TrainingTracker.DAL.DataAccess
 
         }
 
-
-        //void AddTraineesInLearningMap(List<User> traineeList, TrainingTrackerEntities context)
-        //{
-        //    traineeList.ForEach(x => context.LearningMapUserMappings
-        //                                    .Add(new LearningMapUserMapping
-        //                                            {
-        //                                                UserId = x.UserId,
-        //                                                DateInserted = DateTime.Now
-        //                                            }
-        //                                        ));
-        //}
 
         /// <summary>
         /// Updates Learning Map data along with the mapping details of all courses included in the Learning Map(if any) and 
@@ -331,19 +281,6 @@ namespace TrainingTracker.DAL.DataAccess
                 return false;
             }
         }
-
-        //void UpdateCoursesOfLearningMap(List<Course> courseList, int learningMapId, TrainingTrackerEntities context)
-        //{
-
-        //    courseList.ForEach(x => context.LearningMapCourseMappings
-        //                                    .Add(new LearningMapCourseMapping
-        //                                    {
-        //                                        CourseId = x.Id,
-        //                                        SortOrder = x.SortOrder,
-        //                                        IsDeleted = !x.IsActive,
-        //                                    }
-        //                                ));
-        //}
 
     }
 }

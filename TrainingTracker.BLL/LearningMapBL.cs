@@ -28,12 +28,6 @@ namespace TrainingTracker.BLL
         }
 
 
-        public List<User> GetAllTrainees(int teamId)
-        {
-            return (LearningMapDataAccessor.GetAllTrainees(teamId));
-        }
-
-
         public int AddLearningMap(LearningMap data)
         {
             int duration = 0;

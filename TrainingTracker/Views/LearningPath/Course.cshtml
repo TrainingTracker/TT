@@ -80,6 +80,7 @@
                             
                         </div>
                         <div class="panel-footer" data-bind="visible:!my.isNullorEmpty(my.courseVm.courseInfo.TraineeId) && !my.meta.currentUser.IsTrainee && IsCompleted() && !IsApproved()">
+                            
                             <button class="btn btn-primary" data-bind="click:$root.reassignAssignment">Reassign</button>
                             <button class="btn btn-success" data-bind="click:$root.approveAssignment">Approve</button>
                         </div>

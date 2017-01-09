@@ -43,7 +43,7 @@ namespace TrainingTracker.Controllers
         public JsonResult GetAllTrainees()
         {
             User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-            return Json(new LearningMapBL().GetAllTrainees((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetAllTrainees((int)currentUser.TeamId), JsonRequestBehavior.AllowGet);
         }
 
 
