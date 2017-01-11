@@ -64,13 +64,13 @@ namespace TrainingTracker.Controllers
             data.TeamId = (int)CurrentUser.TeamId;
             data.CreatedBy = CurrentUser.UserId;
 
-            return Json(new LearningMapBL().AddLearningMap(data), JsonRequestBehavior.AllowGet);
+            return Json(new LearningMapBL().AddLearningMap(data , CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
 
         public JsonResult UpdateLearningMap(LearningMap data)
         {
-            return Json(new LearningMapBL().UpdateLearningMap(data), JsonRequestBehavior.AllowGet);
+            return Json(new LearningMapBL().UpdateLearningMap(data , CurrentUser) , JsonRequestBehavior.AllowGet);
         }
        
 

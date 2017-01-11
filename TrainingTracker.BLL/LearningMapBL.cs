@@ -28,7 +28,7 @@ namespace TrainingTracker.BLL
         }
 
 
-        public int AddLearningMap(LearningMap data)
+        public int AddLearningMap(LearningMap data , User currentUser)
         {
             int duration = 0;
             if (data.Courses == null || (duration = data.Courses.Sum(x => x.Duration)) != data.Duration)
@@ -36,12 +36,18 @@ namespace TrainingTracker.BLL
                 // duration will be 0 if data.Courses is null else sum of duration of all courses
                 data.Duration = duration;
             }
-            
-            return (LearningMapDataAccessor.AddLearningMap(data));
+
+            int learningMapId = (LearningMapDataAccessor.AddLearningMap(data)) ;
+
+            if (learningMapId > 0)
+            {
+                new NotificationBl().AddNewCourseNotification(data.Trainees.ToList(), currentUser.UserId);
+            }
+            return learningMapId;
         }
 
 
-        public bool UpdateLearningMap(LearningMap data)
+        public bool UpdateLearningMap( LearningMap data , User currentUser )
         {
             int duration = 0;
             if (data.Courses == null || (duration = data.Courses.Sum(x => x.Duration)) != data.Duration)
@@ -55,12 +61,7 @@ namespace TrainingTracker.BLL
 
         public bool DeleteLearningMap(int id)
         {
-            if (id > 0 )
-            {
-                return LearningMapDataAccessor.DeleteLearningMap(id);
-            }
-            return false;
+            return id > 0 && LearningMapDataAccessor.DeleteLearningMap(id);
         }
-
     }
 }
