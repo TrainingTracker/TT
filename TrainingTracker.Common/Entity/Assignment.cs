@@ -19,6 +19,8 @@ namespace TrainingTracker.Common.Entity
         public int ApprovedBy { get; set; }
         public int CourseSubtopicId { get; set; }
         public int TraineeId { get; set; }
+
+        public List<Feedback> Feedback { get; set; }
        // public int SubtopicId { get; set; }
     }
 }

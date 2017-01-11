@@ -43,11 +43,13 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public ActionResult Course(int courseId)
         {
             return View();
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
@@ -58,6 +60,7 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().AddCourse(courseToAdd), JsonRequestBehavior.AllowGet);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
         public JsonResult UpdateCourse(Course courseToUpdate)
@@ -66,11 +69,13 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().UpdateCourse(courseToUpdate));
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public JsonResult GetCourseWithSubtopics(int courseId)
         {
             return courseId > 0 ? Json(new LearningPathBL().GetCourseWithSubtopics(courseId), JsonRequestBehavior.AllowGet) : null;
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public JsonResult GetCourseWithAllData(int courseId, int traineeId = 0)
@@ -87,11 +92,13 @@ namespace TrainingTracker.Controllers
             return null;
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult GetAllCourses()
         {
             return Json(new LearningPathBL().GetAllCourses(), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
@@ -102,12 +109,14 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().AddCourseSubtopic(subtopicToAdd), JsonRequestBehavior.AllowGet);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
         public JsonResult UpdateCourseSubtopic(CourseSubtopic subtopicToUpdate)
         {
             return Json(new LearningPathBL().UpdateCourseSubtopic(subtopicToUpdate));
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult DeleteCourse(int id)
@@ -116,17 +125,20 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().DeleteCourse(id), JsonRequestBehavior.AllowGet);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult DeleteCourseSubtopic(int id)
         {
             return Json(new LearningPathBL().DeleteCourseSubtopic(id), JsonRequestBehavior.AllowGet);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult GetSubtopicContents(int subtopicId)
         {
             return Json(new LearningPathBL().GetSubtopicContents(subtopicId), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
@@ -138,6 +150,7 @@ namespace TrainingTracker.Controllers
             return Json(id);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
         public JsonResult UpdateSubtopicContent(SubtopicContent dataToUpdate)
@@ -145,11 +158,13 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().UpdateSubtopicContent(dataToUpdate));
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult DeleteSubtopicContent(int id)
         {
             return Json(new LearningPathBL().DeleteSubtopicContent(id), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
@@ -161,6 +176,7 @@ namespace TrainingTracker.Controllers
             return Json(id);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         [HttpPost]
         public JsonResult UpdateAssignment(Assignment dataToUpdate)
@@ -168,11 +184,13 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().UpdateAssignment(dataToUpdate));
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult DeleteAssignment(int id)
         {
             return Json(new LearningPathBL().DeleteAssignment(id), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult GetAssignments(int subtopicContentId)
@@ -180,10 +198,13 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().GetAssignments(subtopicContentId), JsonRequestBehavior.AllowGet);
         }
 
+
+        
         public JsonResult UpdateAssignmentProgress(Assignment data)
         {
-            return Json(new LearningPathBL().UpdateAssignmentProgress(data, CurrentUser));         
+            return data != null ? Json(new LearningPathBL().UpdateAssignmentProgress(data, CurrentUser)) : null;         
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult SaveSubtopicOrder(List<CourseSubtopic> data)
@@ -192,12 +213,14 @@ namespace TrainingTracker.Controllers
             return Json(new LearningPathBL().SaveSubtopicOrder(data), JsonRequestBehavior.AllowGet);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult SaveSubtopicContentOrder(List<SubtopicContent> data)
         {
 
             return Json(new LearningPathBL().SaveSubtopicContentOrder(data), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public JsonResult PublishCourse(int id)
@@ -215,6 +238,7 @@ namespace TrainingTracker.Controllers
         {
             return Json(new LearningPathBL().FilterCourses(searchKeyword), JsonRequestBehavior.AllowGet);
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         [HttpPost]
@@ -250,6 +274,7 @@ namespace TrainingTracker.Controllers
             return Json(strFileName);
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         [HttpPost]
         public JsonResult UploadFile()
@@ -257,12 +282,14 @@ namespace TrainingTracker.Controllers
             return Json(UtilityFunctions.UploadFile(Request.Files));
         }
 
+
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public FileResult DownloadAssignment(string fileName)
         {
             var FileVirtualPath = LearningAssetsPath.AppRootToAssignment + fileName;
             return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
+
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public JsonResult SaveSubtopicContentProgress(int subtopicContentId)

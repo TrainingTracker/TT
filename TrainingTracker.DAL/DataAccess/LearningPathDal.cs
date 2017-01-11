@@ -602,23 +602,8 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    //var entity =
-                    //     context.Assignments
-                    //    .Join(context.AssignmentSubtopicMaps
-                    //    .Where(x => x.SubtopicId == subtopicId), a => a.Id, s => s.AssignmentId, (a, s) =>
-                    //        new Assignment
-                    //        {
-                    //            Name = a.Name,
-                    //            Description = a.Description,
-                    //            Id = a.Id,
-                    //            AddedBy = a.AddedBy,
-                    //            CreatedOn = a.CreatedOn,
-                    //            IsActive = a.IsActive,
-                    //            CourseSubtopicId = s.SubtopicId,
-                    //            AssignmentAsset = a.AssignmentAsset
-                    //        }).ToList().Where(x => x.IsActive).ToList();
-
-                    return context.AssignmentSubtopicMaps
+                    
+                    var assignments = context.AssignmentSubtopicMaps
                              .Where(s => s.SubtopicId == subtopicId)
                              .Select(a => new { assignmentData = a.Assignment, traineeData = a.Assignment.AssignmentUserMaps.Where(s => s.TraineeId == traineeId && s.AssignmentId == a.Assignment.Id) })
                              .Where(a => a.assignmentData.IsActive)
@@ -635,12 +620,33 @@ namespace TrainingTracker.DAL.DataAccess
                                  TraineeId = (int)traineeId,
                                  IsCompleted = a.traineeData.Select(b => b.IsCompleted).FirstOrDefault(),
                                  IsApproved = a.traineeData.Select(b => b.IsApproved).FirstOrDefault(),
-                                 ApprovedBy = (int)a.traineeData.Select(b => b.ApprovedBy).FirstOrDefault()
+                                 ApprovedBy = (int)a.traineeData.Select(b => b.ApprovedBy).FirstOrDefault(),
+                                 Feedback = a.assignmentData.AssignmentFeedbackMappings
+                                                            .Where(x => x.AssignmentId == a.assignmentData.Id)
+                                                            .Select(x => x.Feedback).Where( x => x.AddedFor == traineeId)
+                                                            .Select(f => new Common.Entity.Feedback {
+                                                                FeedbackId = f.FeedbackId,
+                                                                FeedbackText = f.FeedbackText,
+                                                                Title = f.Title,
+                                                                FeedbackType = new Common.Entity.FeedbackType
+                                                                {
+                                                                    FeedbackTypeId = f.FeedbackType1.FeedbackTypeId,
+                                                                    Description = f.FeedbackType1.Description,
+                                                                },
+                                                                Rating = f.Rating == null ? 0 : (int)f.Rating,
+                                                                AddedOn = (DateTime)f.AddedOn,
+                                                                AddedBy = new Common.Entity.User
+                                                                {
+                                                                    UserId = f.User.UserId,
+                                                                    FullName = f.User.FirstName + " " + f.User.LastName,
+                                                                    ProfilePictureName = f.User.ProfilePictureName,
+                                                                }
+                                                            }).OrderByDescending(f => f.FeedbackId).ToList()
 
                              })
                              .ToList();
                     
-                   // return entity;
+                    return assignments;
                 }
             }
             catch (Exception ex)

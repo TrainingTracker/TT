@@ -364,5 +364,35 @@ namespace TrainingTracker.DAL.DataAccess
                 return null;
             }
         }
+
+
+        /// <summary>
+        /// Add mapping data for the Assignment and Feedback in AssignmentFeedbackMapping table
+        /// </summary>
+        /// <param name="feedbackId">Id of the added feedback</param>
+        /// <param name="assignmentId">Id of the assignment for which feedback is added</param>
+        /// <returns> true if successfully adds the mapping data otherwise false</returns>
+        public bool AddFeedbackAssignmentMapping(int feedbackId, int assignmentId)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var newMappingEntity = new EntityFramework.AssignmentFeedbackMapping
+                                            {
+                                                AssignmentId = assignmentId,
+                                                FeedbackId = feedbackId
+                                            };
+                    context.AssignmentFeedbackMappings.Add(newMappingEntity);
+                    return context.SaveChanges() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
+
     }
 }

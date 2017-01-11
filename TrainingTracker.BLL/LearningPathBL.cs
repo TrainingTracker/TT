@@ -4,6 +4,7 @@ using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
+using System.Linq;
 
 namespace TrainingTracker.BLL
 {
@@ -118,20 +119,36 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.UpdateAssignment(dataToUpdate) && fileCopied;
         }
 
+
         public bool UpdateAssignmentProgress(Assignment data, User currentUser)
         {
             if (data != null && data.TraineeId > 0)
             {
-                // trainee will not allowed to approve the completion of assignment.
-                //if (data.IsApproved && currentUser.IsTrainee)
-                //    return false;
-
-                // trainee will not allowed to approve the completion of assignment.
-                if ((currentUser.IsTrainee && data.TraineeId != currentUser.UserId && data.IsApproved) || (!currentUser.IsTrainee && data.IsCompleted && !data.IsApproved))
+                
+                // return false if trainee will not allowed to approve the completion of assignment or trainer cannot mark assignment as completed or trainer cannot approve/reassign assignment without feedback.
+                if ((currentUser.IsTrainee && data.TraineeId != currentUser.UserId && data.IsApproved) || (!currentUser.IsTrainee && data.IsCompleted && !data.IsApproved) || (!currentUser.IsTrainee && data.Feedback.Count < 1))
                     return false;
 
                 if (!currentUser.IsTrainee)
                 {
+                    var feedback = data.Feedback.Where(x => x.FeedbackId == 0).FirstOrDefault();
+                    feedback.AddedBy = currentUser;
+                    feedback.AddedFor = new UserBl().GetUserByUserId(data.TraineeId);
+                    feedback.AddedOn = DateTime.Now;
+                    
+                    if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Comment)
+                    {
+                        feedback.Rating = 0;
+                    }
+                    feedback.Skill = new Skill();
+                    feedback.Project = new Project();
+
+                    int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);    
+                    if(feedbackId == 0)
+                        return false;
+
+                    FeedbackDataAccesor.AddFeedbackAssignmentMapping(feedbackId, data.Id);
+
                     data.ApprovedBy = currentUser.UserId;
                 }
               
