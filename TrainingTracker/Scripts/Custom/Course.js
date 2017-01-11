@@ -33,6 +33,7 @@
             if (jsonData !== null) {
                 my.courseVm.courseInfo.Course = jsonData;
                 ko.utils.arrayForEach(my.courseVm.courseInfo.Course.CourseSubtopics, function (subtopic) {
+                    
                     ko.utils.arrayForEach(subtopic.SubtopicContents, function (item) {
                         item.IsCompleted = ko.observable(item.IsCompleted);
                     });
@@ -53,7 +54,7 @@
 
                         item.NewFeedback = {
                             FeedbackId: ko.observable(0),
-                            Title: ko.observable("Assignment"),
+                            Title: ko.observable(""),
                             FeedbackText: ko.observable(""),
                             FeedbackType: {
                                 FeedbackTypeId : ko.observable("3"),
@@ -114,8 +115,9 @@
 
         var feedbackDataToUpdate;
         updateAssignmentProgressWithFeedbackCallback = function (jsonData) {
-            if (jsonData) {
+            if (jsonData > 0) {
                 var dateNow = new Date();
+                feedbackDataToUpdate.NewFeedback.FeedbackId(jsonData);
                 feedbackDataToUpdate.NewFeedback.AddedOn(dateNow.getTime());
                 feedbackDataToUpdate.NewFeedback.AddedBy.FullName(my.meta.currentUser.FirstName + " " + my.meta.currentUser.LastName);
                 feedbackDataToUpdate.NewFeedback.AddedBy.UserId(my.meta.currentUser.UserId);
@@ -148,7 +150,7 @@
                     data.IsApproved(false);
                     data.IsCompleted(false);
                     data.NewFeedback.FeedbackType.FeedbackTypeId(1);
-                    data.NewFeedback.Title("Reassign");
+                    data.NewFeedback.Title(data.Name + " Reassigned");
                     data.NewFeedback.FeedbackType.Description("Comment");
                     data.NewFeedback.Rating(0);
                 }
@@ -176,7 +178,12 @@
             return true;
         }
 
+
+        var loadFeedbackWithThread = function(feedbackId) {
+                my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
+        }
         return {
+            loadFeedbackWithThread : loadFeedbackWithThread,
             courseInfo: courseInfo,
             getCourse: getCourse,
             selectedTopic: selectedTopic,

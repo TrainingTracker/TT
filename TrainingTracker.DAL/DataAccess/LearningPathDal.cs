@@ -626,7 +626,6 @@ namespace TrainingTracker.DAL.DataAccess
                                                             .Select(x => x.Feedback).Where( x => x.AddedFor == traineeId)
                                                             .Select(f => new Common.Entity.Feedback {
                                                                 FeedbackId = f.FeedbackId,
-                                                                FeedbackText = f.FeedbackText,
                                                                 Title = f.Title,
                                                                 FeedbackType = new Common.Entity.FeedbackType
                                                                 {

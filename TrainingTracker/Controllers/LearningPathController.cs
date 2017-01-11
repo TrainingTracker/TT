@@ -202,7 +202,12 @@ namespace TrainingTracker.Controllers
         
         public JsonResult UpdateAssignmentProgress(Assignment data)
         {
-            return data != null ? Json(new LearningPathBL().UpdateAssignmentProgress(data, CurrentUser)) : null;         
+            int feedbackId = 0;
+            if (data != null && new LearningPathBL().UpdateAssignmentProgress(data, CurrentUser, out feedbackId))
+            { 
+                return feedbackId > 0 ? Json(feedbackId) : Json(true);
+            }
+            return Json(false);
         }
 
 

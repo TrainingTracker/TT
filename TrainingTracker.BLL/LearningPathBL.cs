@@ -120,14 +120,16 @@ namespace TrainingTracker.BLL
         }
 
 
-        public bool UpdateAssignmentProgress(Assignment data, User currentUser)
+        public bool UpdateAssignmentProgress(Assignment data, User currentUser, out int feedbackId)
         {
+            feedbackId = 0;
             if (data != null && data.TraineeId > 0)
             {
-                
                 // return false if trainee will not allowed to approve the completion of assignment or trainer cannot mark assignment as completed or trainer cannot approve/reassign assignment without feedback.
                 if ((currentUser.IsTrainee && data.TraineeId != currentUser.UserId && data.IsApproved) || (!currentUser.IsTrainee && data.IsCompleted && !data.IsApproved) || (!currentUser.IsTrainee && data.Feedback.Count < 1))
+                {
                     return false;
+                }
 
                 if (!currentUser.IsTrainee)
                 {
@@ -143,7 +145,7 @@ namespace TrainingTracker.BLL
                     feedback.Skill = new Skill();
                     feedback.Project = new Project();
 
-                    int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);    
+                    feedbackId = FeedbackDataAccesor.AddFeedback(feedback);    
                     if(feedbackId == 0)
                         return false;
 
