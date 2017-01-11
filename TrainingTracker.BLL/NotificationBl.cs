@@ -99,7 +99,7 @@ namespace TrainingTracker.BLL
         /// <returns>Returns list of notification.</returns>
         public List<Notification> GetNotification(int userId)
         {
-            return NotificationDataAccesor.GetNotification(userId);
+            return NotificationDataAccesor.GetNotification(userId).OrderByDescending(x=>x.AddedOn).ToList();
         }
 
         /// <summary>

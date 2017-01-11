@@ -810,51 +810,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (TrainingTrackerEntities context = new TrainingTrackerEntities())
                 {
-                    //return context.LearningMaps
-                    //    .Include(x => x.LearningMapCourseMappings)
-                    //    .Include(x => x.LearningMapCourseMappings.Select(y => y.Course))
-                    //    .Include(x => x.LearningMapUserMappings.Select(y => y.UserId == traineeId))
-                    //    .Select(x => x.LearningMapCourseMappings.All(y => new Course
-                    //    {
-                    //        Id = y.Course.Id,
-                    //        Name = y.Course.Name
-                    //    }));
-
-                    //var courseId 
-
-                    //return context.LearningMapUserMappings
-                    //                      .Where(y => y.UserId == traineeId)
-                    //                      .AsEnumerable()
-                    //                      .Select(y=>y.LearningMap
-                    //                                  .LearningMapCourseMappings
-                    //                                  .Select(z=>new Course
-                    //                                           {
-                    //                                               Id = z.Course.Id,
-                    //                                               Name = z.Course.Name
-                    //                                           }))
-                    //                      .ToList();
-                    //return context.Courses
-                    //              .Include(x => x.LearningMapCourseMappings)
-                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap))
-                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap.LearningMapUserMappings))
-                                
-                    //              .Select(x => new Course
-                    //              {
-                    //                  Id = x.Id ,
-                    //                  Name = x.Name
-                    //              }).ToList();         
-
-                    //return context.LearningMapUserMappings
-                    //               .Where(x=>x.UserId==traineeId)
-                    //               .Include(x=>x.LearningMap.LearningMapCourseMappings.Select(y=>y.Course))
-                    //               .Select(x=> x.LearningMap.LearningMapCourseMappings.Select(y=> new Course
-                    //               {
-                    //                   Id=y.Course.Id,
-                    //                   Name = y.Course.Name
-                    //               }));   
-
-                    //.Join(context.BranchUsers , p => p.LastUpdatedBy , b => b.UserID , ( p , b ) => new { p , b })
-
+                   
                     return context.Courses
                                   .Join(context.LearningMapCourseMappings,c=>c.Id,lmcm=>lmcm.CourseId,(c,lmcm)=>new {c,lmcm})
                                   .Join(context.LearningMaps,p=>p.lmcm.LearningMapId,lm=>lm.Id,(p,lm)=>new {p,lm})
@@ -869,7 +825,15 @@ namespace TrainingTracker.DAL.DataAccess
                                       Id = x.u.t.s.r.q.p.c.Id ,
                                       Name = x.u.t.s.r.q.p.c.Name ,
                                       TotalSubTopicCount = context.SubtopicContents.Count(y => y.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id) ,
-                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId)
+                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId),
+                                      TotalAssignmentCount = context.Assignments
+                                                                    .GroupJoin(context.AssignmentSubtopicMaps,a=>a.Id,asm=>asm.AssignmentId, (a,asm)=> new {a,asm = asm.FirstOrDefault()})
+                                                                    .Count(y => y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id && y.a.IsActive),
+                                      CompletedAssignmentCount = context.AssignmentUserMaps
+                                                                        .Join(context.Assignments, aum=>aum.AssignmentId,a=>a.Id, (aum,a)=> new {a,aum})
+                                                                        .Where(y=>y.aum.TraineeId == traineeId && y.a.IsActive)
+                                                                        .GroupJoin(context.AssignmentSubtopicMaps , p => p.a.Id , asm => asm.AssignmentId , ( p , asm ) => new { p , asm = asm.FirstOrDefault() })
+                                                                        .Count(y => y.p.aum.IsApproved && y.p.aum.TraineeId == traineeId && y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id)
                                       
                                   })
                                   .ToList()

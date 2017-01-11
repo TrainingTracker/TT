@@ -109,7 +109,7 @@ namespace TrainingTracker.Common.Utility
                     stringBuilder.Append("<span class='glyphicon glyphicon-star' style='display: inline-block;'></span>");
                 }
                  stringBuilder.Append("</div>");
-                 stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm}" , cr.AddedOn) + "</div></li>");
+                 stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}" , cr.AddedOn) + "</div></li>");
             }
 
             if (response.CodeReviewForTheWeek.Count == 0) stringBuilder.Append("<li class='li-code-review'><div class=''><label class='danger'>No CR added in the week.</label></li>");
