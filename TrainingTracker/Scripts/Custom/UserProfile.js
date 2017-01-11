@@ -515,10 +515,10 @@
 
         var navigateToCourse = function (courseId) {
             if (my.profileVm.currentUser.UserId == my.profileVm.userVm.User.UserId) {
-                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId, '_blank')
+                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId, '_blank');
             }
             else {
-                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId + '&traineeId=' + my.profileVm.userVm.User.UserId, '_blank')
+                window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId + '&traineeId=' + my.profileVm.userVm.User.UserId, '_blank');
             }
             
         }
