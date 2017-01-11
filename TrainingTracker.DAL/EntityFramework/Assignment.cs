@@ -18,6 +18,7 @@ namespace TrainingTracker.DAL.EntityFramework
         {
             this.AssignmentSubtopicMaps = new HashSet<AssignmentSubtopicMap>();
             this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
+            this.AssignmentFeedbackMappings = new HashSet<AssignmentFeedbackMapping>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual User User { get; set; }
         public virtual ICollection<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
         public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
+        public virtual ICollection<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
     }
 }

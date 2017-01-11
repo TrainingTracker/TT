@@ -8,7 +8,7 @@ namespace TrainingTracker.DAL.Interface
     {
         LearningMap GetLearningMapWithAllData(int id);
         List<LearningMap> GetAllLearningMaps(int teamId);
-        List<User> GetAllTrainees(int teamId);
+        
         //List<Course> GetAllCourses();
         
 

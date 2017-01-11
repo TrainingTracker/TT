@@ -64,5 +64,14 @@ namespace TrainingTracker.DAL.Interface
         /// <param name="trainerId">trainer Id</param>
         /// <returns>instances of Trainor synopsis</returns>
         TrainerFeedbackSynopsis GetTrainorFeedbackSynopsis(int trainerId);
+
+
+        /// <summary>
+        /// interface to add mapping data for assignment and feedback
+        /// </summary>
+        /// <param name="feedbackId">Id of the added feedback</param>
+        /// <param name="assignmentId">Id of the assignment for which feedback is added</param>
+        /// <returns> true if successfully adds the mapping data otherwise false</returns>
+        bool AddFeedbackAssignmentMapping(int feedbackId, int assignmentId);
     }
 }

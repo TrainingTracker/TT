@@ -16,6 +16,23 @@
     cursor:pointer;
 }
 
+.assignment-feedback {
+    list-style:none;
+    padding-left:0px;
+}
+.li-assignment-feedback {
+    font-size: 14px;
+    margin-left: 0;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #fff8dc;
+    border-left: 3px solid #ffeb8e;
+}
+.assignment-feedback .text-muted {
+    font-size: 12px;
+}
+
+
 .course-header-img {
     margin: auto;
     width: 100%;
@@ -64,7 +81,11 @@
         list-style-type: none;
         padding-left: 10%;
     }
-
+    .course-index .links .assignment-li > ul{
+        list-style-type: none;
+        padding-left: 10%;
+    }
+    
 .course-content {
     width: 82%;
 }

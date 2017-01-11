@@ -12,8 +12,8 @@
         getCourseWithSubtopics: function (courseId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithSubtopics?courseId=" + courseId, null, callback);
         },
-        getCourseWithAllData: function (courseId, callback) {
-            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithAllData?courseId=" + courseId, null, callback);
+        getCourseWithAllData: function (courseId, traineeId, callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/GetCourseWithAllData?courseId=" + courseId + "&traineeId=" + traineeId, null, callback);
         },
         addSubtopic: function (subtopicData, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/AddCourseSubtopic", subtopicData, callback);
@@ -94,7 +94,12 @@
 
         saveSubtopicContentProgress: function (subtopicContentId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/SaveSubtopicContentProgress?subtopicContentId=" + subtopicContentId, null, callback);
+        },
+
+        updateAssignmentProgress: function (data, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateAssignmentProgress", data, callback);
         }
+
 
     };
 }(my));

@@ -13,8 +13,14 @@ namespace TrainingTracker.Common.Entity
         public bool IsActive { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string AssignmentAsset { get; set; }
-
+        
+        public bool IsCompleted { get; set; }
+        public bool IsApproved { get; set; }
+        public int ApprovedBy { get; set; }
         public int CourseSubtopicId { get; set; }
+        public int TraineeId { get; set; }
+
+        public List<Feedback> Feedback { get; set; }
        // public int SubtopicId { get; set; }
     }
 }

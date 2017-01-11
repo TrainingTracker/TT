@@ -20,6 +20,15 @@ namespace TrainingTracker.DAL.DataAccess
     /// </summary>
     public class LearningPathDal : ILearningPathDal
     {
+        ModelMapper.ModelMapper _modelMapperObject;
+        ModelMapper.ModelMapper ModelMapper 
+        {
+            get 
+            {
+                return _modelMapperObject ?? (_modelMapperObject = new ModelMapper.ModelMapper());
+            }
+        }
+
         /// <summary>
         /// Add Course
         /// </summary>
@@ -31,7 +40,9 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    EntityFramework.Course newCourseEntity = new EntityFramework.Course 
+
+                    EntityFramework.Course newCourseEntity = ModelMapper.MapToCourseModel(courseToAdd);
+                    EntityFramework.Course newCourseEntity1 = new EntityFramework.Course 
                                                              { 
                                                                  Name = courseToAdd.Name,
                                                                  Description = courseToAdd.Description,
@@ -41,6 +52,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                                  CreatedOn = courseToAdd.CreatedOn,
                                                                  Duration = courseToAdd.Duration
                                                              };
+
                     context.Courses.Add(newCourseEntity);
                     context.SaveChanges();
                     return newCourseEntity.Id;
@@ -144,7 +156,22 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                     return context.Courses
+                    var courseWithSubtopics = context.Courses
+                                   .Where(c => c.IsActive && c.Id == courseId)
+                                   .AsEnumerable()
+                                   .Select(c =>
+                                   {
+                                       var course = ModelMapper.MapFromCourseModel(c);
+                                       course.CourseSubtopics = c.CourseSubtopics
+                                                           .Where(s => s.IsActive)
+                                                           .Select(s => ModelMapper.MapFromCourseSubtopic(s))
+                                                           .OrderBy(x => x.SortOrder)
+                                                           .ToList();
+                                       return course;
+                                   })
+                                    .FirstOrDefault();
+
+                     var courseWithSubtopics1 = context.Courses
                                    .Where(c => c.IsActive && c.Id == courseId)
                                    .AsEnumerable()
                                    .Select(c => new Course
@@ -175,6 +202,8 @@ namespace TrainingTracker.DAL.DataAccess
 
                                                 })
                                     .FirstOrDefault();
+
+                     return courseWithSubtopics;
                                    
                 }
             }
@@ -232,7 +261,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                                                                            .FirstOrDefault() != null ) 
                                                                            }).OrderBy(x => x.SortOrder)
                                                                              .ToList(),
-                                                                           Assignments = GetAssignments(s.Id)
+                                                                           Assignments = GetAssignments(s.Id, userId)
                                                                        })
                                                                        .OrderBy(x => x.SortOrder)
                                                                        .ToList()
@@ -257,22 +286,19 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using(var context = new TrainingTrackerEntities())
                 {
-                    var userDal = new UserDal();
-                     return context.Courses.Where(c => c.IsActive)
-                                          .AsEnumerable()
-                                          .Select(c => new Course
-                                                       {
-                                                           Id = c.Id,
-                                                           Name = c.Name,
-                                                           Icon = c.Icon,
-                                                           Description = c.Description,
-                                                           AddedBy = c.AddedBy,
-                                                           CreatedOn = c.CreatedOn,
-                                                           Duration = c.Duration,
-                                                           AuthorName = userDal.GetUserById(c.AddedBy).FirstName,
-                                                           AuthorMailId = userDal.GetUserById(c.AddedBy).Email
 
-                                                       }).ToList();
+                    var userDal = new UserDal();
+                    var course = context.Courses.Where(c => c.IsActive)
+                                         .AsEnumerable()
+                                         .Select(c =>
+                                            {
+                                                var courseModel = ModelMapper.MapFromCourseModel(c);
+                                                courseModel.AuthorName = userDal.GetUserById(c.AddedBy).FirstName;
+                                                courseModel.AuthorMailId = userDal.GetUserById(c.AddedBy).Email;
+                                                return courseModel;
+                                            }
+                                         ).ToList();
+                     return course;
                      
                 }
             }
@@ -570,36 +596,105 @@ namespace TrainingTracker.DAL.DataAccess
             }
         }
 
-        public List<Assignment> GetAssignments(int subtopicId)
+        public List<Assignment> GetAssignments(int subtopicId, int traineeId = 0)
         {
             try
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    //var entity = context.Assignments.Where(a => a.IsActive && a.ia.AssignmentSubtopicContentMaps.Where(c => c.SubtopicContentId == subtopicContentId));
-                    var entity = 
-                         context.Assignments
-                        .Join(context.AssignmentSubtopicMaps
-                        .Where(x => x.SubtopicId == subtopicId), a => a.Id, s => s.AssignmentId, (a, s) =>
-                            new Assignment
-                            {
-                                Name = a.Name,
-                                Description = a.Description,
-                                Id = a.Id,
-                                AddedBy = a.AddedBy,
-                                CreatedOn = a.CreatedOn,
-                                IsActive = a.IsActive,
-                                CourseSubtopicId = s.SubtopicId,
-                                AssignmentAsset = a.AssignmentAsset
-                            }).ToList().Where(x => x.IsActive).ToList(); 
+                    
+                    var assignments = context.AssignmentSubtopicMaps
+                             .Where(s => s.SubtopicId == subtopicId)
+                             .Select(a => new { assignmentData = a.Assignment, traineeData = a.Assignment.AssignmentUserMaps.Where(s => s.TraineeId == traineeId && s.AssignmentId == a.Assignment.Id) })
+                             .Where(a => a.assignmentData.IsActive)
+                             .Select(a => new Assignment
+                             {
+                                 Name = a.assignmentData.Name,
+                                 Description = a.assignmentData.Description,
+                                 Id = a.assignmentData.Id,
+                                 AddedBy = a.assignmentData.AddedBy,
+                                 CreatedOn = a.assignmentData.CreatedOn,
+                                 IsActive = a.assignmentData.IsActive,
+                                 CourseSubtopicId = subtopicId,
+                                 AssignmentAsset = a.assignmentData.AssignmentAsset,
+                                 TraineeId = (int)traineeId,
+                                 IsCompleted = a.traineeData.Select(b => b.IsCompleted).FirstOrDefault(),
+                                 IsApproved = a.traineeData.Select(b => b.IsApproved).FirstOrDefault(),
+                                 ApprovedBy = (int)a.traineeData.Select(b => b.ApprovedBy).FirstOrDefault(),
+                                 Feedback = a.assignmentData.AssignmentFeedbackMappings
+                                                            .Where(x => x.AssignmentId == a.assignmentData.Id)
+                                                            .Select(x => x.Feedback).Where( x => x.AddedFor == traineeId)
+                                                            .Select(f => new Common.Entity.Feedback {
+                                                                FeedbackId = f.FeedbackId,
+                                                                Title = f.Title,
+                                                                FeedbackType = new Common.Entity.FeedbackType
+                                                                {
+                                                                    FeedbackTypeId = f.FeedbackType1.FeedbackTypeId,
+                                                                    Description = f.FeedbackType1.Description,
+                                                                },
+                                                                Rating = f.Rating == null ? 0 : (int)f.Rating,
+                                                                AddedOn = (DateTime)f.AddedOn,
+                                                                AddedBy = new Common.Entity.User
+                                                                {
+                                                                    UserId = f.User.UserId,
+                                                                    FullName = f.User.FirstName + " " + f.User.LastName,
+                                                                    ProfilePictureName = f.User.ProfilePictureName,
+                                                                }
+                                                            }).OrderByDescending(f => f.AddedOn).ToList()
 
-                    return entity;
+                             })
+                             .ToList();
+
+                    assignments.ForEach(x => x.Feedback.OrderByDescending(y => y.AddedOn));
+                    return assignments;
                 }
             }
             catch (Exception ex)
             {
                 LogUtility.ErrorRoutine(ex);
                 return null;
+            }
+        }
+
+        
+        public bool UpdateAssignmentProgress(Assignment data)
+        {
+            try
+            {
+                using (var context = new TrainingTrackerEntities())
+                {
+                    var entity = context.AssignmentUserMaps.Where(s => s.AssignmentId == data.Id && s.TraineeId == data.TraineeId).FirstOrDefault();
+                   
+                    if (entity == null)
+                    {
+                        var newEntity = new EntityFramework.AssignmentUserMap
+                        {
+                            IsApproved = false,
+                            IsCompleted = true,
+                            AssignmentId = data.Id,
+                            TraineeId = data.TraineeId
+                        };
+
+                        context.AssignmentUserMaps.Add(newEntity);
+
+
+                    }
+                    else if (!entity.IsApproved) // do not update the data if the assignment is already updated.
+                    {
+                        entity.IsCompleted = data.IsCompleted;
+                        entity.IsApproved = data.IsApproved;
+                        entity.ApprovedBy = data.ApprovedBy;
+                    }
+
+                    context.SaveChanges();
+                    return true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
             }
         }
 
@@ -714,51 +809,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (TrainingTrackerEntities context = new TrainingTrackerEntities())
                 {
-                    //return context.LearningMaps
-                    //    .Include(x => x.LearningMapCourseMappings)
-                    //    .Include(x => x.LearningMapCourseMappings.Select(y => y.Course))
-                    //    .Include(x => x.LearningMapUserMappings.Select(y => y.UserId == traineeId))
-                    //    .Select(x => x.LearningMapCourseMappings.All(y => new Course
-                    //    {
-                    //        Id = y.Course.Id,
-                    //        Name = y.Course.Name
-                    //    }));
-
-                    //var courseId 
-
-                    //return context.LearningMapUserMappings
-                    //                      .Where(y => y.UserId == traineeId)
-                    //                      .AsEnumerable()
-                    //                      .Select(y=>y.LearningMap
-                    //                                  .LearningMapCourseMappings
-                    //                                  .Select(z=>new Course
-                    //                                           {
-                    //                                               Id = z.Course.Id,
-                    //                                               Name = z.Course.Name
-                    //                                           }))
-                    //                      .ToList();
-                    //return context.Courses
-                    //              .Include(x => x.LearningMapCourseMappings)
-                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap))
-                    //              .Include(x => x.LearningMapCourseMappings.Select(y => y.LearningMap.LearningMapUserMappings))
-                                
-                    //              .Select(x => new Course
-                    //              {
-                    //                  Id = x.Id ,
-                    //                  Name = x.Name
-                    //              }).ToList();         
-
-                    //return context.LearningMapUserMappings
-                    //               .Where(x=>x.UserId==traineeId)
-                    //               .Include(x=>x.LearningMap.LearningMapCourseMappings.Select(y=>y.Course))
-                    //               .Select(x=> x.LearningMap.LearningMapCourseMappings.Select(y=> new Course
-                    //               {
-                    //                   Id=y.Course.Id,
-                    //                   Name = y.Course.Name
-                    //               }));   
-
-                    //.Join(context.BranchUsers , p => p.LastUpdatedBy , b => b.UserID , ( p , b ) => new { p , b })
-
+                   
                     return context.Courses
                                   .Join(context.LearningMapCourseMappings,c=>c.Id,lmcm=>lmcm.CourseId,(c,lmcm)=>new {c,lmcm})
                                   .Join(context.LearningMaps,p=>p.lmcm.LearningMapId,lm=>lm.Id,(p,lm)=>new {p,lm})
@@ -773,7 +824,15 @@ namespace TrainingTracker.DAL.DataAccess
                                       Id = x.u.t.s.r.q.p.c.Id ,
                                       Name = x.u.t.s.r.q.p.c.Name ,
                                       TotalSubTopicCount = context.SubtopicContents.Count(y => y.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id) ,
-                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId)
+                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId),
+                                      TotalAssignmentCount = context.Assignments
+                                                                    .GroupJoin(context.AssignmentSubtopicMaps,a=>a.Id,asm=>asm.AssignmentId, (a,asm)=> new {a,asm = asm.FirstOrDefault()})
+                                                                    .Count(y => y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id && y.a.IsActive),
+                                      CompletedAssignmentCount = context.AssignmentUserMaps
+                                                                        .Join(context.Assignments, aum=>aum.AssignmentId,a=>a.Id, (aum,a)=> new {a,aum})
+                                                                        .Where(y=>y.aum.TraineeId == traineeId && y.a.IsActive)
+                                                                        .GroupJoin(context.AssignmentSubtopicMaps , p => p.a.Id , asm => asm.AssignmentId , ( p , asm ) => new { p , asm = asm.FirstOrDefault() })
+                                                                        .Count(y => y.p.aum.IsApproved && y.p.aum.TraineeId == traineeId && y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id)
                                       
                                   })
                                   .ToList()

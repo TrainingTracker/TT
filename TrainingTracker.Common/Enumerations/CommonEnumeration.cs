@@ -58,7 +58,12 @@
         /// <summary>
         /// Enum For New note to feedback
         /// </summary>
-        NewNoteToFeedback=11
+        NewNoteToFeedback= 11,
+
+        /// <summary>
+        /// Enum for New course Notification
+        /// </summary>
+        NewCourseAssigned = 12,
     }
 
 
