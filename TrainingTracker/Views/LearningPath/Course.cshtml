@@ -1,13 +1,12 @@
-﻿@section Styles
+﻿
+@section Styles
 {
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="~/StyleSheets/FeedbackThread.css" rel="stylesheet" />
-    <link href="~/StyleSheets/FeedbackPlot.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <link href="~/StyleSheets/Course.css" rel="stylesheet" />
-    
+    @Styles.Render("~/bundles/CourseViewStyles")
 }
+
+
+
 
 <div class="col-xs-12 no-padding-left no-padding-right">
     <div class="col-md-12 layout-wrapper">
@@ -35,13 +34,13 @@
                 <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics"  >
                     <ul class="subtopic">
                         <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
-                            <span data-bind="text: Name"></span>
+                            <i class="fa fa-book" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span>
                             <ul class="links">
                                 <!-- ko foreach: SubtopicContents -->
                                 <li><i data-bind="visible:IsCompleted()"class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
                                 <!-- /ko -->
                                 <li class="assignment-li" data-bind="visible: Assignments.length > 0">
-                                    <strong><em>Assignments</em></strong>
+                                    <strong><em><i class="fa fa-tasks" aria-hidden="true"></i> Assignments</em></strong>
                                     <ul>
                                         <!-- ko foreach: Assignments -->
                                         <li><i data-bind="visible:IsCompleted() && IsApproved()" class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
@@ -97,7 +96,7 @@
                         </div>
                         <div class="panel-footer" data-bind="visible:!my.isNullorEmpty(my.courseVm.courseInfo.TraineeId) && !my.meta.currentUser.IsTrainee && IsCompleted() && !IsApproved()">
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" data-bind="value:NewFeedback.FeedbackText, IsFieldValidated: NewFeedback.IsFeedbackCommentValid(), validationMessage : 'Enter some feedback', click : function(){NewFeedback.ValidationMsg('');NewFeedback.IsFeedbackCommentValid(true);}" placeholder=" enter feedback"></textarea>
+                                <textarea class="form-control" rows="5" data-bind="value:NewFeedback.FeedbackText, autoResizeTextArea: true, IsFieldValidated: NewFeedback.IsFeedbackCommentValid(), validationMessage : 'Enter some feedback', click : function(){NewFeedback.ValidationMsg('');NewFeedback.IsFeedbackCommentValid(true);}" placeholder=" enter feedback" style="resize: vertical"></textarea>
                             </div>
                             <label class="radio-inline"><input type="radio" value="3" data-bind="checked: NewFeedback.FeedbackType.FeedbackTypeId, attr:{name:'FeedbackType'+Id}">Approve</label>
                             <label class="radio-inline"><input type="radio" value="6" data-bind="checked: NewFeedback.FeedbackType.FeedbackTypeId , attr:{name:'FeedbackType'+Id}">Reassign</label>
@@ -160,11 +159,8 @@
 
         @Html.Partial("_FeedbackThread")
 
+
 @section Scripts
 {
-    <script src="~/Scripts/ko.mapping.js"></script>
-    <script src="~/Scripts/Custom/FeedbackThread.js"></script>
-    <script src="~/Scripts/Custom/CourseService.js"></script>
-    <script src="~/Scripts/Custom/Course.js"></script>
+    @Scripts.Render("~/bundles/CourseViewScripts")
 }
-
