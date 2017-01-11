@@ -373,12 +373,12 @@ p {
 }
 
 #divSurveyCodeReview  .feedback-notes li {
-    margin-left: 0; 
+    margin-left: 3%; 
 }
 
 
 #divSurveyCodeReview  .feedback-notes {
-    padding: 0px 0 0px 30px;
+    padding: 0px 0 0px 0px;
 }
 
 #feedbackSection .weekly-feedback code .feedback-notes label q,#divWizardFeedbackPreview .weekly-feedback code .feedback-notes label q {
@@ -414,16 +414,19 @@ p {
 }
 
 div#divReviewcollapasable .tab-wrap,div#divWeeklyReviewcollapasable .tab-wrap {
-           width: 100%;
+    width: 100%;
     display: inline-block;
-    min-height: 40px;   
+    min-height: 25px;   
 }
 
 div#divReviewcollapasable .tab-wrap > div,div#divWeeklyReviewcollapasable .tab-wrap > div {
       width: 100%;
 }
           
-div#divReviewcollapasable .tab-wrap>div:nth-child(2) span::after,div#divWeeklyReviewcollapasable .tab-wrap div:nth-child(2) >span::after,div#divWeeklyReviewcollapasable .tab-wrap:nth-child(1)>div:nth-child(1)>span::after {
+div#divReviewcollapasable .tab-wrap>div:nth-child(2) span::after,
+div#divWeeklyReviewcollapasable .tab-wrap:first-child div:nth-child(2) >span::after,
+div#divWeeklyReviewcollapasable .tab-wrap:last-child div:nth-child(2) >span::after,
+div#divWeeklyReviewcollapasable .tab-wrap:nth-child(1)>div:nth-child(1)>span::after {
        /* height: 54px; */
     width: 60%;
     margin-left: 20%;
@@ -475,7 +478,7 @@ div#divReviewcollapasable .tab-wrap span.header-Tab,div#divWeeklyReviewcollapasa
 
 }
 
-div#divReviewcollapasable .tab-wrap >div:nth-child(2) span,div#divWeeklyReviewcollapasable .tab-wrap >div:nth-child(2) span {
+div#divReviewcollapasable .tab-wrap >div:nth-child(2) span,div#divWeeklyReviewcollapasable .tab-wrap >div:nth-child(2) span:not(:nth-child(2)) {
     font-family: 'Orbitron';
         line-height: 1;
     font-size: 20px;
@@ -505,7 +508,7 @@ div#divWeeklyReviewcollapasable .tab-wrap:nth-child(6) div:nth-child(2) > span  
 div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
         position: relative;
     top: 1px;
-    font-size: 18px !important;
+    font-size: 14px !important;
     display: inline-block;
     font-family: 'Glyphicons Halflings' !important;
     font-style: normal;
@@ -572,6 +575,9 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 .feedback-input label,div.text-muted {
     font-size: 12px;
 }
+
+
+   
 
 
 .feedback-input input[type=checkbox], .feedback-input input[type=radio]
@@ -643,4 +649,20 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 }
 #divCoursescollapasable>div>div:hover span:nth-child(2) {
     display: none;
+}
+
+.rating-tag {
+   position: absolute;
+    font-size: 10px;
+    left: 0;
+    margin-top: 3px;
+    width: 100% !important;  
+}
+
+.rating-Fast-new-color {
+    color: #2596F1 !important;
+}
+
+.rating-exceptional-new-color {
+    color: #9af809 !important;
 }

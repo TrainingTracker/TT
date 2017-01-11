@@ -19,8 +19,8 @@
 
 #divFeedbackThread   {
     margin: 0;
-    position: absolute;         
-    margin-left: -15px;
+    left: 0;
+    position: absolute;   
     height: 100%;
     width: 100%;
     top: 0;
@@ -69,6 +69,7 @@
 }
 
 #divCloseModalButton {
+    -moz-transform: scale(3);
     position: absolute;
     top: 7%;
     zoom: 3;
@@ -118,11 +119,11 @@
     border-left: 3px solid #ffeb8e;
 }
 #divSurveyCodeReview  .feedback-notes li {
-    margin-left: 0; 
+    margin-left: 3%; 
 }
 
 #divSurveyCodeReview  .feedback-notes {
-    padding: 0px 0 0px 30px;
+    padding: 0px 0 0px 0px;
 }
     
 

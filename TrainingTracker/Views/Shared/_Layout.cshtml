@@ -37,17 +37,17 @@
                         </li>
                    
                         <li class="dropdown menu-li separator">
-                            <a href="~/Profile/AllProfiles">
-                                <label style="">All Profiles</label> 
-                                <span class="glyphicon glyphicon-chevron-down" ></span>
+                            <a href="#">
+                                <label style="">Profiles</label> 
+                                <span class="glyphicon glyphicon-chevron-down" ></span> 
                             </a>                           
                             <ul class="dropdown-menu dropdown-menu-pop-over-list">
                                 
                                 <li class="dropdown menu-li"><a href="#">Trainee<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-pop-over-list" data-bind="foreach:my.meta.allTrainee">
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-pop-over-list" data-bind="foreach: my.meta.allTrainee">
                                         <li class="menu-li">
                                             <a data-bind="attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + UserId }">
-                                                <img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                @*<img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />*@
                                                 <span data-bind="text: FirstName + ' ' + LastName  "></span>
                                             </a>
                                         </li>
@@ -58,12 +58,17 @@
                                     <ul class="dropdown-menu dropdown-menu-right dropdown-menu-pop-over-list" data-bind="foreach: my.meta.allMentor">
                                         <li class="menu-li">
                                             <a data-bind="attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + UserId }"> 
-                                                <img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                @*<img class="img-responsive img-rounded menu-img" data-bind="attr: { 'src': my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />*@
                                                 <span data-bind="text: FirstName + ' ' + LastName  "></span>
                                             </a>
                                         </li>
 
                                     </ul>
+                                </li>
+                                <li class="menu-li">
+                                    <a href="~/Profile/AllProfiles">
+                                        All Profiles
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -112,7 +117,7 @@
                                         <i class="fa fa-bell" style="font-size: 20px;margin-top: 3px;"></i>
                               </span>
                          </a>                                  
-                                <div id="notificationContainer">
+                                <div id="notificationContainer" class="col-xs-3 no-padding-left no-padding-right">
                                     <div id="notificationTitle">
                                         <span class="">Notifications</span>
                                         <span class="pull-right" data-bind="click: function () { my.meta.markAllNotificationAsRead(); }">
