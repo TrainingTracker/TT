@@ -641,11 +641,12 @@ namespace TrainingTracker.DAL.DataAccess
                                                                     FullName = f.User.FirstName + " " + f.User.LastName,
                                                                     ProfilePictureName = f.User.ProfilePictureName,
                                                                 }
-                                                            }).OrderByDescending(f => f.FeedbackId).ToList()
+                                                            }).OrderByDescending(f => f.AddedOn).ToList()
 
                              })
                              .ToList();
-                    
+
+                    assignments.ForEach(x => x.Feedback.OrderByDescending(y => y.AddedOn));
                     return assignments;
                 }
             }
