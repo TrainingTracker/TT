@@ -288,16 +288,19 @@ ko.bindingHandlers.fullWindowHeight =
         // On update, fade in/out
         var shouldDisplay = valueAccessor();
 
-        if (shouldDisplay) {
+        if (shouldDisplay)
+        {
+            
             $(document).on("custom-resize", function () {
-                $('html,body').css("height", $(document).height());
+               // $('html,body').css("height", $(document).height());
                 $(element).css({ 'min-height': $(document).height(), 'height': $(document).height() });
             });
             $("html, body").animate({ scrollTop: 0 }, "slow");
+           
             return;
         }
         $(element).css({ 'min-height': 0, 'height': 0 });
-        $('html,body').css("height", "auto");
+       // $('html,body').css("height", "auto");
         $(document).off('custom-resize');
         return;
 
@@ -703,8 +706,6 @@ $(document).ready(function () {
 
         }
     };
-
-
 });
 
 
