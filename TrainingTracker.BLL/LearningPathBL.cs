@@ -146,14 +146,13 @@ namespace TrainingTracker.BLL
                     feedback.Project = new Project();
 
                     feedbackId = FeedbackDataAccesor.AddFeedback(feedback);    
-                    if(feedbackId == 0)
+                    if(feedbackId == 0 || !FeedbackDataAccesor.AddFeedbackAssignmentMapping(feedbackId, data.Id))
                         return false;
 
-                    FeedbackDataAccesor.AddFeedbackAssignmentMapping(feedbackId, data.Id);
-
+                    new NotificationBl().AddFeedbackNotification(feedback);
                     data.ApprovedBy = currentUser.UserId;
                 }
-              
+                
                 return LearningPathDataAccessor.UpdateAssignmentProgress(data);
             }
             return false;
