@@ -31,14 +31,15 @@
         <div class="row ">
             <div class="col-xs-2 layout-left-panel course-index" >
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
-                <span class="legends"><em>Legends</em>
-                    <span class="custom-tooltip current-custom-tooltip">
-                    <span>
-                        <i class="fa fa-exclamation pending" aria-hidden="true"></i>&nbsp; Assignment Pending for approval<br/>
-                        <i class="fa fa-repeat reassigned" aria-hidden="true"></i>&nbsp;Reassigned<br>
-                        <i class="completed" aria-hidden="true">&#10004;</i>&nbsp;Assignment Approved
+                <span data-bind="visible: my.meta.currentUser.IsTrainee || (!my.meta.currentUser.IsTrainee && courseInfo.TraineeId > 0)" class="legends">
+                    <em>Legend</em>
+                    <span class="custom-tooltip legend-custom-tooltip">
+                        <span>
+                            <i class="fa fa-exclamation pending" aria-hidden="true"></i>&nbsp; Assignment Pending for approval<br />
+                            <i class="fa fa-repeat reassigned" aria-hidden="true"></i>&nbsp;Reassigned<br>
+                            <i class="completed" aria-hidden="true">&#10004;</i>&nbsp;Assignment Approved
+                        </span>
                     </span>
-                </span>
                 </span>
                 <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics"  >
                     <ul class="subtopic">
@@ -100,15 +101,15 @@
                             
                             <h3 class="panel-title" data-bind="css:{'shift-right': (TraineeId > 0 && TraineeId == my.meta.currentUser.UserId) || IsCompleted()}" style="display:inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                             &nbsp;
-                            <span class="label label-warning" data-bind="visible: IsCompleted() && !IsApproved()">pending for approval</span>
-                            <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()">approved
+                            <span class="label label-warning" data-bind="visible: IsCompleted() && !IsApproved()"><i class="fa fa-exclamation pending" aria-hidden="true"></i> pending for approval</span>
+                            <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()"><i class="completed" aria-hidden="true">&#10004; &nbsp;</i> approved
                                 <span>
                                     <!-- ko foreach: new Array(Rating())  -->
                                     <span class="glyphicon glyphicon-star"></span>
                                     <!-- /ko -->
                                 </span>
                             </span>
-                            <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0">reassigned</span>
+                            <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0"><i class="fa fa-repeat reassigned" aria-hidden="true"></i> reassigned</span>
                             <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
                         <div class="panel-body" data-bind="visible:!my.isNullorEmpty(Description)">

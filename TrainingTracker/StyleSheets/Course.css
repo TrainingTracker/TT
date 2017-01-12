@@ -131,15 +131,15 @@ color:green;
     .course-index .legends:hover > .custom-tooltip{
         visibility:visible;
     }
-        .course-index .legends > .current-custom-tooltip {
+        .course-index .legends > .legend-custom-tooltip {
             background-color: #2596f1;
     left: -50px;
     top: -70px;
     width: 250px;
     line-height: 1.9rem;
         }
-    .custom-tooltip:after {
-        border-top-color:blue;
+    .legend-custom-tooltip:after {
+        border-top-color:#2596f1;
     }
 
     .course-index .subtopic {
