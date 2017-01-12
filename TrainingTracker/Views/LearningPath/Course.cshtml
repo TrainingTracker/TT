@@ -37,13 +37,13 @@
                             <i class="fa fa-book" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span>
                             <ul class="links">
                                 <!-- ko foreach: SubtopicContents -->
-                                <li><i data-bind="visible:IsCompleted()"class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
+                                <li><i data-bind="visible:IsCompleted()"  aria-hidden="true">&#10004; &nbsp;</i><span data-bind="text: Name"></span></li>
                                 <!-- /ko -->
                                 <li class="assignment-li" data-bind="visible: Assignments.length > 0">
                                     <strong><em><i class="fa fa-tasks" aria-hidden="true"></i> Assignments</em></strong>
                                     <ul>
                                         <!-- ko foreach: Assignments -->
-                                        <li><i data-bind="visible:IsCompleted() && IsApproved()" class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
+                                        <li><i data-bind="visible:IsCompleted() && IsApproved()" aria-hidden="true">&#10004; &nbsp;</i><span data-bind="text: Name"></span></li>
                                         <!-- /ko -->
                                     </ul>
                                 </li>
@@ -59,15 +59,19 @@
                 <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.SubtopicContents">
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading link-header">
-                            <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
+                            <span data-bind=" css:{'checked': IsCompleted(), 'unchecked': !IsCompleted()}, visible: (!my.isNullorEmpty(IsCompleted()) && my.meta.currentUser.IsTrainee)|| (!my.meta.currentUser.IsTrainee && IsCompleted()), click:$root.saveProgress">
+                                <i>&#10004;</i>
+                                <span class="custom-tooltip" data-bind="text: IsCompleted() ? 'completed':'mark as read'"></span>
+                            </span>
+
+                            <h3 class="panel-title" data-bind="css:{'shift-right': (!my.isNullorEmpty(IsCompleted()) && my.meta.currentUser.IsTrainee)|| (!my.meta.currentUser.IsTrainee && IsCompleted())}" style="display: inline-block"><span data-bind="text: Name"></span></h3>
                             &nbsp;
-                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: !my.isNullorEmpty(IsCompleted()), click:$root.saveProgress"></i>
                             <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
                                 <a data-bind="attr: { href: (my.isNullorEmpty(Url) || Url.toUpperCase().indexOf('HTTP') > -1) ? Url : ('http://' + Url) }" target="_blank"><i class="fa fa-external-link"> Browse Link</i></a>
                             </span>
 
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" data-bind="visible:!my.isNullorEmpty(Description)">
                             <span data-bind="html: Description"></span>
                         </div>
                     </div>
@@ -75,9 +79,12 @@
                 <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.Assignments">
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading assignment-header">
-                            <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
-                            &nbsp;
-                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: TraineeId > 0, click:$root.updateAssignmentProgress"></i>
+                            <span data-bind="css:{'checked': IsCompleted(), 'unchecked': !IsCompleted()}, visible: (TraineeId > 0 && TraineeId == my.meta.currentUser.UserId) || (TraineeId != my.meta.currentUser.UserId && IsCompleted()) , click:$root.updateAssignmentProgress">
+                                <i>&#10004;</i>
+                                <span class="custom-tooltip" data-bind="text: IsCompleted() ? (IsApproved() ? 'completed' : 'approval pending'):'mark as done'"></span>
+                            </span>
+                            
+                            <h3 class="panel-title" data-bind="css:{'shift-right': (TraineeId > 0 && TraineeId == my.meta.currentUser.UserId) || IsCompleted()}" style="display:inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                             &nbsp;
                             <span class="label label-warning" data-bind="visible: IsCompleted() && !IsApproved()">pending for approval</span>
                             <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()">approved
@@ -90,9 +97,9 @@
                             <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0">reassigned</span>
                             <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" data-bind="visible:!my.isNullorEmpty(Description)">
                             <span data-bind="html: Description"></span>
-                            
+
                         </div>
                         <div class="panel-footer" data-bind="visible:!my.isNullorEmpty(my.courseVm.courseInfo.TraineeId) && !my.meta.currentUser.IsTrainee && IsCompleted() && !IsApproved()">
                             <div class="form-group">
@@ -121,7 +128,7 @@
                             <button data-bind="click: $root.updateAssignmentProgressWithFeedback" type="button" class="btn btn-info pull-right">Add <i class="glyphicon glyphicon-send"></i></button>
                             <div data-bind="visible:!(NewFeedback.IsFeedbackCommentValid() && NewFeedback.FeedbackType.FeedbackTypeId() != '3'),text:NewFeedback.ValidationMsg" style="color:red"></div>
                       </div>
-                        <div class="panel-footer">
+                        <div class="panel-footer" data-bind="visible:Feedback().length > 0">
                           <ul class="assignment-feedback">
                               <!-- ko foreach: Feedback  -->
                               <li class="li-assignment-feedback">

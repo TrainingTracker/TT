@@ -153,11 +153,16 @@
                     <div data-bind="foreach: userVm.AllAssignedCourses">
                         <div class="list-group-item collapse" data-bind="click: function(){ $root.navigateToCourse(Id); }">
                             <span data-bind="text:Name"></span>
-                            <span class="pull-right" data-bind="text: PercentageCompleted"></span>
+                            <span class="pull-right"  data-bind="text: PercentageCompleted"></span>
                             <span class="pull-right">
                                 Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
                             </span>
                         </div>
+                        <i data-bind="visible: PendingAssignmentCount > 0" class="fa fa-exclamation pending-assignment pull-right" aria-hidden="true">
+                            <span class="badge" data-bind="text: PendingAssignmentCount"></span>
+                            <span class="custom-tooltip" data-bind="text:PendingAssignmentCount + ' pending assignment to approve'"></span>
+                        </i>
+                        
                     </div>
                 </div>
 

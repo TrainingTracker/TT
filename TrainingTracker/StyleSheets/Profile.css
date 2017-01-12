@@ -606,13 +606,44 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 
 #divCoursescollapasable>div>div {
     display: table;
-    width: 100%;
-        min-height: 35px;
+    width: 90%;
+    padding-right: 0px;
+    min-height: 35px;
 }
 
+#divCoursescollapasable > div > .pending-assignment {
+   margin-right: 4px;
+    margin-top: -31px;
+    position:absolute;
+    right:0px;
+    color:orange;
+    font-size:22px;
+    cursor:pointer;
+}
+.custom-tooltip {
+    background: #e89f32;
+    top: -61px;
+    font-size: 14px;
+    line-height: 1.3rem;
+}
+.custom-tooltip:after {
+    border-top-color: #e89f32;
+}
+#divCoursescollapasable > div > .pending-assignment:hover > .custom-tooltip {
+   visibility:visible;
+}
+#divCoursescollapasable > div > .pending-assignment > .badge {
+    margin-top: -21px;
+    font-size: 10px;
+    margin-left: -6px;
+    background-color:red;
+    padding: 2px 4px;
+}
 #divCoursescollapasable>div>div:hover {
     background-color: #2196f3 !important;
     transition: all 0.25s ease;
+    width:100%;
+    padding-right:10px;
 }
 
 #divCoursescollapasable>div>div:hover span:first-child {
@@ -620,12 +651,12 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 }
 
 
-
 #divCoursescollapasable>div>div span {
     display: table-cell ;
     vertical-align: middle;
     font-size: 14px;
 }
+
 
 #divCoursescollapasable>div>div span:nth-child(3) {
     display: none;
@@ -647,7 +678,7 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
     font-size: 8px;
         margin-top: 5px;
 }
-#divCoursescollapasable>div>div:hover span:nth-child(2) {
+#divCoursescollapasable>div>div:hover span:nth-child(2), #divCoursescollapasable>div>div:hover + .pending-assignment {
     display: none;
 }
 
