@@ -837,7 +837,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                                         .Join(context.Assignments, aum => aum.AssignmentId, a => a.Id, (aum, a) => new { a, aum })
                                                                         .Where(y => y.aum.TraineeId == traineeId && y.a.IsActive)
                                                                         .GroupJoin(context.AssignmentSubtopicMaps, p => p.a.Id, asm => asm.AssignmentId, (p, asm) => new { p, asm = asm.FirstOrDefault() })
-                                                                        .Count(y => y.p.aum.IsCompleted && y.p.aum.TraineeId == traineeId && y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id),
+                                                                        .Count(y => y.p.aum.IsCompleted && !y.p.aum.IsApproved && y.p.aum.TraineeId == traineeId && y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id),
 
                                       
                                   })
