@@ -34,6 +34,7 @@
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
+    font-family: 'Orbitron'
 }
 
 .feedback-pending {
@@ -232,5 +233,29 @@ div#WzTtDiV table tbody tr td li:last-child {
 
 .name-trainee:after {
        width: 75% !important;
-    left: 0;
+      left: 0;
+}
+.pending-course .pending-course-name {
+    display: block;
+    font-size: 16px;
+        color: #2596F1;
+    padding: 3px 0 6% 0%;
+}
+
+.pending-course .pending-course-name:after {
+    content: "";
+    position: absolute;
+    width: 80%;
+    margin-top: 11%;
+    left: 10%;
+    border-bottom: 1px solid #ccc;
+
+}
+.pending-course .pending-course-count {
+     font-family: 'Orbitron';
+}
+
+#WzTtDiV>div>table {
+        width: 85% !important;
+    overflow-wrap: break-word;
 }

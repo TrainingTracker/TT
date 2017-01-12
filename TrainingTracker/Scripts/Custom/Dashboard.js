@@ -59,6 +59,27 @@
                 return (my.dashboardVm.feedback.length) || (  typeof(my.dashboardVm.feedback.Title) != 'undefined' && my.dashboardVm.feedback.Title != "" )? true : false;
             },
             eachUserPendingFeedbackWeek = ko.observable([]),
+            loadTotalAssignmentPendingCount=function(courseData) {
+                var count = 0;
+                ko.utils.arrayForEach(courseData, function (course)
+                {
+                    count += course.PendingAssignmentCount;
+                });
+                return count;
+            },
+            eachUserPendingAssignment = function (courseData,userId)
+            {
+                var courseArray = new Array();
+                
+                ko.utils.arrayForEach(courseData, function (course)
+                {
+                    if (course.PendingAssignmentCount > 0)
+                    courseArray.push({Name:course.Name,PendingCount:course.PendingAssignmentCount});
+                });
+                
+                
+                return courseArray;
+            },
             loadWeekForFeedbackNotPresent = function (data) {
                 eachUserPendingFeedbackWeek(data);
             };
@@ -72,7 +93,9 @@
             feedback: feedback,
             getFeedback: getFeedback,
             eachUserPendingFeedbackWeek: eachUserPendingFeedbackWeek,
-            loadWeekForFeedbackNotPresent: loadWeekForFeedbackNotPresent
+            loadWeekForFeedbackNotPresent: loadWeekForFeedbackNotPresent,
+            loadTotalAssignmentPendingCount: loadTotalAssignmentPendingCount,
+            eachUserPendingAssignment: eachUserPendingAssignment
         };
     }();
 
