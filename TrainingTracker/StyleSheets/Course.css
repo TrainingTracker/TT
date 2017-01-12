@@ -16,7 +16,15 @@
 .fa-square-o {
     cursor:pointer;
 }
-
+.completed {
+color:green;
+}
+.reassigned {
+    color:red;
+}
+.pending {
+    color:orange;
+}
 .checked {
    background: white;
     color: #349434;
@@ -111,6 +119,27 @@
     .course-index .title {
         padding-top: 10px;
         font-size: large;
+    }
+    .course-index .legends {
+     color: #03fa42;
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    cursor:pointer;
+
+    }
+    .course-index .legends:hover > .custom-tooltip{
+        visibility:visible;
+    }
+        .course-index .legends > .current-custom-tooltip {
+            background-color: #2596f1;
+    left: -50px;
+    top: -70px;
+    width: 250px;
+    line-height: 1.9rem;
+        }
+    .custom-tooltip:after {
+        border-top-color:blue;
     }
 
     .course-index .subtopic {
