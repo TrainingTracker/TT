@@ -181,6 +181,12 @@ namespace TrainingTracker.BLL
         public Course GetCourseWithAllData(int courseId, int userId = 0)
         {
             var courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
+
+            if (userId > 0)
+            {
+                courseDetails.TrackerDetails = LearningPathDataAccessor.GetAllCoursesForTrainee(userId).FirstOrDefault(x=>x.Id==courseId);
+            }
+
             if(courseDetails != null)
             {
                 User userData = UserDataAccesor.GetUserById(courseDetails.AddedBy);

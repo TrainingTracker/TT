@@ -199,3 +199,56 @@ color:green;
     h4.subtopic-description p {
         line-height: 1.42;
     }
+
+    .subtopic .selected>i.fa.fa-book {
+        color: #2596f1;
+    }
+
+    #divFeedbackThread #divFeedbackContainer {
+            width: 70% !important;
+    
+    margin-left: 21% !important;
+    }
+
+    #divCloseModalButton {
+        right: 7.5% !important;
+    }
+
+    .profile-img {
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: auto;
+}
+
+.username {
+    text-align: center;
+    margin-top: 10px;
+    
+    font-size: 14px;
+    font-weight: bold;
+   color: #fff;
+}
+
+.designation {
+    text-align: center;
+     color: #fff;
+         font-size: 12px;
+}
+
+#divUserProfileDetails {
+  
+       position: fixed;
+    right: 17px;
+    width: 15%;
+    z-index: 999;
+    top: 10%;
+    background-color: #1a2942;
+    /* top: auto; */
+}
+
+.tracker-percentage {
+    font-size: 20px;
+    font-family: "Orbitron"; 
+}
+

@@ -838,6 +838,14 @@ namespace TrainingTracker.DAL.DataAccess
                                                                         .Where(y => y.aum.TraineeId == traineeId && y.a.IsActive)
                                                                         .GroupJoin(context.AssignmentSubtopicMaps, p => p.a.Id, asm => asm.AssignmentId, (p, asm) => new { p, asm = asm.FirstOrDefault() })
                                                                         .Count(y => y.p.aum.IsCompleted && !y.p.aum.IsApproved && y.p.aum.TraineeId == traineeId && y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id),
+                                    UserDetails = new Common.Entity.User
+                                    {
+                                        UserId = x.u.t.s.r.lmum.UserId,
+                                        FullName = x.u.t.s.r.lmum.User.FirstName + " " + x.u.t.s.r.lmum.User.LastName ,
+                                        Email = x.u.t.s.r.lmum.User.Email,
+                                        Designation = x.u.t.s.r.lmum.User.Designation,
+                                        ProfilePictureName =  x.u.t.s.r.lmum.User.ProfilePictureName
+                                    }
 
                                       
                                   })

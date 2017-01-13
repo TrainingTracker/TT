@@ -1,6 +1,7 @@
 ﻿
 @section Styles
 {
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     @Styles.Render("~/bundles/CourseViewStyles")
 }
@@ -14,7 +15,7 @@
             <div class="col-md-2 layout-section">
                 <img class="course-header-img" data-bind="attr: { src: courseInfo.Icon }" />
             </div>
-            <div class="col-md-8 course-header-info">
+            <div class="col-md-7 course-header-info">
                 <h2 data-bind="text: courseInfo.Course.Name"></h2>
                 <h4>
                     <b>
@@ -27,6 +28,24 @@
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>
+ @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator") )
+ {
+     <div id="divUserProfileDetails" class="col-xs-3 no-padding-left no-padding-right" data-bind="visible: !my.isNullorEmpty(courseInfo.Course.TrackerDetails)">
+         <div class="panel-heading">
+             <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + courseInfo.Course.TrackerDetails.UserDetails.ProfilePictureName }"
+                  class="img-responsive img-circle profile-img">
+             <div data-bind="text: courseInfo.Course.TrackerDetails.UserDetails.FullName"
+                  class="username">
+             </div>                   
+             <div data-bind="text: 'Course Status'"
+                  class="designation">
+             </div>
+             <div data-bind="text: courseInfo.Course.TrackerDetails.PercentageCompleted + '%'" 
+                  class="designation tracker-percentage">
+             </div>
+         </div>
+     </div>
+ }
         </div>
         <div class="row ">
             <div class="col-xs-2 layout-left-panel course-index" >
@@ -35,9 +54,9 @@
                     <em>Legend</em>
                     <span class="custom-tooltip legend-custom-tooltip">
                         <span>
-                            <i class="fa fa-exclamation pending" aria-hidden="true"></i>&nbsp; Assignment Pending for approval<br />
-                            <i class="fa fa-repeat reassigned" aria-hidden="true"></i>&nbsp;Reassigned<br>
-                            <i class="completed" aria-hidden="true">&#10004;</i>&nbsp;Assignment Approved
+                            <i class="fa fa-exclamation pending" aria-hidden="true"></i>&nbsp; Assignment Pending for Approval<br />
+                            <i class="fa fa-repeat reassigned" aria-hidden="true"></i>&nbsp;Assignment Reassigned<br>
+                            <i class="completed" aria-hidden="true">&#10004;</i>&nbsp;Assignment Approved/Topic Completed
                         </span>
                     </span>
                 </span>
@@ -47,7 +66,7 @@
                             <i class="fa fa-book" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span>
                             <ul class="links">
                                 <!-- ko foreach: SubtopicContents -->
-                                <li><i data-bind="visible:IsCompleted()"  aria-hidden="true">&#10004; &nbsp;</i><span data-bind="text: Name"></span></li>
+                                <li><i data-bind="visible:IsCompleted()" class="completed"  aria-hidden="true">&#10004; &nbsp;</i><span data-bind="text: Name"></span></li>
                                 <!-- /ko -->
                                 <li class="assignment-li" data-bind="visible: Assignments.length > 0">
                                     <strong><em><i class="fa fa-tasks" aria-hidden="true"></i> Assignments</em></strong>

@@ -43,6 +43,8 @@ namespace TrainingTracker.Common.Entity
         /// </summary>
         public int PendingAssignmentCount { get; set; }
 
+        public User UserDetails { get; set; }
+
         /// <summary>
         /// gets and sets percentage course covered
         /// </summary>
