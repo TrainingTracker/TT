@@ -7,11 +7,9 @@
             Course: ko.observable(),
             Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg"
         },
-        compressUserPanel = ko.observable(false),
-        scrollTop = ko.observable(false),
+        compressUserPanel = ko.observable(true),
         showSelectedTopic = function (topic) {
             if (!my.isNullorEmpty(topic)) {
-                scrollTop(true);
                 my.courseVm.selectedTopic.Id(topic.Id);
                 my.courseVm.selectedTopic.Name(topic.Name);
                 my.courseVm.selectedTopic.Description(topic.Description);
@@ -223,7 +221,6 @@
                 my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
         }
         return {
-            scrollTop : scrollTop,
             compressUserPanel : compressUserPanel,
             loadFeedbackWithThread : loadFeedbackWithThread,
             courseInfo: courseInfo,

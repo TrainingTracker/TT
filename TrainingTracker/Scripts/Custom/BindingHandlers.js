@@ -22,9 +22,7 @@ ko.bindingHandlers.IsFieldValidated = {
 }
 
 ko.bindingHandlers.CompressProfilePanel = {
-    init: function (element, valueAccessor) {
-        $(element).css({ width: '15%' });
-    },
+    
 
     update: function (element, valueAccessor, allBindings) {
         var value = valueAccessor();
@@ -64,20 +62,6 @@ ko.bindingHandlers.CompressProfilePanel = {
     }
 }
 
-
-ko.bindingHandlers.ScrollTop = {
-   
-    update: function (element, valueAccessor, allBindings) {
-        var value = valueAccessor();
-        var valueUnwrapped = ko.unwrap(value);
-        var scrollTopValue = allBindings.get('ScrollTopValue');
-        if (valueUnwrapped) {
-            $(element).animate({
-                scrollTop: my.isNullorEmpty(scrollTopValue) ? '0' : scrollTopValue
-            });
-        }
-    }
-}
 
 ko.bindingHandlers.CKEDITOR = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
