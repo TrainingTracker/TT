@@ -150,6 +150,8 @@ namespace TrainingTracker.BLL
                     if(feedbackId == 0 || !FeedbackDataAccesor.AddFeedbackAssignmentMapping(feedbackId, data.Id))
                         return false;
 
+                    feedback.FeedbackId = feedbackId;
+
                     new NotificationBl().AddFeedbackNotification(feedback);
                     data.ApprovedBy = currentUser.UserId;
                 }
