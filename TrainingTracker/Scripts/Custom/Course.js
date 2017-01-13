@@ -5,10 +5,13 @@
             CourseId: my.queryParams["courseId"],
             TraineeId: my.queryParams["traineeId"],
             Course: ko.observable(),
-            Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg",
+            Icon: my.rootUrl + "/Uploads/CourseIcon/DefaultCourse.jpg"
         },
+        compressUserPanel = ko.observable(false),
+        scrollTop = ko.observable(false),
         showSelectedTopic = function (topic) {
             if (!my.isNullorEmpty(topic)) {
+                scrollTop(true);
                 my.courseVm.selectedTopic.Id(topic.Id);
                 my.courseVm.selectedTopic.Name(topic.Name);
                 my.courseVm.selectedTopic.Description(topic.Description);
@@ -183,6 +186,8 @@
                 my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
         }
         return {
+            scrollTop : scrollTop,
+            compressUserPanel : compressUserPanel,
             loadFeedbackWithThread : loadFeedbackWithThread,
             courseInfo: courseInfo,
             getCourse: getCourse,

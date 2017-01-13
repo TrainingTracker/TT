@@ -1,25 +1,5 @@
 ﻿var windowURL = window.URL || window.webkitURL;
 
-ko.bindingHandlers.slider = {
-
-    init: function (element, valueAccessor) {
-       // var value = ko.unwrap(valueAccessor());
-       // $(element).toggle(value);
-    },
-
-    update: function (element, valueAccessor, allBindings) {
-        var value = valueAccessor();
-        var valueUnwrapped = ko.unwrap(value);
-
-        var duration = allBindings.get('slideDuration') || 400; 
-
-        if (valueUnwrapped !== '')
-            $(element).slideDown(duration);
-        else
-            $(element).slideUp(duration);  
-    }
-};
-
 ko.bindingHandlers.IsFieldValidated = {
     init: function (element, valueAccessor) {
         // var value = ko.unwrap(valueAccessor());
@@ -40,6 +20,65 @@ ko.bindingHandlers.IsFieldValidated = {
         }
     }
 }
+
+ko.bindingHandlers.CompressProfilePanel = {
+    init: function (element, valueAccessor) {
+        $(element).css({ width: '15%' });
+    },
+
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        //var message = allBindings.get('validationMessage').toString();
+
+        if (valueUnwrapped) {
+            $(element).animate({ width: '6%', height: '94px' }, "slow");
+            $(element).children('.collapser').animate({
+                
+                marginTop: '30px',
+                marginLeft: '-18px',
+                borderTopRightRadius: '0px',
+                borderBottomRightRadius: '0px',
+                borderTopLeftRadius: '12px',
+                borderBottomLeftRadius: '12px'
+            });
+            $(element).children('.collapser').children('.fa').removeClass('fa-chevron-right').addClass('fa-chevron-left');
+            
+        }
+        else {
+            $(element).animate({ width: '15%', height: '148px' }, "slow");
+
+            $(element).children('.collapser').animate({
+                
+                marginTop:'60px',
+                marginLeft: '0px',
+                borderTopRightRadius: '12px',
+                borderBottomRightRadius: '12px',
+                borderTopLeftRadius: '0px',
+                borderBottomLeftRadius: '0px',
+            });
+            $(element).children('.collapser').children('.fa').removeClass('fa-chevron-left').addClass('fa-chevron-right');
+            
+        }
+    }
+}
+
+
+ko.bindingHandlers.ScrollTop = {
+   
+    update: function (element, valueAccessor, allBindings) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+        var scrollTopValue = allBindings.get('ScrollTopValue');
+        if (valueUnwrapped) {
+            $(element).animate({
+                scrollTop: my.isNullorEmpty(scrollTopValue) ? '0' : scrollTopValue
+            });
+        }
+    }
+}
+
 ko.bindingHandlers.CKEDITOR = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var ckEditorValue = valueAccessor();

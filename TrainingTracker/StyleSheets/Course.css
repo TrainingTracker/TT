@@ -237,16 +237,41 @@ color:green;
 }
 
 #divUserProfileDetails {
-  
-       position: fixed;
+    border-top-left-radius:24px;
+    border-bottom-left-radius:24px;
+    overflow: hidden;
+   position: fixed;
     right: 17px;
     width: 15%;
     z-index: 999;
     top: 10%;
-    background-color: #1a2942;
+    background-color: #2f5ca6;
     /* top: auto; */
 }
 
+#divUserProfileDetails > .collapser {
+    background-color: white;
+    color: #2596f1;
+    position: fixed;
+    margin-top: 60px;
+    cursor:pointer;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    height: 24px;
+    padding: 2px;
+    
+}
+#divUserProfileDetails > .collapser > .fa:first-child {
+    font-size:20px;
+}
+/*#divUserProfileDetails > .collapser > .fa:nth-child(2) {
+    font-size: 16px;
+    margin-left: -7px;
+}
+#divUserProfileDetails > .collapser > .fa:nth-child(3) {
+    font-size: 14px;
+    margin-left: -7px;
+}*/
 .tracker-percentage {
     font-size: 20px;
     font-family: "Orbitron"; 
