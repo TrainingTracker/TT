@@ -49,5 +49,10 @@ namespace TrainingTracker.Common.ViewModel
         /// </summary>
         public bool IsCodeReviewAdded { get; set; }
 
+        /// <summary>
+        /// Gets and Sets Pending Assignment count
+        /// </summary>
+        public List<CourseTrackerDetails> AllAssignedCourses { get; set; }
+
     }
 }

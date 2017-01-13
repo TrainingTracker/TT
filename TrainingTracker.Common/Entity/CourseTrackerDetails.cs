@@ -34,9 +34,16 @@ namespace TrainingTracker.Common.Entity
         public int TotalAssignmentCount { get; set; }
 
         /// <summary>
-        /// gets and sets covered subtopic content
+        /// gets and sets covered assignment content
         /// </summary>
         public int CompletedAssignmentCount { get; set; }
+
+        /// <summary>
+        /// gets and sets pending assignment
+        /// </summary>
+        public int PendingAssignmentCount { get; set; }
+
+        public User UserDetails { get; set; }
 
         /// <summary>
         /// gets and sets percentage course covered

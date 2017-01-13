@@ -1,6 +1,7 @@
 ﻿
 @section Styles
 {
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     @Styles.Render("~/bundles/CourseViewStyles")
 }
@@ -8,47 +9,85 @@
 
 
 
-<div class="col-xs-12 no-padding-left no-padding-right">
+<div class="col-xs-12 no-padding-left no-padding-right" >
     <div class="col-md-12 layout-wrapper">
         <div class="row layout-header-panel">
             <div class="col-md-2 layout-section">
                 <img class="course-header-img" data-bind="attr: { src: courseInfo.Icon }" />
             </div>
-            <div class="col-md-8 course-header-info">
+            <div class="col-md-7 course-header-info">
                 <h2 data-bind="text: courseInfo.Course.Name"></h2>
                 <h4>
                     <b>
                         Author : <span data-bind="text : courseInfo.Course.AuthorName "></span>
                     </b>
                     <span data-bind="text : '(' + courseInfo.Course.AuthorMailId + ')'"></span>
-                    
+
                 </h4>
-                
+
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>
+
+            @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
+            {
+                <div id="divUserProfileDetails" class="col-xs-3 no-padding-left no-padding-right" data-bind="visible: !my.isNullorEmpty(courseInfo.Course.TrackerDetails), CompressProfilePanel: my.courseVm.compressUserPanel">
+                    <span class="pull-left collapser" data-bind="click: function(){ my.courseVm.compressUserPanel(! my.courseVm.compressUserPanel());}">
+                        <i class="fa" aria-hidden="true"></i>
+                    </span>
+                    <div class="panel-heading">
+                        <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + courseInfo.Course.TrackerDetails.UserDetails.ProfilePictureName }"
+                             class="img-responsive img-circle profile-img">
+                        <div data-bind="text: courseInfo.Course.TrackerDetails.UserDetails.FullName"
+                             class="username">
+                        </div>
+                        <div data-bind="text: 'Course Status'"
+                             class="designation">
+                        </div>
+                        <div data-bind="text: courseInfo.Course.TrackerDetails.PercentageCompleted + '%'"
+                             class="designation tracker-percentage">
+                        </div>
+                    </div>
+
+                </div>
+            }
         </div>
         <div class="row ">
-            <div class="col-xs-2 layout-left-panel course-index" >
+            <div class="col-xs-2 layout-left-panel course-index">
                 <label class="title" data-bind="text: courseInfo.Course.Name"></label>
-                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics"  >
+                <span data-bind="visible: my.meta.currentUser.IsTrainee || (!my.meta.currentUser.IsTrainee && courseInfo.TraineeId > 0)" class="legends">
+                    <em>Legend</em>
+                    <span class="custom-tooltip legend-custom-tooltip">
+                        <span>
+                            <i class="fa fa-exclamation pending" aria-hidden="true"></i>&nbsp; Assignment Pending for Approval<br />
+                            <i class="fa fa-repeat reassigned" aria-hidden="true"></i>&nbsp;Assignment Reassigned<br>
+                            <i class="completed" aria-hidden="true">&#10004;</i>&nbsp;Assignment Approved/Topic Completed
+                        </span>
+                    </span>
+                </span>
+                <div class="list" data-bind="foreach: courseInfo.Course.CourseSubtopics">
                     <ul class="subtopic">
                         <li data-bind="click: function () { $parent.showSelectedTopic($data); }, css: { 'selected': $root.selectedTopic.Id() == Id} ">
                             <i class="fa fa-book" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span>
                             <ul class="links">
                                 <!-- ko foreach: SubtopicContents -->
-                                <li><i data-bind="visible:IsCompleted()"class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
+                                <li><i data-bind="visible:IsCompleted()" class="completed" aria-hidden="true">&#10004; &nbsp;</i><span data-bind="text: Name"></span></li>
                                 <!-- /ko -->
                                 <li class="assignment-li" data-bind="visible: Assignments.length > 0">
                                     <strong><em><i class="fa fa-tasks" aria-hidden="true"></i> Assignments</em></strong>
                                     <ul>
                                         <!-- ko foreach: Assignments -->
-                                        <li><i data-bind="visible:IsCompleted() && IsApproved()" class="fa fa-check" aria-hidden="true">&nbsp;</i><span data-bind="text: Name"></span></li>
+                                        <li>
+                                            <i class="pending" data-bind="visible:IsCompleted() && !IsApproved()" aria-hidden="true"><i class="fa fa-exclamation" aria-hidden="true"></i> &nbsp;</i>
+                                            <i class="completed" data-bind="visible:IsCompleted() && IsApproved()" aria-hidden="true">&#10004; &nbsp;</i>
+                                            <i class="reassigned" data-bind=" visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0" aria-hidden="true"><i class="fa fa-repeat" aria-hidden="true"></i> &nbsp;</i>
+                                            <span data-bind="text: Name"></span>
+                                        </li>
                                         <!-- /ko -->
                                     </ul>
                                 </li>
                             </ul>
-                        
+
                         </li>
                     </ul>
                 </div>
@@ -59,15 +98,19 @@
                 <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.SubtopicContents">
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading link-header">
-                            <h3 class="panel-title" style="display: inline-block"><span data-bind="text: Name"></span></h3>
+                            <span data-bind=" css:{'checked': IsCompleted(), 'unchecked': !IsCompleted()}, visible: (!my.isNullorEmpty(IsCompleted()) && my.meta.currentUser.IsTrainee)|| (!my.meta.currentUser.IsTrainee && IsCompleted()), click:$root.saveProgress">
+                                <i>&#10004;</i>
+                                <span class="custom-tooltip" data-bind="text: IsCompleted() ? 'completed':'mark as read'"></span>
+                            </span>
+
+                            <h3 class="panel-title" data-bind="css:{'shift-right': (!my.isNullorEmpty(IsCompleted()) && my.meta.currentUser.IsTrainee)|| (!my.meta.currentUser.IsTrainee && IsCompleted())}" style="display: inline-block"><span data-bind="text: Name"></span></h3>
                             &nbsp;
-                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: !my.isNullorEmpty(IsCompleted()), click:$root.saveProgress"></i>
                             <span class="pull-right" style="display: inline-block" data-bind="visible: Url != null && Url.trim() !== ''">
                                 <a data-bind="attr: { href: (my.isNullorEmpty(Url) || Url.toUpperCase().indexOf('HTTP') > -1) ? Url : ('http://' + Url) }" target="_blank"><i class="fa fa-external-link"> Browse Link</i></a>
                             </span>
 
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" data-bind="visible:!my.isNullorEmpty(Description)">
                             <span data-bind="html: Description"></span>
                         </div>
                     </div>
@@ -75,24 +118,28 @@
                 <div class="link-content" data-bind="foreach: my.courseVm.selectedTopic.Assignments">
                     <div class="panel panel-default link-panel">
                         <div class="panel-heading assignment-header">
-                            <h3 class="panel-title" style="display: inline-block">Assignment: <span data-bind="text: Name"></span></h3>
+                            <span data-bind="css:{'checked': IsCompleted(), 'unchecked': !IsCompleted()}, visible: (TraineeId > 0 && TraineeId == my.meta.currentUser.UserId) || (TraineeId != my.meta.currentUser.UserId && IsCompleted()) , click:$root.updateAssignmentProgress">
+                                <i>&#10004;</i>
+                                <span class="custom-tooltip" data-bind="text: IsCompleted() ? (IsApproved() ? 'completed' : 'approval pending'):'mark as done'"></span>
+                            </span>
+
+                            <h3 class="panel-title" data-bind="css:{'shift-right': (TraineeId > 0 && TraineeId == my.meta.currentUser.UserId) || IsCompleted()}" style="display:inline-block">Assignment: <span data-bind="text: Name"></span></h3>
                             &nbsp;
-                            <i title="mark as read" class="fa" aria-hidden="true" data-bind="css:{'fa-check-square-o': IsCompleted(), 'fa-square-o': !IsCompleted()}, visible: TraineeId > 0, click:$root.updateAssignmentProgress"></i>
-                            &nbsp;
-                            <span class="label label-warning" data-bind="visible: IsCompleted() && !IsApproved()">pending for approval</span>
-                            <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()">approved
+                            <span class="label label-warning" data-bind="visible: IsCompleted() && !IsApproved()"><i class="fa fa-exclamation pending" aria-hidden="true"></i> pending for approval</span>
+                            <span class="label label-success" data-bind="visible: IsCompleted() && IsApproved()">
+                                <i class="completed" aria-hidden="true">&#10004; &nbsp;</i> approved
                                 <span>
                                     <!-- ko foreach: new Array(Rating())  -->
                                     <span class="glyphicon glyphicon-star"></span>
                                     <!-- /ko -->
                                 </span>
                             </span>
-                            <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0">reassigned</span>
+                            <span class="label label-danger" data-bind="visible: !IsCompleted() && !IsApproved() && ApprovedBy > 0"><i class="fa fa-repeat reassigned" aria-hidden="true"></i> reassigned</span>
                             <span class="pull-right" data-bind="visible: !my.isNullorEmpty(AssignmentAsset)"><i class="fa fa-download" aria-hidden="true"></i> <a title="download" target="_blank" data-bind="attr: { href: my.rootUrl + '/LearningPath/DownloadAssignment?fileName=' + AssignmentAsset }">Assignment</a></span>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" data-bind="visible:!my.isNullorEmpty(Description)">
                             <span data-bind="html: Description"></span>
-                            
+
                         </div>
                         <div class="panel-footer" data-bind="visible:!my.isNullorEmpty(my.courseVm.courseInfo.TraineeId) && !my.meta.currentUser.IsTrainee && IsCompleted() && !IsApproved()">
                             <div class="form-group">
@@ -120,37 +167,37 @@
                             </span>
                             <button data-bind="click: $root.updateAssignmentProgressWithFeedback" type="button" class="btn btn-info pull-right">Add <i class="glyphicon glyphicon-send"></i></button>
                             <div data-bind="visible:!(NewFeedback.IsFeedbackCommentValid() && NewFeedback.FeedbackType.FeedbackTypeId() != '3'),text:NewFeedback.ValidationMsg" style="color:red"></div>
-                      </div>
-                        <div class="panel-footer">
-                          <ul class="assignment-feedback">
-                              <!-- ko foreach: Feedback  -->
-                              <li class="li-assignment-feedback">
-                                  <div style="display: inline-block;" class="title ">
-                                      <strong><a data-bind="text: AddedBy.FullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedBy.UserId }"></a></strong>&nbsp
-                                  </div>
-                                  <div style="display: inline-block;" class="text-muted time ">
-                                      Added <span data-bind="click:function() { $root.loadFeedbackWithThread(FeedbackId); }">
-                                          <a href="#1" data-bind="visible:FeedbackType.FeedbackTypeId == '1', text: 'Comment for Reassignment'"></a>
-                                          <a href="#1" data-bind="visible:FeedbackType.FeedbackTypeId == '3', text:' Feedback for ' + Title"></a>
-                                      </span>
-                                  </div>
-                                  <div style="display: inline-block; padding-left: 10px" data-bind="css: {
+                        </div>
+                        <div class="panel-footer" data-bind="visible:Feedback().length > 0">
+                            <ul class="assignment-feedback">
+                                <!-- ko foreach: Feedback  -->
+                                <li class="li-assignment-feedback">
+                                    <div style="display: inline-block;" class="title ">
+                                        <strong><a data-bind="text: AddedBy.FullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedBy.UserId }"></a></strong>&nbsp
+                                    </div>
+                                    <div style="display: inline-block;" class="text-muted time ">
+                                        Added <span data-bind="click:function() { $root.loadFeedbackWithThread(FeedbackId); }">
+                                            <a href="#1" data-bind="visible:FeedbackType.FeedbackTypeId == '1', text: 'Comment for Reassignment'"></a>
+                                            <a href="#1" data-bind="visible:FeedbackType.FeedbackTypeId == '3', text:' Feedback for ' + Title"></a>
+                                        </span>
+                                    </div>
+                                    <div style="display: inline-block; padding-left: 10px" data-bind="css: {
                                                             'rating-slow': Rating == 1,
                                                             'rating-Average': Rating == 2,
                                                             'rating-Fast': Rating == 3,
                                                             'rating-Exceptional': Rating == 4
                                                         }">
-                                      <!-- ko foreach: new Array(Rating)  -->
-                                      <span class="glyphicon glyphicon-star"
-                                            style="display: inline-block;"></span>
-                                      <!-- /ko -->
-                                  </div>
-                                  <span data-bind="text:'on ' + moment(AddedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></span>
-                              </li>
-                              <!-- /ko -->
-                          </ul>
+                                        <!-- ko foreach: new Array(Rating)  -->
+                                        <span class="glyphicon glyphicon-star"
+                                              style="display: inline-block;"></span>
+                                        <!-- /ko -->
+                                    </div>
+                                    <span data-bind="text:'on ' + moment(AddedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></span>
+                                </li>
+                                <!-- /ko -->
+                            </ul>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
