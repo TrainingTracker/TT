@@ -110,6 +110,7 @@ namespace TrainingTracker
 
              bundles.Add(new ScriptBundle("~/bundles/CourseViewScripts").Include(
               "~/Scripts/ko.mapping.js",
+              "~/Scripts/jquery-confirm.js" ,
               "~/Scripts/Custom/FeedbackThread.js",
               "~/Scripts/Custom/CourseService.js",
               "~/Scripts/Custom/Course.js",
@@ -173,7 +174,8 @@ namespace TrainingTracker
                   "~/StyleSheets/FeedbackThread.css",
                   "~/StyleSheets/FeedbackPlot.css",
                   "~/Content/Site.css",
-                  "~/StyleSheets/Course.css"
+                  "~/StyleSheets/Course.css",
+                   "~/StyleSheets/jquery-confirm.css" 
             ));
   
             #endregion

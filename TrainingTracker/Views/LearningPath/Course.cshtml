@@ -30,7 +30,7 @@
             </div>
  @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator") )
  {
-     <div id="divUserProfileDetails" class="col-xs-3 no-padding-left no-padding-right" data-bind="visible: !my.isNullorEmpty(courseInfo.Course.TrackerDetails)">
+     <div id="divUserProfileDetails" class="col-xs-3 no-padding-left no-padding-right" data-bind="if: !my.isNullorEmpty(courseInfo.Course.TrackerDetails)">
          <div class="panel-heading">
              <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + courseInfo.Course.TrackerDetails.UserDetails.ProfilePictureName }"
                   class="img-responsive img-circle profile-img">

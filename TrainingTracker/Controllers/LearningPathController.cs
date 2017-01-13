@@ -85,9 +85,9 @@ namespace TrainingTracker.Controllers
                 int userId = 0;
                 if (CurrentUser != null && (CurrentUser.IsTrainee && (userId = CurrentUser.UserId) > 0) || (!CurrentUser.IsTrainee && (userId = traineeId) > 0))
                 {
-                    return Json(new LearningPathBL().GetCourseWithAllData(courseId, userId), JsonRequestBehavior.AllowGet);
+                    return Json(new LearningPathBL().GetCourseWithAllData(courseId,CurrentUser, userId), JsonRequestBehavior.AllowGet);
                 }
-                return Json(new LearningPathBL().GetCourseWithAllData(courseId), JsonRequestBehavior.AllowGet);
+                return Json(new LearningPathBL().GetCourseWithAllData(courseId , CurrentUser) , JsonRequestBehavior.AllowGet);
             }
             return null;
         }
@@ -305,6 +305,12 @@ namespace TrainingTracker.Controllers
                 return Json( new LearningPathBL().SaveSubtopicContentProgress(subtopicContentId, CurrentUser.UserId), JsonRequestBehavior.AllowGet);
             }
             return Json(false);
+        }
+
+        [CustomAuthorize(Roles =  UserRoles.Trainee)]
+        public JsonResult StartCourseForTrainee( int courseId )
+        {
+            return Json(new LearningPathBL().StartCourseForTrainee(CurrentUser,courseId),JsonRequestBehavior.AllowGet);
         }
     }
 }

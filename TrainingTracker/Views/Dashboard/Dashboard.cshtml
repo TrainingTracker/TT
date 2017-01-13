@@ -26,7 +26,22 @@
                         </div>
                         <div class="col-xs-4 no-padding-left no-padding-right">
                             <span>Assign.</span>
-                               <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { tittle: 'Pending Assignment\'s Review', HtmlTag: 'false', ClickSticky: 'false', ClickClose: 'true' }"></span>                   
+                            <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { HtmlId: 'ulLegendAssignment', HtmlTag: 'true', ClickSticky: 'true', ClickClose: 'true' }"></span>                   
+                             
+                            <ul style="display:none; " id="ulLegendAssignment" class=" list-unstyled" data-bind="visible: false">
+                                <li>
+                                    <span class="feedback-success" ></span>
+                                    <span>No Pending Assignments</span>
+                                </li>
+                                <li>
+                                    <span class="feedback-pending" ></span>
+                                    <span>Pending Assignments</span>
+                                </li>
+                                <li>
+                                    <span style="margin-top: 5px;text-align: center"  class="rating-Fast" >  --  </span>
+                                    <span>No courses Assigned</span>
+                                </li>
+                            </ul>
                         </div>
                    </div>
                     <div class="col-xs-7 no-left-margin no-right-margin spacer-top-bottom">

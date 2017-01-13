@@ -246,7 +246,7 @@ div#WzTtDiV table tbody tr td li:last-child {
     content: "";
     position: absolute;
     width: 80%;
-    margin-top: 11%;
+    margin-top: 8%;
     left: 10%;
     border-bottom: 1px solid #ccc;
 
@@ -259,3 +259,17 @@ div#WzTtDiV table tbody tr td li:last-child {
         width: 85% !important;
     overflow-wrap: break-word;
 }
+
+#WzBoDyI .feedback-success,#WzBoDyI .feedback-pending,#WzBoDyI .rating-Fast {
+    position: static;
+    vertical-align: middle;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+}
+#WzBoDyI span {
+    font-size: 10px;
+    font-weight: bold;
+}
+   

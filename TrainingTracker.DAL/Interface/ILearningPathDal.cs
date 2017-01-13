@@ -58,5 +58,13 @@ namespace TrainingTracker.DAL.Interface
         /// <returns>success flag for user permission to acces the page</returns>
         bool AuthorizeUserForCourse(int requestedCourseId, User currentUser);
 
+        /// <summary>
+        /// Signature for method to update the Current User's and course Mapping
+        /// </summary>
+        /// <param name="currentUser">Session instance of current user</param>
+        /// <param name="courseId">course id to be mapped</param>
+        /// <returns>Status if mapping added or not.</returns>
+        /// <exception >on exception return false</exception>
+        bool StartCourseForTrainee(User currentUser, int courseId);
     }
 }
