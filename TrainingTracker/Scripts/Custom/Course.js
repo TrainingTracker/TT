@@ -53,40 +53,76 @@
                                 }
                             });
                         }
-                        
+
 
                         item.NewFeedback = {
                             FeedbackId: ko.observable(0),
                             Title: ko.observable(""),
                             FeedbackText: ko.observable(""),
                             FeedbackType: {
-                                FeedbackTypeId : ko.observable("3"),
-                                Description:ko.observable("Assignment")
+                                FeedbackTypeId: ko.observable("3"),
+                                Description: ko.observable("Assignment")
                             },
                             Rating: ko.observable(""),
                             AddedBy: {
-                                UserId : ko.observable(""),
+                                UserId: ko.observable(""),
                                 FullName: ko.observable(""),
-                                ProfilePictureName : ko.observable("")
+                                ProfilePictureName: ko.observable("")
                             },
                             AddedFor: {
                                 UserId: ko.observable("")
                             },
                             AddedOn: ko.observable(""),
                             ValidationMsg: ko.observable(""),
-                            IsFeedbackCommentValid : ko.observable(true)
-
-                        }
+                            IsFeedbackCommentValid: ko.observable(true)
+                        };
                     });
                 });
                 
                 my.courseVm.courseInfo.Icon = my.rootUrl + "/Uploads/CourseIcon/" + jsonData.Icon;
-                if (my.courseVm.courseInfo.Course.CourseSubtopics.length > 0) {
+                if (!my.isNullorEmpty(my.courseVm.courseInfo.Course.CourseSubtopics) && my.courseVm.courseInfo.Course.CourseSubtopics.length > 0)
+                {
                     my.courseVm.showSelectedTopic(my.courseVm.courseInfo.Course.CourseSubtopics[0]);
                 }
+
+                loadCourseAlert(my.courseVm.courseInfo.Course.LoadAlert);
+                
                 ko.applyBindings(my.courseVm);
             }
         },
+        
+
+        loadCourseAlert =function(loadAlert) {
+            if (!loadAlert) return;
+           
+            $.confirm({
+                title: 'Start this course!',
+                content: 'You need to click "Get started", if you want to load all the content.</br>The course started time will be calculated from the moment you clicked "Get Started"</br><label>DO you really want to start this course?</label> ' ,
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Get Started',
+                        btnClass: 'btn-primary btn-success',
+                        action: function ()
+                        {
+                            if (!my.isNullorEmpty(my.courseVm.courseInfo.CourseId)) {
+                                my.courseService.startCourseForTrainee(my.courseVm.courseInfo.CourseId, startCourseCallback);
+                            }                           
+                        }
+                    }
+                }
+            });
+
+        },
+        
+        startCourseCallback=function(status) {
+            if (status) {
+                location.reload(true);
+            }
+        },
+
         getCourse = function () {
             if (my.courseVm.courseInfo.TraineeId == undefined) {
                 my.courseVm.courseInfo.TraineeId = null;

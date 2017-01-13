@@ -28,6 +28,7 @@
                 <h3 data-bind="html: courseInfo.Course.Description"></h3>
                 <h4>Estimated Duration : <span data-bind="text: courseInfo.Course.Duration"> </span> Days</h4>
             </div>
+
             @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
             {
                 <div id="divUserProfileDetails" class="col-xs-3 no-padding-left no-padding-right" data-bind="visible: !my.isNullorEmpty(courseInfo.Course.TrackerDetails), CompressProfilePanel: my.courseVm.compressUserPanel">

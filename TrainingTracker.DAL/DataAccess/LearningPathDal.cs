@@ -220,6 +220,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
+                    
                     var coursewithalldata = context.Courses
                                   .Where(c => c.IsActive && c.Id == courseId)
                                   .AsEnumerable()
@@ -232,6 +233,7 @@ namespace TrainingTracker.DAL.DataAccess
                                       AddedBy = c.AddedBy,
                                       CreatedOn = c.CreatedOn,
                                       IsPublished = c.IsPublished,
+                                      IsStarted = c.CourseUserMappings.Any(x=>x.CourseId==courseId && x.UserId == userId),
                                       Duration = c.Duration,
                                       CourseSubtopics = c.CourseSubtopics
                                                                        .Where(s => s.IsActive)
@@ -268,7 +270,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                                   })
                                    .FirstOrDefault();
-
                     return coursewithalldata;
                 }
             }
@@ -878,6 +879,39 @@ namespace TrainingTracker.DAL.DataAccess
                                   .Any(x => x.CourseId == requestedCourseId &&
                                        x.LearningMap.LearningMapUserMappings.Any(y => y.UserId == currentUser.UserId));
 
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Signature for method to update the Current User's and course Mapping
+        /// </summary>
+        /// <param name="currentUser">Session instance of current user</param>
+        /// <param name="courseId">course id to be mapped</param>
+        /// <returns>Status if mapping added or not.</returns>
+        /// <exception >on exception return false</exception>
+        public bool StartCourseForTrainee(Common.Entity.User currentUser, int courseId)
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    if (!context.CourseUserMappings.Any(x => x.CourseId == courseId && x.UserId == currentUser.UserId))
+                    {
+                        context.CourseUserMappings.Add(new CourseUserMapping
+                        {
+                            CourseId = courseId,
+                            UserId = currentUser.UserId,
+                            StartedOn = DateTime.Now
+                        });
+                        return context.SaveChanges() == 1;
+                    }
+                    return true;
                 }
             }
             catch (Exception ex)

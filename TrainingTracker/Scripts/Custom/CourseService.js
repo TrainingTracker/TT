@@ -95,6 +95,10 @@
         saveSubtopicContentProgress: function (subtopicContentId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/SaveSubtopicContentProgress?subtopicContentId=" + subtopicContentId, null, callback);
         },
+        
+        startCourseForTrainee : function(courseId,callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/LearningPath/StartCourseForTrainee?CourseId=" + courseId, null, callback);
+        },
 
         updateAssignmentProgress: function (data, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/LearningPath/UpdateAssignmentProgress", data, callback);
