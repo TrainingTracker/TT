@@ -121,6 +121,7 @@
             if (status) {
                 location.reload(true);
             }
+            loadCourseAlert(true);
         },
 
         getCourse = function () {
