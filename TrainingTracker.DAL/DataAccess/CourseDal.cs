@@ -1,4 +1,5 @@
-﻿using TrainingTracker.DAL.EntityFramework;
+﻿using System.Linq;
+using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.DAL.DataAccess
 {
@@ -8,7 +9,7 @@ namespace TrainingTracker.DAL.DataAccess
         {
             using (var context = new TrainingTrackerEntities())
             {
-                return context.Courses.Page(pageNumber, pageSize);
+                return context.Courses.OrderBy(x => x.Name).Page(pageNumber, pageSize);
             }
         }
     }
