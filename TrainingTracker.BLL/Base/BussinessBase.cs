@@ -1,5 +1,6 @@
 ﻿using TrainingTracker.DAL.DataAccess;
 using TrainingTracker.DAL.Interface;
+using TrainingTracker.DAL;
 
 namespace TrainingTracker.BLL.Base
 {
@@ -170,6 +171,14 @@ namespace TrainingTracker.BLL.Base
         {
             get { return _learningMapDataAccessor ?? (_learningMapDataAccessor = new LearningMapDal()); }
         }
+
+
+        private UnitOfWork _unitOfWork;
+        public UnitOfWork UnitOfWork
+        {
+            get { return _unitOfWork ?? (_unitOfWork = new UnitOfWork()); }
+        }
+
 
     }
 }
