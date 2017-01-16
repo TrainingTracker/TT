@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\CourseDal.cs" />
+    <Compile Include="DataAccess\DalExtensions.cs" />
     <Compile Include="DataAccess\FeedbackDal.cs" />
     <Compile Include="DataAccess\LearningMapDal.cs" />
     <Compile Include="DataAccess\LearningPathDal.cs">
@@ -126,6 +128,7 @@
     <Compile Include="EntityFramework\NotificationType.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\PagedResult.cs" />
     <Compile Include="EntityFramework\Plan.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
