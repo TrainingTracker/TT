@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -824,8 +825,8 @@ namespace TrainingTracker.DAL.DataAccess
                                   {
                                       Id = x.u.t.s.r.q.p.c.Id ,
                                       Name = x.u.t.s.r.q.p.c.Name ,
-                                      TotalSubTopicCount = context.SubtopicContents.Count(y => y.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id) ,
-                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId),
+                                      TotalSubTopicCount = context.SubtopicContents.Count(y => y.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id && y.IsActive) ,
+                                      CoveredSubTopicCount = context.SubtopicContentUserMaps.Count(y => y.Seen && y.SubtopicContent.CourseSubtopic.Course.Id == x.u.t.s.r.q.p.c.Id && y.UserId == traineeId && y.SubtopicContent.IsActive),
                                       TotalAssignmentCount = context.Assignments
                                                                     .GroupJoin(context.AssignmentSubtopicMaps,a=>a.Id,asm=>asm.AssignmentId, (a,asm)=> new {a,asm = asm.FirstOrDefault()})
                                                                     .Count(y => y.asm.CourseSubtopic.CourseId == x.u.t.s.r.q.p.c.Id && y.a.IsActive),
@@ -876,8 +877,8 @@ namespace TrainingTracker.DAL.DataAccess
                 using (TrainingTrackerEntities context = new TrainingTrackerEntities())
                 {
                     return context.LearningMapCourseMappings
-                                  .Any(x => x.CourseId == requestedCourseId &&
-                                       x.LearningMap.LearningMapUserMappings.Any(y => y.UserId == currentUser.UserId));
+                        .Any(x => x.CourseId == requestedCourseId &&
+                                  x.LearningMap.LearningMapUserMappings.Any(y => y.UserId == currentUser.UserId));
 
                 }
             }
@@ -918,6 +919,113 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 LogUtility.ErrorRoutine(ex);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Data access method to update the course status to completed for trainee
+        /// </summary>
+        /// <param name="courseId">course Id to be updated</param>
+        /// <param name="traineeId">trainee Id to be updated</param>
+        /// <returns>success flag for updation of the context</returns>
+        public bool CompleteCourseForTrainee(int courseId,int traineeId)
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    CourseUserMapping courseUserMap = context.CourseUserMappings.FirstOrDefault(x => x.CourseId == courseId && x.UserId == traineeId && x.CompletedOn == null);
+
+                    if (courseUserMap != null)
+                    {
+                        courseUserMap.CompletedOn = DateTime.Now;
+                        return context.SaveChanges() == 1;
+                    }
+                   throw new Exception("No course user mapping already existing");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return false;
+            }
+            
+        }
+
+        /// <summary>
+        /// Interface signature for fetching course Detail
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="assignmentId">assignment id</param>
+        /// <param name="subtopicContentId">subtopic id</param>
+        /// <returns>courseid</returns>
+        public CourseTrackerDetails GetCourseDetailBasedOnParameters(int userId, int assignmentId = 0, int subtopicContentId = 0)
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    int courseId = 0 ;
+
+                    if (assignmentId > 0 && subtopicContentId == 0)
+
+                    {
+                        var assignment = context.Assignments.FirstOrDefault(x => x.Id == assignmentId);
+                        if (assignment != null)
+                        {
+                            var assignmentSubtopicMap = assignment.AssignmentSubtopicMaps.FirstOrDefault();
+                            if (assignmentSubtopicMap != null)
+                            {
+                                 courseId = assignmentSubtopicMap.CourseSubtopic.CourseId;
+                            }
+                        }
+                        
+                    }
+                    else if (assignmentId == 0 && subtopicContentId > 0)
+                    {
+                        var subTopic = context.SubtopicContents.FirstOrDefault(x => x.Id == subtopicContentId);
+                        if (subTopic != null)
+                        {
+                            courseId = subTopic.CourseSubtopic.CourseId;                           
+                        }
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                  // fetch user and course
+                    return context.Courses.Where(x => x.Id == courseId)
+                                                .Select(x => new CourseTrackerDetails
+                                                        {
+                                                            Id= x.Id,
+                                                            Name=x.Name,
+                                                            TotalAssignmentCount = x.CourseSubtopics.SelectMany(y=>y.AssignmentSubtopicMaps.Select(z=>z.Assignment).Where(a=>a.IsActive)).Count(),
+                                                            CompletedAssignmentCount = x.CourseSubtopics.SelectMany(y => y.AssignmentSubtopicMaps.Select(yz => yz.Assignment).Where(a => a.IsActive).SelectMany(z=>z.AssignmentUserMaps.Where(za=>za.IsApproved && za.TraineeId==userId))).Count(),
+                                                            TotalSubTopicCount = x.CourseSubtopics.SelectMany(y=>y.SubtopicContents.Where(ya=>ya.IsActive)).Count(),
+                                                            CoveredSubTopicCount = x.CourseSubtopics.SelectMany(y => y.SubtopicContents.Where(ya => ya.IsActive).SelectMany(z=>z.SubtopicContentUserMaps.Where(za=>za.Seen && za.UserId == userId))).Count(),
+                                                        }).FirstOrDefault();
+                    //if (courseId > 0 && course !=null)
+                    //{
+
+                    //    return new CourseTrackerDetails
+                    //    {
+                    //        Id = course.Id,
+                    //        Name = course.Name,
+                    //        //TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment))
+                    //        TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive)).Count(),
+                    //        TotalSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive)).Count(),
+                    //        CoveredSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive).Select(z=>z.SubtopicContentUserMaps.Where(t=>t.Seen && t.UserId == userId))).Count(),
+                    //        CompletedAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive).Select(y=>y.AssignmentUserMaps.Where(z=>z.IsApproved && z.TraineeId==userId))).Count()
+                    //    };
+                    //}
+                    throw new Exception("Course details cannot be null,there have to be course assigned");                    
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
             }
         }
         
