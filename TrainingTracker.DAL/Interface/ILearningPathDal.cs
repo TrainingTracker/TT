@@ -66,5 +66,23 @@ namespace TrainingTracker.DAL.Interface
         /// <returns>Status if mapping added or not.</returns>
         /// <exception >on exception return false</exception>
         bool StartCourseForTrainee(User currentUser, int courseId);
+
+        /// <summary>
+        /// Data access method to update the course status to completed for trainee
+        /// </summary>
+        /// <param name="courseId">course Id to be updated</param>
+        /// <param name="traineeId">trainee Id to be updated</param>
+        /// <returns>success flag for updation of the context</returns>
+        bool CompleteCourseForTrainee(int courseId, int traineeId);
+
+        /// <summary>
+        /// Interface signature for fetching course Detail
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="assignmentId">assignment id</param>
+        /// <param name="subtopicId">subtopic id</param>
+        /// <returns>courseid</returns>
+        CourseTrackerDetails GetCourseDetailBasedOnParameters(int userId, int assignmentId=0, int subtopicId=0);
+
     }
 }

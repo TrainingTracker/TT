@@ -124,6 +124,8 @@ namespace TrainingTracker.BLL
         public bool UpdateAssignmentProgress(Assignment data, User currentUser, out int feedbackId)
         {
             feedbackId = 0;
+            bool isAssignmentFeedback = false ;
+
             if (data != null && data.TraineeId > 0)
             {
                 // return false if trainee will not allowed to approve the completion of assignment or trainer cannot mark assignment as completed or trainer cannot approve/reassign assignment without feedback.
@@ -134,7 +136,7 @@ namespace TrainingTracker.BLL
 
                 if (!currentUser.IsTrainee)
                 {
-                    var feedback = data.Feedback.Where(x => x.FeedbackId == 0).FirstOrDefault();
+                    var feedback = data.Feedback.FirstOrDefault(x => x.FeedbackId == 0);
                     feedback.AddedBy = currentUser;
                     feedback.AddedFor = new UserBl().GetUserByUserId(data.TraineeId);
                     feedback.AddedOn = DateTime.Now;
@@ -154,9 +156,25 @@ namespace TrainingTracker.BLL
 
                     new NotificationBl().AddFeedbackNotification(feedback);
                     data.ApprovedBy = currentUser.UserId;
+
+                    if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Assignment)
+                    {
+                        isAssignmentFeedback = true;
+                        
+                    }
                 }
                 
-                return LearningPathDataAccessor.UpdateAssignmentProgress(data);
+                var status = LearningPathDataAccessor.UpdateAssignmentProgress(data);
+
+                if (!status || !isAssignmentFeedback || currentUser.IsTrainee) return status;
+
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(data.TraineeId, data.Id);
+                  
+                if( courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                    LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, data.TraineeId);
+                }
+                return true;
             }
             return false;
         }
@@ -245,9 +263,19 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.PublishCourse(id);
         }
 
+       
         public bool SaveSubtopicContentProgress(int subtopicContentId, int userId)
         {
-            return (subtopicContentId > 0 && userId > 0) ? LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId) : false;
+            if ((subtopicContentId > 0 && userId > 0) && LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId))
+            {
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(userId, 0,subtopicContentId);
+                if (courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                    LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, userId);
+                }
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
