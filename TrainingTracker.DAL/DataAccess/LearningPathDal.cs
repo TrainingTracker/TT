@@ -95,9 +95,10 @@ namespace TrainingTracker.DAL.DataAccess
         /// <summary>
         /// Data access method for filtering courses on search keyword
         /// </summary>
+        ///  <param name="traineeId">Filter Trainee assigned Course</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of courses matching search keyword</returns>
-        public List<Course> FilterCourses(string searchKeyword)
+        public List<Course> FilterCourses(string searchKeyword,int traineeId = 0)
         {
              try
              {
@@ -110,7 +111,8 @@ namespace TrainingTracker.DAL.DataAccess
                 {
                     return context.Courses
                                   .Where(x => ( length == 0 || splittedKeywords.Any(y => x.Name.Contains(y) || x.Description.Contains(y))) 
-                                                && x.IsActive )
+                                                && x.IsActive 
+                                                && (traineeId == 0 || x.CourseUserMappings.Any(y=>y.UserId == traineeId && x.Id == y.CourseId)) )
                                   .Select(x=> new Course
                                   {
                                       Id = x.Id,
@@ -235,6 +237,8 @@ namespace TrainingTracker.DAL.DataAccess
                                       CreatedOn = c.CreatedOn,
                                       IsPublished = c.IsPublished,
                                       IsStarted = c.CourseUserMappings.Any(x=>x.CourseId==courseId && x.UserId == userId),
+                                      StartedDateTime = c.CourseUserMappings.Where(x=>x.CourseId==courseId && x.UserId == userId).Select(x=>x.StartedOn).FirstOrDefault(),
+                                      CompletedDateTime = c.CourseUserMappings.Where(x => x.CourseId == courseId && x.UserId == userId).Select(x => x.CompletedOn).FirstOrDefault(),
                                       Duration = c.Duration,
                                       CourseSubtopics = c.CourseSubtopics
                                                                        .Where(s => s.IsActive)
@@ -282,7 +286,7 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
         //ToDo: This function can be refactored and reused
-        public List<Course> GetAllCourses()
+        public List<Course> GetAllCourses(int traineeId = 0)
         {
             try
             {
@@ -290,7 +294,7 @@ namespace TrainingTracker.DAL.DataAccess
                 {
 
                     var userDal = new UserDal();
-                    var course = context.Courses.Where(c => c.IsActive)
+                    var course = context.Courses.Where(c => c.IsActive && (traineeId==0 || c.CourseUserMappings.Any(x=>x.CourseId == c.Id && x.UserId ==  traineeId )))
                                          .AsEnumerable()
                                          .Select(c =>
                                             {

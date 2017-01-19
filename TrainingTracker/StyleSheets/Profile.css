@@ -697,3 +697,49 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 .rating-exceptional-new-color {
     color: #9af809 !important;
 }
+
+.feedback-zone >.col-xs-3:after {
+    content: "";
+    width: 100%;
+    top: 100%;
+    position: absolute;
+    border-bottom: 2px solid red;
+}
+
+.feedback-zone >.col-xs-3 {
+   height: 70px;
+    padding: 0;
+    margin-left: 0px;
+    border: 7px solid #fff;
+    color: #fff;
+    /* padding: 9px; */
+    /* box-sizing: inherit; */
+    display: table;
+    background-color: #2596F1;
+   
+}
+
+span.spn-course-data {
+        min-height: 50px;
+    font-family: "Orbitron";
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    /* margin: 38px; */
+    /* display: table-row; */
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+}
+span.spn-course-data:nth-child(n+2) {
+    font-size: 20px;
+}
+
+label.lbl-data-info {
+    text-align: center;
+    min-height: 20px;
+    font-size: 20px !important;
+    color:  #1A2942;
+    display: table-row;
+    margin-bottom: 0;
+}

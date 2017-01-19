@@ -43,6 +43,19 @@ namespace TrainingTracker.Common.Entity
         /// </summary>
         public int PendingAssignmentCount { get; set; }
 
+        /// <summary>
+        /// Gets and Sets course Started Date time
+        /// </summary>
+        public DateTime CourseStarted { get; set; }
+
+        /// <summary>
+        /// Gets and Sets course completed Date time
+        /// </summary>
+        public DateTime? CourseCompleted { get; set; }
+
+        /// <summary>
+        /// Course User Details
+        /// </summary>
         public User UserDetails { get; set; }
 
         /// <summary>

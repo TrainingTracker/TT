@@ -12,9 +12,10 @@ namespace TrainingTracker.DAL.Interface
         /// <summary>
         /// Interace signature for filtering courses on search keyword
         /// </summary>
+        /// <param name="traineeId">Filter Trainee assigned Course</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of courses matching search keyword</returns>
-        List<Course> FilterCourses(string searchKeyword);
+        List<Course> FilterCourses(string searchKeyword,int traineeId=0);
 
         bool AddSubtopicContent(SubtopicContent dataToAdd, out int id);
         bool AddAssignment(Assignment dataToAdd, out int id);
@@ -32,7 +33,7 @@ namespace TrainingTracker.DAL.Interface
         bool DeleteAssignment(int id);
 
         List<Assignment> GetAssignments(int subtopicContentId, int traineeId = 0);
-        List<Course> GetAllCourses();
+        List<Course> GetAllCourses(int traineeId=0);
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
         Course GetCourseWithSubtopics(int courseId);
         Course GetCourseWithAllData(int courseId, int userId = 0);

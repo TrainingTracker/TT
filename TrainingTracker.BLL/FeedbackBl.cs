@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using TrainingTracker.BLL.Base;
+using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.Common.Utility;
 using TrainingTracker.DAL.DataAccess;
 
 namespace TrainingTracker.BLL
@@ -52,7 +54,7 @@ namespace TrainingTracker.BLL
 
 
             // no way comment can have feedback rating
-            if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Comment)
+            if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Comment || feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Course)
             {
                 feedback.Rating = 0;
             }
@@ -115,7 +117,32 @@ namespace TrainingTracker.BLL
         /// <returns>Success flag</returns>
         public bool AuthorizeCurrentUserForFeedback(int feedbackId, User currentUser)
         {
-            return  (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId ;
+            return  (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) 
+                    ||  FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.UserId == Constants.AppBotUserId
+                    ||  FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId ;
+        }
+
+        /// <summary>
+        ///  Private to class method to generate course 
+        /// </summary>
+        /// <param name="courseId">Course Id</param>
+        /// <param name="userId">User Id</param>
+        /// <returns>success flag for the event</returns>
+        internal bool GenerateCourseFeedback(int courseId, int userId)
+        {
+            Course course = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
+            
+            Feedback feedback = new Feedback
+            {
+                AddedBy = new User{UserId = Constants.AppBotUserId},
+                AddedFor = new User { UserId = userId },
+                FeedbackType = new FeedbackType{FeedbackTypeId = (int)Common.Enumeration.FeedbackType.Course},
+                FeedbackText = UtilityFunctions.GenerateHtmlForCourseFeedback(course),
+                Title = course.Name
+            };
+
+          return  AddFeedback(feedback);
+
         }
     }
 }

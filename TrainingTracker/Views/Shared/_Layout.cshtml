@@ -35,7 +35,7 @@
                                 <label>Dashboard</label>
                             </a>
                         </li>
-                   
+
                         <li class="dropdown menu-li separator">
                             <a href="#">
                                 <label style="">Profiles</label> 
@@ -72,40 +72,46 @@
                                 </li>
                             </ul>
                         </li>
-                                               
-                        <li class="dropdown menu-li separator">
-                            <a href="#">
-                                <label>Learning</label> 
-                                <span class="glyphicon glyphicon-chevron-down" ></span>
-                            </a>                           
-                           
-                            <ul class="dropdown-menu dropdown-menu-pop-over-list">
-                                <li class="menu-li">
-                                    <a href="~/Session">
-                                        Sessions
-                                    </a>
-                                </li>
-                                <li  class="menu-li">
-                                    <a href="~/LearningPath/Courses">
-                                        Courses
-                                    </a>
-                                </li>      
-                                <li  class="menu-li">
-                                    <a href="~/LearningMap/LearningMap">Learning Map</a>
-                                </li>                         
-                            </ul>
-                        </li>
-                        <li class="menu-li">
-                            <a href="~/Questions">
-                                <label style="">Questions</label>
-                            </a>
-                        </li>
                     }
                     else
                     {
                         <li class="menu-li separator"><a data-bind="attr: { href: my.meta.userProfileUrl }"><label style="height:30px;">My Profile</label></a></li>
-                        <li class="menu-li"><a href="~/Session"><img style="visibility: hidden"/><label  style="height:30px;">Sessions</label></a></li>
+                       @* <li class="menu-li"><a href="~/Session"><img style="visibility: hidden"/><label  style="height:30px;">Sessions</label></a></li>*@
                     }
+                                               
+                  <li class="dropdown menu-li separator">
+                      <a href="#">
+                          <label>Learning</label> 
+                          <span class="glyphicon glyphicon-chevron-down" ></span>
+                      </a>                           
+                           
+                      <ul class="dropdown-menu dropdown-menu-pop-over-list">
+                          <li class="menu-li">
+                              <a href="~/Session">
+                                  Sessions
+                              </a>
+                          </li>
+                          <li  class="menu-li">
+                              <a href="~/LearningPath/Courses">
+                                  Courses
+                              </a>
+                          </li>    
+                          @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+                          {
+                              <li  class="menu-li">
+                                  <a href="~/LearningMap/LearningMap">Learning Map</a>
+                              </li>
+                          }                    
+                      </ul>
+                  </li>
+               @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
+               {
+                   <li class="menu-li">
+                       <a href="~/Questions">
+                           <label style="">Questions</label>
+                       </a>
+                   </li>
+               }
                 </ul> 
             </div>
             <div class="col-md-4 no-margin-right no-padding-right" >                          

@@ -19,6 +19,8 @@ namespace TrainingTracker.Common.Entity
         public int SortOrder { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsStarted { get; set; }
+        public DateTime? StartedDateTime { get; set; }
+        public DateTime? CompletedDateTime { get; set; }
         public bool LoadAlert { get; set; } 
         public string AuthorName { get; set; }
         public string AuthorMailId { get; set; }
