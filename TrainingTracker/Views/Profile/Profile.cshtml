@@ -49,42 +49,46 @@
                         </div>
                         <div class="tab-wrap rating-Exceptional">
                             <div>
-                                <span class="header-Tab rating-Exceptional">Exceptional</span>
-                                <span class="header-Tab rating-Exceptional">Exceptional</span>
+                                @*<span class="header-Tab rating-Exceptional">Exceptional</span>*@
+                                @*<span class="header-Tab rating-Exceptional">Exceptional</span>*@
                             </div>
                             <div class="data-counter rating-Exceptional">
-                                <span class="rating-Exceptional" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span class="rating-Exceptional" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-tag rating-exceptional-new-color">Exceptional</span>
+                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
 
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab rating-Fast">Fast</span>
-                                <span class="header-Tab  rating-Fast">Fast</span>
+                                @*<span class="header-Tab rating-Fast">Fast</span>
+                                <span class="header-Tab  rating-Fast">Fast</span>*@
                             </div>
                             <div class="data-counter">
-                                <span class=" rating-Fast" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())"></span>
-                                <span class=" rating-Fast" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-tag rating-Fast-new-color">Fast</span>
+                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab rating-Average">Average </span>
-                                <span class="header-Tab rating-Average">Average</span>
+                                @*<span class="header-Tab rating-Average">Average </span>
+                                <span class="header-Tab rating-Average">Average</span>*@
                             </div>
                             <div class="data-counter">
                                 <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-tag rating-Average">Average</span>
                                 <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentCodeReviewFeedback())"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
                             <div>
-                                <span class="header-Tab rating-slow">Slow</span>
-                                <span class="header-Tab  rating-slow">Slow</span>
+                                @*<span class="header-Tab rating-slow">Slow</span>
+                                <span class="header-Tab  rating-slow">Slow</span>*@
                             </div>
                             <div class="data-counter">
                                 <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-tag    rating-slow">Slow</span>
                                 <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentCodeReviewFeedback())"></span>
 
                             </div>
@@ -99,7 +103,7 @@
                                 <span data-bind="visible: my.profileVm.recentWeeklyFeedback().length > 0, css: {
                                                     'rating-slow': my.profileVm.recentWeeklyFeedback()[0].Rating == 1,
                                                     'rating-Average': my.profileVm.recentWeeklyFeedback()[0].Rating == 2,
-                                                    'rating-Fast': my.profileVm.recentWeeklyFeedback()[0].Rating == 3,
+                                                    'rating-Fast-new-color': my.profileVm.recentWeeklyFeedback()[0].Rating == 3,
                                                     'rating-Exceptional': my.profileVm.recentWeeklyFeedback()[0].Rating == 4
                                                 }">
                                     <!-- ko foreach: new Array(my.profileVm.recentWeeklyFeedback()[0].Rating)  -->
@@ -117,7 +121,7 @@
                                 <span data-bind=" css: {
                                                         'rating-slow': my.profileVm.recentCodeReviewFeedback()[0].Rating == 1,
                                                         'rating-Average': my.profileVm.recentCodeReviewFeedback()[0].Rating == 2,
-                                                        'rating-Fast': my.profileVm.recentCodeReviewFeedback()[0].Rating == 3,
+                                                        'rating-Fast-new-color': my.profileVm.recentCodeReviewFeedback()[0].Rating == 3,
                                                         'rating-Exceptional': my.profileVm.recentCodeReviewFeedback()[0].Rating == 4
                                                     }">
                                     <!-- ko foreach: new Array(my.profileVm.recentCodeReviewFeedback()[0].Rating)  -->
@@ -147,13 +151,18 @@
 
                 <div id="divCoursescollapasable" class="collapse in" data-bind="visible: userVm.User.IsTrainee && userVm.AllAssignedCourses.length > 0">
                     <div data-bind="foreach: userVm.AllAssignedCourses">
-                        <div class="list-group-item collapse" data-bind="click:function(){ window.open(my.rootUrl + '/LearningPath/Course?courseId=' + Id,'_blank')}">
+                        <div class="list-group-item collapse" data-bind="click: function(){ $root.navigateToCourse(Id); }">
                             <span data-bind="text:Name"></span>
-                            <span class="pull-right" data-bind="text: PercentageCompleted"></span>
+                            <span class="pull-right"  data-bind="text: PercentageCompleted"></span>
                             <span class="pull-right">
-                             Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
+                                Redirect to Course   <i class="fa fa-external-link custom-glyph"></i>
                             </span>
                         </div>
+                        <i data-bind="visible: PendingAssignmentCount > 0" class="fa fa-exclamation pending-assignment pull-right" aria-hidden="true">
+                            <span class="badge" data-bind="text: PendingAssignmentCount"></span>
+                            <span class="custom-tooltip" data-bind="text:PendingAssignmentCount + ' pending assignment to approve'"></span>
+                        </i>
+                        
                     </div>
                 </div>
 
@@ -443,8 +452,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p data-bind="visible: FeedbackType.FeedbackTypeId != 5, text: FeedbackText" style="white-space: pre-wrap;"></p>
-                                <p data-bind="visible: FeedbackType.FeedbackTypeId == 5, html: FeedbackText" style="white-space: pre-wrap;"></p>
+                                <p data-bind="visible: (FeedbackType.FeedbackTypeId != 5 && FeedbackType.FeedbackTypeId != 6), text: FeedbackText" style="white-space: pre-wrap;"></p>
+                                <p data-bind="visible: FeedbackType.FeedbackTypeId == 5 || FeedbackType.FeedbackTypeId == 6 , html: FeedbackText" style="white-space: pre-wrap;"></p>
                             </div>
                         </div>
                     </div>

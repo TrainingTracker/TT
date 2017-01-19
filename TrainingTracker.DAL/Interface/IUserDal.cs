@@ -88,5 +88,11 @@ namespace TrainingTracker.DAL.Interface
         /// </summary>
         /// <returns>List of User</returns>
         List<User> GetActiveUsersByTeam(int teamId);
+
+        /// <summary>
+        /// interface method GetAllTrainees by team 
+        /// </summary>
+        /// <returns>List of User</returns>
+        List<User> GetAllTrainees(int teamId);
     }
 }

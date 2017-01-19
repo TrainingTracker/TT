@@ -100,7 +100,7 @@ namespace TrainingTracker.BLL
                 AllTrainer = currentUser.IsTrainee ? GetAllUsersByTeam(currentUser).Where(x => x.IsTrainer || x.IsManager).ToList() : new List<User>() ,
                 FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) :new TrainerFeedbackSynopsis(),
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId) : new List<CourseTrackerDetails>() 
+                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x=>x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>() 
             };            
         }
 
@@ -211,6 +211,17 @@ namespace TrainingTracker.BLL
                 AllTeams = TeamDataAccesor.GetAllTeam() ,
                 AllUser = GetAllUsersByTeam(currentUser)
             };
+        }
+
+
+        /// <summary>
+        ///  Get List of all trainees which belongs to given teamId
+        /// </summary>
+        /// <param name="teamId">teamId </param>
+        /// <returns>List of trainees if exists otherwise null</returns>
+        public List<User> GetAllTrainees(int teamId)
+        {
+            return (UserDataAccesor.GetAllTrainees(teamId));
         }
     }
 }

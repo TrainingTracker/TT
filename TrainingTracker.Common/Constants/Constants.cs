@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Configuration;
+using System.Web.Configuration;
+
 namespace TrainingTracker.Common.Constants
 {
     /// <summary>
@@ -12,6 +16,8 @@ namespace TrainingTracker.Common.Constants
         public const string SalesTrackerEncryptionKey = "!#$a54?3";
 
         public const string DefaultCourseIcon = "DefaultCourse.jpg";
+
+        public static readonly int AppBotUserId = Int32.Parse(ConfigurationManager.AppSettings.Get("TTBotId")); 
     }
     /// <summary>
     /// Contains all user roles.

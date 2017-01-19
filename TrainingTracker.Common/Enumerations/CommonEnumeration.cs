@@ -58,7 +58,17 @@
         /// <summary>
         /// Enum For New note to feedback
         /// </summary>
-        NewNoteToFeedback=11
+        NewNoteToFeedback= 11,
+
+        /// <summary>
+        /// Enum for New course Notification
+        /// </summary>
+        NewCourseAssigned = 12,
+
+        /// <summary>
+        /// Enum For Course Feedback Notification
+        /// </summary>
+        CourseFeedbackNotification = 13
     }
 
 
@@ -90,7 +100,12 @@
         /// <summary>
         /// Weekly Feedback
         /// </summary>
-        Weekly=5
+        Weekly=5 ,
+
+        /// <summary>
+        /// Course Feedback
+        /// </summary>
+        Course = 6
     }
 
     /// <summary>

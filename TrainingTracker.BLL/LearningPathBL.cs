@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
+using System.Linq;
 
 namespace TrainingTracker.BLL
 {
@@ -22,11 +24,13 @@ namespace TrainingTracker.BLL
         /// <summary>
         /// Fetches all courses based on filter 
         /// </summary>
+        /// <param name="currentUser">Current user instance</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of Courses on filter</returns>
-        public List<Course> FilterCourses(string searchKeyword)
+        public List<Course> FilterCourses(User currentUser, string searchKeyword)
         {
-            return LearningPathDataAccessor.FilterCourses(searchKeyword);
+            return currentUser.IsTrainee ? LearningPathDataAccessor.FilterCourses(searchKeyword , currentUser.UserId)
+                                         : LearningPathDataAccessor.FilterCourses(searchKeyword);
         }
 
         public bool UpdateCourse(Course courseToUpdate)
@@ -119,15 +123,75 @@ namespace TrainingTracker.BLL
         }
 
 
+        public bool UpdateAssignmentProgress(Assignment data, User currentUser, out int feedbackId)
+        {
+            feedbackId = 0;
+            bool isAssignmentFeedback = false ;
+
+            if (data != null && data.TraineeId > 0)
+            {
+                // return false if trainee will not allowed to approve the completion of assignment or trainer cannot mark assignment as completed or trainer cannot approve/reassign assignment without feedback.
+                if ((currentUser.IsTrainee && data.TraineeId != currentUser.UserId && data.IsApproved) || (!currentUser.IsTrainee && data.IsCompleted && !data.IsApproved) || (!currentUser.IsTrainee && data.Feedback.Count < 1))
+                {
+                    return false;
+                }
+
+                if (!currentUser.IsTrainee)
+                {
+                    var feedback = data.Feedback.FirstOrDefault(x => x.FeedbackId == 0);
+                    feedback.AddedBy = currentUser;
+                    feedback.AddedFor = new UserBl().GetUserByUserId(data.TraineeId);
+                    feedback.AddedOn = DateTime.Now;
+                    
+                    if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Comment)
+                    {
+                        feedback.Rating = 0;
+                    }
+                    feedback.Skill = new Skill();
+                    feedback.Project = new Project();
+
+                    feedbackId = FeedbackDataAccesor.AddFeedback(feedback);    
+                    if(feedbackId == 0 || !FeedbackDataAccesor.AddFeedbackAssignmentMapping(feedbackId, data.Id))
+                        return false;
+
+                    feedback.FeedbackId = feedbackId;
+
+                    new NotificationBl().AddFeedbackNotification(feedback);
+                    data.ApprovedBy = currentUser.UserId;
+
+                    if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Assignment)
+                    {
+                        isAssignmentFeedback = true;
+                        
+                    }
+                }
+                
+                var status = LearningPathDataAccessor.UpdateAssignmentProgress(data);
+
+                if (!status || !isAssignmentFeedback || currentUser.IsTrainee) return status;
+
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(data.TraineeId, data.Id);
+                  
+                if( courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                    return LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, data.TraineeId)
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, data.TraineeId);
+                }
+                return true;
+            }
+            return false;
+        }
+
         public bool DeleteAssignment(int id)
         {
             return LearningPathDataAccessor.DeleteAssignment(id);
         }
 
 
-        public List<Course> GetAllCourses()
+        public List<Course> GetAllCourses(User currentUser)
         {
-            return LearningPathDataAccessor.GetAllCourses();
+            return currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCourses(currentUser.UserId) 
+                                         : LearningPathDataAccessor.GetAllCourses();
         }
 
         public Course GetCourseWithSubtopics(int courseId)
@@ -139,15 +203,43 @@ namespace TrainingTracker.BLL
             }
             return courseDetails;
         }
-        public Course GetCourseWithAllData(int courseId, int userId = 0)
+        public Course GetCourseWithAllData(int courseId,User currentUser, int userId = 0)
         {
-            var courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
-            if(courseDetails != null)
+            Course courseDetails;
+
+            if (!currentUser.IsTrainee)
+            {
+                if (userId > 0)
+                {
+                    courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId , userId);
+                    courseDetails.TrackerDetails = LearningPathDataAccessor.GetAllCoursesForTrainee(userId).FirstOrDefault(x => x.Id == courseId);
+                }
+                else
+                {
+                    courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId);
+                }
+            }
+            else
+            {
+                courseDetails = LearningPathDataAccessor.GetCourseWithAllData(courseId , userId);
+            }
+
+            if (courseDetails != null)
             {
                 User userData = UserDataAccesor.GetUserById(courseDetails.AddedBy);
                 courseDetails.AuthorName = userData.FirstName;
                 courseDetails.AuthorMailId = userData.Email;
-            }
+
+                if (currentUser.IsTrainee && !courseDetails.IsStarted)
+                {
+                    courseDetails.LoadAlert = true;
+                    foreach (CourseSubtopic  subtopic in courseDetails.CourseSubtopics)
+                    {
+                        subtopic.Assignments = new Collection<Assignment>();
+                        subtopic.SubtopicContents = new Collection<SubtopicContent>();
+                    }
+                }
+            }           
             return courseDetails;
         }
         public List<SubtopicContent> GetSubtopicContents(int subtopicId)
@@ -175,9 +267,20 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.PublishCourse(id);
         }
 
+       
         public bool SaveSubtopicContentProgress(int subtopicContentId, int userId)
         {
-            return (subtopicContentId > 0 && userId > 0) ? LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId) : false;
+            if ((subtopicContentId > 0 && userId > 0) && LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId))
+            {
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(userId, 0,subtopicContentId);
+                if (courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                  return   LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, userId) 
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, userId);
+                }
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -193,5 +296,21 @@ namespace TrainingTracker.BLL
 
             return LearningPathDataAccessor.AuthorizeUserForCourse(requestedCourseId, currentUser);
         }
+
+        /// <summary>
+        /// Update the Current User's and course Mapping
+        /// </summary>
+        /// <param name="currentUser">Session instance of current user</param>
+        /// <param name="courseId">course id to be mapped</param>
+        /// <returns>Status if mapping added or not.</returns>
+        /// <exception >on exception return false</exception>
+        public bool StartCourseForTrainee( User currentUser , int courseId )
+        {
+            if (currentUser != null && currentUser.IsTrainee && currentUser.UserId > 0 && courseId > 0)
+            {
+                return LearningPathDataAccessor.StartCourseForTrainee(currentUser, courseId);
+            }
+            return false;
+        }       
     }
 }

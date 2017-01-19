@@ -109,7 +109,7 @@ namespace TrainingTracker.Common.Utility
                     stringBuilder.Append("<span class='glyphicon glyphicon-star' style='display: inline-block;'></span>");
                 }
                  stringBuilder.Append("</div>");
-                 stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm}" , cr.AddedOn) + "</div></li>");
+                 stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}" , cr.AddedOn) + "</div></li>");
             }
 
             if (response.CodeReviewForTheWeek.Count == 0) stringBuilder.Append("<li class='li-code-review'><div class=''><label class='danger'>No CR added in the week.</label></li>");
@@ -238,6 +238,78 @@ namespace TrainingTracker.Common.Utility
                 return null;
             }
             return fileNamesList;
+        }
+
+        public static string GenerateHtmlForCourseFeedback(Course course)
+        {
+            StringBuilder strBuilder =new StringBuilder();
+            strBuilder.Append("<div class='weekly-feedback'><code>");
+
+            strBuilder.Append("<div class='feedback-zone'>");
+            strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}", course.StartedDateTime) + "</span><label class='lbl-data-info'>Course Started</label></div>");
+            strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}", course.CompletedDateTime) + "</span><label class='lbl-data-info'>Course Completed</label></div>");
+            strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + course.CourseSubtopics.SelectMany(x => x.SubtopicContents).Count() + "</span><label class='lbl-data-info'>Links/SubTopics</label></div>");
+            strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + course.CourseSubtopics.SelectMany(x => x.Assignments).Count() + "</span><label class='lbl-data-info'>Assignments</label></div>");
+            strBuilder.Append("</div>");
+           
+            strBuilder.Append("<div id='divSurveyCodeReview' class='feedback-zone'><div class='feedback-question'><label>Assignments Reviews for the course</label></div>");
+
+            StringBuilder feedbackStringBuilder = new StringBuilder();
+            foreach (var subtopic in course.CourseSubtopics)
+            {
+                foreach (var assignment in subtopic.Assignments)
+                {
+                    feedbackStringBuilder.Append("<label>Assignment: " + assignment.Name + "</label>");
+                    feedbackStringBuilder.Append("<ul class='feedback-notes'>");
+                    foreach (var feedback in assignment.Feedback)
+                    {
+                        feedbackStringBuilder.Append("<li class='li-code-review'>");
+
+                        string className = "";
+
+                        if (feedback.FeedbackType.FeedbackTypeId != (int) Common.Enumeration.FeedbackType.Comment)
+                        {
+                            switch (feedback.Rating)
+                            {
+                                case 1:
+                                    className = "rating-slow";
+                                    break;
+                                case 2:
+                                    className = "rating-Average";
+                                    break;
+                                case 3:
+                                    className = "rating-Fast";
+                                    break;
+                                case 4:
+                                    className = "rating-Exceptional";
+                                    break;
+                            }
+                        }
+
+
+                        feedbackStringBuilder.Append("<div style='display: inline-block;' class='title ' ><strong><a href='/Profile/UserProfile?userId=" + feedback.AddedBy.UserId + "'>" + feedback.AddedBy.FullName + "</a>&nbsp;</strong></div>");
+                        feedbackStringBuilder.Append("<div style='display: inline-block;' class='text-muted time ' > Added <span onclick='my.profileVm.loadFeedbackWithThread(" + feedback.FeedbackId + ")'><a href='#" + feedback.AddedBy.UserId + "'>" + (feedback.Rating > 0 ? "Assignment Feedback" : "Reassignment Comment") + "</a></span></div>");
+                        feedbackStringBuilder.Append("<div style='display: inline-block; padding-left: 10px' class=' " + className + "'>");
+
+                        for (var i = 0; i < feedback.Rating; i++)
+                        {
+                            feedbackStringBuilder.Append("<span class='glyphicon glyphicon-star' style='display: inline-block;'></span>");
+                        }
+
+                        feedbackStringBuilder.Append("</div>");
+                        feedbackStringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}", feedback.AddedOn) + "</div></li>");
+                    }
+                    feedbackStringBuilder.Append("</ul>");
+                }
+            }
+
+            strBuilder.Append(feedbackStringBuilder.ToString().Length > 0
+                ? feedbackStringBuilder.ToString()
+                : "<ul class='feedback-notes'><li class='li-code-review'><div><label class='danger'>No Assignments Reviews for the course.</label></div></li></ul>");
+
+            strBuilder.Append("</div>");
+            strBuilder.Append("</code></div>");
+            return strBuilder.ToString();
         }
     }
 }

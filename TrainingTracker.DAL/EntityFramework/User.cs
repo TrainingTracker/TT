@@ -17,8 +17,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public User()
         {
             this.Assignments = new HashSet<Assignment>();
-            this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
-            this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
             this.Courses = new HashSet<Course>();
             this.CourseSubtopics = new HashSet<CourseSubtopic>();
             this.CourseSubtopicDiscussions = new HashSet<CourseSubtopicDiscussion>();
@@ -37,6 +35,9 @@ namespace TrainingTracker.DAL.EntityFramework
             this.UserNotificationMappings = new HashSet<UserNotificationMapping>();
             this.UserSessionMappings = new HashSet<UserSessionMapping>();
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
+            this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
+            this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
+            this.CourseUserMappings = new HashSet<CourseUserMapping>();
         }
     
         public int UserId { get; set; }
@@ -57,8 +58,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<int> TeamId { get; set; }
     
         public virtual ICollection<Assignment> Assignments { get; set; }
-        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
-        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }
         public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
@@ -78,5 +77,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<UserNotificationMapping> UserNotificationMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }
+        public virtual ICollection<CourseUserMapping> CourseUserMappings { get; set; }
     }
 }

@@ -19,11 +19,9 @@ namespace TrainingTracker.BLL
     {
         private const string ReleaseLink = "/Release?releaseId={0}";
         private const string FeedbackLink = "/Profile/UserProfile?userId={0}&feedbackId={1}";
+        private const string DashboardLink = "/Dashboard";
         private const string SessionLink = "/Session?sessionId={0}";
         private const string ReleaseDescription = "New release, Version:";
-        private const string feedbackDescription = "New comment on";
-
-       
 
         /// <summary>
         /// Add notification for a list of users. 
@@ -99,7 +97,7 @@ namespace TrainingTracker.BLL
         /// <returns>Returns list of notification.</returns>
         public List<Notification> GetNotification(int userId)
         {
-            return NotificationDataAccesor.GetNotification(userId);
+            return NotificationDataAccesor.GetNotification(userId).OrderBy(x=>x.NotificationId).ToList();
         }
 
         /// <summary>
@@ -143,6 +141,12 @@ namespace TrainingTracker.BLL
                 {
                     notificationType = NotificationType.CodeReviewFeedbackNotification;
                     notificationText = "New CR Feedback";
+                    break;
+                }
+                case FeedbackType.Course:
+                {
+                    notificationType = NotificationType.CourseFeedbackNotification;
+                    notificationText = "New Course Feedback";
                     break;
                 }
                 default:
@@ -221,6 +225,27 @@ namespace TrainingTracker.BLL
             };
 
             return AddNotification(notification , UserDataAccesor.GetUserId(notification , userId));
+        }
+
+        /// <summary>
+        /// Method to add new notification if new course is assigned to User
+        /// </summary>
+        /// <param name="trainees">List of all trainee for which the notification will be pushed</param>
+        /// <param name="currentUserId">current user id updating the leraning path</param>
+        /// <returns>Success event of the notification</returns>
+        internal bool AddNewCourseNotification(List<User> trainees, int currentUserId)
+        {
+            var notification = new Notification
+            {
+                Description = "New Course Assigned " ,
+                Link = DashboardLink  ,
+                TypeOfNotification = NotificationType.NewCourseAssigned  ,
+                AddedBy = currentUserId ,
+                Title = "New Course Assigned" ,
+                AddedOn = DateTime.Now 
+            };
+
+            return AddNotification(notification , trainees.Select(x=>x.UserId).ToList());
         }
     }
 }

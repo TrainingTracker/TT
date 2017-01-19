@@ -18,6 +18,7 @@ namespace TrainingTracker.DAL.EntityFramework
         {
             this.FeedbackThreads = new HashSet<FeedbackThread>();
             this.WeeklyFeedbackSurveyMappings = new HashSet<WeeklyFeedbackSurveyMapping>();
+            this.AssignmentFeedbackMappings = new HashSet<AssignmentFeedbackMapping>();
         }
     
         public int FeedbackId { get; set; }
@@ -38,5 +39,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual FeedbackType FeedbackType1 { get; set; }
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
         public virtual ICollection<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
+        public virtual ICollection<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
     }
 }

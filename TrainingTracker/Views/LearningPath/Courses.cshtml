@@ -59,8 +59,17 @@
                         </span>               
                     </div>
                 </div>
-                <!-- /ko -->
-            </div>
+            <!-- /ko -->
+
+            <div  data-bind="if:(my.allCoursesVm.allCourses().length==0 && my.meta.isTrainee())"> <div class="col-xs-12 courses-list-item no-right-margin no-left-margin"  >
+                      <div class="add-new-course" >
+                          <span> 
+                              <span>You have no courses assigned to follow the Learning Path.</span> 
+                          </span>
+                      </div> 
+                  </div>
+          </div>
+        </div>
     </div>
 </div>
 

@@ -68,8 +68,11 @@ namespace TrainingTracker.BLL
                                               .Take(1)
                                               .Any();
                 trainee.RemainingFeedbacks = trainee.RemainingFeedbacks.OrderByDescending(x => x.AddedOn).Take(5).ToList();
+                trainee.AllAssignedCourses = LearningPathDataAccessor.GetAllCoursesForTrainee(trainee.User.UserId)
+                                                                     .OrderByDescending(x=>x.PendingAssignmentCount)
+                                                                     //.Where(x => x.PendingAssignmentCount > 0)
+                                                                     .ToList();
             }
-
             return dashboardVm;
         }
     }

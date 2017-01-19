@@ -29,15 +29,46 @@ namespace TrainingTracker.Common.Entity
         public int CoveredSubTopicCount { get; set; }
 
         /// <summary>
+        /// gets and sets total Assignments 
+        /// </summary>
+        public int TotalAssignmentCount { get; set; }
+
+        /// <summary>
+        /// gets and sets covered assignment content
+        /// </summary>
+        public int CompletedAssignmentCount { get; set; }
+
+        /// <summary>
+        /// gets and sets pending assignment
+        /// </summary>
+        public int PendingAssignmentCount { get; set; }
+
+        /// <summary>
+        /// Gets and Sets course Started Date time
+        /// </summary>
+        public DateTime CourseStarted { get; set; }
+
+        /// <summary>
+        /// Gets and Sets course completed Date time
+        /// </summary>
+        public DateTime? CourseCompleted { get; set; }
+
+        /// <summary>
+        /// Course User Details
+        /// </summary>
+        public User UserDetails { get; set; }
+
+        /// <summary>
         /// gets and sets percentage course covered
         /// </summary>
         public double PercentageCompleted 
         {
             get
             {
-                if (TotalSubTopicCount > 0 &&  CoveredSubTopicCount < TotalSubTopicCount)
+                if ((TotalSubTopicCount > 0 || TotalAssignmentCount > 0)
+                    &&  (CoveredSubTopicCount <= TotalSubTopicCount && CompletedAssignmentCount <= TotalAssignmentCount))
                 {
-                    return Math.Round(((float) CoveredSubTopicCount * 100 / TotalSubTopicCount) , 0 , MidpointRounding.AwayFromZero);
+                    return Math.Round(((float) (CoveredSubTopicCount + CompletedAssignmentCount) * 100 / (TotalSubTopicCount + TotalAssignmentCount)) , 0 , MidpointRounding.AwayFromZero);
                 }               
                 return 100;
             } 

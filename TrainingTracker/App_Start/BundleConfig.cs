@@ -107,6 +107,15 @@ namespace TrainingTracker
                "~/Scripts/Custom/LearningMapService.js",
                "~/Scripts/Custom/LearningMap.js"
             ));
+
+             bundles.Add(new ScriptBundle("~/bundles/CourseViewScripts").Include(
+              "~/Scripts/ko.mapping.js",
+              "~/Scripts/jquery-confirm.js" ,
+              "~/Scripts/Custom/FeedbackThread.js",
+              "~/Scripts/Custom/CourseService.js",
+              "~/Scripts/Custom/Course.js",
+              "~/Scripts/autosize.js"
+              ));
             #endregion
 
             #region Styles
@@ -159,6 +168,14 @@ namespace TrainingTracker
                  "~/StyleSheets/LearningMap.css",
                  "~/StyleSheets/jquery-confirm.css",
                  "~/Content/site.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/CourseViewStyles").Include(
+                  "~/StyleSheets/FeedbackThread.css",
+                  "~/StyleSheets/FeedbackPlot.css",
+                  "~/Content/Site.css",
+                  "~/StyleSheets/Course.css",
+                   "~/StyleSheets/jquery-confirm.css" 
             ));
   
             #endregion

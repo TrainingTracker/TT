@@ -1,4 +1,5 @@
-﻿.link-header a {
+﻿
+.link-header a {
     color:white;
 }
 
@@ -15,6 +16,75 @@
 .fa-square-o {
     cursor:pointer;
 }
+.completed {
+color:green;
+}
+.reassigned {
+    color:red;
+}
+.pending {
+    color:orange;
+}
+.checked {
+   background: white;
+    color: #349434;
+    box-shadow: inset 7px 7px 22px #93e693;
+
+    /*background: #5cb85c;*/
+    border: 3px solid #5cb85c;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    margin-top: -4px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.checked > i {
+    font-size: 32px;
+    margin-top: -17px;
+    position: absolute;
+}
+
+.unchecked{
+    box-shadow: inset 0 0 5px 1px rgba(0,0,0,0.1);
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    position: absolute;
+    margin-top: -4px;
+    border-radius: 3px;
+    /* border-radius: 4px; */
+    border: 3px solid #beb6b6;
+    background: #fff;
+}
+
+.unchecked > i {
+    font-size: 17px;
+    color: #ddd;
+}
+
+.checked:hover > .custom-tooltip, .unchecked:hover > .custom-tooltip {
+    visibility:visible;
+}
+.assignment-feedback {
+    list-style:none;
+    padding-left:0px;
+}
+.li-assignment-feedback {
+    font-size: 14px;
+    margin-left: 0;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #fff8dc;
+    border-left: 3px solid #ffeb8e;
+}
+.assignment-feedback .text-muted {
+    font-size: 12px;
+}
+
 
 .course-header-img {
     margin: auto;
@@ -50,6 +120,27 @@
         padding-top: 10px;
         font-size: large;
     }
+    .course-index .legends {
+     color: #03fa42;
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    cursor:pointer;
+
+    }
+    .course-index .legends:hover > .custom-tooltip{
+        visibility:visible;
+    }
+        .course-index .legends > .legend-custom-tooltip {
+            background-color: #2596f1;
+    left: -50px;
+    top: -70px;
+    width: 250px;
+    line-height: 1.9rem;
+        }
+    .legend-custom-tooltip:after {
+        border-top-color:#2596f1;
+    }
 
     .course-index .subtopic {
         list-style-type: none;
@@ -64,7 +155,11 @@
         list-style-type: none;
         padding-left: 10%;
     }
-
+    .course-index .links .assignment-li > ul{
+        list-style-type: none;
+        padding-left: 10%;
+    }
+    
 .course-content {
     width: 82%;
 }
@@ -90,6 +185,9 @@
         background: #2196f3;
         color: #fff;
     }
+    .course-content .link-panel > .link-header .shift-right, .course-content .link-panel > .assignment-header .shift-right{
+     margin-left:35px;
+    }
     .course-content .link-panel > .assignment-header {
         background: #194a71;
         color: #fff;
@@ -101,3 +199,83 @@
     h4.subtopic-description p {
         line-height: 1.42;
     }
+
+    .subtopic .selected>i.fa.fa-book {
+        color: #2596f1;
+    }
+
+    #divFeedbackThread #divFeedbackContainer {
+            width: 70% !important;
+    
+    margin-left: 21% !important;
+    }
+
+    #divCloseModalButton {
+        right: 7.5% !important;
+    }
+
+    .profile-img {
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: auto;
+}
+
+.username {
+    text-align: center;
+    margin-top: 10px;
+    
+    font-size: 14px;
+    font-weight: bold;
+   color: #fff;
+}
+
+.designation {
+    text-align: center;
+     color: #fff;
+         font-size: 12px;
+}
+
+#divUserProfileDetails {
+    border-top-left-radius:24px;
+    border-bottom-left-radius:24px;
+    overflow: hidden;
+   position: fixed;
+    right: 17px;
+    width: 6%;
+    height:94px;
+    z-index: 999;
+    top: 10%;
+    background-color: #2f5ca6;
+    /* top: auto; */
+}
+
+#divUserProfileDetails > .collapser {
+    background-color: white;
+    color: #2596f1;
+    position: fixed;
+    margin-top: 30px;
+    cursor:pointer;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 24px;
+    padding: 2px;  
+    margin-left: -18px;
+               
+}
+#divUserProfileDetails > .collapser > .fa:first-child {
+    font-size:20px;
+}
+/*#divUserProfileDetails > .collapser > .fa:nth-child(2) {
+    font-size: 16px;
+    margin-left: -7px;
+}
+#divUserProfileDetails > .collapser > .fa:nth-child(3) {
+    font-size: 14px;
+    margin-left: -7px;
+}*/
+.tracker-percentage {
+    font-size: 20px;
+    font-family: "Orbitron"; 
+}
+

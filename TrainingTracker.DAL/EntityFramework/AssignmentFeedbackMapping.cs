@@ -12,17 +12,13 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class AssignmentUserMap
+    public partial class AssignmentFeedbackMapping
     {
         public int Id { get; set; }
         public int AssignmentId { get; set; }
-        public int TraineeId { get; set; }
-        public Nullable<int> ApprovedBy { get; set; }
-        public bool IsCompleted { get; set; }
-        public bool IsApproved { get; set; }
+        public int FeedbackId { get; set; }
     
         public virtual Assignment Assignment { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual Feedback Feedback { get; set; }
     }
 }
