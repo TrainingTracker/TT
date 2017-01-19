@@ -24,11 +24,13 @@ namespace TrainingTracker.BLL
         /// <summary>
         /// Fetches all courses based on filter 
         /// </summary>
+        /// <param name="currentUser">Current user instance</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of Courses on filter</returns>
-        public List<Course> FilterCourses(string searchKeyword)
+        public List<Course> FilterCourses(User currentUser, string searchKeyword)
         {
-            return LearningPathDataAccessor.FilterCourses(searchKeyword);
+            return currentUser.IsTrainee ? LearningPathDataAccessor.FilterCourses(searchKeyword , currentUser.UserId)
+                                         : LearningPathDataAccessor.FilterCourses(searchKeyword);
         }
 
         public bool UpdateCourse(Course courseToUpdate)
@@ -172,7 +174,8 @@ namespace TrainingTracker.BLL
                   
                 if( courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
                 {
-                    LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, data.TraineeId);
+                    return LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, data.TraineeId)
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, data.TraineeId);
                 }
                 return true;
             }
@@ -185,9 +188,10 @@ namespace TrainingTracker.BLL
         }
 
 
-        public List<Course> GetAllCourses()
+        public List<Course> GetAllCourses(User currentUser)
         {
-            return LearningPathDataAccessor.GetAllCourses();
+            return currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCourses(currentUser.UserId) 
+                                         : LearningPathDataAccessor.GetAllCourses();
         }
 
         public Course GetCourseWithSubtopics(int courseId)
@@ -271,7 +275,8 @@ namespace TrainingTracker.BLL
                 CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(userId, 0,subtopicContentId);
                 if (courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
                 {
-                    LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, userId);
+                  return   LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, userId) 
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, userId);
                 }
                 return true;
             }
@@ -306,6 +311,6 @@ namespace TrainingTracker.BLL
                 return LearningPathDataAccessor.StartCourseForTrainee(currentUser, courseId);
             }
             return false;
-        }
+        }       
     }
 }

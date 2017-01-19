@@ -452,8 +452,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p data-bind="visible: FeedbackType.FeedbackTypeId != 5, text: FeedbackText" style="white-space: pre-wrap;"></p>
-                                <p data-bind="visible: FeedbackType.FeedbackTypeId == 5, html: FeedbackText" style="white-space: pre-wrap;"></p>
+                                <p data-bind="visible: (FeedbackType.FeedbackTypeId != 5 && FeedbackType.FeedbackTypeId != 6), text: FeedbackText" style="white-space: pre-wrap;"></p>
+                                <p data-bind="visible: FeedbackType.FeedbackTypeId == 5 || FeedbackType.FeedbackTypeId == 6 , html: FeedbackText" style="white-space: pre-wrap;"></p>
                             </div>
                         </div>
                     </div>
