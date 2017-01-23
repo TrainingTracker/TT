@@ -143,6 +143,12 @@ namespace TrainingTracker.BLL
                     notificationText = "New CR Feedback";
                     break;
                 }
+                case FeedbackType.Course:
+                {
+                    notificationType = NotificationType.CourseFeedbackNotification;
+                    notificationText = "New Course Feedback";
+                    break;
+                }
                 default:
                 {
                     return false;

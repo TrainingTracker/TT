@@ -24,11 +24,13 @@ namespace TrainingTracker.BLL
         /// <summary>
         /// Fetches all courses based on filter 
         /// </summary>
+        /// <param name="currentUser">Current user instance</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of Courses on filter</returns>
-        public List<Course> FilterCourses(string searchKeyword)
+        public List<Course> FilterCourses(User currentUser, string searchKeyword)
         {
-            return LearningPathDataAccessor.FilterCourses(searchKeyword);
+            return currentUser.IsTrainee ? LearningPathDataAccessor.FilterCourses(searchKeyword , currentUser.UserId)
+                                         : LearningPathDataAccessor.FilterCourses(searchKeyword);
         }
 
         public bool UpdateCourse(Course courseToUpdate)
@@ -124,6 +126,8 @@ namespace TrainingTracker.BLL
         public bool UpdateAssignmentProgress(Assignment data, User currentUser, out int feedbackId)
         {
             feedbackId = 0;
+            bool isAssignmentFeedback = false ;
+
             if (data != null && data.TraineeId > 0)
             {
                 // return false if trainee will not allowed to approve the completion of assignment or trainer cannot mark assignment as completed or trainer cannot approve/reassign assignment without feedback.
@@ -134,7 +138,7 @@ namespace TrainingTracker.BLL
 
                 if (!currentUser.IsTrainee)
                 {
-                    var feedback = data.Feedback.Where(x => x.FeedbackId == 0).FirstOrDefault();
+                    var feedback = data.Feedback.FirstOrDefault(x => x.FeedbackId == 0);
                     feedback.AddedBy = currentUser;
                     feedback.AddedFor = new UserBl().GetUserByUserId(data.TraineeId);
                     feedback.AddedOn = DateTime.Now;
@@ -154,9 +158,26 @@ namespace TrainingTracker.BLL
 
                     new NotificationBl().AddFeedbackNotification(feedback);
                     data.ApprovedBy = currentUser.UserId;
+
+                    if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Assignment)
+                    {
+                        isAssignmentFeedback = true;
+                        
+                    }
                 }
                 
-                return LearningPathDataAccessor.UpdateAssignmentProgress(data);
+                var status = LearningPathDataAccessor.UpdateAssignmentProgress(data);
+
+                if (!status || !isAssignmentFeedback || currentUser.IsTrainee) return status;
+
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(data.TraineeId, data.Id);
+                  
+                if( courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                    return LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, data.TraineeId)
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, data.TraineeId);
+                }
+                return true;
             }
             return false;
         }
@@ -167,9 +188,10 @@ namespace TrainingTracker.BLL
         }
 
 
-        public List<Course> GetAllCourses()
+        public List<Course> GetAllCourses(User currentUser)
         {
-            return LearningPathDataAccessor.GetAllCourses();
+            return currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCourses(currentUser.UserId) 
+                                         : LearningPathDataAccessor.GetAllCourses();
         }
 
         public Course GetCourseWithSubtopics(int courseId)
@@ -245,9 +267,20 @@ namespace TrainingTracker.BLL
             return LearningPathDataAccessor.PublishCourse(id);
         }
 
+       
         public bool SaveSubtopicContentProgress(int subtopicContentId, int userId)
         {
-            return (subtopicContentId > 0 && userId > 0) ? LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId) : false;
+            if ((subtopicContentId > 0 && userId > 0) && LearningPathDataAccessor.SaveSubtopicContentProgress(subtopicContentId, userId))
+            {
+                CourseTrackerDetails courseDetails = LearningPathDataAccessor.GetCourseDetailBasedOnParameters(userId, 0,subtopicContentId);
+                if (courseDetails != null && courseDetails.PercentageCompleted.CompareTo(100) == 0)
+                {
+                  return   LearningPathDataAccessor.CompleteCourseForTrainee(courseDetails.Id, userId) 
+                          && new FeedbackBl().GenerateCourseFeedback(courseDetails.Id, userId);
+                }
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -278,6 +311,6 @@ namespace TrainingTracker.BLL
                 return LearningPathDataAccessor.StartCourseForTrainee(currentUser, courseId);
             }
             return false;
-        }
+        }       
     }
 }

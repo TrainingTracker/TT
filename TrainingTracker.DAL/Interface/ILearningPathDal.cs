@@ -12,9 +12,10 @@ namespace TrainingTracker.DAL.Interface
         /// <summary>
         /// Interace signature for filtering courses on search keyword
         /// </summary>
+        /// <param name="traineeId">Filter Trainee assigned Course</param>
         /// <param name="searchKeyword">search keyword for free text search</param>
         /// <returns>List of courses matching search keyword</returns>
-        List<Course> FilterCourses(string searchKeyword);
+        List<Course> FilterCourses(string searchKeyword,int traineeId=0);
 
         bool AddSubtopicContent(SubtopicContent dataToAdd, out int id);
         bool AddAssignment(Assignment dataToAdd, out int id);
@@ -32,7 +33,7 @@ namespace TrainingTracker.DAL.Interface
         bool DeleteAssignment(int id);
 
         List<Assignment> GetAssignments(int subtopicContentId, int traineeId = 0);
-        List<Course> GetAllCourses();
+        List<Course> GetAllCourses(int traineeId=0);
         List<SubtopicContent> GetSubtopicContents(int subtopicId);
         Course GetCourseWithSubtopics(int courseId);
         Course GetCourseWithAllData(int courseId, int userId = 0);
@@ -66,5 +67,23 @@ namespace TrainingTracker.DAL.Interface
         /// <returns>Status if mapping added or not.</returns>
         /// <exception >on exception return false</exception>
         bool StartCourseForTrainee(User currentUser, int courseId);
+
+        /// <summary>
+        /// Data access method to update the course status to completed for trainee
+        /// </summary>
+        /// <param name="courseId">course Id to be updated</param>
+        /// <param name="traineeId">trainee Id to be updated</param>
+        /// <returns>success flag for updation of the context</returns>
+        bool CompleteCourseForTrainee(int courseId, int traineeId);
+
+        /// <summary>
+        /// Interface signature for fetching course Detail
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="assignmentId">assignment id</param>
+        /// <param name="subtopicId">subtopic id</param>
+        /// <returns>courseid</returns>
+        CourseTrackerDetails GetCourseDetailBasedOnParameters(int userId, int assignmentId=0, int subtopicId=0);
+
     }
 }

@@ -37,7 +37,7 @@ namespace TrainingTracker.Controllers
         }
 
 
-        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public ActionResult Courses()
         {
             return View();
@@ -51,7 +51,7 @@ namespace TrainingTracker.Controllers
         }
 
 
-        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer )]
         [HttpPost]
         public JsonResult AddCourse(Course courseToAdd)
         {
@@ -93,10 +93,10 @@ namespace TrainingTracker.Controllers
         }
 
 
-        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public JsonResult GetAllCourses()
         {
-            return Json(new LearningPathBL().GetAllCourses(), JsonRequestBehavior.AllowGet);
+            return Json(new LearningPathBL().GetAllCourses(CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -238,10 +238,10 @@ namespace TrainingTracker.Controllers
         /// </summary>
         /// <param name="searchKeyword">search keyword for free text</param>
         /// <returns>json result for courses set</returns>
-        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public JsonResult FilterCourses(string searchKeyword)
         {
-            return Json(new LearningPathBL().FilterCourses(searchKeyword), JsonRequestBehavior.AllowGet);
+            return Json(new LearningPathBL().FilterCourses( CurrentUser, searchKeyword), JsonRequestBehavior.AllowGet);
         }
 
 

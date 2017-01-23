@@ -1,2 +1,3 @@
-INSERT INTO TrainingTracker.NotificationType(`TypeDescription`)
-VALUES("New Course Assigned")
+INSERT INTO NotificationType(TypeDescription)
+Values ("New Course Feedback")
+
