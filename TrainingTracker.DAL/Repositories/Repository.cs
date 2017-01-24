@@ -65,10 +65,6 @@ namespace TrainingTracker.DAL.Repositories
         {
             _context.Set<TEntity>().RemoveRange(entities);
         }
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
-
+       
     }
 }

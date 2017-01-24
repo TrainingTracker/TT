@@ -180,5 +180,14 @@ namespace TrainingTracker.BLL.Base
         }
 
 
+        private ModelMapper.ModelMapper _modelMapperObject;
+        public ModelMapper.ModelMapper ModelMapper
+        {
+            get
+            {
+                return _modelMapperObject ?? (_modelMapperObject = new ModelMapper.ModelMapper());
+            }
+        }
+
     }
 }
