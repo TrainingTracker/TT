@@ -17,8 +17,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public Course()
         {
             this.CourseSubtopics = new HashSet<CourseSubtopic>();
-            this.LearningMapCourseMappings = new HashSet<LearningMapCourseMapping>();
             this.CourseUserMappings = new HashSet<CourseUserMapping>();
+            this.LearningMapCourseMappings = new HashSet<LearningMapCourseMapping>();
         }
     
         public int Id { get; set; }
@@ -33,7 +33,7 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public virtual User User { get; set; }
         public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }
-        public virtual ICollection<LearningMapCourseMapping> LearningMapCourseMappings { get; set; }
         public virtual ICollection<CourseUserMapping> CourseUserMappings { get; set; }
+        public virtual ICollection<LearningMapCourseMapping> LearningMapCourseMappings { get; set; }
     }
 }

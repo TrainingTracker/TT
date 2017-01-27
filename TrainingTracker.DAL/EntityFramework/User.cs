@@ -17,9 +17,12 @@ namespace TrainingTracker.DAL.EntityFramework
         public User()
         {
             this.Assignments = new HashSet<Assignment>();
+            this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
+            this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
             this.Courses = new HashSet<Course>();
             this.CourseSubtopics = new HashSet<CourseSubtopic>();
             this.CourseSubtopicDiscussions = new HashSet<CourseSubtopicDiscussion>();
+            this.CourseUserMappings = new HashSet<CourseUserMapping>();
             this.Feedbacks = new HashSet<Feedback>();
             this.Feedbacks1 = new HashSet<Feedback>();
             this.FeedbackThreads = new HashSet<FeedbackThread>();
@@ -29,15 +32,17 @@ namespace TrainingTracker.DAL.EntityFramework
             this.Questions = new HashSet<Question>();
             this.Releases = new HashSet<Release>();
             this.Sessions = new HashSet<Session>();
+            this.Skills = new HashSet<Skill>();
             this.SubtopicContents = new HashSet<SubtopicContent>();
             this.SubtopicContentUserMaps = new HashSet<SubtopicContentUserMap>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
             this.UserNotificationMappings = new HashSet<UserNotificationMapping>();
             this.UserSessionMappings = new HashSet<UserSessionMapping>();
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
-            this.AssignmentUserMaps = new HashSet<AssignmentUserMap>();
-            this.AssignmentUserMaps1 = new HashSet<AssignmentUserMap>();
-            this.CourseUserMappings = new HashSet<CourseUserMapping>();
+            this.UserSkillMappings = new HashSet<UserSkillMapping>();
+            this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
+            this.SubscribedTrainees = new HashSet<SubscribedTrainee>();
+            this.SubscribedTrainees1 = new HashSet<SubscribedTrainee>();
         }
     
         public int UserId { get; set; }
@@ -58,9 +63,12 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<int> TeamId { get; set; }
     
         public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
+        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<CourseSubtopic> CourseSubtopics { get; set; }
         public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
+        public virtual ICollection<CourseUserMapping> CourseUserMappings { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<Feedback> Feedbacks1 { get; set; }
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
@@ -70,6 +78,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Release> Releases { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
         public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
         public virtual ICollection<SubtopicContentUserMap> SubtopicContentUserMaps { get; set; }
         public virtual ICollection<SurveyCompletedMetaData> SurveyCompletedMetaDatas { get; set; }
@@ -77,8 +86,9 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<UserNotificationMapping> UserNotificationMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings { get; set; }
         public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
-        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps { get; set; }
-        public virtual ICollection<AssignmentUserMap> AssignmentUserMaps1 { get; set; }
-        public virtual ICollection<CourseUserMapping> CourseUserMappings { get; set; }
+        public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
+        public virtual ICollection<UserSkillMapping> UserSkillMappings1 { get; set; }
+        public virtual ICollection<SubscribedTrainee> SubscribedTrainees { get; set; }
+        public virtual ICollection<SubscribedTrainee> SubscribedTrainees1 { get; set; }
     }
 }

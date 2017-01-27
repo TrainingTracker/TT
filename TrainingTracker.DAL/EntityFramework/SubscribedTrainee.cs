@@ -12,15 +12,13 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSkillMapping
+    public partial class SubscribedTrainee
     {
         public int Id { get; set; }
-        public Nullable<int> SkillId { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
-        public Nullable<int> AddedBy { get; set; }
+        public int SubscribedByUserId { get; set; }
+        public int SubscribedForUserId { get; set; }
+        public bool IsDeleted { get; set; }
     
-        public virtual Skill Skill { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
     }

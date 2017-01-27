@@ -6,54 +6,56 @@
     <edmx:StorageModels>
     <Schema Namespace="TrainingTrackerModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TrainingTrackerModelStoreContainer">
-          <EntitySet Name="Assignment" EntityType="TrainingTrackerModel.Store.Assignment" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="AssignmentFeedbackMapping" EntityType="TrainingTrackerModel.Store.AssignmentFeedbackMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="AssignmentSubtopicMap" EntityType="TrainingTrackerModel.Store.AssignmentSubtopicMap" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="AssignmentUserMap" EntityType="TrainingTrackerModel.Store.AssignmentUserMap" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Comments" EntityType="TrainingTrackerModel.Store.Comments" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Course" EntityType="TrainingTrackerModel.Store.Course" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="CourseSubtopic" EntityType="TrainingTrackerModel.Store.CourseSubtopic" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="CourseSubtopicDiscussion" EntityType="TrainingTrackerModel.Store.CourseSubtopicDiscussion" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="CourseUserMapping" EntityType="TrainingTrackerModel.Store.CourseUserMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Feedback" EntityType="TrainingTrackerModel.Store.Feedback" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="FeedbackThread" EntityType="TrainingTrackerModel.Store.FeedbackThread" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="FeedbackType" EntityType="TrainingTrackerModel.Store.FeedbackType" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningMap" EntityType="TrainingTrackerModel.Store.LearningMap" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningMapCourseMapping" EntityType="TrainingTrackerModel.Store.LearningMapCourseMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningMapUserMapping" EntityType="TrainingTrackerModel.Store.LearningMapUserMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="LearningSource" EntityType="TrainingTrackerModel.Store.LearningSource" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Notification" EntityType="TrainingTrackerModel.Store.Notification" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="NotificationType" EntityType="TrainingTrackerModel.Store.NotificationType" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Plans" EntityType="TrainingTrackerModel.Store.Plans" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="PlanSkillMapping" EntityType="TrainingTrackerModel.Store.PlanSkillMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Project" EntityType="TrainingTrackerModel.Store.Project" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="ProjectPlanMapping" EntityType="TrainingTrackerModel.Store.ProjectPlanMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="QuestionLevelMapping" EntityType="TrainingTrackerModel.Store.QuestionLevelMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Questions" EntityType="TrainingTrackerModel.Store.Questions" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Release" EntityType="TrainingTrackerModel.Store.Release" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Session" EntityType="TrainingTrackerModel.Store.Session" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Skills" EntityType="TrainingTrackerModel.Store.Skills" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SubtopicContent" EntityType="TrainingTrackerModel.Store.SubtopicContent" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SubtopicContentUserMap" EntityType="TrainingTrackerModel.Store.SubtopicContentUserMap" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Survey" EntityType="TrainingTrackerModel.Store.Survey" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveyAnswer" EntityType="TrainingTrackerModel.Store.SurveyAnswer" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveyCompletedMetaData" EntityType="TrainingTrackerModel.Store.SurveyCompletedMetaData" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveyQuestion" EntityType="TrainingTrackerModel.Store.SurveyQuestion" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveyQuestionResponseType" EntityType="TrainingTrackerModel.Store.SurveyQuestionResponseType" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveyResponse" EntityType="TrainingTrackerModel.Store.SurveyResponse" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="SurveySection" EntityType="TrainingTrackerModel.Store.SurveySection" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="Team" EntityType="TrainingTrackerModel.Store.Team" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="User" EntityType="TrainingTrackerModel.Store.User" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="UserNotificationMapping" EntityType="TrainingTrackerModel.Store.UserNotificationMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="UserProjectMapping" EntityType="TrainingTrackerModel.Store.UserProjectMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="UserSessionMapping" EntityType="TrainingTrackerModel.Store.UserSessionMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="UserSkillMapping" EntityType="TrainingTrackerModel.Store.UserSkillMapping" store:Type="Tables" Schema="trainingtracker" />
-          <EntitySet Name="WeeklyFeedbackSurveyMapping" EntityType="TrainingTrackerModel.Store.WeeklyFeedbackSurveyMapping" store:Type="Tables" Schema="trainingtracker" />
-          <AssociationSet Name="FK__UserNotif__Notif__47A6A41B" Association="TrainingTrackerModel.Store.FK__UserNotif__Notif__47A6A41B">
+          <EntitySet Name="Assignment" EntityType="TrainingTrackerModel.Store.Assignment" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="AssignmentFeedbackMapping" EntityType="TrainingTrackerModel.Store.AssignmentFeedbackMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="AssignmentSubtopicMap" EntityType="TrainingTrackerModel.Store.AssignmentSubtopicMap" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="AssignmentUserMap" EntityType="TrainingTrackerModel.Store.AssignmentUserMap" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Comments" EntityType="TrainingTrackerModel.Store.Comments" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Course" EntityType="TrainingTrackerModel.Store.Course" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="CourseSubtopic" EntityType="TrainingTrackerModel.Store.CourseSubtopic" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="CourseSubtopicDiscussion" EntityType="TrainingTrackerModel.Store.CourseSubtopicDiscussion" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="CourseUserMapping" EntityType="TrainingTrackerModel.Store.CourseUserMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Feedback" EntityType="TrainingTrackerModel.Store.Feedback" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="FeedbackThread" EntityType="TrainingTrackerModel.Store.FeedbackThread" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="FeedbackType" EntityType="TrainingTrackerModel.Store.FeedbackType" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="LearningMap" EntityType="TrainingTrackerModel.Store.LearningMap" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="LearningMapCourseMapping" EntityType="TrainingTrackerModel.Store.LearningMapCourseMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="LearningMapUserMapping" EntityType="TrainingTrackerModel.Store.LearningMapUserMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="LearningSource" EntityType="TrainingTrackerModel.Store.LearningSource" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Notification" EntityType="TrainingTrackerModel.Store.Notification" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="NotificationType" EntityType="TrainingTrackerModel.Store.NotificationType" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Plans" EntityType="TrainingTrackerModel.Store.Plans" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="PlanSkillMapping" EntityType="TrainingTrackerModel.Store.PlanSkillMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Project" EntityType="TrainingTrackerModel.Store.Project" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="ProjectPlanMapping" EntityType="TrainingTrackerModel.Store.ProjectPlanMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="QuestionLevelMapping" EntityType="TrainingTrackerModel.Store.QuestionLevelMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Questions" EntityType="TrainingTrackerModel.Store.Questions" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Release" EntityType="TrainingTrackerModel.Store.Release" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Session" EntityType="TrainingTrackerModel.Store.Session" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Skills" EntityType="TrainingTrackerModel.Store.Skills" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SubscribedTrainee" EntityType="TrainingTrackerModel.Store.SubscribedTrainee" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SubtopicContent" EntityType="TrainingTrackerModel.Store.SubtopicContent" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SubtopicContentUserMap" EntityType="TrainingTrackerModel.Store.SubtopicContentUserMap" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Survey" EntityType="TrainingTrackerModel.Store.Survey" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveyAnswer" EntityType="TrainingTrackerModel.Store.SurveyAnswer" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveyCompletedMetaData" EntityType="TrainingTrackerModel.Store.SurveyCompletedMetaData" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveyQuestion" EntityType="TrainingTrackerModel.Store.SurveyQuestion" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveyQuestionResponseType" EntityType="TrainingTrackerModel.Store.SurveyQuestionResponseType" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveyResponse" EntityType="TrainingTrackerModel.Store.SurveyResponse" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="SurveySection" EntityType="TrainingTrackerModel.Store.SurveySection" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="sysdiagrams" EntityType="TrainingTrackerModel.Store.sysdiagrams" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="Team" EntityType="TrainingTrackerModel.Store.Team" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="User" EntityType="TrainingTrackerModel.Store.User" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="UserNotificationMapping" EntityType="TrainingTrackerModel.Store.UserNotificationMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="UserProjectMapping" EntityType="TrainingTrackerModel.Store.UserProjectMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="UserSessionMapping" EntityType="TrainingTrackerModel.Store.UserSessionMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="UserSkillMapping" EntityType="TrainingTrackerModel.Store.UserSkillMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="WeeklyFeedbackSurveyMapping" EntityType="TrainingTrackerModel.Store.WeeklyFeedbackSurveyMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <AssociationSet Name="FK__UserNotif__Notif__5D95E53A" Association="TrainingTrackerModel.Store.FK__UserNotif__Notif__5D95E53A">
             <End Role="Notification" EntitySet="Notification" />
             <End Role="UserNotificationMapping" EntitySet="UserNotificationMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserNotif__UserI__489AC854" Association="TrainingTrackerModel.Store.FK__UserNotif__UserI__489AC854">
+          <AssociationSet Name="FK__UserNotif__UserI__5E8A0973" Association="TrainingTrackerModel.Store.FK__UserNotif__UserI__5E8A0973">
             <End Role="User" EntitySet="User" />
             <End Role="UserNotificationMapping" EntitySet="UserNotificationMapping" />
           </AssociationSet>
@@ -185,6 +187,18 @@
             <End Role="User" EntitySet="User" />
             <End Role="Session" EntitySet="Session" />
           </AssociationSet>
+          <AssociationSet Name="fk_Skills_User" Association="TrainingTrackerModel.Store.fk_Skills_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscribedTrainee_User_SubscribedBy" Association="TrainingTrackerModel.Store.FK_SubscribedTrainee_User_SubscribedBy">
+            <End Role="User" EntitySet="User" />
+            <End Role="SubscribedTrainee" EntitySet="SubscribedTrainee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscribedTrainee_User_SubscribedFor" Association="TrainingTrackerModel.Store.FK_SubscribedTrainee_User_SubscribedFor">
+            <End Role="User" EntitySet="User" />
+            <End Role="SubscribedTrainee" EntitySet="SubscribedTrainee" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubtopicContent_CourseSubtopic" Association="TrainingTrackerModel.Store.FK_SubtopicContent_CourseSubtopic">
             <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
             <End Role="SubtopicContent" EntitySet="SubtopicContent" />
@@ -260,6 +274,18 @@
           <AssociationSet Name="fk_UserSessionMapping_User" Association="TrainingTrackerModel.Store.fk_UserSessionMapping_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserSessionMapping" EntitySet="UserSessionMapping" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSkillMapping_SkillId" Association="TrainingTrackerModel.Store.fk_UserSkillMapping_SkillId">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSkillMapping_USER" Association="TrainingTrackerModel.Store.fk_UserSkillMapping_USER">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSkillMapping_UserAddedBy" Association="TrainingTrackerModel.Store.fk_UserSkillMapping_UserAddedBy">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_WeeklyFeedbackSurveyMapping_Feedback" Association="TrainingTrackerModel.Store.FK_WeeklyFeedbackSurveyMapping_Feedback">
             <End Role="Feedback" EntitySet="Feedback" />
@@ -566,6 +592,15 @@
           <Property Name="AddedOn" Type="date" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
+        <EntityType Name="SubscribedTrainee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubscribedByUserId" Type="int" Nullable="false" />
+          <Property Name="SubscribedForUserId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="SubtopicContent">
           <Key>
             <PropertyRef Name="Id" />
@@ -663,6 +698,16 @@
           <Property Name="DateCreated" Type="timestamp" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IsDeleted" Type="bool" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="160" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="longblob" />
+        </EntityType>
         <EntityType Name="Team">
           <Key>
             <PropertyRef Name="TeamId" />
@@ -742,7 +787,7 @@
           <Property Name="FeedbackId" Type="int" Nullable="false" />
           <Property Name="SurveyCompletedMetaDataId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__UserNotif__Notif__47A6A41B">
+        <Association Name="FK__UserNotif__Notif__5D95E53A">
           <End Role="Notification" Type="TrainingTrackerModel.Store.Notification" Multiplicity="1" />
           <End Role="UserNotificationMapping" Type="TrainingTrackerModel.Store.UserNotificationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -754,7 +799,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserNotif__UserI__489AC854">
+        <Association Name="FK__UserNotif__UserI__5E8A0973">
           <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="1" />
           <End Role="UserNotificationMapping" Type="TrainingTrackerModel.Store.UserNotificationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1150,6 +1195,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Skills_User">
+          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="0..1" />
+          <End Role="Skills" Type="TrainingTrackerModel.Store.Skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscribedTrainee_User_SubscribedBy">
+          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="1" />
+          <End Role="SubscribedTrainee" Type="TrainingTrackerModel.Store.SubscribedTrainee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SubscribedTrainee">
+              <PropertyRef Name="SubscribedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscribedTrainee_User_SubscribedFor">
+          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="1" />
+          <End Role="SubscribedTrainee" Type="TrainingTrackerModel.Store.SubscribedTrainee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SubscribedTrainee">
+              <PropertyRef Name="SubscribedForUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubtopicContent_CourseSubtopic">
           <End Role="CourseSubtopic" Type="TrainingTrackerModel.Store.CourseSubtopic" Multiplicity="1" />
           <End Role="SubtopicContent" Type="TrainingTrackerModel.Store.SubtopicContent" Multiplicity="*" />
@@ -1378,6 +1459,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_UserSkillMapping_SkillId">
+          <End Role="Skills" Type="TrainingTrackerModel.Store.Skills" Multiplicity="0..1" />
+          <End Role="UserSkillMapping" Type="TrainingTrackerModel.Store.UserSkillMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserSkillMapping_USER">
+          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="0..1" />
+          <End Role="UserSkillMapping" Type="TrainingTrackerModel.Store.UserSkillMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserSkillMapping_UserAddedBy">
+          <End Role="User" Type="TrainingTrackerModel.Store.User" Multiplicity="0..1" />
+          <End Role="UserSkillMapping" Type="TrainingTrackerModel.Store.UserSkillMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WeeklyFeedbackSurveyMapping_Feedback">
           <End Role="Feedback" Type="TrainingTrackerModel.Store.Feedback" Multiplicity="1" />
           <End Role="WeeklyFeedbackSurveyMapping" Type="TrainingTrackerModel.Store.WeeklyFeedbackSurveyMapping" Multiplicity="*" />
@@ -1408,11 +1525,14 @@
       <Schema Namespace="TrainingTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TrainingTrackerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Assignments" EntityType="TrainingTrackerModel.Assignment" />
+          <EntitySet Name="AssignmentFeedbackMappings" EntityType="TrainingTrackerModel.AssignmentFeedbackMapping" />
           <EntitySet Name="AssignmentSubtopicMaps" EntityType="TrainingTrackerModel.AssignmentSubtopicMap" />
+          <EntitySet Name="AssignmentUserMaps" EntityType="TrainingTrackerModel.AssignmentUserMap" />
           <EntitySet Name="Comments" EntityType="TrainingTrackerModel.Comment" />
           <EntitySet Name="Courses" EntityType="TrainingTrackerModel.Course" />
           <EntitySet Name="CourseSubtopics" EntityType="TrainingTrackerModel.CourseSubtopic" />
           <EntitySet Name="CourseSubtopicDiscussions" EntityType="TrainingTrackerModel.CourseSubtopicDiscussion" />
+          <EntitySet Name="CourseUserMappings" EntityType="TrainingTrackerModel.CourseUserMapping" />
           <EntitySet Name="Feedbacks" EntityType="TrainingTrackerModel.Feedback" />
           <EntitySet Name="FeedbackThreads" EntityType="TrainingTrackerModel.FeedbackThread" />
           <EntitySet Name="FeedbackTypes" EntityType="TrainingTrackerModel.FeedbackType" />
@@ -1451,13 +1571,33 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Assignment" EntitySet="Assignments" />
           </AssociationSet>
+          <AssociationSet Name="FK_AssignmentFeedbackMapping_Assignment" Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment">
+            <End Role="Assignment" EntitySet="Assignments" />
+            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMappings" />
+          </AssociationSet>
           <AssociationSet Name="FK_AssignmentSubtopicMap_Assignment" Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment">
             <End Role="Assignment" EntitySet="Assignments" />
             <End Role="AssignmentSubtopicMap" EntitySet="AssignmentSubtopicMaps" />
           </AssociationSet>
+          <AssociationSet Name="FK_AssignmentUserMap_User" Association="TrainingTrackerModel.FK_AssignmentUserMap_User">
+            <End Role="Assignment" EntitySet="Assignments" />
+            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentFeedbackMapping_Feedback" Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback">
+            <End Role="Feedback" EntitySet="Feedbacks" />
+            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMappings" />
+          </AssociationSet>
           <AssociationSet Name="FK_AssignmentSubtopicMap_CourseSubtopic" Association="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic">
             <End Role="CourseSubtopic" EntitySet="CourseSubtopics" />
             <End Role="AssignmentSubtopicMap" EntitySet="AssignmentSubtopicMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentUseraMap_User" Association="TrainingTrackerModel.FK_AssignmentUseraMap_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentUserMap_UserTrainee" Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_User" Association="TrainingTrackerModel.FK_Course_User">
             <End Role="User" EntitySet="Users" />
@@ -1466,6 +1606,10 @@
           <AssociationSet Name="FK_CourseSubtopic_Course" Association="TrainingTrackerModel.FK_CourseSubtopic_Course">
             <End Role="Course" EntitySet="Courses" />
             <End Role="CourseSubtopic" EntitySet="CourseSubtopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseUserMapping_Course" Association="TrainingTrackerModel.FK_CourseUserMapping_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseUserMapping" EntitySet="CourseUserMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_Course" Association="TrainingTrackerModel.FK_LearningMapCourseMappping_Course">
             <End Role="Course" EntitySet="Courses" />
@@ -1486,6 +1630,10 @@
           <AssociationSet Name="FK_CourseSubtopicDiscussion_User" Association="TrainingTrackerModel.FK_CourseSubtopicDiscussion_User">
             <End Role="User" EntitySet="Users" />
             <End Role="CourseSubtopicDiscussion" EntitySet="CourseSubtopicDiscussions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseUserMapping_User" Association="TrainingTrackerModel.FK_CourseUserMapping_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CourseUserMapping" EntitySet="CourseUserMappings" />
           </AssociationSet>
           <AssociationSet Name="fk_Feedback_AddedBy" Association="TrainingTrackerModel.fk_Feedback_AddedBy">
             <End Role="User" EntitySet="Users" />
@@ -1531,7 +1679,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMappings" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserNotif__Notif__47A6A41B" Association="TrainingTrackerModel.FK__UserNotif__Notif__47A6A41B">
+          <AssociationSet Name="FK__UserNotif__Notif__5D95E53A" Association="TrainingTrackerModel.FK__UserNotif__Notif__5D95E53A">
             <End Role="Notification" EntitySet="Notifications" />
             <End Role="UserNotificationMapping" EntitySet="UserNotificationMappings" />
           </AssociationSet>
@@ -1566,6 +1714,14 @@
           <AssociationSet Name="fk_UserSessionMapping_Session" Association="TrainingTrackerModel.fk_UserSessionMapping_Session">
             <End Role="Session" EntitySet="Sessions" />
             <End Role="UserSessionMapping" EntitySet="UserSessionMappings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skills_User" Association="TrainingTrackerModel.fk_Skills_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSkillMapping_SkillId" Association="TrainingTrackerModel.fk_UserSkillMapping_SkillId">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMappings" />
           </AssociationSet>
           <AssociationSet Name="FK_SubtopicContent_User" Association="TrainingTrackerModel.FK_SubtopicContent_User">
             <End Role="User" EntitySet="Users" />
@@ -1627,7 +1783,7 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserNotif__UserI__489AC854" Association="TrainingTrackerModel.FK__UserNotif__UserI__489AC854">
+          <AssociationSet Name="FK__UserNotif__UserI__5E8A0973" Association="TrainingTrackerModel.FK__UserNotif__UserI__5E8A0973">
             <End Role="User" EntitySet="Users" />
             <End Role="UserNotificationMapping" EntitySet="UserNotificationMappings" />
           </AssociationSet>
@@ -1639,36 +1795,23 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserSessionMapping" EntitySet="UserSessionMappings" />
           </AssociationSet>
-          <EntitySet Name="AssignmentUserMaps" EntityType="TrainingTrackerModel.AssignmentUserMap" />
-          <EntitySet Name="CourseUserMappings" EntityType="TrainingTrackerModel.CourseUserMapping" />
-          <AssociationSet Name="FK_AssignmentUserMap_User" Association="TrainingTrackerModel.FK_AssignmentUserMap_User">
-            <End Role="Assignment" EntitySet="Assignments" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssignmentUseraMap_User" Association="TrainingTrackerModel.FK_AssignmentUseraMap_User">
+          <AssociationSet Name="fk_UserSkillMapping_USER" Association="TrainingTrackerModel.fk_UserSkillMapping_USER">
             <End Role="User" EntitySet="Users" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMappings" />
           </AssociationSet>
-          <AssociationSet Name="FK_AssignmentUserMap_UserTrainee" Association="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee">
+          <AssociationSet Name="fk_UserSkillMapping_UserAddedBy" Association="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy">
             <End Role="User" EntitySet="Users" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMaps" />
+            <End Role="UserSkillMapping" EntitySet="UserSkillMappings" />
           </AssociationSet>
-          <AssociationSet Name="FK_CourseUserMapping_Course" Association="TrainingTrackerModel.FK_CourseUserMapping_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="CourseUserMapping" EntitySet="CourseUserMappings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CourseUserMapping_User" Association="TrainingTrackerModel.FK_CourseUserMapping_User">
+          <EntitySet Name="sysdiagrams" EntityType="TrainingTrackerModel.sysdiagram" />
+          <EntitySet Name="SubscribedTrainees" EntityType="TrainingTrackerModel.SubscribedTrainee" />
+          <AssociationSet Name="FK_SubscribedTrainee_User_SubscribedBy" Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedBy">
             <End Role="User" EntitySet="Users" />
-            <End Role="CourseUserMapping" EntitySet="CourseUserMappings" />
+            <End Role="SubscribedTrainee" EntitySet="SubscribedTrainees" />
           </AssociationSet>
-          <EntitySet Name="AssignmentFeedbackMappings" EntityType="TrainingTrackerModel.AssignmentFeedbackMapping" />
-          <AssociationSet Name="FK_AssignmentFeedbackMapping_Assignment" Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment">
-            <End Role="Assignment" EntitySet="Assignments" />
-            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMappings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssignmentFeedbackMapping_Feedback" Association="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback">
-            <End Role="Feedback" EntitySet="Feedbacks" />
-            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMappings" />
+          <AssociationSet Name="FK_SubscribedTrainee_User_SubscribedFor" Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SubscribedTrainee" EntitySet="SubscribedTrainees" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Assignment">
@@ -1677,15 +1820,25 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="String" Name="AssignmentAsset" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Assignment_User" FromRole="Assignment" ToRole="User" />
+          <NavigationProperty Name="AssignmentFeedbackMappings" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment" FromRole="Assignment" ToRole="AssignmentFeedbackMapping" />
           <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" FromRole="Assignment" ToRole="AssignmentSubtopicMap" />
           <NavigationProperty Name="AssignmentUserMaps" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_User" FromRole="Assignment" ToRole="AssignmentUserMap" />
-          <NavigationProperty Name="AssignmentFeedbackMappings" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment" FromRole="Assignment" ToRole="AssignmentFeedbackMapping" />
+        </EntityType>
+        <EntityType Name="AssignmentFeedbackMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AssignmentId" Nullable="false" />
+          <Property Type="Int32" Name="FeedbackId" Nullable="false" />
+          <NavigationProperty Name="Assignment" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment" FromRole="AssignmentFeedbackMapping" ToRole="Assignment" />
+          <NavigationProperty Name="Feedback" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback" FromRole="AssignmentFeedbackMapping" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="AssignmentSubtopicMap">
           <Key>
@@ -1697,13 +1850,27 @@
           <NavigationProperty Name="Assignment" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_Assignment" FromRole="AssignmentSubtopicMap" ToRole="Assignment" />
           <NavigationProperty Name="CourseSubtopic" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" FromRole="AssignmentSubtopicMap" ToRole="CourseSubtopic" />
         </EntityType>
+        <EntityType Name="AssignmentUserMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AssignmentId" Nullable="false" />
+          <Property Type="Int32" Name="TraineeId" Nullable="false" />
+          <Property Type="Int32" Name="ApprovedBy" />
+          <Property Type="Boolean" Name="IsCompleted" Nullable="false" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <NavigationProperty Name="Assignment" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_User" FromRole="AssignmentUserMap" ToRole="Assignment" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_AssignmentUseraMap_User" FromRole="AssignmentUserMap" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" FromRole="AssignmentUserMap" ToRole="User" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
           <Property Type="Int32" Name="CommentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Comment1" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Comment1" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
           <Property Type="Int32" Name="AddedFor" />
         </EntityType>
@@ -1713,17 +1880,17 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Icon" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Course_User" FromRole="Course" ToRole="User" />
           <NavigationProperty Name="CourseSubtopics" Relationship="TrainingTrackerModel.FK_CourseSubtopic_Course" FromRole="Course" ToRole="CourseSubtopic" />
-          <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="Course" ToRole="LearningMapCourseMapping" />
           <NavigationProperty Name="CourseUserMappings" Relationship="TrainingTrackerModel.FK_CourseUserMapping_Course" FromRole="Course" ToRole="CourseUserMapping" />
+          <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="Course" ToRole="LearningMapCourseMapping" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -1732,11 +1899,11 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="CourseId" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="TrainingTrackerModel.FK_AssignmentSubtopicMap_CourseSubtopic" FromRole="CourseSubtopic" ToRole="AssignmentSubtopicMap" />
           <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_CourseSubtopic_Course" FromRole="CourseSubtopic" ToRole="Course" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_CourseSubtopic_User" FromRole="CourseSubtopic" ToRole="User" />
@@ -1749,19 +1916,31 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="CourseSubtopicId" Nullable="false" />
-          <Property Type="String" Name="Text" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsHidden" Nullable="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="CourseSubtopic" Relationship="TrainingTrackerModel.FK_CourseSubtopicDiscussion_CourseSubtopic" FromRole="CourseSubtopicDiscussion" ToRole="CourseSubtopic" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_CourseSubtopicDiscussion_User" FromRole="CourseSubtopicDiscussion" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CourseUserMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CourseId" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="StartedOn" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="CompletedOn" Precision="0" />
+          <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_CourseUserMapping_Course" FromRole="CourseUserMapping" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_CourseUserMapping_User" FromRole="CourseUserMapping" ToRole="User" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="FeedbackId" />
           </Key>
           <Property Type="Int32" Name="FeedbackId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="FeedbackText" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FeedbackText" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Title" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="FeedbackType" />
           <Property Type="Int32" Name="ProjectId" />
@@ -1769,15 +1948,15 @@
           <Property Type="Int16" Name="Rating" />
           <Property Type="Int32" Name="AddedBy" />
           <Property Type="Int32" Name="AddedFor" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="StartDate" />
-          <Property Type="DateTime" Name="EndDate" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
+          <Property Type="DateTime" Name="StartDate" Precision="0" />
+          <Property Type="DateTime" Name="EndDate" Precision="0" />
+          <NavigationProperty Name="AssignmentFeedbackMappings" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback" FromRole="Feedback" ToRole="AssignmentFeedbackMapping" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_Feedback_AddedBy" FromRole="Feedback" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.fk_Feedback_AddedFor" FromRole="Feedback" ToRole="User" />
           <NavigationProperty Name="FeedbackType1" Relationship="TrainingTrackerModel.fk_Feedback_FeedbackType" FromRole="Feedback" ToRole="FeedbackType" />
           <NavigationProperty Name="FeedbackThreads" Relationship="TrainingTrackerModel.FK_Feedback_Threads" FromRole="Feedback" ToRole="FeedbackThread" />
           <NavigationProperty Name="WeeklyFeedbackSurveyMappings" Relationship="TrainingTrackerModel.FK_WeeklyFeedbackSurveyMapping_Feedback" FromRole="Feedback" ToRole="WeeklyFeedbackSurveyMapping" />
-          <NavigationProperty Name="AssignmentFeedbackMappings" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback" FromRole="Feedback" ToRole="AssignmentFeedbackMapping" />
         </EntityType>
         <EntityType Name="FeedbackThread">
           <Key>
@@ -1787,7 +1966,7 @@
           <Property Type="String" Name="Comments" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="FeedbackId" Nullable="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
-          <Property Type="DateTime" Name="DateTimeInserted" Nullable="false" />
+          <Property Type="DateTime" Name="DateTimeInserted" Nullable="false" Precision="6" />
           <NavigationProperty Name="Feedback" Relationship="TrainingTrackerModel.FK_Feedback_Threads" FromRole="FeedbackThread" ToRole="Feedback" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_User_Threads" FromRole="FeedbackThread" ToRole="User" />
         </EntityType>
@@ -1796,7 +1975,7 @@
             <PropertyRef Name="FeedbackTypeId" />
           </Key>
           <Property Type="Int32" Name="FeedbackTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Description" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Sequence" />
           <NavigationProperty Name="Feedbacks" Relationship="TrainingTrackerModel.fk_Feedback_FeedbackType" FromRole="FeedbackType" ToRole="Feedback" />
         </EntityType>
@@ -1806,13 +1985,13 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Notes" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Duration" Nullable="false" />
           <Property Type="Boolean" Name="IsCourseRestricted" Nullable="false" />
           <Property Type="Int32" Name="TeamId" Nullable="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="Int32" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="0" />
           <NavigationProperty Name="Team" Relationship="TrainingTrackerModel.FK_LearningMap_Team" FromRole="LearningMap" ToRole="Team" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_LearningMap_User" FromRole="LearningMap" ToRole="User" />
           <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMap" ToRole="LearningMapCourseMapping" />
@@ -1827,7 +2006,7 @@
           <Property Type="Int32" Name="CourseId" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
-          <Property Type="DateTime" Name="DateInserted" Nullable="false" />
+          <Property Type="DateTime" Name="DateInserted" Nullable="false" Precision="0" />
           <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_Course" FromRole="LearningMapCourseMapping" ToRole="Course" />
           <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapCourseMappping_LearningMap" FromRole="LearningMapCourseMapping" ToRole="LearningMap" />
         </EntityType>
@@ -1838,7 +2017,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="LearningMapId" Nullable="false" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="DateInserted" Nullable="false" />
+          <Property Type="DateTime" Name="DateInserted" Nullable="false" Precision="0" />
           <NavigationProperty Name="LearningMap" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_LearningMap" FromRole="LearningMapUserMapping" ToRole="LearningMap" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_LearningMapUserMappping_User" FromRole="LearningMapUserMapping" ToRole="User" />
         </EntityType>
@@ -1849,10 +2028,10 @@
           <Property Type="Int32" Name="SourceId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="SkillId" />
           <Property Type="String" Name="Title" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Url" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Sequence" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
         </EntityType>
         <EntityType Name="Notification">
@@ -1865,8 +2044,8 @@
           <Property Type="String" Name="Link" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="NotificationType" Nullable="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
-          <Property Type="DateTime" Name="AddedOn" Nullable="false" />
-          <NavigationProperty Name="UserNotificationMappings" Relationship="TrainingTrackerModel.FK__UserNotif__Notif__47A6A41B" FromRole="Notification" ToRole="UserNotificationMapping" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="false" Precision="6" />
+          <NavigationProperty Name="UserNotificationMappings" Relationship="TrainingTrackerModel.FK__UserNotif__Notif__5D95E53A" FromRole="Notification" ToRole="UserNotificationMapping" />
           <NavigationProperty Name="NotificationType1" Relationship="TrainingTrackerModel.fk_Notification_NotificationType" FromRole="Notification" ToRole="NotificationType" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_Notification_User" FromRole="Notification" ToRole="User" />
         </EntityType>
@@ -1885,9 +2064,9 @@
           <Property Type="Int32" Name="PlanId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Title" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Sequqence" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
-          <Property Type="String" Name="Description" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ParentId" />
         </EntityType>
         <EntityType Name="PlanSkillMapping">
@@ -1904,11 +2083,11 @@
           </Key>
           <Property Type="Int32" Name="ProjectId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Title" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="CreatedBy" />
           <Property Type="String" Name="ProjectType" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ClientName" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
         </EntityType>
         <EntityType Name="ProjectPlanMapping">
           <Key>
@@ -1935,10 +2114,10 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="QuestionText" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="SkillId" Nullable="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
-          <Property Type="DateTime" Name="AddedDate" Nullable="false" />
+          <Property Type="DateTime" Name="AddedDate" Nullable="false" Precision="6" />
           <NavigationProperty Name="QuestionLevelMappings" Relationship="TrainingTrackerModel.FK_QuestionLevelMapping_QuestionId" FromRole="Question" ToRole="QuestionLevelMapping" />
           <NavigationProperty Name="Skill" Relationship="TrainingTrackerModel.FK_Questions_SkillId" FromRole="Question" ToRole="Skill" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Questions_UserId" FromRole="Question" ToRole="User" />
@@ -1952,9 +2131,9 @@
           <Property Type="Int32" Name="Minor" Nullable="false" />
           <Property Type="Int32" Name="Patch" Nullable="false" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsPublished" Nullable="false" />
-          <Property Type="DateTime" Name="ReleaseDate" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="ReleaseDate" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_Release_UserId" FromRole="Release" ToRole="User" />
         </EntityType>
@@ -1964,10 +2143,10 @@
           </Key>
           <Property Type="Int32" Name="SessionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Title" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Presenter" />
-          <Property Type="DateTime" Name="AddedOn" />
-          <Property Type="DateTime" Name="SessionDate" />
+          <Property Type="DateTime" Name="AddedOn" Precision="0" />
+          <Property Type="DateTime" Name="SessionDate" Precision="0" />
           <Property Type="String" Name="VideoFileName" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="SlideName" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_Session_User" FromRole="Session" ToRole="User" />
@@ -1980,9 +2159,11 @@
           <Property Type="Int32" Name="SkillId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="AddedOn" />
+          <Property Type="DateTime" Name="AddedOn" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
           <NavigationProperty Name="Questions" Relationship="TrainingTrackerModel.FK_Questions_SkillId" FromRole="Skill" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_Skills_User" FromRole="Skill" ToRole="User" />
+          <NavigationProperty Name="UserSkillMappings" Relationship="TrainingTrackerModel.fk_UserSkillMapping_SkillId" FromRole="Skill" ToRole="UserSkillMapping" />
         </EntityType>
         <EntityType Name="SubtopicContent">
           <Key>
@@ -1991,12 +2172,12 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="CourseSubtopicId" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Url" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Url" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="AddedBy" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="CourseSubtopic" Relationship="TrainingTrackerModel.FK_SubtopicContent_CourseSubtopic" FromRole="SubtopicContent" ToRole="CourseSubtopic" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_SubtopicContent_User" FromRole="SubtopicContent" ToRole="User" />
           <NavigationProperty Name="SubtopicContentUserMaps" Relationship="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" FromRole="SubtopicContent" ToRole="SubtopicContentUserMap" />
@@ -2009,7 +2190,7 @@
           <Property Type="Int32" Name="SubtopicContentId" Nullable="false" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="Boolean" Name="Seen" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="6" />
           <NavigationProperty Name="SubtopicContent" Relationship="TrainingTrackerModel.FK_SubtopicContentUserMap_SubtopicContent" FromRole="SubtopicContentUserMap" ToRole="SubtopicContent" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_SubtopicContentUserMap_User" FromRole="SubtopicContentUserMap" ToRole="User" />
         </EntityType>
@@ -2020,7 +2201,7 @@
           <Property Type="Int32" Name="SurveyId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsOpen" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="SurveyCompletedMetaDatas" Relationship="TrainingTrackerModel.FK_SurveyCompletedMetaData_Survey" FromRole="Survey" ToRole="SurveyCompletedMetaData" />
           <NavigationProperty Name="SurveySections" Relationship="TrainingTrackerModel.FK_SurveySection_Survey" FromRole="Survey" ToRole="SurveySection" />
           <NavigationProperty Name="Teams" Relationship="TrainingTrackerModel.FK_Team_Survey" FromRole="Survey" ToRole="Team" />
@@ -2034,7 +2215,7 @@
           <Property Type="String" Name="OptionText" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="SurveyQuestion" Relationship="TrainingTrackerModel.FK_SurveyAnswer_SurveyQuestion" FromRole="SurveyAnswer" ToRole="SurveyQuestion" />
           <NavigationProperty Name="SurveyResponses" Relationship="TrainingTrackerModel.FK_SurveyResponse_SurveyAnswer" FromRole="SurveyAnswer" ToRole="SurveyResponse" />
         </EntityType>
@@ -2044,7 +2225,7 @@
           </Key>
           <Property Type="Int32" Name="SurveyCompletedMetaDataId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="SurveyId" Nullable="false" />
-          <Property Type="DateTime" Name="DateCompleted" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCompleted" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="SurveyTakenBy" Nullable="false" />
           <NavigationProperty Name="Survey" Relationship="TrainingTrackerModel.FK_SurveyCompletedMetaData_Survey" FromRole="SurveyCompletedMetaData" ToRole="Survey" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_SurveyCompletedMetaData_SurveyUser" FromRole="SurveyCompletedMetaData" ToRole="User" />
@@ -2064,7 +2245,7 @@
           <Property Type="Int32" Name="ResponseTypeId" Nullable="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="SurveyAnswers" Relationship="TrainingTrackerModel.FK_SurveyAnswer_SurveyQuestion" FromRole="SurveyQuestion" ToRole="SurveyAnswer" />
           <NavigationProperty Name="SurveyQuestionResponseType" Relationship="TrainingTrackerModel.FK_SurveyQuestion_SurveyQuestionResponseType" FromRole="SurveyQuestion" ToRole="SurveyQuestionResponseType" />
           <NavigationProperty Name="SurveySection" Relationship="TrainingTrackerModel.FK_SurveyQuestion_SurveySection" FromRole="SurveyQuestion" ToRole="SurveySection" />
@@ -2085,9 +2266,9 @@
           <Property Type="Int32" Name="SurveyResponse1" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="SurveyQuestionId" Nullable="false" />
           <Property Type="Int32" Name="SurveyAnswerId" />
-          <Property Type="String" Name="AdditionalNote" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AdditionalNote" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="SurveyCompletedMetaDataId" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <NavigationProperty Name="SurveyAnswer" Relationship="TrainingTrackerModel.FK_SurveyResponse_SurveyAnswer" FromRole="SurveyResponse" ToRole="SurveyAnswer" />
           <NavigationProperty Name="SurveyCompletedMetaData" Relationship="TrainingTrackerModel.FK_SurveyResponse_SurveyCompletedMetaData" FromRole="SurveyResponse" ToRole="SurveyCompletedMetaData" />
           <NavigationProperty Name="SurveyQuestion" Relationship="TrainingTrackerModel.FK_SurveyResponse_SurveyQuestion" FromRole="SurveyResponse" ToRole="SurveyQuestion" />
@@ -2100,7 +2281,7 @@
           <Property Type="String" Name="SectionHeader" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="SortOrder" Nullable="false" />
           <Property Type="Int32" Name="SurveyId" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <NavigationProperty Name="Survey" Relationship="TrainingTrackerModel.FK_SurveySection_Survey" FromRole="SurveySection" ToRole="Survey" />
           <NavigationProperty Name="SurveyQuestions" Relationship="TrainingTrackerModel.FK_SurveyQuestion_SurveySection" FromRole="SurveySection" ToRole="SurveyQuestion" />
@@ -2112,7 +2293,7 @@
           <Property Type="Int32" Name="TeamId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="TeamName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
-          <Property Type="DateTime" Name="DateInserted" Nullable="false" />
+          <Property Type="DateTime" Name="DateInserted" Nullable="false" Precision="6" />
           <Property Type="Int32" Name="WeeklySurveyId" Nullable="false" />
           <NavigationProperty Name="LearningMaps" Relationship="TrainingTrackerModel.FK_LearningMap_Team" FromRole="Team" ToRole="LearningMap" />
           <NavigationProperty Name="Survey" Relationship="TrainingTrackerModel.FK_Team_Survey" FromRole="Team" ToRole="Survey" />
@@ -2135,13 +2316,16 @@
           <Property Type="Boolean" Name="IsTrainer" />
           <Property Type="Boolean" Name="IsTrainee" />
           <Property Type="Boolean" Name="IsManager" />
-          <Property Type="DateTime" Name="DateAddedToSystem" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="DateAddedToSystem" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Boolean" Name="IsActive" />
           <Property Type="Int32" Name="TeamId" />
           <NavigationProperty Name="Assignments" Relationship="TrainingTrackerModel.FK_Assignment_User" FromRole="User" ToRole="Assignment" />
+          <NavigationProperty Name="AssignmentUserMaps" Relationship="TrainingTrackerModel.FK_AssignmentUseraMap_User" FromRole="User" ToRole="AssignmentUserMap" />
+          <NavigationProperty Name="AssignmentUserMaps1" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" FromRole="User" ToRole="AssignmentUserMap" />
           <NavigationProperty Name="Courses" Relationship="TrainingTrackerModel.FK_Course_User" FromRole="User" ToRole="Course" />
           <NavigationProperty Name="CourseSubtopics" Relationship="TrainingTrackerModel.FK_CourseSubtopic_User" FromRole="User" ToRole="CourseSubtopic" />
           <NavigationProperty Name="CourseSubtopicDiscussions" Relationship="TrainingTrackerModel.FK_CourseSubtopicDiscussion_User" FromRole="User" ToRole="CourseSubtopicDiscussion" />
+          <NavigationProperty Name="CourseUserMappings" Relationship="TrainingTrackerModel.FK_CourseUserMapping_User" FromRole="User" ToRole="CourseUserMapping" />
           <NavigationProperty Name="Feedbacks" Relationship="TrainingTrackerModel.fk_Feedback_AddedBy" FromRole="User" ToRole="Feedback" />
           <NavigationProperty Name="Feedbacks1" Relationship="TrainingTrackerModel.fk_Feedback_AddedFor" FromRole="User" ToRole="Feedback" />
           <NavigationProperty Name="FeedbackThreads" Relationship="TrainingTrackerModel.FK_User_Threads" FromRole="User" ToRole="FeedbackThread" />
@@ -2151,16 +2335,18 @@
           <NavigationProperty Name="Questions" Relationship="TrainingTrackerModel.FK_Questions_UserId" FromRole="User" ToRole="Question" />
           <NavigationProperty Name="Releases" Relationship="TrainingTrackerModel.FK_Release_UserId" FromRole="User" ToRole="Release" />
           <NavigationProperty Name="Sessions" Relationship="TrainingTrackerModel.fk_Session_User" FromRole="User" ToRole="Session" />
+          <NavigationProperty Name="Skills" Relationship="TrainingTrackerModel.fk_Skills_User" FromRole="User" ToRole="Skill" />
           <NavigationProperty Name="SubtopicContents" Relationship="TrainingTrackerModel.FK_SubtopicContent_User" FromRole="User" ToRole="SubtopicContent" />
           <NavigationProperty Name="SubtopicContentUserMaps" Relationship="TrainingTrackerModel.FK_SubtopicContentUserMap_User" FromRole="User" ToRole="SubtopicContentUserMap" />
           <NavigationProperty Name="SurveyCompletedMetaDatas" Relationship="TrainingTrackerModel.FK_SurveyCompletedMetaData_SurveyUser" FromRole="User" ToRole="SurveyCompletedMetaData" />
           <NavigationProperty Name="Team" Relationship="TrainingTrackerModel.Fk_User_Team" FromRole="User" ToRole="Team" />
-          <NavigationProperty Name="UserNotificationMappings" Relationship="TrainingTrackerModel.FK__UserNotif__UserI__489AC854" FromRole="User" ToRole="UserNotificationMapping" />
+          <NavigationProperty Name="UserNotificationMappings" Relationship="TrainingTrackerModel.FK__UserNotif__UserI__5E8A0973" FromRole="User" ToRole="UserNotificationMapping" />
           <NavigationProperty Name="UserSessionMappings" Relationship="TrainingTrackerModel.fk_UserSessionMapping_AddedBy" FromRole="User" ToRole="UserSessionMapping" />
           <NavigationProperty Name="UserSessionMappings1" Relationship="TrainingTrackerModel.fk_UserSessionMapping_User" FromRole="User" ToRole="UserSessionMapping" />
-          <NavigationProperty Name="AssignmentUserMaps" Relationship="TrainingTrackerModel.FK_AssignmentUseraMap_User" FromRole="User" ToRole="AssignmentUserMap" />
-          <NavigationProperty Name="AssignmentUserMaps1" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" FromRole="User" ToRole="AssignmentUserMap" />
-          <NavigationProperty Name="CourseUserMappings" Relationship="TrainingTrackerModel.FK_CourseUserMapping_User" FromRole="User" ToRole="CourseUserMapping" />
+          <NavigationProperty Name="UserSkillMappings" Relationship="TrainingTrackerModel.fk_UserSkillMapping_USER" FromRole="User" ToRole="UserSkillMapping" />
+          <NavigationProperty Name="UserSkillMappings1" Relationship="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" FromRole="User" ToRole="UserSkillMapping" />
+          <NavigationProperty Name="SubscribedTrainees" Relationship="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedBy" FromRole="User" ToRole="SubscribedTrainee" />
+          <NavigationProperty Name="SubscribedTrainees1" Relationship="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor" FromRole="User" ToRole="SubscribedTrainee" />
         </EntityType>
         <EntityType Name="UserNotificationMapping">
           <Key>
@@ -2170,8 +2356,8 @@
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="Int32" Name="NotificationId" Nullable="false" />
           <Property Type="Boolean" Name="Seen" Nullable="false" />
-          <NavigationProperty Name="Notification" Relationship="TrainingTrackerModel.FK__UserNotif__Notif__47A6A41B" FromRole="UserNotificationMapping" ToRole="Notification" />
-          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK__UserNotif__UserI__489AC854" FromRole="UserNotificationMapping" ToRole="User" />
+          <NavigationProperty Name="Notification" Relationship="TrainingTrackerModel.FK__UserNotif__Notif__5D95E53A" FromRole="UserNotificationMapping" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK__UserNotif__UserI__5E8A0973" FromRole="UserNotificationMapping" ToRole="User" />
         </EntityType>
         <EntityType Name="UserProjectMapping">
           <Key>
@@ -2180,8 +2366,8 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="UserId" />
           <Property Type="Int32" Name="ProjectId" />
-          <Property Type="DateTime" Name="StartedOn" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="EndedOn" />
+          <Property Type="DateTime" Name="StartedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
+          <Property Type="DateTime" Name="EndedOn" Precision="6" />
           <Property Type="Int32" Name="AddedBy" />
         </EntityType>
         <EntityType Name="UserSessionMapping">
@@ -2191,7 +2377,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="UserId" />
           <Property Type="Int32" Name="SessionId" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
           <NavigationProperty Name="Session" Relationship="TrainingTrackerModel.fk_UserSessionMapping_Session" FromRole="UserSessionMapping" ToRole="Session" />
           <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_UserSessionMapping_AddedBy" FromRole="UserSessionMapping" ToRole="User" />
@@ -2204,8 +2390,11 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="SkillId" />
           <Property Type="Int32" Name="UserId" />
-          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="AddedOn" annotation:StoreGeneratedPattern="Identity" Precision="0" />
           <Property Type="Int32" Name="AddedBy" />
+          <NavigationProperty Name="Skill" Relationship="TrainingTrackerModel.fk_UserSkillMapping_SkillId" FromRole="UserSkillMapping" ToRole="Skill" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.fk_UserSkillMapping_USER" FromRole="UserSkillMapping" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" FromRole="UserSkillMapping" ToRole="User" />
         </EntityType>
         <EntityType Name="WeeklyFeedbackSurveyMapping">
           <Key>
@@ -2229,6 +2418,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AssignmentFeedbackMapping_Assignment">
+          <End Type="TrainingTrackerModel.Assignment" Role="Assignment" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AssignmentFeedbackMapping">
+              <PropertyRef Name="AssignmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssignmentSubtopicMap_Assignment">
           <End Type="TrainingTrackerModel.Assignment" Role="Assignment" Multiplicity="1" />
           <End Type="TrainingTrackerModel.AssignmentSubtopicMap" Role="AssignmentSubtopicMap" Multiplicity="*" />
@@ -2241,6 +2442,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AssignmentUserMap_User">
+          <End Type="TrainingTrackerModel.Assignment" Role="Assignment" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AssignmentUserMap">
+              <PropertyRef Name="AssignmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentFeedbackMapping_Feedback">
+          <End Type="TrainingTrackerModel.Feedback" Role="Feedback" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedback">
+              <PropertyRef Name="FeedbackId" />
+            </Principal>
+            <Dependent Role="AssignmentFeedbackMapping">
+              <PropertyRef Name="FeedbackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssignmentSubtopicMap_CourseSubtopic">
           <End Type="TrainingTrackerModel.CourseSubtopic" Role="CourseSubtopic" Multiplicity="1" />
           <End Type="TrainingTrackerModel.AssignmentSubtopicMap" Role="AssignmentSubtopicMap" Multiplicity="*" />
@@ -2250,6 +2475,30 @@
             </Principal>
             <Dependent Role="AssignmentSubtopicMap">
               <PropertyRef Name="SubtopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentUseraMap_User">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AssignmentUserMap">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentUserMap_UserTrainee">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AssignmentUserMap">
+              <PropertyRef Name="TraineeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2273,6 +2522,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CourseSubtopic">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseUserMapping_Course">
+          <End Type="TrainingTrackerModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CourseUserMapping" Role="CourseUserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CourseUserMapping">
               <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2334,6 +2595,18 @@
             </Principal>
             <Dependent Role="CourseSubtopicDiscussion">
               <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseUserMapping_User">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CourseUserMapping" Role="CourseUserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseUserMapping">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2469,7 +2742,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserNotif__Notif__47A6A41B">
+        <Association Name="FK__UserNotif__Notif__5D95E53A">
           <End Type="TrainingTrackerModel.Notification" Role="Notification" Multiplicity="1" />
           <End Type="TrainingTrackerModel.UserNotificationMapping" Role="UserNotificationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2574,6 +2847,30 @@
             </Principal>
             <Dependent Role="UserSessionMapping">
               <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skills_User">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.Skill" Role="Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserSkillMapping_SkillId">
+          <End Type="TrainingTrackerModel.Skill" Role="Skill" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.UserSkillMapping" Role="UserSkillMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="SkillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2757,7 +3054,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserNotif__UserI__489AC854">
+        <Association Name="FK__UserNotif__UserI__5E8A0973">
           <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
           <End Type="TrainingTrackerModel.UserNotificationMapping" Role="UserNotificationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2793,123 +3090,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AssignmentUserMap">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="AssignmentId" Nullable="false" />
-          <Property Type="Int32" Name="TraineeId" Nullable="false" />
-          <Property Type="Int32" Name="ApprovedBy" />
-          <Property Type="Boolean" Name="IsCompleted" Nullable="false" />
-          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
-          <NavigationProperty Name="Assignment" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_User" FromRole="AssignmentUserMap" ToRole="Assignment" />
-          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_AssignmentUseraMap_User" FromRole="AssignmentUserMap" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.FK_AssignmentUserMap_UserTrainee" FromRole="AssignmentUserMap" ToRole="User" />
-        </EntityType>
-        <EntityType Name="CourseUserMapping">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="CourseId" Nullable="false" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="StartedOn" Nullable="false" />
-          <Property Type="DateTime" Name="CompletedOn" />
-          <NavigationProperty Name="Course" Relationship="TrainingTrackerModel.FK_CourseUserMapping_Course" FromRole="CourseUserMapping" ToRole="Course" />
-          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_CourseUserMapping_User" FromRole="CourseUserMapping" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_AssignmentUserMap_User">
-          <End Type="TrainingTrackerModel.Assignment" Role="Assignment" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AssignmentUserMap">
-              <PropertyRef Name="AssignmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AssignmentUseraMap_User">
+        <Association Name="fk_UserSkillMapping_USER">
           <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
+          <End Type="TrainingTrackerModel.UserSkillMapping" Role="UserSkillMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="AssignmentUserMap">
-              <PropertyRef Name="ApprovedBy" />
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AssignmentUserMap_UserTrainee">
-          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.AssignmentUserMap" Role="AssignmentUserMap" Multiplicity="*" />
+        <Association Name="fk_UserSkillMapping_UserAddedBy">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.UserSkillMapping" Role="UserSkillMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="AssignmentUserMap">
-              <PropertyRef Name="TraineeId" />
+            <Dependent Role="UserSkillMapping">
+              <PropertyRef Name="AddedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CourseUserMapping_Course">
-          <End Type="TrainingTrackerModel.Course" Role="Course" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.CourseUserMapping" Role="CourseUserMapping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CourseUserMapping">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CourseUserMapping_User">
-          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.CourseUserMapping" Role="CourseUserMapping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="CourseUserMapping">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="AssignmentFeedbackMapping">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SubscribedTrainee">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="AssignmentId" Nullable="false" />
-          <Property Type="Int32" Name="FeedbackId" Nullable="false" />
-          <NavigationProperty Name="Assignment" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Assignment" FromRole="AssignmentFeedbackMapping" ToRole="Assignment" />
-          <NavigationProperty Name="Feedback" Relationship="TrainingTrackerModel.FK_AssignmentFeedbackMapping_Feedback" FromRole="AssignmentFeedbackMapping" ToRole="Feedback" />
+          <Property Type="Int32" Name="SubscribedByUserId" Nullable="false" />
+          <Property Type="Int32" Name="SubscribedForUserId" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedBy" FromRole="SubscribedTrainee" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor" FromRole="SubscribedTrainee" ToRole="User" />
         </EntityType>
-        <Association Name="FK_AssignmentFeedbackMapping_Assignment">
-          <End Type="TrainingTrackerModel.Assignment" Role="Assignment" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" Multiplicity="*" />
+        <Association Name="FK_SubscribedTrainee_User_SubscribedBy">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.SubscribedTrainee" Role="SubscribedTrainee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Assignment">
-              <PropertyRef Name="Id" />
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="AssignmentFeedbackMapping">
-              <PropertyRef Name="AssignmentId" />
+            <Dependent Role="SubscribedTrainee">
+              <PropertyRef Name="SubscribedByUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AssignmentFeedbackMapping_Feedback">
-          <End Type="TrainingTrackerModel.Feedback" Role="Feedback" Multiplicity="1" />
-          <End Type="TrainingTrackerModel.AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" Multiplicity="*" />
+        <Association Name="FK_SubscribedTrainee_User_SubscribedFor">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.SubscribedTrainee" Role="SubscribedTrainee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Feedback">
-              <PropertyRef Name="FeedbackId" />
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="AssignmentFeedbackMapping">
-              <PropertyRef Name="FeedbackId" />
+            <Dependent Role="SubscribedTrainee">
+              <PropertyRef Name="SubscribedForUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2932,10 +3178,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AssignmentFeedbackMappings">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.AssignmentFeedbackMapping">
+              <MappingFragment StoreEntitySet="AssignmentFeedbackMapping">
+                <ScalarProperty Name="FeedbackId" ColumnName="FeedbackId" />
+                <ScalarProperty Name="AssignmentId" ColumnName="AssignmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AssignmentSubtopicMaps">
             <EntityTypeMapping TypeName="TrainingTrackerModel.AssignmentSubtopicMap">
               <MappingFragment StoreEntitySet="AssignmentSubtopicMap">
                 <ScalarProperty Name="SubtopicId" ColumnName="SubtopicId" />
+                <ScalarProperty Name="AssignmentId" ColumnName="AssignmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssignmentUserMaps">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.AssignmentUserMap">
+              <MappingFragment StoreEntitySet="AssignmentUserMap">
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="TraineeId" ColumnName="TraineeId" />
                 <ScalarProperty Name="AssignmentId" ColumnName="AssignmentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -2989,6 +3256,17 @@
                 <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CourseSubtopicId" ColumnName="CourseSubtopicId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseUserMappings">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.CourseUserMapping">
+              <MappingFragment StoreEntitySet="CourseUserMapping">
+                <ScalarProperty Name="CompletedOn" ColumnName="CompletedOn" />
+                <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3402,34 +3680,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AssignmentUserMaps">
-            <EntityTypeMapping TypeName="TrainingTrackerModel.AssignmentUserMap">
-              <MappingFragment StoreEntitySet="AssignmentUserMap">
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="TraineeId" ColumnName="TraineeId" />
-                <ScalarProperty Name="AssignmentId" ColumnName="AssignmentId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CourseUserMappings">
-            <EntityTypeMapping TypeName="TrainingTrackerModel.CourseUserMapping">
-              <MappingFragment StoreEntitySet="CourseUserMapping">
-                <ScalarProperty Name="CompletedOn" ColumnName="CompletedOn" />
-                <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AssignmentFeedbackMappings">
-            <EntityTypeMapping TypeName="TrainingTrackerModel.AssignmentFeedbackMapping">
-              <MappingFragment StoreEntitySet="AssignmentFeedbackMapping">
-                <ScalarProperty Name="FeedbackId" ColumnName="FeedbackId" />
-                <ScalarProperty Name="AssignmentId" ColumnName="AssignmentId" />
+          <EntitySetMapping Name="SubscribedTrainees">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.SubscribedTrainee">
+              <MappingFragment StoreEntitySet="SubscribedTrainee">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="SubscribedForUserId" ColumnName="SubscribedForUserId" />
+                <ScalarProperty Name="SubscribedByUserId" ColumnName="SubscribedByUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
