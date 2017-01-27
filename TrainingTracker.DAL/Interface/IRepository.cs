@@ -16,6 +16,5 @@ namespace TrainingTracker.DAL.Interface
         void Remove(TEntity entity);
         void Remove(int id);
         void Remove(IEnumerable<TEntity> entities);
-        void Save();
     }
 }

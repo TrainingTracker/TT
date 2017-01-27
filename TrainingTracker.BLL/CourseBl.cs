@@ -13,7 +13,7 @@ namespace TrainingTracker.BLL
     {
         public int AddOrUpdateCourse(CommonModel.Course courseData)
         {
-            var data = ModelMapper.MapToEFCourseModel(courseData);
+            var data = ModelMapper.MapToEfCourseModel(courseData);
             
             data.Icon = courseData.Icon ?? Constants.DefaultCourseIcon;
             data.Description = courseData.Description ?? "";
@@ -23,6 +23,14 @@ namespace TrainingTracker.BLL
                 data.IsActive = true;
                 data.CreatedOn = DateTime.Now;
                 UnitOfWork.CourseRepository.Add(data);
+            }
+            else
+            {
+                var courseEntity = UnitOfWork.CourseRepository.Get(data.Id);
+                if (courseEntity != null)
+                {
+
+                }
             }
 
             return  UnitOfWork.Commit() > 0 ? data.Id : 0;

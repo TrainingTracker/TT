@@ -19,7 +19,7 @@ namespace TrainingTracker.BLL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">EF generated course model object which will be used for mapped</param>
         /// <returns>Mapped custom entity course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public CommonModel.Course MapFromEFCourseModel(EFModel.Course objectToMap)
+        public CommonModel.Course MapFromEfCourseModel(EFModel.Course objectToMap)
         {
             if (objectToMap == null)
                 return null;
@@ -35,6 +35,11 @@ namespace TrainingTracker.BLL.ModelMapper
                 IsPublished = objectToMap.IsPublished,
                 Duration = objectToMap.Duration,
                 CreatedOn = objectToMap.CreatedOn,
+                CourseSubtopics = objectToMap.CourseSubtopics == null ? null : objectToMap.CourseSubtopics.Select(s =>
+                {
+                    var subtopic = MapFromEfCourseSubtopic(s);
+                    return subtopic;
+                }).ToList()
                
             };
 
@@ -46,7 +51,7 @@ namespace TrainingTracker.BLL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">Custom entity Course object</param>
         /// <returns>EF generated course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public EFModel.Course MapToEFCourseModel(CommonModel.Course objectToMap)
+        public EFModel.Course MapToEfCourseModel(CommonModel.Course objectToMap)
         {
             if (objectToMap == null)
                 return null;
@@ -71,7 +76,7 @@ namespace TrainingTracker.BLL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">Custom entity CourseSubtopic object</param>
         /// <returns>EF generated course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public EFModel.CourseSubtopic MapToEFCourseSubtopic(CommonModel.CourseSubtopic objectToMap)
+        public EFModel.CourseSubtopic MapToEfCourseSubtopic(CommonModel.CourseSubtopic objectToMap)
         {
             if (objectToMap == null)
                 return null;
@@ -95,7 +100,7 @@ namespace TrainingTracker.BLL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">EF generated CourseSubtopic model object which will be used for mapping</param>
         /// <returns>Custom Entity class CourseSubtopic object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public CommonModel.CourseSubtopic MapFromEFCourseSubtopic(EFModel.CourseSubtopic objectToMap)
+        public CommonModel.CourseSubtopic MapFromEfCourseSubtopic(EFModel.CourseSubtopic objectToMap)
         {
             if (objectToMap == null)
                 return null;
