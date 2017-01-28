@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
-using Course = TrainingTracker.Common.Entity.Course;
-using LearningMap = TrainingTracker.Common.Entity.LearningMap;
-using CourseSubtopic = TrainingTracker.Common.Entity.CourseSubtopic;
-using User = TrainingTracker.Common.Entity.User;
 using TrainingTracker.Common.Constants;
-using TrainingTracker.DAL.EntityFramework;
+using EFModel = TrainingTracker.DAL.EntityFramework;
+using CommonModel = TrainingTracker.Common.Entity;
 
-namespace TrainingTracker.DAL.ModelMapper
+
+namespace TrainingTracker.BLL.ModelMapper
 {
     /// <summary>
     /// This class contains all the mapper methods which maps the EF generated model to the custom model(Common Entity classes) and vice versa
@@ -22,12 +19,12 @@ namespace TrainingTracker.DAL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">EF generated course model object which will be used for mapped</param>
         /// <returns>Mapped custom entity course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public Course MapFromCourseModel(EntityFramework.Course objectToMap)
+        public CommonModel.Course MapFromEfCourseModel(EFModel.Course objectToMap)
         {
             if (objectToMap == null)
                 return null;
 
-            return new Course
+            return new CommonModel.Course
             {
                 Id = objectToMap.Id,
                 Name = objectToMap.Name,
@@ -40,10 +37,10 @@ namespace TrainingTracker.DAL.ModelMapper
                 CreatedOn = objectToMap.CreatedOn,
                 CourseSubtopics = objectToMap.CourseSubtopics == null ? null : objectToMap.CourseSubtopics.Select(s =>
                 {
-                    var subtopic = MapFromCourseSubtopic(s);
+                    var subtopic = MapFromEfCourseSubtopic(s);
                     return subtopic;
                 }).ToList()
-
+               
             };
 
             
@@ -54,12 +51,12 @@ namespace TrainingTracker.DAL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">Custom entity Course object</param>
         /// <returns>EF generated course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public EntityFramework.Course MapToCourseModel(Course objectToMap)
+        public EFModel.Course MapToEfCourseModel(CommonModel.Course objectToMap)
         {
             if (objectToMap == null)
                 return null;
 
-            return new EntityFramework.Course
+            return new EFModel.Course
             {
                 Id = objectToMap.Id,
                 Name = objectToMap.Name,
@@ -79,12 +76,12 @@ namespace TrainingTracker.DAL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">Custom entity CourseSubtopic object</param>
         /// <returns>EF generated course object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public EntityFramework.CourseSubtopic MapToCourseSubtopic(CourseSubtopic objectToMap)
+        public EFModel.CourseSubtopic MapToEfCourseSubtopic(CommonModel.CourseSubtopic objectToMap)
         {
             if (objectToMap == null)
                 return null;
 
-            return new EntityFramework.CourseSubtopic
+            return new EFModel.CourseSubtopic
             {
                 Id = objectToMap.Id,
                 CourseId = objectToMap.CourseId,
@@ -103,12 +100,12 @@ namespace TrainingTracker.DAL.ModelMapper
         /// </summary>
         /// <param name="objectToMap">EF generated CourseSubtopic model object which will be used for mapping</param>
         /// <returns>Custom Entity class CourseSubtopic object if inputted parameter objectToMap is not null otherwise returns null</returns>
-        public CourseSubtopic MapFromCourseSubtopic(EntityFramework.CourseSubtopic objectToMap)
+        public CommonModel.CourseSubtopic MapFromEfCourseSubtopic(EFModel.CourseSubtopic objectToMap)
         {
             if (objectToMap == null)
                 return null;
 
-            return new CourseSubtopic
+            return new CommonModel.CourseSubtopic
             {
                 Id = objectToMap.Id,
                 CourseId = objectToMap.CourseId,

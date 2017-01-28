@@ -12,16 +12,12 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSkillMapping
+    public partial class sysdiagram
     {
-        public int Id { get; set; }
-        public Nullable<int> SkillId { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
-        public Nullable<int> AddedBy { get; set; }
-    
-        public virtual Skill Skill { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

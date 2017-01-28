@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BussinessBase.cs" />
+    <Compile Include="CourseBl.cs" />
     <Compile Include="DashboardBl.cs" />
     <Compile Include="FeedbackBl.cs" />
     <Compile Include="LearningMapBL.cs" />
     <Compile Include="LearningPathBL.cs" />
     <Compile Include="LoginBl.cs" />
+    <Compile Include="ModelMapper\ModelMapper.cs" />
     <Compile Include="NotificationBl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionBl.cs" />
