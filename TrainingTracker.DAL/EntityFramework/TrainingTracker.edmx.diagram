@@ -112,6 +112,13 @@
         <EntityTypeShape EntityType="TrainingTrackerModel.SubscribedTrainee" Width="1.5" PointX="2.8021009149039635" PointY="28.151533646579615" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedBy" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpCategory" Width="1.5" PointX="9.75" PointY="17.625" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpPost" Width="1.5" PointX="12" PointY="7.25" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpStatu" Width="1.5" PointX="9.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpThread" Width="1.5" PointX="14.25" PointY="7.625" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Category" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Status" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpThreads_Post" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
