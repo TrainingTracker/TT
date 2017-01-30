@@ -15,6 +15,7 @@
           <Property Name="AddedBy" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bool" Nullable="false" />
           <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignmentAsset" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="AssignmentFeedbackMapping">
           <Key>
@@ -65,6 +66,7 @@
           <Property Name="IsActive" Type="bool" Nullable="false" />
           <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IsPublished" Type="bool" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -1602,6 +1604,7 @@
           <NavigationProperty Name="AssignmentFeedbackMappings" Relationship="Self.FK_AssignmentFeedbackMapping_Assignment" FromRole="Assignment" ToRole="AssignmentFeedbackMapping" />
           <NavigationProperty Name="AssignmentSubtopicMaps" Relationship="Self.FK_AssignmentSubtopicMap_Assignment" FromRole="Assignment" ToRole="AssignmentSubtopicMap" />
           <NavigationProperty Name="AssignmentUserMaps" Relationship="Self.FK_AssignmentUserMap_User" FromRole="Assignment" ToRole="AssignmentUserMap" />
+          <Property Name="AssignmentAsset" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AssignmentFeedbackMapping">
           <Key>
@@ -1663,6 +1666,7 @@
           <NavigationProperty Name="CourseSubtopics" Relationship="Self.FK_CourseSubtopic_Course" FromRole="Course" ToRole="CourseSubtopic" />
           <NavigationProperty Name="CourseUserMappings" Relationship="Self.FK_CourseUserMapping_Course" FromRole="Course" ToRole="CourseUserMapping" />
           <NavigationProperty Name="LearningMapCourseMappings" Relationship="TrainingTrackerEntities.FK_LearningMapCourseMappping_Course" FromRole="Course" ToRole="LearningMapCourseMapping" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
@@ -3302,6 +3306,7 @@
           <EntitySetMapping Name="Assignments">
             <EntityTypeMapping TypeName="TrainingTrackerEntities.Assignment">
               <MappingFragment StoreEntitySet="Assignment">
+                <ScalarProperty Name="AssignmentAsset" ColumnName="AssignmentAsset" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -3355,6 +3360,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="TrainingTrackerEntities.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

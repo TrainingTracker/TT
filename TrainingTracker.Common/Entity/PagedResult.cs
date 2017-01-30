@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TrainingTracker.DAL.EntityFramework
+namespace TrainingTracker.Common.Entity
 {
     public class PagedResult<T>
     {

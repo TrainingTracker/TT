@@ -30,6 +30,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public bool IsActive { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public bool IsPublished { get; set; }
+        public int Duration { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

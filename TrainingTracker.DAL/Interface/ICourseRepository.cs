@@ -1,5 +1,6 @@
-﻿using TrainingTracker.DAL.EntityFramework;
+﻿using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.Repositories;
+using Course = TrainingTracker.DAL.EntityFramework.Course;
 
 namespace TrainingTracker.DAL.Interface
 {

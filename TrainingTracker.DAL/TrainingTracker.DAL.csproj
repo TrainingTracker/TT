@@ -122,6 +122,15 @@
     <Compile Include="EntityFramework\ForumUserHelpThread.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\LearningMap.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LearningMapCourseMapping.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LearningMapUserMapping.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\LearningSource.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -131,7 +140,6 @@
     <Compile Include="EntityFramework\NotificationType.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\PagedResult.cs" />
     <Compile Include="EntityFramework\Plan.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -227,6 +235,7 @@
     </Compile>
     <Compile Include="Interface\ICourseRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
+    <Compile Include="Interface\IForumUserHelpPostRepository.cs" />
     <Compile Include="Interface\ILearningMapDal.cs" />
     <Compile Include="Interface\ILearningPathDal.cs">
       <SubType>Code</SubType>
@@ -241,11 +250,18 @@
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
+    <Compile Include="ModelMapper\EntityConverter.cs" />
+    <Compile Include="ModelMapper\ForumUserHelpCategoryConverter.cs" />
+    <Compile Include="ModelMapper\ForumUserHelpPostConverter.cs" />
+    <Compile Include="ModelMapper\ForumUserHelpStatusConverter.cs" />
+    <Compile Include="ModelMapper\ForumUserHelpThreadConverter.cs" />
     <Compile Include="ModelMapper\ModelMapper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
+    <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
