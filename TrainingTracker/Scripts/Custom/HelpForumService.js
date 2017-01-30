@@ -1,7 +1,7 @@
 ﻿(document).ready(function (my) {
     "use strict";
     my.helpForumService = {
-        getPosts: function (callback) {
+        getPosts: function (wildcard, categoryId, statusId, pageNumber, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Help/GetPosts", null, callback);
         },
         getPostById: function (postId, callback) {

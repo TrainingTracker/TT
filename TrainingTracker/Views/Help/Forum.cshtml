@@ -14,10 +14,10 @@
 <div id="divForumWrapper" class="col-md-12 no-padding-left no-padding-right">
     <div id="divCategories">
         <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="#"><i class="fa fa-globe icon-font icon-category"></i> ALL</a></li>
-            <li role="presentation"><a href="#"><i class="fa fa-bug icon-font"></i> BUGS</a></li>
-            <li role="presentation"><a href="#"><i class="fa fa-lightbulb-o icon-font"></i> IDEAS</a></li>
-            <li role="presentation"><a href="#"><i class="fa fa-question icon-font"></i> HELP</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 0}, click:function(){selections.categoryId(0);}"><a href="#"><i class="fa fa-globe icon-font icon-category"></i> ALL</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 1}, click:function(){selections.categoryId(1);}"><a href="#"><i class="fa fa-bug icon-font"></i> BUGS</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 2}, click:function(){selections.categoryId(2);}"><a href="#"><i class="fa fa-lightbulb-o icon-font"></i> IDEAS</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 3}, click:function(){selections.categoryId(3);}"><a href="#"><i class="fa fa-question icon-font"></i> HELP</a></li>
         </ul>
     </div>
     <div class="col-md-12 no-padding-left no-padding-right custom-margin-top-10">
@@ -26,7 +26,7 @@
                 <div class="row" id="divSearch">
                     <div class="col-md-6">
                         <div class="input-group category-list-search">
-                            <input type="text" class="form-control" placeholder="search...">
+                            <input type="text" data-bind="value:selections.wildcard" class="form-control" placeholder="search...">
                             <div class="input-group-btn">
                                 <div class="btn btn-default">
                                     <i class="fa fa-search icon-font"></i>
@@ -59,6 +59,14 @@
         <div class="col-md-7">
             <div id="divForumPost">
                 <div id="divNewPost">
+                    <div class="alert alert-danger" data-bind="visible: alerts.postValidation() != ''">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div data-bind="text:alerts.postValidation"></div>
+                    </div>
+                    <div class="alert alert-success" data-bind="visible: alerts.postAddedSuccess() != ''">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div data-bind="text:alerts.postAddedSuccess"></div>
+                    </div>
                     <div>
                         <h3>Post your Question</h3>
                     </div>
@@ -81,10 +89,10 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Category :</label>
                             <div class="col-sm-4">
-                                <select class="form-control">
-                                    <option>Bug</option>
-                                    <option>Idea</option>
-                                    <option>Help</option>
+                                <select class="form-control" data-bind="value: newPost.CategoryId, valueUpdate: 'change, keyup'">
+                                    <option value="1">Bug</option>
+                                    <option value="2">Idea</option>
+                                    <option value="3">Help</option>
                                 </select>
                             </div>
                         </div>
