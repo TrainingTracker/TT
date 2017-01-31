@@ -38,7 +38,7 @@ namespace TrainingTracker.DAL.ModelMapper
                 StatusId = sourceForumPost.StatusId,
                 CategoryId = sourceForumPost.CategoryId,
                 Title = sourceForumPost.Title,
-                Description = sourceForumPost.Title,
+                Description = sourceForumPost.Description,
                 AddedBy = sourceForumPost.AddedBy,
                 Threads = sourceForumPost.ForumUserHelpThreads == null ? null : ThreadConverter.ConvertListFromCore(sourceForumPost.ForumUserHelpThreads.ToList()),
                 AddedByUser = sourceForumPost.User == null ? null : UserConverter.ConvertFromCore(sourceForumPost.User),
@@ -56,7 +56,7 @@ namespace TrainingTracker.DAL.ModelMapper
                 CategoryId = sourceForumPost.CategoryId,
                 Title = sourceForumPost.Title,
                 AddedBy = sourceForumPost.AddedBy,
-                Description = sourceForumPost.Title
+                Description = sourceForumPost.Description
             };
         }
     }

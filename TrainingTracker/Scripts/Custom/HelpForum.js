@@ -3,22 +3,33 @@
         var vm = {
             Categories: [{ Id: 1, Title: "Bugs" }, { Id: 2, Title: "Ideas" }, { Id: 3, Title: "Help" }]
         },
-        photoUrl = function (pictureName) {
-            return my.rootUrl + "/Uploads/ProfilePicture/" + pictureName;
-        },
-       posts = {
-           CurrentPage: ko.observable(1),
-           PageCount: ko.observable(0),
-           PageSize: ko.observable(0),
-           RowCount: ko.observable(0),
-           DisplayPosts: ko.observableArray([])
-       },
-        selections = {
-            categoryId: ko.observable(0),
-            statusId: ko.observable(0),
-            wildcard: ko.observable(""),
-            postId: ko.observable(0)
-        },
+            photoUrl = function (pictureName) {
+                return my.rootUrl + "/Uploads/ProfilePicture/" + pictureName;
+            },
+            posts = {
+                CurrentPage: ko.observable(1),
+                PageCount: ko.observable(0),
+                PageSize: ko.observable(0),
+                RowCount: ko.observable(0),
+                DisplayPosts: ko.observableArray([])
+            },
+            selections = {
+                categoryId: ko.observable(0),
+                statusId: ko.observable(0),
+                wildcard: ko.observable(""),
+                postId: ko.observable(0),
+                newPostPanelShow: ko.observable(false),
+                post: {
+                    Title: ko.observable(""),
+                    Description: ko.observable(""),
+                    AddedByUser: ko.observable(""),
+                    AddedByUserImage: ko.observable(""),
+                    CategoryId: ko.observable(0),
+                    StatusId: ko.observable(0),
+                    CreatedOn: ko.observable(""),
+                    Threads: ko.observableArray([])
+                }
+            },
             alerts = {
                 postValidation: ko.observable(""),
                 postAddedSuccess: ko.observable("")
@@ -71,11 +82,27 @@
                 my.helpForumService.getPosts(my.helpForumVm.selections.wildcard(), my.helpForumVm.selections.categoryId(),
                     my.helpForumVm.selections.statusId(), my.helpForumVm.posts.CurrentPage(), my.helpForumVm.getPostsCallback);
             },
+            getPostCallback = function (response) {
+                my.helpForumVm.selections.post.Title(response.Title);
+                my.helpForumVm.selections.post.Description(response.Description);
+                my.helpForumVm.selections.post.AddedByUser(response.AddedByUser.FirstName + ' ' + response.AddedByUser.LastName);
+                my.helpForumVm.selections.post.AddedByUserImage(response.AddedByUser.ProfilePictureName);
+                my.helpForumVm.selections.post.CategoryId(response.CategoryId);
+                my.helpForumVm.selections.post.StatusId(response.StatusId);
+                my.helpForumVm.selections.post.CreatedOn(response.CreatedOn);
+                my.helpForumVm.selections.post.Threads([]);
+                $.each(response.Threads, function (arrayId, item) {
+                    my.helpForumVm.selections.post.Threads.push(item);
+                });
+            },
+            getPost = function (postId) {
+                my.helpForumService.getPostById(postId, my.helpForumVm.getPostCallback);
+            },
             getNextPage = function () {
                 my.helpForumVm.posts.CurrentPage(my.helpForumVm.posts.CurrentPage() + 1);
                 my.helpForumVm.getPosts();
             },
-            getPreviousPage = function() {
+            getPreviousPage = function () {
                 my.helpForumVm.posts.CurrentPage(my.helpForumVm.posts.CurrentPage() - 1);
                 my.helpForumVm.getPosts();
             };
@@ -88,6 +115,8 @@
             addPostCallback: addPostCallback,
             addPost: addPost,
             newPost: newPost,
+            getPostCallback: getPostCallback,
+            getPost: getPost,
             getPostsCallback: getPostsCallback,
             getPosts: getPosts,
             photoUrl: photoUrl,

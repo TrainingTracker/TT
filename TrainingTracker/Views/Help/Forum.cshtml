@@ -64,21 +64,21 @@
                                 </div>
                             </div>
                             <div class="col-md-10">
-                                <h4><a href="#" data-bind="text: Title"></a></h4>
+                                <h4><a href="#" data-bind="text: Title, click:function(){$parent.getPost(PostId);}"></a></h4>
                                 <p>
                                     <a href="#" data-bind="text: AddedByUser.FirstName"></a> posted
                                     <i class="fa fa-bug icon-font" data-bind="visible: CategoryId == 1"></i>
                                     <i class="fa fa-lightbulb-o icon-font" data-bind="visible: CategoryId == 2"></i>
                                     <i class="fa fa-question icon-font" data-bind="visible: CategoryId == 3"></i>
-                                    <span data-bind="text: Category.Title"></span> 
-                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br/>
+                                    <span data-bind="text: Category.Title"></span>
+                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br />
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <nav aria-label="..." data-bind="visible: posts.PageCount() > 1">
-                    <ul class="pager" >
+                    <ul class="pager">
                         <li class="previous" data-bind="visible: posts.CurrentPage() > 1, click:function(){getPreviousPage();}"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
                         <li class="next" data-bind="visible: posts.CurrentPage() != posts.PageCount(), click:function(){getNextPage();}"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
                     </ul>
@@ -131,6 +131,15 @@
                             Submit
                         </button>
                     </form>
+                </div>
+                <div id="divPostContent">
+                    <h1 data-bind="text: selections.post.Title"></h1>
+                    <br />
+                    <p data-bind="text: selections.post.Description"></p>
+                    <br />
+                    Added By : <span data-bind="text: selections.post.AddedByUser"></span> 
+                    ON: <span data-bind="text: selections.post.CreatedOn"></span>
+                    <br/>
                 </div>
             </div>
         </div>
