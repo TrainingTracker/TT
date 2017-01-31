@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace TrainingTracker.DAL.Interface
+namespace TrainingTracker.DAL.RepoInterface
 {
     public interface IRepository<TEntity> where TEntity : class
     {

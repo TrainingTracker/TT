@@ -156,6 +156,9 @@
     <Compile Include="EntityFramework\Skill.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\SubscribedTrainee.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\SubtopicContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -222,6 +225,8 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="RepoInterface\IUserRepository.cs" />
+    <Compile Include="RepoInterface\ICourseRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
     <Compile Include="Interface\ILearningMapDal.cs" />
     <Compile Include="Interface\ILearningPathDal.cs">
@@ -231,6 +236,7 @@
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
     <Compile Include="Interface\IReleaseDal.cs" />
+    <Compile Include="RepoInterface\IRepository.cs" />
     <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
     <Compile Include="Interface\ISurveyDal.cs" />
@@ -240,6 +246,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\CourseRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TrainingTracker.Common\TrainingTracker.Common.csproj">

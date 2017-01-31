@@ -4,6 +4,13 @@ using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.ViewModel;
+using TrainingTracker.DAL.EntityFramework;
+using Feedback = TrainingTracker.Common.Entity.Feedback;
+using Project = TrainingTracker.Common.Entity.Project;
+using Session = TrainingTracker.Common.Entity.Session;
+using Skill = TrainingTracker.Common.Entity.Skill;
+using SubscribedTrainee = TrainingTracker.Common.Entity.SubscribedTrainee;
+using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
@@ -222,6 +229,33 @@ namespace TrainingTracker.BLL
         public List<User> GetAllTrainees(int teamId)
         {
             return (UserDataAccesor.GetAllTrainees(teamId));
+        }
+
+        public bool UpdateSubscribedTraineee(List<SubscribedTrainee> updatedList, int currentUserId)
+        {
+            var efUpdatedList = updatedList.Select(x => new DAL.EntityFramework.SubscribedTrainee()
+            {
+                Id = x.Id,
+                SubscribedByUserId = x.SubscribedByUserId,
+                SubscribedForUserId = x.SubscribedForUserId,
+                IsDeleted = x.IsDeleted
+            }).ToList();
+
+            UnitOfWork.UserRepository.UpdateSubscribedTrainee(efUpdatedList);
+
+            return UnitOfWork.Commit() > 0;
+        }
+
+        public List<SubscribedTrainee> GetSubscribedTraineee(int currentUserId)
+        {
+            var subscribedTraineeList = UnitOfWork.UserRepository.GetSubscribedTrainees(currentUserId);
+            return subscribedTraineeList.Select(x => new SubscribedTrainee()
+            {
+                Id = x.Id,
+                SubscribedByUserId = x.SubscribedByUserId,
+                SubscribedForUserId = x.SubscribedForUserId,
+                IsDeleted = x.IsDeleted
+            }).ToList();
         }
     }
 }

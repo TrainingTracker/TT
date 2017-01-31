@@ -26,11 +26,14 @@ namespace TrainingTracker.DAL.EntityFramework
         }
     
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
         public DbSet<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
+        public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseSubtopic> CourseSubtopics { get; set; }
         public DbSet<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
+        public DbSet<CourseUserMapping> CourseUserMappings { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackThread> FeedbackThreads { get; set; }
         public DbSet<FeedbackType> FeedbackTypes { get; set; }
@@ -65,8 +68,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<UserSessionMapping> UserSessionMappings { get; set; }
         public DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
-        public DbSet<AssignmentUserMap> AssignmentUserMaps { get; set; }
-        public DbSet<CourseUserMapping> CourseUserMappings { get; set; }
-        public DbSet<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<SubscribedTrainee> SubscribedTrainees { get; set; }
     }
 }

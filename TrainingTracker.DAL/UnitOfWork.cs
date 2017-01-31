@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Remoting.Contexts;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.Interface;
+using TrainingTracker.DAL.RepoInterface;
 using TrainingTracker.DAL.Repositories;
 
 namespace TrainingTracker.DAL
@@ -18,6 +18,12 @@ namespace TrainingTracker.DAL
         public ICourseRepository CourseRepository
         {
             get { return _courseRepository ?? (_courseRepository = new CourseRepository(_context)); }
+        }
+
+        private IUserRepository _userRepository;
+        public IUserRepository UserRepository
+        {
+            get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
         }
 
         public int Commit()

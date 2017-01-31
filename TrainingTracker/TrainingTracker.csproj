@@ -141,6 +141,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
@@ -260,6 +261,8 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\Custom\NotificationSetting.js" />
+    <Content Include="Scripts\Custom\UserSetting.js" />
     <Content Include="Scripts\Custom\AddEditProfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -326,6 +329,9 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\NotificationSetting.css" />
+    <Content Include="StyleSheets\ProfileSetting.css" />
+    <Content Include="StyleSheets\UserSetting.css" />
     <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
@@ -382,6 +388,9 @@
     <Content Include="StyleSheets\fontawesome-animation.css" />
     <Content Include="Views\LearningPath\Course.cshtml" />
     <Content Include="Views\LearningMap\LearningMap.cshtml" />
+    <Content Include="Views\Setting\UserSetting.cshtml" />
+    <Content Include="Views\Shared\_NotificationSetting.cshtml" />
+    <Content Include="Views\Shared\_ProfileSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

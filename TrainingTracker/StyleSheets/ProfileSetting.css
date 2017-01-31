@@ -1,0 +1,92 @@
+﻿/*.container-fluid {
+    padding-left: 1%;
+    padding-right: 1%;
+}*/
+
+.user-profile-img {
+       width: 10vw !important;
+       margin: auto;
+    height: 23vh !important;
+}
+
+.imgDescription {
+    display: block;
+    text-align: center;
+    line-height: 150%;
+    /*width: 200px;*/
+    height: 20px;
+    color: white;
+    background: #666666;
+    /*visibility: hidden;
+    opacity: 0;*/
+}
+
+
+.imgWrap {
+    /*position: relative;
+  height: 200px;
+  width: 257px;*/
+}
+
+    .imgWrap:hover .imgDescription {
+        visibility: visible;
+        opacity: 1;
+    }
+
+
+/*.badge {
+    padding: 5px 10px;
+}*/
+
+.btnProfile {
+    padding: 0px 0px;
+}
+
+.overlay{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right:0;
+  bottom:0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  /*background-color: rgba(0,0,0,0.5);*/ /*dim the background*/
+}
+
+#divUserProfile
+{
+   position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* width: 100%; */
+    height: 100%;
+    z-index: 1005;
+}
+
+.no-left-margin {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.no-right-margin {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.checkbox-label {
+    font-weight: normal;
+}
+
+.checkbox-label span {
+    margin-left: 6px;
+    margin-top: 1px;
+    position: absolute;
+}
+
+.overlay {
+    
+    /* background-color: rgba(0,0,0,0.5); */
+}

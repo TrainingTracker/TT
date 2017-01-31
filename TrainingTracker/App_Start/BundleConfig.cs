@@ -116,6 +116,12 @@ namespace TrainingTracker
               "~/Scripts/Custom/Course.js",
               "~/Scripts/autosize.js"
               ));
+
+             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+                "~/Scripts/Custom/UserService.js",
+                "~/Scripts/Custom/NotificationSetting.js",
+                "~/Scripts/Custom/UserSetting.js"
+               ));
             #endregion
 
             #region Styles
@@ -177,7 +183,13 @@ namespace TrainingTracker
                   "~/StyleSheets/Course.css",
                    "~/StyleSheets/jquery-confirm.css" 
             ));
-  
+
+            bundles.Add(new StyleBundle("~/bundles/UserSettingViewStyles").Include(
+                    "~/StyleSheets/UserSetting.css",
+                    "~/StyleSheets/ProfileSetting.css",
+                    "~/StyleSheets/NotificationSetting.css"
+            ));
+
             #endregion
 
         }

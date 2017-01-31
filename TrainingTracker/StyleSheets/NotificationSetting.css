@@ -1,0 +1,59 @@
+﻿#notificationPanel .subscribed {
+    color: #2596f1;
+}
+#notificationPanel .panel-footer,#notificationPanel .panel-heading {
+    background-color: #fbfbfb;
+    border: none;
+}
+#notificationPanel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+#notificationPanel .panel-body {
+    height: 69vh;
+    overflow: auto;
+}
+#notificationPanel .panel-body input[type="checkbox"] {
+    width: 0px;
+}
+#notificationPanel .panel-body > ul > li {
+    background-color: #eee;
+    padding: 8px 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+#notificationPanel .panel-body > ul > li > label {
+    font-size: 20px;
+    color: white;
+}
+#notificationPanel .panel-body > ul {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    -ms-column-count: 3;
+    -o-column-count: 3;
+    column-count: 3;
+    list-style: none;
+    overflow: auto;
+    height: 95%;
+}
+#notificationPanel .panel-body > ul > li > label .unsubscribed:after {
+    content: '/';
+    color: #ccc;
+    font-size: 30px;
+    font-weight: bolder;
+    position: absolute;
+    -webkit-transform: rotate(25deg);
+    -moz-transform: rotate(25deg);
+    -ms-transform: rotate(25deg);
+    -o-transform: rotate(25deg);
+    transform: rotate(25deg);
+    margin-left: -13px;
+    margin-top: -4px;
+}
+#notificationPanel .panel-footer button {
+    width:150px;
+}

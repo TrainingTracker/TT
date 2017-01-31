@@ -1,0 +1,23 @@
+﻿.nav-panel {
+    margin-top: 17px;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 20px;
+    height: 94%;
+}
+
+.nav-panel ul > li {
+    border-bottom: 2px solid #efefef;
+}
+
+.nav-panel ul > li:last-child {
+    border: none;
+}
+.content-div {
+    padding: 0;
+    background-color: white;
+    height: 93%;
+    margin-bottom: 0px;
+    margin-left: 30px;
+    margin-top: 20px;
+}

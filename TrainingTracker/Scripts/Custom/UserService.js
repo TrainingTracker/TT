@@ -79,6 +79,12 @@
         saveWeeklySurveyResponse: function (surveyResponse,callback)
         {
              my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SaveWeeklySurveyResponseForTrainee", surveyResponse, callback);
+        },
+        updateSubscribedTraineee: function (subscribedTraineeList,callback){
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Setting/UpdateSubscribedTraineee", subscribedTraineeList, callback);
+        },
+        getSubscribedTraineee : function(callback) {
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/Setting/GetSubscribedTraineee", null, callback);
         }
     };
 }(my));
