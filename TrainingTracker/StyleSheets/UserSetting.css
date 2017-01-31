@@ -1,9 +1,8 @@
 ﻿.nav-panel {
-    margin-top: 17px;
     margin-bottom: 0px;
     background-color: white;
     padding: 20px;
-    height: 94%;
+    height: 100%;
 }
 
 .nav-panel ul > li {
@@ -16,8 +15,7 @@
 .content-div {
     padding: 0;
     background-color: white;
-    height: 93%;
+    height: 100%;
     margin-bottom: 0px;
     margin-left: 30px;
-    margin-top: 20px;
 }

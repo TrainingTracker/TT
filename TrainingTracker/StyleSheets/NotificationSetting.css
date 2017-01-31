@@ -1,6 +1,9 @@
 ﻿#notificationPanel .subscribed {
     color: #2596f1;
 }
+#notificationPanel {
+    margin-bottom: 0;
+}
 #notificationPanel .panel-footer,#notificationPanel .panel-heading {
     background-color: #fbfbfb;
     border: none;
@@ -12,11 +15,11 @@
     font-weight: bold;
 }
 #notificationPanel .panel-body {
-    height: 69vh;
+    height: 75vh;
     overflow: auto;
 }
 #notificationPanel .panel-body input[type="checkbox"] {
-    width: 0px;
+    width: 0;
 }
 #notificationPanel .panel-body > ul > li {
     background-color: #eee;
