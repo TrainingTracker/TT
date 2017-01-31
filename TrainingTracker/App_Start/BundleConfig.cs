@@ -64,7 +64,6 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/HelpForumScripts").Include(
-                "~/Scripts/bootstrap-datepicker.min.js",
                 "~/Scripts/Custom/HelpForumService.js",
                 "~/Scripts/Custom/HelpForum.js"
                 ));

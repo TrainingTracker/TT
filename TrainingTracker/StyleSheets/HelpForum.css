@@ -1,11 +1,8 @@
-﻿body {
-}
-
-#divForumWrapper * {
-    border-radius: 0 !important;
+﻿#divForumWrapper * {
+    /*border-radius: 0 !important;*/
     font-family: 'open-sans', sans-serif;
     font-weight: lighter;
-    color: grey;
+    /*color: grey;*/
 }
 
 #divCategories {
@@ -44,4 +41,30 @@
 #divSearch, #divPosts {
     padding-top: 8px;
     padding-left: 8px;
+}
+
+.thumb {
+	width: 30px;
+	margin: 0 10px 0 20px;
+	display: block;
+	float: left;
+}
+
+.desc {
+	border-bottom: 1px solid #eaeaea;
+	display: inline-block;
+	padding: 7px 0;
+	width: 98%;
+}
+
+/*.desc img {
+    border-radius: 20% !important;
+}*/
+
+.desc p {
+	font-size: 11px;
+}
+
+.desc:hover {
+	background: #f2f2f2;
 }

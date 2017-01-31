@@ -18,6 +18,18 @@ namespace TrainingTracker.DAL.ModelMapper
             get { return _userConverter ?? (_userConverter = new UserConverter()); }
         }
 
+        private ForumUserHelpStatusConverter _forumStatusConverter;
+        public ForumUserHelpStatusConverter ForumStatusConverter
+        {
+            get { return _forumStatusConverter ?? (_forumStatusConverter = new ForumUserHelpStatusConverter()); }
+        }
+
+        private ForumUserHelpCategoryConverter _forumCategoryConverter; 
+        public ForumUserHelpCategoryConverter ForumCategoryConverter
+        {
+            get { return _forumCategoryConverter ?? (_forumCategoryConverter = new ForumUserHelpCategoryConverter()); }
+        }
+
         public override ForumPost ConvertFromCore(ForumUserHelpPost sourceForumPost)
         {
             return new ForumPost
@@ -29,7 +41,9 @@ namespace TrainingTracker.DAL.ModelMapper
                 Description = sourceForumPost.Title,
                 AddedBy = sourceForumPost.AddedBy,
                 Threads = sourceForumPost.ForumUserHelpThreads == null ? null : ThreadConverter.ConvertListFromCore(sourceForumPost.ForumUserHelpThreads.ToList()),
-                AddedByUser = sourceForumPost.User == null ? null : UserConverter.ConvertFromCore(sourceForumPost.User)
+                AddedByUser = sourceForumPost.User == null ? null : UserConverter.ConvertFromCore(sourceForumPost.User),
+                Status = sourceForumPost.ForumUserHelpStatu == null ? null : ForumStatusConverter.ConvertFromCore(sourceForumPost.ForumUserHelpStatu),
+                Category = sourceForumPost.ForumUserHelpCategory == null ? null : ForumCategoryConverter.ConvertFromCore(sourceForumPost.ForumUserHelpCategory)
             };
         }
 

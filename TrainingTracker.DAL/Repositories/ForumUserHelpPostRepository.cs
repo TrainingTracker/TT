@@ -34,7 +34,8 @@ namespace TrainingTracker.DAL.Repositories
             var categoryFilter = categoryId != 0;
             var statusFilter = statusId != 0;
 
-            IQueryable<ForumUserHelpPost> filterQuery = _context.ForumUserHelpPosts;
+            IQueryable<ForumUserHelpPost> filterQuery = _context.ForumUserHelpPosts.Include(x => x.User)
+                .Include(x => x.ForumUserHelpCategory).Include(x => x.ForumUserHelpStatu);
             if (wildcardFilter) filterQuery = filterQuery.Where(x => x.Title.Contains(wildcard) || x.Description.Contains(wildcard));
             if (categoryFilter) filterQuery = filterQuery.Where(x => x.CategoryId == categoryId);
             if (statusFilter) filterQuery = filterQuery.Where(x => x.StatusId == statusId);
