@@ -40,6 +40,7 @@ namespace TrainingTracker.DAL.ModelMapper
                 Title = sourceForumPost.Title,
                 Description = sourceForumPost.Description,
                 AddedBy = sourceForumPost.AddedBy,
+                CreatedOn = sourceForumPost.CreatedOn,
                 Threads = sourceForumPost.ForumUserHelpThreads == null ? null : ThreadConverter.ConvertListFromCore(sourceForumPost.ForumUserHelpThreads.ToList()),
                 AddedByUser = sourceForumPost.User == null ? null : UserConverter.ConvertFromCore(sourceForumPost.User),
                 Status = sourceForumPost.ForumUserHelpStatu == null ? null : ForumStatusConverter.ConvertFromCore(sourceForumPost.ForumUserHelpStatu),

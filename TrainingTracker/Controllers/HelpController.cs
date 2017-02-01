@@ -30,6 +30,12 @@ namespace TrainingTracker.Controllers
         }
 
         [HttpPost]
+        public ActionResult UpdatePostStatus(int postId, int statusId, string message, int userId)
+        {
+            return Json(HelpForumBl.UpdatePostStatus(postId, statusId, message, userId).ToString());
+        }
+
+        [HttpPost]
         public ActionResult AddPostThread(ForumThread postThread)
         {
             return Json(HelpForumBl.AddPostThread(postThread).ToString());

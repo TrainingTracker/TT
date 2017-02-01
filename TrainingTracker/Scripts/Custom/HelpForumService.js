@@ -14,6 +14,10 @@
         },
         addPostThread: function (postThread, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Help/AddPostThread", postThread, callback);
+        },
+        updatePostStatus: function (postId, statusId, message, userId, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Help/UpdatePostStatus?postId=" + postId +
+            "&statusId=" + statusId + "&message=" + message + "&userId=" + userId, null, callback);
         }
     };
 }(my));

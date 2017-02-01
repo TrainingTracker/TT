@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.BLL
 {
@@ -51,5 +52,17 @@ namespace TrainingTracker.BLL
             return threadToAdd.Id > 0;
         }
 
+        public bool UpdatePostStatus(int postId, int statusId, string message, int userId)
+        {
+            var post = UnitOfWork.ForumUserHelpPostRepository.Get(postId);
+            post.StatusId = statusId;
+            post.ForumUserHelpThreads.Add(new ForumUserHelpThread
+            {
+                CreatedOn = DateTime.Now,
+                Description = message,
+                AddedBy = userId
+            });
+            return UnitOfWork.Commit() > 0;
+        }
     }
 }
