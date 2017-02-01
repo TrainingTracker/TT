@@ -50,7 +50,7 @@
                 </div>
                 <div class="row-fluid" id="divPosts">
                     <div data-bind="foreach: posts.DisplayPosts">
-                        <div class="desc">
+                        <div class="desc" data-bind="css:{descActive: $parent.selections.postId() == PostId}">
                             <div class="col-md-2 no-padding-left">
                                 <div class="thumb">
                                     <img class="img-circle" data-bind="attr: { src: $parent.photoUrl(AddedByUser.ProfilePictureName) }" width="35px" height="35px" align="">
@@ -76,19 +76,21 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label="..." data-bind="visible: posts.PageCount() > 1">
-                    <ul class="pager">
-                        <li class="previous" data-bind="visible: posts.CurrentPage() > 1, click:function(){getPreviousPage();}"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
-                        <li class="next" data-bind="visible: posts.CurrentPage() != posts.PageCount(), click:function(){getNextPage();}"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
-                    </ul>
-                </nav>
+                <div id="divPager">
+                    <nav aria-label="..." data-bind="visible: posts.PageCount() > 1">
+                        <ul class="pager">
+                            <li class="previous" data-bind="visible: posts.CurrentPage() > 1, click:function(){getPreviousPage();}"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
+                            <li class="next" data-bind="visible: posts.CurrentPage() != posts.PageCount(), click:function(){getNextPage();}"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </div>
         <div class="col-md-7">
             <div id="divForumPost">
                 <div class="row">
                     <div class="col-md-offset-8 col-md-4">
-                        <br />
                         <button type="button" class="btn btn-info"
                                 data-bind="click:function(){selections.newPostPanelShow(true);}">
                             <i class="fa fa-plus icon-font"></i> Ask Your Question
@@ -143,20 +145,36 @@
                         </button>
                     </form>
                 </div>
-                <div id="divPostContent" data-bind="visible: selections.newPostPanelShow() === false">
-                    <h1 data-bind="text: selections.post.Title"></h1>
+                <div id="divPostContent" data-bind="visible: selections.newPostPanelShow() === false && selections.postId() != 0">
+                    <div>
+                        <h1 data-bind="text: selections.post.Title()"></h1>
+                        <p><i class="fa fa-bug icon-font" data-bind="visible: selections.post.CategoryId() == 1"></i>
+                            <i class="fa fa-lightbulb-o icon-font" data-bind="visible: selections.post.CategoryId() == 2"></i>
+                            <i class="fa fa-question icon-font" data-bind="visible: selections.post.CategoryId() == 3"></i>
+                            By :<a href="#" data-bind="text:selections.post.AddedByUser()"></a>
+                            <span data-bind="text: moment(selections.post.CreatedOn()).format('MMMM Do YYYY, h:mm a')"></span><br />
+                        </p>
+                    </div>
                     <br />
-                    <p data-bind="html: selections.post.Description"></p>
-                    <br />
-                    Added By : <span data-bind="text: selections.post.AddedByUser"></span>
-                    ON: <span data-bind="text: moment(selections.post.CreatedOn()).format('MMMM Do YYYY, h:mm a')"></span>
-                    <hr />
+                    <p data-bind="html: selections.post.Description()"></p>
                     <br />
                     <div data-bind="foreach: selections.post.Threads">
-                        <p data-bind="html: Description"></p>
-                        <hr />
+                        <div class="desc">
+                            <div class="col-md-2 no-padding-left">
+                                <div class="thumb">
+                                    <img class="img-circle" data-bind="attr: { src: $parent.photoUrl(AddedByUser.ProfilePictureName) }" width="35px" height="35px" align="">
+                                </div>
+                                <div>
+                                    <a href="#" data-bind="text: AddedByUser.FirstName + ' ' +  AddedByUser.LastName"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div data-bind="html: Description"></div>
+                            </div>
+                            <hr/>
+                        </div>
                     </div>
-                    <div data-bind="visible: selections.postId() != 0">
+                    <div  data-bind="visible: selections.postId() != 0">
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Change Status </label>

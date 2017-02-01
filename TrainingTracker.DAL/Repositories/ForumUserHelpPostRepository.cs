@@ -19,7 +19,7 @@ namespace TrainingTracker.DAL.Repositories
 
         public ForumUserHelpPost GetPostWithThreads(int postId)
         {
-            return _context.ForumUserHelpPosts.Include(t => t.ForumUserHelpThreads).SingleOrDefault(x => x.Id == postId);
+            return _context.ForumUserHelpPosts.Include(t => t.ForumUserHelpThreads).Include(x=>x.User).SingleOrDefault(x => x.Id == postId);
         }
 
         public PagedResult<ForumUserHelpPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId,
