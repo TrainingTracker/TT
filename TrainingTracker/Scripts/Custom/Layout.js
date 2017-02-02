@@ -123,7 +123,7 @@
             markAllNotificationAsRead: markAllNotificationAsRead,
             allTrainee:allTrainee,
             allMentor:allMentor,
-            fetchAllUser:fetchAllUser
+            fetchAllUser: fetchAllUser,
             
     };
     }();

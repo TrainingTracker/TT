@@ -180,18 +180,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-pop-over-list">
                             <li class="menu-li">
-                                <a href="#" data-bind="click: my.addUserVm.openUserProfile" type="button" class="">
-                                    <span>My Profile</span>
+                                <a href="~/Setting/UserSetting" class="">
+                                    <span>Settings</span>
                                 </a>
                             </li>
-                             @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
-                             {
-                                 <li class="menu-li">
-                                      <a href="#" data-bind="click: my.addUserVm.openAllUsersProfile, visible: (my.meta.isAdministrator() || my.meta.isManager())" type="button" class="">
-                                         <span>Manage User</span>
-                                     </a>
-                                 </li>
-                             }
                             <li class="menu-li hr-separator">
                                <a href="~/Release" class=" ">
                                      <span>Bugs & Features</span>

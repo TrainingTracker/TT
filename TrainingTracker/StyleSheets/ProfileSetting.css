@@ -3,6 +3,26 @@
     padding-right: 1%;
 }*/
 
+#profileSettingPanel {
+    padding: 0;
+}
+#profileSettingPanel .panel-footer,#profileSettingPanel .panel-heading {
+    background-color: #fbfbfb;
+    border: none;
+}
+#profileSettingPanel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+#profileSettingPanel .panel-body {
+    height: 75vh;
+    overflow: auto;
+}
+#profileSettingPanel .panel-footer button {
+    width:150px;
+}
 .user-profile-img {
        width: 10vw !important;
        margin: auto;

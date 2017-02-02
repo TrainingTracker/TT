@@ -37,7 +37,7 @@ namespace TrainingTracker.Controllers
 
         public JsonResult UpdateSubscribedTraineee(List<SubscribedTrainee> updatedList)
         {
-            return Json(new UserBl().UpdateSubscribedTraineee(updatedList, CurrentUser.UserId));
+            return Json(new UserBl().UpdateSubscribedTraineee(updatedList, CurrentUser));
         }
 
         public JsonResult GetSubscribedTraineee()

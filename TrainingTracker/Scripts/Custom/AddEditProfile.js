@@ -142,7 +142,7 @@
             },
             genderSelection = ko.computed({
                 read: function () {
-                    return user.IsFemale().toString();
+                    return "false"; //user.IsFemale().toString();
                 },
                 write: function (newValue) {
                     user.IsFemale(newValue === "true");

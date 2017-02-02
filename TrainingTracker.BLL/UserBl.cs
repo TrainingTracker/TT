@@ -231,8 +231,13 @@ namespace TrainingTracker.BLL
             return (UserDataAccesor.GetAllTrainees(teamId));
         }
 
-        public bool UpdateSubscribedTraineee(List<SubscribedTrainee> updatedList, int currentUserId)
+        public bool UpdateSubscribedTraineee(List<SubscribedTrainee> updatedList, User currentUser)
         {
+            if (currentUser.IsTrainee)
+            {
+                return false;
+            }
+
             var efUpdatedList = updatedList.Select(x => new DAL.EntityFramework.SubscribedTrainee()
             {
                 Id = x.Id,

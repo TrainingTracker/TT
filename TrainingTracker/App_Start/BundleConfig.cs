@@ -40,8 +40,7 @@ namespace TrainingTracker
                 "~/Scripts/Custom/AjaxService.js",
                 "~/Scripts/Custom/UserService.js",
                 "~/Scripts/Custom/BindingHandlers.js",
-                "~/Scripts/Custom/Layout.js",
-                "~/Scripts/Custom/AddEditProfile.js"
+                "~/Scripts/Custom/Layout.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/ProfileViewScripts").Include(
@@ -118,7 +117,7 @@ namespace TrainingTracker
               ));
 
              bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-                "~/Scripts/Custom/UserService.js",
+                "~/Scripts/Custom/AddEditProfile.js",
                 "~/Scripts/Custom/NotificationSetting.js",
                 "~/Scripts/Custom/UserSetting.js"
                ));
@@ -126,8 +125,7 @@ namespace TrainingTracker
 
             #region Styles
             bundles.Add(new StyleBundle("~/bundles/LayoutViewStyles").Include(
-                      "~/StyleSheets/Layout.css",
-                      "~/StyleSheets/AddEditProfile.css"
+                      "~/StyleSheets/Layout.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ProfileViewStyles").Include(
