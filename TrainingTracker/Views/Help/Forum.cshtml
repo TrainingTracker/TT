@@ -15,20 +15,21 @@
     <div id="divCategories">
         <ul class="nav nav-pills nav-justified">
             <li role="presentation" data-bind="css:{active: selections.categoryId() == 0}, click:function(){selections.categoryId(0); resetAndGetPosts();}"><a href="#"><i class="fa fa-globe icon-font icon-category"></i> ALL</a></li>
-            <li role="presentation" data-bind="css:{active: selections.categoryId() == 1}, click:function(){selections.categoryId(1); resetAndGetPosts();}"><a href="#"><i class="fa fa-bug icon-font"></i> BUGS</a></li>
-            <li role="presentation" data-bind="css:{active: selections.categoryId() == 2}, click:function(){selections.categoryId(2); resetAndGetPosts();}"><a href="#"><i class="fa fa-lightbulb-o icon-font"></i> IDEAS</a></li>
-            <li role="presentation" data-bind="css:{active: selections.categoryId() == 3}, click:function(){selections.categoryId(3); resetAndGetPosts();}"><a href="#"><i class="fa fa-question icon-font"></i> HELP</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 1}, click:function(){selections.categoryId(1); newPost.CategoryId(1); resetAndGetPosts();}"><a href="#"><i class="fa fa-bug icon-font"></i> BUGS</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 2}, click:function(){selections.categoryId(2); newPost.CategoryId(2); resetAndGetPosts();}"><a href="#"><i class="fa fa-lightbulb-o icon-font"></i> IDEAS</a></li>
+            <li role="presentation" data-bind="css:{active: selections.categoryId() == 3}, click:function(){selections.categoryId(3); newPost.CategoryId(3); resetAndGetPosts();}"><a href="#"><i class="fa fa-question icon-font"></i> HELP</a></li>
+            <li role="presentation" data-bind="css:{activeButton: selections.newPostPanelShow() == true}, click:function(){selections.newPostPanelShow(true);}"><a href="#"><i class="fa fa-plus icon-font"></i> ADD QUESTION</a></li>
         </ul>
     </div>
     <div class="col-md-12 no-padding-left no-padding-right custom-margin-top-10">
         <div class="col-md-5 no-padding-right">
             <div id="divForumQuestions">
-                <div class="row" id="divSearch">
+               <div class="row" id="divSearch">
                     <div class="col-md-6">
                         <div class="input-group category-list-search">
                             <input type="text" data-bind="value:selections.wildcard" class="form-control" placeholder="search...">
                             <div class="input-group-btn">
-                                <div class="btn btn-default" data-bind="click:function(){getPosts();}">
+                                <div class="btn btn-default" data-bind="click:function(){resetAndGetPosts();}">
                                     <i class="fa fa-search icon-font"></i>
                                 </div>
                             </div>
@@ -37,8 +38,8 @@
                     <div class="col-md-6 no-padding-left">
                         <div class="col-md-8 no-padding-left no-padding-right">
                             <div class="form-group">
-                                <select class="form-control" data-bind="value: selections.statusId, valueUpdate: 'change, keyup', event:{change: function(){getPosts();}}">
-                                    <option value="0">All</option>
+                                <select class="form-control" data-bind="value: selections.statusId, valueUpdate: 'change, keyup', event:{change: function(){resetAndGetPosts();}}">
+                                    <option value="0">Select status</option>
                                     <option value="1">New</option>
                                     <option value="2">In Disucssion</option>
                                     <option value="3">In Progress</option>
@@ -70,7 +71,7 @@
                                     <i class="fa fa-lightbulb-o icon-font" data-bind="visible: CategoryId == 2"></i>
                                     <i class="fa fa-question icon-font" data-bind="visible: CategoryId == 3"></i>
                                     <span data-bind="text: Category.Title"></span>
-                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br />
+                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br/>
                                 </p>
                             </div>
                         </div>
@@ -84,19 +85,10 @@
                         </ul>
                     </nav>
                 </div>
-
             </div>
         </div>
         <div class="col-md-7">
             <div id="divForumPost">
-                <div class="row">
-                    <div class="col-md-offset-8 col-md-4">
-                        <button type="button" class="btn btn-info"
-                                data-bind="click:function(){selections.newPostPanelShow(true);}">
-                            <i class="fa fa-plus icon-font"></i> Ask Your Question
-                        </button>
-                    </div>
-                </div>
                 <div id="divNewPost" data-bind="visible: selections.newPostPanelShow() === true">
                     <div class="alert alert-danger" data-bind="visible: alerts.postValidation() != ''">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -148,7 +140,8 @@
                 <div id="divPostContent" data-bind="visible: selections.newPostPanelShow() === false && selections.postId() != 0">
                     <div>
                         <h1 data-bind="text: selections.post.Title()"></h1>
-                        <p><i class="fa fa-bug icon-font" data-bind="visible: selections.post.CategoryId() == 1"></i>
+                        <p>
+                            <i class="fa fa-bug icon-font" data-bind="visible: selections.post.CategoryId() == 1"></i>
                             <i class="fa fa-lightbulb-o icon-font" data-bind="visible: selections.post.CategoryId() == 2"></i>
                             <i class="fa fa-question icon-font" data-bind="visible: selections.post.CategoryId() == 3"></i>
                             By :<a href="#" data-bind="text:selections.post.AddedByUser()"></a>
@@ -158,23 +151,23 @@
                     <br />
                     <p data-bind="html: selections.post.Description()"></p>
                     <br />
+                    <hr class="postEnd" />
+                    <br />
                     <div data-bind="foreach: selections.post.Threads">
                         <div class="desc">
                             <div class="col-md-2 no-padding-left">
                                 <div class="thumb">
                                     <img class="img-circle" data-bind="attr: { src: $parent.photoUrl(AddedByUser.ProfilePictureName) }" width="35px" height="35px" align="">
                                 </div>
-                                <div>
-                                    <a href="#" data-bind="text: AddedByUser.FirstName + ' ' +  AddedByUser.LastName"></a>
-                                </div>
+                                <a href="#" data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName"></a>
                             </div>
                             <div class="col-md-10">
                                 <div data-bind="html: Description"></div>
                             </div>
-                            <hr/>
+                            <hr />
                         </div>
                     </div>
-                    <div  data-bind="visible: selections.postId() != 0">
+                    <div data-bind="visible: selections.postId() != 0">
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Change Status </label>
