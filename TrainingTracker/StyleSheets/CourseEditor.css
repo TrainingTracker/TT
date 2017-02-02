@@ -13,7 +13,13 @@
 ::-webkit-scrollbar-thumb {
     background-color:#62cec4;   
 }
-
+.layout-wrapper {
+    height: 90vh;
+    display: block;
+}
+.layout-section {
+    height: 100%;
+}
 @-webkit-keyframes rotate
 {
     100%{-webkit-transform:rotate(360deg);}
@@ -394,30 +400,38 @@
     left: 3px;
     width: 96%;
     border: 1px solid #9d9d9d;
-    max-height: 450px;
+    max-height: 50%;
 }
 div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent ul{
-     padding: 3% 0;
+     padding: 3px 0;
 }
 #divSearchTopicList ul {
     max-height:100%;
     overflow:auto;
 }
+div#divTopicList {
+    height: 67%
+}
 div#divTopicList ul {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 80%;
-    bottom: 1%;
-    margin-top: 5%;
+    bottom: 2px;
+    margin-top: 8px;
+    height: 84%;
 }
-#divAssignment ul, #divSubtopicContent ul {
+#divAssignment ul{
     height:68%;
     overflow:auto;
-    padding-top: 4%;
+    padding-top: 4px;
+}
+ #divSubtopicContent ul {
+    height:64%;
+    overflow:auto;
+    padding-top: 4px;
 }
 div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtopicContent ul li {
     list-style: none;
-    padding: 2% 11%;
+    padding: 2px 16px;
     transition: background-color .25s ease;
     cursor: pointer;
     margin: 2px;
@@ -479,7 +493,7 @@ div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul l
 #divSearchTopicList ul{
        background: #194a71;
     margin: 0;
-    height: 450px;
+    height: 100%;
 }
     
 div#divTopicList ul li:after,#divSearchTopicList ul li:after 
