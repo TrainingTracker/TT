@@ -81,23 +81,25 @@
                 my.helpForumService.addPostThread(my.helpForumVm.newPostThread, my.helpForumVm.addPostThreadCallback);
             },
             updatePostStatus = function (statusId) {
-                var message = my.meta.currentUser.FirstName + ' ' + my.meta.currentUser.LastName + ' Updated the status to ';
-                switch (statusId) {
-                    case 1:
-                        message += "New";
-                        break;
-                    case 2:
-                        message += "In Discussion";
-                        break;
-                    case 3:
-                        message += "In Progress";
-                        break;
-                    case 4:
-                        message += "Closed";
-                        break;
+                if (confirm("This will change the status of this post. Click on Ok to proceed.")) {
+                    var message = my.meta.currentUser.FirstName + ' ' + my.meta.currentUser.LastName + ' Updated the status to ';
+                    switch (statusId) {
+                        case 1:
+                            message += "New";
+                            break;
+                        case 2:
+                            message += "In Discussion";
+                            break;
+                        case 3:
+                            message += "In Progress";
+                            break;
+                        case 4:
+                            message += "Closed";
+                            break;
+                    }
+                    my.helpForumService.updatePostStatus(my.helpForumVm.selections.postId(), statusId, message,
+                        my.meta.currentUser.UserId, my.helpForumVm.addPostThreadCallback);
                 }
-                my.helpForumService.updatePostStatus(my.helpForumVm.selections.postId(), statusId, message,
-                    my.meta.currentUser.UserId, my.helpForumVm.addPostThreadCallback);
             },
             validateAndAddPost = function () {
                 var message = '';

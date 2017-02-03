@@ -24,7 +24,7 @@
     <div class="col-md-12 no-padding-left no-padding-right custom-margin-top-10">
         <div class="col-md-5 no-padding-right">
             <div id="divForumQuestions">
-               <div class="row" id="divSearch">
+                <div class="row" id="divSearch">
                     <div class="col-md-6">
                         <div class="input-group category-list-search">
                             <input type="text" data-bind="value:selections.wildcard" class="form-control" placeholder="search...">
@@ -71,7 +71,7 @@
                                     <i class="fa fa-lightbulb-o icon-font" data-bind="visible: CategoryId == 2"></i>
                                     <i class="fa fa-question icon-font" data-bind="visible: CategoryId == 3"></i>
                                     <span data-bind="text: Category.Title"></span>
-                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br/>
+                                    <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')"></span><br />
                                 </p>
                             </div>
                         </div>
@@ -173,10 +173,10 @@
                                 <label class="control-label col-sm-2">Change Status </label>
                                 <div class="col-sm-10">
                                     <div class="btn-group">
-                                        <button type="button" class="label label-danger" data-bind="visible:selections.post.StatusId() < 1, click:updatePostStatus(1)">New</button>
-                                        <button type="button" class="label label-info" data-bind="visible: selections.post.StatusId() == 1 || selections.post.StatusId() == 3, click:updatePostStatus(2)">In Discussion</button>
-                                        <button type="button" class="label label-success" data-bind="visible:selections.post.StatusId() == 1 || selections.post.StatusId() == 2, click:updatePostStatus(3)">In Progress</button>
-                                        <button type="button" class="label label-default" data-bind="visible:selections.post.StatusId() != 4, click:updatePostStatus(4)">Closed</button>
+                                        <button type="button" class="label label-danger" data-bind="visible:selections.post.StatusId() < 1, click:function() {updatePostStatus(1);}">New</button>
+                                        <button type="button" class="label label-info" data-bind="visible: selections.post.StatusId() == 1 || selections.post.StatusId() == 3, click:function() {updatePostStatus(2);}">In Discussion</button>
+                                        <button type="button" class="label label-success" data-bind="visible:selections.post.StatusId() == 1 || selections.post.StatusId() == 2, click:function() {updatePostStatus(3);}">In Progress</button>
+                                        <button type="button" class="label label-default" data-bind="visible:selections.post.StatusId() != 4, click:function() {updatePostStatus(4);}">Closed</button>
                                     </div>
                                 </div>
                             </div>
