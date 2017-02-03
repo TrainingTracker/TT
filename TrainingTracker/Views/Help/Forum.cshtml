@@ -25,18 +25,8 @@
         <div class="col-md-5 no-padding-right">
             <div id="divForumQuestions">
                 <div class="row" id="divSearch">
-                    <div class="col-md-6">
-                        <div class="input-group category-list-search">
-                            <input type="text" data-bind="value:selections.wildcard" class="form-control" placeholder="search...">
-                            <div class="input-group-btn">
-                                <div class="btn btn-default" data-bind="click:function(){resetAndGetPosts();}">
-                                    <i class="fa fa-search icon-font"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 no-padding-left">
-                        <div class="col-md-8 no-padding-left no-padding-right">
+                    <div class="col-md-4 no-padding-right">
+                        <div class="col-md-12 no-padding-left no-padding-right">
                             <div class="form-group">
                                 <select class="form-control" data-bind="value: selections.statusId, valueUpdate: 'change, keyup', event:{change: function(){resetAndGetPosts();}}">
                                     <option value="0">Select status</option>
@@ -45,6 +35,16 @@
                                     <option value="3">In Progress</option>
                                     <option value="4">Closed</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-group category-list-search">
+                            <input type="text" data-bind="value:selections.wildcard" class="form-control" placeholder="search by title or description...">
+                            <div class="input-group-btn">
+                                <div class="btn btn-default" data-bind="click:function(){resetAndGetPosts();}">
+                                    <i class="fa fa-search icon-font"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                         </div>
                         <button type="button"
                                 data-bind="click: function(){selections.newPostPanelShow(false);}"
-                                class="btn btn-primary">
+                                class="btn btn-primary col-md-offset-8">
                             Cancel
                         </button>
                         <button type="button"
