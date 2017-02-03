@@ -15,6 +15,9 @@
           <EntitySet Name="CourseSubtopic" EntityType="TrainingTrackerModel.Store.CourseSubtopic" store:Type="Tables" Schema="tt_capitalized" />
           <EntitySet Name="CourseSubtopicDiscussion" EntityType="TrainingTrackerModel.Store.CourseSubtopicDiscussion" store:Type="Tables" Schema="tt_capitalized" />
           <EntitySet Name="CourseUserMapping" EntityType="TrainingTrackerModel.Store.CourseUserMapping" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="EmailContent" EntityType="TrainingTrackerModel.Store.EmailContent" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="EmailRecipient" EntityType="TrainingTrackerModel.Store.EmailRecipient" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="EmailRecipientType" EntityType="TrainingTrackerModel.Store.EmailRecipientType" store:Type="Tables" Schema="tt_capitalized" />
           <EntitySet Name="Feedback" EntityType="TrainingTrackerModel.Store.Feedback" store:Type="Tables" Schema="tt_capitalized" />
           <EntitySet Name="FeedbackThread" EntityType="TrainingTrackerModel.Store.FeedbackThread" store:Type="Tables" Schema="tt_capitalized" />
           <EntitySet Name="FeedbackType" EntityType="TrainingTrackerModel.Store.FeedbackType" store:Type="Tables" Schema="tt_capitalized" />
@@ -118,6 +121,14 @@
           <AssociationSet Name="FK_CourseUserMapping_User" Association="TrainingTrackerModel.Store.FK_CourseUserMapping_User">
             <End Role="User" EntitySet="User" />
             <End Role="CourseUserMapping" EntitySet="CourseUserMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="TrainingTrackerModel.Store.FK_EmailRecipient_EmailContent">
+            <End Role="EmailContent" EntitySet="EmailContent" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailRecipientType" Association="TrainingTrackerModel.Store.FK_EmailRecipient_EmailRecipientType">
+            <End Role="EmailRecipientType" EntitySet="EmailRecipientType" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
           </AssociationSet>
           <AssociationSet Name="fk_Feedback_AddedBy" Association="TrainingTrackerModel.Store.fk_Feedback_AddedBy">
             <End Role="User" EntitySet="User" />
@@ -392,6 +403,36 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="StartedOn" Type="datetime" Nullable="false" />
           <Property Name="CompletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmailContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TaskSchedulerJobId" Type="int" Nullable="false" />
+          <Property Name="SubjectText" Type="text" Nullable="false" />
+          <Property Name="BodyText" Type="longtext" Nullable="false" />
+          <Property Name="IsRichBody" Type="bit" Nullable="false" />
+          <Property Name="FromAddress" Type="varchar" MaxLength="300" />
+          <Property Name="IsSent" Type="bit" Nullable="false" />
+          <Property Name="SentTimeStamp" Type="datetime" />
+          <Property Name="Attempts" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailRecipient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmailContentId" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="EmailRecipientType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailRecipientType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
@@ -988,6 +1029,30 @@
             </Principal>
             <Dependent Role="CourseUserMapping">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailContent">
+          <End Role="EmailContent" Type="TrainingTrackerModel.Store.EmailContent" Multiplicity="1" />
+          <End Role="EmailRecipient" Type="TrainingTrackerModel.Store.EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailContent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailRecipientType">
+          <End Role="EmailRecipientType" Type="TrainingTrackerModel.Store.EmailRecipientType" Multiplicity="1" />
+          <End Role="EmailRecipient" Type="TrainingTrackerModel.Store.EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailRecipientType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailRecipientType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1812,6 +1877,17 @@
           <AssociationSet Name="FK_SubscribedTrainee_User_SubscribedFor" Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor">
             <End Role="User" EntitySet="Users" />
             <End Role="SubscribedTrainee" EntitySet="SubscribedTrainees" />
+          </AssociationSet>
+          <EntitySet Name="EmailContents" EntityType="TrainingTrackerModel.EmailContent" />
+          <EntitySet Name="EmailRecipients" EntityType="TrainingTrackerModel.EmailRecipient" />
+          <EntitySet Name="EmailRecipientTypes" EntityType="TrainingTrackerModel.EmailRecipientType" />
+          <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="TrainingTrackerModel.FK_EmailRecipient_EmailContent">
+            <End Role="EmailContent" EntitySet="EmailContents" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailRecipientType" Association="TrainingTrackerModel.FK_EmailRecipient_EmailRecipientType">
+            <End Role="EmailRecipientType" EntitySet="EmailRecipientTypes" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipients" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Assignment">
@@ -3159,6 +3235,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EmailContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TaskSchedulerJobId" Nullable="false" />
+          <Property Type="String" Name="SubjectText" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BodyText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsRichBody" Nullable="false" />
+          <Property Type="String" Name="FromAddress" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsSent" Nullable="false" />
+          <Property Type="DateTime" Name="SentTimeStamp" Precision="0" />
+          <Property Type="SByte" Name="Attempts" Nullable="false" />
+          <NavigationProperty Name="EmailRecipients" Relationship="TrainingTrackerModel.FK_EmailRecipient_EmailContent" FromRole="EmailContent" ToRole="EmailRecipient" />
+        </EntityType>
+        <EntityType Name="EmailRecipient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EmailContentId" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="EmailRecipientType" Nullable="false" />
+          <NavigationProperty Name="EmailContent" Relationship="TrainingTrackerModel.FK_EmailRecipient_EmailContent" FromRole="EmailRecipient" ToRole="EmailContent" />
+          <NavigationProperty Name="EmailRecipientType1" Relationship="TrainingTrackerModel.FK_EmailRecipient_EmailRecipientType" FromRole="EmailRecipient" ToRole="EmailRecipientType" />
+        </EntityType>
+        <EntityType Name="EmailRecipientType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmailRecipients" Relationship="TrainingTrackerModel.FK_EmailRecipient_EmailRecipientType" FromRole="EmailRecipientType" ToRole="EmailRecipient" />
+        </EntityType>
+        <Association Name="FK_EmailRecipient_EmailContent">
+          <End Type="TrainingTrackerModel.EmailContent" Role="EmailContent" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.EmailRecipient" Role="EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailContent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailRecipientType">
+          <End Type="TrainingTrackerModel.EmailRecipientType" Role="EmailRecipientType" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.EmailRecipient" Role="EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailRecipientType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailRecipientType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3697,6 +3831,39 @@
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="SubscribedForUserId" ColumnName="SubscribedForUserId" />
                 <ScalarProperty Name="SubscribedByUserId" ColumnName="SubscribedByUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailContents">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.EmailContent">
+              <MappingFragment StoreEntitySet="EmailContent">
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="SentTimeStamp" ColumnName="SentTimeStamp" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="IsRichBody" ColumnName="IsRichBody" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="SubjectText" ColumnName="SubjectText" />
+                <ScalarProperty Name="TaskSchedulerJobId" ColumnName="TaskSchedulerJobId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailRecipients">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.EmailRecipient">
+              <MappingFragment StoreEntitySet="EmailRecipient">
+                <ScalarProperty Name="EmailRecipientType" ColumnName="EmailRecipientType" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="EmailContentId" ColumnName="EmailContentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailRecipientTypes">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.EmailRecipientType">
+              <MappingFragment StoreEntitySet="EmailRecipientType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
