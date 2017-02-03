@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-md-10">
                                 <h4><a href="#" data-bind="text: Title, click:function(){$parent.getPost(PostId);}"></a></h4>
-                                <p>
+                                <p class="text-muted">
                                     <a href="#" data-bind="text: AddedByUser.FirstName"></a> posted
                                     <i class="fa fa-bug icon-font" data-bind="visible: CategoryId == 1"></i>
                                     <i class="fa fa-lightbulb-o icon-font" data-bind="visible: CategoryId == 2"></i>
@@ -140,11 +140,11 @@
                     </div>
                     <div>
                         <h1 data-bind="text: selections.post.Title()"></h1>
-                        <p>
+                        <p class="text-muted">
                             <i class="fa fa-bug icon-font" data-bind="visible: selections.post.CategoryId() == 1"></i>
                             <i class="fa fa-lightbulb-o icon-font" data-bind="visible: selections.post.CategoryId() == 2"></i>
                             <i class="fa fa-question icon-font" data-bind="visible: selections.post.CategoryId() == 3"></i>
-                            By :<a href="#" data-bind="text:selections.post.AddedByUser()"></a>
+                            By: <a href="#" data-bind="text:selections.post.AddedByUser()"></a>
                             <span data-bind="text: moment(selections.post.CreatedOn()).format('MMMM Do YYYY, h:mm a')"></span><br />
                         </p>
                     </div>
@@ -155,13 +155,13 @@
                     <br />
                     <div data-bind="foreach: selections.post.Threads">
                         <div class="desc">
-                            <div class="col-md-2 no-padding-left">
+                            <div class="col-md-1 no-padding-left">
                                 <div class="thumb">
                                     <img class="img-circle" data-bind="attr: { src: $parent.photoUrl(AddedByUser.ProfilePictureName) }" width="35px" height="35px" align="">
                                 </div>
-                                <a href="#" data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName"></a>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-11">
+                                By : <a href="#" data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName"></a>
                                 <div data-bind="html: Description"></div>
                             </div>
                             <hr />
