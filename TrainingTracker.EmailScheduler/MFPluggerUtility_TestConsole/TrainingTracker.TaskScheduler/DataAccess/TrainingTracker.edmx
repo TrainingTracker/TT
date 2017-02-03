@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TrainingTracker.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="TrainingTrackerStoreContainer">
+          <EntitySet Name="EmailContent" EntityType="TrainingTracker.Store.EmailContent" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="EmailRecipient" EntityType="TrainingTracker.Store.EmailRecipient" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="EmailRecipientType" EntityType="TrainingTracker.Store.EmailRecipientType" store:Type="Tables" Schema="tt_capitalized" />
+          <EntitySet Name="TaskSchedulerJob" EntityType="TrainingTracker.Store.TaskSchedulerJob" store:Type="Tables" Schema="tt_capitalized" />
+          <AssociationSet Name="FK_EmailContent_SchedulerJob" Association="TrainingTracker.Store.FK_EmailContent_SchedulerJob">
+            <End Role="TaskSchedulerJob" EntitySet="TaskSchedulerJob" />
+            <End Role="EmailContent" EntitySet="EmailContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="TrainingTracker.Store.FK_EmailRecipient_EmailContent">
+            <End Role="EmailContent" EntitySet="EmailContent" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailRecipientType" Association="TrainingTracker.Store.FK_EmailRecipient_EmailRecipientType">
+            <End Role="EmailRecipientType" EntitySet="EmailRecipientType" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EmailContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TaskSchedulerJobId" Type="int" Nullable="false" />
+          <Property Name="SubjectText" Type="text" Nullable="false" />
+          <Property Name="BodyText" Type="longtext" Nullable="false" />
+          <Property Name="IsRichBody" Type="bit" Nullable="false" />
+          <Property Name="FromAddress" Type="varchar" MaxLength="300" />
+          <Property Name="IsSent" Type="bit" Nullable="false" />
+          <Property Name="SentTimeStamp" Type="datetime" />
+          <Property Name="Attempts" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailRecipient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmailContentId" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="EmailRecipientType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailRecipientType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskSchedulerJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="tinytext" Nullable="false" />
+          <Property Name="ExecutionIntervalSeconds" Type="int" Nullable="false" />
+          <Property Name="LastExecution" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="RowCreatedTimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_EmailContent_SchedulerJob">
+          <End Role="TaskSchedulerJob" Type="TrainingTracker.Store.TaskSchedulerJob" Multiplicity="1" />
+          <End Role="EmailContent" Type="TrainingTracker.Store.EmailContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSchedulerJob">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailContent">
+              <PropertyRef Name="TaskSchedulerJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailContent">
+          <End Role="EmailContent" Type="TrainingTracker.Store.EmailContent" Multiplicity="1" />
+          <End Role="EmailRecipient" Type="TrainingTracker.Store.EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailContent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailRecipientType">
+          <End Role="EmailRecipientType" Type="TrainingTracker.Store.EmailRecipientType" Multiplicity="1" />
+          <End Role="EmailRecipient" Type="TrainingTracker.Store.EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailRecipientType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailRecipientType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TrainingTracker" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="TrainingTrackerContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmailContents" EntityType="TrainingTracker.EmailContent" />
+          <EntitySet Name="EmailRecipients" EntityType="TrainingTracker.EmailRecipient" />
+          <EntitySet Name="EmailRecipientTypes" EntityType="TrainingTracker.EmailRecipientType" />
+          <EntitySet Name="TaskSchedulerJobs" EntityType="TrainingTracker.TaskSchedulerJob" />
+          <AssociationSet Name="FK_EmailContent_SchedulerJob" Association="TrainingTracker.FK_EmailContent_SchedulerJob">
+            <End Role="TaskSchedulerJob" EntitySet="TaskSchedulerJobs" />
+            <End Role="EmailContent" EntitySet="EmailContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="TrainingTracker.FK_EmailRecipient_EmailContent">
+            <End Role="EmailContent" EntitySet="EmailContents" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailRecipient_EmailRecipientType" Association="TrainingTracker.FK_EmailRecipient_EmailRecipientType">
+            <End Role="EmailRecipientType" EntitySet="EmailRecipientTypes" />
+            <End Role="EmailRecipient" EntitySet="EmailRecipients" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EmailContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TaskSchedulerJobId" Nullable="false" />
+          <Property Type="String" Name="SubjectText" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BodyText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsRichBody" Nullable="false" />
+          <Property Type="String" Name="FromAddress" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsSent" Nullable="false" />
+          <Property Type="DateTime" Name="SentTimeStamp" Precision="0" />
+          <Property Type="SByte" Name="Attempts" Nullable="false" />
+          <NavigationProperty Name="TaskSchedulerJob" Relationship="TrainingTracker.FK_EmailContent_SchedulerJob" FromRole="EmailContent" ToRole="TaskSchedulerJob" />
+          <NavigationProperty Name="EmailRecipients" Relationship="TrainingTracker.FK_EmailRecipient_EmailContent" FromRole="EmailContent" ToRole="EmailRecipient" />
+        </EntityType>
+        <EntityType Name="EmailRecipient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EmailContentId" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="EmailRecipientType" Nullable="false" />
+          <NavigationProperty Name="EmailContent" Relationship="TrainingTracker.FK_EmailRecipient_EmailContent" FromRole="EmailRecipient" ToRole="EmailContent" />
+          <NavigationProperty Name="EmailRecipientType1" Relationship="TrainingTracker.FK_EmailRecipient_EmailRecipientType" FromRole="EmailRecipient" ToRole="EmailRecipientType" />
+        </EntityType>
+        <EntityType Name="EmailRecipientType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmailRecipients" Relationship="TrainingTracker.FK_EmailRecipient_EmailRecipientType" FromRole="EmailRecipientType" ToRole="EmailRecipient" />
+        </EntityType>
+        <EntityType Name="TaskSchedulerJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ExecutionIntervalSeconds" Nullable="false" />
+          <Property Type="DateTime" Name="LastExecution" Precision="0" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="RowCreatedTimeStamp" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EmailContents" Relationship="TrainingTracker.FK_EmailContent_SchedulerJob" FromRole="TaskSchedulerJob" ToRole="EmailContent" />
+        </EntityType>
+        <Association Name="FK_EmailContent_SchedulerJob">
+          <End Type="TrainingTracker.TaskSchedulerJob" Role="TaskSchedulerJob" Multiplicity="1" />
+          <End Type="TrainingTracker.EmailContent" Role="EmailContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSchedulerJob">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailContent">
+              <PropertyRef Name="TaskSchedulerJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailContent">
+          <End Type="TrainingTracker.EmailContent" Role="EmailContent" Multiplicity="1" />
+          <End Type="TrainingTracker.EmailRecipient" Role="EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailContent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailRecipient_EmailRecipientType">
+          <End Type="TrainingTracker.EmailRecipientType" Role="EmailRecipientType" Multiplicity="1" />
+          <End Type="TrainingTracker.EmailRecipient" Role="EmailRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailRecipientType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailRecipient">
+              <PropertyRef Name="EmailRecipientType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="TrainingTracker" />
+        <Alias Key="Target" Value="TrainingTracker.Store" />
+        <EntityContainerMapping CdmEntityContainer="TrainingTrackerContainer" StorageEntityContainer="TrainingTrackerStoreContainer">
+          <EntitySetMapping Name="EmailContents">
+            <EntityTypeMapping TypeName="TrainingTracker.EmailContent">
+              <MappingFragment StoreEntitySet="EmailContent">
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="SentTimeStamp" ColumnName="SentTimeStamp" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="IsRichBody" ColumnName="IsRichBody" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="SubjectText" ColumnName="SubjectText" />
+                <ScalarProperty Name="TaskSchedulerJobId" ColumnName="TaskSchedulerJobId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailRecipients">
+            <EntityTypeMapping TypeName="TrainingTracker.EmailRecipient">
+              <MappingFragment StoreEntitySet="EmailRecipient">
+                <ScalarProperty Name="EmailRecipientType" ColumnName="EmailRecipientType" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="EmailContentId" ColumnName="EmailContentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailRecipientTypes">
+            <EntityTypeMapping TypeName="TrainingTracker.EmailRecipientType">
+              <MappingFragment StoreEntitySet="EmailRecipientType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskSchedulerJobs">
+            <EntityTypeMapping TypeName="TrainingTracker.TaskSchedulerJob">
+              <MappingFragment StoreEntitySet="TaskSchedulerJob">
+                <ScalarProperty Name="RowCreatedTimeStamp" ColumnName="RowCreatedTimeStamp" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
+                <ScalarProperty Name="ExecutionIntervalSeconds" ColumnName="ExecutionIntervalSeconds" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
