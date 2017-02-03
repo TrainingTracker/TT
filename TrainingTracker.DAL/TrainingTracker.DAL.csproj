@@ -101,6 +101,15 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\EmailContent.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\EmailRecipient.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\EmailRecipientType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\Feedback.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
