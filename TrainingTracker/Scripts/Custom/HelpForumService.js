@@ -1,9 +1,10 @@
 ﻿$(document).ready(function (my) {
     "use strict";
     my.helpForumService = {
-        getPosts: function (wildcard, categoryId, statusId, pageNumber, callback) {
+        getPosts: function (wildcard, categoryId, statusId, searchPostId, pageNumber, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Help/GetPosts?wildcard=" + wildcard +
-            "&categoryId=" + categoryId + "&statusId=" + statusId + "&pageNumber=" + pageNumber, null, callback);
+            "&categoryId=" + categoryId + "&statusId=" + statusId + "&searchPostId=" + searchPostId
+            + "&pageNumber=" + pageNumber, null, callback);
         },
         getPostById: function (postId, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Help/GetPostById?postId="

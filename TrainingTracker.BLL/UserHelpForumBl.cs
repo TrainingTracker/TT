@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
+using TrainingTracker.Common.ViewModel;
 using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.BLL
@@ -14,10 +16,23 @@ namespace TrainingTracker.BLL
             return ForumUserHelpPostConverter.ConvertFromCore(UnitOfWork.ForumUserHelpPostRepository.GetPostWithThreads(postId));
         }
 
-        public PagedResult<ForumPost> GetFilteredPagedPosts(string wildcard, int categoryId, int statusId,
+        public HelpForumVm GetHelpForumVm(string wildcard, int categoryId, int statusId, int searchPostId, int pageNumber)
+        {
+            var forumVm = new HelpForumVm
+            {
+                Posts = GetFilteredPagedPosts(wildcard, categoryId, statusId, searchPostId, pageNumber, 5)
+            };
+            if (forumVm.Posts.Results != null && forumVm.Posts.Results.Count > 0)
+            {
+                forumVm.DefaultPost = GetPostWithThreads(forumVm.Posts.Results[0].PostId);
+            }
+            return forumVm;
+        }
+
+        private PagedResult<ForumPost> GetFilteredPagedPosts(string wildcard, int categoryId, int statusId, int searchPostId,
             int pageNumber, int pageSize)
         {
-            var result = UnitOfWork.ForumUserHelpPostRepository.GetPagedFilteredPosts(wildcard, categoryId, statusId,
+            var result = UnitOfWork.ForumUserHelpPostRepository.GetPagedFilteredPosts(wildcard, categoryId, statusId, searchPostId,
                 pageNumber, pageSize);
 
             if (result == null) return new PagedResult<ForumPost>();

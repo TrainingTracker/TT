@@ -92,11 +92,7 @@
                 <div id="divNewPost" data-bind="visible: selections.newPostPanelShow() === true">
                     <div class="alert alert-danger" data-bind="visible: alerts.postValidation() != ''">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <div data-bind="text:alerts.postValidation"></div>
-                    </div>
-                    <div class="alert alert-success" data-bind="visible: alerts.postAddedSuccess() != ''">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <div data-bind="text:alerts.postAddedSuccess"></div>
+                        <div data-bind="html:alerts.postValidation"></div>
                     </div>
                     <div>
                         <h3>Post your Question</h3>
@@ -138,6 +134,10 @@
                     </form>
                 </div>
                 <div id="divPostContent" data-bind="visible: selections.newPostPanelShow() === false && selections.postId() != 0">
+                    <div class="alert alert-success" data-bind="visible: alerts.postAddedSuccess() != ''">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div data-bind="html:alerts.postAddedSuccess"></div>
+                    </div>
                     <div>
                         <h1 data-bind="text: selections.post.Title()"></h1>
                         <p>

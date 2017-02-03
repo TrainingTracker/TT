@@ -13,9 +13,9 @@ namespace TrainingTracker.Controllers
             return View("Forum");
         }
 
-        public ActionResult GetPosts(string wildcard, int categoryId, int statusId, int pageNumber)
+        public ActionResult GetPosts(string wildcard, int categoryId, int statusId, int searchPostId, int pageNumber)
         {
-            return Json(HelpForumBl.GetFilteredPagedPosts(wildcard, categoryId, statusId, pageNumber, 5), JsonRequestBehavior.AllowGet);
+            return Json(HelpForumBl.GetHelpForumVm(wildcard, categoryId, statusId, searchPostId, pageNumber), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetPostById(int postId)

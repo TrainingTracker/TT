@@ -7,7 +7,7 @@ namespace TrainingTracker.DAL.Interface
     {
         ForumUserHelpPost GetPostWithThreads(int postId);
 
-        PagedResult<ForumUserHelpPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId,
+        PagedResult<ForumUserHelpPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId, int searchPostId,
             int pageNumber, int pageSize);
     }
 }
