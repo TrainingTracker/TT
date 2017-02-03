@@ -112,6 +112,11 @@
         <EntityTypeShape EntityType="TrainingTrackerModel.SubscribedTrainee" Width="1.5" PointX="2.8021009149039635" PointY="28.151533646579615" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedBy" />
         <AssociationConnector Association="TrainingTrackerModel.FK_SubscribedTrainee_User_SubscribedFor" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.EmailContent" Width="1.5" PointX="1.009859964721771" PointY="8.8527323942877043" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.EmailRecipient" Width="1.5" PointX="4.5314196779073308" PointY="18.909673490985146" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.EmailRecipientType" Width="1.5" PointX="11.312408376164925" PointY="1.2879452711380763" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_EmailRecipient_EmailContent" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_EmailRecipient_EmailRecipientType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
