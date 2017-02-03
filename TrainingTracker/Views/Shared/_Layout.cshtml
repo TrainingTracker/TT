@@ -116,67 +116,107 @@
             </div>
             <div class="col-md-4 no-margin-right no-padding-right" >                          
                 <ul class="nav navbar-nav navbar-right">
-                     <li id="notification_li ">                              
-                         <span id="notification_count" data-bind="text: my.meta.noOfNotification, visible: my.meta.notifications().length > 0" style="display: none;">0</span>
-                         <a href="#" id="notificationLink">
-                              <span class="" id="notification-icon">
-                                        <i class="fa fa-bell" style="font-size: 20px;margin-top: 3px;"></i>
-                              </span>
-                         </a>                                  
-                                <div id="notificationContainer" class="col-xs-3 no-padding-left no-padding-right">
-                                    <div id="notificationTitle">
-                                        <span class="">Notifications</span>
-                                        <span class="pull-right" data-bind="click: function () { my.meta.markAllNotificationAsRead(); }">
-                                             <a href="#" >Mark All as Read</a>
-                                        </span>
-                                    </div>
-                         <div id="notificationsBody" >
-                             <ul>
-                                 <li data-bind="visible: my.meta.notifications().length == 0">
-                                     <a href="#" style="padding:0; display:block;" >
-                                         <div>
-                                             <div class="col-xs-2 image" style="margin: 0;">
-                                                 <img src="~/Uploads/ProfilePicture/system_notification.jpg" class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;"  />
-                                             </div>
-                                             <div class="col-xs-10" style="margin: 0">
-                                                 <p id="notificationDetail" style="margin:0 !important;">
-                                                     <span style="color:royalblue" class="font-weight-bold display-block" >No New Notification.</span>
-                                                     <span class="font-weight-bold display-block" >No unseen notification.</span>                            
-                                                 </p>
-                                             </div>
-                                         </div>
-                                     </a> 
-                                 </li>
-                                 <!-- ko foreach: my.meta.notifications.slice(0).reverse() -->
-                                 <li class="menu-li list-style" style="    width: 100%;" data-bind="visible: my.meta.notifications().length > 0, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
-                                     <a style="padding:0; display:block;" data-bind="attr: { href: my.rootUrl + Link, title: Description }">
-                                         <div>
-                                                        <div class="col-xs-2 image" style="margin: 0;">
-                                                            <img class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;" data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
-                                                        </div>
-                                                        <div class="col-xs-10" style="margin: 0">
-                                                            <p id="notificationDetail" style="margin:0 !important;">
-                                                                <span style="color:royalblue" class="font-weight-bold display-block" data-bind="text: Title"></span>
-                                                                <span class="font-weight-bold display-block" data-bind="text: AddedBy, visible: TypeOfNotification != 1 "></span>
-                                                                <span data-bind="text: moment.duration(moment(new Date()).diff(moment(AddedOn))).humanize() + ' ago'" style="font-size:13px;"></span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                     </a>
-                                 </li>
-                                 <!-- /ko -->
-                             </ul>
-                         </div>
-                                    
-                                </div>
-                            </li>               
+                    
+                    <li id="notification_li" data-bind="visible: my.meta.noOfPendingActions() > 0">
+                        <span id="notification_count" data-bind="text: my.meta.noOfPendingActions">0</span>
+                        <a href="#" id="actionLink">
+                            <span class="" id="notification-icon">
+                                <i class="fa fa-hand-o-right" style="font-size: 20px;margin-top: 3px;"></i>
+                            </span>
+                        </a>
+                        <div id="actionContainer" class="col-xs-3 no-padding-left no-padding-right">
+                            <div id="notificationTitle">
+                                <span class="">Pending Actions</span>
+                            </div>
+                            <div id="notificationsBody">
+                                <ul>
+                                    <!-- ko foreach: my.meta.notifications.slice(0).reverse() -->
+                                    <li class="menu-li list-style" style="    width: 100%;" data-bind="visible: my.meta.notifications().length > 0 && TypeOfNotification == 14, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
+                                        <a style="padding:0; display:block;" data-bind="attr: { href: my.rootUrl + Link, title: Description }">
+                                            <div>
+                                                <div class="col-xs-2 image" style="margin: 0;">
+                                                    <img class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;" data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                </div>
+                                                <div class="col-xs-10" style="margin: 0">
+                                                    <p id="notificationDetail" style="margin:0 !important;">
+                                                        <span style="color:royalblue" class="font-weight-bold display-block" data-bind="text: Title"></span>
+                                                        <span class="font-weight-bold display-block" data-bind="text: AddedBy, visible: TypeOfNotification != 1 "></span>
+                                                        <span data-bind="text: moment.duration(moment(new Date()).diff(moment(AddedOn))).humanize() + ' ago'" style="font-size:13px;"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- /ko -->
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>   
+                    
+                    
+
+                    <li id="notification_li ">
+                        <span id="notification_count" data-bind="text: my.meta.noOfNotification, visible: my.meta.noOfNotification() > 0" style="display: none;">0</span>
+                        <a href="#" id="notificationLink">
+                            <span class="" id="notification-icon">
+                                <i class="fa fa-bell" style="font-size: 20px;margin-top: 3px;"></i>
+                            </span>
+                        </a>
+                        <div id="notificationContainer" class="col-xs-3 no-padding-left no-padding-right">
+                            <div id="notificationTitle">
+                                <span class="">Notifications</span>
+                                <span class="pull-right" data-bind="click: function () { my.meta.markAllNotificationAsRead(); }">
+                                    <a href="#">Mark All as Read</a>
+                                </span>
+                            </div>
+                            <div id="notificationsBody">
+                                <ul>
+                                    <li data-bind="visible: my.meta.noOfNotification() == 0">
+                                        <a href="#" style="padding:0; display:block;">
+                                            <div>
+                                                <div class="col-xs-2 image" style="margin: 0;">
+                                                    <img src="~/Uploads/ProfilePicture/system_notification.jpg" class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;" />
+                                                </div>
+                                                <div class="col-xs-10" style="margin: 0">
+                                                    <p id="notificationDetail" style="margin:0 !important;">
+                                                        <span style="color:royalblue" class="font-weight-bold display-block">No New Notification.</span>
+                                                        <span class="font-weight-bold display-block">No unseen notification.</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- ko foreach: my.meta.notifications.slice(0).reverse() -->
+                                    <li class="menu-li list-style" style="    width: 100%;" data-bind="visible: my.meta.notifications().length > 0 && TypeOfNotification != 14, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
+                                        <a style="padding:0; display:block;" data-bind="attr: { href: my.rootUrl + Link, title: Description }">
+                                            <div>
+                                                <div class="col-xs-2 image" style="margin: 0;">
+                                                    <img class="avatar" style="height: 60px;margin: 0;display: block;width: 60px;padding: 0;" data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + ProfilePictureName }" />
+                                                </div>
+                                                <div class="col-xs-10" style="margin: 0">
+                                                    <p id="notificationDetail" style="margin:0 !important;">
+                                                        <span style="color:royalblue" class="font-weight-bold display-block" data-bind="text: Title"></span>
+                                                        <span class="font-weight-bold display-block" data-bind="text: AddedBy, visible: TypeOfNotification != 1 "></span>
+                                                        <span data-bind="text: moment.duration(moment(new Date()).diff(moment(AddedOn))).humanize() + ' ago'" style="font-size:13px;"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- /ko -->
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>   
                     <li id="profileNavigation" class="dropdown menu-li">
                         <a href="#">                         
                             <span>
-                                 <img id="avatar" class="navbar-left img-responsive img-circle navImage">
-                                 <label class="text font-bold"></label>
+                                <img id="avatar" class="navbar-left img-responsive img-circle navImage">
+                                <label class="text font-bold"></label>
                             </span>   
-                                 <span class="glyphicon glyphicon-chevron-down"></span>                     
+                            <span class="glyphicon glyphicon-chevron-down"></span>                     
                         </a>
                         <ul class="dropdown-menu dropdown-menu-pop-over-list">
                             <li class="menu-li">
@@ -185,11 +225,11 @@
                                 </a>
                             </li>
                             <li class="menu-li hr-separator">
-                               <a href="~/Release" class=" ">
-                                     <span>Bugs & Features</span>
-                                 </a>
+                                <a href="~/Release" class=" ">
+                                    <span>Bugs & Features</span>
+                                </a>
                             </li>
-                             <li class="menu-li danger hr-separator">
+                            <li class="menu-li danger hr-separator">
                                 <a href="~/Login/SignOut" class="  ">
                                     <span> Sign out</span>
                                 </a> 

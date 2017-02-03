@@ -222,15 +222,22 @@
                 my.addUserVm.getUsers();
                 my.addUserVm.showDialog(true);
                 my.addUserVm.setUser(my.meta.currentUser);
+                my.meta.getCurrentUserPromise.then(function(currentUserData) {
+                    my.addUserVm.setUser(currentUserData);
+                });
+
             },
             showAllUsersProfile = ko.observable(false),
             openAllUsersProfile = function () {
                 closeDialogue();
                 my.addUserVm.getUsers();
                 my.addUserVm.showDialog(true);
-                if (my.meta.currentUser.IsAdministrator || my.meta.currentUser.IsManager) {
-                    my.addUserVm.showAllUsersProfile(true);
-                }
+                my.meta.getCurrentUserPromise.then(function () {
+                    if (my.meta.currentUser.IsAdministrator || my.meta.currentUser.IsManager) {
+                        my.addUserVm.showAllUsersProfile(true);
+                    }
+                });
+                
                 my.addUserVm.setUser(my.meta.currentUser);
             },
             message = ko.observable("");

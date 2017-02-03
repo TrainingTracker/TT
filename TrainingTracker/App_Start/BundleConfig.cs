@@ -119,7 +119,8 @@ namespace TrainingTracker
              bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
                 "~/Scripts/Custom/AddEditProfile.js",
                 "~/Scripts/Custom/NotificationSetting.js",
-                "~/Scripts/Custom/UserSetting.js"
+                "~/Scripts/Custom/UserSetting.js",
+                "~/Scripts/notify.js"
                ));
             #endregion
 

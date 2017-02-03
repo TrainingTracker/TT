@@ -200,7 +200,7 @@ div#wrapper>.navbar>div>ul>li>a span.glyphicon {
     transition: all 0.2s ease;
  }
 
- .menu-li.separator:after,#notificationLink:after {
+ .menu-li.separator:after,#notificationLink:after,#actionLink:after {
     position: absolute;
     height: 30%;
    right: 0;

@@ -11,7 +11,7 @@
                 <li>
                     <input type="checkbox" data-bind="attr:{id:'TraineeId'+SubscribedForUserId, value:SubscribedForUserId}, checked: IsDeleted">
                     <label data-bind="attr:{for:'TraineeId'+SubscribedForUserId}" class="pull-right">
-                        <i class="" aria-hidden="true" data-bind="attr:{class: !my.isNullorEmpty(IsDeleted()) && !IsDeleted() ? 'fa fa-bell subscribed' : 'fa fa-bell unsubscribed'}"></i>
+                        <i class="" aria-hidden="true" data-bind="attr:{class: !my.isNullorEmpty(IsDeleted()) && !IsDeleted() ? 'fa fa-envelope subscribed' : 'fa fa-envelope unsubscribed'}"></i>
                     </label>
                     <span data-bind="text:FirstName"></span>
                 </li>
@@ -20,7 +20,7 @@
         </div>
         <div class="panel-footer">
             <button data-bind="click: my.notificationSettingVm.saveNotificationSetting"
-                    type="button" class="btn btn-sm btn-primary col-sm-offset-9">
+                    type="button" class="btn btn-sm btn-primary col-sm-offset-10">
                 Save
             </button>
         </div>

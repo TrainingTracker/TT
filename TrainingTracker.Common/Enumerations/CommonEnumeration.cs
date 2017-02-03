@@ -68,7 +68,12 @@
         /// <summary>
         /// Enum For Course Feedback Notification
         /// </summary>
-        CourseFeedbackNotification = 13
+        CourseFeedbackNotification = 13,
+
+        /// <summary>
+        /// Enum For New Action to Perform
+        /// </summary>
+        NewActionToPerform = 14
     }
 
 

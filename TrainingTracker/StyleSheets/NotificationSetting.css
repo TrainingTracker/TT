@@ -1,5 +1,5 @@
 ﻿#notificationPanel .subscribed {
-    color: #2596f1;
+    color: white;
 }
 #notificationPanel {
     margin-bottom: 0;
@@ -22,7 +22,8 @@
     width: 0;
 }
 #notificationPanel .panel-body > ul > li {
-    background-color: #eee;
+    background-color: #2596f1;
+    color: white;
     padding: 8px 15px;
     font-size: 15px;
     margin-bottom: 10px;
@@ -31,6 +32,7 @@
 }
 #notificationPanel .panel-body > ul > li > label {
     font-size: 20px;
+    cursor: pointer;
     color: white;
 }
 #notificationPanel .panel-body > ul {
@@ -45,8 +47,8 @@
 }
 #notificationPanel .panel-body > ul > li > label .unsubscribed:after {
     content: '/';
-    color: #ccc;
-    font-size: 30px;
+    color: #f12424;
+    font-size: 32px;
     font-weight: bolder;
     position: absolute;
     -webkit-transform: rotate(25deg);
@@ -55,7 +57,7 @@
     -o-transform: rotate(25deg);
     transform: rotate(25deg);
     margin-left: -13px;
-    margin-top: -4px;
+    margin-top: -6px;
 }
 #notificationPanel .panel-footer button {
     width:150px;

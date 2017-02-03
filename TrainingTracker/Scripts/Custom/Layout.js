@@ -21,7 +21,9 @@
                 my.meta.fetchAllUser();
             },
 			  notifications = ko.observableArray([]),
-		      noOfNotification = ko.observable(),
+		      noOfNotification = ko.observable(0),
+              newActionsToPerform = ko.observableArray([]),
+		      noOfPendingActions = ko.observable(0),
             avatarUrl = function (item) {
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
             },
@@ -34,7 +36,8 @@
             },
 			getNotificationCallback = function (notificationList)
 			{
-              my.meta.notifications([]);
+			    my.meta.notifications([]);
+			    my.meta.newActionsToPerform([]);
               ko.utils.arrayForEach(notificationList, function (item) 
               {
                   var appender = (item.Link.indexOf('?') > -1) ? '&' : '?';
@@ -50,9 +53,17 @@
                       item.ProfilePictureName = "system_notification.jpg";
                       item.Action = "Added on";
                   }
+
+
+                  if (item.TypeOfNotification == 14) {
+                      my.meta.newActionsToPerform.push(item);
+                  }
                   my.meta.notifications.push(item);
+                  
+                  
               });
-              my.meta.noOfNotification(notificationList.length);
+              my.meta.noOfPendingActions(my.meta.newActionsToPerform().length);
+              my.meta.noOfNotification(my.meta.notifications().length - my.meta.newActionsToPerform().length);
           },
              getNotification = function () {
                  
@@ -84,6 +95,7 @@
         {
             if (updateStatus) {
                 my.meta.notifications([]);
+                my.meta.noOfNotification(0);
             }
         },
         fetchAllUser = function() {
@@ -103,6 +115,38 @@
         markAllNotificationAsRead = function() {
             my.userService.markAllNotificationAsRead(markAllNotificationAsReadCallback);
         };
+
+        var getCurrentUserPromise = new window.Promise(function (resolve, reject) {
+            $.getJSON(my.rootUrl + "/Login/GetCurrentUser", function(data) {
+                    my.meta.currentUser = data;
+                })
+                .done(function(data) {
+                    resolve(data);
+                });
+            //my.userService.getCurrentUserPromise().done(function(data) {
+            //    my.meta.currentUser = data;
+            //    resolve(data);
+            //});
+        });
+
+        var getAllUserPromise = new window.Promise(function (resolve, reject) {
+            $.getJSON(my.rootUrl + "/Profile/GetActiveUsers", function (result) {
+                var trainee = [], trainer = [];
+                ko.utils.arrayForEach(result, function (obj) {
+                    if (obj.IsTrainee)
+                        trainee.push(obj);
+                    else
+                        trainer.push(obj);
+                });
+
+                allTrainee(trainee);
+                allMentor(trainer);
+            })
+             .done(function () {
+                resolve();
+             });
+            
+        });
 
         return {
             currentUser: currentUser,
@@ -124,6 +168,10 @@
             allTrainee:allTrainee,
             allMentor:allMentor,
             fetchAllUser: fetchAllUser,
+            getCurrentUserPromise: getCurrentUserPromise,
+            getAllUserPromise: getAllUserPromise,
+            newActionsToPerform: newActionsToPerform,
+            noOfPendingActions: noOfPendingActions
             
     };
     }();

@@ -16,7 +16,7 @@
                 </li>
                 @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
                 {
-                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('ManageUser')}, css:{'active': my.userSettingVm.selectedSetting() == 'ManageUser'}">
+                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('ManageUsers')}, css:{'active': my.userSettingVm.selectedSetting() == 'ManageUsers'}">
                         <a href="#" data-bind="click:function(){my.notificationSettingVm.closeNotificationSetting(); my.addUserVm.openAllUsersProfile()}, visible: (my.meta.isAdministrator() || my.meta.isManager())">
                             Manage User
                         </a>
@@ -26,7 +26,7 @@
                 @if (!HttpContext.Current.User.IsInRole("Trainee") )
                 { 
                     <li data-bind="click:function(){my.userSettingVm.markAsSelected('Notification')}, css:{'active': my.userSettingVm.selectedSetting() == 'Notification'}">
-                        <a href="#" data-bind="click: function(){ my.addUserVm.closeDialogue(); my.notificationSettingVm.openNotificationSetting();}">Notification</a>
+                        <a href="#" data-bind="click: function(){ my.addUserVm.closeDialogue(); my.notificationSettingVm.openNotificationSetting();}">Email Alert</a>
                     </li>
                 }       
             </ul>

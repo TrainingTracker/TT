@@ -130,7 +130,7 @@ namespace TrainingTracker.DAL.DataAccess
         }
 
         /// <summary>
-        /// Clear All the pending Notification  for user
+        /// Clear All the pending Notification(except action type notification) for user
         /// </summary>
         /// <param name="userId">passed userid</param>
         /// <returns>success flag </returns>
@@ -140,7 +140,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (TrainingTrackerEntities context = new TrainingTrackerEntities())
                 {
-                   context.UserNotificationMappings.Where(u=>u.UserId==userId && !u.Seen).ToList().ForEach(x => x.Seen = true);
+                    context.UserNotificationMappings.Where(u => u.UserId == userId && !u.Seen && u.Notification.NotificationType != (int)Common.Enumeration.NotificationType.NewActionToPerform).ToList().ForEach(x => x.Seen = true);
                    context.SaveChanges();
                    return true;
                 }

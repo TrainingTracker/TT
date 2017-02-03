@@ -134,12 +134,20 @@ $(document).ready(function () {
 $("#notificationLink").click(function ()
 {
     $("#notificationContainer").fadeToggle(300);
+    $("#actionContainer").hide();
     return false;
 });
+$("#actionLink").click(function () {
+    $("#actionContainer").fadeToggle(300);
+    $("#notificationContainer").hide();
+    return false;
+});
+
 
 //Document Click hiding the popup 
 $(document).click(function ()
 {
+    $("#actionContainer").hide();
     $("#notificationContainer").hide();
 });
 

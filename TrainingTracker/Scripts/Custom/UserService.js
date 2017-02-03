@@ -85,6 +85,9 @@
         },
         getSubscribedTraineee : function(callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Setting/GetSubscribedTraineee", null, callback);
+        },
+        getCurrentUserPromise: function () {
+            return my.ajaxService.ajaxPostDeffered(my.rootUrl + "/Login/GetCurrentUser", true);
         }
     };
 }(my));

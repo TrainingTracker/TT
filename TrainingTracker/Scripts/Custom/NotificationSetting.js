@@ -21,22 +21,24 @@
         }
         var openNotificationSetting = function () {
             traineeList([]);
-            ko.utils.arrayForEach(my.meta.allTrainee(), function (item) {
-                traineeList.push({
-                    Id: 0,
-                    FirstName: item.FirstName,
-                    FullName: item.FullName,
-                    SubscribedByUserId: my.meta.currentUser.UserId,
-                    SubscribedForUserId: item.UserId,
-                    IsDeleted: ko.observable(true)
+            my.meta.getAllUserPromise.then(function() {
+                ko.utils.arrayForEach(my.meta.allTrainee(), function (item) {
+                    traineeList.push({
+                        Id: 0,
+                        FirstName: item.FirstName,
+                        FullName: item.FullName,
+                        SubscribedByUserId: my.meta.currentUser.UserId,
+                        SubscribedForUserId: item.UserId,
+                        IsDeleted: ko.observable(true)
+                    });
                 });
             });
+            
             my.userService.getSubscribedTraineee(getSubscribedTraineeeCallback);
         }
         var updateSubscribedTraineeeCallback = function(jsonData) {
-            if (jsonData) {
-                alert("changes saved");
-            }
+            $.notify("Preferences Saved", { style: 'customAlert'});
+            
         }
         var saveNotificationSetting = function() {
             subscribedTraineeList = [];
@@ -50,6 +52,7 @@
             });
             my.userService.updateSubscribedTraineee(subscribedTraineeList, updateSubscribedTraineeeCallback);
         }
+
         return {
             isVisible: isVisible,
             traineeList: traineeList,
