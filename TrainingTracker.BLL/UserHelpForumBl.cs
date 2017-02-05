@@ -20,7 +20,7 @@ namespace TrainingTracker.BLL
         {
             var forumVm = new HelpForumVm
             {
-                Posts = GetFilteredPagedPosts(wildcard, categoryId, statusId, searchPostId, pageNumber, 5)
+                Posts = GetFilteredPagedPosts(wildcard, categoryId, statusId, searchPostId, pageNumber, 6)
             };
             if (forumVm.Posts.Results != null && forumVm.Posts.Results.Count > 0)
             {

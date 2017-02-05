@@ -65,7 +65,8 @@ namespace TrainingTracker
 
             bundles.Add(new ScriptBundle("~/bundles/HelpForumScripts").Include(
                 "~/Scripts/Custom/HelpForumService.js",
-                "~/Scripts/Custom/HelpForum.js"
+                "~/Scripts/Custom/HelpForum.js",
+                 "~/Scripts/jquery-confirm.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/DashBoardViewScripts").Include(
@@ -146,7 +147,8 @@ namespace TrainingTracker
 
             bundles.Add(new StyleBundle("~/bundles/HelpForumStyles").Include(
                         "~/Content/Site.css",
-                        "~/StyleSheets/HelpForum.css"
+                        "~/StyleSheets/HelpForum.css",
+                         "~/StyleSheets/jquery-confirm.css" 
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/DashboardViewStyles").Include(

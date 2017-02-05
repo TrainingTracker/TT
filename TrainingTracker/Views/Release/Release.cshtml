@@ -13,7 +13,7 @@
     </div>
     <div class="col-xs-4 noPadding">
         <button type="button" class="btn btn-primary btn-sm button-release"
-                data-bind="click: my.allReleaseVm.openReleaseDialogue">
+                data-bind="visible: my.meta.isAdministrator(),click: my.allReleaseVm.openReleaseDialogue">
             <span data-bind="text: my.meta.isAdministrator() ? 'Publish Release' : 'Request Feature'"></span>
             <i class="glyphicon glyphicon-plus"></i>
         </button>
@@ -137,15 +137,15 @@
                         <td data-label="Added By" data-bind="text: AddedBy.FullName"></td>
                         <td>
                             <button data-bind="visible: IsPublished , click: function(){ my.allReleaseVm.loadReleaseDetails(ReleaseId, 'View')}"
-                                    style="width:60%" type="button" class="form-control btn btn-info">
+                                    style="width:100%" type="button" class="form-control btn btn-info">
                                 View
                                 <i class="glyphicon glyphicon-eye-open"></i>
                             </button>
-                            <button data-bind="visible: !IsPublished, click: function(){ my.allReleaseVm.loadReleaseDetails(ReleaseId, 'Edit')}"
+                          @*  <button data-bind="visible: !IsPublished, click: function(){ my.allReleaseVm.loadReleaseDetails(ReleaseId, 'Edit')}"
                                     style="width:60%" type="button" class="form-control btn btn-info">
                                 Edit
                                 <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
+                            </button>*@
                         </td>
                     </tr>
                 </tbody>

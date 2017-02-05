@@ -81,25 +81,47 @@
                 my.helpForumService.addPostThread(my.helpForumVm.newPostThread, my.helpForumVm.addPostThreadCallback);
             },
             updatePostStatus = function (statusId) {
-                if (confirm("This will change the status of this post. Click on Ok to proceed.")) {
-                    var message = my.meta.currentUser.FirstName + ' ' + my.meta.currentUser.LastName + ' Updated the status to ';
-                    switch (statusId) {
-                        case 1:
-                            message += "New";
-                            break;
-                        case 2:
-                            message += "In Discussion";
-                            break;
-                        case 3:
-                            message += "In Progress";
-                            break;
-                        case 4:
-                            message += "Closed";
-                            break;
+
+                $.confirm({
+                    title: 'Change the status!',
+                    content: '<span>This will change the Status,  <label>Press OK!</label> to proceed. </span>',
+                    columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                    useBootstrap: true,
+                    buttons: {
+                        confirm:
+                        {
+                            text: 'OK!',
+                            btnClass: 'btn-primary btn-success',
+                            action: function () {
+                                var message = my.meta.currentUser.FirstName + ' ' + my.meta.currentUser.LastName + ' Updated the status to ';
+                                switch (statusId) {
+                                    case 1:
+                                        message += "New";
+                                        break;
+                                    case 2:
+                                        message += "In Discussion";
+                                        break;
+                                    case 3:
+                                        message += "In Progress";
+                                        break;
+                                    case 4:
+                                        message += "Closed";
+                                        break;
+                                }
+                                my.helpForumService.updatePostStatus(my.helpForumVm.selections.postId(), statusId, message,
+                                    my.meta.currentUser.UserId, my.helpForumVm.addPostThreadCallback);
+                                return;
+                            }
+                        },
+                        cancel:
+                        {
+                            text: 'Cancel',
+                            btnClass: 'btn-primary btn-warning',
+                            action: function () {
+                            }
+                        }
                     }
-                    my.helpForumService.updatePostStatus(my.helpForumVm.selections.postId(), statusId, message,
-                        my.meta.currentUser.UserId, my.helpForumVm.addPostThreadCallback);
-                }
+                });
             },
             validateAndAddPost = function () {
                 var message = '';
