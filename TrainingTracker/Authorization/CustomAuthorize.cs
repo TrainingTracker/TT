@@ -29,7 +29,7 @@ namespace TrainingTracker.Authorize
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(httpContext.Request.Cookies[FormsAuthentication.FormsCookieName].Value);
 
-                if (httpContext.User.Identity.IsAuthenticated && authTicket != null)
+                if (httpContext.User.Identity.IsAuthenticated && authTicket != null && !authTicket.Expired)
                 {
                     User currentUser = new JavaScriptSerializer().Deserialize<User>(authTicket.UserData);
                     
