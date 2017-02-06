@@ -12,24 +12,26 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class EmailContent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
+        public EmailContent()
         {
-            this.QuestionLevelMappings = new HashSet<QuestionLevelMapping>();
+            this.EmailRecipients = new HashSet<EmailRecipient>();
         }
     
         public int Id { get; set; }
-        public string QuestionText { get; set; }
-        public string Description { get; set; }
-        public int SkillId { get; set; }
-        public int AddedBy { get; set; }
-        public System.DateTime AddedDate { get; set; }
+        public int TaskSchedulerJobId { get; set; }
+        public string SubjectText { get; set; }
+        public string BodyText { get; set; }
+        public bool IsRichBody { get; set; }
+        public string FromAddress { get; set; }
+        public bool IsSent { get; set; }
+        public Nullable<System.DateTime> SentTimeStamp { get; set; }
+        public sbyte Attempts { get; set; }
     
+        public virtual TaskSchedulerJob TaskSchedulerJob { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionLevelMapping> QuestionLevelMappings { get; set; }
-        public virtual Skill Skill { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<EmailRecipient> EmailRecipients { get; set; }
     }
 }

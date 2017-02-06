@@ -17,21 +17,20 @@ namespace TrainingTracker.DAL.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Team()
         {
-            this.Users = new HashSet<User>();
             this.LearningMaps = new HashSet<LearningMap>();
+            this.Users = new HashSet<User>();
         }
     
         public int TeamId { get; set; }
         public string TeamName { get; set; }
-        public int TeamManager { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime DateInserted { get; set; }
         public int WeeklySurveyId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LearningMap> LearningMaps { get; set; }
         public virtual Survey Survey { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LearningMap> LearningMaps { get; set; }
     }
 }

@@ -12,15 +12,14 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseUserMapping
+    public partial class EmailRecipient
     {
         public int Id { get; set; }
-        public int CourseId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime StartedOn { get; set; }
-        public Nullable<System.DateTime> CompletedOn { get; set; }
+        public int EmailContentId { get; set; }
+        public string EmailAddress { get; set; }
+        public int EmailRecipientType { get; set; }
     
-        public virtual Course Course { get; set; }
-        public virtual User User { get; set; }
+        public virtual EmailContent EmailContent { get; set; }
+        public virtual EmailRecipientType EmailRecipientType1 { get; set; }
     }
 }

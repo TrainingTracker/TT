@@ -29,11 +29,15 @@ namespace TrainingTracker.DAL.EntityFramework
             this.FeedbackThreads = new HashSet<FeedbackThread>();
             this.ForumUserHelpPosts = new HashSet<ForumUserHelpPost>();
             this.ForumUserHelpThreads = new HashSet<ForumUserHelpThread>();
+            this.LearningMaps = new HashSet<LearningMap>();
+            this.LearningMapUserMappings = new HashSet<LearningMapUserMapping>();
             this.Notifications = new HashSet<Notification>();
             this.Questions = new HashSet<Question>();
             this.Releases = new HashSet<Release>();
             this.Sessions = new HashSet<Session>();
             this.Skills = new HashSet<Skill>();
+            this.SubscribedTrainees = new HashSet<SubscribedTrainee>();
+            this.SubscribedTrainees1 = new HashSet<SubscribedTrainee>();
             this.SubtopicContents = new HashSet<SubtopicContent>();
             this.SubtopicContentUserMaps = new HashSet<SubtopicContentUserMap>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
@@ -42,8 +46,6 @@ namespace TrainingTracker.DAL.EntityFramework
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
             this.UserSkillMappings = new HashSet<UserSkillMapping>();
             this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
-            this.LearningMaps = new HashSet<LearningMap>();
-            this.LearningMapUserMappings = new HashSet<LearningMapUserMapping>();
         }
     
         public int UserId { get; set; }
@@ -88,6 +90,10 @@ namespace TrainingTracker.DAL.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumUserHelpThread> ForumUserHelpThreads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LearningMap> LearningMaps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LearningMapUserMapping> LearningMapUserMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Question> Questions { get; set; }
@@ -97,6 +103,10 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<Session> Sessions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Skill> Skills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscribedTrainee> SubscribedTrainees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscribedTrainee> SubscribedTrainees1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -114,9 +124,5 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSkillMapping> UserSkillMappings1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LearningMap> LearningMaps { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LearningMapUserMapping> LearningMapUserMappings { get; set; }
     }
 }
