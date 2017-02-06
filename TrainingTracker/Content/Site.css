@@ -28,6 +28,23 @@
     display: table-cell
 }
 
+.no-padding-top
+{
+    padding-top: 0 !important;
+}
+.no-padding-bottom
+{
+    padding-bottom: 0 !important;
+}
+
+.no-margin-top
+{
+    margin-top: 0 !important;
+}
+.no-margin-bottom
+{
+    margin-bottom: 0 !important;
+}
 
 .no-margin-right
 {
@@ -246,3 +263,18 @@ div#wrapper>.navbar>div>ul>li>a span.glyphicon {
     border-left: 8px solid transparent;
 }
 
+
+
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.affix-top {
+  width: 100%;
+}
+
+.affix-bottom {
+  position: absolute;
+  width: 100%;  
+}

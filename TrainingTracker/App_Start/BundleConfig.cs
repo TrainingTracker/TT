@@ -63,6 +63,12 @@ namespace TrainingTracker
                 "~/Scripts/Custom/Release.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/HelpForumScripts").Include(
+                "~/Scripts/Custom/HelpForumService.js",
+                "~/Scripts/Custom/HelpForum.js",
+                 "~/Scripts/jquery-confirm.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/DashBoardViewScripts").Include(
                "~/Scripts/Custom/Dashboard.js" ,
                "~/Scripts/wz_tooltip.js" 
@@ -137,6 +143,12 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/ReleaseViewStyles").Include(
                       "~/Content/DatePicker/bootstrap-datepicker3.css" ,
                       "~/StyleSheets/Release.css" 
+                      ));
+
+            bundles.Add(new StyleBundle("~/bundles/HelpForumStyles").Include(
+                        "~/Content/Site.css",
+                        "~/StyleSheets/HelpForum.css",
+                         "~/StyleSheets/jquery-confirm.css" 
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/DashboardViewStyles").Include(
