@@ -361,7 +361,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                     subtopicEntityToUpdate.Name = subtopicToUpdate.Name;
                     subtopicEntityToUpdate.Description = subtopicToUpdate.Description;
-                    subtopicEntityToUpdate.SortOrder = subtopicToUpdate.SortOrder;
                     subtopicEntityToUpdate.CourseId = subtopicToUpdate.CourseId;
                     
                     context.SaveChanges();
@@ -471,7 +470,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                     entityToUpdate.Name = dataToUpdate.Name;
                     entityToUpdate.Description = dataToUpdate.Description;
-                    entityToUpdate.SortOrder = dataToUpdate.SortOrder;
                     entityToUpdate.Url = dataToUpdate.Url;
                     entityToUpdate.CourseSubtopicId = dataToUpdate.CourseSubtopicId;
                     
