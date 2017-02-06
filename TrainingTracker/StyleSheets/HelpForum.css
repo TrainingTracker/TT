@@ -90,13 +90,13 @@
     font-size: 22px;
 }
 
-#divForumQuestions {
+/*#divForumQuestions {
     background: white;
     padding-bottom: 5px;
     height: 100%;
     
     max-height: 665px;
-}
+}*/
 
 #divPager {
     padding-left: 15px;
@@ -179,6 +179,7 @@ hr.postEnd,#divBugHeaderDescription:after,#divForumPost h3:after {
     display: table;
     position: absolute;
     height: 90%;
+        max-width: 99%;
         margin-top: 3.75%;
 }
 
@@ -243,14 +244,28 @@ hr.postEnd,#divBugHeaderDescription:after,#divForumPost h3:after {
 
 
 
-.affix-top {
+/*.affix-top {
     top: 17%;
     width: 41%;
     position: fixed;
-}
+}*/
 
 .affix-bottom {
 position: absolute;
 top: auto;
 bottom: 470px;
+}
+
+
+#divForumQuestions {
+   background: #fff;
+    padding-bottom: 5px;
+    height: calc(100% - 126px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.affix-top {
+        top: 128px;
+    width: 41%;
+    position: fixed;
 }
