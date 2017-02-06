@@ -150,6 +150,7 @@ div#wrapper>.navbar>div>ul>li>a span.glyphicon {
     width:65% !important;
     background-color:#f5f5f5;
     color:#383838;
+    overflow-y: auto
 }
 
 .layout-wrapper .learning-map-left-panel
