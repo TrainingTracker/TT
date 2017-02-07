@@ -12,14 +12,15 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class EmailRecipient
+    public partial class ForumDiscussionThread
     {
         public int Id { get; set; }
-        public int EmailContentId { get; set; }
-        public string EmailAddress { get; set; }
-        public int EmailRecipientType { get; set; }
+        public int PostId { get; set; }
+        public string Description { get; set; }
+        public int AddedBy { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
-        public virtual EmailContent EmailContent { get; set; }
-        public virtual EmailRecipientType EmailRecipientType1 { get; set; }
+        public virtual ForumDiscussionPost ForumDiscussionPost { get; set; }
+        public virtual User User { get; set; }
     }
 }

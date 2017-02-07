@@ -27,6 +27,8 @@ namespace TrainingTracker.DAL.EntityFramework
             this.Feedbacks = new HashSet<Feedback>();
             this.Feedbacks1 = new HashSet<Feedback>();
             this.FeedbackThreads = new HashSet<FeedbackThread>();
+            this.ForumDiscussionPosts = new HashSet<ForumDiscussionPost>();
+            this.ForumDiscussionThreads = new HashSet<ForumDiscussionThread>();
             this.ForumUserHelpPosts = new HashSet<ForumUserHelpPost>();
             this.ForumUserHelpThreads = new HashSet<ForumUserHelpThread>();
             this.LearningMaps = new HashSet<LearningMap>();
@@ -36,8 +38,6 @@ namespace TrainingTracker.DAL.EntityFramework
             this.Releases = new HashSet<Release>();
             this.Sessions = new HashSet<Session>();
             this.Skills = new HashSet<Skill>();
-            this.SubscribedTrainees = new HashSet<SubscribedTrainee>();
-            this.SubscribedTrainees1 = new HashSet<SubscribedTrainee>();
             this.SubtopicContents = new HashSet<SubtopicContent>();
             this.SubtopicContentUserMaps = new HashSet<SubtopicContentUserMap>();
             this.SurveyCompletedMetaDatas = new HashSet<SurveyCompletedMetaData>();
@@ -86,6 +86,10 @@ namespace TrainingTracker.DAL.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumDiscussionPost> ForumDiscussionPosts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumDiscussionThread> ForumDiscussionThreads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumUserHelpPost> ForumUserHelpPosts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumUserHelpThread> ForumUserHelpThreads { get; set; }
@@ -103,10 +107,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<Session> Sessions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Skill> Skills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubscribedTrainee> SubscribedTrainees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubscribedTrainee> SubscribedTrainees1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubtopicContent> SubtopicContents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

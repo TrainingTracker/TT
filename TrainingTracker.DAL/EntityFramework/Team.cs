@@ -23,6 +23,7 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public int TeamId { get; set; }
         public string TeamName { get; set; }
+        public int TeamManager { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime DateInserted { get; set; }
         public int WeeklySurveyId { get; set; }

@@ -12,22 +12,20 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class TaskSchedulerJob
+    public partial class ForumDiscussionCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaskSchedulerJob()
+        public ForumDiscussionCategory()
         {
-            this.EmailContents = new HashSet<EmailContent>();
+            this.ForumDiscussionPosts = new HashSet<ForumDiscussionPost>();
         }
     
         public int Id { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
-        public int ExecutionIntervalSeconds { get; set; }
-        public Nullable<System.DateTime> LastExecution { get; set; }
-        public bool IsActive { get; set; }
-        public System.DateTime RowCreatedTimeStamp { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmailContent> EmailContents { get; set; }
+        public virtual ICollection<ForumDiscussionPost> ForumDiscussionPosts { get; set; }
     }
 }

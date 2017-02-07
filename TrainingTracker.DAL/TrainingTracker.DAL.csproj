@@ -101,15 +101,6 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\EmailContent.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\EmailRecipient.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\EmailRecipientType.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\Feedback.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -117,6 +108,18 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\FeedbackType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionCategory.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionPost.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionStatu.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionThread.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\ForumUserHelpCategory.cs">
@@ -176,9 +179,6 @@
     <Compile Include="EntityFramework\Skill.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\SubscribedTrainee.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\SubtopicContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -206,7 +206,7 @@
     <Compile Include="EntityFramework\SurveySection.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\TaskSchedulerJob.cs">
+    <Compile Include="EntityFramework\sysdiagram.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Team.cs">
@@ -291,7 +291,6 @@
     </EntityDeploy>
     <None Include="EntityFramework\TrainingTracker.edmx.diagram">
       <DependentUpon>TrainingTracker.edmx</DependentUpon>
-      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

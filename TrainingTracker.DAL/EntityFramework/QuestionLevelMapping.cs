@@ -19,7 +19,5 @@ namespace TrainingTracker.DAL.EntityFramework
         public short Level { get; set; }
         public short ExperienceStartRange { get; set; }
         public short ExperienceEndRange { get; set; }
-    
-        public virtual Question Question { get; set; }
     }
 }

@@ -12,14 +12,12 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class SubscribedTrainee
+    public partial class sysdiagram
     {
-        public int Id { get; set; }
-        public int SubscribedByUserId { get; set; }
-        public int SubscribedForUserId { get; set; }
-        public bool IsDeleted { get; set; }
-    
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

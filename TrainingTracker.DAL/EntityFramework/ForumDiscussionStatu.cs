@@ -12,18 +12,19 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class EmailRecipientType
+    public partial class ForumDiscussionStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmailRecipientType()
+        public ForumDiscussionStatu()
         {
-            this.EmailRecipients = new HashSet<EmailRecipient>();
+            this.ForumDiscussionPosts = new HashSet<ForumDiscussionPost>();
         }
     
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmailRecipient> EmailRecipients { get; set; }
+        public virtual ICollection<ForumDiscussionPost> ForumDiscussionPosts { get; set; }
     }
 }
