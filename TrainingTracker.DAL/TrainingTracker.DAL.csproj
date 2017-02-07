@@ -264,6 +264,10 @@
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionCategoryConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionPostConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionStatusConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionThreadConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpCategoryConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpPostConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpStatusConverter.cs" />
