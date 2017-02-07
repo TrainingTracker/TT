@@ -1,6 +1,7 @@
 ﻿using TrainingTracker.DAL.DataAccess;
 using TrainingTracker.DAL.Interface;
 using TrainingTracker.DAL;
+using TrainingTracker.DAL.ModelMapper;
 
 namespace TrainingTracker.BLL.Base
 {
@@ -188,6 +189,23 @@ namespace TrainingTracker.BLL.Base
                 return _modelMapperObject ?? (_modelMapperObject = new ModelMapper.ModelMapper());
             }
         }
+
+
+        #region "Converters"
+
+        private ForumUserHelpPostConverter _forumUserHelpPostConverter;
+        public ForumUserHelpPostConverter ForumUserHelpPostConverter
+        {
+            get { return _forumUserHelpPostConverter ?? (_forumUserHelpPostConverter = new ForumUserHelpPostConverter()); }
+        }
+
+        private ForumUserHelpThreadConverter _forumUserHelpThreadConverter;
+        public ForumUserHelpThreadConverter ForumUserHelpThreadConverter
+        {
+            get { return _forumUserHelpThreadConverter ?? (_forumUserHelpThreadConverter = new ForumUserHelpThreadConverter()); }
+        }
+
+        #endregion
 
     }
 }

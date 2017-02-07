@@ -55,6 +55,7 @@
     <Compile Include="SessionBl.cs" />
     <Compile Include="SurveyBl.cs" />
     <Compile Include="UserBl.cs" />
+    <Compile Include="UserHelpForumBl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TrainingTracker.Common\TrainingTracker.Common.csproj">

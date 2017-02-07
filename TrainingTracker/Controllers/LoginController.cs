@@ -89,7 +89,6 @@ namespace TrainingTracker.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            
             Session.Clear();
             Session.Abandon();
             return RedirectToAction("Index");

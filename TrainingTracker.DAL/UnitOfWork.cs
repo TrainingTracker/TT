@@ -24,6 +24,25 @@ namespace TrainingTracker.DAL
         public IUserRepository UserRepository
         {
             get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
+		}
+		
+        private IRepository<ForumUserHelpCategory> _forumUserHelpCategoryRepository;
+        public IRepository<ForumUserHelpCategory> ForumUserHelpCategoryRepository
+        {
+            get { return _forumUserHelpCategoryRepository ?? (_forumUserHelpCategoryRepository = new Repository<ForumUserHelpCategory>(_context)); }
+        }
+
+        private IRepository<ForumUserHelpThread> _forumUserHelpThreadRepository;
+        public IRepository<ForumUserHelpThread> ForumUserHelpThreadRepository
+        {
+            get { return _forumUserHelpThreadRepository ?? (_forumUserHelpThreadRepository = new Repository<ForumUserHelpThread>(_context)); }
+        }
+
+        private IForumUserHelpPostRepository _forumUserHelpPostRepository;
+        public IForumUserHelpPostRepository ForumUserHelpPostRepository
+        {
+            get { return _forumUserHelpPostRepository ?? (_forumUserHelpPostRepository = new ForumUserHelpPostRepository(_context)); }
+			
         }
 
         public int Commit()

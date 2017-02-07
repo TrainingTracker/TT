@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using TrainingTracker.DAL.EntityFramework;
+using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.DAL.DataAccess
 {
