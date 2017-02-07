@@ -12,7 +12,7 @@ using TrainingTracker.Common.Utility;
 namespace TrainingTracker.Controllers
 {
     [CustomAuthorizeAttribute]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         // GET: UserProfile?userId=
         [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
@@ -246,6 +246,34 @@ namespace TrainingTracker.Controllers
         public JsonResult SaveWeeklySurveyResponseForTrainee(SurveyResponse surveyResponse)
         {
             return Json(new SurveyBl().SaveWeeklySurveyResponseForTrainee(surveyResponse) , JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPosts(string wildcard, int categoryId, int statusId, int searchPostId, int pageNumber)
+        {
+            return Json(DiscussionForumBl.GetHelpForumVm(wildcard, categoryId, statusId, searchPostId, pageNumber), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPostById(int postId)
+        {
+            return Json(DiscussionForumBl.GetPostWithThreads(postId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddPost(ForumPost post)
+        {
+            return Json(DiscussionForumBl.AddPost(post).ToString());
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePostStatus(int postId, int statusId, string message, int userId)
+        {
+            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message, userId).ToString());
+        }
+
+        [HttpPost]
+        public ActionResult AddPostThread(ForumThread postThread)
+        {
+            return Json(DiscussionForumBl.AddPostThread(postThread).ToString());
         }
     }
 }
