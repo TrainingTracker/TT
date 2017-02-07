@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFPluggerService", "MFPluggerService\MFPluggerService.csproj", "{896D5932-C602-449B-B054-7990C919CE69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFServicePlugin", "MFServicePlugin\MFServicePlugin.csproj", "{B8C42BA4-5A8B-4F94-93FF-9172009627E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFAssemblyValidator", "MFAssemblyValidator\MFAssemblyValidator.csproj", "{175C7589-5BAA-4898-93ED-08DDB7A5AD33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFDemoPlugin", "MFDemoPlugin\MFDemoPlugin.csproj", "{78E21F2F-941E-4AAC-A29B-E7133DBC9762}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerV2", "InstallerV2\InstallerV2.vdproj", "{9A71485B-BE98-4887-A6EA-1D724ABB26E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{896D5932-C602-449B-B054-7990C919CE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896D5932-C602-449B-B054-7990C919CE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896D5932-C602-449B-B054-7990C919CE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896D5932-C602-449B-B054-7990C919CE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C42BA4-5A8B-4F94-93FF-9172009627E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C42BA4-5A8B-4F94-93FF-9172009627E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C42BA4-5A8B-4F94-93FF-9172009627E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C42BA4-5A8B-4F94-93FF-9172009627E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175C7589-5BAA-4898-93ED-08DDB7A5AD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175C7589-5BAA-4898-93ED-08DDB7A5AD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175C7589-5BAA-4898-93ED-08DDB7A5AD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175C7589-5BAA-4898-93ED-08DDB7A5AD33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E21F2F-941E-4AAC-A29B-E7133DBC9762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E21F2F-941E-4AAC-A29B-E7133DBC9762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E21F2F-941E-4AAC-A29B-E7133DBC9762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E21F2F-941E-4AAC-A29B-E7133DBC9762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A71485B-BE98-4887-A6EA-1D724ABB26E3}.Debug|Any CPU.ActiveCfg = Debug
+		{9A71485B-BE98-4887-A6EA-1D724ABB26E3}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

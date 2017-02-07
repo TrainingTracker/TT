@@ -12,14 +12,23 @@ namespace TrainingTracker.TaskScheduler
     {
         public TaskScheduler()
         {
-            ExeConfigurationFileMap map = new ExeConfigurationFileMap
+            try
             {
-                ExeConfigFilename = Assembly.GetExecutingAssembly().Location + ".config"
-            };
+                ExeConfigurationFileMap map = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = Assembly.GetExecutingAssembly().Location + ".config"
+                };
 
-            Configuration libConfig = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-            Constants.MyDllConfigAppSettings = (libConfig.GetSection("appSettings") as AppSettingsSection);
-
+                Configuration libConfig = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+                Constants.MyDllConfigAppSettings = (libConfig.GetSection("appSettings") as AppSettingsSection);
+            }
+            catch (Exception ex)
+            {
+                Mailer.LogEvent(ex
+                               , "TrainingTracker_ TaskScheduler"
+                               , "TT_TaskScheduler");
+                throw;
+            }        
         }
 
 
@@ -50,8 +59,6 @@ namespace TrainingTracker.TaskScheduler
                                        , String.Format("TT_TaskScheduler_Job_{0}",job.Description));
                     }
                 }
-
-                Console.WriteLine("halliluah!!");
             }
             catch (Exception ex)
             {
