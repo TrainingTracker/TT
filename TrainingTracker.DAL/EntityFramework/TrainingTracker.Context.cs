@@ -25,7 +25,6 @@ namespace TrainingTracker.DAL.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-
         public virtual DbSet<Assignment> Assignments { get; set; }
         public virtual DbSet<AssignmentFeedbackMapping> AssignmentFeedbackMappings { get; set; }
         public virtual DbSet<AssignmentSubtopicMap> AssignmentSubtopicMaps { get; set; }
