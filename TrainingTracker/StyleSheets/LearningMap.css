@@ -11,7 +11,9 @@
     background-color:#62cec4;   
 }
 
-
+.layout-wrapper {
+    height: 90vh;
+}
 .panel-heading {
     text-transform:uppercase;
     font-size:17px;

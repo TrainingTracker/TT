@@ -13,7 +13,13 @@
 ::-webkit-scrollbar-thumb {
     background-color:#62cec4;   
 }
-
+.layout-wrapper {
+    height: 90vh;
+    display: block;
+}
+.layout-section {
+    height: 100%;
+}
 @-webkit-keyframes rotate
 {
     100%{-webkit-transform:rotate(360deg);}
@@ -354,37 +360,34 @@
 }
 
 #divTopicHeader {
-    height: 25%;
+   height: 160px;
     background-color: #1a2942;
-    padding-bottom: 10%;
-    padding-top:10%;
-    cursor:pointer;
+    padding-bottom: 19px;
+    padding-top: 14px;
+    cursor: pointer;
 }
 
-#divTopicList {
-    height: 69%;
-}
 
  #divTopicSearch {
-     padding-top: 1%;
-    height: 6%;
+     padding-top: 2px;
  }
 
  #divTopicSearch input {
-    width: 100%;
-    height: 100%;
+     width: 100%;
     padding: 0px 10px;
     font-size: 14px;
-    border-radius: 0;
+     -ms-border-radius: 0;
+     border-radius: 0;
     border: 2px;
  }
 
 #divTopicSearch .input-group-addon {
-       /* padding: 20px; */
+    /* padding: 20px; */
     font-size: 14px;
     height: 98%;
     width: 20%;
     color: #ffffff;
+    -ms-border-radius: 0;
     border-radius: 0;
     border: 2px solid #194a71;
     cursor: pointer;
@@ -392,35 +395,43 @@
 }
 
 #divSearchTopicList {
-        position: absolute;
-    bottom: 6%;
-    left: 2%;
+      position: absolute;
+    bottom: 40px;
+    left: 3px;
     width: 96%;
     border: 1px solid #9d9d9d;
-    max-height:50%;
+    max-height: 50%;
 }
 div#divTopicList ul,#divSearchTopicList ul,#divAssignment ul,#divSubtopicContent ul{
-     padding: 3% 0;
+     padding: 3px 0;
 }
 #divSearchTopicList ul {
     max-height:100%;
     overflow:auto;
 }
+div#divTopicList {
+    height: 67%
+}
 div#divTopicList ul {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 80%;
-    bottom: 1%;
-    margin-top: 5%;
+    bottom: 2px;
+    margin-top: 8px;
+    height: 84%;
 }
-#divAssignment ul, #divSubtopicContent ul {
+#divAssignment ul{
     height:68%;
     overflow:auto;
-    padding-top: 4%;
+    padding-top: 4px;
+}
+ #divSubtopicContent ul {
+    height:64%;
+    overflow:auto;
+    padding-top: 4px;
 }
 div#divTopicList ul li,#divSearchTopicList ul li,#divAssignment ul li,#divSubtopicContent ul li {
     list-style: none;
-    padding: 2% 11%;
+    padding: 2px 16px;
     transition: background-color .25s ease;
     cursor: pointer;
     margin: 2px;
@@ -480,8 +491,9 @@ div#divTopicList ul li:hover,#divSearchTopicList ul li:hover,#divAssignment ul l
 }
 
 #divSearchTopicList ul{
-    background: #194a71;
+       background: #194a71;
     margin: 0;
+    height: 100%;
 }
     
 div#divTopicList ul li:after,#divSearchTopicList ul li:after 
@@ -512,12 +524,12 @@ li.selected-content {
 
 
 .layout-right-panel > div .sub-panel-header {
-    height: 15%;
+    height: 40px;
     text-align: center;
-    padding-top: 5%;
+    padding-top: 8px;
     font-weight: 600;
     background-color: #fafafa;
-        border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .layout-middle-panel > div {
@@ -649,7 +661,7 @@ li.selected-content {
 }
 
 #divTopicHeader > div:nth-child(2){
-    height: 70%;
+    height: 65%;
     padding-bottom: 0px;
 }
 #divTopicHeader > div:nth-child(2)> img {

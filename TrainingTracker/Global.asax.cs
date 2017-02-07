@@ -18,7 +18,19 @@ namespace TrainingTracker
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            SqlUtility.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["TTConStr"].ConnectionString;
+            SqlUtility.ConnectionString =
+                System.Configuration.ConfigurationManager.ConnectionStrings["TTConStr"].ConnectionString;
+        }
+
+        private void Application_Error()
+        {
+            
+            Exception exception = Server.GetLastError();
+            LogUtility.ErrorRoutine(exception);
+
+            Server.ClearError();
+
         }
     }
+
 }

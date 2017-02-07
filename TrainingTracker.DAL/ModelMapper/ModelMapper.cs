@@ -38,6 +38,11 @@ namespace TrainingTracker.DAL.ModelMapper
                 IsPublished = objectToMap.IsPublished,
                 Duration = objectToMap.Duration,
                 CreatedOn = objectToMap.CreatedOn,
+                CourseSubtopics = objectToMap.CourseSubtopics == null ? null : objectToMap.CourseSubtopics.Select(s =>
+                {
+                    var subtopic = MapFromCourseSubtopic(s);
+                    return subtopic;
+                }).ToList()
 
             };
 
