@@ -38,6 +38,24 @@ namespace TrainingTracker.DAL
             get { return _forumUserHelpPostRepository ?? (_forumUserHelpPostRepository = new ForumUserHelpPostRepository(_context)); }
         }
 
+        private IRepository<ForumDiscussionCategory> _forumDiscussionCategoryRepository;
+        public IRepository<ForumDiscussionCategory> ForumDiscussionCategoryRepository
+        {
+            get { return _forumDiscussionCategoryRepository ?? (_forumDiscussionCategoryRepository = new Repository<ForumDiscussionCategory>(_context)); }
+        }
+
+        private IRepository<ForumDiscussionThread> _forumDiscussionThreadRepository;
+        public IRepository<ForumDiscussionThread> ForumDiscussionThreadRepository
+        {
+            get { return _forumDiscussionThreadRepository ?? (_forumDiscussionThreadRepository = new Repository<ForumDiscussionThread>(_context)); }
+        }
+
+        private IForumDiscussionPostRepository _forumDiscussionPostRepository;
+        public IForumDiscussionPostRepository ForumDiscussionPostRepository
+        {
+            get { return _forumDiscussionPostRepository ?? (_forumDiscussionPostRepository = new ForumDiscussionPostRepository(_context)); }
+        }
+
         public int Commit()
         {
            return _context.SaveChanges();
