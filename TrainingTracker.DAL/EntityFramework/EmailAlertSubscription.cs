@@ -12,11 +12,16 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class SubscribedTrainee
+    public partial class EmailAlertSubscription
     {
         public int Id { get; set; }
         public int SubscribedByUserId { get; set; }
         public int SubscribedForUserId { get; set; }
+        public bool IsSubscribedForComment { get; set; }
+        public bool IsSubscribedForWeeklyFeedback { get; set; }
+        public bool IsSubscribedForCodeReview { get; set; }
+        public bool IsSubscibedForAssignment { get; set; }
+        public bool IsSubscibedForSkill { get; set; }
         public bool IsDeleted { get; set; }
     
         public virtual User User { get; set; }

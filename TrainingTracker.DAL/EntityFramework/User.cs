@@ -41,8 +41,8 @@ namespace TrainingTracker.DAL.EntityFramework
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
             this.UserSkillMappings = new HashSet<UserSkillMapping>();
             this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
-            this.SubscribedTrainees = new HashSet<SubscribedTrainee>();
-            this.SubscribedTrainees1 = new HashSet<SubscribedTrainee>();
+            this.EmailAlertSubscriptions = new HashSet<EmailAlertSubscription>();
+            this.EmailAlertSubscriptions1 = new HashSet<EmailAlertSubscription>();
         }
     
         public int UserId { get; set; }
@@ -88,7 +88,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<UserSessionMapping> UserSessionMappings1 { get; set; }
         public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
         public virtual ICollection<UserSkillMapping> UserSkillMappings1 { get; set; }
-        public virtual ICollection<SubscribedTrainee> SubscribedTrainees { get; set; }
-        public virtual ICollection<SubscribedTrainee> SubscribedTrainees1 { get; set; }
+        public virtual ICollection<EmailAlertSubscription> EmailAlertSubscriptions { get; set; }
+        public virtual ICollection<EmailAlertSubscription> EmailAlertSubscriptions1 { get; set; }
     }
 }

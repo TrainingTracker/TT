@@ -69,9 +69,9 @@ namespace TrainingTracker.DAL.EntityFramework
         public DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
-        public DbSet<SubscribedTrainee> SubscribedTrainees { get; set; }
         public DbSet<EmailContent> EmailContents { get; set; }
         public DbSet<EmailRecipient> EmailRecipients { get; set; }
         public DbSet<EmailRecipientType> EmailRecipientTypes { get; set; }
+        public DbSet<EmailAlertSubscription> EmailAlertSubscriptions { get; set; }
     }
 }
