@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Remoting.Contexts;
 using TrainingTracker.DAL.EntityFramework;
+using TrainingTracker.DAL.Interface;
 using TrainingTracker.DAL.RepoInterface;
 using TrainingTracker.DAL.Repositories;
 
@@ -20,10 +21,10 @@ namespace TrainingTracker.DAL
             get { return _courseRepository ?? (_courseRepository = new CourseRepository(_context)); }
         }
 
-        private IUserRepository _userRepository;
-        public IUserRepository UserRepository
+        private IEmailAlertSubscriptionRepository _emailAlertSubscriptionRepository;
+        public IEmailAlertSubscriptionRepository EmailAlertSubscriptionRepository
         {
-            get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
+            get { return _emailAlertSubscriptionRepository ?? (_emailAlertSubscriptionRepository = new EmailAlertSubscriptionRepository(_context)); }
 		}
 		
         private IRepository<ForumUserHelpCategory> _forumUserHelpCategoryRepository;

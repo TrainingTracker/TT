@@ -28,21 +28,23 @@ namespace TrainingTracker.Controllers
             }
         }
 
-        // GET: UserProfile?userId=
+        
         [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
         public ActionResult UserSetting()
         {
             return View("UserSetting");
         }
 
-        public JsonResult UpdateSubscribedTraineee(List<SubscribedTrainee> updatedList)
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult SetEmailPreferences(List<EmailAlertSubscription> emailSubscriptions)
         {
-            return Json(new UserBl().UpdateSubscribedTraineee(updatedList, CurrentUser));
+            return Json(new EmailPreferencesBl().SetEmailPreferences(emailSubscriptions, CurrentUser));
         }
 
-        public JsonResult GetSubscribedTraineee()
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult GetCurrentUserSubscriptions()
         {
-            return Json(new UserBl().GetSubscribedTraineee(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
+            return Json(new EmailPreferencesBl().GetUserSubscriptionsById(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
         }
     }
 }

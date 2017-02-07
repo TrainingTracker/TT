@@ -54,6 +54,7 @@
     <Compile Include="ReleaseBl.cs" />
     <Compile Include="SessionBl.cs" />
     <Compile Include="SurveyBl.cs" />
+    <Compile Include="EmailPreferencesBl.cs" />
     <Compile Include="UserBl.cs" />
     <Compile Include="UserHelpForumBl.cs" />
   </ItemGroup>

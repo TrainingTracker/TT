@@ -81,10 +81,10 @@
              my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SaveWeeklySurveyResponseForTrainee", surveyResponse, callback);
         },
         updateSubscribedTraineee: function (subscribedTraineeList,callback){
-            my.ajaxService.ajaxPostJson(my.rootUrl + "/Setting/UpdateSubscribedTraineee", subscribedTraineeList, callback);
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Setting/SetEmailPreferences", subscribedTraineeList, callback);
         },
         getSubscribedTraineee : function(callback) {
-            my.ajaxService.ajaxGetJson(my.rootUrl + "/Setting/GetSubscribedTraineee", null, callback);
+            my.ajaxService.ajaxGetJson(my.rootUrl + "/Setting/GetCurrentUserSubscriptions", null, callback);
         },
         getCurrentUserPromise: function () {
             return my.ajaxService.ajaxPostDeffered(my.rootUrl + "/Login/GetCurrentUser", true);

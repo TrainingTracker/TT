@@ -47,6 +47,7 @@
                 //    subscribedTraineeList.push(item);
                 //}
                 if (!(item.Id == 0 && item.IsDeleted())) {
+                    item.IsModifiedOrAdded = true;
                     subscribedTraineeList.push(item);
                 }
             });

@@ -3,7 +3,7 @@
     <div class="panel" id ="notificationPanel">
 
         <div class="panel-heading">
-            <span class="panel-title">Customize Email Alert for Trainees</span>
+            <span class="panel-title">Set Your Email Preference for Trainees</span>
         </div>
         <div class="panel-body">
             <ul>
@@ -13,7 +13,7 @@
                     <label data-bind="attr:{for:'TraineeId'+SubscribedForUserId}" class="pull-right">
                         <i class="" aria-hidden="true" data-bind="attr:{class: !my.isNullorEmpty(IsDeleted()) && !IsDeleted() ? 'fa fa-envelope subscribed' : 'fa fa-envelope unsubscribed'}"></i>
                     </label>
-                    <span data-bind="text:FirstName"></span>
+                    <span data-bind="text:FullName"></span>
                 </li>
                 <!-- /ko -->
             </ul>
