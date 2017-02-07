@@ -181,6 +181,45 @@
           <Property Name="Description" Type="longtext" />
           <Property Name="Sequence" Type="int" />
         </EntityType>
+        <EntityType Name="ForumUserHelpCategories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="longtext" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpPosts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="longtext" Nullable="false" />
+          <Property Name="AddedBy" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpThreads">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="longtext" Nullable="false" />
+          <Property Name="AddedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="LearningMap">
           <Key>
             <PropertyRef Name="Id" />
@@ -451,6 +490,17 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="longblob" />
+        </EntityType>
+        <EntityType Name="TaskSchedulerJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="tinytext" Nullable="false" />
+          <Property Name="ExecutionIntervalSeconds" Type="int" Nullable="false" />
+          <Property Name="LastExecution" Type="datetime" Precision="0" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="RowCreatedTimeStamp" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -759,6 +809,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmailContent_SchedulerJob">
+          <End Role="TaskSchedulerJob" Type="Self.TaskSchedulerJob" Multiplicity="1" />
+          <End Role="EmailContent" Type="Self.EmailContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSchedulerJob">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailContent">
+              <PropertyRef Name="TaskSchedulerJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailRecipient_EmailContent">
           <End Role="EmailContent" Type="Self.EmailContent" Multiplicity="1" />
           <End Role="EmailRecipient" Type="Self.EmailRecipient" Multiplicity="*" />
@@ -828,6 +890,66 @@
             </Principal>
             <Dependent Role="FeedbackThread">
               <PropertyRef Name="FeedbackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_Category">
+          <End Role="ForumUserHelpCategories" Type="Self.ForumUserHelpCategories" Multiplicity="1" />
+          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPosts">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_Status">
+          <End Role="ForumUserHelpStatus" Type="Self.ForumUserHelpStatus" Multiplicity="1" />
+          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPosts">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPosts">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpThreads_Post">
+          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="1" />
+          <End Role="ForumUserHelpThreads" Type="Self.ForumUserHelpThreads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpPosts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpThreads">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpThreads_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ForumUserHelpThreads" Type="Self.ForumUserHelpThreads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ForumUserHelpThreads">
+              <PropertyRef Name="AddedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1304,6 +1426,10 @@
           <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="FeedbackThread" EntityType="Self.FeedbackThread" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="FeedbackType" EntityType="Self.FeedbackType" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="ForumUserHelpCategories" EntityType="Self.ForumUserHelpCategories" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="ForumUserHelpPosts" EntityType="Self.ForumUserHelpPosts" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="ForumUserHelpStatus" EntityType="Self.ForumUserHelpStatus" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="ForumUserHelpThreads" EntityType="Self.ForumUserHelpThreads" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="LearningMap" EntityType="Self.LearningMap" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="LearningMapCourseMapping" EntityType="Self.LearningMapCourseMapping" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="LearningMapUserMapping" EntityType="Self.LearningMapUserMapping" Schema="tt_capitalized" store:Type="Tables" />
@@ -1329,6 +1455,7 @@
           <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="SurveySection" EntityType="Self.SurveySection" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="TaskSchedulerJob" EntityType="Self.TaskSchedulerJob" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="Team" EntityType="Self.Team" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="UserNotificationMapping" EntityType="Self.UserNotificationMapping" Schema="tt_capitalized" store:Type="Tables" />
@@ -1412,6 +1539,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="EmailAlertSubscription" EntitySet="EmailAlertSubscription" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmailContent_SchedulerJob" Association="Self.FK_EmailContent_SchedulerJob">
+            <End Role="TaskSchedulerJob" EntitySet="TaskSchedulerJob" />
+            <End Role="EmailContent" EntitySet="EmailContent" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="Self.FK_EmailRecipient_EmailContent">
             <End Role="EmailContent" EntitySet="EmailContent" />
             <End Role="EmailRecipient" EntitySet="EmailRecipient" />
@@ -1435,6 +1566,26 @@
           <AssociationSet Name="FK_Feedback_Threads" Association="Self.FK_Feedback_Threads">
             <End Role="Feedback" EntitySet="Feedback" />
             <End Role="FeedbackThread" EntitySet="FeedbackThread" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_Category" Association="Self.FK_ForumUserHelpPosts_Category">
+            <End Role="ForumUserHelpCategories" EntitySet="ForumUserHelpCategories" />
+            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_Status" Association="Self.FK_ForumUserHelpPosts_Status">
+            <End Role="ForumUserHelpStatus" EntitySet="ForumUserHelpStatus" />
+            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_User" Association="Self.FK_ForumUserHelpPosts_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpThreads_Post" Association="Self.FK_ForumUserHelpThreads_Post">
+            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+            <End Role="ForumUserHelpThreads" EntitySet="ForumUserHelpThreads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpThreads_User" Association="Self.FK_ForumUserHelpThreads_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ForumUserHelpThreads" EntitySet="ForumUserHelpThreads" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMap_Team" Association="Self.FK_LearningMap_Team">
             <End Role="Team" EntitySet="Team" />
@@ -1893,6 +2044,35 @@
           <AssociationSet Name="FK_EmailAlertSubscription_User_SubscribedFor" Association="TrainingTrackerModel.FK_EmailAlertSubscription_User_SubscribedFor">
             <End Role="User" EntitySet="Users" />
             <End Role="EmailAlertSubscription" EntitySet="EmailAlertSubscriptions" />
+          </AssociationSet>
+          <EntitySet Name="ForumUserHelpCategories" EntityType="TrainingTrackerModel.ForumUserHelpCategory" />
+          <EntitySet Name="ForumUserHelpPosts" EntityType="TrainingTrackerModel.ForumUserHelpPost" />
+          <EntitySet Name="ForumUserHelpStatus" EntityType="TrainingTrackerModel.ForumUserHelpStatu" />
+          <EntitySet Name="ForumUserHelpThreads" EntityType="TrainingTrackerModel.ForumUserHelpThread" />
+          <EntitySet Name="TaskSchedulerJobs" EntityType="TrainingTrackerModel.TaskSchedulerJob" />
+          <AssociationSet Name="FK_EmailContent_SchedulerJob" Association="TrainingTrackerModel.FK_EmailContent_SchedulerJob">
+            <End Role="TaskSchedulerJob" EntitySet="TaskSchedulerJobs" />
+            <End Role="EmailContent" EntitySet="EmailContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_Category" Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Category">
+            <End Role="ForumUserHelpCategory" EntitySet="ForumUserHelpCategories" />
+            <End Role="ForumUserHelpPost" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_Status" Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Status">
+            <End Role="ForumUserHelpStatu" EntitySet="ForumUserHelpStatus" />
+            <End Role="ForumUserHelpPost" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpPosts_User" Association="TrainingTrackerModel.FK_ForumUserHelpPosts_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumUserHelpPost" EntitySet="ForumUserHelpPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpThreads_Post" Association="TrainingTrackerModel.FK_ForumUserHelpThreads_Post">
+            <End Role="ForumUserHelpPost" EntitySet="ForumUserHelpPosts" />
+            <End Role="ForumUserHelpThread" EntitySet="ForumUserHelpThreads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumUserHelpThreads_User" Association="TrainingTrackerModel.FK_ForumUserHelpThreads_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumUserHelpThread" EntitySet="ForumUserHelpThreads" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Assignment">
@@ -2428,6 +2608,8 @@
           <NavigationProperty Name="UserSkillMappings1" Relationship="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" FromRole="User" ToRole="UserSkillMapping" />
           <NavigationProperty Name="EmailAlertSubscriptions" Relationship="TrainingTrackerModel.FK_EmailAlertSubscription_User_SubscribedBy" FromRole="User" ToRole="EmailAlertSubscription" />
           <NavigationProperty Name="EmailAlertSubscriptions1" Relationship="TrainingTrackerModel.FK_EmailAlertSubscription_User_SubscribedFor" FromRole="User" ToRole="EmailAlertSubscription" />
+          <NavigationProperty Name="ForumUserHelpPosts" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_User" FromRole="User" ToRole="ForumUserHelpPost" />
+          <NavigationProperty Name="ForumUserHelpThreads" Relationship="TrainingTrackerModel.FK_ForumUserHelpThreads_User" FromRole="User" ToRole="ForumUserHelpThread" />
         </EntityType>
         <EntityType Name="UserNotificationMapping">
           <Key>
@@ -3219,6 +3401,7 @@
           <Property Type="DateTime" Name="SentTimeStamp" Precision="0" />
           <Property Type="SByte" Name="Attempts" Nullable="false" />
           <NavigationProperty Name="EmailRecipients" Relationship="TrainingTrackerModel.FK_EmailRecipient_EmailContent" FromRole="EmailContent" ToRole="EmailRecipient" />
+          <NavigationProperty Name="TaskSchedulerJob" Relationship="TrainingTrackerModel.FK_EmailContent_SchedulerJob" FromRole="EmailContent" ToRole="TaskSchedulerJob" />
         </EntityType>
         <EntityType Name="EmailRecipient">
           <Key>
@@ -3300,6 +3483,137 @@
             </Principal>
             <Dependent Role="EmailAlertSubscription">
               <PropertyRef Name="SubscribedForUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ForumUserHelpCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ForumUserHelpPosts" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_Category" FromRole="ForumUserHelpCategory" ToRole="ForumUserHelpPost" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="AddedBy" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ForumUserHelpCategory" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_Category" FromRole="ForumUserHelpPost" ToRole="ForumUserHelpCategory" />
+          <NavigationProperty Name="ForumUserHelpStatu" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_Status" FromRole="ForumUserHelpPost" ToRole="ForumUserHelpStatu" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_User" FromRole="ForumUserHelpPost" ToRole="User" />
+          <NavigationProperty Name="ForumUserHelpThreads" Relationship="TrainingTrackerModel.FK_ForumUserHelpThreads_Post" FromRole="ForumUserHelpPost" ToRole="ForumUserHelpThread" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ForumUserHelpPosts" Relationship="TrainingTrackerModel.FK_ForumUserHelpPosts_Status" FromRole="ForumUserHelpStatu" ToRole="ForumUserHelpPost" />
+        </EntityType>
+        <EntityType Name="ForumUserHelpThread">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="AddedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ForumUserHelpPost" Relationship="TrainingTrackerModel.FK_ForumUserHelpThreads_Post" FromRole="ForumUserHelpThread" ToRole="ForumUserHelpPost" />
+          <NavigationProperty Name="User" Relationship="TrainingTrackerModel.FK_ForumUserHelpThreads_User" FromRole="ForumUserHelpThread" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TaskSchedulerJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ExecutionIntervalSeconds" Type="Int32" Nullable="false" />
+          <Property Name="LastExecution" Type="DateTime" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="RowCreatedTimeStamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="EmailContents" Relationship="TrainingTrackerModel.FK_EmailContent_SchedulerJob" FromRole="TaskSchedulerJob" ToRole="EmailContent" />
+        </EntityType>
+        <Association Name="FK_EmailContent_SchedulerJob">
+          <End Type="TrainingTrackerModel.TaskSchedulerJob" Role="TaskSchedulerJob" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.EmailContent" Role="EmailContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSchedulerJob">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailContent">
+              <PropertyRef Name="TaskSchedulerJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_Category">
+          <End Type="TrainingTrackerModel.ForumUserHelpCategory" Role="ForumUserHelpCategory" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.ForumUserHelpPost" Role="ForumUserHelpPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPost">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_Status">
+          <End Type="TrainingTrackerModel.ForumUserHelpStatu" Role="ForumUserHelpStatu" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.ForumUserHelpPost" Role="ForumUserHelpPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPost">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpPosts_User">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.ForumUserHelpPost" Role="ForumUserHelpPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ForumUserHelpPost">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpThreads_Post">
+          <End Type="TrainingTrackerModel.ForumUserHelpPost" Role="ForumUserHelpPost" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.ForumUserHelpThread" Role="ForumUserHelpThread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumUserHelpPost">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumUserHelpThread">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumUserHelpThreads_User">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.ForumUserHelpThread" Role="ForumUserHelpThread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ForumUserHelpThread">
+              <PropertyRef Name="AddedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3879,6 +4193,61 @@
                 <ScalarProperty Name="IsSubscribedForComment" ColumnName="IsSubscribedForComment" />
                 <ScalarProperty Name="SubscribedForUserId" ColumnName="SubscribedForUserId" />
                 <ScalarProperty Name="SubscribedByUserId" ColumnName="SubscribedByUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumUserHelpCategories">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.ForumUserHelpCategory">
+              <MappingFragment StoreEntitySet="ForumUserHelpCategories">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumUserHelpPosts">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.ForumUserHelpPost">
+              <MappingFragment StoreEntitySet="ForumUserHelpPosts">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumUserHelpStatus">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.ForumUserHelpStatu">
+              <MappingFragment StoreEntitySet="ForumUserHelpStatus">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumUserHelpThreads">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.ForumUserHelpThread">
+              <MappingFragment StoreEntitySet="ForumUserHelpThreads">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskSchedulerJobs">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.TaskSchedulerJob">
+              <MappingFragment StoreEntitySet="TaskSchedulerJob">
+                <ScalarProperty Name="RowCreatedTimeStamp" ColumnName="RowCreatedTimeStamp" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
+                <ScalarProperty Name="ExecutionIntervalSeconds" ColumnName="ExecutionIntervalSeconds" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

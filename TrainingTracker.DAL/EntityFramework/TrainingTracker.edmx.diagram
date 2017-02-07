@@ -117,6 +117,17 @@
         <EntityTypeShape EntityType="TrainingTrackerModel.EmailAlertSubscription" Width="1.5" PointX="5.375" PointY="39.375" />
         <AssociationConnector Association="TrainingTrackerModel.FK_EmailAlertSubscription_User_SubscribedBy" />
         <AssociationConnector Association="TrainingTrackerModel.FK_EmailAlertSubscription_User_SubscribedFor" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpCategory" Width="1.5" PointX="3" PointY="43.5" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpPost" Width="1.5" PointX="5.25" PointY="35.25" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpStatu" Width="1.5" PointX="3" PointY="46.25" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.ForumUserHelpThread" Width="1.5" PointX="7.5" PointY="34.625" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.TaskSchedulerJob" Width="1.5" PointX="1.25" PointY="40.25" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_EmailContent_SchedulerJob" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Category" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpPosts_Status" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpPosts_User" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpThreads_Post" />
+        <AssociationConnector Association="TrainingTrackerModel.FK_ForumUserHelpThreads_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

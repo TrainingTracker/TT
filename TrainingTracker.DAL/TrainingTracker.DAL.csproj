@@ -101,6 +101,9 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\EmailAlertSubscription.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\EmailContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -176,9 +179,6 @@
     <Compile Include="EntityFramework\Skill.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\SubscribedTrainee.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\SubtopicContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -204,6 +204,9 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\SurveySection.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\sysdiagram.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\TaskSchedulerJob.cs">
