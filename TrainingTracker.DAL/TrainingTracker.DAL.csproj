@@ -248,6 +248,7 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IEmailRepository.cs" />
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="RepoInterface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="RepoInterface\ICourseRepository.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
     <Compile Include="Interface\IReleaseDal.cs" />
+    <Compile Include="Interface\IFeedbackRepository.cs" />
     <Compile Include="RepoInterface\IRepository.cs" />
     <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
@@ -277,10 +279,14 @@
     </Compile>
     <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepoInterface\IUserRepository.cs" />
     <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
+    <Compile Include="Repositories\EmailRepository.cs" />
+    <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

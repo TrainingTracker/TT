@@ -166,6 +166,8 @@ namespace TrainingTracker.BLL
                 Title = notificationText ,
                 AddedOn = DateTime.Now,
             };
+
+            new MailerBl().AddNewFeedbackMail(notification, user, feedback.FeedbackId);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, feedback.AddedFor.UserId));
         }
 

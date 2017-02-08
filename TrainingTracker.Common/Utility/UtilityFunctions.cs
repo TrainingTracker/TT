@@ -311,5 +311,34 @@ namespace TrainingTracker.Common.Utility
             strBuilder.Append("</code></div>");
             return strBuilder.ToString();
         }
+
+        public static string SubstituteTemplateWithReplacements(StringBuilder body, Dictionary<string, string> substitutions)
+        {           
+            foreach (var substitution in substitutions)
+            {
+                body.Replace(substitution.Key, substitution.Value);
+            }
+            return body.ToString();
+        }
+
+        public static StringBuilder FetchEmailTemplateFromPath(string path)
+        {
+            try
+            {
+                StringBuilder line = new StringBuilder();
+                using (StreamReader rwOpenTemplate = new StreamReader(HttpContext.Current.Server.MapPath(path)))
+                {
+                    while (!rwOpenTemplate.EndOfStream)
+                    {
+                        line.Append(rwOpenTemplate.ReadToEnd());
+                    }
+                }
+                return line;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace TrainingTracker.Common.Constants
 
         public const string DefaultCourseIcon = "DefaultCourse.jpg";
 
+        public static readonly string AppDomainUrl = ConfigurationManager.AppSettings.Get("AppDomainUrl"); 
+
         public static readonly int AppBotUserId = Int32.Parse(ConfigurationManager.AppSettings.Get("TTBotId")); 
     }
     /// <summary>
@@ -98,5 +100,13 @@ namespace TrainingTracker.Common.Constants
         /// Virtual path for Assignment documents starts from application root
         /// </summary>
         public const string AppRootToAssignment = "~/Uploads/Assignment/";
+    }
+
+    public static class EmailTemplatesPath
+    {
+        /// <summary>
+        /// Virtual path for Email
+        /// </summary>
+        public const string FeedbackTemplate = "\\Content\\EmailTemplates\\NewFeedback.html";
     }
 }

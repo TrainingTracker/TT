@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.RepoInterface;
 
@@ -27,6 +29,14 @@ namespace TrainingTracker.DAL.Repositories
                 _context.Entry(subcription).Property(x => x.SubscribedByUserId).IsModified = false;
                 _context.Entry(subcription).Property(x => x.SubscribedForUserId).IsModified = false;
             }
+        }
+
+        public List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId)
+        {
+            return _context.EmailAlertSubscriptions
+                           .Include(x=>x.User)
+                           .Where(x=>x.SubscribedForUserId == traineeId && !x.IsDeleted)
+                           .ToList();
         }
     }
 }

@@ -46,6 +46,20 @@ namespace TrainingTracker.DAL
 			
         }
 
+        private IEmailRepository _emailRepository;
+        public IEmailRepository EmailRepository
+        {
+            get { return _emailRepository ?? (_emailRepository = new EmailRepository(_context)); }
+
+        }
+
+        private IFeedbackRepository _feedbackRepository;
+        public IFeedbackRepository FeedbackRepository
+        {
+            get { return _feedbackRepository ?? (_feedbackRepository = new FeedbackRepository(_context)); }
+
+        }
+
         public int Commit()
         {
            return _context.SaveChanges();
