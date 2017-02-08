@@ -109,4 +109,14 @@ namespace TrainingTracker.Common.Constants
         /// </summary>
         public const string FeedbackTemplate = "\\Content\\EmailTemplates\\NewFeedback.html";
     }
+
+    public static class NotificatioEmailTemplateItems
+    {
+        public const string DomainName = "DomainName";
+        public const string NotificationTitle = "NotificationTitle";
+        public const string NotificationBy = "NotificationBy";
+        public const string NotificationByImagePath = "NotificationByImagePath";
+        public const string NotificationRedirectUrl = "NotificationRedirectURL";
+    }
+
 }
