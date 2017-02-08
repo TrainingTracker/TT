@@ -75,7 +75,7 @@
                 my.profileVm.plotFilter.TraineeId = jsonData.User.UserId;
                 my.profileVm.userVm = jsonData;
                 my.profileVm.feedbackPost.FeedbackType(my.profileVm.userVm.FeedbackTypes[0]);
-                ko.applyBindings(my.profileVm);               
+                ko.applyBindings([my.profileVm, my.discussionForumVm]);
                 my.profileVm.feedbackPost.Rating(0);
 
                 if (!my.isNullorEmpty(queryStringFeedbackId)) {

@@ -14,6 +14,19 @@ namespace TrainingTracker.Controllers
     [CustomAuthorizeAttribute]
     public class ProfileController : BaseController
     {
+
+        User CurrentUser
+        {
+            get
+            {
+                if (Session["currentUser"] == null)
+                {
+                    Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
+                }
+
+                return (User)Session["currentUser"];
+            }
+        }
         // GET: UserProfile?userId=
         [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
         public ActionResult UserProfile(int userId)
@@ -261,19 +274,19 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public ActionResult AddPost(ForumPost post)
         {
-            return Json(DiscussionForumBl.AddPost(post).ToString());
+            return Json(DiscussionForumBl.AddPost(post, CurrentUser.UserId).ToString());
         }
 
         [HttpPost]
         public ActionResult UpdatePostStatus(int postId, int statusId, string message, int userId)
         {
-            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message, userId).ToString());
+            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message, CurrentUser.UserId).ToString());
         }
 
         [HttpPost]
         public ActionResult AddPostThread(ForumThread postThread)
         {
-            return Json(DiscussionForumBl.AddPostThread(postThread).ToString());
+            return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser.UserId).ToString());
         }
     }
 }

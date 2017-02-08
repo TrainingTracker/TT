@@ -6,6 +6,7 @@ namespace TrainingTracker.DAL.ModelMapper
     public class ForumDiscussionThreadConverter : EntityConverter<ForumDiscussionThread, ForumThread>
     {
         private UserConverter _userConverter;
+
         public UserConverter UserConverter
         {
             get { return _userConverter ?? (_userConverter = new UserConverter()); }
@@ -20,7 +21,8 @@ namespace TrainingTracker.DAL.ModelMapper
                 Description = sourceForumThread.Description,
                 AddedBy = sourceForumThread.AddedBy,
                 CreatedOn = sourceForumThread.CreatedOn,
-                AddedByUser = sourceForumThread.User == null ? null : UserConverter.ConvertFromCore(sourceForumThread.User)
+                AddedByUser =
+                    sourceForumThread.User == null ? null : UserConverter.ConvertFromCore(sourceForumThread.User)
             };
         }
 
@@ -35,4 +37,5 @@ namespace TrainingTracker.DAL.ModelMapper
                 CreatedOn = sourceForumThread.CreatedOn
             };
         }
+    }
 }

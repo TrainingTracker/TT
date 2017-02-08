@@ -743,3 +743,12 @@ label.lbl-data-info {
     display: table-row;
     margin-bottom: 0;
 }
+
+#divSearch > div:first-child {
+    padding: 10px;
+    padding-left: 30px;
+}
+#divSearch > div:last-child{
+    padding: 10px;
+    padding-right: 30px;
+}

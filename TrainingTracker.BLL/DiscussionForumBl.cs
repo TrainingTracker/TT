@@ -21,10 +21,10 @@ namespace TrainingTracker.BLL
             {
                 Posts = GetFilteredPagedPosts(wildcard, categoryId, statusId, searchPostId, pageNumber, 5)
             };
-            if (forumVm.Posts.Results != null && forumVm.Posts.Results.Count > 0)
-            {
-                forumVm.DefaultPost = GetPostWithThreads(forumVm.Posts.Results[0].PostId);
-            }
+            //if (forumVm.Posts.Results != null && forumVm.Posts.Results.Count > 0)
+            //{
+            //    forumVm.DefaultPost = GetPostWithThreads(forumVm.Posts.Results[0].PostId);
+            //}
             return forumVm;
         }
 
@@ -48,19 +48,21 @@ namespace TrainingTracker.BLL
             };
         }
 
-        public bool AddPost(ForumPost post)
+        public bool AddPost(ForumPost post, int currentUserId)
         {
             var postToAdd = ForumDiscussionPostConverter.ConvertToCore(post);
             postToAdd.CreatedOn = DateTime.Now;
+            postToAdd.AddedBy = currentUserId;
             UnitOfWork.ForumDiscussionPostRepository.Add(postToAdd);
             UnitOfWork.Commit();
             return postToAdd.Id > 0;
         }
 
-        public bool AddPostThread(ForumThread postThread)
+        public bool AddPostThread(ForumThread postThread, int currentUserId)
         {
             var threadToAdd = ForumDiscussionThreadConverter.ConvertToCore(postThread);
             threadToAdd.CreatedOn = DateTime.Now;
+            threadToAdd.AddedBy = currentUserId;
             UnitOfWork.ForumDiscussionThreadRepository.Add(threadToAdd);
             UnitOfWork.Commit();
             return threadToAdd.Id > 0;

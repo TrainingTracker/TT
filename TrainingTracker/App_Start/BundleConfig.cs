@@ -51,9 +51,12 @@ namespace TrainingTracker
               "~/Scripts/bootstrap-datepicker.min.js" ,
               "~/Scripts/jquery.steps.js" ,
               "~/Scripts/typehead.js" ,
-              "~/Scripts/Custom/FeedbackChart.js" ,
+              "~/Scripts/Custom/FeedbackChart.js",
               "~/Scripts/Custom/UserProfile.js" ,
+              "~/Scripts/Custom/DiscussionForumService.js",
+              "~/Scripts/Custom/DiscussionForum.js",
               "~/Scripts/Custom/FeedbackThread.js" ,
+              "~/Scripts/Custom/DiscussionThread.js",
               "~/Scripts/wz_tooltip.js" 
               ));
 
@@ -137,7 +140,8 @@ namespace TrainingTracker
                       "~/Content/Timeline.css" ,
                       "~/StyleSheets/Profile.css",
                       "~/StyleSheets/FeedbackPlot.css",
-                      "~/StyleSheets/FeedbackThread.css"
+                      "~/StyleSheets/FeedbackThread.css",
+                      "~/StyleSheets/DiscussionThread.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ReleaseViewStyles").Include(
