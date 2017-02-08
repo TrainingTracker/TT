@@ -14,8 +14,9 @@ namespace TrainingTracker.BLL
         public bool AddNewFeedbackMail(Notification notification, User addedFor, int feedbackId)
         {
             var addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
-            var emailContent = GetFeedbackEmailContent(notification, addedByUser,
-                notification.Title + "for " + addedFor.FirstName);
+            var emailContent = GetFeedbackEmailContent(notification
+                                                      ,addedByUser
+                                                      ,notification.Title + " for " + addedFor.FirstName);
 
             emailContent.EmailRecipients.Add(new EmailRecipient
             {
@@ -23,10 +24,9 @@ namespace TrainingTracker.BLL
                 EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
             });
 
-            var listSubscription = UnitOfWork.EmailAlertSubscriptionRepository.GetAllSubscribedMentors(addedFor.UserId)
-                                                                            .Where(user => user.SubscribedByUserId != addedByUser.UserId);
-
-            foreach (var user in listSubscription)
+           
+            foreach (var user in UnitOfWork.EmailAlertSubscriptionRepository.GetAllSubscribedMentors(addedFor.UserId)
+                                                                            .Where(user => user.SubscribedByUserId != addedByUser.UserId))
             {
                 emailContent.EmailRecipients.Add(new EmailRecipient
                 {
@@ -42,41 +42,16 @@ namespace TrainingTracker.BLL
         public bool AddNewFeedbackThreadMail(Notification notification, int feedbackId)
         {
             // This need to be changed... but How!! 
+            var addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
 
             var feedback = UnitOfWork.FeedbackRepository.Get(feedbackId);
 
-            Dictionary<string, string> replacements = new Dictionary<string, string>
-           {
-              {"[[[DomainName]]]", Constants.AppDomainUrl},
-              {"[[[NotificationTitle]]]", notification.Title },
-              {"[[[NotificationBy]]]",feedback.User1.FirstName},
-              {"[[[NotificationByImagePath]]]", Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + feedback.User1.ProfilePictureName},
-              {"[[[NotificationRedirectURL]]]",Constants.AppDomainUrl + "/"  + notification.Link}
-           };
+            var emailContent = GetFeedbackEmailContent(notification
+                                                     , addedByUser
+                                                     , notification.Title);
 
-            string body = Common.Utility.UtilityFunctions.SubstituteTemplateWithReplacements(Common.Utility.UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate)
-                                                                                             , replacements);
 
-            EmailContent emailContent = new EmailContent
-            {
-                BodyText = body,
-                Attempts = 0,
-                IsRichBody = true,
-                SubjectText = notification.Title,
-                TaskSchedulerJobId = 2,
-                IsSent = false
-            };
-
-            if (notification.AddedBy == feedback.User.UserId)
-            {
-                emailContent.EmailRecipients.Add(new EmailRecipient
-                {
-                    EmailAddress = feedback.User1.Email,
-                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
-                });
-            }
-
-            else if (notification.AddedBy == feedback.User1.UserId)
+            if (notification.AddedBy == feedback.User1.UserId)
             {
                 emailContent.EmailRecipients.Add(new EmailRecipient
                 {
@@ -84,30 +59,48 @@ namespace TrainingTracker.BLL
                     EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
                 });
             }
-
-
-
-
-
-
-            emailContent.EmailRecipients.Add(new EmailRecipient
-            {
-                //EmailAddress = addedFor.Email,
-                EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
-            });
-
-            List<EmailAlertSubscription> listSubscription = new List<EmailAlertSubscription>();
-
-            //listSubscription.AddRange(UnitOfWork.EmailAlertSubscriptionRepository.GetAllSubscribedMentors(addedFor.UserId)
-            //                                                                .Where(user => user.SubscribedByUserId != addedByUser.UserId));
-
-            foreach (var user in listSubscription)
+            else
             {
                 emailContent.EmailRecipients.Add(new EmailRecipient
                 {
-                    EmailAddress = user.User.Email,
-                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+                    EmailAddress = feedback.User1.Email,
+                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
                 });
+
+                if (notification.AddedBy != feedback.User.UserId)
+                {
+                    emailContent.EmailRecipients.Add(new EmailRecipient
+                    {
+                        EmailAddress = feedback.User.Email,
+                        EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+                    });
+                }
+            }
+
+            foreach (var user in UnitOfWork.EmailAlertSubscriptionRepository.GetAllSubscribedMentors(feedback.User1.UserId)
+                                                                            .Where(user => user.SubscribedByUserId != addedByUser.UserId))
+            {
+                if (emailContent.EmailRecipients.All(x => x.EmailAddress != user.User.Email))
+                {
+                    emailContent.EmailRecipients.Add(new EmailRecipient
+                    {
+                        EmailAddress = user.User.Email,
+                        EmailRecipientType = (int) Common.Enumeration.EmailRecipientType.CarbonCopy
+                    });
+                }
+            }
+
+
+            foreach (var thread in feedback.FeedbackThreads.Where(user=>user.AddedBy != addedByUser.UserId))
+            {
+                if (emailContent.EmailRecipients.All(x => x.EmailAddress != thread.User.Email))
+                {
+                    emailContent.EmailRecipients.Add(new EmailRecipient
+                    {
+                        EmailAddress = thread.User.Email,
+                        EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+                    });
+                }
             }
 
             UnitOfWork.EmailRepository.Add(emailContent);
@@ -131,11 +124,11 @@ namespace TrainingTracker.BLL
         {
             var templateData = new Dictionary<string, string>
             {
-               {NotificatioEmailTemplateItems.DomainName, Constants.AppDomainUrl},
-               {NotificatioEmailTemplateItems.NotificationTitle, title},
-               {NotificatioEmailTemplateItems.NotificationBy, addedBy.FirstName},
-               {NotificatioEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
-               {NotificatioEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + notification.Link}
+               {NotificationEmailTemplateItems.DomainName, Constants.AppDomainUrl},
+               {NotificationEmailTemplateItems.NotificationTitle, title},
+               {NotificationEmailTemplateItems.NotificationBy, addedBy.FirstName},
+               {NotificationEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
+               {NotificationEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + notification.Link}
             };
 
             var template = new TemplateContentBuilder(UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate).ToString());

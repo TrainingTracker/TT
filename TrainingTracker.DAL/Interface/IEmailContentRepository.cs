@@ -8,7 +8,7 @@ using TrainingTracker.DAL.RepoInterface;
 
 namespace TrainingTracker.DAL.Interface
 {
-    public interface IEmailRepository:IRepository<EmailContent>
+    public interface IEmailContentRepository:IRepository<EmailContent>
     {
 
     }

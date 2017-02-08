@@ -46,10 +46,10 @@ namespace TrainingTracker.DAL
 			
         }
 
-        private IEmailRepository _emailRepository;
-        public IEmailRepository EmailRepository
+        private IEmailContentRepository _emailRepository;
+        public IEmailContentRepository EmailRepository
         {
-            get { return _emailRepository ?? (_emailRepository = new EmailRepository(_context)); }
+            get { return _emailRepository ?? (_emailRepository = new EmailContentRepository(_context)); }
 
         }
 

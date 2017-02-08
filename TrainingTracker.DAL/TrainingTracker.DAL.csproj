@@ -248,7 +248,7 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IEmailRepository.cs" />
+    <Compile Include="Interface\IEmailContentRepository.cs" />
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="RepoInterface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="RepoInterface\ICourseRepository.cs" />
@@ -282,7 +282,7 @@
     <Compile Include="RepoInterface\IUserRepository.cs" />
     <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
-    <Compile Include="Repositories\EmailRepository.cs" />
+    <Compile Include="Repositories\EmailContentRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />

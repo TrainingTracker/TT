@@ -3,11 +3,11 @@ using TrainingTracker.DAL.Interface;
 
 namespace TrainingTracker.DAL.Repositories
 {
-    public class EmailRepository : Repository<EmailContent>, IEmailRepository
+    public class EmailContentRepository : Repository<EmailContent>, IEmailContentRepository
     {
         private readonly TrainingTrackerEntities _context;
 
-        public EmailRepository(TrainingTrackerEntities context)
+        public EmailContentRepository(TrainingTrackerEntities context)
             : base(context)
         {
             _context = context;

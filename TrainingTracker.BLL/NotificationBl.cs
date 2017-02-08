@@ -226,6 +226,7 @@ namespace TrainingTracker.BLL
                 AddedOn = DateTime.Now ,
             };
 
+            new MailerBl().AddNewFeedbackThreadMail(notification, thread.FeedbackId);
             return AddNotification(notification , UserDataAccesor.GetUserId(notification , userId));
         }
 
@@ -245,8 +246,7 @@ namespace TrainingTracker.BLL
                 AddedBy = currentUserId ,
                 Title = "New Course Assigned" ,
                 AddedOn = DateTime.Now 
-            };
-
+            };           
             return AddNotification(notification , trainees.Select(x=>x.UserId).ToList());
         }
     }
