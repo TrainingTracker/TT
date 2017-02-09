@@ -5,7 +5,7 @@
     margin-bottom: 0;
 }
 #notificationPanel .panel-footer,#notificationPanel .panel-heading {
-    background-color: #fbfbfb;
+    background-color: #fff;
     border: none;
 }
 #notificationPanel .panel-heading {
@@ -62,3 +62,5 @@
 #notificationPanel .panel-footer button {
     width:150px;
 }
+
+

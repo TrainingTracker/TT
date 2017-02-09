@@ -131,7 +131,7 @@
                             <div id="notificationsBody">
                                 <ul>
                                     <!-- ko foreach: my.meta.notifications.slice(0).reverse() -->
-                                    <li class="menu-li list-style" style="    width: 100%;" data-bind="visible: my.meta.notifications().length > 0 && TypeOfNotification == 14, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
+                                    <li class="menu-li list-style" style="display:none; width: 100%;" data-bind="visible: my.meta.notifications().length > 0 && TypeOfNotification == 14, click: function () { my.meta.updateNotification(NotificationId, TypeOfNotification, my.rootUrl + Link); }">
                                         <a style="padding:0; display:block;" data-bind="attr: { href: my.rootUrl + Link, title: Description }">
                                             <div>
                                                 <div class="col-xs-2 image" style="margin: 0;">

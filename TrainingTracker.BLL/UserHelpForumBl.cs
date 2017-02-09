@@ -55,7 +55,9 @@ namespace TrainingTracker.BLL
             postToAdd.CreatedOn = DateTime.Now;
             UnitOfWork.ForumUserHelpPostRepository.Add(postToAdd);
             UnitOfWork.Commit();
-            return postToAdd.Id > 0;
+
+            new NotificationBl().AddHelpNotification(post, post.AddedBy);
+            return postToAdd.Id > 0 ;
         }
 
         public bool AddPostThread(ForumThread postThread)

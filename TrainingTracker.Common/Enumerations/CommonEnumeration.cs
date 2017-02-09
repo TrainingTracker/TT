@@ -187,4 +187,19 @@
         BlindCarbonCopy = 3
 
     }
+
+    /// <summary>
+    /// Common Enumeration for Help Categories
+    /// </summary>
+    public enum ForumUserHelpCategories
+    {
+        // Help category Bug
+        Bug = 1,
+
+        // help category Idea
+        Idea = 2,
+
+        //Help category Help
+        Help = 3,
+    }
 }

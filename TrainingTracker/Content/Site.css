@@ -279,3 +279,12 @@ div#wrapper>.navbar>div>ul>li>a span.glyphicon {
   position: absolute;
   width: 100%;  
 }
+
+.no-right-margin {
+    margin-right: 0;
+    padding-right: 0;
+}
+.no-left-margin {
+    margin-left: 0;
+    padding-left: 0;
+}
