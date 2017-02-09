@@ -1012,20 +1012,6 @@ namespace TrainingTracker.DAL.DataAccess
                                                             TotalSubTopicCount = x.CourseSubtopics.SelectMany(y=>y.SubtopicContents.Where(ya=>ya.IsActive)).Count(),
                                                             CoveredSubTopicCount = x.CourseSubtopics.SelectMany(y => y.SubtopicContents.Where(ya => ya.IsActive).SelectMany(z=>z.SubtopicContentUserMaps.Where(za=>za.Seen && za.UserId == userId))).Count(),
                                                         }).FirstOrDefault();
-                    //if (courseId > 0 && course !=null)
-                    //{
-
-                    //    return new CourseTrackerDetails
-                    //    {
-                    //        Id = course.Id,
-                    //        Name = course.Name,
-                    //        //TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment))
-                    //        TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive)).Count(),
-                    //        TotalSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive)).Count(),
-                    //        CoveredSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive).Select(z=>z.SubtopicContentUserMaps.Where(t=>t.Seen && t.UserId == userId))).Count(),
-                    //        CompletedAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive).Select(y=>y.AssignmentUserMaps.Where(z=>z.IsApproved && z.TraineeId==userId))).Count()
-                    //    };
-                    //}
                     throw new Exception("Course details cannot be null,there have to be course assigned");                    
                 }
             }
@@ -1034,7 +1020,6 @@ namespace TrainingTracker.DAL.DataAccess
                 LogUtility.ErrorRoutine(ex);
                 return null;
             }
-        }
-        
+        }      
     }
 }

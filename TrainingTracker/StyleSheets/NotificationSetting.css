@@ -1,0 +1,66 @@
+﻿#notificationPanel .subscribed {
+    color: white;
+}
+#notificationPanel {
+    margin-bottom: 0;
+}
+#notificationPanel .panel-footer,#notificationPanel .panel-heading {
+    background-color: #fff;
+    border: none;
+}
+#notificationPanel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+#notificationPanel .panel-body {
+    height: 75vh;
+    overflow: auto;
+}
+#notificationPanel .panel-body input[type="checkbox"] {
+    width: 0;
+}
+#notificationPanel .panel-body > ul > li {
+    background-color: #2596f1;
+    color: white;
+    padding: 8px 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+#notificationPanel .panel-body > ul > li > label {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+#notificationPanel .panel-body > ul {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    -ms-column-count: 3;
+    -o-column-count: 3;
+    column-count: 3;
+    list-style: none;
+    overflow: auto;
+    height: 95%;
+}
+#notificationPanel .panel-body > ul > li > label .unsubscribed:after {
+    content: '/';
+    color: #f12424;
+    font-size: 32px;
+    font-weight: bolder;
+    position: absolute;
+    -webkit-transform: rotate(25deg);
+    -moz-transform: rotate(25deg);
+    -ms-transform: rotate(25deg);
+    -o-transform: rotate(25deg);
+    transform: rotate(25deg);
+    margin-left: -13px;
+    margin-top: -6px;
+}
+#notificationPanel .panel-footer button {
+    width:150px;
+}
+
+

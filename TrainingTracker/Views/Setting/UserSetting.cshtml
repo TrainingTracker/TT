@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "User Setting";
+}
+
+@section Styles
+{
+    @Styles.Render("~/bundles/UserSettingViewStyles")
+}
+
+<div class="container-fluid">
+    <div id="divSettingContainer" class="col-sm-12 no-padding-left">
+        <div class="col-sm-2 nav-panel panel">
+            <ul class="nav nav-pills nav-stacked">
+                <li data-bind="click:function(){my.userSettingVm.markAsSelected('MyProfile')}, css:{'active': my.userSettingVm.selectedSetting() == 'MyProfile'}">
+                    <a href="#" data-bind="click: function(){ my.notificationSettingVm.closeNotificationSetting(); my.addUserVm.openUserProfile(); }">My Profile</a>
+                </li>
+                @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
+                {
+                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('ManageUsers')}, css:{'active': my.userSettingVm.selectedSetting() == 'ManageUsers'}">
+                        <a href="#" data-bind="click:function(){my.notificationSettingVm.closeNotificationSetting(); my.addUserVm.openAllUsersProfile()}, visible: (my.meta.isAdministrator() || my.meta.isManager())">
+                            Manage User
+                        </a>
+                    </li>
+                }
+                
+                @if (!HttpContext.Current.User.IsInRole("Trainee") )
+                { 
+                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('Notification')}, css:{'active': my.userSettingVm.selectedSetting() == 'Notification'}">
+                        <a href="#" data-bind="click: function(){ my.addUserVm.closeDialogue(); my.notificationSettingVm.openNotificationSetting();}">Email Alert</a>
+                    </li>
+                }       
+            </ul>
+        </div>
+        <div class="col-sm-9 content-div panel">
+            @Html.Partial("_ProfileSetting")
+            @if (!HttpContext.Current.User.IsInRole("Trainee"))
+            {
+                @Html.Partial("_NotificationSetting")
+            }
+            
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    @Scripts.Render("~/bundles/UserSettingViewScripts")
+}

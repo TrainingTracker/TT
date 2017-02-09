@@ -101,6 +101,9 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\EmailAlertSubscription.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\EmailContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -176,9 +179,6 @@
     <Compile Include="EntityFramework\Skill.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\SubscribedTrainee.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\SubtopicContent.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -204,6 +204,9 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\SurveySection.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\sysdiagram.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\TaskSchedulerJob.cs">
@@ -245,7 +248,10 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interface\ICourseRepository.cs" />
+    <Compile Include="Interface\IEmailContentRepository.cs" />
+    <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
+    <Compile Include="RepoInterface\IEmailAlertSubscriptionRepository.cs" />
+    <Compile Include="RepoInterface\ICourseRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
     <Compile Include="Interface\IForumUserHelpPostRepository.cs" />
     <Compile Include="Interface\ILearningMapDal.cs" />
@@ -256,7 +262,8 @@
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
     <Compile Include="Interface\IReleaseDal.cs" />
-    <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IFeedbackRepository.cs" />
+    <Compile Include="RepoInterface\IRepository.cs" />
     <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
     <Compile Include="Interface\ISurveyDal.cs" />
@@ -272,9 +279,14 @@
     </Compile>
     <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepoInterface\IUserRepository.cs" />
+    <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
+    <Compile Include="Repositories\EmailContentRepository.cs" />
+    <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,12 @@ using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.ViewModel;
+using TrainingTracker.DAL.EntityFramework;
+using Feedback = TrainingTracker.Common.Entity.Feedback;
+using Project = TrainingTracker.Common.Entity.Project;
+using Session = TrainingTracker.Common.Entity.Session;
+using Skill = TrainingTracker.Common.Entity.Skill;
+using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {

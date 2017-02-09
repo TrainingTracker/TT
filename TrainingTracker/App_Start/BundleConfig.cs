@@ -40,8 +40,7 @@ namespace TrainingTracker
                 "~/Scripts/Custom/AjaxService.js",
                 "~/Scripts/Custom/UserService.js",
                 "~/Scripts/Custom/BindingHandlers.js",
-                "~/Scripts/Custom/Layout.js",
-                "~/Scripts/Custom/AddEditProfile.js"
+                "~/Scripts/Custom/Layout.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/ProfileViewScripts").Include(
@@ -122,12 +121,18 @@ namespace TrainingTracker
               "~/Scripts/Custom/Course.js",
               "~/Scripts/autosize.js"
               ));
+
+             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+                "~/Scripts/Custom/AddEditProfile.js",
+                "~/Scripts/Custom/NotificationSetting.js",
+                "~/Scripts/Custom/UserSetting.js",
+                "~/Scripts/notify.js"
+               ));
             #endregion
 
             #region Styles
             bundles.Add(new StyleBundle("~/bundles/LayoutViewStyles").Include(
-                      "~/StyleSheets/Layout.css",
-                      "~/StyleSheets/AddEditProfile.css"
+                      "~/StyleSheets/Layout.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ProfileViewStyles").Include(
@@ -189,7 +194,13 @@ namespace TrainingTracker
                   "~/StyleSheets/Course.css",
                    "~/StyleSheets/jquery-confirm.css" 
             ));
-  
+
+            bundles.Add(new StyleBundle("~/bundles/UserSettingViewStyles").Include(
+                    "~/StyleSheets/UserSetting.css",
+                    "~/StyleSheets/ProfileSetting.css",
+                    "~/StyleSheets/NotificationSetting.css"
+            ));
+
             #endregion
 
         }

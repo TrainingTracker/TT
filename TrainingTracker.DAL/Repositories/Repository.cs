@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using TrainingTracker.DAL.Interface;
+using TrainingTracker.DAL.RepoInterface;
 
 namespace TrainingTracker.DAL.Repositories
 {

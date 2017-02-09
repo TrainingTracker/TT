@@ -30,8 +30,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<System.DateTime> SentTimeStamp { get; set; }
         public sbyte Attempts { get; set; }
     
-        public virtual TaskSchedulerJob TaskSchedulerJob { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmailRecipient> EmailRecipients { get; set; }
+        public virtual TaskSchedulerJob TaskSchedulerJob { get; set; }
     }
 }
