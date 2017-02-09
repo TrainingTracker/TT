@@ -1,9 +1,9 @@
 ﻿$(document).ready(function (my) {
     "use strict";
     my.discussionForumService = {
-        getPosts: function (wildcard, categoryId, statusId, searchPostId, pageNumber, callback) {
+        getPosts: function (wildcard, traineeId, statusId, searchPostId, pageNumber, callback) {
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetPosts?wildcard=" + wildcard +
-            "&categoryId=" + categoryId + "&statusId=" + statusId + "&searchPostId=" + searchPostId
+            "&traineeId=" + traineeId + "&statusId=" + statusId + "&searchPostId=" + searchPostId
             + "&pageNumber=" + pageNumber, null, callback);
         },
         getPostById: function (postId, callback) {
@@ -18,7 +18,7 @@
         },
         updatePostStatus: function (postId, statusId, message, userId, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/UpdatePostStatus?postId=" + postId +
-            "&statusId=" + statusId + "&message=" + message + "&userId=" + userId, null, callback);
+            "&statusId=" + statusId + "&message=" + message + "&addedFor=" + userId, null, callback);
         }
     };
 }(my));

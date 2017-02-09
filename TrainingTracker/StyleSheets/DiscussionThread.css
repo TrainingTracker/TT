@@ -6,12 +6,12 @@
       cursor: pointer;
 }
   #divDiscussionThread #divFeedbackContainer {
-     width: 87%;
+    width: 71%;
     position: absolute;
     top: 0;
     z-index: 10000;
-    margin-left: 7%;
-      margin-top: 5%;
+    margin-left: 26.7%;
+    margin-top: 5%;
        transition-property: all;
 	transition-duration: 2s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -73,7 +73,7 @@
     position: absolute;
     top: 5%;
     zoom: 4;
-    right: 4%;
+    right: 1%;
     z-index: 100000;
     /* background: #ccc; */
     border-radius: 71%;

@@ -261,9 +261,9 @@ namespace TrainingTracker.Controllers
             return Json(new SurveyBl().SaveWeeklySurveyResponseForTrainee(surveyResponse) , JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetPosts(string wildcard, int categoryId, int statusId, int searchPostId, int pageNumber)
+        public ActionResult GetPosts(string wildcard, int traineeId, int statusId, int searchPostId, int pageNumber)
         {
-            return Json(DiscussionForumBl.GetHelpForumVm(wildcard, categoryId, statusId, searchPostId, pageNumber), JsonRequestBehavior.AllowGet);
+            return Json(DiscussionForumBl.GetFilteredPagedPosts(wildcard, statusId, searchPostId, traineeId, pageNumber, 5), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetPostById(int postId)
@@ -274,19 +274,19 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public ActionResult AddPost(ForumPost post)
         {
-            return Json(DiscussionForumBl.AddPost(post, CurrentUser.UserId).ToString());
+            return Json(DiscussionForumBl.AddPost(post, CurrentUser).ToString());
         }
 
         [HttpPost]
-        public ActionResult UpdatePostStatus(int postId, int statusId, string message, int userId)
+        public ActionResult UpdatePostStatus(int postId, int statusId, string message, int addedFor)
         {
-            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message, CurrentUser.UserId).ToString());
+            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message,addedFor, CurrentUser).ToString());
         }
 
         [HttpPost]
         public ActionResult AddPostThread(ForumThread postThread)
         {
-            return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser.UserId).ToString());
+            return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser).ToString());
         }
     }
 }

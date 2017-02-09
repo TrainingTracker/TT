@@ -589,20 +589,10 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 #page-wrapper .nav-tabs>li>a {
     color: #000;
 }
-#page-wrapper .nav-tabs > li > a,#page-wrapper .nav-tabs > li > a:hover
-{
-    border-color: #ccc #ccc #ccc;
-        font-size: 10px;
-}
 
 
-#page-wrapper .nav-tabs>li.active>a,#page-wrapper .nav-tabs>li.active>a:focus,#page-wrapper .nav-tabs>li.active>a:hover {
-    color: #fff;
-    cursor: pointer;
-    background-color: #2596F1;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-}
+
+
 
 #divCoursescollapasable>div>div {
     display: table;
@@ -751,4 +741,88 @@ label.lbl-data-info {
 #divSearch > div:last-child{
     padding: 10px;
     padding-right: 30px;
+}
+#divPager > nav li> a {
+    margin-bottom: 20px;
+    -webkit-box-shadow: 4px 5px 10px;
+    -ms-box-shadow: 4px 5px 10px;
+    box-shadow: 4px 5px 10px;
+}
+.custom-margin-top-10 {
+    margin-top: 0px !important;
+}
+.custom-nav-tab > li.active > a, .custom-nav-tab > li.active > a:focus, .custom-nav-tab > li.active > a:hover {
+    background-color: #192741 !important;
+}
+.custom-nav-tab {
+    width: 101%;
+}
+.custom-nav-tab > li{
+    width: 33%;
+    background-color: #192741;
+    border: 0px !important;
+    color: #fff;
+    font-size: 20px;
+    text-align: center
+}
+
+.custom-nav-tab > li > a {
+    text-align: center;
+    color: #fff !important;
+    font-size: 17px;
+    background-color: #192741;
+    margin: 0;
+    text-transform: uppercase;
+    border: 0px !important;
+}
+.custom-nav-tab > li.active > a{
+    color: #2596F1 !important;
+    background-color: #192741; 
+}
+.custom-nav-tab > li > a:hover {
+    color: #2596F1 !important;
+    background-color: #192741 !important;
+    transition: background-color .5s ease;
+}
+
+
+.custom-nav-tab > li:not(:last-child):after {
+    border-left: 2px solid #eee;
+    z-index: 2;
+    content: "";
+    position: absolute;
+    left: 100%;
+    width: 1%;
+    height: 60%;
+    /* z-index: 2; */
+    top: 20%;
+}
+.custom-nav-tab > li.active > a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    top: 0%;
+    left: 0%;
+    border-bottom: 3px solid red;
+}
+    .custom-nav-tab > li > a:before {
+        content: "";
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+     z-index: 1000;
+    border-bottom: 3px solid red;
+    }
+.custom-nav-tab > li:hover > a:before {
+    width: 100%;
+    -webkit-transition: ease width .5s;
+    -moz-transition: ease width .5s;
+    -ms-transition: ease width .5s;
+    -o-transition: ease width .5s;
+    transition: ease width .5s;
+   
 }

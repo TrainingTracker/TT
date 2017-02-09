@@ -273,16 +273,19 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-9 custom-margin-top-10" data-bind="visible: my.profileVm.userVm.User.IsTrainee">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs custom-nav-tab" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#divFeedbackArea" aria-controls="divFeedbackArea" role="tab" data-toggle="tab">Feedbacks</a>
                 </li>
                 <li role="presentation" data-bind=" click: function () { my.profileVm.loadPlotData(); }">
                     <a href="#divFeedbackChart" aria-controls="divFeedbackChart" role="tab" data-toggle="tab" data-bind="">Synopsis</a>
                 </li>
-                <li role="presentation" data-bind="click: my.discussionForumVm.getPosts">
+               
+                <li role="presentation" data-bind=" click: my.discussionForumVm.getPosts">
                     <a href="#divDiscussionArea" role="tab" data-toggle="tab" data-bind="">Discussions</a>
                 </li>
+                
+               
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="divFeedbackArea">
@@ -527,7 +530,9 @@
                 
                 
                 <div role="tabpanel" class="tab-pane" id="divDiscussionArea">
-                   
+                    
+                @if (HttpContext.Current.User.IsInRole("Trainee"))
+                {
                     <div class="panel panel-white post panel-shadow">
                         <div class="post-heading">
                             <div class="image col-xs-12 col-md-1 no-right-margin">
@@ -539,7 +544,7 @@
                                        class="form-control" />
                             </div>
                         </div>
-                       
+
                         <div class="no-right-margin no-left-margin post-description comment-div">
                             <div class="col-xs-12 col-md-12 no-right-margin ">
                                 <textarea data-bind="value: my.discussionForumVm.newPost.Description, autoResizeTextArea: true"
@@ -552,11 +557,12 @@
                             <div class="comment-send col-xs-12 col-md-1 col-lg-1 no-left-margin no-right-margin">
                                 <button data-bind="click: my.discussionForumVm.validateAndAddPost" type="button" class="btn btn-info pull-right">Post <i class="glyphicon glyphicon-send"></i></button>
                             </div>
-                            
+
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                   
+                }
+
 
                     <div class="col-xs-12 col-md-12 no-left-margin no-right-margin panel panel-white post panel-shadow">
                         <div class="row" id="divSearch">
@@ -586,7 +592,7 @@
                     </div>
 
 
-                    <div id="feedbackSection" class="col-xs-12 col-md-12 no-left-margin no-right-margin" data-bind="foreach: my.discussionForumVm.posts.DisplayPosts">
+                    <div id="discussionSection" class="col-xs-12 col-md-12 no-left-margin no-right-margin" data-bind="foreach: my.discussionForumVm.posts.DisplayPosts">
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
@@ -604,7 +610,7 @@
                                     </div>
                                     <br>
                                     <div class="text-muted time" style="display: inline-block;">
-                                         Posted by <a data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedByUser.UserId }"></a> on
+                                        Posted by <a data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedByUser.UserId }"></a> on
                                     </div>
                                     <h6 data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
                                 </div>
@@ -618,6 +624,14 @@
                                 <p data-bind="text: Description" style="white-space: pre-wrap;"></p>
                             </div>
                         </div>
+                    </div>
+                    <div id="divPager">
+                        <nav aria-label="..." data-bind="visible: my.discussionForumVm.posts.PageCount() > 1">
+                            <ul class="pager" style="margin: 0">
+                                <li class="previous" data-bind="visible: my.discussionForumVm.posts.CurrentPage() > 1, click:function(){ my.discussionForumVm.getPreviousPage();}"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
+                                <li class="next" data-bind="visible: my.discussionForumVm.posts.CurrentPage() != my.discussionForumVm.posts.PageCount(), click:function(){ my.discussionForumVm.getNextPage();}"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
@@ -698,6 +712,7 @@
 </div>
 
 @Html.Partial("_FeedbackThread")
+
 @Html.Partial("_DiscussionThread")
 
 @section Scripts

@@ -22,6 +22,7 @@ namespace TrainingTracker.BLL
         private const string DashboardLink = "/Dashboard";
         private const string SessionLink = "/Session?sessionId={0}";
         private const string ReleaseDescription = "New release, Version:";
+        private const string DiscussionPostLink = "/Profile/UserProfile?userId={0}&postId={1}";
 
         /// <summary>
         /// Add notification for a list of users. 
@@ -246,6 +247,34 @@ namespace TrainingTracker.BLL
             };
 
             return AddNotification(notification , trainees.Select(x=>x.UserId).ToList());
+        }
+
+        public bool AddNewDiscussionPostNotification(ForumPost post)
+        {
+            var notification = new Notification
+            {
+                Description = post.AddedByUser.FirstName + " " + post.AddedByUser.LastName,
+                Link = string.Format(DiscussionPostLink, post.AddedBy, post.PostId),
+                TypeOfNotification = NotificationType.NewDiscussionPostNotification,
+                AddedBy = post.AddedBy,
+                Title = "New Post in Discussion Forum",
+                AddedOn = DateTime.Now,
+            };
+            return AddNotification(notification, UserDataAccesor.GetUserId(notification, post.AddedBy));
+        }
+
+        public bool AddNewDiscussionThreadNotification(ForumThread thread)
+        {
+            var notification = new Notification
+            {
+                Description = thread.AddedByUser.FirstName + " " + thread.AddedByUser.LastName,
+                Link = string.Format(DiscussionPostLink, thread.AddedFor, thread.PostId),
+                TypeOfNotification = NotificationType.NewDiscussionThreadNotification,
+                AddedBy = thread.AddedBy,
+                Title = "New Comment on Discussion Post",
+                AddedOn = DateTime.Now,
+            };
+            return AddNotification(notification, UserDataAccesor.GetUserId(notification, thread.AddedFor));
         }
     }
 }

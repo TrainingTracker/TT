@@ -21,18 +21,19 @@ namespace TrainingTracker.DAL.Repositories
             return _context.ForumDiscussionPosts.Include(t => t.ForumDiscussionThreads).Include(x => x.User).SingleOrDefault(x => x.Id == postId);
         }
 
-        public PagedResult<ForumDiscussionPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId, int searchPostId,
+        public PagedResult<ForumDiscussionPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId, int searchPostId, int addedBy,
             int pageNumber, int pageSize)
         {
-            return BaseFilterSearchQuery(wildcard, categoryId, statusId, searchPostId).Page(pageNumber, pageSize);
+            return BaseFilterSearchQuery(wildcard, categoryId, statusId, searchPostId,  addedBy).Page(pageNumber, pageSize);
         }
 
-        private IQueryable<ForumDiscussionPost> BaseFilterSearchQuery(string wildcard, int categoryId, int statusId, int searchPostId)
+        private IQueryable<ForumDiscussionPost> BaseFilterSearchQuery(string wildcard, int categoryId, int statusId, int searchPostId, int addedBy)
         {
             var wildcardFilter = !string.IsNullOrEmpty(wildcard);
             var categoryFilter = categoryId != 0;
             var statusFilter = statusId != 0;
             var postFilter = searchPostId != 0;
+            var addedByFilter = addedBy != 0;
 
             IQueryable<ForumDiscussionPost> filterQuery = _context.ForumDiscussionPosts.Include(x => x.User)
                 .Include(x => x.ForumDiscussionCategory).Include(x => x.ForumDiscussionStatu);
@@ -40,6 +41,7 @@ namespace TrainingTracker.DAL.Repositories
             if (categoryFilter) filterQuery = filterQuery.Where(x => x.CategoryId == categoryId);
             if (statusFilter) filterQuery = filterQuery.Where(x => x.StatusId == statusId);
             if (postFilter) filterQuery = filterQuery.Where(x => x.Id == searchPostId);
+            if (addedByFilter) filterQuery = filterQuery.Where(x => x.AddedBy == addedBy);
 
             return filterQuery.OrderByDescending(x => x.CreatedOn);
         }

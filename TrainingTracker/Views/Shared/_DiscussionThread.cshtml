@@ -16,9 +16,9 @@
                         <strong><span data-bind="text: my.discussionThreadsVm.discussionPostData.Title()"></span></strong>
                     </div>
                     <div style="display: inline-block; padding-left: 10px" id="divQuickStatus">
-                        <span class="label label-success " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId == 1"></span>
-                        <span class="label label-info" data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId == 2"></span>
-                        <span class="label label-warning " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId == 3"></span>
+                        <span class="label label-success " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1"></span>
+                        <span class="label label-info" data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 2"></span>
+                        <span class="label label-warning " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 3"></span>
                     </div>
                     <br>
                     <div class="text-muted time" style="display: inline-block;">
@@ -69,9 +69,21 @@
                              class="img-circle avatar" alt="user profile image">
                     </div>
                 </div>
-                <textarea data-bind="value: my.discussionThreadsVm.newThreadData.Description"
-                          class=" form-control col-xs-8" rows="1" type="text" placeholder="Comment for the Feedback (500 characters Max)" maxlength="500" style="resize: none;width:75%"></textarea>
-                <button id="btnCommentSection" type="button" class="btn btn-info col-xs-2 pull-right" data-bind="click: function () { my.discussionThreadsVm.addNewThread() }">Add New Comment</button>
+                <div>
+                    <strong>Update Status to </strong>
+                    <div class="btn-group">
+                        <button type="button" class="label label-success" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() == 3, click:function() {my.discussionThreadsVm.updatePostStatus(1);}">Re-open</button>
+                        <button type="button" class="label label-info" data-bind="visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1 , click:function() {my.discussionThreadsVm.updatePostStatus(2);}">In Discussion</button>
+                        <button type="button" class="label label-warning" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() != 3, click:function() {my.discussionThreadsVm.updatePostStatus(3);}">Closed</button>
+                    </div>
+                </div>
+                <br>
+                <div class="col-sm-10">
+                    <textarea data-bind="value: my.discussionThreadsVm.newThreadData.Description, autoResizeTextArea: true"
+                              class=" form-control " rows="2" type="text" placeholder="Comment for the Feedback (500 characters Max)" maxlength="500" style="resize: none;"></textarea>
+                    
+                </div>
+                <button type="button" class="btn btn-info col-sm-2 pull-right " data-bind="click: function () { my.discussionThreadsVm.addNewThread() }">Add New Comment</button>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
     my.profileVm = function () {
         var userId = my.queryParams["userId"],
             queryStringFeedbackId = my.queryParams["feedbackId"],
+            queryStringPostId = my.queryParams["postId"],
             showTimeline = ko.observable(false),
             selectedSkill = ko.observable(),
             selectedProject = ko.observable(),
@@ -80,6 +81,9 @@
 
                 if (!my.isNullorEmpty(queryStringFeedbackId)) {
                     loadFeedbackWithThread(queryStringFeedbackId);
+                }
+                if (!my.isNullorEmpty(queryStringPostId)) {
+                    my.discussionThreadsVm.loadDiscussionDialog(queryStringPostId);
                 }
 
             },
