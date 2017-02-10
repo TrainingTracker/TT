@@ -2,8 +2,8 @@
 using System.Linq;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.DataAccess;
+using TrainingTracker.DAL.Interface;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.RepoInterface;
 using Course = TrainingTracker.DAL.EntityFramework.Course;
 
 namespace TrainingTracker.DAL.Repositories
@@ -39,5 +39,8 @@ namespace TrainingTracker.DAL.Repositories
 
             return true;
         }
+
+
+
     }
 }

@@ -12,26 +12,26 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Team
+    public partial class ForumDiscussionPost
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Team()
+        public ForumDiscussionPost()
         {
-            this.LearningMaps = new HashSet<LearningMap>();
-            this.Users = new HashSet<User>();
+            this.ForumDiscussionThreads = new HashSet<ForumDiscussionThread>();
         }
     
-        public int TeamId { get; set; }
-        public string TeamName { get; set; }
-        public int TeamManager { get; set; }
-        public bool IsDeleted { get; set; }
-        public System.DateTime DateInserted { get; set; }
-        public int WeeklySurveyId { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int AddedBy { get; set; }
+        public int CategoryId { get; set; }
+        public int StatusId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
+        public virtual ForumDiscussionCategory ForumDiscussionCategory { get; set; }
+        public virtual ForumDiscussionStatu ForumDiscussionStatu { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LearningMap> LearningMaps { get; set; }
-        public virtual Survey Survey { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<ForumDiscussionThread> ForumDiscussionThreads { get; set; }
     }
 }

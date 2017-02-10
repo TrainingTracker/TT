@@ -1,0 +1,90 @@
+﻿
+<div id="divDiscussionThread" class=" no-left-margin no-right-margin" data-bind=" visible: my.discussionThreadsVm.viewSettings.showDialog()" style="display: none;">
+    <div id="divThreadWrapper" data-bind="fullWindowHeight: my.discussionThreadsVm.viewSettings.showDialog(),click: my.discussionThreadsVm.closeDiscussionDialog"></div>
+    <div id="divCloseModalButton" data-bind="click: my.discussionThreadsVm.closeDiscussionDialog">
+        <span><i class="glyphicon glyphicon-remove rating-slow "></i></span>
+    </div>
+    <div id="divFeedbackContainer">
+        <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                    <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + my.discussionThreadsVm.discussionPostData.User.UserImageUrl() }"
+                         class="img-circle avatar" alt="user profile image">
+                </div>
+                <div class="pull-left meta">
+                    <div class="title h5" style="display: inline-block;">
+                        <strong><span data-bind="text: my.discussionThreadsVm.discussionPostData.Title()"></span></strong>
+                    </div>
+                    <div style="display: inline-block; padding-left: 10px" id="divQuickStatus">
+                        <span class="label label-success " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1"></span>
+                        <span class="label label-info" data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 2"></span>
+                        <span class="label label-warning " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 3"></span>
+                    </div>
+                    <br>
+                    <div class="text-muted time" style="display: inline-block;">
+                        Posted by <a data-bind="text: my.discussionThreadsVm.discussionPostData.User.UserFullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + my.discussionThreadsVm.discussionPostData.User.UserId }"></a> on
+                    </div>
+                    <h6 data-bind="text: moment(my.discussionThreadsVm.discussionPostData.AddedOn()).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
+
+                </div>
+            </div>
+            <div class="post-description">
+                <p data-bind="text: my.discussionThreadsVm.discussionPostData.Description" style="white-space: pre-wrap;"></p>
+            </div>
+        </div>
+
+        <div id="divCommentThreads">
+            <div class="panel-white panel-shadow" data-bind="visible: my.discussionThreadsVm.discussionPostData.Threads().length==0">
+                <div class="row" style="padding: 10px 20px 10px 20px">
+                    <div class="col-xs-12">
+                        No Comments added for this Discussion. Leave a comment on this.
+                    </div>
+                </div>
+            </div>
+            <div class="panel-white panel-shadow" data-bind="foreach: my.discussionThreadsVm.discussionPostData.Threads, visible: my.discussionThreadsVm.discussionPostData.Threads().length > 0">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="title" style="display: inline-block;">
+                            <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + AddedByUser.ProfilePictureName }"
+                                 class="img-circle avatar" alt="user profile image">
+                            <strong>
+                                <a data-bind="text: AddedByUser.FirstName + ' ' +AddedByUser.LastName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedByUser.UserId }"></a>
+                            </strong>
+                            <span data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted "></span>
+                        </div>
+                        <p data-bind="text: Description" style="white-space: pre-wrap;"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divNewThread">
+
+            <div class=" col-xs-12 no-left-margin no-right-margin panel-white  panel-shadow">
+                <div class="pull-left" style="display: inline-block;width:56px;">
+                    <div class=" image">
+                        <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + my.meta.currentUser.ProfilePictureName }"
+                             class="img-circle avatar" alt="user profile image">
+                    </div>
+                </div>
+                <div>
+                    <strong>Update Status to </strong>
+                    <div class="btn-group">
+                        <button type="button" class="label label-success" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() == 3, click:function() {my.discussionThreadsVm.updatePostStatus(1);}">Re-open</button>
+                        <button type="button" class="label label-info" data-bind="visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1 , click:function() {my.discussionThreadsVm.updatePostStatus(2);}">In Discussion</button>
+                        <button type="button" class="label label-warning" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() != 3, click:function() {my.discussionThreadsVm.updatePostStatus(3);}">Closed</button>
+                    </div>
+                </div>
+                <br>
+                <div class="col-sm-10">
+                    <textarea data-bind="value: my.discussionThreadsVm.newThreadData.Description, autoResizeTextArea: true"
+                              class=" form-control " rows="2" type="text" placeholder="Comment for the Feedback (500 characters Max)" maxlength="500" style="resize: none;"></textarea>
+                    
+                </div>
+                <button type="button" class="btn btn-info col-sm-2 pull-right " data-bind="click: function () { my.discussionThreadsVm.addNewThread() }">Add New Comment</button>
+            </div>
+        </div>
+    </div>
+</div>

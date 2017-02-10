@@ -14,12 +14,6 @@ namespace TrainingTracker.DAL.EntityFramework
     
     public partial class Question
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
-        {
-            this.QuestionLevelMappings = new HashSet<QuestionLevelMapping>();
-        }
-    
         public int Id { get; set; }
         public string QuestionText { get; set; }
         public string Description { get; set; }
@@ -27,8 +21,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public int AddedBy { get; set; }
         public System.DateTime AddedDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionLevelMapping> QuestionLevelMappings { get; set; }
         public virtual Skill Skill { get; set; }
         public virtual User User { get; set; }
     }

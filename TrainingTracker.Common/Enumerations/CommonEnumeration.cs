@@ -71,6 +71,15 @@
         CourseFeedbackNotification = 13,
 
         /// <summary>
+        /// Enum For New Discussion Post Notification
+        /// </summary>
+        NewDiscussionPostNotification = 15,
+
+        /// <summary>
+        /// Enum For New Discussion Thtread Notification
+        /// </summary>
+        NewDiscussionThreadNotification = 16,
+
         /// Enum For New Action to Perform
         /// </summary>
         NewActionToPerform = 14

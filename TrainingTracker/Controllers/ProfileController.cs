@@ -12,8 +12,21 @@ using TrainingTracker.Common.Utility;
 namespace TrainingTracker.Controllers
 {
     [CustomAuthorizeAttribute]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
+
+        User CurrentUser
+        {
+            get
+            {
+                if (Session["currentUser"] == null)
+                {
+                    Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
+                }
+
+                return (User)Session["currentUser"];
+            }
+        }
         // GET: UserProfile?userId=
         [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
         public ActionResult UserProfile(int userId)
@@ -256,6 +269,34 @@ namespace TrainingTracker.Controllers
         public JsonResult SaveWeeklySurveyResponseForTrainee(SurveyResponse surveyResponse)
         {
             return Json(new SurveyBl().SaveWeeklySurveyResponseForTrainee(surveyResponse) , JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPosts(string wildcard, int traineeId, int statusId, int searchPostId, int pageNumber)
+        {
+            return Json(DiscussionForumBl.GetFilteredPagedPosts(wildcard, statusId, searchPostId, traineeId, pageNumber, 5), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPostById(int postId)
+        {
+            return Json(DiscussionForumBl.GetPostWithThreads(postId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddPost(ForumPost post)
+        {
+            return Json(DiscussionForumBl.AddPost(post, CurrentUser).ToString());
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePostStatus(int postId, int statusId, string message, int addedFor)
+        {
+            return Json(DiscussionForumBl.UpdatePostStatus(postId, statusId, message,addedFor, CurrentUser).ToString());
+        }
+
+        [HttpPost]
+        public ActionResult AddPostThread(ForumThread postThread)
+        {
+            return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser).ToString());
         }
     }
 }

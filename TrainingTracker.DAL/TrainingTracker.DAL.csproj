@@ -101,18 +101,6 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\EmailAlertSubscription.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\EmailContent.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\EmailRecipient.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\EmailRecipientType.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\Feedback.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -120,6 +108,18 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\FeedbackType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionCategory.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionPost.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionStatu.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ForumDiscussionThread.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\ForumUserHelpCategory.cs">
@@ -209,9 +209,6 @@
     <Compile Include="EntityFramework\sysdiagram.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\TaskSchedulerJob.cs">
-      <DependentUpon>TrainingTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\Team.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -248,11 +245,9 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IEmailContentRepository.cs" />
-    <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
-    <Compile Include="RepoInterface\IEmailAlertSubscriptionRepository.cs" />
-    <Compile Include="RepoInterface\ICourseRepository.cs" />
+    <Compile Include="Interface\ICourseRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
+    <Compile Include="Interface\IForumDiscussionPostRepository.cs" />
     <Compile Include="Interface\IForumUserHelpPostRepository.cs" />
     <Compile Include="Interface\ILearningMapDal.cs" />
     <Compile Include="Interface\ILearningPathDal.cs">
@@ -262,14 +257,17 @@
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
     <Compile Include="Interface\IReleaseDal.cs" />
-    <Compile Include="Interface\IFeedbackRepository.cs" />
-    <Compile Include="RepoInterface\IRepository.cs" />
+    <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionCategoryConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionPostConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionStatusConverter.cs" />
+    <Compile Include="ModelMapper\ForumDiscussionThreadConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpCategoryConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpPostConverter.cs" />
     <Compile Include="ModelMapper\ForumUserHelpStatusConverter.cs" />
@@ -279,14 +277,10 @@
     </Compile>
     <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepoInterface\IUserRepository.cs" />
-    <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
-    <Compile Include="Repositories\EmailContentRepository.cs" />
-    <Compile Include="Repositories\FeedbackRepository.cs" />
+    <Compile Include="Repositories\ForumDiscussionPostRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,7 +297,6 @@
     </EntityDeploy>
     <None Include="EntityFramework\TrainingTracker.edmx.diagram">
       <DependentUpon>TrainingTracker.edmx</DependentUpon>
-      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
