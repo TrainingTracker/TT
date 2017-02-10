@@ -19,7 +19,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public int UserId { get; set; }
         public System.DateTime StartedOn { get; set; }
         public Nullable<System.DateTime> CompletedOn { get; set; }
-        public int Progress { get; set; }
     
         public virtual Course Course { get; set; }
         public virtual User User { get; set; }

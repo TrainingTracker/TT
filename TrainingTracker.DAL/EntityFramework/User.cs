@@ -24,6 +24,8 @@ namespace TrainingTracker.DAL.EntityFramework
             this.CourseSubtopics = new HashSet<CourseSubtopic>();
             this.CourseSubtopicDiscussions = new HashSet<CourseSubtopicDiscussion>();
             this.CourseUserMappings = new HashSet<CourseUserMapping>();
+            this.EmailAlertSubscriptions = new HashSet<EmailAlertSubscription>();
+            this.EmailAlertSubscriptions1 = new HashSet<EmailAlertSubscription>();
             this.Feedbacks = new HashSet<Feedback>();
             this.Feedbacks1 = new HashSet<Feedback>();
             this.FeedbackThreads = new HashSet<FeedbackThread>();
@@ -79,6 +81,10 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseUserMapping> CourseUserMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailAlertSubscription> EmailAlertSubscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailAlertSubscription> EmailAlertSubscriptions1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
