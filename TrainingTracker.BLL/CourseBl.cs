@@ -1,39 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using CommonModel = TrainingTracker.Common.Entity;
 using EFModel = TrainingTracker.DAL.EntityFramework;
 using System.Linq;
+using System.Web;
 
 namespace TrainingTracker.BLL
 {
     public class CourseBl : BussinessBase
     {
-        public int AddOrUpdateCourse(CommonModel.Course courseData)
+       
+        public int AddOrUpdateCourse(CommonModel.Course courseData, int currentUserId)
         {
-            var data = ModelMapper.MapToEfCourseModel(courseData);
-            
-            data.Icon = courseData.Icon ?? Constants.DefaultCourseIcon;
-            data.Description = courseData.Description ?? "";
+           // var data = ModelMapper.MapToEfCourseModel(courseData);
+            var courseEntity = new EFModel.Course();
+            if (courseData.Id == 0) // Add
+            {
+                courseEntity.Id = 0;
+                courseEntity.Name = courseData.Name;
+                courseEntity.Description = courseData.Description ?? "";
+                courseEntity.Icon = courseData.Icon ?? Constants.DefaultCourseIcon;
+                courseEntity.Duration = courseData.Duration;
+                courseEntity.CreatedOn = DateTime.Now;
+                courseEntity.AddedBy = currentUserId;
+                courseEntity.IsActive = true;
+                courseEntity.IsPublished = false;
 
-            if (data.Id == 0)
-            {
-                data.IsActive = true;
-                data.CreatedOn = DateTime.Now;
-                UnitOfWork.CourseRepository.Add(data);
+                UnitOfWork.CourseRepository.Add(courseEntity);
             }
-            else
+            else    //Update
             {
-                var courseEntity = UnitOfWork.CourseRepository.Get(data.Id);
-                if (courseEntity != null)
+                courseEntity = UnitOfWork.CourseRepository.Get(courseData.Id);
+                if (courseEntity == null)
                 {
-
+                    return 0;
                 }
+                // ToDo : Try attach/entry for updating(save one trip to DB) or update only modified property
+                // ToDo : Set IsPublished and IsActive
+                courseEntity.Name = courseData.Name;
+                courseEntity.Icon = courseData.Icon ?? Constants.DefaultCourseIcon;
+                courseEntity.Description = courseData.Description ?? "";
+                courseEntity.Duration = courseData.Duration;
             }
 
-            return  UnitOfWork.Commit() > 0 ? data.Id : 0;
+            return  UnitOfWork.Commit() > 0 ? courseEntity.Id : 0;
         }
     }
 }

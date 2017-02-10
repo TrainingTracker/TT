@@ -50,6 +50,16 @@ namespace TrainingTracker.Controllers
             return View("AllProfiles");
         }
 
+        /// <summary>
+        /// Customize profile setting
+        /// </summary>
+        /// <returns>Customize View</returns>        
+        public ActionResult CustomizeProfile()
+        {
+            return View("CustomizeProfile");
+        }
+
+
         public ActionResult AddEditProfile()
         {
             return View();

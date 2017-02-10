@@ -214,7 +214,13 @@ namespace TrainingTracker.BLL.Base
         private ForumDiscussionThreadConverter _forumDiscussionThreadConverter;
         public ForumDiscussionThreadConverter ForumDiscussionThreadConverter
         {
-            get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter()); }
+            get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());}
+		}
+		
+        private EmailAlertSubscriptionConverter _emailAlertSubscriptionConverter;
+        public EmailAlertSubscriptionConverter EmailAlertSubscriptionConverter
+        {
+            get { return _emailAlertSubscriptionConverter ?? (_emailAlertSubscriptionConverter = new EmailAlertSubscriptionConverter()); }
         }
 
         #endregion

@@ -18,6 +18,7 @@ namespace TrainingTracker.BLL
     public class NotificationBl : BussinessBase
     {
         private const string ReleaseLink = "/Release?releaseId={0}";
+        private const string HelpLink = "/Help#{0}";
         private const string FeedbackLink = "/Profile/UserProfile?userId={0}&feedbackId={1}";
         private const string DashboardLink = "/Dashboard";
         private const string SessionLink = "/Session?sessionId={0}";
@@ -167,6 +168,8 @@ namespace TrainingTracker.BLL
                 Title = notificationText ,
                 AddedOn = DateTime.Now,
             };
+
+            new MailerBl().AddNewFeedbackMail(notification, user, feedback.FeedbackId);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, feedback.AddedFor.UserId));
         }
 
@@ -225,6 +228,7 @@ namespace TrainingTracker.BLL
                 AddedOn = DateTime.Now ,
             };
 
+            new MailerBl().AddNewFeedbackThreadMail(notification, thread.FeedbackId);
             return AddNotification(notification , UserDataAccesor.GetUserId(notification , userId));
         }
 
@@ -244,8 +248,7 @@ namespace TrainingTracker.BLL
                 AddedBy = currentUserId ,
                 Title = "New Course Assigned" ,
                 AddedOn = DateTime.Now 
-            };
-
+            };           
             return AddNotification(notification , trainees.Select(x=>x.UserId).ToList());
         }
 
@@ -275,6 +278,51 @@ namespace TrainingTracker.BLL
                 AddedOn = DateTime.Now,
             };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, thread.AddedFor));
+
+        /// <summary>
+        /// Function which add help notification
+        /// Calls AddNotification() to save in the database.
+        /// </summary>
+        /// <param name="forumPost">Release object</param>
+        /// <param name="userId">UseId</param>
+        /// <returns>Returns true if Notification is added successfully else false.</returns>
+        internal bool AddHelpNotification(ForumPost forumPost, int userId)
+        {            
+            string featureText, helpLink;
+
+            switch (forumPost.CategoryId)
+            {
+                case (int)ForumUserHelpCategories.Bug:
+                    featureText = "New Bug Raised";
+                    helpLink = string.Format(HelpLink, "Bugs");
+                    break;
+
+                case (int)ForumUserHelpCategories.Help:
+                    featureText = "Need a Help ";
+                    helpLink = string.Format(HelpLink, "Help");
+                    break;
+
+                case (int)ForumUserHelpCategories.Idea:
+                    featureText = "New Idea for TT";
+                    helpLink = string.Format(HelpLink, "Idea");
+                    break;
+
+                default:
+                    featureText = "New Activity";
+                    helpLink = string.Format(HelpLink, "");
+                    break;
+            }
+           
+            var notification = new Notification
+            {
+                Description = "",
+                Link = helpLink,
+                TypeOfNotification = NotificationType.NewFeatureRequestNotification,
+                AddedBy = userId,
+                Title = featureText,
+                AddedOn =  DateTime.Now,
+            };
+            return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
     }
 }

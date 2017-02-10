@@ -78,7 +78,11 @@
         /// <summary>
         /// Enum For New Discussion Thtread Notification
         /// </summary>
-        NewDiscussionThreadNotification = 16
+        NewDiscussionThreadNotification = 16,
+
+        /// Enum For New Action to Perform
+        /// </summary>
+        NewActionToPerform = 14
     }
 
 
@@ -169,5 +173,42 @@
         /// Enum For Rajnikant Mode
         /// </summary>
         Exceptional = 4
+    }
+
+    /// <summary>
+    /// Common Enumerations used In Scheduler
+    ///</summary>
+    public enum EmailRecipientType
+    {
+        /// <summary>
+        /// RecipientType for To Recipient
+        /// </summary>
+        To = 1,
+
+        /// <summary>
+        /// RecipientType for CC Recipient
+        /// </summary>
+        CarbonCopy = 2,
+
+        /// <summary>
+        /// RecipientType for BCC Recipient
+        /// </summary>
+        BlindCarbonCopy = 3
+
+    }
+
+    /// <summary>
+    /// Common Enumeration for Help Categories
+    /// </summary>
+    public enum ForumUserHelpCategories
+    {
+        // Help category Bug
+        Bug = 1,
+
+        // help category Idea
+        Idea = 2,
+
+        //Help category Help
+        Help = 3,
     }
 }

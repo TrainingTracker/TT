@@ -46,6 +46,7 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Encryption\Cryptography.cs" />
     <Compile Include="Entity\Assignment.cs" />
+    <Compile Include="Entity\EmailAlertSubscription.cs" />
     <Compile Include="Entity\Course.cs" />
     <Compile Include="Entity\CourseSubtopic.cs" />
     <Compile Include="Entity\CourseTrackerDetails.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Utility\LogUtility.cs" />
     <Compile Include="Utility\SqlUtility.cs" />
+    <Compile Include="Utility\TemplateContentBuilder.cs" />
     <Compile Include="Utility\UtilityFunctions.cs" />
     <Compile Include="ViewModel\DashboardVm.cs" />
     <Compile Include="ViewModel\HelpForumVm.cs" />
@@ -91,7 +93,9 @@
     <Compile Include="ViewModel\SurveyVm.cs" />
     <Compile Include="ViewModel\UserProfileVm.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="EmailTemplates\NewFeedback.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
