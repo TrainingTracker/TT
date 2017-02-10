@@ -12,12 +12,14 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class EmailRecipient
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public int EmailContentId { get; set; }
+        public string EmailAddress { get; set; }
+        public int EmailRecipientType { get; set; }
+    
+        public virtual EmailContent EmailContent { get; set; }
+        public virtual EmailRecipientType EmailRecipientType1 { get; set; }
     }
 }
