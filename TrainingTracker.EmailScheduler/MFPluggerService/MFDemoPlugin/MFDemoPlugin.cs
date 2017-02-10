@@ -23,7 +23,7 @@ namespace MFDemoPlugin
         /// </summary>
         void IMFServicePlugin.ExecutePlugin()
         {
-            WriteFile(@"D:\MFDemoPlugin.txt", DateTime.Now.ToString("dddd, dd MMMM yyyy hh:mm tt") );
+            WriteFile(@"D:\MFDemoPlugin.txt", DateTime.Now.ToString("dddd, dd MMMM yyyy hh:mm:ss tt") );
         }
 
         #endregion

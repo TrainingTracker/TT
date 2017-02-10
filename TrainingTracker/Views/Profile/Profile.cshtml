@@ -606,13 +606,15 @@
                                     <div style="display: inline-block; padding-left: 10px" id="divQuickStatus">
                                         <span class="label label-success " data-bind="text: Status.Title, visible: StatusId == 1"></span>
                                         <span class="label label-info" data-bind="text: Status.Title, visible: StatusId == 2"></span>
-                                        <span class="label label-warning " data-bind="text: Status.Title, visible: StatusId == 3"></span>
+                                        <span class="label label-danger " data-bind="text: Status.Title, visible: StatusId == 3"></span>
                                     </div>
                                     <br>
                                     <div class="text-muted time" style="display: inline-block;">
-                                        Posted by <a data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedByUser.UserId }"></a> on
-                                    </div>
-                                    <h6 data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
+                                        <span>Posted by </span> <a data-bind="text: AddedByUser.FirstName + ' ' + AddedByUser.LastName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + AddedByUser.UserId }"></a> 
+                                        <span>on</span>
+                                        <h6 style="display:inline-block" data-bind="text: moment(CreatedOn).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
+                                         </div>
+                                    
                                 </div>
                                 <div class="pull-right" style="display: inline-block;">
                                     <button type="button" class="form-control btn btn-info  input-sm " data-bind="click: function () { my.discussionThreadsVm.loadDiscussionDialog(PostId) }">
@@ -642,13 +644,7 @@
             <div id="feedbackSection" class="col-xs-12 col-md-12 no-left-margin no-right-margin" data-bind="foreach: my.profileVm.userVm.Feedbacks">
                 <div class="panel panel-white post panel-shadow">
                     <div class="post-heading">
-                        @*
-                        <div class="pull-left image">
-                            <img data-bind="attr: { src: AddedBy.UserImageUrl }"
-                                class="img-circle avatar" alt="user profile image">
-                        </div>
-                        *@
-                                    <div class="pull-left meta">
+                       <div class="pull-left meta">
                                         <div class="title h5" style="display: inline-block;">
                                             <strong><a data-bind="text: my.profileVm.userVm.User.FullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + my.profileVm.userVm.User.UserId }"></a></strong>
                                         </div>
