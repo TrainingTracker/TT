@@ -167,9 +167,9 @@
         border-color: #ddd;
     }
 
-.post .post-heading {
+#divDiscussionArea .post .post-heading {
     height: 95px;
-    padding: 15px 15px;
+    padding: 15px 15px 0 15px;
 }
 
 
@@ -209,6 +209,7 @@
 
 .post .post-description p {
     font-size: 14px;
+    margin-top: 0 !important;
 }
 
 .post .post-description .stats {
@@ -324,4 +325,19 @@ label.lbl-data-info {
     color:  #1A2942;
     display: table-row;
     margin-bottom: 0;
+}
+
+#btnAddDiscussionThread {
+    position: absolute;
+   bottom: 15px;
+    right: 15px;
+}
+
+#divDiscussionThread #divFeedbackContainer #divNewThread>div {
+    padding: 0;
+    
+}
+
+#divDiscussionThread #divFeedbackContainer #divNewThread>div>div {
+    padding: 15px 20px;
 }

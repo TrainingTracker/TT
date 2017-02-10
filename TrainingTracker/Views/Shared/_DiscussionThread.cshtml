@@ -18,13 +18,16 @@
                     <div style="display: inline-block; padding-left: 10px" id="divQuickStatus">
                         <span class="label label-success " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1"></span>
                         <span class="label label-info" data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 2"></span>
-                        <span class="label label-warning " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 3"></span>
+                        <span class="label label-danger " data-bind="text: my.discussionThreadsVm.discussionPostData.Status.Title, visible: my.discussionThreadsVm.discussionPostData.StatusId() == 3"></span>
                     </div>
                     <br>
                     <div class="text-muted time" style="display: inline-block;">
-                        Posted by <a data-bind="text: my.discussionThreadsVm.discussionPostData.User.UserFullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + my.discussionThreadsVm.discussionPostData.User.UserId }"></a> on
+                        <span>Posted by </span>  
+                        <a data-bind="text: my.discussionThreadsVm.discussionPostData.User.UserFullName, attr: { href: my.rootUrl + '/Profile/UserProfile?userId=' + my.discussionThreadsVm.discussionPostData.AddedBy() }"></a> 
+                        <span> on </span>
+                      <h6 style="display:inline-block" data-bind="text: moment(my.discussionThreadsVm.discussionPostData.AddedOn()).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
                     </div>
-                    <h6 data-bind="text: moment(my.discussionThreadsVm.discussionPostData.AddedOn()).format('MMMM Do YYYY, h:mm a')" class="text-muted time"></h6>
+                    
 
                 </div>
             </div>
@@ -62,28 +65,27 @@
 
         <div id="divNewThread">
 
-            <div class=" col-xs-12 no-left-margin no-right-margin panel-white  panel-shadow">
-                <div class="pull-left" style="display: inline-block;width:56px;">
+            <div class=" col-xs-12 no-margin-right no-margin-left panel-white  panel-shadow">               
+                <div class="col-xs-12">
+                    <strong>Update Status to </strong>
+                    <div class="btn-group">
+                        <button type="button" class="label label-success" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() == 3, click:function() {my.discussionThreadsVm.updatePostStatus(1);}">Re-open</button>
+                        <button type="button" class="label label-info" data-bind="visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1 , click:function() {my.discussionThreadsVm.updatePostStatus(2);}">In Discussion</button>
+                        <button type="button" class="label label-danger" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() != 3, click:function() {my.discussionThreadsVm.updatePostStatus(3);}">Closed</button>
+                    </div>
+                </div>
+                 <div class="col-xs-2" style="display: inline-block;width:56px;">
                     <div class=" image">
                         <img data-bind="attr: { src: my.rootUrl + '/Uploads/ProfilePicture/' + my.meta.currentUser.ProfilePictureName }"
                              class="img-circle avatar" alt="user profile image">
                     </div>
                 </div>
-                <div>
-                    <strong>Update Status to </strong>
-                    <div class="btn-group">
-                        <button type="button" class="label label-success" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() == 3, click:function() {my.discussionThreadsVm.updatePostStatus(1);}">Re-open</button>
-                        <button type="button" class="label label-info" data-bind="visible: my.discussionThreadsVm.discussionPostData.StatusId() == 1 , click:function() {my.discussionThreadsVm.updatePostStatus(2);}">In Discussion</button>
-                        <button type="button" class="label label-warning" data-bind="visible:my.discussionThreadsVm.discussionPostData.StatusId() != 3, click:function() {my.discussionThreadsVm.updatePostStatus(3);}">Closed</button>
-                    </div>
-                </div>
-                <br>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <textarea data-bind="value: my.discussionThreadsVm.newThreadData.Description, autoResizeTextArea: true"
-                              class=" form-control " rows="2" type="text" placeholder="Comment for the Feedback (500 characters Max)" maxlength="500" style="resize: none;"></textarea>
+                              class=" form-control " rows="2" type="text" placeholder="Add note to this discussion" maxlength="500" style="resize: none;"></textarea>
                     
                 </div>
-                <button type="button" class="btn btn-info col-sm-2 pull-right " data-bind="click: function () { my.discussionThreadsVm.addNewThread() }">Add New Comment</button>
+                <button id="btnAddDiscussionThread" type="button" class="btn btn-info col-sm-2 pull-right " data-bind="click: function () { my.discussionThreadsVm.addNewThread() }">Add New Comment</button>
             </div>
         </div>
     </div>
