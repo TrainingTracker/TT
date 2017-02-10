@@ -278,6 +278,7 @@ namespace TrainingTracker.BLL
                 AddedOn = DateTime.Now,
             };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, thread.AddedFor));
+        }
 
         /// <summary>
         /// Function which add help notification
@@ -324,5 +325,6 @@ namespace TrainingTracker.BLL
             };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
+
     }
 }

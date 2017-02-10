@@ -1,11 +1,8 @@
-
-﻿using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.Interface;
-﻿using TrainingTracker.Common.Entity;
-using TrainingTracker.DAL.Repositories;
+using TrainingTracker.Common.Entity;
+using TrainingTracker.DAL.RepoInterface;
 using Course = TrainingTracker.DAL.EntityFramework.Course;
 
-namespace TrainingTracker.DAL.RepoInterface
+namespace TrainingTracker.DAL.Interface
 {
     public interface ICourseRepository : IRepository<Course>
     {
