@@ -24,7 +24,7 @@ namespace TrainingTracker.DAL.Repositories
         public PagedResult<ForumDiscussionPost> GetPagedFilteredPosts(string wildcard, int categoryId, int statusId, int searchPostId, int addedBy,
             int pageNumber, int pageSize)
         {
-            return BaseFilterSearchQuery(wildcard, categoryId, statusId, searchPostId,  addedBy).Page(pageNumber, pageSize);
+            return BaseFilterSearchQuery(wildcard, categoryId, statusId, searchPostId, addedBy).AsNoTracking().Page(pageNumber, pageSize);
         }
 
         private IQueryable<ForumDiscussionPost> BaseFilterSearchQuery(string wildcard, int categoryId, int statusId, int searchPostId, int addedBy)
