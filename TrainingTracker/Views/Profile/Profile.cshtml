@@ -402,13 +402,13 @@
                             <div class="post-heading">
                                 <div class="col-xs-12 col-md-2 feedback-input meta">
                                     <label class="">Feedback Count:</label>
-                                    <select class=" input-sm form-control" data-bind="options: filter.pageSize, value: filter.selectedPageSize"></select>
+                                    <select class=" input-sm form-control" data-bind="options: my.profileVm.filter.pageSize, value: my.profileVm.filter.selectedPageSize"></select>
                                 </div>
                                 <div class="col-xs-12 col-md-2 feedback-input meta">
                                     <label class="">Feedback Type:</label>
                                     <select class=" input-sm form-control" data-bind="options: my.profileVm.userVm.FeedbackTypes,
                                                                                       optionsText: 'Description',
-                                                                                      value: filter.filterFeedback, optionsCaption: 'All'">
+                                                                                      value: my.profileVm.filter.filterFeedback, optionsCaption: 'All'">
                                     </select>
                                 </div>
                                 @*<div class="pull-left feedback-input meta">
