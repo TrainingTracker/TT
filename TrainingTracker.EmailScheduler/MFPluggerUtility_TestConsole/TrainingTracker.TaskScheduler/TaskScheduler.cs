@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using MFPluggerService;
@@ -36,11 +37,12 @@ namespace TrainingTracker.TaskScheduler
         /// This is Entry Point to Training Tracker Task scheduler
         /// </summary>
         /// <exception> No exception should propagate to top, else it may cause Service and its other dependencies to failure</exception>
-        void IMFServicePlugin.ExecutePlugin()
+        public void ExecutePlugin()
         {
             try
             {
                 SchedulerDataAccess dataAccess = new SchedulerDataAccess();
+             
 
                 foreach (TaskSchedulerJob job in dataAccess.GetAllActiveScheduledJob())
                 {
@@ -57,6 +59,7 @@ namespace TrainingTracker.TaskScheduler
                        Mailer.LogEvent(  ex
                                        , "TrainingTracker_ TaskScheduler"
                                        , String.Format("TT_TaskScheduler_Job_{0}",job.Description));
+
                     }
                 }
             }
@@ -81,11 +84,13 @@ namespace TrainingTracker.TaskScheduler
             Int32.TryParse(Constants.MyDllConfigAppSettings.Settings["AllowedFailedAttempts"].Value ?? 0.ToString(), out allowedFailedAttempts);
 
             Mailer.StartEmailRun(new SchedulerDataAccess().GetAllPendingEmailContentAndCorrespondingRecipientForJob(job,allowedFailedAttempts));
-        }     
+        }
     }
+
+
 
     public static class Constants
     {
-        internal static AppSettingsSection MyDllConfigAppSettings;
+        internal static AppSettingsSection MyDllConfigAppSettings;       
     }
 }

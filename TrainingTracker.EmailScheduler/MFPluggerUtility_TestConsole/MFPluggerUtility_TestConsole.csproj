@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MFServicePlugin">
-      <HintPath>TrainingTracker.TaskScheduler\bin\Debug\MFServicePlugin.dll</HintPath>
+    <Reference Include="MFServicePlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MFPluggerService\MFServicePlugin\bin\Debug\MFServicePlugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

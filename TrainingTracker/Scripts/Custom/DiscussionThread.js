@@ -122,7 +122,7 @@
 
             if (!validateThreadDetails()) return;
             newThreadData.AddedFor = discussionPostData.AddedBy();
-            newThreadData.PostId = discussionPostData.PostId();
+            newThreadData.PostId(discussionPostData.PostId());
             newThreadData.AddedBy = my.meta.currentUser.UserId;
             my.discussionForumService.addPostThread(ko.toJS(my.discussionThreadsVm.newThreadData), addNewThreadCallback);
         };

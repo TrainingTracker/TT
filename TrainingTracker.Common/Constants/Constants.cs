@@ -107,7 +107,7 @@ namespace TrainingTracker.Common.Constants
         /// <summary>
         /// Virtual path for Email
         /// </summary>
-        public const string FeedbackTemplate = "\\Content\\EmailTemplates\\NewFeedback.html";
+        public const string FeedbackTemplate = "~/Content/EmailTemplates/NewFeedback.html";
     }
 
     public static class NotificationEmailTemplateItems
