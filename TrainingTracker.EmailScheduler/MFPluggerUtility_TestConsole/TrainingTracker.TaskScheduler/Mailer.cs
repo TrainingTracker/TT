@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,17 +9,7 @@ namespace TrainingTracker.TaskScheduler
 {
     public static class Mailer
     {
-        /// <summary>
-        /// Event Log Method to handle and log exceptions
-        /// </summary>
-        internal static void LogEvent(Exception ex, string instanceName, string source)
-        {
-            EventLog log = new EventLog(instanceName);
-            log.Source = source;
-            log.WriteEntry(ex.Message);
-
-            // Supress
-        }
+        
 
         /// <summary>
         /// Method that use parallelism to trigger mail 
@@ -59,7 +47,9 @@ namespace TrainingTracker.TaskScheduler
                         dataObject.IsSent = true;    
                     }
                     catch (Exception ex)
-                    { 
+                    {
+                        Constants.WriteEventLog(ex.ToString());
+
                         // This Mail has failed update attempts
                         dataObject.IsSent = false;                       
                     }
@@ -72,9 +62,7 @@ namespace TrainingTracker.TaskScheduler
             }
             catch (Exception ex)
             {
-                LogEvent(ex
-                    , "TrainingTracker_ TaskScheduler"
-                    , "TT_TaskScheduler_EmailContent_job");
+                Constants.WriteEventLog(ex.ToString());
                 // This job has failed. But we can't propagate the exception above
                 // Need to supress this
             }

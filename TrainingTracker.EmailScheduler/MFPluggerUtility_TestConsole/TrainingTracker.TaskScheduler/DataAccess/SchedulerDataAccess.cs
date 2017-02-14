@@ -12,6 +12,11 @@ namespace TrainingTracker.TaskScheduler.DataAccess
     {
         #region Jobs
 
+        /// <summary>
+        /// Fetches All Active schedulers jobs that are ready for Execution
+        /// </summary>
+        /// <returns>List of All Active schedulers</returns>
+        /// <exception >On Exception returns Empty List</exception>
         internal List<TaskSchedulerJob> GetAllActiveScheduledJob()
         {
             try
@@ -28,14 +33,18 @@ namespace TrainingTracker.TaskScheduler.DataAccess
             }
             catch (Exception ex)
             {
-                Mailer.LogEvent(  ex
-                                , "TrainingTracker_ TaskScheduler"
-                                , String.Format("TT_TaskScheduler_Job_{0}","DataAcess_GetAllActiveScheduledJob"));
+                Constants.WriteEventLog(ex.ToString());
 
                 return  new List<TaskSchedulerJob>();
             }
         }
 
+        /// <summary>
+        /// Updates the Job Execution Status 
+        /// </summary>
+        /// <param name="jobId">Id  of the job to Be updated</param>
+        /// <returns>Success Status of the method</returns>
+        /// <exception> On Exception returns False</exception>
         internal bool UpdateJobExecutionStatus(int jobId)
         {
             try
@@ -49,9 +58,7 @@ namespace TrainingTracker.TaskScheduler.DataAccess
             }
             catch (Exception ex)
             {
-                Mailer.LogEvent(ex
-                               , "TrainingTracker_ TaskScheduler"
-                               , String.Format("TT_TaskScheduler_Job_{0}", "DataAcess_UpdateJobExecutionStatus"));
+                Constants.WriteEventLog(ex.ToString());
 
                 return false;                
             }
@@ -62,6 +69,13 @@ namespace TrainingTracker.TaskScheduler.DataAccess
 
         #region Email
 
+        /// <summary>
+        /// Fetch All Emails pending for the Given Job Id
+        /// </summary>
+        /// <param name="job">Instance of current Executing Job</param>
+        /// <param name="allowedFailedAttempts">Config Driven allowed Failed Count for Emails</param>
+        /// <returns>List Of Emails Need to be Triggered</returns>
+        /// <exception>Returns Empty List </exception>
         internal IEnumerable<EmailContent> GetAllPendingEmailContentAndCorrespondingRecipientForJob(TaskSchedulerJob job, int allowedFailedAttempts)
         {
             try
@@ -75,14 +89,15 @@ namespace TrainingTracker.TaskScheduler.DataAccess
             }
             catch (Exception ex)
             {
-                Mailer.LogEvent(ex
-                             , "TrainingTracker_ TaskScheduler"
-                             , String.Format("TT_TaskScheduler_Job_{0}", "DataAcess_GetAllPendingEmailContentAndCorrespondingRecipientForJob"));
-
+                Constants.WriteEventLog(ex.ToString());
                 return new List<EmailContent>();
             }
         }
 
+        /// <summary>
+        /// Method To update the Email Status , Sets 1 to Is sent on success Sets 0 on Failure.
+        /// </summary>
+        /// <param name="email">Instance Of Email which needs updation</param>
         internal void UpdateEmailStatus(EmailContent email)
         {
             try
@@ -100,9 +115,7 @@ namespace TrainingTracker.TaskScheduler.DataAccess
             }
             catch (Exception ex)
             {
-                Mailer.LogEvent(ex
-                             , "TrainingTracker_ TaskScheduler"
-                             , String.Format("TT_TaskScheduler_Job_{0}", "DataAcess_UpdateEmailStatus"));
+                Constants.WriteEventLog(ex.ToString());
             }
         }
 
