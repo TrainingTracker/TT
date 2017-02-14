@@ -98,7 +98,7 @@ namespace TrainingTracker.TaskScheduler
 
                 //set the path of the log file that is to be written 
                 string pluginsPath = ServiceStartPath.Substring(0, ServiceStartPath.LastIndexOf(@"\", System.StringComparison.Ordinal)) + "\\"
-                                     + ConfigurationManager.AppSettings["PluginsFolderName"];
+                                     + MyDllConfigAppSettings.Settings["PluginsFolderName"].Value ;
 
                 //create a log file inside the pluginsPath folder
                 FileStream oFileStream = new FileStream(pluginsPath + "\\TrainingTrackerTaskScheduler.log", FileMode.OpenOrCreate, FileAccess.Write);
@@ -117,7 +117,7 @@ namespace TrainingTracker.TaskScheduler
             {
                 // Write the exception message to event logs.
                 EventLog log = new EventLog("Application") {Source = "MFPluggerServiceV2"};
-                log.WriteEntry("RecurrentGoalAdditionServicePlugin: " + ex.Message);
+                log.WriteEntry("TrainingTrackerTaskScheduler: " + ex.Message);
             }
         }
 
