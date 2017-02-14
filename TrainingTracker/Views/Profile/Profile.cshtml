@@ -151,7 +151,7 @@
 
                 <div id="divCoursescollapasable" class="collapse in" data-bind="visible: my.profileVm.userVm.User.IsTrainee && my.profileVm.userVm.AllAssignedCourses.length > 0">
                     <div data-bind="foreach: my.profileVm.userVm.AllAssignedCourses">
-                        <div class="list-group-item collapse" data-bind="click: function(){ $root.navigateToCourse(Id); }">
+                        <div class="list-group-item collapse" data-bind="click: function(){ my.profileVm.navigateToCourse(Id); }">
                             <span data-bind="text:Name"></span>
                             <span class="pull-right"  data-bind="text: PercentageCompleted"></span>
                             <span class="pull-right">
@@ -275,14 +275,14 @@
         <div class="col-xs-12 col-md-9 custom-margin-top-10" data-bind="visible: my.profileVm.userVm.User.IsTrainee">
             <ul class="nav nav-tabs custom-nav-tab" role="tablist">
                 <li role="presentation" class="active">
-                    <a href="#divFeedbackArea" aria-controls="divFeedbackArea" role="tab" data-toggle="tab">Feedbacks</a>
+                    <a href="#divFeedbackArea" aria-controls="divFeedbackArea" role="tab" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i> Feedbacks</a>
                 </li>
                 <li role="presentation" data-bind=" click: function () { my.profileVm.loadPlotData(); }">
-                    <a href="#divFeedbackChart" aria-controls="divFeedbackChart" role="tab" data-toggle="tab" data-bind="">Synopsis</a>
+                    <a href="#divFeedbackChart" aria-controls="divFeedbackChart" role="tab" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i> Synopsis</a>
                 </li>
                
                 <li role="presentation" data-bind=" click: my.discussionForumVm.getPosts">
-                    <a href="#divDiscussionArea" role="tab" data-toggle="tab" data-bind="">Discussions</a>
+                    <a href="#divDiscussionArea" role="tab" data-toggle="tab"><i class="fa fa-commenting-o" aria-hidden="true"></i> Discussions</a>
                 </li>
                 
                
@@ -591,7 +591,9 @@
                         </div>
                     </div>
 
-
+                    <div data-bind="visible: my.discussionForumVm.posts.DisplayPosts().length == 0" class="col-xs-12 col-md-12  panel panel-shadow">
+                        <p style="text-align:center">No Discussions Found</p>
+                    </div>
                     <div id="discussionSection" class="col-xs-12 col-md-12 no-left-margin no-right-margin" data-bind="foreach: my.discussionForumVm.posts.DisplayPosts">
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">

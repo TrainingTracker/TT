@@ -826,3 +826,7 @@ label.lbl-data-info {
     transition: ease width .5s;
    
 }
+#divSearchBar {
+background-color: red;
+    color: white;
+}

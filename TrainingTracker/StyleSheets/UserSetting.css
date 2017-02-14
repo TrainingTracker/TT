@@ -18,9 +18,6 @@
     border-bottom: 1px solid #efefef;
 }
 
-.nav-panel ul > li:last-child {
-    border: none;
-}
 .content-div {
     padding: 0;
     width: 80%;
