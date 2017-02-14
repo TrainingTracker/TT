@@ -11,7 +11,8 @@
                 <li>
                     <input type="checkbox" data-bind="attr:{id:'TraineeId'+SubscribedForUserId, value:SubscribedForUserId}, checked: IsDeleted">
                     <label data-bind="attr:{for:'TraineeId'+SubscribedForUserId}" class="pull-right">
-                        <i class="" aria-hidden="true" data-bind="attr:{class: !my.isNullorEmpty(IsDeleted()) && !IsDeleted() ? 'fa fa-envelope subscribed' : 'fa fa-envelope unsubscribed'}"></i>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span class="unsubscribed" data-bind="visible: my.isNullorEmpty(IsDeleted()) || IsDeleted()">/</span>
                     </label>
                     <span data-bind="text:FullName"></span>
                 </li>
