@@ -46,16 +46,6 @@ namespace TrainingTracker.DAL.DataAccess
                 {
 
                     EntityFramework.Course newCourseEntity = ModelMapper.MapToCourseModel(courseToAdd);
-                    EntityFramework.Course newCourseEntity1 = new EntityFramework.Course 
-                                                             { 
-                                                                 Name = courseToAdd.Name,
-                                                                 Description = courseToAdd.Description,
-                                                                 Icon = courseToAdd.Icon,
-                                                                 AddedBy = courseToAdd.AddedBy,
-                                                                 IsActive = courseToAdd.IsActive,
-                                                                 CreatedOn = courseToAdd.CreatedOn,
-                                                                 Duration = courseToAdd.Duration
-                                                             };
 
                     context.Courses.Add(newCourseEntity);
                     context.SaveChanges();
@@ -178,38 +168,6 @@ namespace TrainingTracker.DAL.DataAccess
                                    })
                                     .FirstOrDefault();
                    
-                    
-                     //var courseWithSubtopics1 = context.Courses
-                     //              .Where(c => c.IsActive && c.Id == courseId)
-                     //              .AsEnumerable()
-                     //              .Select(c => new Course
-                     //                           {
-                     //                               Id = c.Id,
-                     //                               Name = c.Name,
-                     //                               Icon = c.Icon,
-                     //                               Description = c.Description,
-                     //                               AddedBy = c.AddedBy,
-                     //                               CreatedOn = c.CreatedOn,
-                     //                               IsPublished = c.IsPublished,
-                     //                               Duration = c.Duration,
-                     //                               CourseSubtopics = c.CourseSubtopics
-                     //                                                   .Where(s => s.IsActive)
-                     //                                                   .Select(s => new CourseSubtopic
-                     //                                                                 {
-                     //                                                                     Id = s.Id,
-                     //                                                                     Name = s.Name,
-                     //                                                                     CourseId = s.CourseId,
-                     //                                                                     Description = s.Description,
-                     //                                                                     AddedBy = s.AddedBy,
-                     //                                                                     SortOrder = s.SortOrder,
-                     //                                                                     CreatedOn = s.CreatedOn
-
-                     //                                                                 })
-                     //                                                   .OrderBy(x => x.SortOrder)
-                     //                                                   .ToList()
-
-                     //                           })
-                     //               .FirstOrDefault();
                     
                      return courseWithSubtopics;
                                    

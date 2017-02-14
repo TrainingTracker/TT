@@ -13,7 +13,14 @@ namespace TrainingTracker.BLL
     {
         public ForumPost GetPostWithThreads(int postId)
         {
-            return ForumDiscussionPostConverter.ConvertFromCore(UnitOfWork.ForumDiscussionPostRepository.GetPostWithThreads(postId));
+            var efPostWithThread = UnitOfWork.ForumDiscussionPostRepository.GetPostWithThreads(postId);
+            var postWithThread = ForumDiscussionPostConverter.ConvertFromCore(efPostWithThread);
+
+            postWithThread.Threads = efPostWithThread.ForumDiscussionThreads
+                .Select(thread => ForumDiscussionThreadConverter.ConvertFromCore(thread))
+                .ToList();
+
+            return postWithThread;
         }
 
         public PagedResult<ForumPost> GetFilteredPagedPosts(string wildcard, int statusId, int searchPostId, int addedBy,
