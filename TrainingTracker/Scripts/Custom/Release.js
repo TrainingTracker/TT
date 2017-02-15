@@ -53,9 +53,13 @@
         ko.utils.arrayForEach(releaseList, function (item) {
             var version = getVersion(item);
             item.Version = (version == "0.0.0") ? "--" : version;
-            item.ReleaseDate = (item.ReleaseDate == null) ? "N/A" : moment(item.ReleaseDate).format('DD/MM/YYYY');
-            item.IsPublished = item.IsPublished;
-            my.allReleaseVm.releases.push(item);
+            
+            if (item.ReleaseDate != null && version != "0.0.0") {
+                item.ReleaseDate = (item.ReleaseDate == null) ? "N/A" : moment(item.ReleaseDate).format('DD/MM/YYYY');
+                item.IsPublished = item.IsPublished;
+                my.allReleaseVm.releases.push(item);
+            }
+           
 
             if (version !== "0.0.0" && (existingRelease.Major <= item.Major && existingRelease.Minor <= item.Minor && existingRelease.Patch <= item.Patch)) {
                 existingRelease.Major = item.Major;

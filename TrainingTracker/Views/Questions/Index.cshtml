@@ -14,7 +14,7 @@
     <div class="col-xs-12  no-padding-left no-padding-right">
         <div class="col-lg-2 no-padding-left   category-pane">
             <div class="input-group category-list-search">
-                <input type="text" class="form-control" placeholder="search catagories..." data-bind="value: categoryFilter, valueUpdate:'afterkeydown'">
+                <input type="text" class="form-control" placeholder="search catagories..." data-bind="value: categoryFilter">
                 <div class="input-group-btn">
                     <div class="btn btn-default"><i class="glyphicon glyphicon-search"></i></div>
                 </div>
@@ -23,7 +23,7 @@
                 <div data-bind="visible:filterCategory().length == 0">
                     <div class="alert alert-info" role="alert">
                         Oh! It seems we don't have this category created yet. You can add this category by clicking on the Add button here.
-                        <br /><br />
+                        <br/><br/>
                         <button class="btn btn-primary" data-bind="click:function(){addCategory();}"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
                     </div>
                 </div>

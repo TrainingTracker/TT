@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.EntityFramework;
+using Course = TrainingTracker.DAL.EntityFramework.Course;
 
 namespace TrainingTracker.DAL.DataAccess
 {

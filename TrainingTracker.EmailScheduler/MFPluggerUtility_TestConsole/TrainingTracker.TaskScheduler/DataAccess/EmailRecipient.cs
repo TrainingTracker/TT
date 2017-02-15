@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TrainingTracker.DAL.EntityFramework
+namespace TrainingTracker.TaskScheduler.DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SubscribedTrainee
+    public partial class EmailRecipient
     {
         public int Id { get; set; }
-        public int SubscribedByUserId { get; set; }
-        public int SubscribedForUserId { get; set; }
-        public bool IsDeleted { get; set; }
+        public int EmailContentId { get; set; }
+        public string EmailAddress { get; set; }
+        public int EmailRecipientType { get; set; }
     
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual EmailContent EmailContent { get; set; }
+        public virtual EmailRecipientType EmailRecipientType1 { get; set; }
     }
 }

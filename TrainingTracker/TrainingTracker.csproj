@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authorization\CustomAuthorize.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\LearningMapController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\LearningPathController.cs">
@@ -145,7 +146,9 @@
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,6 +270,11 @@
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\DiscussionForum.js" />
+    <Content Include="Scripts\Custom\DiscussionThread.js" />
+    <Content Include="Scripts\Custom\HelpForum.js" />
+    <Content Include="Scripts\Custom\DiscussionForumService.js" />
+    <Content Include="Scripts\Custom\HelpForumService.js" />
     <Content Include="Scripts\Custom\LearningMap.js" />
     <Content Include="Scripts\Custom\LearningMapService.js" />
     <Content Include="Scripts\Custom\Course.js" />
@@ -277,6 +285,7 @@
     <Content Include="Scripts\Custom\FeedbackThread.js" />
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
+    <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
     <Content Include="Scripts\Custom\Release.js" />
@@ -326,6 +335,8 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\DiscussionThread.css" />
+    <Content Include="StyleSheets\HelpForum.css" />
     <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
     <Content Include="StyleSheets\AllProfiles.css" />
@@ -382,9 +393,15 @@
     <Content Include="StyleSheets\fontawesome-animation.css" />
     <Content Include="Views\LearningPath\Course.cshtml" />
     <Content Include="Views\LearningMap\LearningMap.cshtml" />
+    <Content Include="Views\Help\Forum.cshtml" />
+    <Content Include="Views\Shared\_DiscussionThread.cshtml" />
+    <Content Include="Views\Setting\UserSetting.cshtml" />
+    <Content Include="Views\Shared\_ProfileSetting.cshtml" />
+    <Content Include="Views\Shared\_NotificationSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UserHelpForum\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

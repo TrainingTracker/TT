@@ -1,0 +1,30 @@
+﻿
+<div style="display: none" data-bind="visible: my.notificationSettingVm.isVisible">
+    <div class="panel" id ="notificationPanel">
+
+        <div class="panel-heading">
+            <span class="panel-title">Set Your Email Preference for Trainees</span>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <!-- ko foreach : my.notificationSettingVm.traineeList -->
+                <li>
+                    <input type="checkbox" data-bind="attr:{id:'TraineeId'+SubscribedForUserId, value:SubscribedForUserId}, checked: IsDeleted">
+                    <label data-bind="attr:{for:'TraineeId'+SubscribedForUserId}" class="pull-right">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span class="unsubscribed" data-bind="visible: my.isNullorEmpty(IsDeleted()) || IsDeleted()">/</span>
+                    </label>
+                    <span data-bind="text:FullName"></span>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <button data-bind="click: my.notificationSettingVm.saveNotificationSetting"
+                    type="button" class="btn btn-sm btn-primary col-sm-offset-10">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+

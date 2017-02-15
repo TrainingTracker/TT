@@ -7,17 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TrainingTracker.DAL.EntityFramework
+namespace TrainingTracker.TaskScheduler.DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class EmailRecipientType
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public EmailRecipientType()
+        {
+            this.EmailRecipients = new HashSet<EmailRecipient>();
+        }
+    
+        public int Id { get; set; }
+        public string Description { get; set; }
+    
+        public virtual ICollection<EmailRecipient> EmailRecipients { get; set; }
     }
 }

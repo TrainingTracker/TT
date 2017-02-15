@@ -46,16 +46,6 @@ namespace TrainingTracker.DAL.DataAccess
                 {
 
                     EntityFramework.Course newCourseEntity = ModelMapper.MapToCourseModel(courseToAdd);
-                    EntityFramework.Course newCourseEntity1 = new EntityFramework.Course 
-                                                             { 
-                                                                 Name = courseToAdd.Name,
-                                                                 Description = courseToAdd.Description,
-                                                                 Icon = courseToAdd.Icon,
-                                                                 AddedBy = courseToAdd.AddedBy,
-                                                                 IsActive = courseToAdd.IsActive,
-                                                                 CreatedOn = courseToAdd.CreatedOn,
-                                                                 Duration = courseToAdd.Duration
-                                                             };
 
                     context.Courses.Add(newCourseEntity);
                     context.SaveChanges();
@@ -178,38 +168,6 @@ namespace TrainingTracker.DAL.DataAccess
                                    })
                                     .FirstOrDefault();
                    
-                    
-                     //var courseWithSubtopics1 = context.Courses
-                     //              .Where(c => c.IsActive && c.Id == courseId)
-                     //              .AsEnumerable()
-                     //              .Select(c => new Course
-                     //                           {
-                     //                               Id = c.Id,
-                     //                               Name = c.Name,
-                     //                               Icon = c.Icon,
-                     //                               Description = c.Description,
-                     //                               AddedBy = c.AddedBy,
-                     //                               CreatedOn = c.CreatedOn,
-                     //                               IsPublished = c.IsPublished,
-                     //                               Duration = c.Duration,
-                     //                               CourseSubtopics = c.CourseSubtopics
-                     //                                                   .Where(s => s.IsActive)
-                     //                                                   .Select(s => new CourseSubtopic
-                     //                                                                 {
-                     //                                                                     Id = s.Id,
-                     //                                                                     Name = s.Name,
-                     //                                                                     CourseId = s.CourseId,
-                     //                                                                     Description = s.Description,
-                     //                                                                     AddedBy = s.AddedBy,
-                     //                                                                     SortOrder = s.SortOrder,
-                     //                                                                     CreatedOn = s.CreatedOn
-
-                     //                                                                 })
-                     //                                                   .OrderBy(x => x.SortOrder)
-                     //                                                   .ToList()
-
-                     //                           })
-                     //               .FirstOrDefault();
                     
                      return courseWithSubtopics;
                                    
@@ -361,7 +319,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                     subtopicEntityToUpdate.Name = subtopicToUpdate.Name;
                     subtopicEntityToUpdate.Description = subtopicToUpdate.Description;
-                    subtopicEntityToUpdate.SortOrder = subtopicToUpdate.SortOrder;
                     subtopicEntityToUpdate.CourseId = subtopicToUpdate.CourseId;
                     
                     context.SaveChanges();
@@ -471,7 +428,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                     entityToUpdate.Name = dataToUpdate.Name;
                     entityToUpdate.Description = dataToUpdate.Description;
-                    entityToUpdate.SortOrder = dataToUpdate.SortOrder;
                     entityToUpdate.Url = dataToUpdate.Url;
                     entityToUpdate.CourseSubtopicId = dataToUpdate.CourseSubtopicId;
                     
@@ -1014,20 +970,6 @@ namespace TrainingTracker.DAL.DataAccess
                                                             TotalSubTopicCount = x.CourseSubtopics.SelectMany(y=>y.SubtopicContents.Where(ya=>ya.IsActive)).Count(),
                                                             CoveredSubTopicCount = x.CourseSubtopics.SelectMany(y => y.SubtopicContents.Where(ya => ya.IsActive).SelectMany(z=>z.SubtopicContentUserMaps.Where(za=>za.Seen && za.UserId == userId))).Count(),
                                                         }).FirstOrDefault();
-                    //if (courseId > 0 && course !=null)
-                    //{
-
-                    //    return new CourseTrackerDetails
-                    //    {
-                    //        Id = course.Id,
-                    //        Name = course.Name,
-                    //        //TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment))
-                    //        TotalAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive)).Count(),
-                    //        TotalSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive)).Count(),
-                    //        CoveredSubTopicCount = course.CourseSubtopics.Select(x=>x.SubtopicContents.Where(y=>y.IsActive).Select(z=>z.SubtopicContentUserMaps.Where(t=>t.Seen && t.UserId == userId))).Count(),
-                    //        CompletedAssignmentCount = course.CourseSubtopics.Select(x=>x.AssignmentSubtopicMaps.Select(y=>y.Assignment).Where(a=>a.IsActive).Select(y=>y.AssignmentUserMaps.Where(z=>z.IsApproved && z.TraineeId==userId))).Count()
-                    //    };
-                    //}
                     throw new Exception("Course details cannot be null,there have to be course assigned");                    
                 }
             }
@@ -1036,7 +978,6 @@ namespace TrainingTracker.DAL.DataAccess
                 LogUtility.ErrorRoutine(ex);
                 return null;
             }
-        }
-        
+        }      
     }
 }
