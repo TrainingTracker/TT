@@ -112,10 +112,7 @@ namespace TrainingTracker.TaskScheduler
                 string serviceLocation = Constants.MyDllConfigAppSettings.Settings["ServiceLocation"].Value ??
                                          "TestServer";
 
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = Constants.MyDllConfigAppSettings.Settings["SMTP"].Value ?? string.Empty
-                };
+                SmtpClient smtp = new SmtpClient("email.mindfiresolutions.com");
 
                 if (!serviceLocation.Equals("Live", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -123,6 +120,13 @@ namespace TrainingTracker.TaskScheduler
                     smtp.PickupDirectoryLocation =
                         Constants.MyDllConfigAppSettings.Settings["PickupDirectoryLocation"].Value ?? "D:\\00TTEmails\\";
                 }
+                else
+                {
+                    smtp.EnableSsl = true;
+                    smtp.Port = 587;
+                    smtp.Credentials = new System.Net.NetworkCredential("trainingtracker@mindfiresolutions.com","mfmail@2016#");
+                }
+               
                 smtp.Send(mail);
             }           
             finally
