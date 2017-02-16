@@ -1,0 +1,343 @@
+﻿
+  #divDiscussionThread  #divThreadWrapper {
+    background: #000;
+    opacity: 0.5;
+    min-height: 100vh;
+      cursor: pointer;
+}
+  #divDiscussionThread #divFeedbackContainer {
+    width: 71%;
+    position: absolute;
+    top: 0;
+    z-index: 10000;
+    margin-left: 26.7%;
+    margin-top: 5%;
+       transition-property: all;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+#divDiscussionThread   {
+    margin: 0;
+    left: 0;
+    position: absolute;   
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 1001;
+    transition-property: all;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+#divCommentThreads img ,#divNewThread img{
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    margin-right: 15px;
+}
+#divCommentThreads > div {
+    background: #fff;
+    
+}
+
+#divCommentThreads .panel-white .row {
+        padding: 10px 20px 0 20px;
+}
+
+#divCommentThreads .panel-white {
+   padding: 10px 0 10px 0;  
+       border-radius: 4px;
+}
+
+#divCommentThreads .panel-white .row .col-xs-12 {
+    border-bottom: 1px solid #ccc;
+}
+
+#divCommentThreads .panel-white .row:last-child .col-xs-12{
+    border-bottom:none;
+}
+
+#divNewThread > .panel-white {
+    background-color: #fff;
+    padding: 6px 6px 6px 23px;
+    border-radius: 4px;
+}
+   
+#divNewThread {
+    padding: 10px 0 10px 0;
+}
+
+#divCloseModalButton {
+    -moz-transform: scale(3);
+    position: absolute;
+    top: 5%;
+    zoom: 4;
+    right: 1%;
+    z-index: 100000;
+    /* background: #ccc; */
+    border-radius: 71%;
+    cursor: pointer;
+}
+
+
+#divDiscussionThread .weekly-feedback  code
+{
+     padding:0;
+     color: black; 
+     background-color: #fff; 
+         white-space: pre-line;
+}
+
+#divDiscussionThread .weekly-feedback code label {
+    display: block;
+    font: inherit;
+    font-size: 14px;
+}
+
+
+#divDiscussionThread .weekly-feedback code .feedback-question label {
+    font-size: 17px;
+}
+
+#divDiscussionThread .weekly-feedback code .feedback-answer label {
+          margin-bottom: 5px;
+    font-size: 14px;
+    margin-left: 1%;
+    color: green;
+}
+
+#divDiscussionThread .weekly-feedback code .feedback-answer label:before {
+    content: "- ";
+}
+
+#divDiscussionThread .weekly-feedback code .feedback-notes>label {
+   margin-left: 3%;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFF8DC;
+    border-left: 3px solid #ffeb8e;
+}
+#divSurveyCodeReview  .feedback-notes li {
+    margin-left: 3%; 
+}
+
+#divSurveyCodeReview  .feedback-notes {
+    padding: 0px 0 0px 0px;
+}
+    
+
+#divDiscussionThread .weekly-feedback code .feedback-notes label q {
+  quotes: "“" "”" "‘" "’";
+}
+#divDiscussionThread .weekly-feedback code .feedback-notes label q:before {
+    content: open-quote;
+}
+#divDiscussionThread .weekly-feedback code .feedback-notes label q:after {
+    content: close-quote;
+}
+
+#divDiscussionThread #divSurveyCodeReview li {
+    list-style: none;
+    font-size: 14px;
+}
+    
+.panel-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
+}
+
+.panel-white {
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+        
+}
+
+#divFeedbackArea .panel-white:first-child {
+    border-radius: 0 4px 4px 4px;
+}
+
+    .panel-white .panel-heading {
+        color: #333;
+        background-color: #fff;
+        border-color: #ddd;
+    }
+
+    .panel-white .panel-footer {
+        background-color: #fff;
+        border-color: #ddd;
+    }
+
+#divDiscussionArea .post .post-heading {
+    height: 95px;
+    padding: 15px 15px 0 15px;
+}
+
+
+    .post .post-heading .avatar {
+        width: 50px;
+        height: 60px;
+        display: block;
+        margin-right: 15px;
+    }
+
+.post .post-heading .meta .title {
+    margin-bottom: 0;
+}
+
+ .post .post-heading .meta .title a {
+     color: black;
+ }
+
+ .post .post-heading .meta .title a:hover {
+     color: #aaaaaa;
+ }
+
+.post .post-heading .meta .time {
+    margin-top: 0;
+    color: #999;
+}
+
+.post .post-image .image {
+    width: 100%;
+    height: auto;
+}
+
+.post .post-description {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.post .post-description p {
+    font-size: 14px;
+    margin-top: 0 !important;
+}
+
+.post .post-description .stats {
+    margin-top: 20px;
+}
+
+.post .post-description .stats .stat-item {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.post .post-description .stats .stat-item .icon {
+    margin-right: 8px;
+}
+
+.post .post-footer {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+.post .post-footer .input-group-addon a {
+    color: #454545;
+}
+
+.post .post-footer .comments-list {
+    padding: 0;
+    margin-top: 20px;
+    list-style-type: none;
+}
+
+.post .post-footer .comments-list .comment {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.post .post-footer .comments-list .comment .avatar {
+    width: 35px;
+    height: 35px;
+}
+
+.post .post-footer .comments-list .comment .comment-heading {
+    display: block;
+    width: 100%;
+}
+
+.post .post-footer .comments-list .comment .comment-heading .user {
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    margin-top: 0;
+    margin-right: 10px;
+}
+
+.post .post-footer .comments-list .comment .comment-heading .time {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 0;
+    display: inline;
+}
+
+.post .post-footer .comments-list .comment .comment-body
+{
+    margin-left: 50px;
+}
+
+.post .post-footer .comments-list .comment > .comments-list
+{
+    margin-left: 50px;
+}
+.feedback-zone >.col-xs-3:after {
+    content: "";
+    width: 100%;
+    top: 100%;
+    position: absolute;
+    border-bottom: 2px solid red;
+}
+
+.feedback-zone >.col-xs-3 {
+   height: 70px;
+    padding: 0;
+    margin-left: 0px;
+    border: 7px solid #fff;
+    color: #fff;
+    /* padding: 9px; */
+    /* box-sizing: inherit; */
+    display: table;
+    background-color: #2596F1;
+   
+}
+
+
+span.spn-course-data {
+       min-height: 50px;
+    font-family: "Orbitron";
+    font-size: 13px;
+    position: absolute;
+    top: 50%;
+    /* margin: 38px; */
+    /* display: table-row; */
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+}
+span.spn-course-data:nth-child(n+2) {
+    font-size: 20px;
+}
+
+label.lbl-data-info {
+    text-align: center;
+    min-height: 20px;
+    font-size: 20px !important;
+    color:  #1A2942;
+    display: table-row;
+    margin-bottom: 0;
+}
+
+#btnAddDiscussionThread {
+    position: absolute;
+   bottom: 15px;
+    right: 15px;
+}
+
+#divDiscussionThread #divFeedbackContainer #divNewThread>div {
+    padding: 0;
+    
+}
+
+#divDiscussionThread #divFeedbackContainer #divNewThread>div>div {
+    padding: 15px 20px;
+}

@@ -128,7 +128,7 @@
                             <div class="col-xs-7 no-left-margin no-right-margin">
                                                    
                                 <div data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === true">
-                                    <span class="col-xs-4 no-padding-left no-padding-right " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
+                                    <span class="col-xs-4 no-padding-left no-padding-right " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 3 ">Assignment</span>
                                     <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 4 ">Code Review</span>  
                                     <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>  
                                     <div class="col-xs-4 no-padding-left no-padding-right" data-bind="css: {
@@ -158,7 +158,7 @@
                         <div class="col-xs-7 no-left-margin no-right-margin">
                             <div class="col-xs-12 no-padding-left no-padding-right" data-bind="if: my.dashboardVm.getFeedback('5', 'All', User.UserId) === true">
                                 <div class="col-xs-12 no-padding-left no-padding-right" data-bind="foreach: my.dashboardVm.feedback">
-                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible :FeedbackType.FeedbackTypeId == 3 ">Assigment</span>
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible :FeedbackType.FeedbackTypeId == 3 ">Assignment</span>
                                     <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible: FeedbackType.FeedbackTypeId == 4 ">Code Review</span>   
                                     <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right " data-bind="visible: FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>                                   
                                     <div class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="css: {

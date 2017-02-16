@@ -11,5 +11,11 @@ namespace TrainingTracker.Controllers
             get { return _helpForumBl??(_helpForumBl = new UserHelpForumBl()); }
         }
 
+        private DiscussionForumBl _discussionForumBl;
+        public DiscussionForumBl DiscussionForumBl
+        {
+            get { return _discussionForumBl ?? (_discussionForumBl = new DiscussionForumBl()); }
+        }
+
     }
 }

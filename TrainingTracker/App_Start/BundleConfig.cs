@@ -40,8 +40,7 @@ namespace TrainingTracker
                 "~/Scripts/Custom/AjaxService.js",
                 "~/Scripts/Custom/UserService.js",
                 "~/Scripts/Custom/BindingHandlers.js",
-                "~/Scripts/Custom/Layout.js",
-                "~/Scripts/Custom/AddEditProfile.js"
+                "~/Scripts/Custom/Layout.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/ProfileViewScripts").Include(
@@ -51,9 +50,12 @@ namespace TrainingTracker
               "~/Scripts/bootstrap-datepicker.min.js" ,
               "~/Scripts/jquery.steps.js" ,
               "~/Scripts/typehead.js" ,
-              "~/Scripts/Custom/FeedbackChart.js" ,
+              "~/Scripts/Custom/FeedbackChart.js",
               "~/Scripts/Custom/UserProfile.js" ,
+              "~/Scripts/Custom/DiscussionForumService.js",
+              "~/Scripts/Custom/DiscussionForum.js",
               "~/Scripts/Custom/FeedbackThread.js" ,
+              "~/Scripts/Custom/DiscussionThread.js",
               "~/Scripts/wz_tooltip.js" 
               ));
 
@@ -122,12 +124,18 @@ namespace TrainingTracker
               "~/Scripts/Custom/Course.js",
               "~/Scripts/autosize.js"
               ));
+
+             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+                "~/Scripts/Custom/AddEditProfile.js",
+                "~/Scripts/Custom/NotificationSetting.js",
+                "~/Scripts/Custom/UserSetting.js",
+                "~/Scripts/notify.js"
+               ));
             #endregion
 
             #region Styles
             bundles.Add(new StyleBundle("~/bundles/LayoutViewStyles").Include(
-                      "~/StyleSheets/Layout.css",
-                      "~/StyleSheets/AddEditProfile.css"
+                      "~/StyleSheets/Layout.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ProfileViewStyles").Include(
@@ -137,7 +145,8 @@ namespace TrainingTracker
                       "~/Content/Timeline.css" ,
                       "~/StyleSheets/Profile.css",
                       "~/StyleSheets/FeedbackPlot.css",
-                      "~/StyleSheets/FeedbackThread.css"
+                      "~/StyleSheets/FeedbackThread.css",
+                      "~/StyleSheets/DiscussionThread.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ReleaseViewStyles").Include(
@@ -189,7 +198,13 @@ namespace TrainingTracker
                   "~/StyleSheets/Course.css",
                    "~/StyleSheets/jquery-confirm.css" 
             ));
-  
+
+            bundles.Add(new StyleBundle("~/bundles/UserSettingViewStyles").Include(
+                    "~/StyleSheets/UserSetting.css",
+                    "~/StyleSheets/ProfileSetting.css",
+                    "~/StyleSheets/NotificationSetting.css"
+            ));
+
             #endregion
 
         }

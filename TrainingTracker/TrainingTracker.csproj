@@ -146,6 +146,7 @@
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,7 +270,10 @@
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\DiscussionForum.js" />
+    <Content Include="Scripts\Custom\DiscussionThread.js" />
     <Content Include="Scripts\Custom\HelpForum.js" />
+    <Content Include="Scripts\Custom\DiscussionForumService.js" />
     <Content Include="Scripts\Custom\HelpForumService.js" />
     <Content Include="Scripts\Custom\LearningMap.js" />
     <Content Include="Scripts\Custom\LearningMapService.js" />
@@ -281,6 +285,7 @@
     <Content Include="Scripts\Custom\FeedbackThread.js" />
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
+    <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
     <Content Include="Scripts\Custom\Release.js" />
@@ -330,6 +335,7 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\DiscussionThread.css" />
     <Content Include="StyleSheets\HelpForum.css" />
     <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
@@ -388,6 +394,10 @@
     <Content Include="Views\LearningPath\Course.cshtml" />
     <Content Include="Views\LearningMap\LearningMap.cshtml" />
     <Content Include="Views\Help\Forum.cshtml" />
+    <Content Include="Views\Shared\_DiscussionThread.cshtml" />
+    <Content Include="Views\Setting\UserSetting.cshtml" />
+    <Content Include="Views\Shared\_ProfileSetting.cshtml" />
+    <Content Include="Views\Shared\_NotificationSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

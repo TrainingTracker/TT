@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cede14b635f04a5880080d12cc7a2cc0" Name="Diagram1" ZoomLevel="81" >
+        <EntityTypeShape EntityType="TrainingTracker.EmailContent" Width="2.25" PointX="0.625" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingTracker.EmailRecipient" Width="2.25" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingTracker.EmailRecipientType" Width="2.25" PointX="4.375" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingTracker.TaskSchedulerJob" Width="2.625" PointX="4.375" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="TrainingTracker.FK_EmailContent_SchedulerJob" />
+        <AssociationConnector Association="TrainingTracker.FK_EmailRecipient_EmailContent" />
+        <AssociationConnector Association="TrainingTracker.FK_EmailRecipient_EmailRecipientType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

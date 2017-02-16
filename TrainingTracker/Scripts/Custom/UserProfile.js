@@ -2,6 +2,7 @@
     my.profileVm = function () {
         var userId = my.queryParams["userId"],
             queryStringFeedbackId = my.queryParams["feedbackId"],
+            queryStringPostId = my.queryParams["postId"],
             showTimeline = ko.observable(false),
             selectedSkill = ko.observable(),
             selectedProject = ko.observable(),
@@ -75,11 +76,14 @@
                 my.profileVm.plotFilter.TraineeId = jsonData.User.UserId;
                 my.profileVm.userVm = jsonData;
                 my.profileVm.feedbackPost.FeedbackType(my.profileVm.userVm.FeedbackTypes[0]);
-                ko.applyBindings(my.profileVm);               
+                ko.applyBindings([my.profileVm, my.discussionForumVm]);
                 my.profileVm.feedbackPost.Rating(0);
 
                 if (!my.isNullorEmpty(queryStringFeedbackId)) {
                     loadFeedbackWithThread(queryStringFeedbackId);
+                }
+                if (!my.isNullorEmpty(queryStringPostId)) {
+                    my.discussionThreadsVm.loadDiscussionDialog(queryStringPostId);
                 }
 
             },

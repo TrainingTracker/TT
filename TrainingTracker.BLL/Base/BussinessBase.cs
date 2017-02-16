@@ -205,6 +205,24 @@ namespace TrainingTracker.BLL.Base
             get { return _forumUserHelpThreadConverter ?? (_forumUserHelpThreadConverter = new ForumUserHelpThreadConverter()); }
         }
 
+        private ForumDiscussionPostConverter _forumDiscussionPostConverter;
+        public ForumDiscussionPostConverter ForumDiscussionPostConverter
+        {
+            get { return _forumDiscussionPostConverter ?? (_forumDiscussionPostConverter = new ForumDiscussionPostConverter()); }
+        }
+
+        private ForumDiscussionThreadConverter _forumDiscussionThreadConverter;
+        public ForumDiscussionThreadConverter ForumDiscussionThreadConverter
+        {
+            get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());}
+		}
+		
+        private EmailAlertSubscriptionConverter _emailAlertSubscriptionConverter;
+        public EmailAlertSubscriptionConverter EmailAlertSubscriptionConverter
+        {
+            get { return _emailAlertSubscriptionConverter ?? (_emailAlertSubscriptionConverter = new EmailAlertSubscriptionConverter()); }
+        }
+
         #endregion
 
     }

@@ -34,12 +34,17 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual DbSet<CourseSubtopic> CourseSubtopics { get; set; }
         public virtual DbSet<CourseSubtopicDiscussion> CourseSubtopicDiscussions { get; set; }
         public virtual DbSet<CourseUserMapping> CourseUserMappings { get; set; }
+        public virtual DbSet<EmailAlertSubscription> EmailAlertSubscriptions { get; set; }
         public virtual DbSet<EmailContent> EmailContents { get; set; }
         public virtual DbSet<EmailRecipient> EmailRecipients { get; set; }
         public virtual DbSet<EmailRecipientType> EmailRecipientTypes { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<FeedbackThread> FeedbackThreads { get; set; }
         public virtual DbSet<FeedbackType> FeedbackTypes { get; set; }
+        public virtual DbSet<ForumDiscussionCategory> ForumDiscussionCategories { get; set; }
+        public virtual DbSet<ForumDiscussionPost> ForumDiscussionPosts { get; set; }
+        public virtual DbSet<ForumDiscussionStatu> ForumDiscussionStatus { get; set; }
+        public virtual DbSet<ForumDiscussionThread> ForumDiscussionThreads { get; set; }
         public virtual DbSet<ForumUserHelpCategory> ForumUserHelpCategories { get; set; }
         public virtual DbSet<ForumUserHelpPost> ForumUserHelpPosts { get; set; }
         public virtual DbSet<ForumUserHelpStatu> ForumUserHelpStatus { get; set; }
@@ -59,7 +64,6 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual DbSet<Release> Releases { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
-        public virtual DbSet<SubscribedTrainee> SubscribedTrainees { get; set; }
         public virtual DbSet<SubtopicContent> SubtopicContents { get; set; }
         public virtual DbSet<SubtopicContentUserMap> SubtopicContentUserMaps { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
