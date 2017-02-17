@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace TrainingTracker.Common.Entity
 {
@@ -11,12 +12,14 @@ namespace TrainingTracker.Common.Entity
         /// Get and Sets UserName
         /// </summary>
         [Required]
+        [AllowHtml] 
         public string UserName { get; set; }
 
         /// <summary>
         /// Gets and sets the Password 
         /// </summary>
         [Required]
+        [AllowHtml] 
         public string Password { get; set; }
 
     }
