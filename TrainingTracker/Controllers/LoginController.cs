@@ -20,7 +20,7 @@ namespace TrainingTracker.Controllers
         /// <returns>redirect to Login</returns>
         public ActionResult Index()
         {
-          return RedirectToAction("Login");
+            return RedirectToAction("Login");
         }
 
         /// <summary>
@@ -30,20 +30,31 @@ namespace TrainingTracker.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            var formCookies = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (formCookies == null) return View("Login");
+
+            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(formCookies.Value);
+
+            if (authTicket != null && !authTicket.Expired)
+            {
+               return RedirectToAction("Index", "Dashboard");
+            }
             return View("Login");
         }
 
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login( LoginModel objLoginModel )
+        public ActionResult Login(LoginModel objLoginModel, string returnUrl)
         {
             if (!ModelState.IsValid) return View("Login");
 
-            var userData = new LoginBl().AuthenticateUser(objLoginModel.UserName , Common.Encryption.Cryptography.Encrypt(objLoginModel.Password));
-            
+            var userData = new LoginBl().AuthenticateUser(objLoginModel.UserName, Common.Encryption.Cryptography.Encrypt(objLoginModel.Password));
+
             if (userData.IsValid)
             {
                 User currentUser = new UserBl().GetUserByUserName(userData.UserName);
@@ -54,16 +65,18 @@ namespace TrainingTracker.Controllers
                   1,
                   userData.UserName.ToString(),
                   DateTime.Now,
-                  DateTime.Now.AddDays(1),
+                  DateTime.Now.AddDays(7),
                   false,
                   serializedUser,
                   "/");
                 Response.Cookies.Clear();
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
                 Response.SetCookie(cookie);
-                return RedirectToAction("Index", "Dashboard");
+
+                return RedirectToLocal(returnUrl);
             }
-            ModelState.AddModelError("","Login Failed,Invalid Credentials");
+
+            ModelState.AddModelError("", "Login Failed,Invalid Credentials");
             return View("Login");
         }
 
@@ -73,13 +86,13 @@ namespace TrainingTracker.Controllers
         /// <returns></returns>
         public ActionResult Valid()
         {
-            return RedirectToAction("Index" , "Dashboard");
+            return RedirectToAction("Index", "Dashboard");
         }
 
 
         public ActionResult GetCurrentUser()
         {
-            return Json(new UserBl().GetUserByUserName(User.Identity.Name) , JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetUserByUserName(User.Identity.Name), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -91,7 +104,16 @@ namespace TrainingTracker.Controllers
             FormsAuthentication.SignOut();
             Session.Clear();
             Session.Abandon();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

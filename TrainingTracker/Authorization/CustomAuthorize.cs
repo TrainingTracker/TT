@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using TrainingTracker.BLL;
@@ -96,7 +97,13 @@ namespace TrainingTracker.Authorize
                 }
                 if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    filterContext.Result = new RedirectResult("~/Login/Login");
+                    string returnUrl = string.Empty;
+
+                    if (filterContext.HttpContext.Request.Url != null)
+                    {
+                        returnUrl =HttpContext.Current.Server.UrlEncode( filterContext.HttpContext.Request.Url.PathAndQuery);
+                    }
+                    filterContext.HttpContext.Response.Redirect("~/Login/Login?returnUrl=" + returnUrl);
                     return;
                 }
                 if (filterContext.Result is HttpUnauthorizedResult)

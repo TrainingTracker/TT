@@ -349,12 +349,15 @@
     <Content Include="StyleSheets\jquery-confirm.css" />
     <Content Include="StyleSheets\Layout.css" />
     <Content Include="StyleSheets\Login.css" />
+    <Content Include="StyleSheets\NotificationSetting.css" />
     <Content Include="StyleSheets\Profile.css" />
+    <Content Include="StyleSheets\ProfileSetting.css" />
     <Content Include="StyleSheets\Questions.css" />
     <Content Include="StyleSheets\Release.css" />
     <Content Include="StyleSheets\Session.css" />
     <Content Include="StyleSheets\simple-sidebar.css" />
     <Content Include="StyleSheets\SurveyWizard.css" />
+    <Content Include="StyleSheets\UserSetting.css" />
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
     <Content Include="Uploads\ProfilePicture\harshw.JPG" />
