@@ -257,6 +257,8 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\ISubtopicContentRepository.cs" />
+    <Compile Include="Interface\ICourseSubtopicRepository.cs" />
     <Compile Include="Interface\IEmailContentRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
     <Compile Include="Interface\IFeedbackRepository.cs" />
@@ -278,6 +280,9 @@
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionCategoryConverter.cs" />
+    <Compile Include="ModelMapper\SubtopicContentConverter.cs" />
+    <Compile Include="ModelMapper\CourseSubtopicConverter.cs" />
+    <Compile Include="ModelMapper\CourseConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionPostConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionStatusConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionThreadConverter.cs" />
@@ -294,6 +299,8 @@
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\SubtopicContentRepository.cs" />
+    <Compile Include="Repositories\CourseSubtopicRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\EmailContentRepository.cs" />

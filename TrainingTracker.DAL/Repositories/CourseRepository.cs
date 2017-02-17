@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using TrainingTracker.Common.Entity;
-using TrainingTracker.DAL.DataAccess;
 using TrainingTracker.DAL.Interface;
+using TrainingTracker.DAL.DataAccess;
 using TrainingTracker.DAL.EntityFramework;
 using Course = TrainingTracker.DAL.EntityFramework.Course;
 
@@ -25,22 +24,19 @@ namespace TrainingTracker.DAL.Repositories
         }
 
 
-        public bool Update(Course updatedData)
-        {
-            var courseEntity = _context.Courses.SingleOrDefault(c => c.Id == updatedData.Id);
-            if (courseEntity == null)
-            {
-                return false;
-            }
-            courseEntity.Name = updatedData.Name;
-            courseEntity.Description = updatedData.Description;
-            courseEntity.Icon = updatedData.Icon;
-            courseEntity.Duration = updatedData.Duration;
-
-            return true;
-        }
-
-
-
+        //public void AddOrUpdate(Course course)
+        //{
+        //    if (course.Id == 0)
+        //    {
+        //        Add(course);
+        //    }
+        //    else
+        //    {
+        //        _context.Courses.Attach(course);
+        //        _context.Entry(subcription).State = EntityState.Modified;
+        //        _context.Entry(subcription).Property(x => x.SubscribedByUserId).IsModified = false;
+        //        _context.Entry(subcription).Property(x => x.SubscribedForUserId).IsModified = false;
+        //    }
+        //}
     }
 }

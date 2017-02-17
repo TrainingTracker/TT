@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.RepoInterface;
+using TrainingTracker.DAL.Interface;
 
 namespace TrainingTracker.DAL.Repositories
 {

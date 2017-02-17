@@ -1,6 +1,5 @@
 ﻿using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.RepoInterface;
 
 namespace TrainingTracker.DAL.Interface
 {
