@@ -10,6 +10,11 @@
             isTrainee = ko.observable(false),
             userProfileUrl = ko.observable(""),
             getCurrentUserCallback = function (user) {
+
+                if (my.isNullorEmpty(window.sessionStorage.getItem("currentUser"))) {
+                    window.sessionStorage.setItem("currentUser", JSON.stringify(user));
+                }
+                
                 my.meta.currentUser = user;
                 my.meta.isManager(user.IsManager);
                 my.meta.isAdministrator(user.IsAdministrator);
@@ -17,8 +22,16 @@
                 my.meta.userProfileUrl(my.rootUrl + '/Profile/UserProfile?userId=' + user.UserId);
                 my.meta.initializeNavbar();
                 my.meta.getNotification();
+
+
+                var allUserData = JSON.parse(window.sessionStorage.getItem("allUser"));
+                if (my.isNullorEmpty(allUserData)) {
+                    my.meta.fetchAllUser();
+                } else {
+                    fetchAllUserCallback(allUserData);
+                }
+
                 
-                my.meta.fetchAllUser();
             },
 			  notifications = ko.observableArray([]),
 		      noOfNotification = ko.observable(0),
@@ -28,7 +41,13 @@
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
             },
             getCurrentUser = function () {
-                my.userService.getCurrentUser(my.meta.getCurrentUserCallback);
+                var currentUserData = JSON.parse(window.sessionStorage.getItem("currentUser"));
+                if (my.isNullorEmpty(currentUserData)) {
+                    my.userService.getCurrentUser(my.meta.getCurrentUserCallback);
+                } else {
+                    my.meta.getCurrentUserCallback(currentUserData);
+                }
+
             },
             initializeNavbar  = function() {
                 $(".text").html("Howdy " + my.meta.currentUser.FirstName + " !!");
@@ -111,6 +130,10 @@
             });
             allTrainee(trainee);
             allMentor(trainer);
+            if (my.isNullorEmpty(window.sessionStorage.getItem("allUser"))) {
+                window.sessionStorage.setItem("allUser", JSON.stringify(result));
+            }
+            
         },
         markAllNotificationAsRead = function() {
             my.userService.markAllNotificationAsRead(markAllNotificationAsReadCallback);
@@ -148,6 +171,12 @@
             
         });
 
+        var signOut = function() {
+            sessionStorage.removeItem("currentUser");
+            sessionStorage.removeItem("allUser");
+            window.location.href = my.rootUrl + "/Login/SignOut";
+        }
+
         return {
             currentUser: currentUser,
             getCurrentUserCallback: getCurrentUserCallback,
@@ -171,7 +200,8 @@
             getCurrentUserPromise: getCurrentUserPromise,
             getAllUserPromise: getAllUserPromise,
             newActionsToPerform: newActionsToPerform,
-            noOfPendingActions: noOfPendingActions
+            noOfPendingActions: noOfPendingActions,
+            signOut: signOut
             
     };
     }();
