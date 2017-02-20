@@ -8,6 +8,6 @@ namespace TrainingTracker.DAL.Interface
         void AddOrUpdate(EmailAlertSubscription subcription);
 
         List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId);
-
+        int GetId(int subscribedByUserId, int subscribedForUserId);
     }
 }
