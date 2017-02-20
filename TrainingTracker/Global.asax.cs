@@ -27,7 +27,6 @@ namespace TrainingTracker
             
             Exception exception = Server.GetLastError();
             LogUtility.ErrorRoutine(exception);
-
             Server.ClearError();
 
         }
