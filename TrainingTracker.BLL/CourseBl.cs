@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using CommonModel = TrainingTracker.Common.Entity;
 using EFModel = TrainingTracker.DAL.EntityFramework;
-using System.Linq;
-using System.Web;
+
 
 namespace TrainingTracker.BLL
 {

@@ -16,6 +16,7 @@ namespace TrainingTracker.DAL.Repositories
             _context = context;
         }
 
+
         public void AddOrUpdate(EmailAlertSubscription subcription)
         {
             if (subcription.Id == 0)
@@ -31,12 +32,26 @@ namespace TrainingTracker.DAL.Repositories
             }
         }
 
+
         public List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId)
         {
             return _context.EmailAlertSubscriptions
-                           .Include(x=>x.User)
-                           .Where(x=>x.SubscribedForUserId == traineeId && !x.IsDeleted)
+                           .Include(x => x.User)
+                           .Where(x => x.SubscribedForUserId == traineeId && !x.IsDeleted)
                            .ToList();
+        }
+
+
+        public int GetId(int subscribedByUserId, int subscribedForUserId)
+        {
+            var entity = Find(x => x.SubscribedByUserId == subscribedByUserId
+                               && x.SubscribedForUserId == subscribedForUserId)
+                .FirstOrDefault();
+
+            if (entity == null) return 0;
+
+            _context.Entry(entity).State = EntityState.Detached;
+            return entity.Id;
         }
     }
 }

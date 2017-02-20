@@ -52,15 +52,14 @@ namespace TrainingTracker.BLL
             UnitOfWork.ForumDiscussionPostRepository.Add(postToAdd);
             UnitOfWork.Commit();
 
-            if (postToAdd.Id > 0)
-            {
-                post.AddedBy = currentUser.UserId;
-                post.PostId = postToAdd.Id;
-                post.AddedByUser = currentUser;
-                new NotificationBl().AddNewDiscussionPostNotification(post);
-            }
+            if (postToAdd.Id <= 0) return false;
 
-            return postToAdd.Id > 0;
+            post.AddedBy = currentUser.UserId;
+            post.PostId = postToAdd.Id;
+            post.AddedByUser = currentUser;
+            new NotificationBl().AddNewDiscussionPostNotification(post);
+
+            return true;
         }
 
         public bool AddPostThread(ForumThread postThread, User currentUser)
@@ -93,19 +92,18 @@ namespace TrainingTracker.BLL
             });
 
 
-            if (UnitOfWork.Commit() > 0)
-            {
-                new NotificationBl().AddNewDiscussionThreadNotification(new ForumThread()
-                {
-                    PostId = postId,
-                    Description = message,
-                    AddedBy = currentUser.UserId,
-                    AddedFor = addedFor,
-                    AddedByUser = currentUser
-                });
-            }
+            if (UnitOfWork.Commit() <= 0) return false;
 
-            return UnitOfWork.Commit() > 0;
+            new NotificationBl().AddNewDiscussionThreadNotification(new ForumThread()
+            {
+                PostId = postId,
+                Description = message,
+                AddedBy = currentUser.UserId,
+                AddedFor = addedFor,
+                AddedByUser = currentUser
+            });
+
+            return true;
         }
     }
 }
