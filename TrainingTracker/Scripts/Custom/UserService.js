@@ -87,7 +87,10 @@
             my.ajaxService.ajaxGetJson(my.rootUrl + "/Setting/GetCurrentUserSubscriptions", null, callback);
         },
         getCurrentUserPromise: function () {
-            return my.ajaxService.ajaxPostDeffered(my.rootUrl + "/Login/GetCurrentUser", true);
+            return my.ajaxService.ajaxGetDeffered(my.rootUrl + "/Login/GetCurrentUser", null);
+        },
+        getAllActiveUsersPromise: function () {
+            return my.ajaxService.ajaxGetDeffered(my.rootUrl + "/Profile/GetActiveUsers", null);
         }
     };
 }(my));

@@ -69,11 +69,22 @@
              });
         },
         
-        ajaxPostDeffered = function (method, jsonIn, callback)
+        ajaxPostDeffered = function (method, jsonIn)
         {
             return $.ajax({
                 url: getServiceUrl(method),
                 type: "POST",
+                beforeSend: my.toggleLoader(true),
+                data: ko.toJSON(jsonIn),
+                dataType: "json",
+                contentType: "application/json"
+            });
+        },
+
+        ajaxGetDeffered = function (method, jsonIn) {
+            return $.ajax({
+                url: getServiceUrl(method),
+                type: "GET",
                 beforeSend: my.toggleLoader(true),
                 data: ko.toJSON(jsonIn),
                 dataType: "json",
@@ -84,7 +95,8 @@
             ajaxGetJson: ajaxGetJson,
             ajaxPostJson: ajaxPostJson,
             ajaxUploadImage: ajaxUploadImage,
-            ajaxPostDeffered: ajaxPostDeffered
+            ajaxPostDeffered: ajaxPostDeffered,
+            ajaxGetDeffered: ajaxGetDeffered
         };
     })();
 }(my));

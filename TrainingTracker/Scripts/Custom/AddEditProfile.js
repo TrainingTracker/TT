@@ -221,9 +221,9 @@
                 closeDialogue();
                 my.addUserVm.getUsers();
                 my.addUserVm.showDialog(true);
-                my.addUserVm.setUser(my.meta.currentUser);
-                my.meta.getCurrentUserPromise.then(function(currentUserData) {
-                    my.addUserVm.setUser(currentUserData);
+                //my.addUserVm.setUser(my.meta.currentUser);
+                my.meta.loadedCurrentUserPromise().done(function() {
+                    my.addUserVm.setUser(my.meta.currentUser);
                 });
 
             },
@@ -232,7 +232,7 @@
                 closeDialogue();
                 my.addUserVm.getUsers();
                 my.addUserVm.showDialog(true);
-                my.meta.getCurrentUserPromise.then(function () {
+                my.meta.loadedCurrentUserPromise().done(function () {
                     if (my.meta.currentUser.IsAdministrator || my.meta.currentUser.IsManager) {
                         my.addUserVm.showAllUsersProfile(true);
                     }

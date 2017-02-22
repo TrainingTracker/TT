@@ -62,6 +62,10 @@
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
             },
             getUserCallback = function(jsonData) {
+                if (my.profileVm.userId == my.meta.currentUser.UserId) {
+                    jsonData.User = my.meta.currentUser;
+                }
+
                 jsonData.User.FullName = my.profileVm.fullName(jsonData.User);
                 jsonData.User.PhotoUrl = my.profileVm.photoUrl(jsonData.User);
                 $.each(jsonData.Feedbacks, function(arrayId, feedback) {
