@@ -165,7 +165,7 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/SessionViewStyles").Include(
-               "~/StyleSheets/Profile.css",
+              
                "~/Content/DatePicker/bootstrap-datepicker3.css",
                "~/StyleSheets/Session.css",
                "~/StyleSheets/Video-js.css"

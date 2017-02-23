@@ -15,6 +15,12 @@ namespace TrainingTracker.DAL
             _context = new TrainingTrackerEntities();
         }
 
+        private IUserRepository _userRepository;
+        public IUserRepository UserRepository
+        {
+            get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
+        }
+
         private ICourseRepository _courseRepository;
         public ICourseRepository CourseRepository
         {
@@ -70,6 +76,12 @@ namespace TrainingTracker.DAL
         public IRepository<ForumDiscussionThread> ForumDiscussionThreadRepository
         {
             get { return _forumDiscussionThreadRepository ?? (_forumDiscussionThreadRepository = new Repository<ForumDiscussionThread>(_context)); }
+        }
+
+        private ISessionRepository _sessionRepositoryRepository;
+        public ISessionRepository SessionRepository
+        {
+            get { return _sessionRepositoryRepository ?? (_sessionRepositoryRepository = new SessionRepository(_context)); }
         }
 
         private IForumDiscussionPostRepository _forumDiscussionPostRepository;

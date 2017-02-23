@@ -59,7 +59,7 @@ namespace TrainingTracker.DAL.DataAccess
                 {
                     if (session.Id > 0) sessionData = context.Sessions.SingleOrDefault(x => x.SessionId == session.Id);
                     if (sessionData == null) sessionData = new EntityFramework.Session { SessionId = session.Id };
-                    sessionData.Presenter = session.Presenter;
+                    //sessionData.Presenter = session.Presenter;
                     sessionData.Title = session.Title;
                     sessionData.Description = session.Description;
                     sessionData.SessionDate = session.Date;
@@ -70,7 +70,7 @@ namespace TrainingTracker.DAL.DataAccess
                         {
                             context.UserSessionMappings.Add(new UserSessionMapping
                             {
-                                AddedBy = session.Presenter,
+                                //AddedBy = session.Presenter,
                                 UserId = Convert.ToInt32(user),
                                 AddedOn = DateTime.Now,
                                 SessionId = sessionData.SessionId
@@ -115,7 +115,7 @@ namespace TrainingTracker.DAL.DataAccess
                         Date = s.SessionDate ?? DateTime.MinValue,
                         Description = s.Description,
                         PresenterFullName = s.User.FirstName + " " + s.User.LastName,
-                        Presenter = s.Presenter ?? 0,
+                        //Presenter = s.Presenter ?? 0,
                         VideoFileName = s.VideoFileName,
                         SlideName = s.SlideName,
                         }).ToList();

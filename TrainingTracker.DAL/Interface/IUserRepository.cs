@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace TrainingTracker.DAL.RepoInterface
+namespace TrainingTracker.DAL.Interface
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
+        List<EntityFramework.User> GetAllTrainees(int teamId, bool includeInActiveTrainee);
     }
 }

@@ -31,9 +31,18 @@ namespace TrainingTracker.Controllers
         /// Get Sessions for user on filter
         /// </summary>
         /// <returns>Json result</returns>
-        public ActionResult GetUserFeedbackOnFilter(int pageSize, int seminarType, string searchKeyword = "")
+        public ActionResult GetSessionsOnFilter(int pageNumber, int seminarType, string searchKeyword = "",int sessionId=0)
         {
-            return Json(new SessionBl().GetSessionOnFilter(pageSize, seminarType, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().GetSessionOnFilter(pageNumber, seminarType,sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Get Sessions for user on filter
+        /// </summary>
+        /// <returns>Json result</returns>
+        public ActionResult GetSessionVm(int pageNumber, int seminarType, string searchKeyword = "", int sessionId = 0)
+        {
+            return Json(new SessionBl().GetSessionVm(pageNumber, seminarType, sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

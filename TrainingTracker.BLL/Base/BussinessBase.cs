@@ -199,6 +199,7 @@ namespace TrainingTracker.BLL.Base
             get { return _forumUserHelpPostConverter ?? (_forumUserHelpPostConverter = new ForumUserHelpPostConverter()); }
         }
 
+
         private ForumUserHelpThreadConverter _forumUserHelpThreadConverter;
         public ForumUserHelpThreadConverter ForumUserHelpThreadConverter
         {
@@ -216,6 +217,18 @@ namespace TrainingTracker.BLL.Base
         {
             get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());}
 		}
+
+        private SessionConverter _sessionConverter;
+        public SessionConverter SessionConverter
+        {
+            get { return _sessionConverter ?? (_sessionConverter = new SessionConverter()); }
+        }
+
+        private UserConverter _userConverter;
+        public UserConverter UserConverter
+        {
+            get { return _userConverter ?? (_userConverter = new UserConverter()); }
+        }
 		
         private EmailAlertSubscriptionConverter _emailAlertSubscriptionConverter;
         public EmailAlertSubscriptionConverter EmailAlertSubscriptionConverter

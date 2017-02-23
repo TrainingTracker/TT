@@ -186,14 +186,14 @@ namespace TrainingTracker.BLL
                 Description = "New Session Added",
                 Link = string.Format(SessionLink, session.Id),
                 TypeOfNotification = session.IsNeW ? NotificationType.NewSessionNotification : NotificationType.SessionUpdatedNotification,
-                AddedBy = session.Presenter,
+                //AddedBy = session.Presenter,
                 Title = session.IsNeW ? "New Session Added" : "Session Details Updated",
                 AddedOn = DateTime.Now,
                 AddedTo = session.Attendee
             };
 
-            List<int> userIdList = UserDataAccesor.GetUserId(notification, session.Presenter);
-            userIdList.AddRange(session.Attendee.Select(int.Parse).ToList());
+            List<int> userIdList = null;
+            //userIdList.AddRange(session.Attendee.Select(int.Parse).ToList());
             return AddNotification(notification , userIdList);
         }
 
