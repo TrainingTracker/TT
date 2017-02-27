@@ -54,6 +54,7 @@
     <Compile Include="Entity\Feedback.cs" />
     <Compile Include="Entity\FeedbackPlot.cs" />
     <Compile Include="Entity\FeedbackType.cs" />
+    <Compile Include="Entity\FileUpload.cs" />
     <Compile Include="Entity\ForumCategory.cs" />
     <Compile Include="Entity\ForumPost.cs" />
     <Compile Include="Entity\ForumStatus.cs" />

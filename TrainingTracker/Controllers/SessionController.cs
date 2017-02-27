@@ -49,9 +49,19 @@ namespace TrainingTracker.Controllers
         ///Add or Edit Session
         /// </summary>
         /// <returns>Json result</returns>
-        public ActionResult AddEditSession(Session sessionDetails)
+        public ActionResult AddNewSession(Session sessionDetails)
         {
-            return Json(new SessionBl().AddEditSessions(sessionDetails), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().AddNewSession(sessionDetails, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        ///Add or Edit Session
+        /// </summary>
+        /// <returns>Json result</returns>
+        public ActionResult UpdateSessionDetails(Session sessionDetails)
+        {
+            return Json(new SessionBl().UpdateSessionsDetails(sessionDetails, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -66,7 +76,7 @@ namespace TrainingTracker.Controllers
             HttpPostedFileBase file = Request.Files["file"];
            
             try
-            {
+            {                
                 if (file != null && file.ContentLength > 0)
                 {
                     Guid gId = Guid.NewGuid();
@@ -78,6 +88,8 @@ namespace TrainingTracker.Controllers
                     }
 
                     file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.VideoPath) , strFileName));
+                   
+                 
                     return Json(strFileName);
                 }                
             }
@@ -112,6 +124,7 @@ namespace TrainingTracker.Controllers
                     }
 
                     file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.SlidePath) , strSlideName));
+                  
                     return Json(strSlideName);
                 }
 

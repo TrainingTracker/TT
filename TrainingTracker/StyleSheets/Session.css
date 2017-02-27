@@ -347,14 +347,17 @@ hr.postEnd, #divBugHeaderDescription:after {
 }
 
 #divSessionAttendies > div {
-    display: flex;
+   
     height: 100%;
     position: relative;
+    display: table;
     cursor: pointer;
 }
 
     #divSessionAttendies > div > div {
         position: relative;
+            height: 60%;
+        display: table-cell;
     }
 
         #divSessionAttendies > div > div:nth-child(n+7) {
@@ -366,4 +369,17 @@ hr.postEnd, #divBugHeaderDescription:after {
     color: #959494;
     margin-top: 0;
     font-weight: bold;
+}
+
+.lable-upload {
+    cursor: pointer;
+    color: #fff;
+}
+
+#divSessionData .postEnd {
+    width: 106%;
+    left: -3%;
+    padding: 0;
+    position: relative !important;
+    margin: 14px;
 }

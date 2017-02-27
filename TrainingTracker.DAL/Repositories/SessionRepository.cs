@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.DataAccess;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
-//using Session = TrainingTracker.DAL.EntityFramework.Session;
 
 namespace TrainingTracker.DAL.Repositories
 {
@@ -29,10 +27,19 @@ namespace TrainingTracker.DAL.Repositories
         public EntityFramework.Session GetSessionWithAttendees(int sessionId)
         {
             return _context.Sessions.Include(x => x.UserSessionMappings)
-                                    .Include(x => x.User)
-                                    .FirstOrDefault(x => x.SessionId == sessionId);         
+                                    .Include(x => x.User).AsNoTracking()
+                                    .FirstOrDefault(x => x.SessionId == sessionId);
+            
         }
 
+        public EntityFramework.Session GetSessionWithAttendeesTrackable(int sessionId)
+        {
+            return _context.Sessions.Include(x => x.UserSessionMappings)
+                                    .Include(x => x.User)
+                                    .FirstOrDefault(x => x.SessionId == sessionId);
+        }
+
+       
         private IQueryable<EntityFramework.Session> BaseFilterSearchQuery(string wildcard, Common.Enumeration.SessionType statusId, int searchSessionId, int teamId)
         {
             bool wildcardFilter = !string.IsNullOrEmpty(wildcard);

@@ -14,5 +14,7 @@ namespace TrainingTracker.DAL.Interface
                                                     , int pageSize);
 
         EntityFramework.Session GetSessionWithAttendees(int sessionId);
+
+        EntityFramework.Session GetSessionWithAttendeesTrackable(int sessionId);
     }
 }
