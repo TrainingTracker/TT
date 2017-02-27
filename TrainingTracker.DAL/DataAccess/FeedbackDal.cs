@@ -367,6 +367,50 @@ namespace TrainingTracker.DAL.DataAccess
 
 
         /// <summary>
+        /// fetches Trainee synopsis
+        /// </summary>
+        /// <param name="traineeId">trainee Id</param>
+        /// <returns>instances of Trainee synopsis</returns>
+        public TraineeFeedbackSynopsis GetTraineeFeedbackSynopsis(int traineeId)
+        {
+            using (var context = new TrainingTrackerEntities())
+            {
+                var feedbacks = context.Feedbacks.Where(x => x.AddedFor == traineeId &&
+                                                             (x.FeedbackType ==
+                                                             (int) Common.Enumeration.FeedbackType.CodeReview ||
+                                                             x.FeedbackType ==
+                                                             (int) Common.Enumeration.FeedbackType.Weekly)).ToList();
+                
+                 var codeReviewFeedback =
+                     feedbacks.Where(x => x.FeedbackType == (int) Common.Enumeration.FeedbackType.CodeReview).OrderBy(x => x.AddedOn).ToList();
+                 var weeklyFeedback =
+                     feedbacks.Where(x => x.FeedbackType == (int) Common.Enumeration.FeedbackType.Weekly).OrderBy(x => x.AddedOn).ToList();
+
+
+                return new TraineeFeedbackSynopsis
+                {
+                    CodeReviewFeedbackCount = new FeedbackCount()
+                    {
+                        Slow = codeReviewFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Slow),
+                        Average = codeReviewFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Average),
+                        Fast = codeReviewFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Fast),
+                        Exceptional = codeReviewFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Exceptional),
+                    },
+                    WeeklyFeedbackCount = new FeedbackCount()
+                    {
+                        Slow = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Slow),
+                        Average = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Average),
+                        Fast = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Fast),
+                        Exceptional = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Exceptional),
+                    },
+                    RecentWeeklyRating = weeklyFeedback.Count > 0 ? (int)weeklyFeedback.Take(1).First().Rating : 0,
+                    RecentCodeReviewRating = codeReviewFeedback.Count > 0 ? (int)codeReviewFeedback.Take(1).First().Rating : 0
+                };
+            }
+        }
+
+
+        /// <summary>
         /// Add mapping data for the Assignment and Feedback in AssignmentFeedbackMapping table
         /// </summary>
         /// <param name="feedbackId">Id of the added feedback</param>

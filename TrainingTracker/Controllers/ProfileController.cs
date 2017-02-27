@@ -134,7 +134,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json Result for loggin User</returns>
         public ActionResult GetUserProfileVm(int userId)
         {
-            return Json(new UserBl().GetUserProfileVm(userId), JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetUserProfileVm(userId, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -297,6 +297,11 @@ namespace TrainingTracker.Controllers
         public ActionResult AddPostThread(ForumThread postThread)
         {
             return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser).ToString());
+        }
+
+        public JsonResult GetAllSkills()
+        {
+            return Json(new UserBl().GetAllSkills(), JsonRequestBehavior.AllowGet);
         }
     }
 }
