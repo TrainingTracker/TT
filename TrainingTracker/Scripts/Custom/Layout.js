@@ -190,7 +190,8 @@
 
                 return deferredObject.promise();
             },
-             signOut = function() {
+
+            signOut = function() {
                 sessionStorage.removeItem("currentUser");
                 sessionStorage.removeItem("allActiveUsers");
                 window.location.href = my.rootUrl + "/Login/SignOut";
@@ -202,6 +203,19 @@
                     my.meta.getNotification();
                     my.meta.getAllActiveUsersPromise();
                 });
+                my.webWorker.startWorker(my.rootUrl + "/Scripts/Custom/WebWorker/FetchCurrentUser.js", refreshCurrentUser);
+                my.webWorker.startWorker(my.rootUrl + "/Scripts/Custom/WebWorker/FetchAllUsers.js", refreshAllUsers);
+            },
+
+            refreshCurrentUser = function (response) {
+                if (!my.isNullorEmpty(response)) {
+                    getCurrentUserCallback(response);
+                }
+            },
+            refreshAllUsers = function(response) {  
+                if (!my.isNullorEmpty(response)) {
+                    getAllActiveUsersCallback(response);
+                }
             }
 
         return {

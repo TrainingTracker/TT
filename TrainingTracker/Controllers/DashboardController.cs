@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace TrainingTracker.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseController
     {
         // GET: Dashboard
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
@@ -36,8 +36,7 @@ namespace TrainingTracker.Controllers
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public ActionResult GetDashboardData()
         {
-            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-            return Json(new DashboardBl().GetDashboardData(currentUser) , JsonRequestBehavior.AllowGet);
+            return Json(new DashboardBl().GetDashboardData(CurrentUser) , JsonRequestBehavior.AllowGet);
         }
     }
 }

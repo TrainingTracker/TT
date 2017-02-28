@@ -5,6 +5,15 @@ namespace TrainingTracker.Controllers
 {
     public  class BaseController : Controller
     {
+        public Common.Entity.User CurrentUser
+        {
+            get
+            {
+                if (Session["currentUser"] == null) Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
+                return (Common.Entity.User)Session["currentUser"];
+            }
+        }
+
         private UserHelpForumBl  _helpForumBl;
         public UserHelpForumBl HelpForumBl
         {
@@ -17,5 +26,10 @@ namespace TrainingTracker.Controllers
             get { return _discussionForumBl ?? (_discussionForumBl = new DiscussionForumBl()); }
         }
 
+        private UserBl _userBl;
+        public UserBl UserBl
+        {
+            get { return _userBl ?? (_userBl = new UserBl()); }
+        }
     }
 }

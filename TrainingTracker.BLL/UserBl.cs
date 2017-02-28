@@ -99,7 +99,7 @@ namespace TrainingTracker.BLL
                 Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null ,
                 TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
                 Sessions = currentUser.IsTrainee ? SessionDataAccesor.GetSessionsByUserId(userId) : null ,
-                Projects =  new List<Project>(),
+                Projects =  null,
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
                 FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,

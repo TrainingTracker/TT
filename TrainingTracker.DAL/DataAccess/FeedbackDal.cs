@@ -403,8 +403,8 @@ namespace TrainingTracker.DAL.DataAccess
                         Fast = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Fast),
                         Exceptional = weeklyFeedback.Count(x => x.Rating == (int)Common.Enumeration.FeedbackRating.Exceptional),
                     },
-                    RecentWeeklyRating = weeklyFeedback.Count > 0 ? (int)weeklyFeedback.Take(1).First().Rating : 0,
-                    RecentCodeReviewRating = codeReviewFeedback.Count > 0 ? (int)codeReviewFeedback.Take(1).First().Rating : 0
+                    RecentWeeklyRating = weeklyFeedback.Count > 0 ? (int)weeklyFeedback.FirstOrDefault().Rating : 0,
+                    RecentCodeReviewRating = codeReviewFeedback.Count > 0 ? (int)codeReviewFeedback.FirstOrDefault().Rating : 0
                 };
             }
         }

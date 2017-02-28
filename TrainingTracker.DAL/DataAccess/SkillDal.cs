@@ -17,8 +17,8 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    skills = context.Feedbacks.Join(context.Skills, f => f.SkillId, s => s.SkillId, (f, s) => new { f, s })
-                        .Where(x => x.f.AddedFor == userId)
+                    skills = context.Feedbacks.Where(x => x.AddedFor == userId).Join(context.Skills, f => f.SkillId, s => s.SkillId, (f, s) => new { f, s })
+                        //.Where(x => x.f.AddedFor == userId)
                         .GroupBy(a => a.f.SkillId).Select(g => new { g.Key, Item = g.FirstOrDefault(), AverageRating = g.Average(x => x.f.Rating) })
                             .Select(x => new Skill
                             {
