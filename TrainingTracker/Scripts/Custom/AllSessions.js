@@ -295,13 +295,13 @@
         {
             var formData = new FormData($('#videoUploadForm')[0]);
 
-            my.sessionService.uploadVideo(formData, uploadVideoCallback);
+            my.sessionService.uploadVideo(formData, uploadVideoCallback, errorCallback);
         };
 
         var uploadSlide = function () {
           
             var formData = new FormData($('#slideUploadForm')[0]);
-            my.sessionService.uploadSlide(formData, uploadSlideCallback);
+            my.sessionService.uploadSlide(formData, uploadSlideCallback, errorCallback);
         };
 
         var uploadSlideCallback = function (jsonData) {
@@ -326,6 +326,15 @@
             if (!my.isNullorEmpty(currentSession.SlideName())) {
                 window.location.assign(my.rootUrl + "/Uploads/SessionSlide/" + currentSession.SlideName());
             }
+        };
+
+        var errorCallback = function() {
+            $.alert({
+                title: 'Failed Import!',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                content: 'Unable to Import the File!',
+            });
         };
 
         return {

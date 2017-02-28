@@ -84,6 +84,12 @@ namespace TrainingTracker.DAL
             get { return _sessionRepositoryRepository ?? (_sessionRepositoryRepository = new SessionRepository(_context)); }
         }
 
+        private IReleaseRepository _releaseRepository;
+        public IReleaseRepository ReleaseRepository
+        {
+            get { return _releaseRepository ?? (_releaseRepository = new ReleaseRepository(_context)); }
+        }
+
         private IForumDiscussionPostRepository _forumDiscussionPostRepository;
         public IForumDiscussionPostRepository ForumDiscussionPostRepository
         {

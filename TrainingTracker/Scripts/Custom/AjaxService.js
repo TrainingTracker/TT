@@ -48,7 +48,7 @@
                  }
              });
          },
-        ajaxUploadImage = function (method, formData, callback) {
+        ajaxUploadImage = function (method, formData, callback,errorCallback) {
              $.ajax({
                  url: getServiceUrl(method),
                  type: "POST",
@@ -64,6 +64,9 @@
                  },
                  error: function ()
                  {
+                     if (typeof (errorCallback) != 'undefined') {
+                         errorCallback();
+                     }
                      my.toggleLoader();
                  }
              });

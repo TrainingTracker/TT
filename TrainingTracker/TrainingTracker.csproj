@@ -402,6 +402,7 @@
     <Content Include="Views\Setting\UserSetting.cshtml" />
     <Content Include="Views\Shared\_ProfileSetting.cshtml" />
     <Content Include="Views\Shared\_NotificationSetting.cshtml" />
+    <Content Include="Views\Shared\_AddRelease.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

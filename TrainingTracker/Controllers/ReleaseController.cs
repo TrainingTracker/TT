@@ -28,9 +28,9 @@ namespace TrainingTracker.Controllers
         /// Action method for GetAllReleases.
         /// </summary>
         /// <returns>Return list of releases as JSON object.</returns>
-        public ActionResult GetAllReleases()
+        public ActionResult GetReleaseOnFilter(string keyword,int releaseId,int pageNumber)
         {
-           return Json(new ReleaseBl().GetAllReleases(), JsonRequestBehavior.AllowGet);
+            return Json(new ReleaseBl().GetReleaseOnFilter(keyword, releaseId, pageNumber), JsonRequestBehavior.AllowGet);
         }
       
         /// <summary>

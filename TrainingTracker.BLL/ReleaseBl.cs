@@ -7,6 +7,7 @@
 **************************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 
@@ -58,6 +59,25 @@ namespace TrainingTracker.BLL
         public bool UpdateRelease(Release release, int userId)
         {
             return  (ReleaseDataAccesor.UpdateRelease(release) && new NotificationBl().AddReleaseNotification(release, userId));
+        }
+
+
+        public PagedResult<Release> GetReleaseOnFilter(string wildcard,int searchReleaseId,int pageNumber)
+        {
+            var release = UnitOfWork.ReleaseRepository.GetPagedFilteredSessions(wildcard, searchReleaseId, pageNumber, 6);
+
+            if (release == null) return new PagedResult<Release>();
+
+            return new PagedResult<Release>
+            {
+                CurrentPage = release.CurrentPage,
+                PageCount = release.PageCount,
+                PageSize = release.PageSize,
+                RowCount = release.RowCount,
+                Results = release.Results == null
+                           ? new List<Release>()
+                           : ReleaseConverter.ConvertListFromCore(release.Results.ToList())
+            }; 
         }
     }
 }

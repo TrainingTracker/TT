@@ -79,6 +79,7 @@
 
 .icon-font {
     font-family: 'FontAwesome' !important;
+        padding: 0 5px;
 }
 
 .icon-category {
@@ -227,6 +228,7 @@
 #divAddEditSession, #divDisplaySessionDetails {
     background: white;
     padding-left: 2%;
+        width: 98%;
     padding-right: 2%;
     height: 100%;
     padding-bottom: 10px;

@@ -224,6 +224,12 @@ namespace TrainingTracker.BLL.Base
             get { return _sessionConverter ?? (_sessionConverter = new SessionConverter()); }
         }
 
+        private ReleaseConverter _releaseConverter;
+        public ReleaseConverter ReleaseConverter
+        {
+            get { return _releaseConverter ?? (_releaseConverter = new ReleaseConverter()); }
+        }
+
         private UserConverter _userConverter;
         public UserConverter UserConverter
         {

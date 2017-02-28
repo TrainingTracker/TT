@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 //using System.IO.Directory.CreateDirectory;
@@ -31,9 +32,9 @@ namespace TrainingTracker.Controllers
         /// Get Sessions for user on filter
         /// </summary>
         /// <returns>Json result</returns>
-        public ActionResult GetSessionsOnFilter(int pageNumber, int seminarType, string searchKeyword = "",int sessionId=0)
+        public ActionResult GetSessionsOnFilter(int pageNumber, int seminarType, string searchKeyword = "", int sessionId = 0)
         {
-            return Json(new SessionBl().GetSessionOnFilter(pageNumber, seminarType,sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().GetSessionOnFilter(pageNumber, seminarType, sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -73,10 +74,16 @@ namespace TrainingTracker.Controllers
         /// 
         public ActionResult UploadVideo(HttpPostedFileBase fileName)
         {
-            HttpPostedFileBase file = Request.Files["file"];
-           
-            try
-            {                
+                HttpPostedFileBase file = Request.Files["file"];
+
+                string[] allowedFormat = new string[] { ".mp4", ".ogg",".webm"};
+
+                if (!allowedFormat.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase)))
+                {
+                    throw new Exception("Format Not Allowed");
+                }
+
+
                 if (file != null && file.ContentLength > 0)
                 {
                     Guid gId = Guid.NewGuid();
@@ -87,17 +94,12 @@ namespace TrainingTracker.Controllers
                         Directory.CreateDirectory(Server.MapPath(SessionAssets.VideoPath));
                     }
 
-                    file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.VideoPath) , strFileName));
-                   
-                 
+                    file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.VideoPath), strFileName));
+
+
                     return Json(strFileName);
-                }                
-            }
-            catch (Exception ex)
-            {
-                LogUtility.ErrorRoutine(ex);
-            }
-            return null;
+                }
+            throw new Exception("File Missing");
         }
 
 
@@ -110,30 +112,30 @@ namespace TrainingTracker.Controllers
         public ActionResult UploadSlide(HttpPostedFileBase fileName)
         {
             HttpPostedFileBase file = Request.Files["file"];
+
            
-            try
-            {
+                string[] allowedFormat = new string[]{".ppt",".pptx"};
+
+                if (!allowedFormat.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase)))
+                {
+                    throw new Exception("Format Not Allowed");
+                }
+
                 if (file != null && file.ContentLength > 0)
                 {
                     Guid gId = Guid.NewGuid();
                     string strSlideName = gId.ToString().Trim() + ".ppt";
-                  
+
                     if (!Directory.Exists(Server.MapPath(SessionAssets.SlidePath)))
                     {
                         Directory.CreateDirectory(Server.MapPath(SessionAssets.SlidePath));
                     }
 
-                    file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.SlidePath) , strSlideName));
-                  
+                    file.SaveAs(Path.Combine(Server.MapPath(SessionAssets.SlidePath), strSlideName));
+
                     return Json(strSlideName);
                 }
-
-            }
-            catch (Exception ex)
-            {
-                LogUtility.ErrorRoutine(ex);
-            }
-            return null;
+                throw new Exception("File Missing");
         }
     }
 }

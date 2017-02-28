@@ -11,8 +11,8 @@
     <div id="divCategories">
         <ul class="nav nav-pills nav-justified">
             <li role="presentation" data-bind="css: { active: settings.statusId() == 0 }, click: function () { settings.statusId(0); resetFilterAndGetData(); }"><a href="#"><i class="fa fa-globe icon-font icon-category"></i>ALL</a></li>
-            <li role="presentation" data-bind="css: { active: settings.statusId() == 1 }, click: function () { settings.statusId(1); resetFilterAndGetData(); }"><a href="#"><i class="fa fa-bug icon-font"></i>UPCOMING</a></li>
-            <li role="presentation" data-bind="css: { active: settings.statusId() == 2 }, click: function () { settings.statusId(2); resetFilterAndGetData(); }"><a href="#"><i class="fa fa-lightbulb-o icon-font"></i>PRESENTED</a></li>
+            <li role="presentation" data-bind="css: { active: settings.statusId() == 1 }, click: function () { settings.statusId(1); resetFilterAndGetData(); }"><a href="#"><i class="fa fa-calendar icon-font"></i>UPCOMING</a></li>
+            <li role="presentation" data-bind="css: { active: settings.statusId() == 2 }, click: function () { settings.statusId(2); resetFilterAndGetData(); }"><a href="#"><i class="fa fa-calendar-check-o icon-font"></i>PRESENTED</a></li>
             <li role="presentation" data-bind="css: { activeButton: settings.newSessionPanel() == true }, click: loadAddSessionPanel"><a href="#"><i class="fa fa-plus icon-font"></i>Add New Session</a></li>
         </ul>
     </div>
@@ -234,7 +234,7 @@
     </div>
 </div>
 
-    <div class="modal fade" id="videoModal" role="dialog">
+<div class="modal fade" id="videoModal" role="dialog">
         <div class="modal-dialog div-video-modal">
             <div class="modal-content">
                 <div class="modal-body">

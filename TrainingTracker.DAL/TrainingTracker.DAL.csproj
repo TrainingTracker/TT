@@ -270,6 +270,7 @@
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
     <Compile Include="Interface\IReleaseDal.cs" />
+    <Compile Include="Interface\IReleaseRepository.cs" />
     <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="ModelMapper\ModelMapper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelMapper\ReleaseConverter.cs" />
     <Compile Include="ModelMapper\SessionConverter.cs" />
     <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,6 +304,7 @@
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\ForumDiscussionPostRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
+    <Compile Include="Repositories\ReleaseRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
