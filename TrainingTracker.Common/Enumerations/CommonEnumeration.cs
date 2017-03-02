@@ -223,4 +223,11 @@
         AlreadyPresented=2
 
     }
+
+    public enum ReleaseType
+    {
+        Patch = 1 ,
+        Minor = 2 ,
+        Major = 3 
+    }
 }

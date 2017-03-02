@@ -68,8 +68,6 @@
     <Compile Include="DataAccess\NotificationDal.cs" />
     <Compile Include="DataAccess\ProjectDal.cs" />
     <Compile Include="DataAccess\QuestionDal.cs" />
-    <Compile Include="DataAccess\ReleaseDal.cs" />
-    <Compile Include="DataAccess\SessionDal.cs" />
     <Compile Include="DataAccess\SkillDal.cs" />
     <Compile Include="DataAccess\SurveyDal.cs" />
     <Compile Include="DataAccess\TeamDal.cs" />
@@ -269,9 +267,7 @@
     <Compile Include="Interface\INotificationDal.cs" />
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
-    <Compile Include="Interface\IReleaseDal.cs" />
     <Compile Include="Interface\IReleaseRepository.cs" />
-    <Compile Include="Interface\ISessionDal.cs" />
     <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
     <Compile Include="Interface\ISurveyDal.cs" />

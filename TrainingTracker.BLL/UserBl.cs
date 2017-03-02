@@ -98,7 +98,7 @@ namespace TrainingTracker.BLL
                 User = currentUser ,
                 Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : new List<Skill>() ,
                 AllSkills = currentUser.IsTrainee ? SkillDataAccesor.GetAllSkillsForApp() : new List<Skill>(),
-                Sessions = currentUser.IsTrainee ? SessionDataAccesor.GetSessionsByUserId(userId) : new List<Session>() ,
+                Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : new List<Session>(),
                 Projects =  new List<Project>(),
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
                 RecentCrFeedback = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 1000 , 4) : new List<Feedback>() ,

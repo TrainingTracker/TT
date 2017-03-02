@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.DAL.ModelMapper
@@ -52,5 +53,6 @@ namespace TrainingTracker.DAL.ModelMapper
             return objSession;
 
         }
+
     }
 }

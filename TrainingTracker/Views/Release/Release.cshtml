@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TrainingTracker.BLL
+@{
     ViewBag.Title = "Release";
 }
 
@@ -31,7 +32,7 @@
                                 <img class="img-circle" data-bind="attr: { src: my.allReleaseVm.photoUrl(AddedBy.ProfilePictureName) }" width="35px" height="35px" align="">
                             </div>
                             <div id="divQuickStatus">
-                                <span class="label label-success " data-bind="text: 'Upcoming'"></span>
+                                <span class="label label-success " data-bind="text: 'TT ' + Major + '.' + Minor +'.' + Patch "></span>
                             </div>
                         </div>
                         <div class="col-md-10">
@@ -83,6 +84,14 @@
     </div>
 </div>
 
+  @if ((HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Administrator")) && ( new List<int>{0,1,2}.Contains(new UserBl().GetUserByUserName(HttpContext.Current.User.Identity.Name).TeamId.GetValueOrDefault())))
+  {
+      @Html.Partial("_AddRelease")
+
+      <div id="btnAddRelease" data-bind="click:addNewRelease">
+          <a href="#"><i class="fa fa-plus icon-font"></i>Add New Release</a>
+      </div>
+  }
 
 @section Scripts
 {

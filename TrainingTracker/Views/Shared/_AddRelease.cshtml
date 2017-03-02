@@ -1,71 +1,57 @@
-﻿@using TrainingTracker.BLL
-<div class="modal-body col-xs-12">
-    <div class="form-group">
-        <div class="col-xs-12">
-            <label>Title:</label>
-            <input type="text" class="form-control"
-                data-bind="textInput: my.allReleaseVm.releaseDetails.ReleaseTitle, disable: my.allReleaseVm.isViewMode" />
-        </div>
-    </div>
-    <div>
-        <div class="col-xs-12">
-            <label>Description:</label>
-        </div>
-        <div class="col-xs-12">
-            <textarea rows="5" cols="15" class="form-control" typeof="text"
-                data-bind="textInput: my.allReleaseVm.releaseDetails.Description, disable: my.allReleaseVm.isViewMode"
-                placeholder="Add release/ bug/ feature's  description here"></textarea>
-        </div>
-    </div>
-  @*  @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || new UserBl().GetUserByUserName(User.Identity.Name).TeamId == 2 )
-    {
-        *@<div class="from-group">
-            <div class="col-xs-12" data-bind="disable: my.allReleaseVm.isViewMode">
-                <label>Publish this release:</label>
-                <input type="checkbox" data-bind="checked: my.allReleaseVm.releaseDetails.IsPublished, disable: my.allReleaseVm.isViewMode" />
+﻿<div class="col-xs-12 col-md-8 col-xs-offset-0 col-md-offset-2 noPadding  " id="divNewRelease" data-bind="visible: my.allReleaseVm.showModal, style: { display: my.allReleaseVm.settings.addReleaseModal() ? 'block' : 'none',position:'absolute' }">
+    <div id="modelWrapper" data-bind="click: my.allReleaseVm.closeReleaseDialogue"></div>
+    <div class="modal-dialog " style="width: 50%;" data-bind="fadeVisible: my.allReleaseVm.settings.addReleaseModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bind="click: my.allReleaseVm.closeReleaseDialogue">&times;</button>
+                <h4 class="modal-title">Add New Release</h4>
             </div>
-        </div>
-
-        <div data-bind="visible: my.allReleaseVm.releaseDetails.IsPublished">
-            <div class="col-xs-2 padding-top">
-                <label data-bind="text: my.allReleaseVm.selectCaption"></label>
-            </div>
-            <div class="col-xs-12 col-md-2 padding-top">
-                <div class="form-group nopadding-left nopadding-right">
-                    <input class="col-xs-3" type="radio" name="version" value="Major" data-bind="checked: selectedReleaseType, disable: my.allReleaseVm.isViewMode" />
-                    <label class="col-xs-9 nopadding-left">Major</label>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-2 padding-top">
+            <div class="modal-body col-xs-12">
                 <div class="form-group">
-                    <input class="col-xs-3" type="radio" name="version" value="Minor" data-bind="checked: selectedReleaseType, disable: my.allReleaseVm.isViewMode" />
-                    <label class="col-xs-9 nopadding-left">Minor</label>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-2 padding-top">
-                <div class="form-group">
-                    <input class="col-xs-3" type="radio" name="version" value="Patch" data-bind="checked: selectedReleaseType, disable: my.allReleaseVm.isViewMode " />
-                    <label class="col-xs-9 nopadding-left nopadding-right">Patch</label>
-                </div>
-            </div>
-            <div class="col-xs-12 padding-top">
-                <div class="form-group nopadding-left nopadding-right">
-                    <label class="col-xs-2  nopadding-left nopadding-right">Version:</label>
-                    <div class="col-xs-4 nopadding-right">
-                        <input class="form-control" type="text" data-bind="value: newVersion, visible: my.allReleaseVm.isVisibleNewVersion" disabled />
-                        <input class="form-control" type="text" data-bind="value: my.allReleaseVm.currentVersion, visible: my.allReleaseVm.isViewMode" disabled />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 padding-top">
-                <div class="form-group nopadding-left nopadding-right">
-                    <label class="col-xs-2 nopadding-left nopadding-right">Release date:</label>
-                    <div class="col-xs-4 nopadding-right">
+                    <div class="col-xs-12">
+                        <label>Title:</label>
                         <input type="text" class="form-control"
-                            data-bind="value: moment(my.allReleaseVm.releaseDetails.ReleaseDate()).format('DD/MM/YYYY')" disabled />
+                            data-bind="textInput: my.allReleaseVm.newRelease.Title" />
+                    </div>
+                </div>
+                <div>
+                    <div class="col-xs-12">
+                        <label>Description:</label>
+                    </div>
+                    <div class="col-xs-12">
+                        <textarea rows="10" cols="15" class="form-control" typeof="text"
+                            data-bind="textInput: my.allReleaseVm.newRelease.Description"
+                            placeholder="Add release/ bug/ feature's  description here"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="col-xs-12 col-md-2 padding-top">
+                        <div class="form-group nopadding-left nopadding-right">
+                            <input class="col-xs-3" type="radio" name="version" value="Major" data-bind="checked: newRelease.Type" />
+                            <label class="col-xs-9 nopadding-left">Major</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2 padding-top">
+                        <div class="form-group">
+                            <input class="col-xs-3" type="radio" name="version" value="Minor" data-bind="checked: newRelease.Type" />
+                            <label class="col-xs-9 nopadding-left">Minor</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2 padding-top">
+                        <div class="form-group">
+                            <input class="col-xs-3" type="radio" name="version" value="Patch" data-bind="checked: newRelease.Type" />
+                            <label class="col-xs-9 nopadding-left nopadding-right">Patch</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="pull-right">
+                            <button class=" btn btn-info" data-bind="click: my.allReleaseVm.publishRelease">Add Release</button>
+                            <button class=" btn btn-warning" data-bind="click: my.allReleaseVm.closeReleaseDialogue">Cancel Release</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-                   @* }*@
+    </div>
 </div>

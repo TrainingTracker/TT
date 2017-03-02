@@ -9,5 +9,7 @@ namespace TrainingTracker.DAL.Interface
                                                     , int searchReleaseId
                                                     , int pageNumber
                                                     , int pageSize);
+
+        EntityFramework.Release GetRecentRelease();
     }
 }

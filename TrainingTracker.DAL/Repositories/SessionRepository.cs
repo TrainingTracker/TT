@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TrainingTracker.Common.Entity;
@@ -37,6 +38,13 @@ namespace TrainingTracker.DAL.Repositories
             return _context.Sessions.Include(x => x.UserSessionMappings)
                                     .Include(x => x.User)
                                     .FirstOrDefault(x => x.SessionId == sessionId);
+        }
+
+        public List<EntityFramework.Session> GetAllSessionForAttendee(int traineeId)
+        {
+            return _context.UserSessionMappings.Where(x => x.UserId == traineeId && x.SessionId != null)
+                                               .Select(x => x.Session)
+                                               .ToList();
         }
 
        

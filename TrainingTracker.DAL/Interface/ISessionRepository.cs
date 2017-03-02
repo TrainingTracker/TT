@@ -16,5 +16,7 @@ namespace TrainingTracker.DAL.Interface
         EntityFramework.Session GetSessionWithAttendees(int sessionId);
 
         EntityFramework.Session GetSessionWithAttendeesTrackable(int sessionId);
+
+        List<EntityFramework.Session> GetAllSessionForAttendee(int traineeId);
     }
 }

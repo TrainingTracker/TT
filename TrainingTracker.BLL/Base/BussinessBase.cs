@@ -10,18 +10,7 @@ namespace TrainingTracker.BLL.Base
     /// </summary>
     public class BussinessBase
     {
-        /// <summary>
-        /// Private session dal accessor
-        /// </summary>
-        private ISessionDal _sessionDalAccessor;
-
-        /// <summary>
-        /// public with only getter Sesion dal accessor
-        /// </summary>
-        public ISessionDal SessionDataAccesor
-        {
-            get { return _sessionDalAccessor ?? (_sessionDalAccessor = new SessionDal()); }
-        }
+        
 
         /// <summary>
         /// Private skill dal accessor
@@ -91,19 +80,6 @@ namespace TrainingTracker.BLL.Base
         }
 		
 		
-        /// <summary>
-        /// Private release dal accessor
-        /// </summary>
-        private IReleaseDal _releaseDataAccesor;
-		
-		/// <summary>
-        /// public with only getter Release dal accessor
-        /// </summary>
-		public IReleaseDal ReleaseDataAccesor
-        {
-			get { return  _releaseDataAccesor ?? ( _releaseDataAccesor = new ReleaseDal()); } 
-        }
-
 		/// <summary>
         /// Private notification dal accessor
         /// </summary>

@@ -7,5 +7,7 @@
         addRelease: function (releaseDetails, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Release/AddRelease", releaseDetails, callback);
         }
+
+
     };
 }(my));

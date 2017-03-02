@@ -63,5 +63,10 @@ namespace TrainingTracker.Common.Entity
         /// Gets and Sets AddedBy
         /// </summary>
         public bool IsNew { get; set; }
+
+        /// <summary>
+        /// Release Type
+        /// </summary>
+        public int ReleaseType { get; set; }
     }
 }

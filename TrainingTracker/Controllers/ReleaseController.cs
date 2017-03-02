@@ -44,15 +44,5 @@ namespace TrainingTracker.Controllers
             return Json(new ReleaseBl().AddRelease(release , new UserBl().GetUserByUserName(User.Identity.Name).UserId));
         }
 
-        /// <summary>
-        /// Action method for UpdateRelease.
-        /// </summary>
-        /// <param name="release">Release object</param>
-        /// <returns> Return a boolean value as a JSON object.</returns>
-        [HttpPost]
-        public ActionResult UpdateRelease(Release release)
-        {
-            return Json(new ReleaseBl().UpdateRelease(release, new UserBl().GetUserByUserName(User.Identity.Name).UserId));
-        }
     }
 }
