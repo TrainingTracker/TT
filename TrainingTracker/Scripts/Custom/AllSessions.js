@@ -259,7 +259,7 @@
                     my.sessionService.addNewSession(session, getSessionOnFilterCallback);
                 }
                 else {
-                    my.sessionService.updateSessionDetails(session, getSessionOnFilterCallback);
+                    my.sessionService.updateSessionDetails(session);
                 }
             }
         }

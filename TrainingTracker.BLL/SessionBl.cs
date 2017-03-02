@@ -42,6 +42,7 @@ namespace TrainingTracker.BLL
             UnitOfWork.SessionRepository.Add(coreSession);
 
             UnitOfWork.Commit();
+            objSession.Id = coreSession.SessionId;
          
             new NotificationBl().AddSessionNotification(objSession);
             return GetSessionOnFilter(1, (int)Common.Enumeration.SessionType.All, coreSession.SessionId, "", currentUser);
@@ -80,6 +81,8 @@ namespace TrainingTracker.BLL
                                                                                                          AddedOn = DateTime.Now,
                                                                                                          UserId = trainee.UserId
                                                                                                      }));
+
+                objSession.Presenter = currentUser;
 
               return UnitOfWork.Commit() > 0 && (new NotificationBl().AddSessionNotification(objSession));
             }

@@ -20,7 +20,10 @@
                 contentType: "application/json",
                 success: function (json)
                 {
-                    callback(json);
+                    if (typeof (callback) != 'undefined') {
+                        callback(json);
+                    }
+                   
                     my.toggleLoader();
                 },
                 error: function() {
@@ -39,7 +42,10 @@
                  contentType: "application/json",
                  success: function (json)
                  {
-                     callback(json);
+                     if (typeof (callback) != 'undefined') {
+                         callback(json);
+                     }
+
                      my.toggleLoader();
                  },
                  error: function ()
