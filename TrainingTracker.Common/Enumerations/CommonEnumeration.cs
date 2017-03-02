@@ -211,4 +211,23 @@
         //Help category Help
         Help = 3,
     }
+
+    public enum SessionType
+    {
+        All = 0,
+
+        // Enumeration for Sessions to be presented
+        ToBePresented = 1 ,
+
+        // Enumeration for session already Presented
+        AlreadyPresented=2
+
+    }
+
+    public enum ReleaseType
+    {
+        Patch = 1 ,
+        Minor = 2 ,
+        Major = 3 
+    }
 }

@@ -1,273 +1,174 @@
 ﻿$(document).ready(function () {
     my.allReleaseVm = function () {
-        var releases = ko.observableArray([]),
-            showModal = ko.observable(false),
-            isVisibleSubmitButton = ko.observable(true),
-            releaseCaption = ko.observable("New Release"),
-            releaseId = my.queryParams["releaseId"],
-            initialLoad = true,
-        selectCaption = ko.observable("Select Version:"),
-        isViewMode = ko.observable(false),
-        isVisibleNewVersion = ko.observable(true),
-        isVisiblePublishButton = ko.observable(false),
-        existingRelease = {
-            Major: 0,
-            Minor: 0,
-            Patch: 0
-        },
-        currentVersion = ko.observable("0.0.0"),
-        releaseDetails = {
-        ReleaseId: 0,
-        Major: 0,
-        Minor: 0,
-        Patch: 0,
-        ReleaseTitle: ko.observable(""),
-        IsPublished: ko.observable(false),
-        Description: ko.observable(""),
-        ReleaseDate: ko.observable(new Date()),
-        Version: ko.observable(""),
-        AddedBy: {FullName : ''}
-        },
-    openReleaseDialogue = function () {
-        selectedReleaseType("Patch");
-        resetReleaseDialogue();
-        isVisiblePublishButton(true);
-        showModal(true);
-    },
-    closeReleaseDialogue = function () {
-        resetReleaseDialogue();
-        showModal(false);
 
-    },
-    getVersion = function (item) {
-        return item.Major + '.' + item.Minor + '.' + item.Patch;
-    },
-    errorText = ko.observable(""),
-    getReleasesCallback = function (releaseList)
-    {
-        existingRelease.Major = 0;
-        existingRelease.Minor = 0;
-        existingRelease.Patch = 0;
-        
-        my.allReleaseVm.releases([]);
-        ko.utils.arrayForEach(releaseList, function (item) {
-            var version = getVersion(item);
-            item.Version = (version == "0.0.0") ? "--" : version;
-            
-            if (item.ReleaseDate != null && version != "0.0.0") {
-                item.ReleaseDate = (item.ReleaseDate == null) ? "N/A" : moment(item.ReleaseDate).format('DD/MM/YYYY');
-                item.IsPublished = item.IsPublished;
-                my.allReleaseVm.releases.push(item);
-            }
-           
+        var release = {
+            CurrentPage: ko.observable(1),
+            PageCount: ko.observable(0),
+            PageSize: ko.observable(0),
+            RowCount: ko.observable(0),
+            DisplayReleases: ko.observableArray([])
+        };
 
-            if (version !== "0.0.0" && (existingRelease.Major <= item.Major && existingRelease.Minor <= item.Minor && existingRelease.Patch <= item.Patch)) {
-                existingRelease.Major = item.Major;
-                existingRelease.Minor = item.Minor;
-                existingRelease.Patch = item.Patch;
-            }
-        });
-
-        if (!my.isNullorEmpty(releaseId) && releaseId > 0 && initialLoad) loadReleaseDetails(releaseId);
-        releaseId = 0;
-        initialLoad = false;
-    },
-    getReleases = function () {
-        my.releaseService.getAllRelease(my.allReleaseVm.getReleasesCallback);
-    },
-    selectedReleaseType = ko.observable(),
-    newVersion = ko.computed(function () {
-        if (releases().length == 0 || !releaseDetails.IsPublished()) {
-            releaseDetails.Major = 0;
-            releaseDetails.Minor = 0;
-            releaseDetails.Patch = 1;
-            return "0.0.1";
-        }
-        var item = existingRelease;
-        releaseDetails.Major = item.Major;
-        releaseDetails.Minor = item.Minor;
-        releaseDetails.Patch = item.Patch;
-        switch (selectedReleaseType()) {
-            case "Major":
-                my.allReleaseVm.releaseDetails.Major += 1;
-                my.allReleaseVm.releaseDetails.Minor = 0;
-                my.allReleaseVm.releaseDetails.Patch = 0;
-                break;
-            case "Minor":
-                if (my.allReleaseVm.releaseDetails.Minor >= 9) {
-                    my.allReleaseVm.releaseDetails.Major += 1;
-                    my.allReleaseVm.releaseDetails.Minor = 0;
-                }
-                else {
-                    my.allReleaseVm.releaseDetails.Minor += 1;
-                }
-                my.allReleaseVm.releaseDetails.Patch = 0;
-                break;
-            case "Patch":
-                if (my.allReleaseVm.releaseDetails.Patch >= 9) {
-                    my.allReleaseVm.releaseDetails.Minor += 1;
-                    if (my.allReleaseVm.releaseDetails.Minor >= 9) {
-                        my.allReleaseVm.releaseDetails.Major += 1;
-                        my.allReleaseVm.releaseDetails.Minor = 0;
-                    }
-                    my.allReleaseVm.releaseDetails.Patch = 0;
-                }
-                else {
-                    my.allReleaseVm.releaseDetails.Patch += 1;
-                }
-                break;
-        }
-        return getVersion(my.allReleaseVm.releaseDetails);
-    }),
-    addRelease = function () {
-        if (!my.allReleaseVm.validateReleaseData()) return;
-        
-        if (!releaseDetails.IsPublished()) {
-            releaseDetails.ReleaseDate(null);
-            releaseDetails.Major = 0;
-            releaseDetails.Minor = 0;
-            releaseDetails.Patch = 0;
-        }
-        
-        if (my.allReleaseVm.releaseDetails.ReleaseId != 0) {
-            my.releaseService.UpdateRelease(my.allReleaseVm.releaseDetails, my.allReleaseVm.updateReleaseCallback);
-           // resetReleaseDialogue();
-            return;
-        }
-        my.releaseService.addRelease(my.allReleaseVm.releaseDetails, my.allReleaseVm.addReleaseCallback);
-    },
-    addReleaseCallback = function (addStatus) {
-        if (addStatus)
+        var currentRelease =
         {
-            my.allReleaseVm.showModal(false);
-            getReleases();           
-            resetReleaseDialogue();
+            Id: ko.observable(0),
+            Title: ko.observable(""),
+            Description: ko.observable(""),
+            Date: ko.observable(""),
+            AddedBy: ko.observable(null)
+        };
 
-        }
-        else
+        var newRelease =
         {
-            alert("Add Release Failure");
-        }
-    },
-    resetReleaseDialogue = function () {
-        selectedReleaseType("Patch");
-        my.allReleaseVm.releaseDetails.ReleaseTitle("");
-        my.allReleaseVm.releaseDetails.Description("");
-        my.allReleaseVm.releaseDetails.IsPublished(false);
-        my.allReleaseVm.releaseDetails.ReleaseDate(new Date());
-        my.allReleaseVm.releaseDetails.ReleaseId = 0;
-        my.allReleaseVm.errorText("");
-        isViewMode(false);
-        isVisibleNewVersion(true);
-        isVisiblePublishButton(false);
-        my.allReleaseVm.isVisibleSubmitButton(true);
-        my.allReleaseVm.releaseCaption("New Release");
-        my.allReleaseVm.selectCaption("Select Version:");
-    },
+            Title: ko.observable(""),
+            Description: ko.observable(""),
+            Type: ko.observable("Patch"),
 
-    validateReleaseData = function () {
-        if (my.isNullorEmpty(releaseDetails.ReleaseTitle()) || my.isNullorEmpty(releaseDetails.Description())) {
-            my.allReleaseVm.errorText("All fields are mandatory.");
-            return false;
         }
-        else {
-            my.allReleaseVm.errorText("");
+
+        var settings =
+        {
+            searchReleaseId: ko.observable(my.queryParams["releaseId"]),
+            wildcard: ko.observable(""),
+            addReleaseModal: ko.observable(false)
+        };
+
+        var photoUrl = function (pictureName) {
+            return my.rootUrl + "/Uploads/ProfilePicture/" + (pictureName || "dummy.jpg");
+        };
+
+        var getReleases = function () {
+            if (!settings.searchReleaseId()) {
+                settings.searchReleaseId(0);
+            }
+            my.releaseService.GetReleaseOnFilter(settings.wildcard(), settings.searchReleaseId(), release.CurrentPage(), getReleaseCallback);
+        };
+
+        var getReleaseCallback = function (response) {
+            if (response) {
+                release.CurrentPage(response.CurrentPage),
+                    release.PageCount(response.PageCount),
+                    release.PageSize(response.PageSize),
+                    release.RowCount(response.RowCount),
+                    release.DisplayReleases([]);
+
+                $.each(response.Results, function (arrayId, item) {
+                    release.DisplayReleases.push(item);
+                });
+
+                closeReleaseDialogue();
+                loadDefaultRelease(release.DisplayReleases()[0]);
+            }
+        };
+
+        var loadDefaultRelease = function (releaseObject) {
+            if (releaseObject == null) return;
+
+            currentRelease.Id(releaseObject.ReleaseId),
+            currentRelease.Title(releaseObject.ReleaseTitle),
+            currentRelease.Description(releaseObject.Description),
+            currentRelease.Date(releaseObject.ReleaseDate),
+            currentRelease.AddedBy(releaseObject.AddedBy);
+        };
+
+        var loadReleaseData = function (releaseId) {
+
+            var activeAttendies = ko.utils.arrayFilter(release.DisplayReleases(), function (releaseObj) {
+                return releaseObj.ReleaseId == releaseId;
+            });
+
+            if (activeAttendies.length == 0) {
+                settings.searchReleaseId(releaseId);
+                getReleases();
+                return;
+            }
+            loadDefaultRelease(activeAttendies[0]);
+        };
+
+        var resetFilterAndGetData = function () {
+            release.CurrentPage(1);
+            settings.searchReleaseId(0);
+            getReleases();
+        };
+
+        var getNextPage = function () {
+            release.CurrentPage(release.CurrentPage() + 1);
+            getReleases();
+        };
+
+        var getPreviousPage = function () {
+            release.CurrentPage(release.CurrentPage() - 1);
+            getReleases();
+        };
+
+        var closeReleaseDialogue = function () {
+            settings.addReleaseModal(false);
+            clearNewRelease();
+        }
+
+        var addNewRelease = function () {
+            clearNewRelease();
+            settings.addReleaseModal(true);
+
+        };
+
+        var clearNewRelease = function () {
+            newRelease.Title("");
+            newRelease.Description("");
+            newRelease.Type("Patch");
+        }
+
+        var publishRelease = function () {
+            if (validateReleaseData()) {
+
+                var type = 1;
+                if (newRelease.Type() == 'Major') {
+                    type = 3;
+                }
+                else if (newRelease.Type() == 'Minor') {
+                    type = 2;
+                } else {
+                    type = 1;
+                }
+
+                var releaseDetails =
+                {
+                    ReleaseType: type,
+                    ReleaseTitle: newRelease.Title(),
+                    Description: newRelease.Description()
+                }
+
+                my.releaseService.addRelease(releaseDetails, getReleaseCallback);
+            }
+            else {
+                alert("All fields are mandatory.");
+            }
+        }
+
+        var validateReleaseData = function () {
+            if (my.isNullorEmpty(newRelease.Title()) || my.isNullorEmpty(newRelease.Description())) {
+                return false;
+            }
             return true;
         }
-    },
-    loadReleaseDetails = function (ReleaseId, action) {
-        openReleaseDialogue();
-       // my.allReleaseVm.releaseDetails.IsPublished(true);
-        var filteredRelease = ko.utils.arrayFilter(my.allReleaseVm.releases(), function (item) {
-            return item.ReleaseId == ReleaseId;
-        });
-        
-        if (filteredRelease.length == 0) return;
-        
-        my.allReleaseVm.releaseDetails.ReleaseTitle(filteredRelease[0].ReleaseTitle);
-        my.allReleaseVm.releaseDetails.Description(filteredRelease[0].Description);
-        my.allReleaseVm.releaseDetails.ReleaseId = filteredRelease[0].ReleaseId;
-        my.allReleaseVm.isVisibleSubmitButton(false);
-        
-        if (typeof(action) == 'undefined') {
-            action = filteredRelease[0].IsPublished ? 'VIEW' : 'EDIT';
-        }
-
-        if (action.toUpperCase() === 'EDIT') {
-            my.allReleaseVm.releaseCaption("Publish Release");
-            isVisiblePublishButton(true);
-            
-        }
-        else if (action.toUpperCase() === 'VIEW')
-        {
-            my.allReleaseVm.releaseCaption("View Release");
-            my.allReleaseVm.selectCaption("Selected Version:");
-            my.allReleaseVm.isViewMode(true);
-            isVisibleNewVersion(false);
-            my.allReleaseVm.releaseDetails.ReleaseDate(moment(filteredRelease[0].ReleaseDate,"DD/MM/YYYY"));
-            my.allReleaseVm.currentVersion(getVersion(filteredRelease[0]));
-        }
-        
-        if (filteredRelease[0].IsPublished) {
-            my.allReleaseVm.releaseDetails.IsPublished(true);
-            isVisiblePublishButton(false);
-        }
-        else
-        {
-            my.allReleaseVm.releaseDetails.IsPublished(false);
-            isVisiblePublishButton(true);
-        }
-    },
-    updateReleaseCallback = function (updateStatus) {
-        my.allReleaseVm.showModal(false);
-        if (updateStatus) {
-            getReleases();
-            my.meta.getNotification();
-        }
-        else {
-            alert("Update failure");
-        }
-    },
-    updateRelease = function () {
-        if (!my.allReleaseVm.validateReleaseData()) return;
-
-        if (my.allReleaseVm.releaseDetails.ReleaseId == 0) {
-            my.releaseService.addRelease(my.allReleaseVm.releaseDetails, my.allReleaseVm.addReleaseCallback);
-            //resetReleaseDialogue();
-            return;
-        }
-
-        my.releaseService.UpdateRelease(my.allReleaseVm.releaseDetails, my.allReleaseVm.updateReleaseCallback);
-        resetReleaseDialogue();
-        closeReleaseDialogue();
-    };
 
         return {
-            releases: releases,
-            isViewMode: isViewMode,
-            isVisiblePublishButton: isVisiblePublishButton,
-            isVisibleNewVersion: isVisibleNewVersion,
-            getReleasesCallback: getReleasesCallback,
+            release: release,
+            currentRelease: currentRelease,
             getReleases: getReleases,
-            addRelease: addRelease,
-            addReleaseCallback: addReleaseCallback,
-            selectedReleaseType: selectedReleaseType,
-            newVersion: newVersion,
-            releaseDetails: releaseDetails,
-            validateReleaseData: validateReleaseData,
-            errorText: errorText,
-            showModal: showModal,
-            openReleaseDialogue: openReleaseDialogue,
+            settings: settings,
+            AllRelease: release.DisplayReleases,
+            loadReleaseData: loadReleaseData,
+            photoUrl: photoUrl,
+            resetFilterAndGetData: resetFilterAndGetData,
+            getNextPage: getNextPage,
+            getPreviousPage: getPreviousPage,
+            newRelease: newRelease,
             closeReleaseDialogue: closeReleaseDialogue,
-            existingRelease: existingRelease,
-            loadReleaseDetails: loadReleaseDetails,
-            currentVersion: currentVersion,
-            isVisibleSubmitButton: isVisibleSubmitButton,
-            updateRelease: updateRelease,
-            updateReleaseCallback: updateReleaseCallback,
-            releaseCaption: releaseCaption,
-            selectCaption: selectCaption
+            addNewRelease: addNewRelease,
+            publishRelease: publishRelease
         };
+
     }();
     my.allReleaseVm.getReleases();
     ko.applyBindings(my.allReleaseVm);

@@ -28,9 +28,9 @@ namespace TrainingTracker.Controllers
         /// Action method for GetAllReleases.
         /// </summary>
         /// <returns>Return list of releases as JSON object.</returns>
-        public ActionResult GetAllReleases()
+        public ActionResult GetReleaseOnFilter(string keyword,int releaseId,int pageNumber)
         {
-           return Json(new ReleaseBl().GetAllReleases(), JsonRequestBehavior.AllowGet);
+            return Json(new ReleaseBl().GetReleaseOnFilter(keyword, releaseId, pageNumber), JsonRequestBehavior.AllowGet);
         }
       
         /// <summary>
@@ -44,15 +44,5 @@ namespace TrainingTracker.Controllers
             return Json(new ReleaseBl().AddRelease(release , new UserBl().GetUserByUserName(User.Identity.Name).UserId));
         }
 
-        /// <summary>
-        /// Action method for UpdateRelease.
-        /// </summary>
-        /// <param name="release">Release object</param>
-        /// <returns> Return a boolean value as a JSON object.</returns>
-        [HttpPost]
-        public ActionResult UpdateRelease(Release release)
-        {
-            return Json(new ReleaseBl().UpdateRelease(release, new UserBl().GetUserByUserName(User.Identity.Name).UserId));
-        }
     }
 }

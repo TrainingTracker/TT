@@ -95,10 +95,11 @@ namespace TrainingTracker.BLL
 
             return new UserProfileVm
             {
+
                 User = userId == logedInUser.UserId ? null : currentUser,
                 Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null ,
                 TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
-                Sessions = currentUser.IsTrainee ? SessionDataAccesor.GetSessionsByUserId(userId) : null ,
+                Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
                 Projects =  null,
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
                 FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),

@@ -10,7 +10,6 @@ using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.Controllers
 {
-
     [CustomAuthorizeAttribute]
     public class LoginController : Controller
     {
