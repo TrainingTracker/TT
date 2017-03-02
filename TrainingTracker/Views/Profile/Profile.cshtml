@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div id="divWeeklyReviewcollapasable" class="collapse in" data-bind="visible: my.profileVm.userVm.User.IsTrainee">
+                <div id="divWeeklyReviewcollapasable" class="collapse in" data-bind="if: my.profileVm.userVm.User.IsTrainee">
                     <div class="panel-heading">
                         <div class="tab-wrap">
                             <div>
@@ -53,9 +53,9 @@
                                 @*<span class="header-Tab rating-Exceptional">Exceptional</span>*@
                             </div>
                             <div class="data-counter rating-Exceptional">
-                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.userVm.TraineeSynopsis.WeeklyFeedbackCount.Exceptional"></span>
                                 <span class="rating-tag rating-exceptional-new-color">Exceptional</span>
-                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.getCountForFeedback(4, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class="rating-exceptional-new-color" data-bind="text: my.profileVm.userVm.TraineeSynopsis.CodeReviewFeedbackCount.Exceptional"></span>
                             </div>
 
                         </div>
@@ -65,9 +65,9 @@
                                 <span class="header-Tab  rating-Fast">Fast</span>*@
                             </div>
                             <div class="data-counter">
-                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.userVm.TraineeSynopsis.WeeklyFeedbackCount.Fast"></span>
                                 <span class="rating-tag rating-Fast-new-color">Fast</span>
-                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.getCountForFeedback(3, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-Fast-new-color" data-bind="text: my.profileVm.userVm.TraineeSynopsis.CodeReviewFeedbackCount.Fast"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
@@ -76,9 +76,9 @@
                                 <span class="header-Tab rating-Average">Average</span>*@
                             </div>
                             <div class="data-counter">
-                                <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-Average" data-bind="text: my.profileVm.userVm.TraineeSynopsis.WeeklyFeedbackCount.Average"></span>
                                 <span class="rating-tag rating-Average">Average</span>
-                                <span class=" rating-Average"  data-bind="text: my.profileVm.getCountForFeedback(2, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-Average" data-bind="text: my.profileVm.userVm.TraineeSynopsis.CodeReviewFeedbackCount.Average"></span>
                             </div>
                         </div>
                         <div class="tab-wrap">
@@ -87,9 +87,9 @@
                                 <span class="header-Tab  rating-slow">Slow</span>*@
                             </div>
                             <div class="data-counter">
-                                <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentWeeklyFeedback())"></span>
+                                <span class=" rating-slow" data-bind="text: my.profileVm.userVm.TraineeSynopsis.WeeklyFeedbackCount.Slow"></span>
                                 <span class="rating-tag    rating-slow">Slow</span>
-                                <span class=" rating-slow" data-bind="text: my.profileVm.getCountForFeedback(1, my.profileVm.recentCodeReviewFeedback())"></span>
+                                <span class=" rating-slow" data-bind="text: my.profileVm.userVm.TraineeSynopsis.CodeReviewFeedbackCount.Slow"></span>
 
                             </div>
                         </div>
@@ -99,38 +99,38 @@
                                 <span class="header-Tab">Recent CR</span>
                             </div>
                             <div data-bind="">
-                                <!-- ko if: my.profileVm.recentWeeklyFeedback().length > 0 -->
-                                <span data-bind="visible: my.profileVm.recentWeeklyFeedback().length > 0, css: {
-                                                    'rating-slow': my.profileVm.recentWeeklyFeedback()[0].Rating == 1,
-                                                    'rating-Average': my.profileVm.recentWeeklyFeedback()[0].Rating == 2,
-                                                    'rating-Fast-new-color': my.profileVm.recentWeeklyFeedback()[0].Rating == 3,
-                                                    'rating-Exceptional': my.profileVm.recentWeeklyFeedback()[0].Rating == 4
+                                <!-- ko if: my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating > 0 -->
+                                <span data-bind="visible: my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating > 0, css: {
+                                                    'rating-slow': my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating == 1,
+                                                    'rating-Average': my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating == 2,
+                                                    'rating-Fast-new-color': my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating == 3,
+                                                    'rating-Exceptional': my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating == 4
                                                 }">
-                                    <!-- ko foreach: new Array(my.profileVm.recentWeeklyFeedback()[0].Rating)  -->
+                                    <!-- ko foreach: new Array(my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating)  -->
                                     <span class="glyphicon glyphicon-star"
                                           style="display: inline-block;"></span>
                                     <!-- /ko -->
                                 </span>
                                 <!-- /ko -->
 
-                                <!-- ko if: my.profileVm.recentWeeklyFeedback().length == 0 -->
+                                <!-- ko if: my.profileVm.userVm.TraineeSynopsis.RecentWeeklyRating == 0 -->
                                 <span>--</span>
                                 <!-- /ko -->
 
-                                <!-- ko if: my.profileVm.recentCodeReviewFeedback().length > 0 -->
+                                <!-- ko if: my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating > 0 -->
                                 <span data-bind=" css: {
-                                                        'rating-slow': my.profileVm.recentCodeReviewFeedback()[0].Rating == 1,
-                                                        'rating-Average': my.profileVm.recentCodeReviewFeedback()[0].Rating == 2,
-                                                        'rating-Fast-new-color': my.profileVm.recentCodeReviewFeedback()[0].Rating == 3,
-                                                        'rating-Exceptional': my.profileVm.recentCodeReviewFeedback()[0].Rating == 4
+                                                        'rating-slow': my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating == 1,
+                                                        'rating-Average': my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating == 2,
+                                                        'rating-Fast-new-color': my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating == 3,
+                                                        'rating-Exceptional': my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating == 4
                                                     }">
-                                    <!-- ko foreach: new Array(my.profileVm.recentCodeReviewFeedback()[0].Rating)  -->
+                                    <!-- ko foreach: new Array(my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating)  -->
                                     <span class="glyphicon glyphicon-star"
                                           style="display: inline-block;"></span>
                                     <!-- /ko -->
                                 </span>
                                 <!-- /ko -->
-                                <!-- ko if: my.profileVm.recentCodeReviewFeedback().length == 0 -->
+                                <!-- ko if: my.profileVm.userVm.TraineeSynopsis.RecentCodeReviewRating == 0 -->
                                 <span>--</span>
                                 <!-- /ko -->
                             </div>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-             <div class="list-group " data-bind="visible: my.profileVm.userVm.User.IsTrainee && my.profileVm.userVm.AllAssignedCourses.length > 0" data-toggle="collapse" data-target="#divCoursescollapasable">
+             <div class="list-group " data-bind="if: my.profileVm.userVm.User.IsTrainee && my.profileVm.userVm.AllAssignedCourses.length > 0" data-toggle="collapse" data-target="#divCoursescollapasable">
                     <div class="list-group-item active">
                         <label>Courses Assigned</label>
                         <span class="pull-right">
@@ -149,7 +149,7 @@
                     </div>
                 </div>
 
-                <div id="divCoursescollapasable" class="collapse in" data-bind="visible: my.profileVm.userVm.User.IsTrainee && my.profileVm.userVm.AllAssignedCourses.length > 0">
+                <div id="divCoursescollapasable" class="collapse in" data-bind="if: my.profileVm.userVm.User.IsTrainee && my.profileVm.userVm.AllAssignedCourses.length > 0">
                     <div data-bind="foreach: my.profileVm.userVm.AllAssignedCourses">
                         <div class="list-group-item collapse" data-bind="click: function(){ my.profileVm.navigateToCourse(Id); }">
                             <span data-bind="text:Name"></span>
@@ -167,7 +167,7 @@
                 </div>
 
               
-                <div class="list-group collapsed" data-bind="visible: my.profileVm.userVm.User.IsTrainee" data-toggle="collapse" data-target="#divSkillscollapasable">
+                <div class="list-group collapsed" data-bind="if: my.profileVm.userVm.User.IsTrainee" data-toggle="collapse" data-target="#divSkillscollapasable">
                     <div class="list-group-item active">
                         <label>Skills</label>
                         <span class="pull-right">
@@ -175,7 +175,7 @@
                         </span>
                     </div>
                 </div>
-                <div id="divSkillscollapasable" class="collapse" data-bind="visible: my.profileVm.userVm.User.IsTrainee">
+                <div id="divSkillscollapasable" class="collapse" data-bind="if: my.profileVm.userVm.User.IsTrainee">
                     <div data-bind="foreach: my.profileVm.userVm.Skills">
                         <div class="list-group-item">
                             <div data-bind="text: Name" style="display: inline-block;"></div>
@@ -204,7 +204,7 @@
                 
               
 
-                <div class="list-group collapsed" data-bind="visible: my.profileVm.userVm.User.IsTrainee" data-toggle="collapse" data-target="#divSessioncollapasable">
+                <div class="list-group collapsed" data-bind="if: my.profileVm.userVm.User.IsTrainee" data-toggle="collapse" data-target="#divSessioncollapasable">
                     <div class="list-group-item active">
                         <label>Sessions attended</label>
                         <span class="pull-right">
@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <div id="divSessioncollapasable" class="collapse" data-bind="visible: my.profileVm.userVm.User.IsTrainee">
+                <div id="divSessioncollapasable" class="collapse" data-bind="if: my.profileVm.userVm.User.IsTrainee">
                     <div data-bind="foreach: my.profileVm.userVm.Sessions">
                         <div data-bind="text: Title" class="list-group-item collapse"></div>
                     </div>
@@ -222,7 +222,7 @@
                     </div>
                 </div>
 
-                <div id="divReviewcollapasable" class="collapse in" data-bind="visible: (my.profileVm.userVm.User.IsTrainer || my.profileVm.userVm.User.IsManager)">
+                <div id="divReviewcollapasable" class="collapse in" data-bind="if: (my.profileVm.userVm.User.IsTrainer || my.profileVm.userVm.User.IsManager)">
                     <div class="panel-heading">
                         <div class="tab-wrap">
                             <div>
@@ -312,7 +312,7 @@
                                                 <input value="1" data-bind="checked: my.profileVm.controls.skillOption" type="radio" name="optradio">Select existing</label>
                                             <label class="radio-inline">
                                                 <input value="2" data-bind="checked: my.profileVm.controls.skillOption" type="radio" name="optradio">Other</label>
-                                            <select class="input-sm form-control" data-bind="visible: my.profileVm.controls.skillOption() == 1, options: my.profileVm.userVm.AllSkills,
+                                            <select class="input-sm form-control" data-bind="visible: my.profileVm.controls.skillOption() == 1, options: my.profileVm.userVm.AllSkills(),
                                                                                              optionsText: 'Name',
                                                                                              value: my.profileVm.selectedSkill"></select>
                                             <input type="text"

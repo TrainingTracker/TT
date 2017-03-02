@@ -3,32 +3,19 @@
     my.meta = function () {
         var currentUser = {},
             allTrainee = ko.observableArray([]),
-            allMentor =ko.observableArray([]),
+            allMentor = ko.observableArray([]),
+            allActiveUsers = ko.observableArray([]),
             currentNotificationId = my.queryParams["notificationId"],
             isAdministrator = ko.observable(false),
             isManager=ko.observable(false),
             isTrainee = ko.observable(false),
             userProfileUrl = ko.observable(""),
-            getCurrentUserCallback = function (user) {
-                my.meta.currentUser = user;
-                my.meta.isManager(user.IsManager);
-                my.meta.isAdministrator(user.IsAdministrator);
-                my.meta.isTrainee(user.IsTrainee);
-                my.meta.userProfileUrl(my.rootUrl + '/Profile/UserProfile?userId=' + user.UserId);
-                my.meta.initializeNavbar();
-                my.meta.getNotification();
-                
-                my.meta.fetchAllUser();
-            },
-			  notifications = ko.observableArray([]),
-		      noOfNotification = ko.observable(0),
-              newActionsToPerform = ko.observableArray([]),
-		      noOfPendingActions = ko.observable(0),
+			notifications = ko.observableArray([]),
+		    noOfNotification = ko.observable(0),
+            newActionsToPerform = ko.observableArray([]),
+		    noOfPendingActions = ko.observable(0),
             avatarUrl = function (item) {
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
-            },
-            getCurrentUser = function () {
-                my.userService.getCurrentUser(my.meta.getCurrentUserCallback);
             },
             initializeNavbar  = function() {
                 $(".text").html("Howdy " + my.meta.currentUser.FirstName + " !!");
@@ -65,116 +52,197 @@
               my.meta.noOfPendingActions(my.meta.newActionsToPerform().length);
               my.meta.noOfNotification(my.meta.notifications().length - my.meta.newActionsToPerform().length);
           },
-             getNotification = function () {
+            getNotification = function () {
                  
                  if (!my.isNullorEmpty(currentNotificationId))
                  {
                      var notificationInfo = {
                          NotificationId: currentNotificationId
                      };
-                     my.userService.updateNotification(notificationInfo, my.meta.getNotificationCallback);
+                     my.userService.updateNotification(notificationInfo, getNotificationCallback);
                  }
                  else {
-                     my.userService.getNotification(my.meta.getNotificationCallback);
+                     my.userService.getNotification(getNotificationCallback);
                  }                 
              },
-        updateNotificationCallback = function (updateStatus) {
-            if (!updateStatus) {
-                //alert("Update notification failure");//To be changed in future Now for test
-            }
-        },
-        updateNotification = function (notificationId, type, link) {
-            var notificationInfo = {
-                NotificationId: notificationId,
-                TypeOfNotification: type
-            };           
-            my.userService.updateNotification(notificationInfo, my.meta.updateNotificationCallback);
-            window.location.href = link;
-        },
-        markAllNotificationAsReadCallback = function (updateStatus)
-        {
-            if (updateStatus) {
-                my.meta.notifications([]);
-                my.meta.noOfNotification(0);
-            }
-        },
-        fetchAllUser = function() {
-            my.userService.getActiveUsers(fetchAllUserCallback);
-        },
-        fetchAllUserCallback =function(result) {
-            var trainee = [], trainer = [];
-            ko.utils.arrayForEach(result, function(obj) {
-                if (obj.IsTrainee)
-                    trainee.push(obj);
-                else
-                    trainer.push(obj);
-            });
-            allTrainee(trainee);
-            allMentor(trainer);
-        },
-        markAllNotificationAsRead = function() {
-            my.userService.markAllNotificationAsRead(markAllNotificationAsReadCallback);
-        };
+            updateNotificationCallback = function (updateStatus) {
+                if (!updateStatus) {
+                    //alert("Update notification failure");//To be changed in future Now for test
+                }
+            },
+            updateNotification = function (notificationId, type, link) {
+                var notificationInfo = {
+                    NotificationId: notificationId,
+                    TypeOfNotification: type
+                };           
+                my.userService.updateNotification(notificationInfo, updateNotificationCallback);
+                window.location.href = link;
+            },
+            markAllNotificationAsReadCallback = function (updateStatus)
+            {
+                if (updateStatus) {
+                    my.meta.notifications([]);
+                    my.meta.noOfNotification(0);
+                }
+            },
+            markAllNotificationAsRead = function() {
+                my.userService.markAllNotificationAsRead(markAllNotificationAsReadCallback);
+            },
 
-        var getCurrentUserPromise = new window.Promise(function (resolve, reject) {
-            $.getJSON(my.rootUrl + "/Login/GetCurrentUser", function(data) {
-                    my.meta.currentUser = data;
-                })
-                .done(function(data) {
-                    resolve(data);
-                });
-            //my.userService.getCurrentUserPromise().done(function(data) {
-            //    my.meta.currentUser = data;
-            //    resolve(data);
-            //});
-        });
-
-        var getAllUserPromise = new window.Promise(function (resolve, reject) {
-            $.getJSON(my.rootUrl + "/Profile/GetActiveUsers", function (result) {
+            getAllActiveUsersCallback = function (result) {
+                allActiveUsers(result);
                 var trainee = [], trainer = [];
-                ko.utils.arrayForEach(result, function (obj) {
+                ko.utils.arrayForEach(result, function(obj) {
                     if (obj.IsTrainee)
                         trainee.push(obj);
                     else
                         trainer.push(obj);
                 });
-
                 allTrainee(trainee);
                 allMentor(trainer);
-            })
-             .done(function () {
-                resolve();
-             });
+                if (my.isNullorEmpty(window.sessionStorage.getItem("allActiveUsers"))) {
+                    window.sessionStorage.setItem("allActiveUsers", JSON.stringify(result));
+                }
+
+            },
+             getCurrentUserCallback = function (user) {
+
+                 if (my.isNullorEmpty(window.sessionStorage.getItem("currentUser"))) {
+                     window.sessionStorage.setItem("currentUser", JSON.stringify(user));
+                 }
+
+                 my.meta.currentUser = user;
+                 my.meta.isManager(user.IsManager);
+                 my.meta.isAdministrator(user.IsAdministrator);
+                 my.meta.isTrainee(user.IsTrainee);
+                 my.meta.userProfileUrl(my.rootUrl + '/Profile/UserProfile?userId=' + user.UserId);
+               
+             },
+
+            getCurrentUserPromise = function () {
+                var deferredObject = $.Deferred();
+
+                var currentUserData = JSON.parse(window.sessionStorage.getItem("currentUser"));
+                if (my.isNullorEmpty(currentUserData)) {
+                    my.userService.getCurrentUserPromise().done(function (data) {
+                        getCurrentUserCallback(data);
+                        my.toggleLoader();
+                        deferredObject.resolve(data);
+                    }).fail(function(data) {
+                        alert("ajax promise failed while fetching current user data");
+                        console.log(JSON.stringify(data));
+                    });
+                
+                } else {
+                    getCurrentUserCallback(currentUserData);
+                    deferredObject.resolve(currentUserData);
+                }
+           
+                return deferredObject.promise();
+            },
+
+            getAllActiveUsersPromise = function () {
+                var deferredObject = $.Deferred();
+
+                var allActiveUserData = JSON.parse(window.sessionStorage.getItem("allActiveUsers"));
+                if (my.isNullorEmpty(allActiveUserData)) {
+                    my.userService.getAllActiveUsersPromise()
+                        .done(function(data) {
+                            getAllActiveUsersCallback(data);
+                            my.toggleLoader();
+                            deferredObject.resolve(data);
+                        }).fail(function(data) {
+                            alert("Ajax promise failed while fetching all users data");
+                            console.log(JSON.stringify(data));
+                    });
+
+                } else {
+                    getAllActiveUsersCallback(allActiveUserData);
+                    deferredObject.resolve(allActiveUserData);
+                }
             
-        });
+                return deferredObject.promise();
+            },
+
+            loadedCurrentUserPromise = function() {
+                var deferredObject = $.Deferred();
+
+                if (!my.isNullorEmpty(my.meta.currentUser) && !my.isNullorEmpty(my.meta.currentUser.Id)) {
+                    deferredObject.resolve();
+                } else {
+                    getCurrentUserPromise().done(function() {
+                        deferredObject.resolve();
+                    });
+                }
+                return deferredObject.promise();
+            },
+
+            loadedAllActiveUsersPromise = function() {
+                var deferredObject = $.Deferred();
+
+                if (!my.isNullorEmpty(my.meta.allActiveUsers) && my.meta.allActiveUsers().length > 0) {
+                    deferredObject.resolve();
+                } else {
+                    getAllActiveUsersPromise().done(function() {
+                        deferredObject.resolve();
+                    });
+                }
+
+                return deferredObject.promise();
+            },
+
+            signOut = function() {
+                sessionStorage.removeItem("currentUser");
+                sessionStorage.removeItem("allActiveUsers");
+                window.location.href = my.rootUrl + "/Login/SignOut";
+            },
+
+            loadLayoutWithMetaData = function() {
+                getCurrentUserPromise().done(function() {
+                    initializeNavbar();
+                    my.meta.getNotification();
+                    my.meta.getAllActiveUsersPromise();
+                });
+                my.webWorker.startWorker(my.rootUrl + "/Scripts/Custom/WebWorker/FetchCurrentUser.js", refreshCurrentUser);
+                my.webWorker.startWorker(my.rootUrl + "/Scripts/Custom/WebWorker/FetchAllUsers.js", refreshAllUsers);
+            },
+
+            refreshCurrentUser = function (response) {
+                if (!my.isNullorEmpty(response)) {
+                    getCurrentUserCallback(response);
+                }
+            },
+            refreshAllUsers = function(response) {  
+                if (!my.isNullorEmpty(response)) {
+                    getAllActiveUsersCallback(response);
+                }
+            }
 
         return {
             currentUser: currentUser,
-            getCurrentUserCallback: getCurrentUserCallback,
-            getCurrentUser: getCurrentUser,
-            initializeNavbar: initializeNavbar,
+            getAllActiveUsersPromise : getAllActiveUsersPromise,
             avatarUrl: avatarUrl,
             isAdministrator: isAdministrator,
             isManager: isManager,
             userProfileUrl: userProfileUrl,
             isTrainee: isTrainee,
             getNotification: getNotification,
-            getNotificationCallback: getNotificationCallback,
             notifications: notifications,
             noOfNotification: noOfNotification,
             updateNotification: updateNotification,
-            updateNotificationCallback: updateNotificationCallback,
             markAllNotificationAsRead: markAllNotificationAsRead,
             allTrainee:allTrainee,
-            allMentor:allMentor,
-            fetchAllUser: fetchAllUser,
+            allMentor: allMentor,
+            allActiveUsers : allActiveUsers,
             getCurrentUserPromise: getCurrentUserPromise,
-            getAllUserPromise: getAllUserPromise,
             newActionsToPerform: newActionsToPerform,
-            noOfPendingActions: noOfPendingActions
-            
+            noOfPendingActions: noOfPendingActions,
+            loadLayoutWithMetaData: loadLayoutWithMetaData,
+            loadedAllActiveUsersPromise : loadedAllActiveUsersPromise,
+            loadedCurrentUserPromise : loadedCurrentUserPromise,
+            signOut: signOut
     };
     }();
 
-    my.meta.getCurrentUser();
+    my.meta.loadLayoutWithMetaData();
 });

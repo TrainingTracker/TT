@@ -15,18 +15,6 @@ namespace TrainingTracker.Controllers
     public class ProfileController : BaseController
     {
 
-        User CurrentUser
-        {
-            get
-            {
-                if (Session["currentUser"] == null)
-                {
-                    Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
-                }
-
-                return (User)Session["currentUser"];
-            }
-        }
         // GET: UserProfile?userId=
         [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
         public ActionResult UserProfile(int userId)
@@ -105,15 +93,13 @@ namespace TrainingTracker.Controllers
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public ActionResult GetManageProfileVm()
         {
-            User currentUser = new UserBl().GetUserByUserName(User.Identity.Name);
-
-            return Json(new UserBl().GetManageProfileVm(currentUser) , JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetManageProfileVm(CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public ActionResult GetAllUsersByTeam()
         {
-            return Json(new UserBl().GetAllUsersByTeam(new UserBl().GetUserByUserName(User.Identity.Name)) , JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetAllUsersByTeam(CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
 
@@ -124,7 +110,7 @@ namespace TrainingTracker.Controllers
         [HttpGet]
         public ActionResult GetActiveUsers()
         {
-            return Json(new UserBl().GetActiveUsers(new UserBl().GetUserByUserName(User.Identity.Name)) , JsonRequestBehavior.AllowGet);
+            return Json(new UserBl().GetActiveUsers(CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -134,7 +120,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json Result for loggin User</returns>
         public ActionResult GetUserProfileVm(int userId)
         {
-            return Json(new UserBl().GetUserProfileVm(userId), JsonRequestBehavior.AllowGet);
+            return Json(UserBl.GetUserProfileVm(userId, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -206,7 +192,7 @@ namespace TrainingTracker.Controllers
         /// <returns></returns>
         public JsonResult GetFeedbackWithThreads(int feedbackId )
         {
-            return Json(new FeedbackBl().GetFeedbackWithThreads(feedbackId , new UserBl().GetUserByUserName(User.Identity.Name)) , JsonRequestBehavior.AllowGet);
+            return Json(new FeedbackBl().GetFeedbackWithThreads(feedbackId , CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -216,7 +202,7 @@ namespace TrainingTracker.Controllers
         /// <returns></returns>
         public JsonResult GetFeedbackThreads(int feedbackId)
         {
-            return Json(new FeedbackBl().GetFeedbackThreads(feedbackId , new UserBl().GetUserByUserName(User.Identity.Name)) , JsonRequestBehavior.AllowGet);
+            return Json(new FeedbackBl().GetFeedbackThreads(feedbackId , CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -228,7 +214,7 @@ namespace TrainingTracker.Controllers
         {
             thread.AddedBy =new User
                                     {
-                                      UserId   = new UserBl().GetUserByUserName(User.Identity.Name).UserId
+                                      UserId   = CurrentUser.UserId
                                     };
 
             return Json(new FeedbackBl().AddNewThread(thread) , JsonRequestBehavior.AllowGet);
@@ -248,7 +234,7 @@ namespace TrainingTracker.Controllers
             return Json(new SurveyBl().FetchWeeklySurveyQuestionForTeam(traineeId,
                                                                         startDate,
                                                                         endDate,
-                                                                        new UserBl().GetUserByUserName(User.Identity.Name).TeamId??0) , JsonRequestBehavior.AllowGet);
+                                                                        CurrentUser.TeamId??0) , JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -297,6 +283,11 @@ namespace TrainingTracker.Controllers
         public ActionResult AddPostThread(ForumThread postThread)
         {
             return Json(DiscussionForumBl.AddPostThread(postThread, CurrentUser).ToString());
+        }
+
+        public JsonResult GetAllSkills()
+        {
+            return Json(new UserBl().GetAllSkills(), JsonRequestBehavior.AllowGet);
         }
     }
 }

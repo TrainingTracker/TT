@@ -40,6 +40,7 @@ namespace TrainingTracker
                 "~/Scripts/Custom/AjaxService.js",
                 "~/Scripts/Custom/UserService.js",
                 "~/Scripts/Custom/BindingHandlers.js",
+                "~/Scripts/Custom/WebWorker/WebWorker.js",
                 "~/Scripts/Custom/Layout.js"
                 ));
 

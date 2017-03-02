@@ -52,6 +52,7 @@
     <Compile Include="Entity\CourseSubtopic.cs" />
     <Compile Include="Entity\CourseTrackerDetails.cs" />
     <Compile Include="Entity\Feedback.cs" />
+    <Compile Include="Entity\TraineeFeedbackSynopsis.cs" />
     <Compile Include="Entity\FeedbackPlot.cs" />
     <Compile Include="Entity\FeedbackType.cs" />
     <Compile Include="Entity\FileUpload.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Entity\SurveySection.cs" />
     <Compile Include="Entity\Team.cs" />
     <Compile Include="Entity\Threads.cs" />
+    <Compile Include="Entity\FeedbackCount.cs" />
     <Compile Include="Entity\TrainerFeedbackSynopsis.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Entity\UserNotification.cs" />

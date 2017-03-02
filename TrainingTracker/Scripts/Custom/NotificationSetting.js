@@ -21,7 +21,7 @@
         }
         var openNotificationSetting = function () {
             traineeList([]);
-            my.meta.getAllUserPromise.then(function() {
+            my.meta.loadedAllActiveUsersPromise().then(function() {
                 ko.utils.arrayForEach(my.meta.allTrainee(), function (item) {
                     traineeList.push({
                         Id: 0,
@@ -32,9 +32,10 @@
                         IsDeleted: ko.observable(true)
                     });
                 });
+                
+            }).then(function() {
+                my.userService.getSubscribedTraineee(getSubscribedTraineeeCallback);
             });
-            
-            my.userService.getSubscribedTraineee(getSubscribedTraineeeCallback);
         }
         var updateSubscribedTraineeeCallback = function(jsonData) {
             $.notify("Preferences Saved", { style: 'customAlert'});
