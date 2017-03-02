@@ -21,7 +21,13 @@ namespace TrainingTracker.BLL
 
             foreach (var emailSubscriptionEntity in emailSubscriptions.Where(item => item.IsModifiedOrAdded))
             {
-                    UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(
+                if (emailSubscriptionEntity.Id == 0)
+                {
+                    emailSubscriptionEntity.Id = UnitOfWork.EmailAlertSubscriptionRepository
+                        .GetId(emailSubscriptionEntity.SubscribedByUserId, emailSubscriptionEntity.SubscribedForUserId);
+                }
+
+                UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(
                         EmailAlertSubscriptionConverter.ConvertToCore(emailSubscriptionEntity));  
             }
 

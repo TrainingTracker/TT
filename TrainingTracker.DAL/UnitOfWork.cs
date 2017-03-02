@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Remoting.Contexts;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
-using TrainingTracker.DAL.RepoInterface;
 using TrainingTracker.DAL.Repositories;
 
 namespace TrainingTracker.DAL

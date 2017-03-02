@@ -29,7 +29,7 @@ namespace TrainingTracker.DAL.DataAccess
             {
                 using (var context = new TrainingTrackerEntities())
                 {
-                    sessions = context.UserSessionMappings.Where(m => m.UserId == userId).Select(s => new Common.Entity.Session
+                    sessions = context.UserSessionMappings.Where(m => m.UserId == userId).Select(s => new Session
                     {
                         Id = s.Session.SessionId,
                         Title = s.Session.Title

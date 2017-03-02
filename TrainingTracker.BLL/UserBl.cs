@@ -89,23 +89,20 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="userId">logged in user id</param>
         /// <returns>instance of User vm</returns>
-        public UserProfileVm GetUserProfileVm( int userId )
+        public UserProfileVm GetUserProfileVm( int userId, User logedInUser)
         {
-            User currentUser = UserDataAccesor.GetUserById(userId);
+            User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
 
             return new UserProfileVm
             {
-                User = currentUser ,
-                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : new List<Skill>() ,
-                AllSkills = currentUser.IsTrainee ? SkillDataAccesor.GetAllSkillsForApp() : new List<Skill>(),
-                Sessions = currentUser.IsTrainee ? SessionDataAccesor.GetSessionsByUserId(userId) : new List<Session>() ,
-                Projects =  new List<Project>(),
+                User = userId == logedInUser.UserId ? null : currentUser,
+                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null ,
+                TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
+                Sessions = currentUser.IsTrainee ? SessionDataAccesor.GetSessionsByUserId(userId) : null ,
+                Projects =  null,
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
-                RecentCrFeedback = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 1000 , 4) : new List<Feedback>() ,
-                RecentWeeklyFeedback = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 1000 , 5) : new List<Feedback>() ,
-                AllTrainer = currentUser.IsTrainee ? GetAllUsersByTeam(currentUser).Where(x => x.IsTrainer || x.IsManager).ToList() : new List<User>() ,
                 FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),
-                TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) :new TrainerFeedbackSynopsis(),
+                TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
                 AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x=>x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>() 
             };            
         }
@@ -228,6 +225,16 @@ namespace TrainingTracker.BLL
         public List<User> GetAllTrainees(int teamId)
         {
             return (UserDataAccesor.GetAllTrainees(teamId));
+        }
+
+
+        /// <summary>
+        ///  Get List of all skills 
+        /// </summary>
+        /// <returns>List of Skills if exists otherwise null</returns>
+        public List<Skill> GetAllSkills()
+        {
+            return SkillDataAccesor.GetAllSkillsForApp();
         }
     }
 }
