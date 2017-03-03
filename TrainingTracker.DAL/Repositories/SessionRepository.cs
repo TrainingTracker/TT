@@ -21,8 +21,26 @@ namespace TrainingTracker.DAL.Repositories
         public PagedResult<EntityFramework.Session> GetPagedFilteredSessions(string wildcard, Common.Enumeration.SessionType statusId, int searchSessionId
                                                                             , int teamId, int pageNumber, int pageSize)
         {
-            return BaseFilterSearchQuery(wildcard, statusId, searchSessionId, teamId).AsNoTracking()
-                                                                                     .Page(pageNumber, pageSize);
+            if (searchSessionId == 0)
+            {
+                return BaseFilterSearchQuery(wildcard, statusId, searchSessionId, teamId).AsNoTracking()
+                                                                                    .Page(pageNumber, pageSize);
+            }
+
+            var pagedResult = BaseFilterSearchQuery(wildcard, statusId, 0, teamId).AsNoTracking()
+                                                                                    .Page(pageNumber, pageSize);
+
+            if (pagedResult.Results.Any(x => x.SessionId == searchSessionId) && pagedResult.Results.IndexOf(pagedResult.Results.FirstOrDefault(x => x.SessionId == searchSessionId)) == 0)
+            {
+                return pagedResult;
+            }
+
+            pagedResult.Results.Remove(pagedResult.Results.FirstOrDefault(x => x.SessionId == searchSessionId));
+            var sessionResult = BaseFilterSearchQuery(wildcard, statusId, searchSessionId, teamId).AsNoTracking()
+                                                                 .Page(pageNumber, pageSize);
+            pagedResult.Results.Insert(0, sessionResult.Results.FirstOrDefault());
+            return pagedResult;
+           
         }
 
         public EntityFramework.Session GetSessionWithAttendees(int sessionId)

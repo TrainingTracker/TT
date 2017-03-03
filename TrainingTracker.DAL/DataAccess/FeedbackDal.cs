@@ -382,9 +382,9 @@ namespace TrainingTracker.DAL.DataAccess
                                                              (int) Common.Enumeration.FeedbackType.Weekly)).ToList();
                 
                  var codeReviewFeedback =
-                     feedbacks.Where(x => x.FeedbackType == (int) Common.Enumeration.FeedbackType.CodeReview).OrderBy(x => x.AddedOn).ToList();
+                     feedbacks.Where(x => x.FeedbackType == (int)Common.Enumeration.FeedbackType.CodeReview).OrderByDescending(x => x.FeedbackId).ToList();
                  var weeklyFeedback =
-                     feedbacks.Where(x => x.FeedbackType == (int) Common.Enumeration.FeedbackType.Weekly).OrderBy(x => x.AddedOn).ToList();
+                     feedbacks.Where(x => x.FeedbackType == (int)Common.Enumeration.FeedbackType.Weekly).OrderByDescending(x => x.FeedbackId).ToList();
 
 
                 return new TraineeFeedbackSynopsis
