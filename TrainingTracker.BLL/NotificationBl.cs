@@ -192,7 +192,9 @@ namespace TrainingTracker.BLL
                 AddedTo = session.Attendee
             };
 
-           return AddNotification(notification , session.SessionAttendees.Select(x=>x.UserId).ToList());
+           return AddNotification(notification , session.SessionAttendees.Where(x=> x.UserId != session.Presenter.UserId)
+                                                                         .Select(x=>x.UserId)
+                                                                         .ToList());
         }
 
         /// <summary>
