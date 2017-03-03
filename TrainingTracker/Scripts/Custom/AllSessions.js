@@ -99,7 +99,7 @@
             if (response) {
                 currentSession.Id(response.Id);
                 currentSession.Title(response.Title),
-                currentSession.Description(response.Description),
+                currentSession.Description(response.Description.split("\n").join("<br/>")),
                 currentSession.Date(moment(response.Date).format('MM/DD/YYYY')),
                 currentSession.Presenter(response.Presenter),
                 commaSeparatedUserIdForAttendies(response.SessionAttendees),
@@ -132,6 +132,7 @@
         };
 
         var resetFilterAndGetData = function () {
+            settings.searchSessionId(0);
             sessions.CurrentPage(1);
             sessions.PageCount(0);
             sessions.PageSize(0);
@@ -259,7 +260,7 @@
                     my.sessionService.addNewSession(session, getSessionOnFilterCallback);
                 }
                 else {
-                    my.sessionService.updateSessionDetails(session);
+                    my.sessionService.updateSessionDetails(session, function () { settings.EditAllowed(false); });
                 }
             }
         }

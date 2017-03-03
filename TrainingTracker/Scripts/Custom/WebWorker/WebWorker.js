@@ -9,6 +9,7 @@
                 if (typeof (worker) == "undefined" || filePath != null) {// cannot create a new webworker if last worker is not terminated
                     worker = new Worker(filePath);
                 }
+                worker.postMessage(my.rootUrl);
                 worker.onmessage = function (event) {
                      callback(event.data);
                 };

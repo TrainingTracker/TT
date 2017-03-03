@@ -335,12 +335,21 @@ hr.postEnd, #divBugHeaderDescription:after {
 }
 
 .user-name {
+       display: table;
     text-align: center;
+    width: 100%;
+    vertical-align: middle;
     padding-top: 5px;
     color: #ffffff;
     font-weight: bold;
-    height: 45%;
+    height: calc(100% - 50px);
     background-color: #192741;
+}
+
+.user-name span {
+       width: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #divSessionAttendies .thumb {
@@ -358,7 +367,7 @@ hr.postEnd, #divBugHeaderDescription:after {
 
     #divSessionAttendies > div > div {
         position: relative;
-            height: 60%;
+                height: 95px;
         display: table-cell;
     }
 

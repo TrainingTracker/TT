@@ -1,4 +1,8 @@
 ﻿importScripts('Ajax.js');
-MakeAjaxRequest('/Profile/GetActiveUsers', function (xhr) {
-    postMessage(JSON.parse(xhr.responseText));
-});
+
+self.addEventListener("message", function (e) {
+    MakeAjaxRequest(e.data + '/Profile/GetActiveUsers', function (xhr) {
+        postMessage(JSON.parse(xhr.responseText));
+    });
+
+}, false);

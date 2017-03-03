@@ -1,4 +1,8 @@
 ﻿importScripts('Ajax.js');
-MakeAjaxRequest('/Login/GetCurrentUser', function (xhr) {
-    postMessage(JSON.parse(xhr.responseText));
-});
+
+self.addEventListener("message", function(e) {
+    MakeAjaxRequest(e.data + '/Login/GetCurrentUser', function (xhr) {
+        postMessage(JSON.parse(xhr.responseText));
+    });
+}, false);
+
