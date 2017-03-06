@@ -10,18 +10,7 @@ namespace TrainingTracker.BLL.Base
     /// </summary>
     public class BussinessBase
     {
-        /// <summary>
-        /// Private session dal accessor
-        /// </summary>
-        private ISessionDal _sessionDalAccessor;
-
-        /// <summary>
-        /// public with only getter Sesion dal accessor
-        /// </summary>
-        public ISessionDal SessionDataAccesor
-        {
-            get { return _sessionDalAccessor ?? (_sessionDalAccessor = new SessionDal()); }
-        }
+        
 
         /// <summary>
         /// Private skill dal accessor
@@ -91,19 +80,6 @@ namespace TrainingTracker.BLL.Base
         }
 		
 		
-        /// <summary>
-        /// Private release dal accessor
-        /// </summary>
-        private IReleaseDal _releaseDataAccesor;
-		
-		/// <summary>
-        /// public with only getter Release dal accessor
-        /// </summary>
-		public IReleaseDal ReleaseDataAccesor
-        {
-			get { return  _releaseDataAccesor ?? ( _releaseDataAccesor = new ReleaseDal()); } 
-        }
-
 		/// <summary>
         /// Private notification dal accessor
         /// </summary>
@@ -199,6 +175,7 @@ namespace TrainingTracker.BLL.Base
             get { return _forumUserHelpPostConverter ?? (_forumUserHelpPostConverter = new ForumUserHelpPostConverter()); }
         }
 
+
         private ForumUserHelpThreadConverter _forumUserHelpThreadConverter;
         public ForumUserHelpThreadConverter ForumUserHelpThreadConverter
         {
@@ -216,6 +193,24 @@ namespace TrainingTracker.BLL.Base
         {
             get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());}
 		}
+
+        private SessionConverter _sessionConverter;
+        public SessionConverter SessionConverter
+        {
+            get { return _sessionConverter ?? (_sessionConverter = new SessionConverter()); }
+        }
+
+        private ReleaseConverter _releaseConverter;
+        public ReleaseConverter ReleaseConverter
+        {
+            get { return _releaseConverter ?? (_releaseConverter = new ReleaseConverter()); }
+        }
+
+        private UserConverter _userConverter;
+        public UserConverter UserConverter
+        {
+            get { return _userConverter ?? (_userConverter = new UserConverter()); }
+        }
 		
         private EmailAlertSubscriptionConverter _emailAlertSubscriptionConverter;
         public EmailAlertSubscriptionConverter EmailAlertSubscriptionConverter

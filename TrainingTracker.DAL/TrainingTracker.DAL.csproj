@@ -68,8 +68,6 @@
     <Compile Include="DataAccess\NotificationDal.cs" />
     <Compile Include="DataAccess\ProjectDal.cs" />
     <Compile Include="DataAccess\QuestionDal.cs" />
-    <Compile Include="DataAccess\ReleaseDal.cs" />
-    <Compile Include="DataAccess\SessionDal.cs" />
     <Compile Include="DataAccess\SkillDal.cs" />
     <Compile Include="DataAccess\SurveyDal.cs" />
     <Compile Include="DataAccess\TeamDal.cs" />
@@ -257,6 +255,8 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\ISubtopicContentRepository.cs" />
+    <Compile Include="Interface\ICourseSubtopicRepository.cs" />
     <Compile Include="Interface\IEmailContentRepository.cs" />
     <Compile Include="Interface\IFeedbackDal.cs" />
     <Compile Include="Interface\IFeedbackRepository.cs" />
@@ -269,8 +269,8 @@
     <Compile Include="Interface\INotificationDal.cs" />
     <Compile Include="Interface\IProjectDal.cs" />
     <Compile Include="Interface\IQuestionDal.cs" />
-    <Compile Include="Interface\IReleaseDal.cs" />
-    <Compile Include="Interface\ISessionDal.cs" />
+    <Compile Include="Interface\IReleaseRepository.cs" />
+    <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\ISkillDal.cs" />
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
@@ -278,6 +278,9 @@
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionCategoryConverter.cs" />
+    <Compile Include="ModelMapper\SubtopicContentConverter.cs" />
+    <Compile Include="ModelMapper\CourseSubtopicConverter.cs" />
+    <Compile Include="ModelMapper\CourseConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionPostConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionStatusConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionThreadConverter.cs" />
@@ -288,19 +291,25 @@
     <Compile Include="ModelMapper\ModelMapper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelMapper\ReleaseConverter.cs" />
+    <Compile Include="ModelMapper\SessionConverter.cs" />
     <Compile Include="ModelMapper\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\ICourseRepository.cs" />
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\SubtopicContentRepository.cs" />
+    <Compile Include="Repositories\CourseSubtopicRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\EmailAlertSubscriptionRepository.cs" />
     <Compile Include="Repositories\EmailContentRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\ForumDiscussionPostRepository.cs" />
     <Compile Include="Repositories\ForumUserHelpPostRepository.cs" />
+    <Compile Include="Repositories\ReleaseRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

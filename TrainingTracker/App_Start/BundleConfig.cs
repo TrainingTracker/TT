@@ -40,6 +40,7 @@ namespace TrainingTracker
                 "~/Scripts/Custom/AjaxService.js",
                 "~/Scripts/Custom/UserService.js",
                 "~/Scripts/Custom/BindingHandlers.js",
+                "~/Scripts/Custom/WebWorker/WebWorker.js",
                 "~/Scripts/Custom/Layout.js"
                 ));
 
@@ -78,6 +79,7 @@ namespace TrainingTracker
 
             bundles.Add(new ScriptBundle("~/bundles/SessionViewScripts").Include(
               "~/Scripts/bootstrap-datepicker.min.js" ,
+              "~/Scripts/jquery-confirm.js",
               "~/Scripts/Custom/AllSessions.js" ,
               "~/Scripts/Custom/SessionService.js",
               "~/Scripts/Custom/Video.js",
@@ -165,9 +167,10 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/SessionViewStyles").Include(
-               "~/StyleSheets/Profile.css",
+              
                "~/Content/DatePicker/bootstrap-datepicker3.css",
                "~/StyleSheets/Session.css",
+               "~/StyleSheets/jquery-confirm.css",
                "~/StyleSheets/Video-js.css"
                ));
 

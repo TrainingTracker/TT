@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TrainingTracker.DAL.ModelMapper
 {
@@ -11,22 +12,12 @@ namespace TrainingTracker.DAL.ModelMapper
 
         public List<TTargetEntity> ConvertListFromCore(List<TSourceEntity> sourceEntity)
         {
-            var targetList = new List<TTargetEntity>();
-            foreach (var entity in sourceEntity)
-            {
-                targetList.Add(ConvertFromCore(entity));
-            }
-            return targetList;
+            return sourceEntity.Select(ConvertFromCore).ToList();
         }
 
         public List<TSourceEntity> ConvertListToCore(List<TTargetEntity> sourceEntity)
         {
-            var targetList = new List<TSourceEntity>();
-            foreach (var entity in sourceEntity)
-            {
-                targetList.Add(ConvertToCore(entity));
-            }
-            return targetList;
+            return sourceEntity.Select(ConvertToCore).ToList();
         }
     }
 }

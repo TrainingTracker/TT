@@ -7,6 +7,7 @@
 **************************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 
@@ -15,14 +16,6 @@ namespace TrainingTracker.BLL
 {
     public class ReleaseBl : BussinessBase
     {
-        /// <summary>
-        /// Function which returns list of releases.
-        /// </summary>
-        /// <returns>It returns list of releases.</returns>
-        public List<Release> GetAllReleases()
-        {
-            return ReleaseDataAccesor.GetAllReleases();
-        }
 
         /// <summary>
         /// Function which adds new release and put an entry in notification table if the IsPublished field is true .
@@ -31,33 +24,75 @@ namespace TrainingTracker.BLL
         /// <param name="userId">UserId</param>
         /// <returns>Returns true if release and notification are added successfully else false 
         /// and if the IsPublished field is false then it depends only on Release entry .</returns>
-        public bool AddRelease(Release release, int userId)
+        public PagedResult<Release> AddRelease(Release release, int userId)
         {
             release.AddedBy = new User { UserId = userId };
 
-            try
-            {
-                int releaseId = ReleaseDataAccesor.AddRelease(release);
+            Release lastRelease = ReleaseConverter.ConvertFromCore(UnitOfWork.ReleaseRepository.GetRecentRelease());
 
-                release.IsNew = release.ReleaseId == 0;
-                release.ReleaseId = releaseId;
-                return new NotificationBl().AddReleaseNotification(release , userId);
-            }
-            catch (Exception)
+
+            if (lastRelease == null) throw new Exception("There should be existing release");
+
+            DAL.EntityFramework.Release coreRelease = new DAL.EntityFramework.Release
             {
-                return false;
-            }            
+                AddedBy = release.AddedBy.UserId,
+                Description = release.Description,
+                Title = release.ReleaseTitle,
+                IsPublished = true,
+                ReleaseDate = DateTime.Now
+
+            };
+
+            switch (release.ReleaseType)
+            {
+                case (int)Common.Enumeration.ReleaseType.Major:
+                    coreRelease.Major = ++lastRelease.Major;
+                    coreRelease.Minor = 0;
+                    coreRelease.Patch = 0;
+                    break;
+
+                case (int)Common.Enumeration.ReleaseType.Minor:
+                    coreRelease.Major = lastRelease.Major;
+                    coreRelease.Minor = ++lastRelease.Minor;
+                    coreRelease.Patch = 0;
+                    break;
+
+                case (int)Common.Enumeration.ReleaseType.Patch:
+                    coreRelease.Major = lastRelease.Major;
+                    coreRelease.Minor = lastRelease.Minor;
+                    coreRelease.Patch = ++lastRelease.Patch;
+                    break;
+            }
+
+            UnitOfWork.ReleaseRepository.Add(coreRelease);
+            UnitOfWork.Commit();
+
+            release.IsNew = true;
+            release.IsPublished = true;
+            release.ReleaseId = coreRelease.ReleaseId;
+            new NotificationBl().AddReleaseNotification(release, userId);
+
+            return GetReleaseOnFilter("", 0, 1);
+
         }
 
-        /// <summary>
-        /// Function which updates release and put an entry in notification table if added successfully in relese table .
-        /// </summary>
-        /// <param name="release">Contain parameter as release object</param>
-        /// <param name="userId">UserId</param>
-        /// <returns></returns>
-        public bool UpdateRelease(Release release, int userId)
+
+        public PagedResult<Release> GetReleaseOnFilter(string wildcard, int searchReleaseId, int pageNumber)
         {
-            return  (ReleaseDataAccesor.UpdateRelease(release) && new NotificationBl().AddReleaseNotification(release, userId));
+            var release = UnitOfWork.ReleaseRepository.GetPagedFilteredSessions(wildcard, searchReleaseId, pageNumber, 6);
+
+            if (release == null) return new PagedResult<Release>();
+
+            return new PagedResult<Release>
+            {
+                CurrentPage = release.CurrentPage,
+                PageCount = release.PageCount,
+                PageSize = release.PageSize,
+                RowCount = release.RowCount,
+                Results = release.Results == null
+                           ? new List<Release>()
+                           : ReleaseConverter.ConvertListFromCore(release.Results.ToList())
+            };
         }
     }
 }

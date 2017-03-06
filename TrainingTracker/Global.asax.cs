@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 using TrainingTracker.Common.Utility;
 
 
@@ -28,6 +29,16 @@ namespace TrainingTracker
             Exception exception = Server.GetLastError();
             LogUtility.ErrorRoutine(exception);
             Server.ClearError();
+
+            if (new HttpRequestWrapper(Context.Request).IsAjaxRequest())
+            {
+                Context.Response.ContentType = "application/json";
+                Context.Response.StatusCode = 500;
+                Context.Response.Write(new JavaScriptSerializer().Serialize(
+                        new { error = "Some Error occured in your request" }
+                    )
+                );
+            }
 
         }
     }

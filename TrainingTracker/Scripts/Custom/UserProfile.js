@@ -8,8 +8,6 @@
             selectedProject = ko.observable(),
             validationMessage = ko.observable(),
             tempAllTrainer = ko.observable(), // remove this once temporary feature use end
-            recentCodeReviewFeedback = ko.observable(),
-            recentWeeklyFeedback = ko.observable(),
             commentFeedbacks = ko.observableArray([]),
             isCommentFeedbackModalVisible = ko.observable(false),
             trainorSynopsis = ko.observable(),
@@ -62,19 +60,25 @@
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
             },
             getUserCallback = function(jsonData) {
+                if (my.profileVm.userId == my.meta.currentUser.UserId) {
+                    jsonData.User = my.meta.currentUser;
+                }
+                
                 jsonData.User.FullName = my.profileVm.fullName(jsonData.User);
                 jsonData.User.PhotoUrl = my.profileVm.photoUrl(jsonData.User);
                 $.each(jsonData.Feedbacks, function(arrayId, feedback) {
                     feedback.AddedBy.UserImageUrl = my.rootUrl + "/Uploads/ProfilePicture/" + feedback.AddedBy.ProfilePictureName;
                 });
                 jsonData.Feedbacks = ko.observableArray(jsonData.Feedbacks);
-                my.profileVm.recentCodeReviewFeedback(jsonData.RecentCrFeedback); 
-                my.profileVm.recentWeeklyFeedback(jsonData.RecentWeeklyFeedback);
                 my.profileVm.trainorSynopsis(jsonData.TrainorSynopsis);
-                my.profileVm.tempAllTrainer(jsonData.AllTrainer); // Temp Feature
+                //my.profileVm.tempAllTrainer(jsonData.AllTrainer); // Temp Feature
+                my.meta.loadedAllActiveUsersPromise().done(function() {
+                    my.profileVm.tempAllTrainer(my.meta.allMentor());
+                });
                 my.profileVm.plotFilter.StartDate(moment(jsonData.User.DateAddedToSystem).format('MM/DD/YYYY'));
                 my.profileVm.plotFilter.TraineeId = jsonData.User.UserId;
                 my.profileVm.userVm = jsonData;
+                my.profileVm.userVm.AllSkills = ko.observableArray([]);
                 my.profileVm.feedbackPost.FeedbackType(my.profileVm.userVm.FeedbackTypes[0]);
                 ko.applyBindings([my.profileVm, my.discussionForumVm]);
                 my.profileVm.feedbackPost.Rating(0);
@@ -208,8 +212,11 @@
                 my.profileVm.currentUser = user;
                 my.profileVm.currentUser.avatarUrl = my.profileVm.photoUrl(user);
             },
-            getCurrentUser = function() {
-                my.userService.getCurrentUser(my.profileVm.getCurrentUserCallback);
+            getCurrentUser = function () {
+                my.meta.loadedCurrentUserPromise().done(function() {
+                    my.profileVm.getCurrentUserCallback(my.meta.currentUser);
+                });
+                //my.userService.getCurrentUser(my.profileVm.getCurrentUserCallback);
             },        
             applyFilter = function () {
                 var filtertype = typeof (my.profileVm.filter.filterFeedback()) == 'undefined' ? 0 : (my.profileVm.filter.filterFeedback().FeedbackTypeId);       
@@ -222,14 +229,7 @@
                     feedbacks[key].AddedBy.UserImageUrl = my.rootUrl + "/Uploads/ProfilePicture/" + feedbacks[key].AddedBy.ProfilePictureName;
                     my.profileVm.userVm.Feedbacks.push(feedbacks[key]);
                 });
-            },
-            getCountForFeedback=function(type,feedbackList) {
-                var feedbackFilteredOnType = ko.utils.arrayFilter(feedbackList, function (item)
-                {
-                    return item.Rating == type;
-                });
-                return feedbackFilteredOnType.length;
-            },            
+            },           
         showCommentFeedback = function () {
             closeCommentFeedbackModal();
             my.profileVm.loadcommentFeedbacks();
@@ -550,9 +550,6 @@
             filter: filter,
             applyFilter: applyFilter,
             applyFilterCallback: applyFilterCallback,
-            recentCodeReviewFeedback: recentCodeReviewFeedback,
-            getCountForFeedback: getCountForFeedback,
-            recentWeeklyFeedback: recentWeeklyFeedback,
             tempAllTrainer: tempAllTrainer, //temp feature,
             plotFilter: plotFilter,
             loadPlotData: loadPlotData,
@@ -585,6 +582,13 @@
         if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 5 && !my.profileVm.surveyQuestion().length)
         {
             my.userService.fetchSurveyQuestionForTeam(my.profileVm.userVm.User.UserId, my.profileVm.feedbackPost.StartDate(), my.profileVm.feedbackPost.EndDate(), my.profileVm.initializeSurveyQuestion);
+        }
+
+        else if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 2 && my.profileVm.userVm.AllSkills().length == 0) {
+            my.userService.getAllSkills().done(function(data) {
+                my.profileVm.userVm.AllSkills(data);
+                my.toggleLoader();
+            });
         }
         
     }, null, "change");

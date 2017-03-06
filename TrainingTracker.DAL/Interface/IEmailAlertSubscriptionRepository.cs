@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.Interface;
 
-namespace TrainingTracker.DAL.RepoInterface
+namespace TrainingTracker.DAL.Interface
 {
     public interface IEmailAlertSubscriptionRepository : IRepository<EmailAlertSubscription>
     {
         void AddOrUpdate(EmailAlertSubscription subcription);
 
         List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId);
-
+        int GetId(int subscribedByUserId, int subscribedForUserId);
     }
 }

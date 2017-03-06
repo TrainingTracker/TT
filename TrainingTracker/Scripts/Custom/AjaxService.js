@@ -20,7 +20,10 @@
                 contentType: "application/json",
                 success: function (json)
                 {
-                    callback(json);
+                    if (typeof (callback) != 'undefined') {
+                        callback(json);
+                    }
+                   
                     my.toggleLoader();
                 },
                 error: function() {
@@ -39,7 +42,10 @@
                  contentType: "application/json",
                  success: function (json)
                  {
-                     callback(json);
+                     if (typeof (callback) != 'undefined') {
+                         callback(json);
+                     }
+
                      my.toggleLoader();
                  },
                  error: function ()
@@ -48,7 +54,7 @@
                  }
              });
          },
-        ajaxUploadImage = function (method, formData, callback) {
+        ajaxUploadImage = function (method, formData, callback,errorCallback) {
              $.ajax({
                  url: getServiceUrl(method),
                  type: "POST",
@@ -64,16 +70,30 @@
                  },
                  error: function ()
                  {
+                     if (typeof (errorCallback) != 'undefined') {
+                         errorCallback();
+                     }
                      my.toggleLoader();
                  }
              });
         },
         
-        ajaxPostDeffered = function (method, jsonIn, callback)
+        ajaxPostDeffered = function (method, jsonIn)
         {
             return $.ajax({
                 url: getServiceUrl(method),
                 type: "POST",
+                beforeSend: my.toggleLoader(true),
+                data: ko.toJSON(jsonIn),
+                dataType: "json",
+                contentType: "application/json"
+            });
+        },
+
+        ajaxGetDeffered = function (method, jsonIn) {
+            return $.ajax({
+                url: getServiceUrl(method),
+                type: "GET",
                 beforeSend: my.toggleLoader(true),
                 data: ko.toJSON(jsonIn),
                 dataType: "json",
@@ -84,7 +104,8 @@
             ajaxGetJson: ajaxGetJson,
             ajaxPostJson: ajaxPostJson,
             ajaxUploadImage: ajaxUploadImage,
-            ajaxPostDeffered: ajaxPostDeffered
+            ajaxPostDeffered: ajaxPostDeffered,
+            ajaxGetDeffered: ajaxGetDeffered
         };
     })();
 }(my));

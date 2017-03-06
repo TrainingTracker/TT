@@ -12,7 +12,8 @@ namespace TrainingTracker.DAL.ModelMapper
                 UserId = sourceUser.UserId,
                 FirstName = sourceUser.FirstName,
                 LastName = sourceUser.LastName,
-                ProfilePictureName = sourceUser.ProfilePictureName
+                ProfilePictureName = sourceUser.ProfilePictureName,
+                IsActive =  sourceUser.IsActive.GetValueOrDefault()
             };
         }
 
@@ -23,7 +24,8 @@ namespace TrainingTracker.DAL.ModelMapper
                 UserId = sourceUser.UserId,
                 FirstName = sourceUser.FirstName,
                 LastName = sourceUser.LastName,
-                ProfilePictureName = sourceUser.ProfilePictureName
+                ProfilePictureName = sourceUser.ProfilePictureName,
+                IsActive = sourceUser.IsActive
             };
         }
     }

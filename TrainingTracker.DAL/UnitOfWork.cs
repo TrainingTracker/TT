@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Remoting.Contexts;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
-using TrainingTracker.DAL.RepoInterface;
 using TrainingTracker.DAL.Repositories;
 
 namespace TrainingTracker.DAL
@@ -13,6 +12,12 @@ namespace TrainingTracker.DAL
         public UnitOfWork()
         {
             _context = new TrainingTrackerEntities();
+        }
+
+        private IUserRepository _userRepository;
+        public IUserRepository UserRepository
+        {
+            get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
         }
 
         private ICourseRepository _courseRepository;
@@ -70,6 +75,18 @@ namespace TrainingTracker.DAL
         public IRepository<ForumDiscussionThread> ForumDiscussionThreadRepository
         {
             get { return _forumDiscussionThreadRepository ?? (_forumDiscussionThreadRepository = new Repository<ForumDiscussionThread>(_context)); }
+        }
+
+        private ISessionRepository _sessionRepositoryRepository;
+        public ISessionRepository SessionRepository
+        {
+            get { return _sessionRepositoryRepository ?? (_sessionRepositoryRepository = new SessionRepository(_context)); }
+        }
+
+        private IReleaseRepository _releaseRepository;
+        public IReleaseRepository ReleaseRepository
+        {
+            get { return _releaseRepository ?? (_releaseRepository = new ReleaseRepository(_context)); }
         }
 
         private IForumDiscussionPostRepository _forumDiscussionPostRepository;

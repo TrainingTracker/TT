@@ -39,24 +39,9 @@ namespace TrainingTracker.Common.ViewModel
         public List<FeedbackType> FeedbackTypes { get; set; }
 
         /// <summary>
-        /// Gets and Sets All skills
+        /// Gets and Sets Trainee Synopsis
         /// </summary>
-        public List<Skill> AllSkills { get; set; }
-
-        /// <summary>
-        /// Gets and Sets Recent Feedbacks 
-        /// </summary>
-        public List<Feedback> RecentCrFeedback { get; set;}
-        
-        /// <summary>
-        /// Gets and sets List of weekly feedbacks
-        /// </summary>
-        public List<Feedback> RecentWeeklyFeedback { get; set; }
-
-        /// <summary>
-        /// Gets and Sets All Trainer
-        /// </summary>
-        public List<User> AllTrainer { get; set; }
+        public TraineeFeedbackSynopsis TraineeSynopsis { get; set; }
 
         /// <summary>
         /// Gets and Sets Trainor Synopsis
@@ -67,5 +52,7 @@ namespace TrainingTracker.Common.ViewModel
         /// Gets And Sets All assigned Courses
         /// </summary>
         public List<CourseTrackerDetails> AllAssignedCourses { get; set; }
+
+
     }
 }

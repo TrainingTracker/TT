@@ -67,6 +67,13 @@ namespace TrainingTracker.DAL.Interface
 
 
         /// <summary>
+        /// interface signature for fetching Trainee synopsis
+        /// </summary>
+        /// <param name="traineeId">trainee Id</param>
+        /// <returns>instances of Trainee synopsis</returns>
+        TraineeFeedbackSynopsis GetTraineeFeedbackSynopsis(int traineeId);
+
+        /// <summary>
         /// interface to add mapping data for assignment and feedback
         /// </summary>
         /// <param name="feedbackId">Id of the added feedback</param>

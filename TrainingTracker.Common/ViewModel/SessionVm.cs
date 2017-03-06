@@ -9,7 +9,8 @@ namespace TrainingTracker.Common.ViewModel
 {
     public class SessionVm
     {
-        public List<Session> SessionList { get; set; }
+        public PagedResult<Session> SessionList { get; set; }
+        public Session DefaultSession { get; set;}
         public List<User> AllAttendees { get; set; }
-     }
+    }
 }
