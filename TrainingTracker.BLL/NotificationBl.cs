@@ -151,6 +151,12 @@ namespace TrainingTracker.BLL
                     notificationText = "New Course Feedback";
                     break;
                 }
+                case FeedbackType.RandomReview:
+                {
+                    notificationType = NotificationType.RandomReviewFeedbackNotification;
+                    notificationText = "New Random Review";
+                    break;
+                }
                 default:
                 {
                     return false;
