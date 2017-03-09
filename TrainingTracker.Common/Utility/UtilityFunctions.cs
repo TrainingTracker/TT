@@ -120,38 +120,6 @@ namespace TrainingTracker.Common.Utility
             return stringBuilder.ToString();
         }
 
-        public static List<FeedbackType> GetSystemFeedbackTypes()
-        {
-            return new List<FeedbackType>
-            {
-                new FeedbackType
-                {
-                    FeedbackTypeId = 1,
-                    Description = "Comment"
-                },
-                new FeedbackType
-                {
-                    FeedbackTypeId = 2,
-                    Description = "Skill"
-                },
-                new FeedbackType
-                {
-                    FeedbackTypeId = 3,
-                    Description = "Assignment"
-                },
-                new FeedbackType
-                {
-                    FeedbackTypeId = 4,
-                    Description = "Code Review"
-                },
-                new FeedbackType
-                {
-                    FeedbackTypeId = 5,
-                    Description = "Weekly Feedback"
-                }
-            };
-        }
-
         public static bool CopyFile(string fileName, string sourcePath, string targetPath)
         {
             if (!String.IsNullOrEmpty(fileName))
