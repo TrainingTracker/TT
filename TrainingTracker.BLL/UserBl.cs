@@ -102,7 +102,6 @@ namespace TrainingTracker.BLL
                 Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
                 Projects =  null,
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
-                FeedbackTypes = Common.Utility.UtilityFunctions.GetSystemFeedbackTypes(),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
                 AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x=>x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>() 
             };            

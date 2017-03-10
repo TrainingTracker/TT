@@ -356,6 +356,7 @@ namespace TrainingTracker.DAL.DataAccess
                         case Common.Enumeration.NotificationType.CourseFeedbackNotification:
                         case Common.Enumeration.NotificationType.NewDiscussionPostNotification:
                         case Common.Enumeration.NotificationType.NewDiscussionThreadNotification:
+                        case Common.Enumeration.NotificationType.RandomReviewFeedbackNotification:
                             return context.Users
                                 .Where(x => (x.UserId == addedFor || x.IsTrainer == true || x.IsManager == true) 
                                         && (x.IsActive == true && x.UserId != notification.AddedBy) 
