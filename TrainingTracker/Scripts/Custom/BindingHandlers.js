@@ -68,21 +68,45 @@ ko.bindingHandlers.CKEDITOR = {
         var ckEditorValue = valueAccessor();
         var id = $(element).attr('id');
         var options = allBindings().EditorOptions;
-        var ignoreChanges = false;
+
+      
+
+       var ignoreChanges = false;
         CKEDITOR.on('dialogDefinition', function (ev) {
             if (ev.data.name == 'link') {
                 ev.data.definition.getContents('target').get('linkTargetType')['default'] = '_blank';
             }
         });
-        var instance = CKEDITOR.replace(id, {
-            on: {
-                change: function () {
-                    ignoreChanges = true;
-                    ckEditorValue(instance.getData());
-                    ignoreChanges = false;
+
+        var instance;
+        if (!my.isNullorEmpty(allBindings().autoResizeTextArea) && allBindings().autoResizeTextArea) {
+            instance =   CKEDITOR.replace(id, {
+                extraPlugins: 'autogrow',
+                autoGrow_maxHeight: 800,
+                // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
+                removePlugins: 'resize',
+                on: {
+                    change: function () {
+                        ignoreChanges = true;
+                        ckEditorValue(instance.getData());
+                        ignoreChanges = false;
+                    }
                 }
-            }
-        });
+            });
+        }
+        else
+        {
+            instance = CKEDITOR.replace(id, {
+                on: {
+                    change: function () {
+                        ignoreChanges = true;
+                        ckEditorValue(instance.getData());
+                        ignoreChanges = false;
+                    }
+                }
+            });            
+        }
+       
 
         ckEditorValue.subscribe(function (newValue) {
             if (!ignoreChanges) {

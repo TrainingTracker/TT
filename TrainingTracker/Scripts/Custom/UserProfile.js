@@ -11,6 +11,23 @@
             commentFeedbacks = ko.observableArray([]),
             isCommentFeedbackModalVisible = ko.observable(false),
             trainorSynopsis = ko.observable(),
+            feedbackTypes =
+            {
+                NewFeedback: ko.observableArray([{ FeedbackTypeId: 1, Description: "Comment" },
+                                                { FeedbackTypeId: 2, Description: "Skill" },
+                                                { FeedbackTypeId: 3, Description: "Assignment" },
+                                                { FeedbackTypeId: 4, Description: "Code Review" },
+                                                { FeedbackTypeId: 5, Description: "Weekly Feedback" },
+                                                { FeedbackTypeId: 7, Description: "Random Review" }]),
+
+                Filter: ko.observableArray([{ FeedbackTypeId:  1, Description: "Comment" },
+                                            { FeedbackTypeId: 2, Description: "Skill" },
+                                            { FeedbackTypeId: 3, Description: "Assignment" },
+                                            { FeedbackTypeId: 4, Description: "Code Review" },
+                                            { FeedbackTypeId: 5, Description: "Weekly Feedback" },
+                                            { FeedbackTypeId: 6, Description: "Course Feedback" },
+                                            { FeedbackTypeId: 7, Description: "Random Review" }])
+            },
             controls = {
                 skillOption: ko.observable("1"),
                 assignmentOption: ko.observable(1),
@@ -42,7 +59,7 @@
                 AddedOn: ko.observable(),
                 StartDate: ko.observable(my.calculateLastMonday()),
                 EndDate: ko.observable(my.calculateLastFriday()),
-                selectedOption : ko.observable()
+                selectedOption : ko.observable(1)
             },
             surveyQuestion = ko.observableArray([]),
             surveyResponse = [],
@@ -79,9 +96,9 @@
                 my.profileVm.plotFilter.TraineeId = jsonData.User.UserId;
                 my.profileVm.userVm = jsonData;
                 my.profileVm.userVm.AllSkills = ko.observableArray([]);
-                my.profileVm.feedbackPost.FeedbackType(my.profileVm.userVm.FeedbackTypes[0]);
                 ko.applyBindings([my.profileVm, my.discussionForumVm]);
                 my.profileVm.feedbackPost.Rating(0);
+                my.profileVm.feedbackPost.selectedOption(1);
 
                 if (!my.isNullorEmpty(queryStringFeedbackId)) {
                     loadFeedbackWithThread(queryStringFeedbackId);
@@ -148,19 +165,15 @@
                 return result;
             },
             addFeedbackCallback = function(jsonData) {
-                if (my.profileVm.feedbackPost.FeedbackType() == "Skill Feedback") {
-                    {
-
-                    }
-                } else if (my.profileVm.feedbackPost.FeedbackType() == "Project Feedback") {
-
-                } else if (my.profileVm.feedbackPost.FeedbackType() == "Comment") {
-
+                if (jsonData === 'false') {
+                    $.alert({
+                        title: 'Failed to Add Feedback!',
+                        columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                        useBootstrap: true,
+                        content: 'Unable to Add Feedback, Try again after some time!',
+                    });
                 }
-                
-                my.profileVm.selectedSkill(0);
-                my.profileVm.feedbackPost.FeedbackType("Comment");
-                my.profileVm.feedbackPost.FeedbackText("");
+                else
                 window.location = $(location).attr('origin') + $(location).attr('pathname') + "?userId=" + userId;
             },
             addFeedback = function() {
@@ -194,6 +207,7 @@
                             
                         case 3:
                         case 4:
+                        case 7:
                             convertedObject.Skill = 0;
                             convertedObject.StartDate = null;
                             convertedObject.EndDate = null;
@@ -569,11 +583,13 @@
             wizardOnSubmit: wizardOnSubmit,
             loadFeedbackPreview: loadFeedbackPreview,
             trainorSynopsis: trainorSynopsis,
-            navigateToCourse: navigateToCourse
+            navigateToCourse: navigateToCourse,
+            feedbackTypes: feedbackTypes
                 
     };
     }();
 
+    my.profileVm.feedbackPost.FeedbackType(my.profileVm.feedbackTypes.NewFeedback()[0]);
     my.profileVm.getCurrentUser();
     my.profileVm.getUser();
     
@@ -595,12 +611,10 @@
     
     my.profileVm.feedbackPost.selectedOption.subscribe(function (selected) {
 
-        var array = ko.utils.arrayFilter(my.profileVm.userVm.FeedbackTypes, function (data) {
+        var array = ko.utils.arrayFilter(my.profileVm.feedbackTypes.NewFeedback(), function (data) {
             return data.FeedbackTypeId == selected;
         });
         
         my.profileVm.feedbackPost.FeedbackType(array[0]);
     }, null, "change");
 });
-
-

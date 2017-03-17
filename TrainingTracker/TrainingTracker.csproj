@@ -311,7 +311,6 @@
     <Content Include="Scripts\Custom\Video.js" />
     <Content Include="Scripts\Custom\WebWorker\Ajax.js" />
     <Content Include="Scripts\Custom\WebWorker\FetchAllUsers.js" />
-    <Content Include="Scripts\Custom\WebWorker\FetchAllNotifications.js" />
     <Content Include="Scripts\Custom\WebWorker\FetchCurrentUser.js" />
     <Content Include="Scripts\Custom\WebWorker\WebWorker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

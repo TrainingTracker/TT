@@ -71,6 +71,11 @@
         CourseFeedbackNotification = 13,
 
         /// <summary>
+        /// Enum For New Action to Perform
+        /// </summary>
+        NewActionToPerform = 14,
+
+        /// <summary>
         /// Enum For New Discussion Post Notification
         /// </summary>
         NewDiscussionPostNotification = 15,
@@ -80,9 +85,12 @@
         /// </summary>
         NewDiscussionThreadNotification = 16,
 
-        /// Enum For New Action to Perform
+        /// <summary>
+        /// Enum For New Random Reviews
         /// </summary>
-        NewActionToPerform = 14
+        RandomReviewFeedbackNotification = 17,
+
+
     }
 
 
@@ -119,7 +127,12 @@
         /// <summary>
         /// Course Feedback
         /// </summary>
-        Course = 6
+        Course = 6,
+
+        /// <summary>
+        /// Random Review
+        /// </summary>
+        RandomReview = 7
     }
 
     /// <summary>
