@@ -17,7 +17,7 @@ namespace TrainingTracker.Controllers
     /// Controller class for session
     /// </summary>
     [CustomAuthorize]
-    public class SessionController : Controller
+    public class SessionController : BaseController
     {
         /// <summary>
         /// Action method for Index
@@ -34,7 +34,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json result</returns>
         public ActionResult GetSessionsOnFilter(int pageNumber, int seminarType, string searchKeyword = "", int sessionId = 0)
         {
-            return Json(new SessionBl().GetSessionOnFilter(pageNumber, seminarType, sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().GetSessionOnFilter(pageNumber, seminarType, sessionId, searchKeyword, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json result</returns>
         public ActionResult GetSessionVm(int pageNumber, int seminarType, string searchKeyword = "", int sessionId = 0)
         {
-            return Json(new SessionBl().GetSessionVm(pageNumber, seminarType, sessionId, searchKeyword, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().GetSessionVm(pageNumber, seminarType, sessionId, searchKeyword, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json result</returns>
         public ActionResult AddNewSession(Session sessionDetails)
         {
-            return Json(new SessionBl().AddNewSession(sessionDetails, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().AddNewSession(sessionDetails, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -62,7 +62,7 @@ namespace TrainingTracker.Controllers
         /// <returns>Json result</returns>
         public ActionResult UpdateSessionDetails(Session sessionDetails)
         {
-            return Json(new SessionBl().UpdateSessionsDetails(sessionDetails, new UserBl().GetUserByUserName(User.Identity.Name)), JsonRequestBehavior.AllowGet);
+            return Json(new SessionBl().UpdateSessionsDetails(sessionDetails, CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

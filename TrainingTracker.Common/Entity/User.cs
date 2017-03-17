@@ -22,7 +22,6 @@ namespace TrainingTracker.Common.Entity
         public DateTime? DateAddedToSystem { get; set; }
         public bool IsValid { get; set; }
         public int UserRating { get; set; }
-
         public int? TeamId { get; set; }
     }
 
