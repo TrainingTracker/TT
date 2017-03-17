@@ -17,15 +17,11 @@ namespace TrainingTracker.Controllers
         {
             try
             {
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName].Value);
-
-                User currentUser = new JavaScriptSerializer().Deserialize<User>(authTicket.UserData);
-
                 if (HttpContext.User.IsInRole(UserRoles.Administrator) || HttpContext.User.IsInRole(UserRoles.Manager) || HttpContext.User.IsInRole(UserRoles.Trainer))
                 {
                     return View("Dashboard");
                 }
-                return RedirectToAction("UserProfile" , "Profile" , new { userId = currentUser.UserId });
+                return RedirectToAction("UserProfile", "Profile", new { userId = CurrentUser.UserId });
             }
             catch
             {

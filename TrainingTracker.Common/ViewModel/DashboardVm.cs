@@ -19,11 +19,7 @@ namespace TrainingTracker.Common.ViewModel
         /// </summary>
         public List<Feedback> WeeklyFeedback { get; set; }
 
-        /// <summary>
-        /// List of All skills and other feedback
-        /// </summary>
-        public List<Feedback> SkillsFeedback { get; set; }
-
+        
         /// <summary>
         /// List of All Remaining Feedbacks
         /// </summary>
@@ -39,11 +35,7 @@ namespace TrainingTracker.Common.ViewModel
         /// </summary>
         public List<string> WeekForFeedbackNotPresent { get; set; }
 
-         /// <summary>
-        /// Gets and sets last Code Review Date
-        /// </summary>
-        public DateTime LastCodeReviewDate { get; set; }
-
+        
         /// <summary>
         /// Gets and Sets code review set or not
         /// </summary>
@@ -53,6 +45,8 @@ namespace TrainingTracker.Common.ViewModel
         /// Gets and Sets Pending Assignment count
         /// </summary>
         public List<CourseTrackerDetails> AllAssignedCourses { get; set; }
+
+        public bool AnyActiveCourse { get; set; }
 
     }
 }
