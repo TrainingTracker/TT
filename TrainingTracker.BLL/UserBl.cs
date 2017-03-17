@@ -16,7 +16,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Bussiness class for user
     /// </summary>
-    public class UserBl : BussinessBase
+    public class UserBl : BusinessBase
     {
 
         /// <summary>

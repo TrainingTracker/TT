@@ -9,7 +9,7 @@ using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
-    public class MailerBl : BussinessBase
+    public class MailerBl : BusinessBase
     {
         public bool AddNewFeedbackMail(Notification notification, User addedFor, int feedbackId)
         {

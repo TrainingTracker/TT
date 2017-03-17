@@ -9,7 +9,7 @@ using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
-    public class DiscussionForumBl : BussinessBase
+    public class DiscussionForumBl : BusinessBase
     {
         public ForumPost GetPostWithThreads(int postId)
         {

@@ -14,7 +14,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Bussiness Layer class for Dashboard, Inherits Bussiness Base Class
     /// </summary>
-    public class DashboardBl:BussinessBase
+    public class DashboardBl:BusinessBase
     {
         /// <summary>
         /// Fetch Dashboard data by User

@@ -8,9 +8,10 @@ namespace TrainingTracker.BLL.Base
     /// <summary>
     /// Bussiness base class
     /// </summary>
-    public class BussinessBase
+    public class BusinessBase
     {
-        
+
+        #region OldDataAccesors
 
         /// <summary>
         /// Private skill dal accessor
@@ -22,7 +23,7 @@ namespace TrainingTracker.BLL.Base
         /// </summary>
         public ISkillDal SkillDataAccesor
         {
-            get { return _skillDalAccessor ?? (_skillDalAccessor = new SkillDal()); }            
+            get { return _skillDalAccessor ?? (_skillDalAccessor = new SkillDal()); }
         }
 
         /// <summary>
@@ -35,23 +36,10 @@ namespace TrainingTracker.BLL.Base
         /// </summary>
         public IUserDal UserDataAccesor
         {
-            get { return  _userDalAccessor ?? ( _userDalAccessor =new UserDal()); }    
+            get { return _userDalAccessor ?? (_userDalAccessor = new UserDal()); }
         }
 
-        /// <summary>
-        /// Private project dal accessor
-        /// </summary>
-        private IProjectDal _projectDalAccessor;
-
-        /// <summary>
-        /// public with only getter Project dal accessor
-        /// </summary>
-        public IProjectDal ProjectDataAccesor
-        {
-            get { return  _projectDalAccessor ?? ( _projectDalAccessor =new ProjectDal()); }  
-        }
-
-
+       
         /// <summary>
         /// Private feedback dal accessor
         /// </summary>
@@ -62,7 +50,7 @@ namespace TrainingTracker.BLL.Base
         /// </summary>
         public IFeedbackDal FeedbackDataAccesor
         {
-            get { return  _feedbackDalAccessor ?? ( _feedbackDalAccessor = new FeedbackDal()); } 
+            get { return _feedbackDalAccessor ?? (_feedbackDalAccessor = new FeedbackDal()); }
         }
 
 
@@ -76,21 +64,21 @@ namespace TrainingTracker.BLL.Base
         /// </summary>
         public IQuestionDal QuestionDataAccesor
         {
-            get { return  _questionDalAccessor ?? ( _questionDalAccessor = new QuestionDal()); } 
+            get { return _questionDalAccessor ?? (_questionDalAccessor = new QuestionDal()); }
         }
-		
-		
-		/// <summary>
+
+
+        /// <summary>
         /// Private notification dal accessor
         /// </summary>
         private INotificationDal _notificationDataAccesor;
-		
-		/// <summary>
+
+        /// <summary>
         /// public with only getter Notification dal accessor
         /// </summary>
         public INotificationDal NotificationDataAccesor
         {
-          get { return  _notificationDataAccesor ?? ( _notificationDataAccesor = new NotificationDal()); } 
+            get { return _notificationDataAccesor ?? (_notificationDataAccesor = new NotificationDal()); }
         }
 
 
@@ -149,7 +137,9 @@ namespace TrainingTracker.BLL.Base
             get { return _learningMapDataAccessor ?? (_learningMapDataAccessor = new LearningMapDal()); }
         }
 
+        #endregion
 
+       
         private UnitOfWork _unitOfWork;
         public UnitOfWork UnitOfWork
         {
@@ -172,51 +162,85 @@ namespace TrainingTracker.BLL.Base
         private ForumUserHelpPostConverter _forumUserHelpPostConverter;
         public ForumUserHelpPostConverter ForumUserHelpPostConverter
         {
-            get { return _forumUserHelpPostConverter ?? (_forumUserHelpPostConverter = new ForumUserHelpPostConverter()); }
+            get
+            {
+                return _forumUserHelpPostConverter ?? (_forumUserHelpPostConverter = new ForumUserHelpPostConverter());
+            }
         }
 
 
         private ForumUserHelpThreadConverter _forumUserHelpThreadConverter;
         public ForumUserHelpThreadConverter ForumUserHelpThreadConverter
         {
-            get { return _forumUserHelpThreadConverter ?? (_forumUserHelpThreadConverter = new ForumUserHelpThreadConverter()); }
+            get
+            {
+                return _forumUserHelpThreadConverter ?? (_forumUserHelpThreadConverter = new ForumUserHelpThreadConverter());
+            }
         }
 
         private ForumDiscussionPostConverter _forumDiscussionPostConverter;
         public ForumDiscussionPostConverter ForumDiscussionPostConverter
         {
-            get { return _forumDiscussionPostConverter ?? (_forumDiscussionPostConverter = new ForumDiscussionPostConverter()); }
+            get
+            {
+                return _forumDiscussionPostConverter ?? (_forumDiscussionPostConverter = new ForumDiscussionPostConverter());
+            }
         }
 
         private ForumDiscussionThreadConverter _forumDiscussionThreadConverter;
         public ForumDiscussionThreadConverter ForumDiscussionThreadConverter
         {
-            get { return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());}
+            get
+            {
+                return _forumDiscussionThreadConverter ?? (_forumDiscussionThreadConverter = new ForumDiscussionThreadConverter());
+            }
 		}
 
         private SessionConverter _sessionConverter;
         public SessionConverter SessionConverter
         {
-            get { return _sessionConverter ?? (_sessionConverter = new SessionConverter()); }
+            get
+            {
+                return _sessionConverter ?? (_sessionConverter = new SessionConverter());
+            }
         }
 
         private ReleaseConverter _releaseConverter;
         public ReleaseConverter ReleaseConverter
         {
-            get { return _releaseConverter ?? (_releaseConverter = new ReleaseConverter()); }
+            get
+            {
+                return _releaseConverter ?? (_releaseConverter = new ReleaseConverter());
+            }
         }
 
         private UserConverter _userConverter;
         public UserConverter UserConverter
         {
-            get { return _userConverter ?? (_userConverter = new UserConverter()); }
+            get
+            {
+                return _userConverter ?? (_userConverter = new UserConverter());
+            }
         }
 		
         private EmailAlertSubscriptionConverter _emailAlertSubscriptionConverter;
         public EmailAlertSubscriptionConverter EmailAlertSubscriptionConverter
         {
-            get { return _emailAlertSubscriptionConverter ?? (_emailAlertSubscriptionConverter = new EmailAlertSubscriptionConverter()); }
+            get
+            {
+                return _emailAlertSubscriptionConverter ?? (_emailAlertSubscriptionConverter = new EmailAlertSubscriptionConverter());
+            }
         }
+
+        private NotificationConverter _notificationConverter ;
+        public NotificationConverter NotificationConverter
+        {
+            get
+            {
+                return _notificationConverter ?? (_notificationConverter = new NotificationConverter());
+            }
+        }
+
 
         #endregion
 

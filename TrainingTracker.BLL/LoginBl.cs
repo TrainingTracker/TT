@@ -3,7 +3,7 @@ using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.BLL
 {
-    public class LoginBl:BussinessBase
+    public class LoginBl:BusinessBase
     {
         /// <summary>
         /// Authenticates the user.

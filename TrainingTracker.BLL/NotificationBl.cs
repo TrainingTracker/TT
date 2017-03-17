@@ -11,11 +11,18 @@ using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Enumeration;
+using TrainingTracker.DAL.EntityFramework;
+using Feedback = TrainingTracker.Common.Entity.Feedback;
 using FeedbackType = TrainingTracker.Common.Enumeration.FeedbackType;
+using Notification = TrainingTracker.Common.Entity.Notification;
+using NotificationType = TrainingTracker.Common.Enumeration.NotificationType;
+using Release = TrainingTracker.Common.Entity.Release;
+using Session = TrainingTracker.Common.Entity.Session;
+using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
-    public class NotificationBl : BussinessBase
+    public class NotificationBl : BusinessBase
     {
         private const string ReleaseLink = "/Release?releaseId={0}";
         private const string HelpLink = "/Help#{0}";
@@ -29,11 +36,22 @@ namespace TrainingTracker.BLL
         /// Add notification for a list of users. 
         /// </summary>
         /// <param name="notification">Notification class onject</param>
-        /// <param name="userIds">List of userId</param>
+        /// <param name="listUserId">List of userId</param>
         /// <returns>Returns true if Notification is added successfully else false.</returns>
-        internal bool AddNotification(Notification notification, List<int> userIds)
+        internal bool AddNotification(Common.Entity.Notification notification, List<int> listUserId)
         {
-            return NotificationDataAccesor.AddNotification(notification, userIds);
+            DAL.EntityFramework.Notification coreNotification = NotificationConverter.ConvertToCore(notification);
+
+            foreach (var userId in listUserId)
+            {
+                coreNotification.UserNotificationMappings.Add(new UserNotificationMapping
+                {
+                    Seen = false,
+                    UserId = userId
+                });
+            }
+            UnitOfWork.NotificationRepository.Add(coreNotification);
+           return UnitOfWork.Commit() > 0;
         }
 
         /// <summary>
@@ -331,6 +349,5 @@ namespace TrainingTracker.BLL
             };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
-
     }
 }

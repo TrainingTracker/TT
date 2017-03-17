@@ -8,7 +8,7 @@ using EFModel = TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.BLL
 {
-    public class CourseBl : BussinessBase
+    public class CourseBl : BusinessBase
     {
        
         public int AddOrUpdateCourse(CommonModel.Course courseData, int currentUserId)
