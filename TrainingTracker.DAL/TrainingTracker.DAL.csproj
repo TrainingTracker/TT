@@ -277,6 +277,7 @@
     <Compile Include="Interface\IUserDal.cs" />
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
+    <Compile Include="ModelMapper\FeedbackConverter.cs" />
     <Compile Include="ModelMapper\ForumDiscussionCategoryConverter.cs" />
     <Compile Include="ModelMapper\SubtopicContentConverter.cs" />
     <Compile Include="ModelMapper\CourseSubtopicConverter.cs" />
