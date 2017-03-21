@@ -11,10 +11,43 @@ namespace TrainingTracker.BLL
 {
     public class MailerBl : BusinessBase
     {
+        #region Private Helpers
+
+       
+        private EmailContent GetEmailContent(Notification notification, User addedBy, string title)
+        {
+            return new EmailContent
+            {
+                BodyText = GenerateFeedbackMailBody(notification.Link, addedBy, title),
+                Attempts = 0,
+                IsRichBody = true,
+                SubjectText = notification.Title,
+                TaskSchedulerJobId = 2,
+                IsSent = false
+            };
+        }
+
+        private string GenerateFeedbackMailBody(string link, User addedBy, string title)
+        {
+            var templateData = new Dictionary<string, string>
+            {
+               {NotificationEmailTemplateItems.DomainName, Constants.AppDomainUrl},
+               {NotificationEmailTemplateItems.NotificationTitle, title},
+               {NotificationEmailTemplateItems.NotificationBy, addedBy.FirstName},
+               {NotificationEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
+               {NotificationEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + link}
+            };
+
+            var template = new TemplateContentBuilder(UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate).ToString());
+            template.Fill(templateData);
+            return template.GetText();
+        }
+        #endregion
+
         public bool AddNewFeedbackMail(Notification notification, User addedFor, int feedbackId)
         {
             User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
-            EmailContent emailContent = GetFeedbackEmailContent(notification
+            EmailContent emailContent = GetEmailContent(notification
                                                       , addedByUser
                                                       , notification.Title);
 
@@ -46,7 +79,7 @@ namespace TrainingTracker.BLL
 
             Feedback feedback = UnitOfWork.FeedbackRepository.Get(feedbackId);
 
-            EmailContent emailContent = GetFeedbackEmailContent(notification
+            EmailContent emailContent = GetEmailContent(notification
                                                      , addedByUser
                                                      , notification.Title);
 
@@ -117,7 +150,7 @@ namespace TrainingTracker.BLL
 
             if (!subscriptionList.Any()) return true; // escape the routine if no one is subscribed to this trainee.
 
-            EmailContent emailContent = GetFeedbackEmailContent(notification, addedByUser, notification.Title);
+            EmailContent emailContent = GetEmailContent(notification, addedByUser, notification.Title);
 
             foreach (var user in subscriptionList)
             {
@@ -141,11 +174,12 @@ namespace TrainingTracker.BLL
                                                                       .Where(x => x.SubscribedByUserId != addedByUser.UserId)
                                                                       .ToList();
 
-            EmailContent emailContent = GetFeedbackEmailContent(notification, addedByUser, notification.Title);
+            EmailContent emailContent = GetEmailContent(notification, addedByUser, notification.Title);
 
-            IEnumerable<DAL.EntityFramework.User> allUsers = forumDiscussionPost.ForumDiscussionThreads.Where(x => x.AddedBy != addedByUser.UserId)
+            List<DAL.EntityFramework.User> allUsers = forumDiscussionPost.ForumDiscussionThreads.Where(x => x.AddedBy != addedByUser.UserId)
                                                                                                        .Select(x => x.User)
-                                                                                                       .Union(subscriptionList.Select(x => x.User));
+                                                                                                       .Union(subscriptionList.Select(x => x.User))
+                                                                                                       .ToList();
 
             if (addedByUser.UserId != forumDiscussionPost.AddedBy)
             {
@@ -184,7 +218,7 @@ namespace TrainingTracker.BLL
         public bool AddSessionMail(Notification notification, Common.Entity.Session session)
         {
             User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
-            EmailContent emailContent = GetFeedbackEmailContent(notification
+            EmailContent emailContent = GetEmailContent(notification
                                                      , addedByUser
                                                      , notification.Title);
 
@@ -207,34 +241,7 @@ namespace TrainingTracker.BLL
             return UnitOfWork.Commit() > 0;
         }
 
-        private EmailContent GetFeedbackEmailContent(Notification notification, User addedBy, string title)
-        {
-            return new EmailContent
-             {
-                 BodyText = GenerateFeedbackMailBody(notification, addedBy, title),
-                 Attempts = 0,
-                 IsRichBody = true,
-                 SubjectText = notification.Title,
-                 TaskSchedulerJobId = 2,
-                 IsSent = false
-             };
-        }
-
-        private string GenerateFeedbackMailBody(Notification notification, User addedBy, string title)
-        {
-            var templateData = new Dictionary<string, string>
-            {
-               {NotificationEmailTemplateItems.DomainName, Constants.AppDomainUrl},
-               {NotificationEmailTemplateItems.NotificationTitle, title},
-               {NotificationEmailTemplateItems.NotificationBy, addedBy.FirstName},
-               {NotificationEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
-               {NotificationEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + notification.Link}
-            };
-
-            var template = new TemplateContentBuilder(UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate).ToString());
-            template.Fill(templateData);
-            return template.GetText();
-        }
+      
 
     }
 }
