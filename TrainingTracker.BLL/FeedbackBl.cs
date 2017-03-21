@@ -12,7 +12,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Business class for feedback, Implemets Business base
     /// </summary>
-    public class FeedbackBl:BussinessBase
+    public class FeedbackBl:BusinessBase
     {
         /// <summary>
         /// Add New feedback for user

@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BussinessBase.cs" />
+    <Compile Include="Base\BusinessBase.cs" />
     <Compile Include="CourseBl.cs" />
     <Compile Include="DashboardBl.cs" />
     <Compile Include="DiscussionForumBl.cs" />

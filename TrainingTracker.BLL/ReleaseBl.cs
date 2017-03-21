@@ -14,7 +14,7 @@ using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.BLL
 {
-    public class ReleaseBl : BussinessBase
+    public class ReleaseBl : BusinessBase
     {
 
         /// <summary>

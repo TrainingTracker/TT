@@ -13,7 +13,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Bussiness class for Email Alert Preferences
     /// </summary>
-    public class EmailPreferencesBl : BussinessBase
+    public class EmailPreferencesBl : BusinessBase
     {
 
         public bool SetEmailPreferences(List<EmailAlertSubscription> emailSubscriptions, User currentUser)

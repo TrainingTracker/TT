@@ -11,11 +11,18 @@ using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Enumeration;
+using TrainingTracker.DAL.EntityFramework;
+using Feedback = TrainingTracker.Common.Entity.Feedback;
 using FeedbackType = TrainingTracker.Common.Enumeration.FeedbackType;
+using Notification = TrainingTracker.Common.Entity.Notification;
+using NotificationType = TrainingTracker.Common.Enumeration.NotificationType;
+using Release = TrainingTracker.Common.Entity.Release;
+using Session = TrainingTracker.Common.Entity.Session;
+using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
-    public class NotificationBl : BussinessBase
+    public class NotificationBl : BusinessBase
     {
         private const string ReleaseLink = "/Release?releaseId={0}";
         private const string HelpLink = "/Help#{0}";
@@ -29,11 +36,22 @@ namespace TrainingTracker.BLL
         /// Add notification for a list of users. 
         /// </summary>
         /// <param name="notification">Notification class onject</param>
-        /// <param name="userIds">List of userId</param>
+        /// <param name="listUserId">List of userId</param>
         /// <returns>Returns true if Notification is added successfully else false.</returns>
-        internal bool AddNotification(Notification notification, List<int> userIds)
+        internal bool AddNotification(Common.Entity.Notification notification, List<int> listUserId)
         {
-            return NotificationDataAccesor.AddNotification(notification, userIds);
+            DAL.EntityFramework.Notification coreNotification = NotificationConverter.ConvertToCore(notification);
+
+            foreach (var userId in listUserId)
+            {
+                coreNotification.UserNotificationMappings.Add(new UserNotificationMapping
+                {
+                    Seen = false,
+                    UserId = userId
+                });
+            }
+            UnitOfWork.NotificationRepository.Add(coreNotification);
+           return UnitOfWork.Commit() > 0;
         }
 
         /// <summary>
@@ -44,9 +62,37 @@ namespace TrainingTracker.BLL
         /// <returns>Returns true if Notification is updated successfully else false.</returns>
         public List<Notification> UpdateNotification(int userId, Notification notification)
         {
-            return NotificationDataAccesor.UpdateNotification(userId, notification) ? GetNotification(userId) : null;
+            UnitOfWork.NotificationRepository.UpdateRelatedNotificationForUserAsRead(userId, notification.NotificationId);
+            UnitOfWork.Commit();
+            return GetNotification(userId);
         }
 
+        /// <summary>
+        /// Mark All notification as read for given UserId
+        /// </summary>
+        /// <param name="userId">user Id</param>
+        /// <returns>flag for success Event</returns>
+        public bool MarkAllNotificationAsRead(int userId)
+        {
+            UnitOfWork.NotificationRepository.UpdateAllNotificationForUserAsRead(userId);
+            return UnitOfWork.Commit() > 0;
+        }
+
+        /// <summary>
+        /// Get list of notification.
+        /// </summary>
+        /// <param name="userId">UseId</param>
+        /// <returns>Returns list of notification.</returns>
+        public List<Notification> GetNotification(int userId)
+        {
+            return NotificationConverter.ConvertListFromCore(UnitOfWork.NotificationRepository.Find(x => x.UserNotificationMappings.Any(y => !y.Seen
+                                                                                                                                      && y.UserId == userId))
+                                                                                              .ToList())
+                                                                                              .GroupBy(x => x.Link)
+                                                                                              .Select(grp => grp.First())
+                                                                                              .OrderBy(x => x.NotificationId)
+                                                                                              .ToList();
+        }
 
         /// <summary>
         /// Function which takes version generates notification message, list of userId, link
@@ -62,7 +108,9 @@ namespace TrainingTracker.BLL
 
             if ( !release.IsPublished)
             {
-                if (release.IsNew)
+                // This feature has gone obsolete.
+
+                if (release.IsNew) 
                 {
                     notificationType = NotificationType.NewFeatureRequestNotification;
                     featureText = "New Feature/Bug Request";
@@ -71,8 +119,7 @@ namespace TrainingTracker.BLL
                 {
                     notificationType = NotificationType.FeatureModifiedNotification;
                     featureText = "Feature Details Updated";
-                }
-               
+                }             
             }
             else 
             {
@@ -92,15 +139,7 @@ namespace TrainingTracker.BLL
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
 
-        /// <summary>
-        /// Get list of notification.
-        /// </summary>
-        /// <param name="userId">UseId</param>
-        /// <returns>Returns list of notification.</returns>
-        public List<Notification> GetNotification(int userId)
-        {
-            return NotificationDataAccesor.GetNotification(userId).OrderBy(x=>x.NotificationId).ToList();
-        }
+      
 
         /// <summary>
         /// Function which takes feedback data and user list to whom notification is to be added,
@@ -186,7 +225,6 @@ namespace TrainingTracker.BLL
         /// <returns>Returns a boolean value as add session notification is added successfully or not.</returns>
         internal bool AddSessionNotification(Session session)
         {
-
             var notification = new Notification
             {
                 Description = "New Session Added",
@@ -198,21 +236,13 @@ namespace TrainingTracker.BLL
                 AddedTo = session.Attendee
             };
 
+           new MailerBl().AddSessionMail(notification, session);
            return AddNotification(notification , session.SessionAttendees.Where(x=> x.UserId != session.Presenter.UserId)
                                                                          .Select(x=>x.UserId)
                                                                          .ToList());
         }
 
-        /// <summary>
-        /// Mark All notification as read for given UserId
-        /// </summary>
-        /// <param name="userId">user Id</param>
-        /// <returns>flag for success Event</returns>
-        public bool MarkAllNotificationAsRead(int userId)
-        {
-            return NotificationDataAccesor.MarkAllNotificationAsRead(userId);
-        }
-
+     
         /// <summary>
         /// Add Notification for Thread
         /// </summary>
@@ -269,6 +299,7 @@ namespace TrainingTracker.BLL
                 Title = "New Post in Discussion Forum",
                 AddedOn = DateTime.Now,
             };
+            new MailerBl().AddNewDiscussionMail(notification);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, post.AddedBy));
         }
 
@@ -283,6 +314,8 @@ namespace TrainingTracker.BLL
                 Title = "New Comment on Discussion Post",
                 AddedOn = DateTime.Now,
             };
+
+            new MailerBl().AddNewDiscussionThreadMail(notification, thread.PostId);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, thread.AddedFor));
         }
 
@@ -331,6 +364,5 @@ namespace TrainingTracker.BLL
             };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
-
     }
 }

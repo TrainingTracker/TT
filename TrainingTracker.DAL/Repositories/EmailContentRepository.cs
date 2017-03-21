@@ -7,8 +7,7 @@ namespace TrainingTracker.DAL.Repositories
     {
         private readonly TrainingTrackerEntities _context;
 
-        public EmailContentRepository(TrainingTrackerEntities context)
-            : base(context)
+        public EmailContentRepository(TrainingTrackerEntities context) : base(context)
         {
             _context = context;
         }

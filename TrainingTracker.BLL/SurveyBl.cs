@@ -13,7 +13,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// instnce class for Survey bussiness layer
     /// </summary>
-    public class SurveyBl:BussinessBase
+    public class SurveyBl:BusinessBase
     {
         /// <summary>
         /// Bussiness method to Fecth weekly survey Questions for team

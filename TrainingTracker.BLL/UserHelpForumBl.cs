@@ -9,7 +9,7 @@ using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.BLL
 {
-    public class UserHelpForumBl : BussinessBase
+    public class UserHelpForumBl : BusinessBase
     {
         public ForumPost GetPostWithThreads(int postId)
         {
