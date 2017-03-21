@@ -146,6 +146,7 @@ namespace TrainingTracker.BLL
             List<EmailAlertSubscription> subscriptionList = UnitOfWork.EmailAlertSubscriptionRepository
                                                                       .GetAllSubscribedMentors(addedByUser.UserId)
                                                                       .Where(x=>x.SubscribedByUserId!=addedByUser.UserId)
+                                                                      .Distinct()
                                                                       .ToList();
 
             if (!subscriptionList.Any()) return true; // escape the routine if no one is subscribed to this trainee.
@@ -157,7 +158,7 @@ namespace TrainingTracker.BLL
                 emailContent.EmailRecipients.Add(new EmailRecipient
                 {
                     EmailAddress = user.User.Email,
-                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
                 });
             }
 
