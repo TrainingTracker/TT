@@ -9,7 +9,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Business class for Question, Inherits business base 
     /// </summary>
-    public class QuestionBl : BussinessBase
+    public class QuestionBl : BusinessBase
     {
         /// <summary>
         /// Fetches Question By skill and Experience

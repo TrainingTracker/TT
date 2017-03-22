@@ -9,14 +9,47 @@ using User = TrainingTracker.Common.Entity.User;
 
 namespace TrainingTracker.BLL
 {
-    public class MailerBl : BussinessBase
+    public class MailerBl : BusinessBase
     {
+        #region Private Helpers
+
+       
+        private EmailContent GetEmailContent(Notification notification, User addedBy, string title)
+        {
+            return new EmailContent
+            {
+                BodyText = GenerateFeedbackMailBody(notification.Link, addedBy, title),
+                Attempts = 0,
+                IsRichBody = true,
+                SubjectText = notification.Title,
+                TaskSchedulerJobId = 2,
+                IsSent = false
+            };
+        }
+
+        private string GenerateFeedbackMailBody(string link, User addedBy, string title)
+        {
+            var templateData = new Dictionary<string, string>
+            {
+               {NotificationEmailTemplateItems.DomainName, Constants.AppDomainUrl},
+               {NotificationEmailTemplateItems.NotificationTitle, title},
+               {NotificationEmailTemplateItems.NotificationBy, addedBy.FirstName},
+               {NotificationEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
+               {NotificationEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + link}
+            };
+
+            var template = new TemplateContentBuilder(UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate).ToString());
+            template.Fill(templateData);
+            return template.GetText();
+        }
+        #endregion
+
         public bool AddNewFeedbackMail(Notification notification, User addedFor, int feedbackId)
         {
-            var addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
-            var emailContent = GetFeedbackEmailContent(notification
-                                                      ,addedByUser
-                                                      ,notification.Title + " for " + addedFor.FirstName);
+            User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
+            EmailContent emailContent = GetEmailContent(notification
+                                                      , addedByUser
+                                                      , notification.Title);
 
             emailContent.EmailRecipients.Add(new EmailRecipient
             {
@@ -24,7 +57,7 @@ namespace TrainingTracker.BLL
                 EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
             });
 
-           
+
             foreach (var user in UnitOfWork.EmailAlertSubscriptionRepository.GetAllSubscribedMentors(addedFor.UserId)
                                                                             .Where(user => user.SubscribedByUserId != addedByUser.UserId))
             {
@@ -44,9 +77,9 @@ namespace TrainingTracker.BLL
             // This need to be changed... but How!! 
             var addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
 
-            var feedback = UnitOfWork.FeedbackRepository.Get(feedbackId);
+            Feedback feedback = UnitOfWork.FeedbackRepository.Get(feedbackId);
 
-            var emailContent = GetFeedbackEmailContent(notification
+            EmailContent emailContent = GetEmailContent(notification
                                                      , addedByUser
                                                      , notification.Title);
 
@@ -85,13 +118,13 @@ namespace TrainingTracker.BLL
                     emailContent.EmailRecipients.Add(new EmailRecipient
                     {
                         EmailAddress = user.User.Email,
-                        EmailRecipientType = (int) Common.Enumeration.EmailRecipientType.CarbonCopy
+                        EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
                     });
                 }
             }
 
 
-            foreach (var thread in feedback.FeedbackThreads.Where(user=>user.AddedBy != addedByUser.UserId))
+            foreach (var thread in feedback.FeedbackThreads.Where(user => user.AddedBy != addedByUser.UserId))
             {
                 if (emailContent.EmailRecipients.All(x => x.EmailAddress != thread.User.Email))
                 {
@@ -107,34 +140,109 @@ namespace TrainingTracker.BLL
             return UnitOfWork.Commit() > 0;
         }
 
-        private EmailContent GetFeedbackEmailContent(Notification notification, User addedBy, string title)
+        public bool AddNewDiscussionMail(Notification notification)
         {
-           return new EmailContent
+            User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
+            List<EmailAlertSubscription> subscriptionList = UnitOfWork.EmailAlertSubscriptionRepository
+                                                                      .GetAllSubscribedMentors(addedByUser.UserId)
+                                                                      .Where(x=>x.SubscribedByUserId!=addedByUser.UserId)
+                                                                      .Distinct()
+                                                                      .ToList();
+
+            if (!subscriptionList.Any()) return true; // escape the routine if no one is subscribed to this trainee.
+
+            EmailContent emailContent = GetEmailContent(notification, addedByUser, notification.Title);
+
+            foreach (var user in subscriptionList)
             {
-                BodyText = GenerateFeedbackMailBody(notification, addedBy, title),
-                Attempts = 0,
-                IsRichBody = true,
-                SubjectText = notification.Title,
-                TaskSchedulerJobId = 2,
-                IsSent = false
-            };
+                emailContent.EmailRecipients.Add(new EmailRecipient
+                {
+                    EmailAddress = user.User.Email,
+                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
+                });
+            }
+
+            UnitOfWork.EmailRepository.Add(emailContent);
+            return UnitOfWork.Commit() > 0;
         }
 
-        private string GenerateFeedbackMailBody(Notification notification, User addedBy, string title)
+        public bool AddNewDiscussionThreadMail(Notification notification, int discussionPostId)
         {
-            var templateData = new Dictionary<string, string>
-            {
-               {NotificationEmailTemplateItems.DomainName, Constants.AppDomainUrl},
-               {NotificationEmailTemplateItems.NotificationTitle, title},
-               {NotificationEmailTemplateItems.NotificationBy, addedBy.FirstName},
-               {NotificationEmailTemplateItems.NotificationByImagePath, Constants.AppDomainUrl + "/Uploads/ProfilePicture/"  + addedBy.ProfilePictureName},
-               {NotificationEmailTemplateItems.NotificationRedirectUrl,Constants.AppDomainUrl + "/"  + notification.Link}
-            };
+            User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
+            ForumDiscussionPost forumDiscussionPost = UnitOfWork.ForumDiscussionPostRepository.GetPostWithThreads(discussionPostId);
+            List<EmailAlertSubscription> subscriptionList = UnitOfWork.EmailAlertSubscriptionRepository
+                                                                      .GetAllSubscribedMentors(forumDiscussionPost.AddedBy)
+                                                                      .Where(x => x.SubscribedByUserId != addedByUser.UserId)
+                                                                      .ToList();
 
-            var template = new TemplateContentBuilder(UtilityFunctions.FetchEmailTemplateFromPath(EmailTemplatesPath.FeedbackTemplate).ToString());
-            template.Fill(templateData);
-            return template.GetText();
+            EmailContent emailContent = GetEmailContent(notification, addedByUser, notification.Title);
+
+            List<DAL.EntityFramework.User> allUsers = forumDiscussionPost.ForumDiscussionThreads.Where(x => x.AddedBy != addedByUser.UserId)
+                                                                                                       .Select(x => x.User)
+                                                                                                       .Union(subscriptionList.Select(x => x.User))
+                                                                                                       .ToList();
+
+            if (addedByUser.UserId != forumDiscussionPost.AddedBy)
+            {
+                emailContent.EmailRecipients.Add(new EmailRecipient
+                {
+                    EmailAddress = forumDiscussionPost.User.Email,
+                    EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
+                });
+
+                foreach (DAL.EntityFramework.User user in allUsers)
+                {
+                    emailContent.EmailRecipients.Add(new EmailRecipient
+                    {
+                        EmailAddress = user.Email,
+                        EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+                    });
+                }
+            }
+            else
+            {
+                if (!allUsers.Any()) return true; // / escape the routine if no one is subscribed to this trainee.
+
+                foreach (DAL.EntityFramework.User user in allUsers)
+                {
+                    emailContent.EmailRecipients.Add(new EmailRecipient
+                    {
+                        EmailAddress = user.Email,
+                        EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
+                    });
+                }
+            }
+            UnitOfWork.EmailRepository.Add(emailContent);
+            return UnitOfWork.Commit() > 0;
         }
+
+        public bool AddSessionMail(Notification notification, Common.Entity.Session session)
+        {
+            User addedByUser = UserDataAccesor.GetUserById(notification.AddedBy);
+            EmailContent emailContent = GetEmailContent(notification
+                                                     , addedByUser
+                                                     , notification.Title);
+
+            foreach (var user in UnitOfWork.SessionRepository.GetSessionWithAttendees(session.Id).UserSessionMappings)
+            {
+                emailContent.EmailRecipients.Add(new EmailRecipient
+                             {
+                                 EmailAddress = user.User1.Email,
+                                 EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.To
+                             });
+            }
+
+            emailContent.EmailRecipients.Add(new EmailRecipient
+            {
+                EmailAddress = addedByUser.Email,
+                EmailRecipientType = (int)Common.Enumeration.EmailRecipientType.CarbonCopy
+            });
+
+            UnitOfWork.EmailRepository.Add(emailContent); //TODO:EmailRepository needs to be EmailContentRepository. 
+            return UnitOfWork.Commit() > 0;
+        }
+
+      
 
     }
 }

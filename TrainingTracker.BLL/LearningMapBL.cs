@@ -8,7 +8,7 @@ using TrainingTracker.Common.Entity;
 
 namespace TrainingTracker.BLL
 {
-    public class LearningMapBL : BussinessBase
+    public class LearningMapBL : BusinessBase
     {
         public LearningMap GetLearningMapWithAllData(int id)
         {

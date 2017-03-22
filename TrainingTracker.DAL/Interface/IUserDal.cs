@@ -56,12 +56,12 @@ namespace TrainingTracker.DAL.Interface
         /// <returns></returns>
         User GetUserById(int userId);
 
-        /// <summary>
-        /// Get All Dashboard Data
-        /// </summary>
-        /// <param name="teamId">Logged in user Team Id</param>
-        /// <returns>instance Of List of UserData</returns>
-        List<UserData> GetDashboardData(int teamId);
+        ///// <summary>
+        ///// Get All Dashboard Data
+        ///// </summary>
+        ///// <param name="teamId">Logged in user Team Id</param>
+        ///// <returns>instance Of List of UserData</returns>
+        //List<UserData> GetDashboardData(int teamId);
 
         /// <summary>
         /// Get list of integer value as userId.

@@ -813,7 +813,6 @@ namespace TrainingTracker.DAL.DataAccess
                                         Designation = x.u.t.s.r.lmum.User.Designation,
                                         ProfilePictureName =  x.u.t.s.r.lmum.User.ProfilePictureName
                                     }
-
                                       
                                   })
                                   .ToList()

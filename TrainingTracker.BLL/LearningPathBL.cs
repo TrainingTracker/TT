@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace TrainingTracker.BLL
 {
-    public class LearningPathBL : BussinessBase
+    public class LearningPathBL : BusinessBase
     {
         public int AddCourse(Course courseToAdd)
         {

@@ -15,7 +15,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Bussiness class for session
     /// </summary>
-    public class SessionBl : BussinessBase
+    public class SessionBl : BusinessBase
     {
         /// <summary>
         /// method to Add or edit session details

@@ -13,7 +13,7 @@ using TrainingTracker.Authorize;
 namespace TrainingTracker.Controllers
 {
     [CustomAuthorize]
-    public class ReleaseController : Controller
+    public class ReleaseController : BaseController
     {
         /// <summary>
         /// Action method for Index which rendering all releases in a table grid.
@@ -41,7 +41,7 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public ActionResult AddRelease(Release release)
         {
-            return Json(new ReleaseBl().AddRelease(release , new UserBl().GetUserByUserName(User.Identity.Name).UserId));
+            return Json(new ReleaseBl().AddRelease(release , CurrentUser.UserId));
         }
 
     }
