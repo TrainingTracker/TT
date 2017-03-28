@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Mirror";
+}
+
+@section Styles
+{
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/MirrorViewStyles")
+}
+
+<div class="col-md-12 no-padding-left no-padding-right" id="divMirrorArea">
+    <div class="col-md-4 no-padding-right no-padding-left affix-top" id="divFilterArea">
+        <div id="divMirrorSearch" class="col-md-12 no-padding-left no-padding-right custom-margin-top-10 ">
+            <div class="col-md-12 no-padding-left no-padding-right" id="divSearch">
+                <div class="col-md-12">
+                    <div class="input-group category-list-search col-md-12 custom-margin-top-10">
+                        <input type="text" data-bind="value: settings.filterKeyword, valueUpdate: 'afterkeydown', event: { keyup: filterTrainee }" class="form-control" placeholder="Search Trainee by Name, UserName or Email">
+                        <div class="input-group-btn">
+                            <div id="divSearchBar" class="btn btn-default" data-bind="click: filterTrainee()">
+                                <i class="fa fa-search icon-font"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divAbsoluteTraineeFilter">
+            <!-- ko if: settings.filteredTrainee().length > 0  -->
+            <ul data-bind="foreach: settings.filteredTrainee" class="no-padding-left no-padding-right floating-trainee-filter">
+                <li class="col-xs-12" data-bind="click: function () { my.mirrorVm.setSelectedTrainee(UserId) }">
+                    <div class="thumb col-xs-2 no-padding-right">
+                        <img src="" class="img-circle" data-bind="attr: { src: my.mirrorVm.photoUrl(ProfilePictureName) }" width="35" height="35" alt="" />
+                    </div>
+                    <div class="col-xs-10 no-padding-left">
+                        <div>
+                            <span class="bold-font" data-bind="text: FullName"></span>
+                        </div>
+                        <div>
+                            <span data-bind="text: Email"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- /ko -->
+        </div>
+        <div id="divSelectedTraineeWrapper">
+            <div class="col-md-12">
+                <h4 class="mute">TRAINEE</h4>
+                <div id="divSelectedTrainee">
+                    <!--ko if : settings.selectedTrainee.IsSelected() == false -->
+                    <span class="mute">No Trainee Selected</span>
+                    <!-- /ko -->
+                    <!--ko if : settings.selectedTrainee.IsSelected() == true -->
+                    <div class="thumb col-xs-2 no-padding-right">
+                        <img src="" class="img-circle" data-bind="attr: { src: settings.selectedTrainee.ImagePath }" width="50" height="50" alt="" />
+                    </div>
+                    <div class="col-xs-10 no-padding-left">
+                        <div><span class="bold-font" data-bind="text: settings.selectedTrainee.FullName"></span></div>
+                        <div><span class="pull-right" data-bind="text: settings.selectedTrainee.Email"></span></div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+
+            <div id="divRangeFilter">
+                <div class="col-md-12 custom-margin-top-10">
+                    <h4 class="mute">TIME SPAN</h4>
+                    <div class="feedback-input meta col-xs-4 col-xs-offset-1">
+                        <input type="text" data-bind="datepicker: my.mirrorVm.settings.filterDateRange.StartDate, startDate: new Date(my.mirrorVm.settings.selectedTrainee.DateAddedToSystem()), endDate: new Date(), value: my.mirrorVm.settings.filterDateRange.StartDate" class="date-picker input-sm form-control col-xs-12" />
+                    </div>
+                    <span class="col-xs-2 mute" style="text-align: center; margin-top: 1.5%;">TO</span>
+                    <div class="feedback-input meta col-xs-4">
+                        <input type="text" data-bind="datepicker: my.mirrorVm.settings.filterDateRange.EndDate, startDate: new Date(my.mirrorVm.settings.selectedTrainee.DateAddedToSystem()), endDate: new Date(), value: my.mirrorVm.settings.filterDateRange.EndDate" class="date-picker input-sm form-control col-xs-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFilters">
+            <div class="col-md-12 custom-margin-top-10">
+                <h4 class="mute">FILTERS</h4>
+                <div class="col-xs-12 no-padding-left no-padding-right">
+                    <span class="custom-checkbox">
+                        <input type="checkbox" data-bind="checked: settings.filterForReports.AllSelected, click: my.mirrorVm.manageSelectAllCheckboxClick" id="ckbSelectAll" />
+                        <span class="box">
+                            <span class="tick"></span>
+                        </span>
+                    </span>
+                    <label for="ckbSelectAll" class="lblForCheckbox make-checkbox-label-in-align">Select All</label>
+                </div>
+                <div class="col-md-12 custom-left-padding-30">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.AllFeedback, click: my.mirrorVm.manageAllFeedbackClick" id="ckbFeedbackAll" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbFeedbackAll" class="lblForCheckbox make-checkbox-label-in-align">Feedbacks</label>
+                    </div>
+                    <div class="col-xs-12 custom-left-padding-30">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Feedback.Assignment, click: my.mirrorVm.manageCustomCheckbox" id="ckbAssignmentReview" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbAssignmentReview" class="lblForCheckbox make-checkbox-label-in-align">Assignments</label>
+                    </div>
+                    <div class="col-xs-12 custom-left-padding-30">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Feedback.CodeReview, click: my.mirrorVm.manageCustomCheckbox" id="ckbCodeReview" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbCodeReview" class="lblForCheckbox make-checkbox-label-in-align">Code Review</label>
+                    </div>
+                    <div class="col-xs-12 custom-left-padding-30">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Feedback.RandomReview, click: my.mirrorVm.manageCustomCheckbox" id="ckbRandomReview" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbRandomReview" class="lblForCheckbox make-checkbox-label-in-align">Random Review</label>
+                    </div>
+                    <div class="col-xs-12 custom-left-padding-30">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Feedback.Skills, click: my.mirrorVm.manageCustomCheckbox" id="ckbSkillReview" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbSkillReview" class="lblForCheckbox make-checkbox-label-in-align">Skills</label>
+                    </div>
+                    <div class="col-xs-12 custom-left-padding-30">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Feedback.WeeklyFeedback, click: my.mirrorVm.manageCustomCheckbox" id="ckbWeeklyReview" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbWeeklyReview" class="lblForCheckbox make-checkbox-label-in-align">Weekly Feedback</label>
+                    </div>
+
+                </div>
+                <div class="col-md-12 custom-left-padding-30">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Session, click: my.mirrorVm.manageCustomCheckbox" id="ckbSession" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbSession" class="lblForCheckbox make-checkbox-label-in-align">Sessions</label>
+                    </div>
+
+                </div>
+                <div class="col-md-12 custom-left-padding-30">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <span class="custom-checkbox">
+                            <input type="checkbox" data-bind="checked: settings.filterForReports.Courses, click: my.mirrorVm.manageCustomCheckbox" id="ckbCourses" />
+                            <span class="box">
+                                <span class="tick"></span>
+                            </span>
+                        </span>
+                        <label for="ckbCourses" class="lblForCheckbox make-checkbox-label-in-align">Courses</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divButtons">
+            <div class="col-md-12 custom-margin-top-10">
+                <input class="btn btn-info col-xs-4 col-xs-offset-1" type="button" value="Summary" data-bind="click:my.mirrorVm.loadSummaryPanel" />
+                <input class="btn btn-info col-xs-4 col-xs-offset-2" type="button" value="Report" />
+            </div>
+        </div>
+    </div>
+
+    <div id="divReportArea" class="col-md-8 height-100-percent no-padding-right no-padding-left">
+        <!-- ko if:settings.panel.emptyPanel() == true -->
+        <div class="col-xs-12 height-100-percent" id="divEmptyReport">
+            <span>TRAINING TRACKER</span>
+        </div>
+        <!--/ko-->
+        
+         <!-- ko if:settings.panel.summaryPanel() == true -->
+        <div class="col-xs-12 height-100-percent" id="divMirrorSummary">
+            @Html.Partial("_MirrorSummary")
+        </div>
+        <!-- /ko -->
+    </div>
+
+
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+    @Scripts.Render("~/bundles/MirrorViewScripts")
+}

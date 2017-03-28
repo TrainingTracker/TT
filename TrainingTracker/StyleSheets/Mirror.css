@@ -1,0 +1,229 @@
+﻿#divSearch * {
+    border-radius: 0 !important;
+}
+
+.height-100-percent {
+    height: 100%;
+}
+
+#divSearchBar {
+    padding: .49em 2em;
+    background-color: red;
+    opacity: .7;
+    font-weight: bold;
+}
+
+.affix-top {
+    top:75px;
+    width: 32%;
+    position: fixed;
+}
+
+#divMirrorSearch {
+    background: #fff;
+    padding-bottom: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#divFilterArea, #divReportArea {
+    height: 90%;
+}
+
+#divReportArea {
+    left: 33%;
+}
+
+.feedback-input input {
+    text-align: center;
+    font-weight: bold;
+}
+
+#divFilterArea {
+    background: #fff;
+}
+
+#divReportArea > #divEmptyReport {
+    font-family: "Open Sans";
+    font-size: 40px;
+    font-weight: bolder;
+    vertical-align: middle;
+    margin: auto;
+}
+
+#divReportArea > #divEmptyReport span {
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #ffffff;
+}
+
+#divAbsoluteTraineeFilter ul {
+   position: absolute;
+    left: 0;
+    top: -5px;
+    z-index: 10;
+    width: 80.5%;
+    left: 2.9%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAbsoluteTraineeFilter ul > li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
+}
+
+#divAbsoluteTraineeFilter ul > li label {
+    cursor: pointer;
+}
+
+#divAbsoluteTraineeFilter ul > li:hover {
+    background: #2596F1;
+    transition: ease background .25s;
+}
+
+#divAbsoluteTraineeFilter ul > li:hover span {
+    color: #ffffff;
+    transition: ease color .25s;
+}
+
+/*Custom checkbox*/
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+
+.custom-checkbox > .box {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #838383;
+    background-color: #ffffff;
+    border-radius: 11px;
+}
+
+.custom-checkbox > .box > .tick {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    position: absolute;
+    top: 3px;
+    box-shadow: inset 1px -4px 20px 14px #192741;
+    left: 1px;
+    top: 1px;
+}
+
+.custom-checkbox > input:checked + .box > .tick {
+    display: block;
+}
+
+ .custom-checkbox > input {
+     position: absolute;
+     cursor: pointer;
+     outline: none;
+     top: 0;
+     padding: 0;
+     width: 16px;
+     height: 16px;
+     border: none;
+     margin: 0;
+     opacity: 0;
+     z-index: 1;
+     width: 50px;
+ }
+
+.custom-checkbox > input:active + .box {
+    border-color: #838383;
+    background-color: #ffffff;
+}
+
+#divSelectedTrainee {
+    height: 60px;
+    background: #2596F1;
+}
+
+#divSelectedTrainee .col-xs-10 span {
+    color: #ffffff;
+}
+
+#divSelectedTrainee .col-xs-10 span.bold-font {
+    font-size: 17px;
+}
+
+
+#divSelectedTrainee span.mute {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 36%;
+    color: #fff;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.label-for-checkbox {
+    display: inline-block;
+}
+
+.lblForCheckbox {
+    font-weight: normal;
+}
+
+div#divSelectedTrainee > div {
+    margin-top: 5px;
+}
+
+.mute {
+    font-size: 12px;
+    color: #959494;
+    margin-top: 0;
+    font-weight: bold;
+}
+
+
+#divSelectedTraineeWrapper > div:after, #divMirrorSearch > div:after,#divRangeFilter > div:after {
+    content: "";
+    width: 94%;
+    margin: 2px;
+    position: absolute;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    height: 1px;
+  top: 100%;
+}
+
+
+#divButtons>div{
+    position: absolute;
+    bottom: 10px;
+}
+
+/*Scrollbar Mods */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: red; 
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px red;
+}
+
+.btn-info {
+    background-color: #2196f3 !important;
+    border-radius: 0;
+}

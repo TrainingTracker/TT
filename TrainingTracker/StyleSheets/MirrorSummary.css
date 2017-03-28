@@ -1,0 +1,15 @@
+﻿.mirror-tab-group-header {
+    padding: 11px;
+    background: #192741;
+    color: #fff;
+}
+
+.mirror-tab-group-header span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mirror-tab-group-header span.mirror-tab-group-header-rating {
+     font-size: 20px;
+    text-align: right;
+}

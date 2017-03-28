@@ -160,7 +160,15 @@ ko.bindingHandlers.datepicker = {
     },
 
     update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var v = valueAccessor()();
+        var value = valueAccessor()();
+        var endDate = allBindings().endDate;
+        var startDate = allBindings().startDate;
+
+        $(element).datepicker("setStartDate", startDate);
+        $(element).datepicker("setEndDate", endDate);
+        $(element).datepicker("setDate", value);
+
+
     }
 
 };
