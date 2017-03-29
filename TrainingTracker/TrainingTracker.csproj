@@ -292,6 +292,7 @@
     <Content Include="Scripts\Custom\QuestionsService.js" />
     <Content Include="Scripts\Custom\Release.js" />
     <Content Include="Scripts\Custom\ReleaseService.js" />
+    <Content Include="Scripts\Custom\Services\MirrorServices.js" />
     <Content Include="Scripts\Custom\sessionService.js" />
     <Content Include="Scripts\Custom\Shared\MirrorSummary.js" />
     <Content Include="Scripts\Custom\Unauthorized.js" />

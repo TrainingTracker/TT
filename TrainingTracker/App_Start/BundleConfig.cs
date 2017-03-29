@@ -136,6 +136,7 @@ namespace TrainingTracker
 
             bundles.Add(new ScriptBundle("~/bundles/MirrorViewScripts").Include(
               "~/Scripts/bootstrap-datepicker.min.js",
+              "~/Scripts/Custom/Services/MirrorServices.js",
               "~/Scripts/Custom/Mirror.js",
               "~/Scripts/Custom/FeedbackThread.js",
               "~/Scripts/Custom/Shared/MirrorSummary.js"

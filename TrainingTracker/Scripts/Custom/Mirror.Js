@@ -63,6 +63,7 @@
 
             if (filteredTrainee.length == 0) return;
 
+            settings.selectedTrainee.UserId(filteredTrainee[0].UserId);
             settings.selectedTrainee.FullName(filteredTrainee[0].FullName);
             settings.selectedTrainee.Email(filteredTrainee[0].Email);
             settings.selectedTrainee.ImagePath(photoUrl(filteredTrainee[0].ProfilePictureName));
@@ -162,13 +163,15 @@
             settings.panel.reportPanel(false);
 
             my.mirrorSummaryVm.intitalizeMirrorSummaryPlugin(settings.selectedTrainee.UserId(),
+                                                               settings.filterDateRange.StartDate(),
+                                                             settings.filterDateRange.EndDate(),
                                                              settings.filterForReports.Feedback.Assignment(),
                                                              settings.filterForReports.Feedback.CodeReview(),
                                                              settings.filterForReports.Feedback.RandomReview(),
                                                              settings.filterForReports.Feedback.Skills(),
                                                              settings.filterForReports.Feedback.WeeklyFeedback(),
-                                                             settings.filterForReports.Feedback.Courses(),
-                                                             settings.filterForReports.Feedback.Session());
+                                                             settings.filterForReports.Courses(),
+                                                             settings.filterForReports.Session());
         };
 
         return {

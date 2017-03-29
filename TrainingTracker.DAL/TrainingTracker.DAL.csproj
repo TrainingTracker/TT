@@ -300,6 +300,7 @@
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\MirrorRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
     <Compile Include="Repositories\SubtopicContentRepository.cs" />
     <Compile Include="Repositories\CourseSubtopicRepository.cs" />
