@@ -14,6 +14,16 @@
                 UserId: ko.observable(0),
                 StartDate: ko.observable(null),
                 EndDate: ko.observable(null),
+            },
+            customLoader :
+            {
+                AssignmentPanel: ko.observable(false),
+                CodeReviewPanel: ko.observable(false),
+                RandomReviewPanel: ko.observable(false),
+                SkillsPanel: ko.observable(false),
+                WeeklyFeedbackPanel: ko.observable(false),
+                CoursePanel: ko.observable(false),
+                SessionPanel: ko.observable(false)
             }
         };
 
@@ -35,55 +45,84 @@
                 callback(data);
                 my.toggleLoader();
                 deferredObject.resolve(data);
-            }).fail(function (data) {
-                alert("Ajax promise failed while fetching  data");
-                console.log(JSON.stringify(data));
+            }).fail(function () {
+                
             });
         };
 
         var loadAssignmentDataWithPromise = function () {
+            settings.customLoader.AssignmentPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getAssignmentFeedbackWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                function () { console.log(""); }); // register call back here
+                assignmentReviewLoadCallback); // register call back here
+        };
+
+        var assignmentReviewLoadCallback = function(data) {
+            console.log(data);
+            settings.customLoader.AssignmentPanel(false);
         };
 
         var loadCodeReviewDataWithPromise = function () {
+            settings.customLoader.CodeReviewPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getCodeReviewWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                function () { console.log(""); }); // register call back here
+               codeReviewLoadCallback); // register call back here
+        };
+
+        var codeReviewLoadCallback = function(data) {
+            console.log(data);
+            settings.customLoader.CodeReviewPanel(false);
         };
 
         var loadRandomReviewDataWithPromise = function () {
+            settings.customLoader.RandomReviewPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getRandomReviewWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                function () { console.log(""); }); // register call back here
+                randomReviewLoadCallback); // register call back here
+        };
+
+        var randomReviewLoadCallback = function (data) {
+            console.log(data);
+            settings.customLoader.RandomReviewPanel(false);
         };
 
         var loadSkillsFeedbackDataWithPromise = function () {
+            settings.customLoader.SkillsPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getSkillsWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                function () { console.log(""); }); // register call back here
+                skillReviewLoadCallback); // register call back here
+        };
+
+        var skillReviewLoadCallback = function(data) {
+            console.log(data);
+            settings.customLoader.SkillsPanel(false);
         };
 
         var loadWeeklyFeedbackDataWithPromise = function () {
+            settings.customLoader.WeeklyFeedbackPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getWeeklyFeedbacksWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                function () { console.log(""); }); // register call back here
+               weeklyReviewLoadCallback); // register call back here
+        };
+
+        var weeklyReviewLoadCallback = function (data) {
+            console.log(data);
+            settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
         var intitalizeMirrorSummaryPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
