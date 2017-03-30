@@ -32,6 +32,32 @@ $(document).ready(function () {
             $('div#loaderWrapper').fadeIn('slow');
         }
     };
+
+   my.avatarUrl = function (relativePath) {
+       return my.rootUrl + "/Uploads/ProfilePicture/" + relativePath;
+   },
+
+    my.getFeedbackText = function (typeId) {
+        switch (typeId) {
+            case 1:
+                return "Comment ";
+            case 2:
+                return "Skill Feedback";
+            case 3:
+                return "Assignment Feedback";
+            case 4:
+                return "Code Review Feedback";
+            case 5:
+                return "Weekly Feedback";
+            case 6:
+                return "Course Feedback";
+            case 7:
+                return "Random Review";
+            default:
+                return "Error text";
+
+        }
+    }
     
     my.calculateLastMonday = function ()
     {

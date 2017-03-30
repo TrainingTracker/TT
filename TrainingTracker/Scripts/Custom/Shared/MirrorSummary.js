@@ -15,7 +15,7 @@
                 StartDate: ko.observable(null),
                 EndDate: ko.observable(null),
             },
-            customLoader :
+            customLoader:
             {
                 AssignmentPanel: ko.observable(false),
                 CodeReviewPanel: ko.observable(false),
@@ -38,7 +38,7 @@
             SessionPanel: ko.observableArray([])
         }
 
-        var loadDataUsingPromise = function (serviceMethod, callback) {
+        var loadDataUsingPromise = function (serviceMethod, callback, failureCallback) {
             var deferredObject = $.Deferred();
 
             serviceMethod().done(function (data) {
@@ -46,7 +46,7 @@
                 my.toggleLoader();
                 deferredObject.resolve(data);
             }).fail(function () {
-                
+                failureCallback();
             });
         };
 
@@ -57,11 +57,16 @@
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                assignmentReviewLoadCallback); // register call back here
+                assignmentReviewLoadCallback, assignmentReviewFailureCallback); // register call back here
         };
 
-        var assignmentReviewLoadCallback = function(data) {
-            console.log(data);
+        var assignmentReviewLoadCallback = function (data) {
+            panelData.AssignmentPanel(data);
+            settings.customLoader.AssignmentPanel(false);
+        };
+
+        var assignmentReviewFailureCallback = function (data) {
+            console.log("Failde to laod Assignments");
             settings.customLoader.AssignmentPanel(false);
         };
 
@@ -72,11 +77,16 @@
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-               codeReviewLoadCallback); // register call back here
+               codeReviewLoadCallback, codeReviewFailureCallback); // register call back here
         };
 
-        var codeReviewLoadCallback = function(data) {
-            console.log(data);
+        var codeReviewLoadCallback = function (data) {
+            panelData.CodeReviewPanel(data);
+            settings.customLoader.CodeReviewPanel(false);
+        };
+
+        var codeReviewFailureCallback = function (data) {
+            console.log("Failed to Load Code Review Data");
             settings.customLoader.CodeReviewPanel(false);
         };
 
@@ -87,11 +97,16 @@
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                randomReviewLoadCallback); // register call back here
+                randomReviewLoadCallback, randomReviewFailureCallback); // register call back here
         };
 
         var randomReviewLoadCallback = function (data) {
-            console.log(data);
+            panelData.RandomReviewPanel(data);
+            settings.customLoader.RandomReviewPanel(false);
+        };
+
+        var randomReviewFailureCallback = function (data) {
+            console.log("Failed to Load Random Reviews");
             settings.customLoader.RandomReviewPanel(false);
         };
 
@@ -102,11 +117,16 @@
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-                skillReviewLoadCallback); // register call back here
+                skillReviewLoadCallback, skillReviewFailureCallback); // register call back here
         };
 
-        var skillReviewLoadCallback = function(data) {
-            console.log(data);
+        var skillReviewLoadCallback = function (data) {
+            panelData.SkillsPanel(data);
+            settings.customLoader.SkillsPanel(false);
+        };
+
+        var skillReviewFailureCallback = function (data) {
+            console.log("Failed to load skills Feedback");
             settings.customLoader.SkillsPanel(false);
         };
 
@@ -117,11 +137,16 @@
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
-               weeklyReviewLoadCallback); // register call back here
+               weeklyReviewLoadCallback, weeklyReviewFailureCallback); // register call back here
         };
 
         var weeklyReviewLoadCallback = function (data) {
-            console.log(data);
+            panelData.WeeklyFeedbackPanel(data);
+            settings.customLoader.WeeklyFeedbackPanel(false);
+        };
+
+        var weeklyReviewFailureCallback = function (data) {
+            console.log("Failed to load Weekly Feedback");
             settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
@@ -179,10 +204,18 @@
             }
         };
 
+        var loadFeedbackDailog = function (feedbackId) {
+
+            if (typeof (my.feedbackThreadsVm.loadFeedbackDailog) != 'undefined')
+                my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
+        };
+      
+
         return {
             intitalizeMirrorSummaryPlugin: intitalizeMirrorSummaryPlugin,
             settings: settings,
-            panelData: panelData
+            panelData: panelData,
+            loadFeedbackDailog: loadFeedbackDailog
         }
     }();
 });
