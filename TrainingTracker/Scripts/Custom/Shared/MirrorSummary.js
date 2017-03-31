@@ -151,6 +151,7 @@
         };
 
         var intitalizeMirrorSummaryPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
+            destroyPlugin();
             settings.filterDetails.UserId(userId);
             settings.filterDetails.StartDate(startDate);
             settings.filterDetails.EndDate(endDate);
@@ -209,13 +210,29 @@
             if (typeof (my.feedbackThreadsVm.loadFeedbackDailog) != 'undefined')
                 my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
         };
+
+        var destroyPlugin = function() {
+            panelData.AssignmentPanel([]);
+            panelData.CodeReviewPanel([]);
+            panelData.RandomReviewPanel([]);
+            panelData.SkillsPanel([]);
+            panelData.WeeklyFeedbackPanel([]);
+            panelData.CoursePanel([]);
+            panelData.SessionPanel([]);
+
+            settings.filterDetails.UserId(0);
+            settings.filterDetails.StartDate(null);
+            settings.filterDetails.EndDate(null);
+        }
       
 
         return {
             intitalizeMirrorSummaryPlugin: intitalizeMirrorSummaryPlugin,
             settings: settings,
             panelData: panelData,
-            loadFeedbackDailog: loadFeedbackDailog
+            loadFeedbackDailog: loadFeedbackDailog,
+            destroyPlugin: destroyPlugin
         }
     }();
+
 });

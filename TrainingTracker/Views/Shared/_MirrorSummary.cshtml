@@ -21,8 +21,8 @@
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.CodeReviewPanel() == true }"></div>
-            
-             <!-- ko if:my.mirrorSummaryVm.panelData.CodeReviewPanel().length > 0 -->
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.CodeReviewPanel().length > 0 -->
             <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.CodeReviewPanel() }"></div>
             <!-- /ko -->
         </div>
@@ -36,8 +36,8 @@
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.RandomReviewPanel() == true }"></div>
-            
-             <!-- ko if:my.mirrorSummaryVm.panelData.RandomReviewPanel().length > 0 -->
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.RandomReviewPanel().length > 0 -->
             <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.RandomReviewPanel() }"></div>
             <!-- /ko -->
         </div>
@@ -51,7 +51,7 @@
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.SkillsPanel() == true }"></div>
-            
+
             <!-- ko if:my.mirrorSummaryVm.panelData.SkillsPanel().length > 0 -->
             <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.SkillsPanel() }"></div>
             <!-- /ko -->
@@ -66,8 +66,8 @@
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.WeeklyFeedbackPanel() == true }"></div>
-            
-                <!-- ko if:my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel().length > 0 -->
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel().length > 0 -->
             <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel() }"></div>
             <!-- /ko -->
         </div>
@@ -76,64 +76,69 @@
 </div>
 
 <script type="text/html" id="divFakeLoader">
-    <div class="col-xs-12 fake-loader">
-        <div class="col-xs-12">
+    <div class="col-xs-12 fake-loader no-padding-left no-padding-right ">
+        <div class="col-xs-12 panel panel-white panel-shadow">
             <span class="col-xs-1 fake-avatar"></span>
-            <span class="col-xs-8  fake-details"></span>
-            <div class="col-xs-12">
-                <span class="col-xs-4 pull-right  fake-details"></span>
-            </div>
+            <span class="col-xs-11  fake-details"></span>
+           @* <div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 panel panel-white panel-shadow">
             <span class="col-xs-1 fake-avatar"></span>
-            <span class="col-xs-8  fake-details"></span>
-            <div class="col-xs-12">
-                <span class="col-xs-4 pull-right  fake-details"></span>
-            </div>
+            <span class="col-xs-11  fake-details"></span>
+           @* <div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
         </div>
-         <div class="col-xs-12">
+        <div class="col-xs-12 panel panel-white panel-shadow">
             <span class="col-xs-1 fake-avatar"></span>
-            <span class="col-xs-8  fake-details"></span>
-             <div class="col-xs-12">
-               <span class="col-xs-4 pull-right  fake-details"></span>
-            </div>
+            <span class="col-xs-11  fake-details"></span>
+            @*<div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
         </div>
     </div>
 </script>
 
 
 <script type="text/html" id="feedbacksSummary">
-    <div class="col-xs-12 feedback-container">
+    <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
         <div class="col-xs-12">
-            <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: {src: my.avatarUrl(AddedBy.ProfilePictureName)}" />
-            <div class="col-xs-10 feedback-details">
+            <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(AddedBy.ProfilePictureName) }" />
+            <div class="col-xs-11 feedback-details">
                 <div style="display: inline-block;" class="title ">
-                    <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + AddedBy.UserId }"><span data-bind=" text: AddedBy.FullName"></span></a></strong>
+                    <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + AddedBy.UserId }"><span data-bind="    text: AddedBy.FullName"></span></a></strong>
                 </div>
-                <div style="display: inline-block;" class="text-muted time "> Added 
-                    <span class="feedback-summary-type" data-bind="click: function () { my.mirrorSummaryVm.loadFeedbackDailog(FeedbackId) }, text:  my.getFeedbackText(FeedbackType.FeedbackTypeId) ">Code Review Feedback</span>
+                <div style="display: inline-block;" class="text-muted time ">
+                    Added 
+                    <span class="feedback-summary-type" data-bind="click: function () { my.mirrorSummaryVm.loadFeedbackDailog(FeedbackId) }, text: my.getFeedbackText(FeedbackType.FeedbackTypeId) ">Code Review Feedback</span>
                 </div>
                 <div style="display: inline-block; padding-left: 10px"
                      data-bind="css: {
-                                                            'rating-slow': Rating == 1,
-                                                            'rating-Average': Rating == 2,
-                                                            'rating-Fast': Rating == 3,
-                                                            'rating-Exceptional': Rating == 4
-                                                        }">
+                                        'rating-slow': Rating == 1,
+                                        'rating-Average': Rating == 2,
+                                        'rating-Fast': Rating == 3,
+                                        'rating-Exceptional': Rating == 4
+                                    }">
                     <!-- ko foreach: new Array(Rating)  -->
                     <span class="glyphicon glyphicon-star"
                           style="display: inline-block;"></span>
                     <!-- /ko -->
                 </div>
-                <div style="display: inline-block;" class="text-muted time" data-bind="text:'on ' + moment(AddedOn).format('MMMM Do YYYY, h:mm a') "></div>
+                <div style="display: inline-block;" class="text-muted time" data-bind="text: 'on ' + moment(AddedOn).format('MMMM Do YYYY, h:mm a') "></div>
+                <div style="display: inline-block;" class="thread-container pull-right">
+                    <span class="thread-counter" data-bind="text: ThreadCount">ThreadCount</span>
+                     <span class="mute">Thread Activites.</span>
+                </div>
 
             </div>
         </div>
-        <div class="thread-container col-xs-10">
+       @* <div class="thread-container col-xs-11">
             <div class="pull-right">
-                <span class="thread-counter" data-bind="text:ThreadCount">ThreadCount</span>
-                <span class="mute"> Activities on feedback thread.</span>
+                
+                <span class="mute">Activities on feedback thread.</span>
             </div>
-        </div>
+        </div>*@
     </div>
 </script>

@@ -164,5 +164,16 @@
             threadData: threadData,
             addNewThread: addNewThread
         };
-    }();   
+    }();
+
+
+    // this is an hack for Issue with weekly feedback that expects profilevm's method
+    if (typeof (my.profileVm) == 'undefined') {
+
+        my.profileVm = {
+            loadFeedbackWithThread: function (feedbackId) {
+                my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
+            }
+        };
+    }
 });

@@ -171,6 +171,9 @@
             </div>
         </div>
         <div id="divButtons">
+              <div class="col-md-12 custom-margin-top-10">
+                <input class="btn btn-info col-xs-10 col-xs-offset-1" type="button" value="Load Mirror" data-bind="click: my.mirrorVm.loadSummaryPanel" />
+            </div>
             <div class="col-md-12 custom-margin-top-10">
                 <input class="btn btn-info col-xs-4 col-xs-offset-1" type="button" value="Summary" data-bind="click:my.mirrorVm.loadSummaryPanel" />
                 <input class="btn btn-info col-xs-4 col-xs-offset-2" type="button" value="Report" />
@@ -185,15 +188,15 @@
         </div>
         <!--/ko-->
         
-         <!-- ko if:settings.panel.summaryPanel() == true -->
+        <!-- ko if:settings.panel.summaryPanel() == true -->
         <div class="col-xs-12 height-100-percent" id="divMirrorSummary">
             @Html.Partial("_MirrorSummary")
         </div>
         <!-- /ko -->
     </div>
-@Html.Partial("_FeedbackThread")
-
 </div>
+
+@Html.Partial("_FeedbackThread")
 
 @section Scripts
 {

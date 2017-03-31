@@ -15,7 +15,7 @@
         }
 
 .fake-loader > div {
-    padding: 5px 0;
+       padding: 5px 15px;
 }
 
 .fake-loader .fake-avatar {
@@ -23,25 +23,20 @@
     width: 30px;
     display: inline-block;
     border-radius: 20px;
-    background: #ccc;
+    background-color: #ccc;
     margin: 0 10px 0px 0px;
-    animation: opacitychange .1ms;
-    -webkit-animation: opacitychange .1ms;
-    animation-delay: 0;
-    -webkit-animation-delay: 0;
-    animation-iteration-count: infinite;
-    -webkit-animation-iteration-count: infinite;
+   
 }
 
 .fake-loader .fake-details {
     display: inline-block;
     height: 16px;
     margin-top: 7px;
-    background: #ccc;
-    animation: opacitychange .5ms;
-    -webkit-animation: opacitychange .5ms;
-    animation-delay: 5s;
-    -webkit-animation-delay: 5s;
+    background: linear-gradient(to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33%);
+    animation: placeHolderSimmer 1s;
+    -webkit-animation: placeHolderSimmer 1s;
+        animation-timing-function: linear;
+   
     animation-iteration-count: infinite;
     -webkit-animation-iteration-count: infinite;
 }
@@ -116,20 +111,11 @@ div.text-muted {
     margin-left: 56px;
 }
 
-@keyframes opacitychange {
-    0% {
-        opacity: .25;
-    }
-
-    33% {
-        opacity: .66;
-    }
-
-    66% {
-        opacity: .75;
-    }
-
-    100% {
-        opacity: 1;
-    }
+@keyframes placeHolderSimmer {
+   0% {
+    background-position: -468px 0;
+}
+100% {
+    background-position: 468px 0;
+}
 }

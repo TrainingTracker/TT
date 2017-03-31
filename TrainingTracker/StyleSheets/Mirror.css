@@ -204,10 +204,19 @@ div#divSelectedTrainee > div {
   top: 100%;
 }
 
+#divButtons {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
 
 #divButtons>div{
-    position: absolute;
     bottom: 10px;
+}
+
+#divButtons div:last-child input.btn {
+    background-color: #192741!important;
 }
 
 /*Scrollbar Mods */
