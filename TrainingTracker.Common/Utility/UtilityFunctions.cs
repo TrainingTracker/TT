@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.IO;
 using TrainingTracker.Common.Constants;
@@ -14,18 +15,18 @@ namespace TrainingTracker.Common.Utility
     /// </summary>
     public static class UtilityFunctions
     {
-       /// <summary>
-       /// Static Function that returns the Last Date on the given day
-       /// * eg. this Function returns the Last Friday Date wrt Today's date, If today is Friday, last friday will be today
-       /// </summary>
-       /// <param name="dayOfWeek">enumeration of type day of week</param>
+        /// <summary>
+        /// Static Function that returns the Last Date on the given day
+        /// * eg. this Function returns the Last Friday Date wrt Today's date, If today is Friday, last friday will be today
+        /// </summary>
+        /// <param name="dayOfWeek">enumeration of type day of week</param>
         /// <param name="referenceDate">reference Date from where the last date wrt day to be calculated</param>
-       /// <returns>returns the last day</returns> 
-        public static DateTime GetLastDateByDay(DayOfWeek dayOfWeek,DateTime referenceDate )
-       {
-           var differenceInDay =  dayOfWeek - referenceDate.DayOfWeek ;           
-           return differenceInDay > 0 ? referenceDate.AddDays(-7 + differenceInDay) : referenceDate.AddDays(differenceInDay);
-       }
+        /// <returns>returns the last day</returns> 
+        public static DateTime GetLastDateByDay(DayOfWeek dayOfWeek, DateTime referenceDate)
+        {
+            var differenceInDay = dayOfWeek - referenceDate.DayOfWeek;
+            return differenceInDay > 0 ? referenceDate.AddDays(-7 + differenceInDay) : referenceDate.AddDays(differenceInDay);
+        }
 
         /// <summary>
         /// Returns All the weeks list between two given dates, * week here starts on Monday
@@ -35,7 +36,7 @@ namespace TrainingTracker.Common.Utility
         /// <returns>List of week strings</returns>
         public static List<string> GetAllWeeksBetweenDates(DateTime? startDate, DateTime endDate)
         {
-            List<string> allWeeksList =new List<string>();
+            List<string> allWeeksList = new List<string>();
 
             if (!startDate.HasValue) return allWeeksList;
 
@@ -54,20 +55,20 @@ namespace TrainingTracker.Common.Utility
         /// <returns>Html string</returns>
         public static string GenerateHtmlForFeedbackOnSurveyResponse(SurveyResponse response)
         {
-            StringBuilder stringBuilder= new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.Append("<div class='weekly-feedback'><code>");
 
             foreach (var responseAnswers in response.Response)
             {
                 stringBuilder.Append("<div class='feedback-zone'>");
-                stringBuilder.Append("<div class='feedback-question'><label>").Append(responseAnswers.QuestionText.Replace("[[[trainee]]]" , response.AddedFor.FirstName)).Append("</label></div>");
+                stringBuilder.Append("<div class='feedback-question'><label>").Append(responseAnswers.QuestionText.Replace("[[[trainee]]]", response.AddedFor.FirstName)).Append("</label></div>");
 
-                if (!string.IsNullOrEmpty(Convert.ToString(responseAnswers.AnswerText))) 
-                stringBuilder.Append("<div class='feedback-answer'><label> ").Append(responseAnswers.AnswerText).Append("</label></div>");
+                if (!string.IsNullOrEmpty(Convert.ToString(responseAnswers.AnswerText)))
+                    stringBuilder.Append("<div class='feedback-answer'><label> ").Append(responseAnswers.AnswerText).Append("</label></div>");
 
-                if (!string.IsNullOrEmpty(Convert.ToString(responseAnswers.AdditionalNotes)) && responseAnswers.AdditionalNotes.Trim().Length > 0) 
-                stringBuilder.Append("<div class='feedback-notes'><label><q>").Append(responseAnswers.AdditionalNotes.Trim().Replace("<script>" , "&lt;script&gt;").Replace("</script>" , "&lt;/script&gt;")).Append("</q></label></div>");
+                if (!string.IsNullOrEmpty(Convert.ToString(responseAnswers.AdditionalNotes)) && responseAnswers.AdditionalNotes.Trim().Length > 0)
+                    stringBuilder.Append("<div class='feedback-notes'><label><q>").Append(responseAnswers.AdditionalNotes.Trim().Replace("<script>", "&lt;script&gt;").Replace("</script>", "&lt;/script&gt;")).Append("</q></label></div>");
 
                 if (string.IsNullOrEmpty(Convert.ToString(responseAnswers.AdditionalNotes)) &&
                     string.IsNullOrEmpty(responseAnswers.AnswerText))
@@ -90,26 +91,26 @@ namespace TrainingTracker.Common.Utility
                         className = "rating-slow";
                         break;
                     case 2:
-                         className = "rating-Average";
-                         break;
-                    case 3  :
-                         className = "rating-Fast";
-                         break;
+                        className = "rating-Average";
+                        break;
+                    case 3:
+                        className = "rating-Fast";
+                        break;
                     case 4:
                         className = "rating-Exceptional";
                         break;
                 }
 
-                stringBuilder.Append("<div style='display: inline-block;' class='title ' ><strong><a href='/Profile/UserProfile?userId="+cr.AddedBy.UserId+"'>"+cr.AddedBy.FullName+"</a>&nbsp;</strong></div>");
-                stringBuilder.Append("<div style='display: inline-block;' class='text-muted time ' > Added <span onclick='my.profileVm.loadFeedbackWithThread("+cr.FeedbackId+")'><a href='#" + cr.AddedBy.UserId + "'>Code Review Feedback</a></span></div>");               
+                stringBuilder.Append("<div style='display: inline-block;' class='title ' ><strong><a href='/Profile/UserProfile?userId=" + cr.AddedBy.UserId + "'>" + cr.AddedBy.FullName + "</a>&nbsp;</strong></div>");
+                stringBuilder.Append("<div style='display: inline-block;' class='text-muted time ' > Added <span onclick='my.profileVm.loadFeedbackWithThread(" + cr.FeedbackId + ")'><a href='#" + cr.AddedBy.UserId + "'>Code Review Feedback</a></span></div>");
                 stringBuilder.Append("<div style='display: inline-block; padding-left: 10px' class=' " + className + "'>");
 
                 for (var i = 0; i < cr.Rating; i++)
                 {
                     stringBuilder.Append("<span class='glyphicon glyphicon-star' style='display: inline-block;'></span>");
                 }
-                 stringBuilder.Append("</div>");
-                 stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}" , cr.AddedOn) + "</div></li>");
+                stringBuilder.Append("</div>");
+                stringBuilder.Append("<div style='display: inline-block;' class='text-muted time'>&nbsp; on " + string.Format("{0:ddd, MMM dd yyyy, h:mm tt}", cr.AddedOn) + "</div></li>");
             }
 
             if (response.CodeReviewForTheWeek.Count == 0) stringBuilder.Append("<li class='li-code-review'><div class=''><label class='danger'>No CR added in the week.</label></li>");
@@ -210,7 +211,7 @@ namespace TrainingTracker.Common.Utility
 
         public static string GenerateHtmlForCourseFeedback(Course course)
         {
-            StringBuilder strBuilder =new StringBuilder();
+            StringBuilder strBuilder = new StringBuilder();
             strBuilder.Append("<div class='weekly-feedback'><code>");
 
             strBuilder.Append("<div class='feedback-zone'>");
@@ -219,7 +220,7 @@ namespace TrainingTracker.Common.Utility
             strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + course.CourseSubtopics.SelectMany(x => x.SubtopicContents).Count() + "</span><label class='lbl-data-info'>Links/SubTopics</label></div>");
             strBuilder.Append("<div class='col-xs-3'><span class='spn-course-data'>" + course.CourseSubtopics.SelectMany(x => x.Assignments).Count() + "</span><label class='lbl-data-info'>Assignments</label></div>");
             strBuilder.Append("</div>");
-           
+
             strBuilder.Append("<div id='divSurveyCodeReview' class='feedback-zone'><div class='feedback-question'><label>Assignments Reviews for the course</label></div>");
 
             StringBuilder feedbackStringBuilder = new StringBuilder();
@@ -235,7 +236,7 @@ namespace TrainingTracker.Common.Utility
 
                         string className = "";
 
-                        if (feedback.FeedbackType.FeedbackTypeId != (int) Common.Enumeration.FeedbackType.Comment)
+                        if (feedback.FeedbackType.FeedbackTypeId != (int)Common.Enumeration.FeedbackType.Comment)
                         {
                             switch (feedback.Rating)
                             {
@@ -281,7 +282,7 @@ namespace TrainingTracker.Common.Utility
         }
 
         public static string SubstituteTemplateWithReplacements(StringBuilder body, Dictionary<string, string> substitutions)
-        {           
+        {
             foreach (var substitution in substitutions)
             {
                 body.Replace(substitution.Key, substitution.Value);
@@ -307,6 +308,31 @@ namespace TrainingTracker.Common.Utility
             {
                 return null;
             }
+        }
+
+        public static int GetFeedbackRatingFromFeedbackTypeString(string valueText)
+        {
+
+            if (valueText.Equals("Slow", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return 1;
+            }
+
+            if (valueText.Equals("Average", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return 2;
+            }
+
+            if (valueText.Equals("Fast", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return 3;
+            }
+
+            if (valueText.Equals("Exceptional", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return 4;
+            }
+            return 0;
         }
     }
 }

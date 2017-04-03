@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 
@@ -15,6 +16,18 @@ namespace TrainingTracker.BLL
                                                                                                                           startDate, 
                                                                                                                           endDate,
                                                                                                                           feedbackType));
+        }
+
+        public List<Feedback> LoadWeeklyFeedbackLearningTimelines(int userId, DateTime startDate, DateTime endDate)
+        {
+            return
+                UnitOfWork.FeedbackRepository.LoadWeeklyFeedbackLearningTimelines(userId, startDate, endDate).ToList();
+        }
+
+        public List<Feedback> LoadWeeklyFeedbackTipDetails(int userId, DateTime startDate, DateTime endDate)
+        {
+            return
+               UnitOfWork.FeedbackRepository.LoadWeeklyFeedbackTipDetails(userId, startDate, endDate).ToList();
         }
     }
 }

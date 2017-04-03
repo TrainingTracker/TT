@@ -174,6 +174,26 @@
                                                              settings.filterForReports.Session());
         };
 
+        var loadReportPanel = function () {
+
+            if (typeof (my.mirrorReportVm) == 'undefined') return; // add alert for failure in load of plugin
+            // hide show reporting panel
+            settings.panel.emptyPanel(false);
+            settings.panel.summaryPanel(false);
+            settings.panel.reportPanel(true);
+
+            my.mirrorReportVm.intitalizeMirrorReportPlugin(settings.selectedTrainee.UserId(),
+                                                             settings.filterDateRange.StartDate(),
+                                                             settings.filterDateRange.EndDate(),
+                                                             settings.filterForReports.Feedback.Assignment(),
+                                                             settings.filterForReports.Feedback.CodeReview(),
+                                                             settings.filterForReports.Feedback.RandomReview(),
+                                                             settings.filterForReports.Feedback.Skills(),
+                                                             settings.filterForReports.Feedback.WeeklyFeedback(),
+                                                             settings.filterForReports.Courses(),
+                                                             settings.filterForReports.Session());
+        };
+
         return {
             settings: settings,
             photoUrl: photoUrl,
@@ -182,7 +202,8 @@
             manageCustomCheckbox: manageCustomCheckbox,
             manageSelectAllCheckboxClick: manageSelectAllCheckboxClick,
             manageAllFeedbackClick: manageAllFeedbackClick,
-           loadSummaryPanel:loadSummaryPanel
+            loadSummaryPanel: loadSummaryPanel,
+            loadReportPanel: loadReportPanel
         }
     }();
 

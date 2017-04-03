@@ -139,7 +139,8 @@ namespace TrainingTracker
                "~/Scripts/Custom/FeedbackThread.js",
               "~/Scripts/Custom/Services/MirrorServices.js",
               "~/Scripts/Custom/Mirror.js",
-              "~/Scripts/Custom/Shared/MirrorSummary.js"
+              "~/Scripts/Custom/Shared/MirrorSummary.js",
+               "~/Scripts/Custom/Shared/MirrorReport.js"
              ));
 
             #endregion
@@ -221,7 +222,8 @@ namespace TrainingTracker
                   "~/StyleSheets/Mirror.css",
                   "~/Content/DatePicker/bootstrap-datepicker3.css",
                   "~/StyleSheets/FeedbackThread.css",
-                  "~/StyleSheets/MirrorSummary.css"
+                  "~/StyleSheets/MirrorSummary.css",
+                  "~/StyleSheets/MirrorReport.css"
           ));
 
             #endregion

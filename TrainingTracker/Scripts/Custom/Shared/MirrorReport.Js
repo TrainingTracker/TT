@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    my.mirrorSummaryVm = function () {
+    my.mirrorReportVm = function () {
         var settings = {
             panelVisibility: {
                 AssignmentPanel: ko.observable(false),
@@ -34,8 +34,8 @@
             RandomReviewPanel: ko.observableArray([]),
             SkillsPanel: ko.observableArray([]),
             WeeklyFeedbackPanel: ko.observableArray([]),
-            //WeeklyTimeLineData: ko.observableArray([]),
-            //WeeklyTipData: ko.observableArray([]),
+            WeeklyTimeLineData: ko.observableArray([]),
+            WeeklyTipData: ko.observableArray([]),
             CoursePanel: ko.observableArray([]),
             SessionPanel: ko.observableArray([])
         }
@@ -152,47 +152,47 @@
             settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
-        //var loadWeeklyLearningTimeLineDataWithPromise = function () {
-        //    //settings.customLoader.WeeklyFeedbackPanel(true);
-        //    loadDataUsingPromise(function () {
-        //        return my.mirrorService.getWeeklyLearningTimeLineDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
-        //            settings.filterDetails.StartDate(),
-        //            settings.filterDetails.EndDate());
-        //    },
-        //       weeklyLearningTimeLineLoadCallback, weeklyLearningTimeLineFailureCallback); // register call back here
-        //};
+        var loadWeeklyLearningTimeLineDataWithPromise = function () {
+            //settings.customLoader.WeeklyFeedbackPanel(true);
+            loadDataUsingPromise(function () {
+                return my.mirrorService.getWeeklyLearningTimeLineDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
+                    settings.filterDetails.StartDate(),
+                    settings.filterDetails.EndDate());
+            },
+               weeklyLearningTimeLineLoadCallback, weeklyLearningTimeLineFailureCallback); // register call back here
+        };
 
-        //var weeklyLearningTimeLineLoadCallback = function (data) {
-        //    panelData.WeeklyTimeLineData(data);
-        //  //  settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
+        var weeklyLearningTimeLineLoadCallback = function (data) {
+            panelData.WeeklyTimeLineData(data);
+            //  settings.customLoader.WeeklyFeedbackPanel(false);
+        };
 
-        //var weeklyLearningTimeLineFailureCallback = function (data) {
-        //    console.log("Failed to load Weekly Time Line Data");
-        //   // settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
+        var weeklyLearningTimeLineFailureCallback = function (data) {
+            console.log("Failed to load Weekly Time Line Data");
+            // settings.customLoader.WeeklyFeedbackPanel(false);
+        };
 
-        //var loadWeeklyTipDataWithPromise = function () {
-        //   // settings.customLoader.WeeklyFeedbackPanel(true); // modify
-        //    loadDataUsingPromise(function () {
-        //        return my.mirrorService.getWeeklyWeeklyTipDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
-        //            settings.filterDetails.StartDate(),
-        //            settings.filterDetails.EndDate());
-        //    },
-        //       weeklyTipDataLoadCallback, weeklyTipDataFailureCallback); // register call back here
-        //};
+        var loadWeeklyTipDataWithPromise = function () {
+            // settings.customLoader.WeeklyFeedbackPanel(true); // modify
+            loadDataUsingPromise(function () {
+                return my.mirrorService.getWeeklyWeeklyTipDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
+                    settings.filterDetails.StartDate(),
+                    settings.filterDetails.EndDate());
+            },
+               weeklyTipDataLoadCallback, weeklyTipDataFailureCallback); // register call back here
+        };
 
-        //var weeklyTipDataLoadCallback = function (data) {
-        //    panelData.WeeklyTipData(data);
-        //  //  settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
+        var weeklyTipDataLoadCallback = function (data) {
+            panelData.WeeklyTipData(data);
+            //  settings.customLoader.WeeklyFeedbackPanel(false);
+        };
 
-        //var weeklyTipDataFailureCallback = function (data) {
-        //    console.log("Failed to load Weekly Tip Data");
-        //   // settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
+        var weeklyTipDataFailureCallback = function (data) {
+            console.log("Failed to load Weekly Tip Data");
+            // settings.customLoader.WeeklyFeedbackPanel(false);
+        };
 
-        var intitalizeMirrorSummaryPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
+        var intitalizeMirrorReportPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
             destroyPlugin();
             settings.filterDetails.UserId(userId);
             settings.filterDetails.StartDate(startDate);
@@ -235,8 +235,8 @@
 
                 if (weekly) {
                     loadWeeklyFeedbackDataWithPromise();
-                    //loadWeeklyLearningTimeLineDataWithPromise();
-                    //loadWeeklyTipDataWithPromise();
+                    loadWeeklyLearningTimeLineDataWithPromise();
+                    loadWeeklyTipDataWithPromise();
                 }
             }
 
@@ -255,14 +255,14 @@
                 my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
         };
 
-        var destroyPlugin = function() {
+        var destroyPlugin = function () {
             panelData.AssignmentPanel([]);
             panelData.CodeReviewPanel([]);
             panelData.RandomReviewPanel([]);
             panelData.SkillsPanel([]);
             panelData.WeeklyFeedbackPanel([]);
-            panelData.WeeklyTimeLineData([]);
-            panelData.WeeklyTipData([]);
+            //panelData.WeeklyTimeLineData([]);
+            //panelData.WeeklyTipData([]);
             panelData.CoursePanel([]);
             panelData.SessionPanel([]);
 
@@ -270,10 +270,10 @@
             settings.filterDetails.StartDate(null);
             settings.filterDetails.EndDate(null);
         }
-      
+
 
         return {
-            intitalizeMirrorSummaryPlugin: intitalizeMirrorSummaryPlugin,
+            intitalizeMirrorReportPlugin: intitalizeMirrorReportPlugin,
             settings: settings,
             panelData: panelData,
             loadFeedbackDailog: loadFeedbackDailog,

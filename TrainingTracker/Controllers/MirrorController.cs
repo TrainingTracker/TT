@@ -50,8 +50,22 @@ namespace TrainingTracker.Controllers
 
         public JsonResult GetWeeklyFeedbackWithFilters(int userId, DateTime startDate, DateTime endDate)
         {
+
             return Json(new MirrorBl().GetFeedbacksWithFilters(userId, startDate, endDate, FeedbackType.Weekly),
                        JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult LoadWeeklyFeedbackLearningTimelines(int userId, DateTime startDate, DateTime endDate)
+        {
+            return Json(new MirrorBl().LoadWeeklyFeedbackLearningTimelines(userId, startDate, endDate),
+                        JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult LoadWeeklyFeedbackTipDetails(int userId, DateTime startDate, DateTime endDate)
+        {
+
+            return Json(new MirrorBl().LoadWeeklyFeedbackTipDetails(userId, startDate, endDate),
+                        JsonRequestBehavior.AllowGet);
         }
     }
 }

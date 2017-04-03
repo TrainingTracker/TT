@@ -16,5 +16,13 @@
         getWeeklyFeedbacksWithFiltersPromise: function(userId, startDate, endDate) {
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Mirror/GetWeeklyFeedbackWithFilters?userId=" + userId + "&startDate=" + startDate + "&endDate=" + endDate, null);
         },
+
+        getWeeklyWeeklyTipDataWithFiltersPromise: function(userId, startDate, endDate) {
+            return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Mirror/LoadWeeklyFeedbackTipDetails?userId=" + userId + "&startDate=" + startDate + "&endDate=" + endDate, null);
+        },
+
+        getWeeklyLearningTimeLineDataWithFiltersPromise: function (userId, startDate, endDate) {
+            return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Mirror/LoadWeeklyFeedbackLearningTimelines?userId=" + userId + "&startDate=" + startDate + "&endDate=" + endDate, null);
+        },
     };
 }(my));

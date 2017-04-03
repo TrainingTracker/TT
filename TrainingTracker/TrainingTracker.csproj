@@ -294,6 +294,7 @@
     <Content Include="Scripts\Custom\ReleaseService.js" />
     <Content Include="Scripts\Custom\Services\MirrorServices.js" />
     <Content Include="Scripts\Custom\sessionService.js" />
+    <Content Include="Scripts\Custom\Shared\MirrorReport.Js" />
     <Content Include="Scripts\Custom\Shared\MirrorSummary.js" />
     <Content Include="Scripts\Custom\Unauthorized.js" />
     <Content Include="Scripts\Custom\UserProfile.js" />
@@ -359,6 +360,7 @@
     <Content Include="StyleSheets\Layout.css" />
     <Content Include="StyleSheets\Login.css" />
     <Content Include="StyleSheets\Mirror.css" />
+    <Content Include="StyleSheets\MirrorReport.css" />
     <Content Include="StyleSheets\MirrorSummary.css" />
     <Content Include="StyleSheets\NotificationSetting.css" />
     <Content Include="StyleSheets\Profile.css" />
@@ -415,6 +417,7 @@
     <Content Include="Views\Shared\_AddRelease.cshtml" />
     <Content Include="Views\Mirror\Mirror.cshtml" />
     <Content Include="Views\Shared\_MirrorSummary.cshtml" />
+    <Content Include="Views\Shared\_MirrorReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

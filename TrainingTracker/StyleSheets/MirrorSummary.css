@@ -1,18 +1,19 @@
 ﻿.mirror-tab-group-header {
     padding: 11px;
+    margin-bottom: 8px;
     background: #192741;
     color: #fff;
 }
 
-    .mirror-tab-group-header span {
-        font-size: 16px;
-        font-weight: bold;
-    }
+.mirror-tab-group-header span {
+    font-size: 16px;
+    font-weight: bold;
+}
 
-        .mirror-tab-group-header span.mirror-tab-group-header-rating {
-            font-size: 20px;
-            text-align: right;
-        }
+.mirror-tab-group-header span.mirror-tab-group-header-rating {
+    font-size: 20px;
+    text-align: right;
+}
 
 .fake-loader > div {
        padding: 5px 15px;
@@ -104,7 +105,7 @@ div.text-muted {
     font-family: 'Orbitron';
     color: red;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .thread-container {
