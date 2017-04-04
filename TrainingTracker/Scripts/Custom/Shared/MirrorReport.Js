@@ -60,8 +60,7 @@
                     timeLineData: {
                         datasets: [
                             {
-                                label: 'Timeline',
-                                strokeColor: 'green',
+                                strokeColor:'black',
                                 data: []
                             }
                         ]
@@ -76,22 +75,24 @@
                     segmentShowStroke: true,
                     segmentStrokeColor: '#222222'
                 },
-                lineDateSettings: {
+                lineDataSettings: {
                     responsive: true,
                     scaleOverride: true,
                     scaleBeginAtZero: true,
                     animation: true,
-                    animationEasing: "linear",
+                    scaleGridLineColor: "#ccc",
+                    animationEasing: "easeOutElastic",
                     bezierCurve: true,
-                    showTooltips: true,
+                    bezierCurveTension: 0.2,
+                    //showTooltips: true,
                     scaleShowHorizontalLines: true,
                     scaleShowLabels: true,
                     scaleType: 'date',
                     scaleDateTimeFormat: 'mmm d, yyyy',
                     scaleSteps: 5,
                     scaleStepWidth: 1,
-                    pointDotRadius: 10,
-                    pointHitDetectionRadius: 10,
+                    pointDotRadius: 7,
+                    pointHitDetectionRadius: 5,
                     useUtc: false,
                     scaleLabel: function (value) {
                         var label = "";
@@ -131,11 +132,26 @@
 
        
         var chartData = {
-            AssignmentPanel: ko.observableArray([]),
-            CodeReviewPanel: ko.observableArray([]),
-            RandomReviewPanel: ko.observableArray([]),
-            SkillsPanel: ko.observableArray([]),
-            WeeklyFeedbackPanel: ko.observableArray([]),
+            AssignmentPanel: {
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray([])
+            },
+            CodeReviewPanel:{
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray([])
+            },
+            RandomReviewPanel: {
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray([])
+            },
+            SkillsPanel: {
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray([])
+            },
+            WeeklyFeedbackPanel: {
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray(settings.chartSettings.countData)
+            },
             WeeklyTimeLine: {
                 LineData: ko.observable(settings.chartSettings.timeLineData),
                 DoughnutData: ko.observableArray([])
@@ -169,6 +185,7 @@
 
         var assignmentReviewLoadCallback = function (data) {
             panelData.AssignmentPanel(data);
+            getTimelineData(data, chartData.AssignmentPanel.LineData);
             settings.customLoader.AssignmentPanel(false);
         };
 
@@ -189,6 +206,7 @@
 
         var codeReviewLoadCallback = function (data) {
             panelData.CodeReviewPanel(data);
+            getTimelineData(data, chartData.CodeReviewPanel.LineData);
             settings.customLoader.CodeReviewPanel(false);
         };
 
@@ -209,6 +227,7 @@
 
         var randomReviewLoadCallback = function (data) {
             panelData.RandomReviewPanel(data);
+            getTimelineData(data, chartData.RandomReviewPanel.LineData);
             settings.customLoader.RandomReviewPanel(false);
         };
 
@@ -229,6 +248,7 @@
 
         var skillReviewLoadCallback = function (data) {
             panelData.SkillsPanel(data);
+            getTimelineData(data, chartData.SkillsPanel.LineData);
             settings.customLoader.SkillsPanel(false);
         };
 
@@ -249,6 +269,8 @@
 
         var weeklyReviewLoadCallback = function (data) {
             panelData.WeeklyFeedbackPanel(data);
+            getTimelineData(data, chartData.WeeklyFeedbackPanel.LineData);
+            getDoughnutData(data, chartData.WeeklyFeedbackPanel.DoughnutData);
             settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
@@ -269,6 +291,8 @@
 
         var weeklyLearningTimeLineLoadCallback = function (data) {
             panelData.WeeklyTimeLineData(data);
+            getTimelineData(data, chartData.WeeklyTimeLine.LineData);
+            getDoughnutData(data, chartData.WeeklyTimeLine.DoughnutData);
             settings.customLoader.WeeklyLearningTimeLinePanel(false);
         };
 
@@ -289,7 +313,7 @@
 
         var weeklyTipDataLoadCallback = function (data) {
             panelData.WeeklyTipData(data);
-            getTimelineData(data, chartData.WeeklyTimeLine.LineData);
+           // getTimelineData(data, chartData.WeeklyTimeLine.LineData);
             settings.customLoader.WeeklyTipPanel(false);
         };
 
@@ -359,7 +383,7 @@
 
         var getTimelineData = function (data,property) {
 
-            var timeLineData = settings.chartSettings.dataFormat.timeLineData;
+            var timeLineData = jQuery.extend(true, {},  settings.chartSettings.dataFormat.timeLineData);
 
             ko.utils.arrayForEach(data, function (item) {
                 timeLineData.datasets[0].data.push({
@@ -368,6 +392,27 @@
                 });
             });
             property(timeLineData);
+        }
+
+        var getDoughnutData = function (data, property) {
+            var doughnutData = jQuery.extend(true, {}, settings.chartSettings.dataFormat.countData);
+
+            doughnutData[3].value = ko.utils.arrayFilter(data, function (item) {
+                return item.Rating === 4;
+            }).length;
+
+            doughnutData[2].value = ko.utils.arrayFilter(data, function (item) {
+                return item.Rating === 3;
+            }).length;
+
+            doughnutData[1].value = ko.utils.arrayFilter(data, function (item) {
+                return item.Rating === 2;
+            }).length;
+
+            doughnutData[0].value = ko.utils.arrayFilter(data, function (item) {
+                return item.Rating === 1;
+            }).length;
+            property(doughnutData);
         }
 
         var destroyPlugin = function () {

@@ -761,6 +761,29 @@ $(document).ready(function () {
 
         }
     };
+
+    ko.bindingHandlers.mirrorChartCountTicker = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            var data = valueAccessor();
+            $(element).text(0);
+
+            if (!Array.isArray(data.data)) {
+                // Called the function in each second
+
+                var value = data.data[data.type - 1].value;
+                if (value == 0) return;
+                var interval = setInterval(function ()
+                {
+                    var number = $(element).text();
+
+                    if (++number == value) {
+                        clearInterval(interval); // If exceeded count , clear interval
+                    }            
+                    $(element).text(number); // Update the value in paragraph                  
+                }, 200); 
+            }
+        }
+    };
 });
 
 

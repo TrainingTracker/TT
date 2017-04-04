@@ -36,15 +36,19 @@ namespace TrainingTracker.DAL.Repositories
             if (feedbackType != FeedbackType.Weekly)
             {
                 return Find(x => x.FeedbackType == (int)feedbackType
-                            && x.AddedFor == userId
-                            && x.AddedOn >= startDate
-                            && x.AddedOn <= endDate);
+                                 && x.AddedFor == userId
+                                 && x.AddedOn >= startDate
+                                 && x.AddedOn <= endDate)
+                       .OrderBy(x=>x.AddedOn);
             }
-            // for weekly feedback it should work onweekly strat date and end date range
+            // for weekly feedback it should work onweekly start date and end date range
 
             return Find(x => x.FeedbackType == (int)feedbackType
                              && x.AddedFor == userId
-                             && (x.StartDate >= startDate || x.EndDate <= endDate));
+                             && (x.StartDate >= startDate || x.EndDate <= endDate))
+                   .OrderBy(x=>x.AddedOn)
+                   .ThenBy(x=>x.StartDate)
+                   .ThenBy(x => x.EndDate);
         }
 
 
@@ -65,7 +69,10 @@ namespace TrainingTracker.DAL.Repositories
                       Rating = Common.Utility.UtilityFunctions.GetFeedbackRatingFromFeedbackTypeString(x.md.SurveyResponses.FirstOrDefault(r=>r.SurveyQuestionId == 1)
                                                                                                                            .SurveyAnswer
                                                                                                                            .OptionText)
-                  });
+                  })
+                  .OrderBy(x => x.AddedOn)
+                  .ThenBy(x => x.StartDate)
+                  .ThenBy(x => x.EndDate);
         }
 
         public IEnumerable<Common.Entity.Feedback> LoadWeeklyFeedbackTipDetails(int userId,
@@ -84,7 +91,10 @@ namespace TrainingTracker.DAL.Repositories
                       EndDate = x.s.f.EndDate.GetValueOrDefault(),
                       AddedBy = new UserConverter().ConvertFromCore(x.s.f.User),
                       FeedbackText = x.md.SurveyResponses.FirstOrDefault(r => r.SurveyQuestionId == 4 && r.SurveyAnswerId == 5).AdditionalNote
-                  });
+                  })
+                  .OrderBy(x => x.AddedOn)
+                  .ThenBy(x => x.StartDate)
+                  .ThenBy(x => x.EndDate);
         }
 
     }

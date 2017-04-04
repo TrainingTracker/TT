@@ -1,30 +1,137 @@
 ﻿<div class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyLearningTimeLinePanel() == true -->
 
-    <div class="col-xs-12">
-
-        <canvas class="col-xs-12 no-left-margin fixed-height-children" data-bind="chartType: 'Line',
-                                                                                   chartData: my.mirrorReportVm.chartData.WeeklyTimeLine.LineData(),
-                                                                                   chartOptions: my.mirrorReportVm.settings.lineDateSettings">            
-        </canvas>
-
+     <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Work Learning Timeline</span></div>
+         <div class="col-xs-12 no-padding-left no-padding-right">
+             <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                        chartData: my.mirrorReportVm.chartData.WeeklyTimeLine.LineData(),
+                                                                        chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+         </div>
+          <div class="col-xs-12 no-padding-left no-padding-right">          
+            <div class="col-xs-6">
+                <div class="col-xs-7">
+                     <canvas class="col-xs-12 no-left-margin no-right-margin fixed-height-children doughnut"  data-bind="chartType: 'Doughnut',
+                                                                                                                         chartData: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(),
+                                                                                                                         chartOptions: my.mirrorReportVm.settings.chartSettings.doughnutSettings">               
+                     </canvas>
+                </div>
+                <div class="col-xs-5  no-padding-right fixed-height-children data-counter-wrapper">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter exceptional-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 4 }"></span>
+                            <span class="mute">Exceptional</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter slow-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 1 }"></span>
+                            <span class="mute">Slow</span> 
+                        </div>
+                    </div>
+                      <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter fast-wrapper" >
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 3 }"></span>
+                            <span class="mute">Fast</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter average-wrapper">
+                           <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 2 }"></span>
+                           <span class="mute">Average</span> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-xs-4">
+                
+            </div>
+        </div>
     </div>
 
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyFeedbackPanel() == true -->
 
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Weekly Survey Trends</span></div>
+        <div class="col-xs-12 no-padding-left no-padding-right">
+            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                        chartData: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.LineData(),
+                                                                        chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>         
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right">          
+            <div class="col-xs-6">
+                <div class="col-xs-7">
+                     <canvas class="col-xs-12 no-left-margin no-right-margin fixed-height-children doughnut"  data-bind="chartType: 'Doughnut',
+                                                                                                                chartData: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(),
+                                                                                                                chartOptions: my.mirrorReportVm.settings.chartSettings.doughnutSettings">               
+                     </canvas>
+                </div>
+              <div class="col-xs-5  no-padding-right fixed-height-children data-counter-wrapper">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter exceptional-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(), type: 4 }"></span>
+                            <span class="mute">Exceptional</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter slow-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(), type: 1 }"></span>
+                            <span class="mute">Slow</span> 
+                        </div>
+                    </div>
+                      <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter fast-wrapper" >
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(), type: 3 }"></span>
+                            <span class="mute">Fast</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter average-wrapper">
+                           <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(), type: 2 }"></span>
+                           <span class="mute">Average</span> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-xs-4">
+                
+            </div>
+        </div>
+    </div>
+
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.RandomReviewPanel() == true -->
+    
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Random Review Trends</span></div>
+        <div class="col-xs-12 no-padding-left no-padding-right">
+            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                        chartData: my.mirrorReportVm.chartData.RandomReviewPanel.LineData(),
+                                                                         chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+        </div>
+    </div>
 
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.CodeReviewPanel() == true -->
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Code Quality Trends</span></div>
+        <div class="col-xs-12 no-padding-left no-padding-right">
+            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                                      chartData: my.mirrorReportVm.chartData.CodeReviewPanel.LineData(),
+                                                                                      chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+        </div>
+    </div>
 
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.AssignmentPanel() == true -->
+    
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header"><span class="mute">Assignment Quality Trends</span></div>
+        <div class="col-xs-12 no-padding-left no-padding-right">
+            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                                      chartData: my.mirrorReportVm.chartData.AssignmentPanel.LineData(),
+                                                                                      chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+        </div>
+    </div>
 
     <!-- /ko -->
 
@@ -33,6 +140,15 @@
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.SkillsPanel() == true -->
+    
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Skills Quality Trends</span></div>
+        <div class="col-xs-12 no-padding-left no-padding-right">
+            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
+                                                                                      chartData: my.mirrorReportVm.chartData.SkillsPanel.LineData(),
+                                                                                      chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+        </div>
+    </div>
 
     <!-- /ko -->
 

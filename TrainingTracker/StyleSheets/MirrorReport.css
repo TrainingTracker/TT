@@ -1,1 +1,58 @@
-﻿
+﻿.fixed-height-children {
+    max-height: 200px;
+}
+
+.fixed-height-children.doughnut {
+    width: 200px;
+    height: 200px;
+}
+
+.fixed-height-children.doughnut > div {
+    height: 100px;
+}
+
+.data-counter-wrapper {
+    height: 50px;
+    background: #fff;
+    top: 50px;
+}
+
+.metric-header span {
+    display: block;
+    text-align: center;
+}
+
+.data-counter span {
+    display: block;
+    text-align: center;
+}
+
+span.data-counter-value {
+    font-size: 21px;
+    font-family: "Orbitron";
+    color: #fff;
+}
+
+div.exceptional-wrapper {
+    background-color: green;
+    border: 2px solid #fff;
+}
+
+div.slow-wrapper {
+    background-color: red;
+    border: 2px solid #fff;
+}
+
+div.fast-wrapper {
+    background-color: blue;
+    border: 2px solid #fff;
+}
+
+div.average-wrapper {
+    background-color: orange;
+    border: 2px solid #fff;
+}
+
+.data-counter-wrapper .mute {
+       color: rgb(255, 247, 253);
+}

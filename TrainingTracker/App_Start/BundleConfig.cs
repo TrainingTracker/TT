@@ -135,6 +135,7 @@ namespace TrainingTracker
               ));
 
             bundles.Add(new ScriptBundle("~/bundles/MirrorViewScripts").Include(
+              "~/Scripts/Custom/Chart.Scatter.Shekhar.js",
               "~/Scripts/bootstrap-datepicker.min.js",
                "~/Scripts/Custom/FeedbackThread.js",
               "~/Scripts/Custom/Services/MirrorServices.js",
