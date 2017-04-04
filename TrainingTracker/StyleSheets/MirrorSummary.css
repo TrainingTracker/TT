@@ -5,18 +5,18 @@
     color: #fff;
 }
 
-.mirror-tab-group-header span {
-    font-size: 16px;
-    font-weight: bold;
-}
+    .mirror-tab-group-header span {
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.mirror-tab-group-header span.mirror-tab-group-header-rating {
-    font-size: 20px;
-    text-align: right;
-}
+        .mirror-tab-group-header span.mirror-tab-group-header-rating {
+            font-size: 20px;
+            text-align: right;
+        }
 
 .fake-loader > div {
-       padding: 5px 15px;
+    padding: 5px 15px;
 }
 
 .fake-loader .fake-avatar {
@@ -26,7 +26,6 @@
     border-radius: 20px;
     background-color: #ccc;
     margin: 0 10px 0px 0px;
-   
 }
 
 .fake-loader .fake-details {
@@ -36,8 +35,7 @@
     background: linear-gradient(to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33%);
     animation: placeHolderSimmer 1s;
     -webkit-animation: placeHolderSimmer 1s;
-        animation-timing-function: linear;
-   
+    animation-timing-function: linear;
     animation-iteration-count: infinite;
     -webkit-animation-iteration-count: infinite;
 }
@@ -75,31 +73,30 @@ div.text-muted {
 }
 
 .feedback-container {
-    padding: 5px 0;
+    padding: 5px 0 0 0;
 }
 
-.feedback-container .feedback-details {
-    margin-left: 3%;
-    margin-bottom: 5px;
-    padding: 5px 5px 5px 5px;
-    background-color: #FFF8DC;
-    border-left: 3px solid #ffeb8e;
-    cursor: pointer;
-}
+    .feedback-container .feedback-details {
+        margin-left: 3%;
+        margin-bottom: 5px;
+        padding: 5px 5px 5px 5px;
+        background-color: #FFF8DC;
+        border-left: 3px solid #ffeb8e;
+        cursor: pointer;
+    }
 
 .feedback-summary-type {
     font-size: 12px;
     font-weight: bold;
     font-family: "Open Sans";
     color: #337ab7;
-       
 }
 
-.feedback-summary-type:hover {
-    text-decoration: underline;
-     color: #23527c;
-    transition: ease color .25s;
-}
+    .feedback-summary-type:hover {
+        text-decoration: underline;
+        color: #23527c;
+        transition: ease color .25s;
+    }
 
 .thread-counter {
     font-family: 'Orbitron';
@@ -112,11 +109,20 @@ div.text-muted {
     margin-left: 56px;
 }
 
+.feedback-container .no-data {
+    text-align: center;
+    display: block;
+    margin: auto;
+    color: red;
+   padding-bottom: 5px;
+}
+
 @keyframes placeHolderSimmer {
-   0% {
-    background-position: -468px 0;
-}
-100% {
-    background-position: 468px 0;
-}
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
 }

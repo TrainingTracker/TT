@@ -2,8 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TrainingTracker.Common.Entity;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
+using TrainingTracker.DAL.ModelMapper;
+using Feedback = TrainingTracker.DAL.EntityFramework.Feedback;
 using FeedbackType = TrainingTracker.Common.Enumeration.FeedbackType;
 
 #endregion
@@ -58,6 +61,7 @@ namespace TrainingTracker.DAL.Repositories
                       AddedOn = x.s.f.AddedOn.GetValueOrDefault(),
                       StartDate = x.s.f.StartDate.GetValueOrDefault(),
                       EndDate = x.s.f.EndDate.GetValueOrDefault(),
+                      AddedBy =  new UserConverter().ConvertFromCore(x.s.f.User),
                       Rating = Common.Utility.UtilityFunctions.GetFeedbackRatingFromFeedbackTypeString(x.md.SurveyResponses.FirstOrDefault(r=>r.SurveyQuestionId == 1)
                                                                                                                            .SurveyAnswer
                                                                                                                            .OptionText)
@@ -78,6 +82,7 @@ namespace TrainingTracker.DAL.Repositories
                       AddedOn = x.s.f.AddedOn.GetValueOrDefault(),
                       StartDate = x.s.f.StartDate.GetValueOrDefault(),
                       EndDate = x.s.f.EndDate.GetValueOrDefault(),
+                      AddedBy = new UserConverter().ConvertFromCore(x.s.f.User),
                       FeedbackText = x.md.SurveyResponses.FirstOrDefault(r => r.SurveyQuestionId == 4 && r.SurveyAnswerId == 5).AdditionalNote
                   });
         }

@@ -1,2 +1,46 @@
-﻿
-Report panel ... halliluaya (rock)
+﻿<div class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyLearningTimeLinePanel() == true -->
+
+    <div class="col-xs-12">
+
+        <canvas class="col-xs-12 no-left-margin fixed-height-children" data-bind="chartType: 'Line',
+                                                                                   chartData: my.mirrorReportVm.chartData.WeeklyTimeLine.LineData(),
+                                                                                   chartOptions: my.mirrorReportVm.settings.lineDateSettings">            
+        </canvas>
+
+    </div>
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyFeedbackPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.RandomReviewPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.CodeReviewPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.AssignmentPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.CoursePanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.SkillsPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyTipPanel() == true -->
+
+    <!-- /ko -->
+
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.SessionPanel() == true -->
+
+    <!-- /ko -->
+</div>

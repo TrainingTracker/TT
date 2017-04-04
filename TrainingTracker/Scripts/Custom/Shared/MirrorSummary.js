@@ -261,8 +261,8 @@
             panelData.RandomReviewPanel([]);
             panelData.SkillsPanel([]);
             panelData.WeeklyFeedbackPanel([]);
-            panelData.WeeklyTimeLineData([]);
-            panelData.WeeklyTipData([]);
+            //panelData.WeeklyTimeLineData([]);
+            //panelData.WeeklyTipData([]);
             panelData.CoursePanel([]);
             panelData.SessionPanel([]);
 

@@ -7,6 +7,8 @@
                 RandomReviewPanel: ko.observable(false),
                 SkillsPanel: ko.observable(false),
                 WeeklyFeedbackPanel: ko.observable(false),
+                WeeklyLearningTimeLinePanel: ko.observable(false),
+                WeeklyTipPanel: ko.observable(false),
                 CoursePanel: ko.observable(false),
                 SessionPanel: ko.observable(false)
             },
@@ -22,9 +24,96 @@
                 RandomReviewPanel: ko.observable(false),
                 SkillsPanel: ko.observable(false),
                 WeeklyFeedbackPanel: ko.observable(false),
+                WeeklyLearningTimeLinePanel: ko.observable(false),
+                WeeklyTipPanel: ko.observable(false),
                 CoursePanel: ko.observable(false),
                 SessionPanel: ko.observable(false)
-            }
+            },
+
+            chartSettings:
+            {
+                dataFormat: {
+                    countData: [{
+                        value: 0,
+                        color: 'red',
+                        highlight: '#FF7777',
+                        label: 'Slow'
+                    },
+               {
+                   value: 0,
+                   color: 'orange',
+                   highlight: '#ffaf60',
+                   label: 'Average'
+               },
+               {
+                   value: 0,
+                   color: 'blue',
+                   highlight: '#7777FF',
+                   label: 'Fast'
+               },
+               {
+                   value: 0,
+                   color: 'green',
+                   highlight: '#00b300',
+                   label: 'Exceptional'
+               }],
+                    timeLineData: {
+                        datasets: [
+                            {
+                                label: 'Timeline',
+                                strokeColor: 'green',
+                                data: []
+                            }
+                        ]
+                    }
+
+                },
+
+                doughnutSettings: {
+                    animation: true,
+                    showTooltips: true,
+                    percentageInnerCutout: 50,
+                    segmentShowStroke: true,
+                    segmentStrokeColor: '#222222'
+                },
+                lineDateSettings: {
+                    responsive: true,
+                    scaleOverride: true,
+                    scaleBeginAtZero: true,
+                    animation: true,
+                    animationEasing: "linear",
+                    bezierCurve: true,
+                    showTooltips: true,
+                    scaleShowHorizontalLines: true,
+                    scaleShowLabels: true,
+                    scaleType: 'date',
+                    scaleDateTimeFormat: 'mmm d, yyyy',
+                    scaleSteps: 5,
+                    scaleStepWidth: 1,
+                    pointDotRadius: 10,
+                    pointHitDetectionRadius: 10,
+                    useUtc: false,
+                    scaleLabel: function (value) {
+                        var label = "";
+                        switch (parseInt(value.value)) {
+                            case 1:
+                                label = "Slow";
+                                break;
+                            case 2:
+                                label = "Avg.";
+                                break;
+                            case 3:
+                                label = "Fast";
+                                break;
+                            case 4:
+                                label = "Exp.";
+                                break;
+
+                        }
+                        return label;
+                    }
+                }
+            },
         };
 
         var panelData =
@@ -38,7 +127,23 @@
             WeeklyTipData: ko.observableArray([]),
             CoursePanel: ko.observableArray([]),
             SessionPanel: ko.observableArray([])
-        }
+        };
+
+       
+        var chartData = {
+            AssignmentPanel: ko.observableArray([]),
+            CodeReviewPanel: ko.observableArray([]),
+            RandomReviewPanel: ko.observableArray([]),
+            SkillsPanel: ko.observableArray([]),
+            WeeklyFeedbackPanel: ko.observableArray([]),
+            WeeklyTimeLine: {
+                LineData: ko.observable(settings.chartSettings.timeLineData),
+                DoughnutData: ko.observableArray([])
+            },
+            WeeklyTipData: ko.observableArray([]),
+            CoursePanel: ko.observableArray([]),
+            SessionPanel: ko.observableArray([])
+        };
 
         var loadDataUsingPromise = function (serviceMethod, callback, failureCallback) {
             var deferredObject = $.Deferred();
@@ -153,7 +258,7 @@
         };
 
         var loadWeeklyLearningTimeLineDataWithPromise = function () {
-            //settings.customLoader.WeeklyFeedbackPanel(true);
+            settings.customLoader.WeeklyLearningTimeLinePanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getWeeklyLearningTimeLineDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
                     settings.filterDetails.StartDate(),
@@ -164,16 +269,16 @@
 
         var weeklyLearningTimeLineLoadCallback = function (data) {
             panelData.WeeklyTimeLineData(data);
-            //  settings.customLoader.WeeklyFeedbackPanel(false);
+            settings.customLoader.WeeklyLearningTimeLinePanel(false);
         };
 
-        var weeklyLearningTimeLineFailureCallback = function (data) {
+        var weeklyLearningTimeLineFailureCallback = function () {
             console.log("Failed to load Weekly Time Line Data");
-            // settings.customLoader.WeeklyFeedbackPanel(false);
+            settings.customLoader.WeeklyLearningTimeLinePanel(false);
         };
 
         var loadWeeklyTipDataWithPromise = function () {
-            // settings.customLoader.WeeklyFeedbackPanel(true); // modify
+            settings.customLoader.WeeklyTipPanel(true);
             loadDataUsingPromise(function () {
                 return my.mirrorService.getWeeklyWeeklyTipDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
                     settings.filterDetails.StartDate(),
@@ -184,12 +289,13 @@
 
         var weeklyTipDataLoadCallback = function (data) {
             panelData.WeeklyTipData(data);
-            //  settings.customLoader.WeeklyFeedbackPanel(false);
+            getTimelineData(data, chartData.WeeklyTimeLine.LineData);
+            settings.customLoader.WeeklyTipPanel(false);
         };
 
-        var weeklyTipDataFailureCallback = function (data) {
+        var weeklyTipDataFailureCallback = function () {
             console.log("Failed to load Weekly Tip Data");
-            // settings.customLoader.WeeklyFeedbackPanel(false);
+            settings.customLoader.WeeklyTipPanel(false);
         };
 
         var intitalizeMirrorReportPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
@@ -232,6 +338,8 @@
 
             if (typeof (weekly) != 'undefined') {
                 settings.panelVisibility.WeeklyFeedbackPanel(weekly);
+                settings.panelVisibility.WeeklyLearningTimeLinePanel(weekly);
+                settings.panelVisibility.WeeklyTipPanel(weekly);
 
                 if (weekly) {
                     loadWeeklyFeedbackDataWithPromise();
@@ -249,11 +357,18 @@
             }
         };
 
-        var loadFeedbackDailog = function (feedbackId) {
+        var getTimelineData = function (data,property) {
 
-            if (typeof (my.feedbackThreadsVm.loadFeedbackDailog) != 'undefined')
-                my.feedbackThreadsVm.loadFeedbackDailog(feedbackId);
-        };
+            var timeLineData = settings.chartSettings.dataFormat.timeLineData;
+
+            ko.utils.arrayForEach(data, function (item) {
+                timeLineData.datasets[0].data.push({
+                    y: item.Rating,
+                    x: new Date(moment(item.AddedOn).format('MM/DD/YYYY'))
+                });
+            });
+            property(timeLineData);
+        }
 
         var destroyPlugin = function () {
             panelData.AssignmentPanel([]);
@@ -261,8 +376,8 @@
             panelData.RandomReviewPanel([]);
             panelData.SkillsPanel([]);
             panelData.WeeklyFeedbackPanel([]);
-            //panelData.WeeklyTimeLineData([]);
-            //panelData.WeeklyTipData([]);
+            panelData.WeeklyTimeLineData([]);
+            panelData.WeeklyTipData([]);
             panelData.CoursePanel([]);
             panelData.SessionPanel([]);
 
@@ -275,8 +390,9 @@
         return {
             intitalizeMirrorReportPlugin: intitalizeMirrorReportPlugin,
             settings: settings,
-            panelData: panelData,
-            loadFeedbackDailog: loadFeedbackDailog,
+            getTimelineData: getTimelineData,
+            chartData:chartData,
+            //  panelData: panelData,
             destroyPlugin: destroyPlugin
         }
     }();
