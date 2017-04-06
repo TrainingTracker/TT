@@ -106,6 +106,12 @@
                           }                    
                       </ul>
                   </li>
+
+                    <li class="menu-li separator">
+                       <a href="~/Mirror">
+                           <label style="">Mirror</label>
+                       </a>
+                  </li>
                @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
                {
                    <li class="menu-li">
@@ -114,11 +120,7 @@
                        </a>
                    </li>
                }
-                  <li class="menu-li">
-                       <a href="~/Mirror">
-                           <label style="">Mirror</label>
-                       </a>
-                  </li>
+                
                 </ul> 
             </div>
             <div class="col-md-4 no-margin-right no-padding-right" >                          
