@@ -114,6 +114,7 @@
                  my.meta.currentUser = user;
                  my.meta.isManager(user.IsManager);
                  my.meta.isAdministrator(user.IsAdministrator);
+                 my.meta.isTrainee(!user.IsTrainee);
                  my.meta.isTrainee(user.IsTrainee);
                  my.meta.userProfileUrl(my.rootUrl + '/Profile/UserProfile?userId=' + user.UserId);
                

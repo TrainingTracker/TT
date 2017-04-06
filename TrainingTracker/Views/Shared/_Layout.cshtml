@@ -7,6 +7,8 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/LayoutViewStyles")
     @RenderSection("Styles", false)
@@ -112,6 +114,11 @@
                        </a>
                    </li>
                }
+                  <li class="menu-li">
+                       <a href="~/Mirror">
+                           <label style="">Mirror</label>
+                       </a>
+                  </li>
                 </ul> 
             </div>
             <div class="col-md-4 no-margin-right no-padding-right" >                          

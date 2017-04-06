@@ -288,3 +288,23 @@ div#wrapper>.navbar>div>ul>li>a span.glyphicon {
     margin-left: 0;
     padding-left: 0;
 }
+
+.custom-left-padding-10 {
+    padding-left: 10px;
+}
+
+.custom-left-padding-30 {
+     padding-left: 30px;
+}
+
+h4.mute {
+    font-size: 12px;
+    color: #959494;
+    margin-top: 0;
+    font-weight: bold;
+}
+
+.bold-font {
+    font-weight: bold;
+}
+

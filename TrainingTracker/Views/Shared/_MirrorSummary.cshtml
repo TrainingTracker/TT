@@ -1,0 +1,165 @@
+﻿<div class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
+    <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.AssignmentPanel() == true -->
+    <div class="mirror-tab-group no-padding-left no-padding-right">
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Assignment Feedbacks</span>
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
+            <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.AssignmentPanel() == true }"></div>
+            <!-- ko if:my.mirrorSummaryVm.panelData.AssignmentPanel().length > 0 -->
+            <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.AssignmentPanel() }"></div>
+            <!-- /ko -->
+            
+            <!-- ko if:my.mirrorSummaryVm.panelData.AssignmentPanel().length == 0 && my.mirrorSummaryVm.settings.customLoader.AssignmentPanel() == false  -->
+            <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+                <span class="no-data mute"> NO DATA </span>
+            </div>
+            <!-- /ko -->
+            </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.CodeReviewPanel() == true -->
+    <div class="mirror-tab-group no-padding-left no-padding-right">
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Code Reviews</span>
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
+            <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.CodeReviewPanel() == true }"></div>
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.CodeReviewPanel().length > 0 -->
+            <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.CodeReviewPanel() }"></div>
+            <!-- /ko -->
+            
+             <!-- ko if:my.mirrorSummaryVm.panelData.CodeReviewPanel().length == 0 && my.mirrorSummaryVm.settings.customLoader.CodeReviewPanel() == false  -->
+            <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+                <span class="no-data mute"> NO DATA </span>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.RandomReviewPanel() == true -->
+    <div class="mirror-tab-group no-padding-left no-padding-right">
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Random Reviews</span>
+           
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
+            <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.RandomReviewPanel() == true }"></div>
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.RandomReviewPanel().length > 0 -->
+            <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.RandomReviewPanel() }"></div>
+            <!-- /ko -->
+            
+             <!-- ko if:my.mirrorSummaryVm.panelData.RandomReviewPanel().length == 0 && my.mirrorSummaryVm.settings.customLoader.RandomReviewPanel() == false  -->
+            <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+                <span class="no-data mute"> NO DATA </span>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.SkillsPanel() == true -->
+    <div class="mirror-tab-group no-padding-left no-padding-right">
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Skill Feedbacks</span>
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
+            <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.SkillsPanel() == true }"></div>
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.SkillsPanel().length > 0 -->
+            <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.SkillsPanel() }"></div>
+            <!-- /ko -->
+            
+              <!-- ko if:my.mirrorSummaryVm.panelData.SkillsPanel().length == 0 && my.mirrorSummaryVm.settings.customLoader.SkillsPanel() == false  -->
+            <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+                <span class="no-data mute"> NO DATA </span>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.WeeklyFeedbackPanel() == true -->
+    <div class="mirror-tab-group no-padding-left no-padding-right">
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class=" mute">Weekly Feedbacks</span>
+        </div>
+        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
+            <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.WeeklyFeedbackPanel() == true }"></div>
+
+            <!-- ko if:my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel().length > 0 -->
+            <div data-bind="template: { name: 'feedbacksSummary', foreach: my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel() }"></div>
+            <!-- /ko -->
+            
+               <!-- ko if:my.mirrorSummaryVm.panelData.WeeklyFeedbackPanel().length == 0 && my.mirrorSummaryVm.settings.customLoader.WeeklyFeedbackPanel() == false  -->
+            <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+                <span class="no-data mute"> NO DATA </span>
+            </div>
+            <!-- /ko -->
+            
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+
+<script type="text/html" id="divFakeLoader">
+    <div class="col-xs-12 fake-loader no-padding-left no-padding-right ">
+        <div class="col-xs-12 panel panel-white panel-shadow">
+            <span class="col-xs-1 fake-avatar"></span>
+            <span class="col-xs-11  fake-details"></span>
+           @* <div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
+        </div>
+        <div class="col-xs-12 panel panel-white panel-shadow">
+            <span class="col-xs-1 fake-avatar"></span>
+            <span class="col-xs-11  fake-details"></span>
+           @* <div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
+        </div>
+        <div class="col-xs-12 panel panel-white panel-shadow">
+            <span class="col-xs-1 fake-avatar"></span>
+            <span class="col-xs-11  fake-details"></span>
+            @*<div class="col-xs-12">
+                <span class="col-xs-3 pull-right  fake-details"></span>
+            </div>*@
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" id="feedbacksSummary">
+    <div class="col-xs-12 feedback-container panel panel-white panel-shadow">
+        <div class="col-xs-12">
+            <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(AddedBy.ProfilePictureName) }" />
+            <div class="col-xs-11 feedback-details">
+                <div style="display: inline-block;" class="title ">
+                    <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + AddedBy.UserId }"><span data-bind="    text: AddedBy.FullName"></span></a></strong>
+                </div>
+                <div style="display: inline-block;" class="text-muted time ">
+                    Added 
+                    <span class="feedback-summary-type" data-bind="click: function () { my.mirrorSummaryVm.loadFeedbackDailog(FeedbackId) }, text: my.getFeedbackText(FeedbackType.FeedbackTypeId) ">Code Review Feedback</span>
+                </div>
+                <div style="display: inline-block; padding-left: 10px"
+                     data-bind="css: {
+                                        'rating-slow': Rating == 1,
+                                        'rating-Average': Rating == 2,
+                                        'rating-Fast': Rating == 3,
+                                        'rating-Exceptional': Rating == 4
+                                    }">
+                    <!-- ko foreach: new Array(Rating)  -->
+                    <span class="glyphicon glyphicon-star"
+                          style="display: inline-block;"></span>
+                    <!-- /ko -->
+                </div>
+                <div style="display: inline-block;" class="text-muted time" data-bind="text: 'on ' + moment(AddedOn).format('MMMM Do YYYY, h:mm a') "></div>
+                <div style="display: inline-block;" class="thread-container pull-right">
+                    <span class="thread-counter" data-bind="text: ThreadCount">ThreadCount</span>
+                     <span class="mute">Thread Activites.</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</script>

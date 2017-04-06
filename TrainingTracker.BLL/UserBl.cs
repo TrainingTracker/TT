@@ -71,7 +71,7 @@ namespace TrainingTracker.BLL
         /// <returns>instance of User object</returns>
         public User GetUserByUserName( string userName )
         {
-            return (string.IsNullOrEmpty(userName)) ? new User() : UserDataAccesor.GetUserByUserName(userName);
+            return (string.IsNullOrEmpty(userName)) ? new User() :  UserDataAccesor.GetUserByUserName(userName);
         }
 
         /// <summary>

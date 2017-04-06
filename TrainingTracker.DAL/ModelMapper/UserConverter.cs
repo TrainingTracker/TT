@@ -14,6 +14,7 @@ namespace TrainingTracker.DAL.ModelMapper
                 LastName = sourceUser.LastName,
                 FullName = sourceUser.FirstName + " " + sourceUser.LastName,
                 ProfilePictureName = sourceUser.ProfilePictureName,
+                DateAddedToSystem = sourceUser.DateAddedToSystem,
                 IsActive =  sourceUser.IsActive.GetValueOrDefault()
             };
         }

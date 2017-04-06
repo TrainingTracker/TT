@@ -130,8 +130,7 @@ $(document).ready(function() {
                     });
                 });
             ko.utils.arrayForEach(userFeedbackData.AssignmentFeedbacks, function (item)
-            {
-                        
+            {                   
                 chartData.timeLineData.datasets[2].data.push({
                             y: item.Rating,
                             x: new Date(moment(item.AddedOn).format('MM/DD/YYYY'))

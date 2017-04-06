@@ -202,6 +202,7 @@ namespace TrainingTracker.DAL.DataAccess
                                                     IsTrainee = x.IsTrainee ?? false ,
                                                     IsManager = x.IsManager ?? false ,
                                                     IsActive = x.IsActive ?? false ,
+                                                    DateAddedToSystem = x.DateAddedToSystem,
                                                     UserRating = 0 ,
                                                     TeamId = x.TeamId
                                                 }).First();
