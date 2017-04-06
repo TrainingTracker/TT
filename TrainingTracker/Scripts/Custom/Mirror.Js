@@ -227,7 +227,9 @@
     });
 
     my.meta.isTrainee.subscribe(function () {
-        my.mirrorVm.setTraineeView();
+        if (my.meta.isTrainee() == true) {
+            my.mirrorVm.setTraineeView();
+        }      
     });
 
     if (my.meta.isTrainee() == true) {
