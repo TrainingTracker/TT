@@ -776,11 +776,12 @@ $(document).ready(function () {
                 {
                     var number = $(element).text();
 
-                    if (++number == value) {
+                    if (++number >= value) {
+                        $(element).text(value);
                         clearInterval(interval); // If exceeded count , clear interval
                     }            
                     $(element).text(number); // Update the value in paragraph                  
-                }, 200); 
+                }, 300); 
             }
         }
     };

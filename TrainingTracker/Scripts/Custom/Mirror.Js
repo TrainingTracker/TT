@@ -174,6 +174,19 @@
                                                              settings.filterForReports.Session());
         };
 
+        var setTraineeView= function() {
+            if (my.meta.isTrainee() === true) {
+                settings.selectedTrainee.UserId(my.meta.currentUser.UserId);
+                settings.selectedTrainee.FullName(my.meta.currentUser.FirstName + " " + my.meta.currentUser.LastName);
+                settings.selectedTrainee.Email(my.meta.currentUser.Email);
+                settings.selectedTrainee.ImagePath(photoUrl(my.meta.currentUser.ProfilePictureName));
+                settings.selectedTrainee.UserName(my.meta.currentUser.UserName);
+                settings.selectedTrainee.DateAddedToSystem(moment(my.meta.currentUser.DateAddedToSystem).format("MM/DD/YYYY"));
+                settings.filterDateRange.StartDate(moment(my.meta.currentUser.DateAddedToSystem).format("MM/DD/YYYY"));
+                settings.selectedTrainee.IsSelected(true);
+            }
+        }
+
         var loadReportPanel = function () {
 
             if (typeof (my.mirrorReportVm) == 'undefined') return; // add alert for failure in load of plugin
@@ -203,7 +216,8 @@
             manageSelectAllCheckboxClick: manageSelectAllCheckboxClick,
             manageAllFeedbackClick: manageAllFeedbackClick,
             loadSummaryPanel: loadSummaryPanel,
-            loadReportPanel: loadReportPanel
+            loadReportPanel: loadReportPanel,
+            setTraineeView: setTraineeView
         }
     }();
 
@@ -211,6 +225,14 @@
     my.meta.allTrainee.subscribe(function () {
         my.mirrorVm.filterTrainee();
     });
+
+    my.meta.isTrainee.subscribe(function () {
+        my.mirrorVm.setTraineeView();
+    });
+
+    if (my.meta.isTrainee() == true) {
+        my.mirrorVm.setTraineeView();
+    }
 
     ko.applyBindings(my.mirrorVm);
 

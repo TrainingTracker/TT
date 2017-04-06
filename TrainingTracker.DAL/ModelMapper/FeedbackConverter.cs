@@ -56,7 +56,7 @@ namespace TrainingTracker.DAL.ModelMapper
             return sourceList.Select(ConvertFromCoreWithMinimalDetails).ToList();
         }
 
-        public new List<Feedback> ConvertListFromCore(List<EntityFramework.Feedback> sourceList)
+        public new List<Feedback> ConvertListFromCore(IEnumerable<EntityFramework.Feedback> sourceList)
         {
             try
             {

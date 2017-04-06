@@ -1,4 +1,8 @@
-﻿.fixed-height-children {
+﻿#divMirrorReport {
+       margin-top: 3px; 
+}
+
+.fixed-height-children {
     max-height: 200px;
 }
 
@@ -56,3 +60,45 @@ div.average-wrapper {
 .data-counter-wrapper .mute {
        color: rgb(255, 247, 253);
 }
+
+#divReportRandomReview .feedback-details
+{
+    float: none;
+    white-space: pre-wrap;
+    margin-left:  auto;
+      margin-right:  auto;
+}
+
+.feedback-notes>label {
+       
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFF8DC;
+    border-left: 3px solid #ffeb8e;
+    display: block;
+    font: inherit;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+.feedback-random-description {
+      
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-container {
+    padding: 5px 0 0 0;
+}
+
+.list-container .feedback-notes>label{
+    background-color:rgba(214, 243, 247, 0.38);
+    border-left: 3px solid #2596F1 ;
+   
+    font-weight: bold;
+}
+
+#divMirrorSummaryArea .feedback-container {
+    padding: 0;
+}
+

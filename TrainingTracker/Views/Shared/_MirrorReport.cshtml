@@ -1,4 +1,4 @@
-﻿<div class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
+﻿<div id="divMirrorSummaryArea" class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyLearningTimeLinePanel() == true -->
 
      <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
@@ -27,21 +27,35 @@
                             <span class="mute">Slow</span> 
                         </div>
                     </div>
-                      <div class="col-xs-12 no-padding-left no-padding-right">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
                         <div class="col-xs-6 no-padding-left no-padding-right data-counter fast-wrapper" >
                             <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 3 }"></span>
                             <span class="mute">Fast</span> 
                         </div>
                         <div class="col-xs-6 no-padding-left no-padding-right data-counter average-wrapper">
-                           <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 2 }"></span>
-                           <span class="mute">Average</span> 
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyTimeLine.DoughnutData(), type: 2 }"></span>
+                            <span class="mute">Average</span> 
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
-            <div class="col-xs-4">
-                
+            <div class="col-xs-6" data-bind="foreach: my.mirrorReportVm.chartData.WeeklyTimeLine.MentorDetails">
+                <div class="col-xs-12 no-padding-left">
+                    <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(ProfilePictureName) }" />
+                    <div class="col-xs-9 feedback-details">
+                        <div style="display: inline-block;" class="title ">
+                            <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + UserId }"><span data-bind="    text: FullName"></span></a></strong>
+                        </div> 
+                        <div style="display: inline-block;" class="text-muted time ">
+                         Added 
+                         <span>
+                             <span class="thread-counter" data-bind="text: FeedbackCount">FeedbackCount</span>
+                         </span>
+                         Feedbacks
+                     </div>
+                    </div>
+                     
+                </div> 
             </div>
         </div>
     </div>
@@ -85,30 +99,33 @@
                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.DoughnutData(), type: 2 }"></span>
                            <span class="mute">Average</span> 
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
-            <div class="col-xs-4">
-                
+            <div class="col-xs-6" data-bind="foreach: my.mirrorReportVm.chartData.WeeklyFeedbackPanel.MentorDetails">
+                <div class="col-xs-12 no-padding-left">
+                    <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(ProfilePictureName) }" />
+                    <div class="col-xs-9 feedback-details">
+                        <div style="display: inline-block;" class="title ">
+                            <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + UserId }"><span data-bind="    text: FullName"></span></a></strong>
+                        </div> 
+                        <div style="display: inline-block;" class="text-muted time ">
+                         Added 
+                         <span>
+                             <span class="thread-counter" data-bind="text: FeedbackCount">FeedbackCount</span>
+                         </span>
+                         Feedbacks
+                     </div>
+                    </div>
+                     
+                </div> 
             </div>
         </div>
     </div>
 
     <!-- /ko -->
 
-    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.RandomReviewPanel() == true -->
     
-    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
-        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Random Review Trends</span></div>
-        <div class="col-xs-12 no-padding-left no-padding-right">
-            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
-                                                                        chartData: my.mirrorReportVm.chartData.RandomReviewPanel.LineData(),
-                                                                         chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
-        </div>
-    </div>
-
-    <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.CodeReviewPanel() == true -->
     <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
@@ -117,6 +134,57 @@
             <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
                                                                                       chartData: my.mirrorReportVm.chartData.CodeReviewPanel.LineData(),
                                                                                       chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
+        </div>
+        
+         <div class="col-xs-12 no-padding-left no-padding-right">          
+            <div class="col-xs-6">
+                <div class="col-xs-7">
+                     <canvas class="col-xs-12 no-left-margin no-right-margin fixed-height-children doughnut"  data-bind="chartType: 'Doughnut',
+    chartData: my.mirrorReportVm.chartData.CodeReviewPanel.DoughnutData(),
+    chartOptions: my.mirrorReportVm.settings.chartSettings.doughnutSettings">               
+                     </canvas>
+                </div>
+              <div class="col-xs-5  no-padding-right fixed-height-children data-counter-wrapper">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter exceptional-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.CodeReviewPanel.DoughnutData(), type: 4 }"></span>
+                            <span class="mute">Exceptional</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter slow-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.CodeReviewPanel.DoughnutData(), type: 1 }"></span>
+                            <span class="mute">Slow</span> 
+                        </div>
+                    </div>
+                      <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter fast-wrapper" >
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.CodeReviewPanel.DoughnutData(), type: 3 }"></span>
+                            <span class="mute">Fast</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter average-wrapper">
+                           <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.CodeReviewPanel.DoughnutData(), type: 2 }"></span>
+                           <span class="mute">Average</span> 
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="col-xs-6" data-bind="foreach: my.mirrorReportVm.chartData.CodeReviewPanel.MentorDetails">
+                <div class="col-xs-12 no-padding-left">
+                    <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(ProfilePictureName) }" />
+                    <div class="col-xs-9 feedback-details">
+                        <div style="display: inline-block;" class="title ">
+                            <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + UserId }"><span data-bind="    text: FullName"></span></a></strong>
+                        </div> 
+                        <div style="display: inline-block;" class="text-muted time ">
+                         Added 
+                         <span>
+                             <span class="thread-counter" data-bind="text: FeedbackCount">FeedbackCount</span>
+                         </span>
+                         Feedbacks
+                     </div>
+                    </div>
+                     
+                </div> 
+            </div>
         </div>
     </div>
 
@@ -131,32 +199,161 @@
                                                                                       chartData: my.mirrorReportVm.chartData.AssignmentPanel.LineData(),
                                                                                       chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
         </div>
+        
+            <div class="col-xs-12 no-padding-left no-padding-right">          
+            <div class="col-xs-6">
+                <div class="col-xs-7">
+                     <canvas class="col-xs-12 no-left-margin no-right-margin fixed-height-children doughnut"  data-bind="chartType: 'Doughnut',
+                                                                                                                         chartData: my.mirrorReportVm.chartData.AssignmentPanel.DoughnutData(),
+                                                                                                                         chartOptions: my.mirrorReportVm.settings.chartSettings.doughnutSettings">               
+                     </canvas>
+                </div>
+              <div class="col-xs-5  no-padding-right fixed-height-children data-counter-wrapper">
+                    <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter exceptional-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.AssignmentPanel.DoughnutData(), type: 4 }"></span>
+                            <span class="mute">Exceptional</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter slow-wrapper">
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.AssignmentPanel.DoughnutData(), type: 1 }"></span>
+                            <span class="mute">Slow</span> 
+                        </div>
+                    </div>
+                      <div class="col-xs-12 no-padding-left no-padding-right">
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter fast-wrapper" >
+                            <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.AssignmentPanel.DoughnutData(), type: 3 }"></span>
+                            <span class="mute">Fast</span> 
+                        </div>
+                        <div class="col-xs-6 no-padding-left no-padding-right data-counter average-wrapper">
+                           <span class="data-counter-value" data-bind="mirrorChartCountTicker: { data: my.mirrorReportVm.chartData.AssignmentPanel.DoughnutData(), type: 2 }"></span>
+                           <span class="mute">Average</span> 
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+          <div class="col-xs-6" data-bind="foreach: my.mirrorReportVm.chartData.AssignmentPanel.MentorDetails">
+                <div class="col-xs-12 no-padding-left">
+                    <img alt="user-image" class="col-xs-1 feedback-avatar" src="/Uploads/ProfilePicture/Dummy.JPG" data-bind="attr: { src: my.avatarUrl(ProfilePictureName) }" />
+                    <div class="col-xs-9 feedback-details">
+                        <div style="display: inline-block;" class="title ">
+                            <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + UserId }"><span data-bind="    text: FullName"></span></a></strong>
+                        </div> 
+                        <div style="display: inline-block;" class="text-muted time ">
+                         Added 
+                         <span>
+                             <span class="thread-counter" data-bind="text: FeedbackCount">FeedbackCount</span>
+                         </span>
+                         Feedbacks
+                     </div>
+                    </div>
+                     
+                </div> 
+            </div>
+        </div>
     </div>
 
     <!-- /ko -->
+    
+    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.RandomReviewPanel() == true -->
+    
+    <div  class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Random Review Trends</span></div>
+        <div id="divReportRandomReview" class="col-xs-12 feedback-container" data-bind="foreach : my.mirrorReportVm.panelData.RandomReviewPanel">
+            <div class="col-xs-12">
+                <div class="feedback-notes" >
+                    <label class="" data-bind="text: FeedbackText"></label>
+                </div>    
+                <div class="feedback-random-description " >
+                    <div style="display: inline-block;" class="title ">
+                        <strong><a data-bind="attr: { href: '/Profile/UserProfile?userId=' + AddedBy.UserId }" >
+                                    <span data-bind="    text: AddedBy.FullName"></span>
+                                </a>
+                        </strong>
+                    </div> 
+                    <div style="display: inline-block;" class="text-muted time ">
+                        <span data-bind="text: 'on ' + moment(AddedOn).format('MMMM Do YYYY')"></span>
+                    </div> 
+                </div>       
+            </div>
+        </div>
+           <div class="col-xs-12 feedback-container" data-bind="if: my.mirrorReportVm.panelData.RandomReviewPanel().length == 0">
+             <span class="no-data mute"> NO DATA </span>
+         </div>
+    </div>
+
+    <!-- /ko -->
+    
+     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyTipPanel() == true -->
+    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
+  <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Learning/Sharing Activities</span></div>
+        <div id="" class="col-xs-12 feedback-container" data-bind="foreach: my.mirrorReportVm.panelData.WeeklyTipData">
+            <div class="col-xs-12">
+                 <div class="feedback-random-description " >
+                    <div style="display: inline-block;" class="text-muted time ">
+                        <span data-bind=" text: 'Feedback Week : ' + moment(StartDate).format('Do MMMM YYYY') + ' - ' + moment(EndDate).format('Do MMMM YYYY')" class="text-muted time"></span>
+                    </div> 
+                </div>    
+                <div class="feedback-notes" >
+                    <label class="" data-bind="text: FeedbackText"></label>
+                </div>                      
+            </div>
+        </div>
+         <div class="col-xs-12 feedback-container" data-bind="if: my.mirrorReportVm.panelData.WeeklyTipData().length == 0">
+             <span class="no-data mute"> NO DATA </span>
+         </div>
+    </div>
+
+    <!-- /ko --> 
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.CoursePanel() == true -->
+    <div class="col-xs-12  feedback-container panel panel-white panel-shadow">
+        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Course Assigned</span></div>
+        <div class="col-xs-12 list-container" data-bind="foreach: my.mirrorReportVm.panelData.CoursePanel">
+            <div class="col-xs-6">
+                <div class="feedback-notes" >
+                    <label class="" data-bind="text: Name"></label>
+                </div>   
+            </div>
+        </div>
+          <div class="col-xs-12 feedback-container" data-bind="if: my.mirrorReportVm.panelData.CoursePanel().length == 0">
+             <span class="no-data mute"> NO DATA </span>
+         </div>
+    </div>
 
     <!-- /ko -->
 
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.SkillsPanel() == true -->
     
-    <div class="col-xs-12 no-padding-left no-padding-right feedback-container panel panel-white panel-shadow">
-        <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Skills Quality Trends</span></div>
-        <div class="col-xs-12 no-padding-left no-padding-right">
-            <canvas class="col-xs-12  fixed-height-children" data-bind="chartType: 'Line',
-                                                                                      chartData: my.mirrorReportVm.chartData.SkillsPanel.LineData(),
-                                                                                      chartOptions: my.mirrorReportVm.settings.chartSettings.lineDataSettings"></canvas>
-        </div>
-    </div>
+     <div class="col-xs-12  feedback-container panel panel-white panel-shadow">
+         <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Skills Acquired</span></div>
+         <div class="col-xs-12 list-container" data-bind="foreach: my.mirrorReportVm.panelData.SkillsPanel">
+             <div class="col-xs-6">
+                 <div class="feedback-notes" >
+                     <label class="" data-bind="text: Name"></label>
+                 </div>   
+             </div>
+         </div>
+         <div class="col-xs-12 feedback-container" data-bind="if: my.mirrorReportVm.panelData.SkillsPanel().length == 0">
+             <span class="no-data mute"> NO DATA </span>
+         </div>
+         </div>
 
     <!-- /ko -->
-
-    <!-- ko if: my.mirrorReportVm.settings.panelVisibility.WeeklyTipPanel() == true -->
-
-    <!-- /ko -->
-
+    
     <!-- ko if: my.mirrorReportVm.settings.panelVisibility.SessionPanel() == true -->
+     <div class="col-xs-12  feedback-container panel panel-white panel-shadow">
+         <div class="metric-header col-xs-12 no-padding-left no-padding-right"><span class="mute">Session Attended</span></div>
+         <div class="col-xs-12 list-container" data-bind="foreach: my.mirrorReportVm.panelData.SessionPanel">
+             <div class="col-xs-6">
+                 <div class="feedback-notes" >
+                     <label class="" data-bind="text: Title"></label>
+                 </div>   
+             </div>
+         </div>
+          <div class="col-xs-12 feedback-container" data-bind="if: my.mirrorReportVm.panelData.SessionPanel().length == 0">
+             <span class="no-data mute"> NO DATA </span>
+         </div>
+    </div>
 
     <!-- /ko -->
 </div>

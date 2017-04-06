@@ -236,3 +236,18 @@ div#divSelectedTrainee > div {
     background-color: #2196f3 !important;
     border-radius: 0;
 }
+
+#divFilterArea > div:first-child {
+    margin-top: 10px;
+}
+
+ .metric-header {
+    padding: 10px;
+    background: #192741!important;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
+}
+
+ .metric-header .mute {
+    color: #ffffff;
+}

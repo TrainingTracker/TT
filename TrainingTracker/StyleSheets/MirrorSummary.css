@@ -117,6 +117,14 @@ div.text-muted {
    padding-bottom: 5px;
 }
 
+.mirror-tab-group-container {
+    margin-top: 3px;
+}
+
+div#divMirrorSummary {
+    margin-top: 4px;
+}
+
 @keyframes placeHolderSimmer {
     0% {
         background-position: -468px 0;

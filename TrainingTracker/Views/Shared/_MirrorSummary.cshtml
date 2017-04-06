@@ -1,9 +1,8 @@
 ﻿<div class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
     <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.AssignmentPanel() == true -->
     <div class="mirror-tab-group no-padding-left no-padding-right">
-        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-header">
-            <span class="col-xs-6 mirror-tab-group-header-title">Assignment Feedbacks</span>
-            <span class="col-xs-4 col-xs-offset-2 mirror-tab-group-header-rating">--</span>
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Assignment Feedbacks</span>
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.AssignmentPanel() == true }"></div>
@@ -21,9 +20,8 @@
     <!-- /ko -->
     <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.CodeReviewPanel() == true -->
     <div class="mirror-tab-group no-padding-left no-padding-right">
-        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-header">
-            <span class="col-xs-6 mirror-tab-group-header-title">Code Reviews</span>
-            <span class="col-xs-4 col-xs-offset-2 mirror-tab-group-header-rating">--</span>
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Code Reviews</span>
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.CodeReviewPanel() == true }"></div>
@@ -42,9 +40,9 @@
     <!-- /ko -->
     <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.RandomReviewPanel() == true -->
     <div class="mirror-tab-group no-padding-left no-padding-right">
-        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-header">
-            <span class="col-xs-6 mirror-tab-group-header-title">Random Reviews</span>
-            <span class="col-xs-4 col-xs-offset-2 mirror-tab-group-header-rating">--</span>
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Random Reviews</span>
+           
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.RandomReviewPanel() == true }"></div>
@@ -63,9 +61,8 @@
     <!-- /ko -->
     <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.SkillsPanel() == true -->
     <div class="mirror-tab-group no-padding-left no-padding-right">
-        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-header">
-            <span class="col-xs-6 mirror-tab-group-header-title">Skill Feedbacks</span>
-            <span class="col-xs-4 col-xs-offset-2 mirror-tab-group-header-rating">--</span>
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class="mute">Skill Feedbacks</span>
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.SkillsPanel() == true }"></div>
@@ -84,9 +81,8 @@
     <!-- /ko -->
     <!-- ko if: my.mirrorSummaryVm.settings.panelVisibility.WeeklyFeedbackPanel() == true -->
     <div class="mirror-tab-group no-padding-left no-padding-right">
-        <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-header">
-            <span class="col-xs-6 mirror-tab-group-header-title">Weekly Feedbacks</span>
-            <span class="col-xs-4 col-xs-offset-2 mirror-tab-group-header-rating">--</span>
+        <div class="col-xs-12 no-padding-left no-padding-right metric-header">
+            <span class=" mute">Weekly Feedbacks</span>
         </div>
         <div class="col-xs-12 no-padding-left no-padding-right mirror-tab-group-container">
             <div data-bind="template: { name: 'divFakeLoader', if: my.mirrorSummaryVm.settings.customLoader.WeeklyFeedbackPanel() == true }"></div>

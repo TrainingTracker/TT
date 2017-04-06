@@ -18,6 +18,15 @@ namespace TrainingTracker.BLL
                                                                                                                           feedbackType));
         }
 
+        public List<Feedback> GetFeedbacksFullDetailsWithFilters(int userId, DateTime startDate, DateTime endDate, Common.Enumeration.FeedbackType feedbackType)
+        {
+            return FeedbackConverter.ConvertListFromCore(UnitOfWork.FeedbackRepository
+                                                                                      .LoadFeedbacksAndThreadsFromFilters(userId,
+                                                                                                                          startDate,
+                                                                                                                          endDate,
+                                                                                                                          feedbackType));
+        }
+
         public List<Feedback> LoadWeeklyFeedbackLearningTimelines(int userId, DateTime startDate, DateTime endDate)
         {
             return
@@ -28,6 +37,33 @@ namespace TrainingTracker.BLL
         {
             return
                UnitOfWork.FeedbackRepository.LoadWeeklyFeedbackTipDetails(userId, startDate, endDate).ToList();
+        }
+
+        public List<CourseTrackerDetails> LoadAllAssignedCourseForTrainee(int userId, DateTime startDate, DateTime endDate)
+        {
+            return UnitOfWork.CourseRepository.GetAllAssignedCoursesForTrainee(userId)
+                                              .Where(x=>x.CourseStarted>=startDate 
+                                                        && (x.CourseCompleted.HasValue 
+                                                            || x.CourseCompleted<= endDate))
+                                              .OrderBy(x=>x.Name)
+                                              .ToList();
+        }
+
+        public List<Session> GetAllSessionForAttendee(int userId,DateTime startDate, DateTime endDate)
+        {
+            return SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)
+                                                                                    .Where(x => x.SessionDate.HasValue 
+                                                                                                && x.SessionDate >= startDate 
+                                                                                                && x.SessionDate <= endDate)
+                                                                                    .ToList());
+        }
+
+        public List<Skill> GetAllSkillsForAttendee(int userId, DateTime startDate, DateTime endDate)
+        {
+            return UnitOfWork.SkillRepository
+                             .GetAllSkillsForTrainee(userId)
+                             .OrderBy(x => x.Name)
+                             .ToList();
         }
     }
 }

@@ -70,7 +70,6 @@
 
                 doughnutSettings: {
                     animation: true,
-                    showTooltips: true,
                     percentageInnerCutout: 50,
                     segmentShowStroke: true,
                     segmentStrokeColor: '#222222'
@@ -134,31 +133,25 @@
         var chartData = {
             AssignmentPanel: {
                 LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray([])
+                DoughnutData: ko.observableArray([]),
+                MentorDetails:ko.observableArray([])
             },
             CodeReviewPanel:{
                 LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray([])
+                DoughnutData: ko.observableArray([]),
+                MentorDetails: ko.observableArray([])
             },
-            RandomReviewPanel: {
-                LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray([])
-            },
-            SkillsPanel: {
-                LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray([])
-            },
+            
             WeeklyFeedbackPanel: {
                 LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray(settings.chartSettings.countData)
+                DoughnutData: ko.observableArray(settings.chartSettings.countData),
+                MentorDetails: ko.observableArray([])
             },
             WeeklyTimeLine: {
                 LineData: ko.observable(settings.chartSettings.timeLineData),
-                DoughnutData: ko.observableArray([])
-            },
-            WeeklyTipData: ko.observableArray([]),
-            CoursePanel: ko.observableArray([]),
-            SessionPanel: ko.observableArray([])
+                DoughnutData: ko.observableArray([]),
+                MentorDetails: ko.observableArray([])
+            }
         };
 
         var loadDataUsingPromise = function (serviceMethod, callback, failureCallback) {
@@ -185,7 +178,9 @@
 
         var assignmentReviewLoadCallback = function (data) {
             panelData.AssignmentPanel(data);
+            getDoughnutData(data, chartData.AssignmentPanel.DoughnutData);
             getTimelineData(data, chartData.AssignmentPanel.LineData);
+            getUniqueMentors(data, chartData.AssignmentPanel.MentorDetails);
             settings.customLoader.AssignmentPanel(false);
         };
 
@@ -206,7 +201,9 @@
 
         var codeReviewLoadCallback = function (data) {
             panelData.CodeReviewPanel(data);
-            getTimelineData(data, chartData.CodeReviewPanel.LineData);
+            getDoughnutData(data, chartData.CodeReviewPanel.DoughnutData);
+            setTimeout(getTimelineData(data, chartData.CodeReviewPanel.LineData), 1000);
+            getUniqueMentors(data, chartData.CodeReviewPanel.MentorDetails);
             settings.customLoader.CodeReviewPanel(false);
         };
 
@@ -218,7 +215,7 @@
         var loadRandomReviewDataWithPromise = function () {
             settings.customLoader.RandomReviewPanel(true);
             loadDataUsingPromise(function () {
-                return my.mirrorService.getRandomReviewWithFiltersPromise(settings.filterDetails.UserId(),
+                return my.mirrorService.getRandomReviewAndThreadFeedbackWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
@@ -227,7 +224,6 @@
 
         var randomReviewLoadCallback = function (data) {
             panelData.RandomReviewPanel(data);
-            getTimelineData(data, chartData.RandomReviewPanel.LineData);
             settings.customLoader.RandomReviewPanel(false);
         };
 
@@ -239,7 +235,7 @@
         var loadSkillsFeedbackDataWithPromise = function () {
             settings.customLoader.SkillsPanel(true);
             loadDataUsingPromise(function () {
-                return my.mirrorService.getSkillsWithFiltersPromise(settings.filterDetails.UserId(),
+                return my.mirrorService.getAllSkillsForAttendeeWithFiltersPromise(settings.filterDetails.UserId(),
                     settings.filterDetails.StartDate(),
                     settings.filterDetails.EndDate());
             },
@@ -248,7 +244,6 @@
 
         var skillReviewLoadCallback = function (data) {
             panelData.SkillsPanel(data);
-            getTimelineData(data, chartData.SkillsPanel.LineData);
             settings.customLoader.SkillsPanel(false);
         };
 
@@ -269,8 +264,9 @@
 
         var weeklyReviewLoadCallback = function (data) {
             panelData.WeeklyFeedbackPanel(data);
-            getTimelineData(data, chartData.WeeklyFeedbackPanel.LineData);
             getDoughnutData(data, chartData.WeeklyFeedbackPanel.DoughnutData);
+            setTimeout(getTimelineData(data, chartData.WeeklyFeedbackPanel.LineData), 1000);
+            getUniqueMentors(data, chartData.WeeklyFeedbackPanel.MentorDetails);
             settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
@@ -291,8 +287,9 @@
 
         var weeklyLearningTimeLineLoadCallback = function (data) {
             panelData.WeeklyTimeLineData(data);
-            getTimelineData(data, chartData.WeeklyTimeLine.LineData);
             getDoughnutData(data, chartData.WeeklyTimeLine.DoughnutData);
+            setTimeout(getTimelineData(data, chartData.WeeklyTimeLine.LineData), 1000);
+            getUniqueMentors(data, chartData.WeeklyTimeLine.MentorDetails);
             settings.customLoader.WeeklyLearningTimeLinePanel(false);
         };
 
@@ -313,13 +310,52 @@
 
         var weeklyTipDataLoadCallback = function (data) {
             panelData.WeeklyTipData(data);
-           // getTimelineData(data, chartData.WeeklyTimeLine.LineData);
             settings.customLoader.WeeklyTipPanel(false);
         };
 
         var weeklyTipDataFailureCallback = function () {
             console.log("Failed to load Weekly Tip Data");
             settings.customLoader.WeeklyTipPanel(false);
+        };
+
+        var loadSessionDataWithPromise = function () {
+            settings.customLoader.SessionPanel(true);
+            loadDataUsingPromise(function () {
+                return my.mirrorService.getAllSessionForAttendeeWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
+                    settings.filterDetails.StartDate(),
+                    settings.filterDetails.EndDate());
+            },
+               sessionDataLoadCallback, sessionDataFailureCallback); // register call back here
+        };
+
+        var sessionDataLoadCallback = function (data) {
+            panelData.SessionPanel(data);
+            settings.customLoader.SessionPanel(false);
+        };
+
+        var sessionDataFailureCallback = function () {
+            console.log("Failed to load session Data");
+            settings.customLoader.SessionPanel(false);
+        };
+
+        var loadCourseDataWithPromise = function () {
+            settings.customLoader.CoursePanel(true);
+            loadDataUsingPromise(function () {
+                return my.mirrorService.getAllAssignedCourseForTraineeWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
+                    settings.filterDetails.StartDate(),
+                    settings.filterDetails.EndDate());
+            },
+               courseDataLoadCallback, courseDataFailureCallback); // register call back here
+        };
+
+        var courseDataLoadCallback = function (data) {
+            panelData.CoursePanel(data);
+            settings.customLoader.CoursePanel(false);
+        };
+
+        var courseDataFailureCallback = function () {
+            console.log("Failed to load scourse Data");
+            settings.customLoader.CoursePanel(false);
         };
 
         var intitalizeMirrorReportPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
@@ -374,10 +410,13 @@
 
             if (typeof (course) != 'undefined') {
                 settings.panelVisibility.CoursePanel(course);
+                loadCourseDataWithPromise();
+
             }
 
             if (typeof (session) != 'undefined') {
                 settings.panelVisibility.SessionPanel(session);
+                loadSessionDataWithPromise();
             }
         };
 
@@ -415,6 +454,35 @@
             property(doughnutData);
         }
 
+        var getUniqueMentors = function (data, property) {
+            property([]);
+          
+            var uniqueMentors = data.filter(function (a) {
+                if (!this[a.AddedBy.UserId]) {
+                    this[a.AddedBy.UserId] = true;
+                    return true;
+                }
+            }, Object.create(null));
+
+            ko.utils.arrayForEach(uniqueMentors, function (item) {
+                var mentorObject = {
+                    UserId: item.AddedBy.UserId,
+                    FullName: item.AddedBy.FullName,
+                    ProfilePictureName: item.AddedBy.ProfilePictureName,
+                    FeedbackCount : function() {
+                     return   ko.utils.arrayFilter(data, function (mentor) {
+                         return item.AddedBy.UserId == mentor.AddedBy.UserId;
+                        }).length;
+                    }()
+                }
+                property.push(mentorObject);
+                property.sort(function(l, r) {
+                    return l.FeedbackCount == r.FeedbackCount ? 0 : (l.FeedbackCount > r.FeedbackCount ? 1 : -1);
+                });
+            });
+           
+        }
+
         var destroyPlugin = function () {
             panelData.AssignmentPanel([]);
             panelData.CodeReviewPanel([]);
@@ -425,6 +493,23 @@
             panelData.WeeklyTipData([]);
             panelData.CoursePanel([]);
             panelData.SessionPanel([]);
+
+            getTimelineData([], chartData.AssignmentPanel.LineData);
+            chartData.AssignmentPanel.DoughnutData([]);
+            chartData.AssignmentPanel.MentorDetails([]);
+
+            getTimelineData([], chartData.CodeReviewPanel.LineData);
+            chartData.CodeReviewPanel.DoughnutData([]);
+            chartData.CodeReviewPanel.MentorDetails([]);
+
+            getTimelineData([], chartData.WeeklyFeedbackPanel.LineData);
+            chartData.WeeklyFeedbackPanel.DoughnutData([]);
+            chartData.WeeklyFeedbackPanel.MentorDetails([]);
+
+            getTimelineData([], chartData.WeeklyTimeLine.LineData);
+            chartData.WeeklyTimeLine.DoughnutData([]);
+            chartData.WeeklyTimeLine.MentorDetails([]);
+
 
             settings.filterDetails.UserId(0);
             settings.filterDetails.StartDate(null);
@@ -437,7 +522,7 @@
             settings: settings,
             getTimelineData: getTimelineData,
             chartData:chartData,
-            //  panelData: panelData,
+             panelData: panelData,
             destroyPlugin: destroyPlugin
         }
     }();

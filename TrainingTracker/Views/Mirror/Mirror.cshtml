@@ -11,39 +11,43 @@
 
 <div class="col-md-12 no-padding-left no-padding-right" id="divMirrorArea">
     <div class="col-md-4 no-padding-right no-padding-left affix-top" id="divFilterArea">
-        <div id="divMirrorSearch" class="col-md-12 no-padding-left no-padding-right custom-margin-top-10 ">
-            <div class="col-md-12 no-padding-left no-padding-right" id="divSearch">
-                <div class="col-md-12">
-                    <div class="input-group category-list-search col-md-12 custom-margin-top-10">
-                        <input type="text" data-bind="value: settings.filterKeyword, valueUpdate: 'afterkeydown', event: { keyup: filterTrainee }" class="form-control" placeholder="Search Trainee by Name, UserName or Email">
-                        <div class="input-group-btn">
-                            <div id="divSearchBar" class="btn btn-default" data-bind="click: filterTrainee()">
-                                <i class="fa fa-search icon-font"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12" id="divAbsoluteTraineeFilter">
-            <!-- ko if: settings.filteredTrainee().length > 0  -->
-            <ul data-bind="foreach: settings.filteredTrainee" class="no-padding-left no-padding-right floating-trainee-filter">
-                <li class="col-xs-12" data-bind="click: function () { my.mirrorVm.setSelectedTrainee(UserId) }">
-                    <div class="thumb col-xs-2 no-padding-right">
-                        <img src="" class="img-circle" data-bind="attr: { src: my.mirrorVm.photoUrl(ProfilePictureName) }" width="35" height="35" alt="" />
-                    </div>
-                    <div class="col-xs-10 no-padding-left">
-                        <div>
-                            <span class="bold-font" data-bind="text: FullName"></span>
-                        </div>
-                        <div>
-                            <span data-bind="text: Email"></span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <!-- /ko -->
-        </div>
+          @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
+          {
+              <div id="divMirrorSearch" class="col-md-12 no-padding-left no-padding-right ">
+                  <div class="col-md-12 no-padding-left no-padding-right" id="divSearch">
+                      <div class="col-md-12">
+                          <div class="input-group category-list-search col-md-12 custom-margin-top-10">
+                              <input type="text" data-bind="value: settings.filterKeyword, valueUpdate: 'afterkeydown', event: { keyup: filterTrainee }" class="form-control" placeholder="Search Trainee by Name, UserName or Email">
+                              <div class="input-group-btn">
+                                  <div id="divSearchBar" class="btn btn-default" data-bind="click: filterTrainee()">
+                                      <i class="fa fa-search icon-font"></i>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12" id="divAbsoluteTraineeFilter">
+                  <!-- ko if: settings.filteredTrainee().length > 0  -->
+                  <ul data-bind="foreach: settings.filteredTrainee" class="no-padding-left no-padding-right floating-trainee-filter">
+                      <li class="col-xs-12" data-bind="click: function () { my.mirrorVm.setSelectedTrainee(UserId) }">
+                          <div class="thumb col-xs-2 no-padding-right">
+                              <img src="" class="img-circle" data-bind="attr: { src: my.mirrorVm.photoUrl(ProfilePictureName) }" width="35" height="35" alt="" />
+                          </div>
+                          <div class="col-xs-10 no-padding-left">
+                              <div>
+                                  <span class="bold-font" data-bind="text: FullName"></span>
+                              </div>
+                              <div>
+                                  <span data-bind="text: Email"></span>
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+                  <!-- /ko -->
+              </div>
+          }
+
         <div id="divSelectedTraineeWrapper">
             <div class="col-md-12">
                 <h4 class="mute">TRAINEE</h4>

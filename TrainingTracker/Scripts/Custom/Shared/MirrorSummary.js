@@ -34,8 +34,6 @@
             RandomReviewPanel: ko.observableArray([]),
             SkillsPanel: ko.observableArray([]),
             WeeklyFeedbackPanel: ko.observableArray([]),
-            //WeeklyTimeLineData: ko.observableArray([]),
-            //WeeklyTipData: ko.observableArray([]),
             CoursePanel: ko.observableArray([]),
             SessionPanel: ko.observableArray([])
         }
@@ -152,46 +150,7 @@
             settings.customLoader.WeeklyFeedbackPanel(false);
         };
 
-        //var loadWeeklyLearningTimeLineDataWithPromise = function () {
-        //    //settings.customLoader.WeeklyFeedbackPanel(true);
-        //    loadDataUsingPromise(function () {
-        //        return my.mirrorService.getWeeklyLearningTimeLineDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
-        //            settings.filterDetails.StartDate(),
-        //            settings.filterDetails.EndDate());
-        //    },
-        //       weeklyLearningTimeLineLoadCallback, weeklyLearningTimeLineFailureCallback); // register call back here
-        //};
-
-        //var weeklyLearningTimeLineLoadCallback = function (data) {
-        //    panelData.WeeklyTimeLineData(data);
-        //  //  settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
-
-        //var weeklyLearningTimeLineFailureCallback = function (data) {
-        //    console.log("Failed to load Weekly Time Line Data");
-        //   // settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
-
-        //var loadWeeklyTipDataWithPromise = function () {
-        //   // settings.customLoader.WeeklyFeedbackPanel(true); // modify
-        //    loadDataUsingPromise(function () {
-        //        return my.mirrorService.getWeeklyWeeklyTipDataWithFiltersPromise(settings.filterDetails.UserId(), // mdoify
-        //            settings.filterDetails.StartDate(),
-        //            settings.filterDetails.EndDate());
-        //    },
-        //       weeklyTipDataLoadCallback, weeklyTipDataFailureCallback); // register call back here
-        //};
-
-        //var weeklyTipDataLoadCallback = function (data) {
-        //    panelData.WeeklyTipData(data);
-        //  //  settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
-
-        //var weeklyTipDataFailureCallback = function (data) {
-        //    console.log("Failed to load Weekly Tip Data");
-        //   // settings.customLoader.WeeklyFeedbackPanel(false);
-        //};
-
+     
         var intitalizeMirrorSummaryPlugin = function (userId, startDate, endDate, assignment, codeReview, randomReview, skills, weekly, course, session) {
             destroyPlugin();
             settings.filterDetails.UserId(userId);
@@ -235,8 +194,7 @@
 
                 if (weekly) {
                     loadWeeklyFeedbackDataWithPromise();
-                    //loadWeeklyLearningTimeLineDataWithPromise();
-                    //loadWeeklyTipDataWithPromise();
+                   
                 }
             }
 
@@ -261,8 +219,6 @@
             panelData.RandomReviewPanel([]);
             panelData.SkillsPanel([]);
             panelData.WeeklyFeedbackPanel([]);
-            //panelData.WeeklyTimeLineData([]);
-            //panelData.WeeklyTipData([]);
             panelData.CoursePanel([]);
             panelData.SessionPanel([]);
 

@@ -48,6 +48,12 @@ namespace TrainingTracker.Controllers
                        JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRandomReviewAndThreadFeedbackWithFilters(int userId, DateTime startDate, DateTime endDate)
+        {
+            return Json(new MirrorBl().GetFeedbacksFullDetailsWithFilters(userId, startDate, endDate, FeedbackType.RandomReview),
+                       JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetWeeklyFeedbackWithFilters(int userId, DateTime startDate, DateTime endDate)
         {
 
@@ -67,5 +73,28 @@ namespace TrainingTracker.Controllers
             return Json(new MirrorBl().LoadWeeklyFeedbackTipDetails(userId, startDate, endDate),
                         JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetAllSessionForAttendee(int userId, DateTime startDate, DateTime endDate)
+        {
+
+            return Json(new MirrorBl().GetAllSessionForAttendee(userId, startDate, endDate),
+                        JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllSkillsForAttendee(int userId, DateTime startDate, DateTime endDate)
+        {
+
+            return Json(new MirrorBl().GetAllSkillsForAttendee(userId, startDate, endDate),
+                        JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllAssignedCourseForTrainee(int userId, DateTime startDate, DateTime endDate)
+        {
+
+            return Json(new MirrorBl().LoadAllAssignedCourseForTrainee(userId, startDate, endDate),
+                        JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
