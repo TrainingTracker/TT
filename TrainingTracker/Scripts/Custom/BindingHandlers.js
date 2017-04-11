@@ -160,7 +160,15 @@ ko.bindingHandlers.datepicker = {
     },
 
     update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var v = valueAccessor()();
+        var value = valueAccessor()();
+        var endDate = allBindings().endDate;
+        var startDate = allBindings().startDate;
+
+        $(element).datepicker("setStartDate", startDate);
+        $(element).datepicker("setEndDate", endDate);
+        $(element).datepicker("setDate", value);
+
+
     }
 
 };
@@ -751,6 +759,30 @@ $(document).ready(function () {
                 autosize.destroy($(element).find('textarea'));
                 autosize($(element).find('textarea'));
 
+        }
+    };
+
+    ko.bindingHandlers.mirrorChartCountTicker = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            var data = valueAccessor();
+            $(element).text(0);
+
+            if (!Array.isArray(data.data)) {
+                // Called the function in each second
+
+                var value = data.data[data.type - 1].value;
+                if (value == 0) return;
+                var interval = setInterval(function ()
+                {
+                    var number = $(element).text();
+
+                    if (++number >= value) {
+                        $(element).text(value);
+                        clearInterval(interval); // If exceeded count , clear interval
+                    }            
+                    $(element).text(number); // Update the value in paragraph                  
+                }, 300); 
+            }
         }
     };
 });

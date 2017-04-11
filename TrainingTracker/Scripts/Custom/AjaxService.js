@@ -99,13 +99,24 @@
                 dataType: "json",
                 contentType: "application/json"
             });
+        },
+
+        ajaxGetDefferedCustomLoader = function (method, jsonIn) {
+            return $.ajax({
+                url: getServiceUrl(method),
+                type: "GET",
+                data: ko.toJSON(jsonIn),
+                dataType: "json",
+                contentType: "application/json"
+            });
         };
         return {
             ajaxGetJson: ajaxGetJson,
             ajaxPostJson: ajaxPostJson,
             ajaxUploadImage: ajaxUploadImage,
             ajaxPostDeffered: ajaxPostDeffered,
-            ajaxGetDeffered: ajaxGetDeffered
+            ajaxGetDeffered: ajaxGetDeffered,
+            ajaxGetDefferedCustomLoader: ajaxGetDefferedCustomLoader
         };
     })();
 }(my));

@@ -140,6 +140,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MirrorController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -270,6 +271,7 @@
     <Content Include="Scripts\Custom\AllProfile.js" />
     <Content Include="Scripts\Custom\AllSessions.js" />
     <Content Include="Scripts\Custom\BindingHandlers.js" />
+    <Content Include="Scripts\Custom\Chart.Scatter.Shekhar.js" />
     <Content Include="Scripts\Custom\DiscussionForum.js" />
     <Content Include="Scripts\Custom\DiscussionThread.js" />
     <Content Include="Scripts\Custom\HelpForum.js" />
@@ -285,12 +287,16 @@
     <Content Include="Scripts\Custom\FeedbackThread.js" />
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
+    <Content Include="Scripts\Custom\Mirror.Js" />
     <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
     <Content Include="Scripts\Custom\Release.js" />
     <Content Include="Scripts\Custom\ReleaseService.js" />
+    <Content Include="Scripts\Custom\Services\MirrorServices.js" />
     <Content Include="Scripts\Custom\sessionService.js" />
+    <Content Include="Scripts\Custom\Shared\MirrorReport.Js" />
+    <Content Include="Scripts\Custom\Shared\MirrorSummary.js" />
     <Content Include="Scripts\Custom\Unauthorized.js" />
     <Content Include="Scripts\Custom\UserProfile.js" />
     <Content Include="Scripts\Custom\UserService.js" />
@@ -354,6 +360,9 @@
     <Content Include="StyleSheets\jquery-confirm.css" />
     <Content Include="StyleSheets\Layout.css" />
     <Content Include="StyleSheets\Login.css" />
+    <Content Include="StyleSheets\Mirror.css" />
+    <Content Include="StyleSheets\MirrorReport.css" />
+    <Content Include="StyleSheets\MirrorSummary.css" />
     <Content Include="StyleSheets\NotificationSetting.css" />
     <Content Include="StyleSheets\Profile.css" />
     <Content Include="StyleSheets\ProfileSetting.css" />
@@ -407,6 +416,9 @@
     <Content Include="Views\Shared\_ProfileSetting.cshtml" />
     <Content Include="Views\Shared\_NotificationSetting.cshtml" />
     <Content Include="Views\Shared\_AddRelease.cshtml" />
+    <Content Include="Views\Mirror\Mirror.cshtml" />
+    <Content Include="Views\Shared\_MirrorSummary.cshtml" />
+    <Content Include="Views\Shared\_MirrorReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

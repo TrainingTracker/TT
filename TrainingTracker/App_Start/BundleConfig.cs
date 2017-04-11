@@ -23,12 +23,12 @@ namespace TrainingTracker
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                     "~/Content/bootstrap.min.css",
+                     "~/Content/site.css"));
 
             #region Scripts
-           
+
 
             //Scripts
             bundles.Add(new ScriptBundle("~/bundles/LayoutViewScripts").Include(
@@ -45,19 +45,19 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/ProfileViewScripts").Include(
-              "~/Scripts/Chart.Scatter.min.js" ,
-               "~/Scripts/jquery-confirm.js" ,
-               "~/Scripts/autosize.js" ,
-              "~/Scripts/bootstrap-datepicker.min.js" ,
-              "~/Scripts/jquery.steps.js" ,
-              "~/Scripts/typehead.js" ,
+              "~/Scripts/Chart.Scatter.min.js",
+               "~/Scripts/jquery-confirm.js",
+               "~/Scripts/autosize.js",
+              "~/Scripts/bootstrap-datepicker.min.js",
+              "~/Scripts/jquery.steps.js",
+              "~/Scripts/typehead.js",
               "~/Scripts/Custom/FeedbackChart.js",
-              "~/Scripts/Custom/UserProfile.js" ,
+              "~/Scripts/Custom/UserProfile.js",
               "~/Scripts/Custom/DiscussionForumService.js",
               "~/Scripts/Custom/DiscussionForum.js",
-              "~/Scripts/Custom/FeedbackThread.js" ,
+              "~/Scripts/Custom/FeedbackThread.js",
               "~/Scripts/Custom/DiscussionThread.js",
-              "~/Scripts/wz_tooltip.js" 
+              "~/Scripts/wz_tooltip.js"
               ));
 
             bundles.Add(new ScriptBundle("~/bundles/ReleaseViewScripts").Include(
@@ -73,14 +73,14 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/DashBoardViewScripts").Include(
-               "~/Scripts/Custom/Dashboard.js" ,
-               "~/Scripts/wz_tooltip.js" 
+               "~/Scripts/Custom/Dashboard.js",
+               "~/Scripts/wz_tooltip.js"
                ));
 
             bundles.Add(new ScriptBundle("~/bundles/SessionViewScripts").Include(
-              "~/Scripts/bootstrap-datepicker.min.js" ,
+              "~/Scripts/bootstrap-datepicker.min.js",
               "~/Scripts/jquery-confirm.js",
-              "~/Scripts/Custom/AllSessions.js" ,
+              "~/Scripts/Custom/AllSessions.js",
               "~/Scripts/Custom/SessionService.js",
               "~/Scripts/Custom/Video.js",
               "~/Scripts/Video.js",
@@ -93,46 +93,57 @@ namespace TrainingTracker
 
             bundles.Add(new ScriptBundle("~/bundles/CourseEditorViewScripts").Include(
                 "~/Scripts/ko.mapping.js",
-             //  "~/Scripts/ckeditor/ckeditor.js",
+                //  "~/Scripts/ckeditor/ckeditor.js",
                "~/Scripts/jquery-confirm.js",
                "~/Scripts/notify.js",
                "~/Scripts/jquery-ui.js",
                "~/Scripts/knockout-sortable.js",
                "~/Scripts/Custom/CourseService.js",
                 "~/Scripts/Custom/CourseEditor.js"
-                
+
             ));
 
-             bundles.Add(new ScriptBundle("~/bundles/AllCoursesViewScripts").Include(
-               "~/Scripts/Custom/CourseService.js",
-               "~/Scripts/Custom/AllCourses.js"
-            ));
-
-             bundles.Add(new ScriptBundle("~/bundles/LearningMapViewScripts").Include(
-               "~/Scripts/ko.mapping.js",
-               "~/Scripts/jquery-confirm.js",
-               "~/Scripts/notify.js",
-               "~/Scripts/jquery-ui.js",
-               "~/Scripts/knockout-sortable.js",
-               "~/Scripts/Custom/LearningMapService.js",
-               "~/Scripts/Custom/LearningMap.js"
-            ));
-
-             bundles.Add(new ScriptBundle("~/bundles/CourseViewScripts").Include(
-              "~/Scripts/ko.mapping.js",
-              "~/Scripts/jquery-confirm.js" ,
-              "~/Scripts/Custom/FeedbackThread.js",
+            bundles.Add(new ScriptBundle("~/bundles/AllCoursesViewScripts").Include(
               "~/Scripts/Custom/CourseService.js",
-              "~/Scripts/Custom/Course.js",
-              "~/Scripts/autosize.js"
+              "~/Scripts/Custom/AllCourses.js"
+           ));
+
+            bundles.Add(new ScriptBundle("~/bundles/LearningMapViewScripts").Include(
+              "~/Scripts/ko.mapping.js",
+              "~/Scripts/jquery-confirm.js",
+              "~/Scripts/notify.js",
+              "~/Scripts/jquery-ui.js",
+              "~/Scripts/knockout-sortable.js",
+              "~/Scripts/Custom/LearningMapService.js",
+              "~/Scripts/Custom/LearningMap.js"
+           ));
+
+            bundles.Add(new ScriptBundle("~/bundles/CourseViewScripts").Include(
+             "~/Scripts/ko.mapping.js",
+             "~/Scripts/jquery-confirm.js",
+             "~/Scripts/Custom/FeedbackThread.js",
+             "~/Scripts/Custom/CourseService.js",
+             "~/Scripts/Custom/Course.js",
+             "~/Scripts/autosize.js"
+             ));
+
+            bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+               "~/Scripts/Custom/AddEditProfile.js",
+               "~/Scripts/Custom/NotificationSetting.js",
+               "~/Scripts/Custom/UserSetting.js",
+               "~/Scripts/notify.js"
               ));
 
-             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-                "~/Scripts/Custom/AddEditProfile.js",
-                "~/Scripts/Custom/NotificationSetting.js",
-                "~/Scripts/Custom/UserSetting.js",
-                "~/Scripts/notify.js"
-               ));
+            bundles.Add(new ScriptBundle("~/bundles/MirrorViewScripts").Include(
+              "~/Scripts/Custom/Chart.Scatter.Shekhar.js",
+              "~/Scripts/bootstrap-datepicker.min.js",
+               "~/Scripts/Custom/FeedbackThread.js",
+              "~/Scripts/Custom/Services/MirrorServices.js",
+              "~/Scripts/Custom/Mirror.js",
+              "~/Scripts/Custom/Shared/MirrorSummary.js",
+               "~/Scripts/Custom/Shared/MirrorReport.js"
+             ));
+
             #endregion
 
             #region Styles
@@ -141,10 +152,10 @@ namespace TrainingTracker
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ProfileViewStyles").Include(
-                      "~/Content/DatePicker/bootstrap-datepicker3.css" ,
-                      "~/StyleSheets/SurveyWizard.css" ,
-                       "~/StyleSheets/jquery-confirm.css" ,
-                      "~/Content/Timeline.css" ,
+                      "~/Content/DatePicker/bootstrap-datepicker3.css",
+                      "~/StyleSheets/SurveyWizard.css",
+                       "~/StyleSheets/jquery-confirm.css",
+                      "~/Content/Timeline.css",
                       "~/StyleSheets/Profile.css",
                       "~/StyleSheets/FeedbackPlot.css",
                       "~/StyleSheets/FeedbackThread.css",
@@ -152,14 +163,14 @@ namespace TrainingTracker
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ReleaseViewStyles").Include(
-                      "~/Content/DatePicker/bootstrap-datepicker3.css" ,
-                      "~/StyleSheets/Release.css" 
+                      "~/Content/DatePicker/bootstrap-datepicker3.css",
+                      "~/StyleSheets/Release.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/HelpForumStyles").Include(
                         "~/Content/Site.css",
                         "~/StyleSheets/HelpForum.css",
-                         "~/StyleSheets/jquery-confirm.css" 
+                         "~/StyleSheets/jquery-confirm.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/DashboardViewStyles").Include(
@@ -167,7 +178,7 @@ namespace TrainingTracker
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/SessionViewStyles").Include(
-              
+
                "~/Content/DatePicker/bootstrap-datepicker3.css",
                "~/StyleSheets/Session.css",
                "~/StyleSheets/jquery-confirm.css",
@@ -175,7 +186,7 @@ namespace TrainingTracker
                ));
 
             bundles.Add(new StyleBundle("~/bundles/AllProfileViewStyles").Include(
-             "~/StyleSheets/AllProfiles.css" 
+             "~/StyleSheets/AllProfiles.css"
              ));
 
             bundles.Add(new StyleBundle("~/bundles/AllCoursesViewStyles").Include(
@@ -184,7 +195,7 @@ namespace TrainingTracker
 
             bundles.Add(new StyleBundle("~/bundles/CoursesEditorViewStyles").Include(
                     "~/StyleSheets/CourseEditor.css",
-                   "~/StyleSheets/jquery-confirm.css" ,
+                   "~/StyleSheets/jquery-confirm.css",
                    "~/Content/site.css"
              ));
 
@@ -199,7 +210,7 @@ namespace TrainingTracker
                   "~/StyleSheets/FeedbackPlot.css",
                   "~/Content/Site.css",
                   "~/StyleSheets/Course.css",
-                   "~/StyleSheets/jquery-confirm.css" 
+                   "~/StyleSheets/jquery-confirm.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/UserSettingViewStyles").Include(
@@ -207,6 +218,14 @@ namespace TrainingTracker
                     "~/StyleSheets/ProfileSetting.css",
                     "~/StyleSheets/NotificationSetting.css"
             ));
+
+            bundles.Add(new StyleBundle("~/bundles/MirrorViewStyles").Include(
+                  "~/StyleSheets/Mirror.css",
+                  "~/Content/DatePicker/bootstrap-datepicker3.css",
+                  "~/StyleSheets/FeedbackThread.css",
+                  "~/StyleSheets/MirrorSummary.css",
+                  "~/StyleSheets/MirrorReport.css"
+          ));
 
             #endregion
 

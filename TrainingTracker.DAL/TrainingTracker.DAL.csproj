@@ -255,6 +255,7 @@
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\INotificationRepository.cs" />
+    <Compile Include="Interface\ISkillRepository.cs" />
     <Compile Include="Interface\ISubtopicContentRepository.cs" />
     <Compile Include="Interface\ICourseSubtopicRepository.cs" />
     <Compile Include="Interface\IEmailContentRepository.cs" />
@@ -300,7 +301,9 @@
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\MirrorRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\SubtopicContentRepository.cs" />
     <Compile Include="Repositories\CourseSubtopicRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />

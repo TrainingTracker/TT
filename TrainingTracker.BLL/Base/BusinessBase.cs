@@ -241,6 +241,13 @@ namespace TrainingTracker.BLL.Base
             }
         }
 
+        private FeedbackConverter _feedbackConverter;
+
+        public FeedbackConverter FeedbackConverter
+        {
+            get { return _feedbackConverter ?? (_feedbackConverter = new FeedbackConverter()); }
+        }
+
 
         #endregion
 

@@ -3,9 +3,6 @@ using System.Web.Mvc;
 using TrainingTracker.BLL;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Authorize;
-using TrainingTracker.Common.Entity;
-using System.Web.Script.Serialization;
-using System.Web.Security;
 
 namespace TrainingTracker.Controllers
 {

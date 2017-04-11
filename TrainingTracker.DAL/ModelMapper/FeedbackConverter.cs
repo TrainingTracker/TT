@@ -1,14 +1,14 @@
-﻿using System;
+﻿#region Assemblies
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
+#endregion
 
 namespace TrainingTracker.DAL.ModelMapper
 {
-    class FeedbackConverter : EntityConverter<EntityFramework.Feedback,Common.Entity.Feedback>
+    public class FeedbackConverter : EntityConverter<EntityFramework.Feedback, Common.Entity.Feedback>
     {
         private UserConverter _userConverter;
         public UserConverter UserConverter
@@ -27,12 +27,36 @@ namespace TrainingTracker.DAL.ModelMapper
                 {
                     FeedbackTypeId = sourceEntity.FeedbackType.GetValueOrDefault()
                 },
-                AddedBy =  UserConverter.ConvertFromCore(sourceEntity.User) ,
-                Rating = sourceEntity.Rating.GetValueOrDefault()
+                AddedBy = UserConverter.ConvertFromCore(sourceEntity.User),
+                Rating = sourceEntity.Rating.GetValueOrDefault(),
+                ThreadCount = sourceEntity.FeedbackThreads.Count
             };
         }
 
-        public new List<Feedback> ConvertListFromCore(List<EntityFramework.Feedback>  sourceList)
+        public Feedback ConvertFromCoreWithMinimalDetails(EntityFramework.Feedback sourceEntity)
+        {
+            return new Feedback
+            {
+                FeedbackId = sourceEntity.FeedbackId,
+                AddedOn = sourceEntity.AddedOn.GetValueOrDefault(),
+                FeedbackType = new FeedbackType
+                {
+                    FeedbackTypeId = sourceEntity.FeedbackType.GetValueOrDefault()
+                },
+                StartDate = sourceEntity.StartDate.GetValueOrDefault(),
+                EndDate = sourceEntity.EndDate.GetValueOrDefault(),
+                AddedBy = UserConverter.ConvertFromCore(sourceEntity.User),
+                Rating = sourceEntity.Rating.GetValueOrDefault(),
+                ThreadCount = sourceEntity.FeedbackThreads.Count
+            };
+        }
+
+        public List<Feedback> ConvertListFromCoreWithMinimalDetails(IEnumerable<EntityFramework.Feedback> sourceList)
+        {
+            return sourceList.Select(ConvertFromCoreWithMinimalDetails).ToList();
+        }
+
+        public new List<Feedback> ConvertListFromCore(IEnumerable<EntityFramework.Feedback> sourceList)
         {
             try
             {

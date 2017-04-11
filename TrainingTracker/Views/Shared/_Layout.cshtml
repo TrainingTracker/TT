@@ -7,6 +7,8 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/LayoutViewStyles")
     @RenderSection("Styles", false)
@@ -104,6 +106,12 @@
                           }                    
                       </ul>
                   </li>
+
+                    <li class="menu-li separator">
+                       <a href="~/Mirror">
+                           <label style="">Mirror</label>
+                       </a>
+                  </li>
                @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer"))
                {
                    <li class="menu-li">
@@ -112,6 +120,7 @@
                        </a>
                    </li>
                }
+                
                 </ul> 
             </div>
             <div class="col-md-4 no-margin-right no-padding-right" >                          

@@ -145,6 +145,15 @@ namespace TrainingTracker.DAL
                 return _forumDiscussionPostRepository ?? (_forumDiscussionPostRepository = new ForumDiscussionPostRepository(_context));
             }
         }
+
+        private ISkillRepository _skillRepository;
+        public ISkillRepository SkillRepository
+        {
+            get
+            {
+                return _skillRepository ?? (_skillRepository = new SkillRepository(_context));
+            }
+        }
         #endregion
 
         #region CommonMethods
