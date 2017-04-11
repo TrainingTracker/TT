@@ -110,6 +110,7 @@ namespace TrainingTracker.Controllers
         [HttpGet]
         public ActionResult GetActiveUsers()
         {
+            
             return Json(new UserBl().GetActiveUsers(CurrentUser) , JsonRequestBehavior.AllowGet);
         }
 
@@ -288,6 +289,26 @@ namespace TrainingTracker.Controllers
         public JsonResult GetAllSkills()
         {
             return Json(new UserBl().GetAllSkills(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Fetch all the members working under a lead from GPS API
+        /// </summary>
+        /// <returns> Returns list of users working under a lead as json object.</returns>
+        [HttpGet]
+        public ActionResult GetMembersUnderLead()                                                                 
+        {
+            return Json(UtilityFunctions.GetMembersUnderLead(CurrentUser.EmployeeId), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Updates the EmployeeId of TT members that matches with GPS API data
+        /// </summary>
+        /// <returns>Json Result</returns>
+        [HttpPost]
+        public ActionResult SyncGPSUsers() 
+        {
+            return Json(new { status = new UserBl().SyncGPSUsers(CurrentUser) });
         }
     }
 }

@@ -14,23 +14,32 @@
             if (requestedSettingName == undefined || requestedSettingName == "MyProfile") {
                 selectedSetting("MyProfile");
                 my.notificationSettingVm.closeNotificationSetting();
+                my.memberDetailsVm.closeGpsUserSetting();
                 my.addUserVm.openUserProfile();
             }
             else if (requestedSettingName == "ManageUsers") {
                 selectedSetting("ManageUsers");
                 my.notificationSettingVm.closeNotificationSetting();
+                my.memberDetailsVm.closeGpsUserSetting();
                 my.addUserVm.openAllUsersProfile();
             }
             else if (requestedSettingName == "Notification") {
                 selectedSetting("Notification");
                 my.addUserVm.closeDialogue();
+                my.memberDetailsVm.closeGpsUserSetting();
                 my.notificationSettingVm.openNotificationSetting();
+            }
+            else if (requestedSettingName == "GPSMembers") {
+                selectedSetting("GPSMembers");
+                my.notificationSettingVm.closeNotificationSetting();
+                my.memberDetailsVm.getMembersUnderLead();
             }
             else {
                 selectedSetting("MyProfile");
                 my.notificationSettingVm.closeNotificationSetting();
+                my.memberDetailsVm.closeGpsUserSetting();
                 my.addUserVm.openUserProfile();
-            }
+            }        
             ko.applyBindings(my.userSettingVm);
             notifyStyle();
         }

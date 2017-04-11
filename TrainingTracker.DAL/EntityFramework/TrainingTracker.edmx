@@ -4,53 +4,53 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TrainingTracker.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="TrainingTracker.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7">
         <EntityType Name="Assignment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bool" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssignmentAsset" Type="varchar" MaxLength="100" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bool" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="AssignmentAsset" MaxLength="100" Type="varchar" />
         </EntityType>
         <EntityType Name="AssignmentFeedbackMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssignmentId" Type="int" Nullable="false" />
-          <Property Name="FeedbackId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="AssignmentId" Nullable="false" Type="int" />
+          <Property Name="FeedbackId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AssignmentSubtopicMap">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssignmentId" Type="int" Nullable="false" />
-          <Property Name="SubtopicId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="AssignmentId" Nullable="false" Type="int" />
+          <Property Name="SubtopicId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AssignmentUserMap">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssignmentId" Type="int" Nullable="false" />
-          <Property Name="TraineeId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="AssignmentId" Nullable="false" Type="int" />
+          <Property Name="TraineeId" Nullable="false" Type="int" />
           <Property Name="ApprovedBy" Type="int" />
-          <Property Name="IsCompleted" Type="bit" Nullable="false" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsCompleted" Nullable="false" Type="bit" />
+          <Property Name="IsApproved" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="Comment" Type="longtext" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="AddedBy" Type="int" />
           <Property Name="AddedFor" Type="int" />
         </EntityType>
@@ -58,108 +58,108 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="Icon" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bool" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsPublished" Type="bool" Nullable="false" />
-          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="Icon" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bool" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="IsPublished" Nullable="false" Type="bool" />
+          <Property Name="Duration" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="CourseSubtopic">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourseId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bool" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CourseId" Nullable="false" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bool" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="CourseSubtopicDiscussion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourseSubtopicId" Type="int" Nullable="false" />
-          <Property Name="Text" Type="longtext" Nullable="false" />
-          <Property Name="IsHidden" Type="bool" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CourseSubtopicId" Nullable="false" Type="int" />
+          <Property Name="Text" Nullable="false" Type="longtext" />
+          <Property Name="IsHidden" Nullable="false" Type="bool" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="CourseUserMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourseId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="StartedOn" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="CompletedOn" Type="datetime" Precision="0" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CourseId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="StartedOn" Nullable="false" Precision="0" Type="datetime" />
+          <Property Name="CompletedOn" Precision="0" Type="datetime" />
         </EntityType>
         <EntityType Name="EmailAlertSubscription">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SubscribedByUserId" Type="int" Nullable="false" />
-          <Property Name="SubscribedForUserId" Type="int" Nullable="false" />
-          <Property Name="IsSubscribedForComment" Type="bit" Nullable="false" />
-          <Property Name="IsSubscribedForWeeklyFeedback" Type="bit" Nullable="false" />
-          <Property Name="IsSubscribedForCodeReview" Type="bit" Nullable="false" />
-          <Property Name="IsSubscibedForAssignment" Type="bit" Nullable="false" />
-          <Property Name="IsSubscibedForSkill" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SubscribedByUserId" Nullable="false" Type="int" />
+          <Property Name="SubscribedForUserId" Nullable="false" Type="int" />
+          <Property Name="IsSubscribedForComment" Nullable="false" Type="bit" />
+          <Property Name="IsSubscribedForWeeklyFeedback" Nullable="false" Type="bit" />
+          <Property Name="IsSubscribedForCodeReview" Nullable="false" Type="bit" />
+          <Property Name="IsSubscibedForAssignment" Nullable="false" Type="bit" />
+          <Property Name="IsSubscibedForSkill" Nullable="false" Type="bit" />
+          <Property Name="IsDeleted" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="EmailContent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaskSchedulerJobId" Type="int" Nullable="false" />
-          <Property Name="SubjectText" Type="text" Nullable="false" />
-          <Property Name="BodyText" Type="longtext" Nullable="false" />
-          <Property Name="IsRichBody" Type="bit" Nullable="false" />
-          <Property Name="FromAddress" Type="varchar" MaxLength="300" />
-          <Property Name="IsSent" Type="bit" Nullable="false" />
-          <Property Name="SentTimeStamp" Type="datetime" Precision="0" />
-          <Property Name="Attempts" Type="tinyint" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="TaskSchedulerJobId" Nullable="false" Type="int" />
+          <Property Name="SubjectText" Nullable="false" Type="text" />
+          <Property Name="BodyText" Nullable="false" Type="longtext" />
+          <Property Name="IsRichBody" Nullable="false" Type="bit" />
+          <Property Name="FromAddress" MaxLength="300" Type="varchar" />
+          <Property Name="IsSent" Nullable="false" Type="bit" />
+          <Property Name="SentTimeStamp" Precision="0" Type="datetime" />
+          <Property Name="Attempts" Nullable="false" Type="tinyint" />
         </EntityType>
         <EntityType Name="EmailRecipient">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmailContentId" Type="int" Nullable="false" />
-          <Property Name="EmailAddress" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="EmailRecipientType" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="EmailContentId" Nullable="false" Type="int" />
+          <Property Name="EmailAddress" Nullable="false" MaxLength="300" Type="varchar" />
+          <Property Name="EmailRecipientType" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="EmailRecipientType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Description" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="FeedbackId" />
           </Key>
-          <Property Name="FeedbackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedbackId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="FeedbackText" Type="longtext" />
-          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Title" MaxLength="100" Type="varchar" />
           <Property Name="FeedbackType" Type="int" />
           <Property Name="ProjectId" Type="int" />
           <Property Name="SkillId" Type="int" />
           <Property Name="Rating" Type="smallint" />
           <Property Name="AddedBy" Type="int" />
           <Property Name="AddedFor" Type="int" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="StartDate" Type="date" />
           <Property Name="EndDate" Type="date" />
         </EntityType>
@@ -167,17 +167,17 @@
           <Key>
             <PropertyRef Name="ThreadId" />
           </Key>
-          <Property Name="ThreadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Comments" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="FeedbackId" Type="int" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="DateTimeInserted" Type="datetime" Precision="6" Nullable="false" />
+          <Property Name="ThreadId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Comments" Nullable="false" MaxLength="500" Type="varchar" />
+          <Property Name="FeedbackId" Nullable="false" Type="int" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="DateTimeInserted" Nullable="false" Precision="6" Type="datetime" />
         </EntityType>
         <EntityType Name="FeedbackType">
           <Key>
             <PropertyRef Name="FeedbackTypeId" />
           </Key>
-          <Property Name="FeedbackTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedbackTypeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="Description" Type="longtext" />
           <Property Name="Sequence" Type="int" />
         </EntityType>
@@ -185,154 +185,154 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumDiscussionPosts">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="CategoryId" Nullable="false" Type="int" />
+          <Property Name="StatusId" Nullable="false" Type="int" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumDiscussionStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumDiscussionThreads">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PostId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="PostId" Nullable="false" Type="int" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumUserHelpCategories">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumUserHelpPosts">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="CategoryId" Nullable="false" Type="int" />
+          <Property Name="StatusId" Nullable="false" Type="int" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumUserHelpStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ForumUserHelpThreads">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PostId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="PostId" Nullable="false" Type="int" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="LearningMap">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Notes" Type="longtext" Nullable="false" />
-          <Property Name="Duration" Type="int" Nullable="false" />
-          <Property Name="IsCourseRestricted" Type="bit" Nullable="false" />
-          <Property Name="TeamId" Type="int" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Notes" Nullable="false" Type="longtext" />
+          <Property Name="Duration" Nullable="false" Type="int" />
+          <Property Name="IsCourseRestricted" Nullable="false" Type="bit" />
+          <Property Name="TeamId" Nullable="false" Type="int" />
+          <Property Name="IsDeleted" Nullable="false" Type="bit" />
+          <Property Name="CreatedBy" Nullable="false" Type="int" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" Type="datetime" />
         </EntityType>
         <EntityType Name="LearningMapCourseMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LearningMapId" Type="int" Nullable="false" />
-          <Property Name="CourseId" Type="int" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="DateInserted" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="LearningMapId" Nullable="false" Type="int" />
+          <Property Name="CourseId" Nullable="false" Type="int" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="IsDeleted" Nullable="false" Type="bit" />
+          <Property Name="DateInserted" Nullable="false" Precision="0" Type="datetime" />
         </EntityType>
         <EntityType Name="LearningMapUserMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LearningMapId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="DateInserted" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="LearningMapId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="DateInserted" Nullable="false" Precision="0" Type="datetime" />
         </EntityType>
         <EntityType Name="LearningSource">
           <Key>
             <PropertyRef Name="SourceId" />
           </Key>
-          <Property Name="SourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="SkillId" Type="int" />
-          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="Title" MaxLength="200" Type="varchar" />
           <Property Name="Description" Type="longtext" />
-          <Property Name="Url" Type="varchar" MaxLength="500" />
+          <Property Name="Url" MaxLength="500" Type="varchar" />
           <Property Name="Sequence" Type="int" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
             <PropertyRef Name="NotificationId" />
           </Key>
-          <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NotificationTitle" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="Link" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="NotificationType" Type="int" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="AddedOn" Type="datetime" Precision="6" Nullable="false" />
+          <Property Name="NotificationId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="NotificationTitle" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="Description" Nullable="false" MaxLength="500" Type="varchar" />
+          <Property Name="Link" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="NotificationType" Nullable="false" Type="int" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="AddedOn" Nullable="false" Precision="6" Type="datetime" />
         </EntityType>
         <EntityType Name="NotificationType">
           <Key>
             <PropertyRef Name="NotificationTypeId" />
           </Key>
-          <Property Name="NotificationTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TypeDescription" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NotificationTypeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="TypeDescription" Nullable="false" MaxLength="100" Type="varchar" />
         </EntityType>
         <EntityType Name="Plans">
           <Key>
             <PropertyRef Name="PlanId" />
           </Key>
-          <Property Name="PlanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="PlanId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" MaxLength="200" Type="varchar" />
           <Property Name="Sequqence" Type="int" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="AddedBy" Type="int" />
           <Property Name="Description" Type="longtext" />
           <Property Name="ParentId" Type="int" />
@@ -341,7 +341,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="PlanId" Type="int" />
           <Property Name="SkillId" Type="int" />
         </EntityType>
@@ -349,19 +349,19 @@
           <Key>
             <PropertyRef Name="ProjectId" />
           </Key>
-          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="ProjectId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" MaxLength="200" Type="varchar" />
           <Property Name="Description" Type="longtext" />
           <Property Name="CreatedBy" Type="int" />
-          <Property Name="ProjectType" Type="varchar" MaxLength="50" />
-          <Property Name="ClientName" Type="varchar" MaxLength="200" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectType" MaxLength="50" Type="varchar" />
+          <Property Name="ClientName" MaxLength="200" Type="varchar" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="ProjectPlanMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" Type="int" />
           <Property Name="PlanId" Type="int" />
           <Property Name="ProjectId" Type="int" />
         </EntityType>
@@ -369,57 +369,57 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionId" Type="int" Nullable="false" />
-          <Property Name="Level" Type="smallint" Nullable="false" />
-          <Property Name="ExperienceStartRange" Type="smallint" Nullable="false" />
-          <Property Name="ExperienceEndRange" Type="smallint" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="QuestionId" Nullable="false" Type="int" />
+          <Property Name="Level" Nullable="false" Type="smallint" />
+          <Property Name="ExperienceStartRange" Nullable="false" Type="smallint" />
+          <Property Name="ExperienceEndRange" Nullable="false" Type="smallint" />
         </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionText" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="SkillId" Type="int" Nullable="false" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="AddedDate" Type="datetime" Precision="6" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="QuestionText" Nullable="false" MaxLength="1000" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="SkillId" Nullable="false" Type="int" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="AddedDate" Nullable="false" Precision="6" Type="datetime" />
         </EntityType>
         <EntityType Name="Release">
           <Key>
             <PropertyRef Name="ReleaseId" />
           </Key>
-          <Property Name="ReleaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Major" Type="int" Nullable="false" />
-          <Property Name="Minor" Type="int" Nullable="false" />
-          <Property Name="Patch" Type="int" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
-          <Property Name="IsPublished" Type="bool" Nullable="false" />
-          <Property Name="ReleaseDate" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
+          <Property Name="ReleaseId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Major" Nullable="false" Type="int" />
+          <Property Name="Minor" Nullable="false" Type="int" />
+          <Property Name="Patch" Nullable="false" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
+          <Property Name="IsPublished" Nullable="false" Type="bool" />
+          <Property Name="ReleaseDate" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
-          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="SessionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" MaxLength="200" Type="varchar" />
           <Property Name="Description" Type="longtext" />
           <Property Name="Presenter" Type="int" />
           <Property Name="AddedOn" Type="date" />
           <Property Name="SessionDate" Type="date" />
-          <Property Name="VideoFileName" Type="varchar" MaxLength="200" />
-          <Property Name="SlideName" Type="varchar" MaxLength="200" />
+          <Property Name="VideoFileName" MaxLength="200" Type="varchar" />
+          <Property Name="SlideName" MaxLength="200" Type="varchar" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
             <PropertyRef Name="SkillId" />
           </Key>
-          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="SkillId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" MaxLength="100" Type="varchar" />
+          <Property Name="Description" MaxLength="500" Type="varchar" />
           <Property Name="AddedOn" Type="date" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
@@ -427,192 +427,193 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourseSubtopicId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="Description" Type="longtext" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CourseSubtopicId" Nullable="false" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="longtext" />
           <Property Name="Url" Type="longtext" />
-          <Property Name="AddedBy" Type="int" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bool" Nullable="false" />
-          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddedBy" Nullable="false" Type="int" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="IsActive" Nullable="false" Type="bool" />
+          <Property Name="CreatedOn" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="SubtopicContentUserMap">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SubtopicContentId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Seen" Type="bool" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Precision="6" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SubtopicContentId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="Seen" Nullable="false" Type="bool" />
+          <Property Name="CreatedOn" Nullable="false" Precision="6" Type="datetime" />
         </EntityType>
         <EntityType Name="Survey">
           <Key>
             <PropertyRef Name="SurveyId" />
           </Key>
-          <Property Name="SurveyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsOpen" Type="bool" Nullable="false" />
-          <Property Name="DateCreated" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Description" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="IsOpen" Nullable="false" Type="bool" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="SurveyAnswer">
           <Key>
             <PropertyRef Name="SurveyAnswerId" />
           </Key>
-          <Property Name="SurveyAnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveyQuestionId" Type="int" Nullable="false" />
-          <Property Name="OptionText" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="IsDeleted" Type="bool" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyAnswerId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SurveyQuestionId" Nullable="false" Type="int" />
+          <Property Name="OptionText" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="IsDeleted" Nullable="false" Type="bool" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="SurveyCompletedMetaData">
           <Key>
             <PropertyRef Name="SurveyCompletedMetaDataId" />
           </Key>
-          <Property Name="SurveyCompletedMetaDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveyId" Type="int" Nullable="false" />
-          <Property Name="DateCompleted" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveyTakenBy" Type="int" Nullable="false" />
+          <Property Name="SurveyCompletedMetaDataId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SurveyId" Nullable="false" Type="int" />
+          <Property Name="DateCompleted" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="SurveyTakenBy" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="SurveyQuestion">
           <Key>
             <PropertyRef Name="SurveyQuestionId" />
           </Key>
-          <Property Name="SurveyQuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveySectionId" Type="int" Nullable="false" />
-          <Property Name="QuestionText" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="HelpText" Type="varchar" MaxLength="200" />
-          <Property Name="IsMandatory" Type="bool" Nullable="false" />
-          <Property Name="AdditionalNoteRequired" Type="bool" Nullable="false" />
-          <Property Name="ResponseTypeId" Type="int" Nullable="false" />
-          <Property Name="IsDeleted" Type="bool" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyQuestionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SurveySectionId" Nullable="false" Type="int" />
+          <Property Name="QuestionText" Nullable="false" MaxLength="1000" Type="varchar" />
+          <Property Name="HelpText" MaxLength="200" Type="varchar" />
+          <Property Name="IsMandatory" Nullable="false" Type="bool" />
+          <Property Name="AdditionalNoteRequired" Nullable="false" Type="bool" />
+          <Property Name="ResponseTypeId" Nullable="false" Type="int" />
+          <Property Name="IsDeleted" Nullable="false" Type="bool" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="SurveyQuestionResponseType">
           <Key>
             <PropertyRef Name="TypeId" />
           </Key>
-          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="TypeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Description" MaxLength="50" Type="varchar" />
         </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
             <PropertyRef Name="SurveyResponse" />
           </Key>
-          <Property Name="SurveyResponse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SurveyQuestionId" Type="int" Nullable="false" />
+          <Property Name="SurveyResponse" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SurveyQuestionId" Nullable="false" Type="int" />
           <Property Name="SurveyAnswerId" Type="int" />
           <Property Name="AdditionalNote" Type="longtext" />
-          <Property Name="SurveyCompletedMetaDataId" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyCompletedMetaDataId" Nullable="false" Type="int" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
         </EntityType>
         <EntityType Name="SurveySection">
           <Key>
             <PropertyRef Name="SurveySectionId" />
           </Key>
-          <Property Name="SurveySectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SectionHeader" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
-          <Property Name="SurveyId" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsDeleted" Type="bool" Nullable="false" />
+          <Property Name="SurveySectionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SectionHeader" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="SortOrder" Nullable="false" Type="int" />
+          <Property Name="SurveyId" Nullable="false" Type="int" />
+          <Property Name="DateCreated" Nullable="false" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="IsDeleted" Nullable="false" Type="bool" />
         </EntityType>
         <EntityType Name="TaskSchedulerJob">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="tinytext" Nullable="false" />
-          <Property Name="ExecutionIntervalSeconds" Type="int" Nullable="false" />
-          <Property Name="LastExecution" Type="datetime" Precision="0" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="RowCreatedTimeStamp" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Description" Nullable="false" Type="tinytext" />
+          <Property Name="ExecutionIntervalSeconds" Nullable="false" Type="int" />
+          <Property Name="LastExecution" Precision="0" Type="datetime" />
+          <Property Name="IsActive" Nullable="false" Type="bit" />
+          <Property Name="RowCreatedTimeStamp" Nullable="false" Precision="0" Type="datetime" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
             <PropertyRef Name="TeamId" />
           </Key>
-          <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TeamName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsDeleted" Type="bool" Nullable="false" />
-          <Property Name="DateInserted" Type="datetime" Precision="6" Nullable="false" />
-          <Property Name="WeeklySurveyId" Type="int" Nullable="false" />
+          <Property Name="TeamId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="TeamName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="IsDeleted" Nullable="false" Type="bool" />
+          <Property Name="DateInserted" Nullable="false" Precision="6" Type="datetime" />
+          <Property Name="WeeklySurveyId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="100" />
-          <Property Name="LastName" Type="varchar" MaxLength="100" />
-          <Property Name="UserName" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="100" />
-          <Property Name="Designation" Type="varchar" MaxLength="100" />
-          <Property Name="ProfilePictureName" Type="varchar" MaxLength="100" />
+          <Property Name="UserId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FirstName" MaxLength="100" Type="varchar" />
+          <Property Name="LastName" MaxLength="100" Type="varchar" />
+          <Property Name="UserName" MaxLength="50" Type="varchar" />
+          <Property Name="Password" MaxLength="50" Type="varchar" />
+          <Property Name="Email" MaxLength="100" Type="varchar" />
+          <Property Name="Designation" MaxLength="100" Type="varchar" />
+          <Property Name="ProfilePictureName" MaxLength="100" Type="varchar" />
           <Property Name="IsFemale" Type="bool" />
           <Property Name="IsAdministrator" Type="bool" />
           <Property Name="IsTrainer" Type="bool" />
           <Property Name="IsTrainee" Type="bool" />
           <Property Name="IsManager" Type="bool" />
-          <Property Name="DateAddedToSystem" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="DateAddedToSystem" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="IsActive" Type="bool" />
           <Property Name="TeamId" Type="int" />
+		   <Property Name="EmployeeId" MaxLength="50" Type="varchar" />
         </EntityType>
         <EntityType Name="UserNotificationMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="NotificationId" Type="int" Nullable="false" />
-          <Property Name="Seen" Type="bool" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="NotificationId" Nullable="false" Type="int" />
+          <Property Name="Seen" Nullable="false" Type="bool" />
         </EntityType>
         <EntityType Name="UserProjectMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="ProjectId" Type="int" />
-          <Property Name="StartedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
-          <Property Name="EndedOn" Type="datetime" Precision="6" />
+          <Property Name="StartedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
+          <Property Name="EndedOn" Precision="6" Type="datetime" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
         <EntityType Name="UserSessionMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="SessionId" Type="int" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
         <EntityType Name="UserSkillMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="SkillId" Type="int" />
           <Property Name="UserId" Type="int" />
-          <Property Name="AddedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Precision="0" StoreGeneratedPattern="Identity" Type="timestamp" />
           <Property Name="AddedBy" Type="int" />
         </EntityType>
         <EntityType Name="WeeklyFeedbackSurveyMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FeedbackId" Type="int" Nullable="false" />
-          <Property Name="SurveyCompletedMetaDataId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FeedbackId" Nullable="false" Type="int" />
+          <Property Name="SurveyCompletedMetaDataId" Nullable="false" Type="int" />
         </EntityType>
         <Association Name="FK__UserNotif__Notif__5D95E53A">
-          <End Role="Notification" Type="Self.Notification" Multiplicity="1" />
-          <End Role="UserNotificationMapping" Type="Self.UserNotificationMapping" Multiplicity="*" />
+          <End Type="Self.Notification" Multiplicity="1" Role="Notification" />
+          <End Type="Self.UserNotificationMapping" Multiplicity="*" Role="UserNotificationMapping" />
           <ReferentialConstraint>
             <Principal Role="Notification">
               <PropertyRef Name="NotificationId" />
@@ -623,8 +624,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__UserNotif__UserI__5E8A0973">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserNotificationMapping" Type="Self.UserNotificationMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.UserNotificationMapping" Multiplicity="*" Role="UserNotificationMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -635,8 +636,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Assignment_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.Assignment" Multiplicity="*" Role="Assignment" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -647,8 +648,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentFeedbackMapping_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="AssignmentFeedbackMapping" Type="Self.AssignmentFeedbackMapping" Multiplicity="*" />
+          <End Type="Self.Assignment" Multiplicity="1" Role="Assignment" />
+          <End Type="Self.AssignmentFeedbackMapping" Multiplicity="*" Role="AssignmentFeedbackMapping" />
           <ReferentialConstraint>
             <Principal Role="Assignment">
               <PropertyRef Name="Id" />
@@ -659,8 +660,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentFeedbackMapping_Feedback">
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="1" />
-          <End Role="AssignmentFeedbackMapping" Type="Self.AssignmentFeedbackMapping" Multiplicity="*" />
+          <End Type="Self.Feedback" Multiplicity="1" Role="Feedback" />
+          <End Type="Self.AssignmentFeedbackMapping" Multiplicity="*" Role="AssignmentFeedbackMapping" />
           <ReferentialConstraint>
             <Principal Role="Feedback">
               <PropertyRef Name="FeedbackId" />
@@ -671,8 +672,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentSubtopicMap_Assignment">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="AssignmentSubtopicMap" Type="Self.AssignmentSubtopicMap" Multiplicity="*" />
+          <End Type="Self.Assignment" Multiplicity="1" Role="Assignment" />
+          <End Type="Self.AssignmentSubtopicMap" Multiplicity="*" Role="AssignmentSubtopicMap" />
           <ReferentialConstraint>
             <Principal Role="Assignment">
               <PropertyRef Name="Id" />
@@ -683,8 +684,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentSubtopicMap_CourseSubtopic">
-          <End Role="CourseSubtopic" Type="Self.CourseSubtopic" Multiplicity="1" />
-          <End Role="AssignmentSubtopicMap" Type="Self.AssignmentSubtopicMap" Multiplicity="*" />
+          <End Type="Self.CourseSubtopic" Multiplicity="1" Role="CourseSubtopic" />
+          <End Type="Self.AssignmentSubtopicMap" Multiplicity="*" Role="AssignmentSubtopicMap" />
           <ReferentialConstraint>
             <Principal Role="CourseSubtopic">
               <PropertyRef Name="Id" />
@@ -695,8 +696,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentUseraMap_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="AssignmentUserMap" Type="Self.AssignmentUserMap" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.AssignmentUserMap" Multiplicity="*" Role="AssignmentUserMap" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -707,8 +708,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentUserMap_User">
-          <End Role="Assignment" Type="Self.Assignment" Multiplicity="1" />
-          <End Role="AssignmentUserMap" Type="Self.AssignmentUserMap" Multiplicity="*" />
+          <End Type="Self.Assignment" Multiplicity="1" Role="Assignment" />
+          <End Type="Self.AssignmentUserMap" Multiplicity="*" Role="AssignmentUserMap" />
           <ReferentialConstraint>
             <Principal Role="Assignment">
               <PropertyRef Name="Id" />
@@ -719,8 +720,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AssignmentUserMap_UserTrainee">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="AssignmentUserMap" Type="Self.AssignmentUserMap" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.AssignmentUserMap" Multiplicity="*" Role="AssignmentUserMap" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -731,8 +732,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Course_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.Course" Multiplicity="*" Role="Course" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -743,8 +744,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseSubtopic_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="CourseSubtopic" Type="Self.CourseSubtopic" Multiplicity="*" />
+          <End Type="Self.Course" Multiplicity="1" Role="Course" />
+          <End Type="Self.CourseSubtopic" Multiplicity="*" Role="CourseSubtopic" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
@@ -755,8 +756,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseSubtopic_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="CourseSubtopic" Type="Self.CourseSubtopic" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.CourseSubtopic" Multiplicity="*" Role="CourseSubtopic" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -767,8 +768,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseSubtopicDiscussion_CourseSubtopic">
-          <End Role="CourseSubtopic" Type="Self.CourseSubtopic" Multiplicity="1" />
-          <End Role="CourseSubtopicDiscussion" Type="Self.CourseSubtopicDiscussion" Multiplicity="*" />
+          <End Type="Self.CourseSubtopic" Multiplicity="1" Role="CourseSubtopic" />
+          <End Type="Self.CourseSubtopicDiscussion" Multiplicity="*" Role="CourseSubtopicDiscussion" />
           <ReferentialConstraint>
             <Principal Role="CourseSubtopic">
               <PropertyRef Name="Id" />
@@ -779,8 +780,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseSubtopicDiscussion_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="CourseSubtopicDiscussion" Type="Self.CourseSubtopicDiscussion" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.CourseSubtopicDiscussion" Multiplicity="*" Role="CourseSubtopicDiscussion" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -791,8 +792,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseUserMapping_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="CourseUserMapping" Type="Self.CourseUserMapping" Multiplicity="*" />
+          <End Type="Self.Course" Multiplicity="1" Role="Course" />
+          <End Type="Self.CourseUserMapping" Multiplicity="*" Role="CourseUserMapping" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
@@ -803,8 +804,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseUserMapping_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="CourseUserMapping" Type="Self.CourseUserMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.CourseUserMapping" Multiplicity="*" Role="CourseUserMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -815,8 +816,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmailAlertSubscription_User_SubscribedBy">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="EmailAlertSubscription" Type="Self.EmailAlertSubscription" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.EmailAlertSubscription" Multiplicity="*" Role="EmailAlertSubscription" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -827,8 +828,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmailAlertSubscription_User_SubscribedFor">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="EmailAlertSubscription" Type="Self.EmailAlertSubscription" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.EmailAlertSubscription" Multiplicity="*" Role="EmailAlertSubscription" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -839,8 +840,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmailContent_SchedulerJob">
-          <End Role="TaskSchedulerJob" Type="Self.TaskSchedulerJob" Multiplicity="1" />
-          <End Role="EmailContent" Type="Self.EmailContent" Multiplicity="*" />
+          <End Type="Self.TaskSchedulerJob" Multiplicity="1" Role="TaskSchedulerJob" />
+          <End Type="Self.EmailContent" Multiplicity="*" Role="EmailContent" />
           <ReferentialConstraint>
             <Principal Role="TaskSchedulerJob">
               <PropertyRef Name="Id" />
@@ -851,8 +852,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmailRecipient_EmailContent">
-          <End Role="EmailContent" Type="Self.EmailContent" Multiplicity="1" />
-          <End Role="EmailRecipient" Type="Self.EmailRecipient" Multiplicity="*" />
+          <End Type="Self.EmailContent" Multiplicity="1" Role="EmailContent" />
+          <End Type="Self.EmailRecipient" Multiplicity="*" Role="EmailRecipient" />
           <ReferentialConstraint>
             <Principal Role="EmailContent">
               <PropertyRef Name="Id" />
@@ -863,8 +864,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmailRecipient_EmailRecipientType">
-          <End Role="EmailRecipientType" Type="Self.EmailRecipientType" Multiplicity="1" />
-          <End Role="EmailRecipient" Type="Self.EmailRecipient" Multiplicity="*" />
+          <End Type="Self.EmailRecipientType" Multiplicity="1" Role="EmailRecipientType" />
+          <End Type="Self.EmailRecipient" Multiplicity="*" Role="EmailRecipient" />
           <ReferentialConstraint>
             <Principal Role="EmailRecipientType">
               <PropertyRef Name="Id" />
@@ -875,8 +876,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Feedback_AddedBy">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -887,8 +888,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Feedback_AddedFor">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -899,8 +900,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Feedback_FeedbackType">
-          <End Role="FeedbackType" Type="Self.FeedbackType" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <End Type="Self.FeedbackType" Multiplicity="0..1" Role="FeedbackType" />
+          <End Type="Self.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="FeedbackType">
               <PropertyRef Name="FeedbackTypeId" />
@@ -911,8 +912,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Feedback_Threads">
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="1" />
-          <End Role="FeedbackThread" Type="Self.FeedbackThread" Multiplicity="*" />
+          <End Type="Self.Feedback" Multiplicity="1" Role="Feedback" />
+          <End Type="Self.FeedbackThread" Multiplicity="*" Role="FeedbackThread" />
           <ReferentialConstraint>
             <Principal Role="Feedback">
               <PropertyRef Name="FeedbackId" />
@@ -923,8 +924,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumDiscussionPosts_Category">
-          <End Role="ForumDiscussionCategories" Type="Self.ForumDiscussionCategories" Multiplicity="1" />
-          <End Role="ForumDiscussionPosts" Type="Self.ForumDiscussionPosts" Multiplicity="*" />
+          <End Type="Self.ForumDiscussionCategories" Multiplicity="1" Role="ForumDiscussionCategories" />
+          <End Type="Self.ForumDiscussionPosts" Multiplicity="*" Role="ForumDiscussionPosts" />
           <ReferentialConstraint>
             <Principal Role="ForumDiscussionCategories">
               <PropertyRef Name="Id" />
@@ -935,8 +936,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumDiscussionPosts_Status">
-          <End Role="ForumDiscussionStatus" Type="Self.ForumDiscussionStatus" Multiplicity="1" />
-          <End Role="ForumDiscussionPosts" Type="Self.ForumDiscussionPosts" Multiplicity="*" />
+          <End Type="Self.ForumDiscussionStatus" Multiplicity="1" Role="ForumDiscussionStatus" />
+          <End Type="Self.ForumDiscussionPosts" Multiplicity="*" Role="ForumDiscussionPosts" />
           <ReferentialConstraint>
             <Principal Role="ForumDiscussionStatus">
               <PropertyRef Name="Id" />
@@ -947,8 +948,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumDiscussionPosts_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ForumDiscussionPosts" Type="Self.ForumDiscussionPosts" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.ForumDiscussionPosts" Multiplicity="*" Role="ForumDiscussionPosts" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -959,8 +960,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumDiscussionThreads_Post">
-          <End Role="ForumDiscussionPosts" Type="Self.ForumDiscussionPosts" Multiplicity="1" />
-          <End Role="ForumDiscussionThreads" Type="Self.ForumDiscussionThreads" Multiplicity="*" />
+          <End Type="Self.ForumDiscussionPosts" Multiplicity="1" Role="ForumDiscussionPosts" />
+          <End Type="Self.ForumDiscussionThreads" Multiplicity="*" Role="ForumDiscussionThreads" />
           <ReferentialConstraint>
             <Principal Role="ForumDiscussionPosts">
               <PropertyRef Name="Id" />
@@ -971,8 +972,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumDiscussionThreads_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ForumDiscussionThreads" Type="Self.ForumDiscussionThreads" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.ForumDiscussionThreads" Multiplicity="*" Role="ForumDiscussionThreads" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -983,8 +984,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumUserHelpPosts_Category">
-          <End Role="ForumUserHelpCategories" Type="Self.ForumUserHelpCategories" Multiplicity="1" />
-          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <End Type="Self.ForumUserHelpCategories" Multiplicity="1" Role="ForumUserHelpCategories" />
+          <End Type="Self.ForumUserHelpPosts" Multiplicity="*" Role="ForumUserHelpPosts" />
           <ReferentialConstraint>
             <Principal Role="ForumUserHelpCategories">
               <PropertyRef Name="Id" />
@@ -995,8 +996,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumUserHelpPosts_Status">
-          <End Role="ForumUserHelpStatus" Type="Self.ForumUserHelpStatus" Multiplicity="1" />
-          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <End Type="Self.ForumUserHelpStatus" Multiplicity="1" Role="ForumUserHelpStatus" />
+          <End Type="Self.ForumUserHelpPosts" Multiplicity="*" Role="ForumUserHelpPosts" />
           <ReferentialConstraint>
             <Principal Role="ForumUserHelpStatus">
               <PropertyRef Name="Id" />
@@ -1007,8 +1008,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumUserHelpPosts_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.ForumUserHelpPosts" Multiplicity="*" Role="ForumUserHelpPosts" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1019,8 +1020,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumUserHelpThreads_Post">
-          <End Role="ForumUserHelpPosts" Type="Self.ForumUserHelpPosts" Multiplicity="1" />
-          <End Role="ForumUserHelpThreads" Type="Self.ForumUserHelpThreads" Multiplicity="*" />
+          <End Type="Self.ForumUserHelpPosts" Multiplicity="1" Role="ForumUserHelpPosts" />
+          <End Type="Self.ForumUserHelpThreads" Multiplicity="*" Role="ForumUserHelpThreads" />
           <ReferentialConstraint>
             <Principal Role="ForumUserHelpPosts">
               <PropertyRef Name="Id" />
@@ -1031,8 +1032,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ForumUserHelpThreads_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ForumUserHelpThreads" Type="Self.ForumUserHelpThreads" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.ForumUserHelpThreads" Multiplicity="*" Role="ForumUserHelpThreads" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1043,8 +1044,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMap_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="1" />
-          <End Role="LearningMap" Type="Self.LearningMap" Multiplicity="*" />
+          <End Type="Self.Team" Multiplicity="1" Role="Team" />
+          <End Type="Self.LearningMap" Multiplicity="*" Role="LearningMap" />
           <ReferentialConstraint>
             <Principal Role="Team">
               <PropertyRef Name="TeamId" />
@@ -1055,8 +1056,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMap_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="LearningMap" Type="Self.LearningMap" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.LearningMap" Multiplicity="*" Role="LearningMap" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1067,8 +1068,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapCourseMappping_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="LearningMapCourseMapping" Type="Self.LearningMapCourseMapping" Multiplicity="*" />
+          <End Type="Self.Course" Multiplicity="1" Role="Course" />
+          <End Type="Self.LearningMapCourseMapping" Multiplicity="*" Role="LearningMapCourseMapping" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
@@ -1079,8 +1080,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapCourseMappping_LearningMap">
-          <End Role="LearningMap" Type="Self.LearningMap" Multiplicity="1" />
-          <End Role="LearningMapCourseMapping" Type="Self.LearningMapCourseMapping" Multiplicity="*" />
+          <End Type="Self.LearningMap" Multiplicity="1" Role="LearningMap" />
+          <End Type="Self.LearningMapCourseMapping" Multiplicity="*" Role="LearningMapCourseMapping" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
@@ -1091,8 +1092,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_LearningMap">
-          <End Role="LearningMap" Type="Self.LearningMap" Multiplicity="1" />
-          <End Role="LearningMapUserMapping" Type="Self.LearningMapUserMapping" Multiplicity="*" />
+          <End Type="Self.LearningMap" Multiplicity="1" Role="LearningMap" />
+          <End Type="Self.LearningMapUserMapping" Multiplicity="*" Role="LearningMapUserMapping" />
           <ReferentialConstraint>
             <Principal Role="LearningMap">
               <PropertyRef Name="Id" />
@@ -1103,8 +1104,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LearningMapUserMappping_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="LearningMapUserMapping" Type="Self.LearningMapUserMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.LearningMapUserMapping" Multiplicity="*" Role="LearningMapUserMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1115,8 +1116,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Notification_NotificationType">
-          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="1" />
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <End Type="Self.NotificationType" Multiplicity="1" Role="NotificationType" />
+          <End Type="Self.Notification" Multiplicity="*" Role="Notification" />
           <ReferentialConstraint>
             <Principal Role="NotificationType">
               <PropertyRef Name="NotificationTypeId" />
@@ -1127,8 +1128,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Notification_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.Notification" Multiplicity="*" Role="Notification" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1139,8 +1140,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_QuestionLevelMapping_QuestionId">
-          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="QuestionLevelMapping" Type="Self.QuestionLevelMapping" Multiplicity="*" />
+          <End Type="Self.Questions" Multiplicity="1" Role="Questions" />
+          <End Type="Self.QuestionLevelMapping" Multiplicity="*" Role="QuestionLevelMapping" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="Id" />
@@ -1151,8 +1152,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Questions_SkillId">
-          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
-          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <End Type="Self.Skills" Multiplicity="1" Role="Skills" />
+          <End Type="Self.Questions" Multiplicity="*" Role="Questions" />
           <ReferentialConstraint>
             <Principal Role="Skills">
               <PropertyRef Name="SkillId" />
@@ -1163,8 +1164,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Questions_UserId">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.Questions" Multiplicity="*" Role="Questions" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1175,8 +1176,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Release_UserId">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Release" Type="Self.Release" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.Release" Multiplicity="*" Role="Release" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1187,8 +1188,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Session_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.Session" Multiplicity="*" Role="Session" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1199,8 +1200,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Skills_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.Skills" Multiplicity="*" Role="Skills" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1211,8 +1212,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubtopicContent_CourseSubtopic">
-          <End Role="CourseSubtopic" Type="Self.CourseSubtopic" Multiplicity="1" />
-          <End Role="SubtopicContent" Type="Self.SubtopicContent" Multiplicity="*" />
+          <End Type="Self.CourseSubtopic" Multiplicity="1" Role="CourseSubtopic" />
+          <End Type="Self.SubtopicContent" Multiplicity="*" Role="SubtopicContent" />
           <ReferentialConstraint>
             <Principal Role="CourseSubtopic">
               <PropertyRef Name="Id" />
@@ -1223,8 +1224,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubtopicContent_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="SubtopicContent" Type="Self.SubtopicContent" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.SubtopicContent" Multiplicity="*" Role="SubtopicContent" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1235,8 +1236,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubtopicContentUserMap_SubtopicContent">
-          <End Role="SubtopicContent" Type="Self.SubtopicContent" Multiplicity="1" />
-          <End Role="SubtopicContentUserMap" Type="Self.SubtopicContentUserMap" Multiplicity="*" />
+          <End Type="Self.SubtopicContent" Multiplicity="1" Role="SubtopicContent" />
+          <End Type="Self.SubtopicContentUserMap" Multiplicity="*" Role="SubtopicContentUserMap" />
           <ReferentialConstraint>
             <Principal Role="SubtopicContent">
               <PropertyRef Name="Id" />
@@ -1247,8 +1248,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubtopicContentUserMap_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="SubtopicContentUserMap" Type="Self.SubtopicContentUserMap" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.SubtopicContentUserMap" Multiplicity="*" Role="SubtopicContentUserMap" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1259,8 +1260,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyAnswer_SurveyQuestion">
-          <End Role="SurveyQuestion" Type="Self.SurveyQuestion" Multiplicity="1" />
-          <End Role="SurveyAnswer" Type="Self.SurveyAnswer" Multiplicity="*" />
+          <End Type="Self.SurveyQuestion" Multiplicity="1" Role="SurveyQuestion" />
+          <End Type="Self.SurveyAnswer" Multiplicity="*" Role="SurveyAnswer" />
           <ReferentialConstraint>
             <Principal Role="SurveyQuestion">
               <PropertyRef Name="SurveyQuestionId" />
@@ -1271,8 +1272,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyCompletedMetaData_Survey">
-          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
-          <End Role="SurveyCompletedMetaData" Type="Self.SurveyCompletedMetaData" Multiplicity="*" />
+          <End Type="Self.Survey" Multiplicity="1" Role="Survey" />
+          <End Type="Self.SurveyCompletedMetaData" Multiplicity="*" Role="SurveyCompletedMetaData" />
           <ReferentialConstraint>
             <Principal Role="Survey">
               <PropertyRef Name="SurveyId" />
@@ -1283,8 +1284,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyCompletedMetaData_SurveyUser">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="SurveyCompletedMetaData" Type="Self.SurveyCompletedMetaData" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.SurveyCompletedMetaData" Multiplicity="*" Role="SurveyCompletedMetaData" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1295,8 +1296,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyQuestion_SurveyQuestionResponseType">
-          <End Role="SurveyQuestionResponseType" Type="Self.SurveyQuestionResponseType" Multiplicity="1" />
-          <End Role="SurveyQuestion" Type="Self.SurveyQuestion" Multiplicity="*" />
+          <End Type="Self.SurveyQuestionResponseType" Multiplicity="1" Role="SurveyQuestionResponseType" />
+          <End Type="Self.SurveyQuestion" Multiplicity="*" Role="SurveyQuestion" />
           <ReferentialConstraint>
             <Principal Role="SurveyQuestionResponseType">
               <PropertyRef Name="TypeId" />
@@ -1307,8 +1308,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyQuestion_SurveySection">
-          <End Role="SurveySection" Type="Self.SurveySection" Multiplicity="1" />
-          <End Role="SurveyQuestion" Type="Self.SurveyQuestion" Multiplicity="*" />
+          <End Type="Self.SurveySection" Multiplicity="1" Role="SurveySection" />
+          <End Type="Self.SurveyQuestion" Multiplicity="*" Role="SurveyQuestion" />
           <ReferentialConstraint>
             <Principal Role="SurveySection">
               <PropertyRef Name="SurveySectionId" />
@@ -1319,8 +1320,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponse_SurveyAnswer">
-          <End Role="SurveyAnswer" Type="Self.SurveyAnswer" Multiplicity="0..1" />
-          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <End Type="Self.SurveyAnswer" Multiplicity="0..1" Role="SurveyAnswer" />
+          <End Type="Self.SurveyResponse" Multiplicity="*" Role="SurveyResponse" />
           <ReferentialConstraint>
             <Principal Role="SurveyAnswer">
               <PropertyRef Name="SurveyAnswerId" />
@@ -1331,8 +1332,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponse_SurveyCompletedMetaData">
-          <End Role="SurveyCompletedMetaData" Type="Self.SurveyCompletedMetaData" Multiplicity="1" />
-          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <End Type="Self.SurveyCompletedMetaData" Multiplicity="1" Role="SurveyCompletedMetaData" />
+          <End Type="Self.SurveyResponse" Multiplicity="*" Role="SurveyResponse" />
           <ReferentialConstraint>
             <Principal Role="SurveyCompletedMetaData">
               <PropertyRef Name="SurveyCompletedMetaDataId" />
@@ -1343,8 +1344,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponse_SurveyQuestion">
-          <End Role="SurveyQuestion" Type="Self.SurveyQuestion" Multiplicity="1" />
-          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <End Type="Self.SurveyQuestion" Multiplicity="1" Role="SurveyQuestion" />
+          <End Type="Self.SurveyResponse" Multiplicity="*" Role="SurveyResponse" />
           <ReferentialConstraint>
             <Principal Role="SurveyQuestion">
               <PropertyRef Name="SurveyQuestionId" />
@@ -1355,8 +1356,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveySection_Survey">
-          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
-          <End Role="SurveySection" Type="Self.SurveySection" Multiplicity="*" />
+          <End Type="Self.Survey" Multiplicity="1" Role="Survey" />
+          <End Type="Self.SurveySection" Multiplicity="*" Role="SurveySection" />
           <ReferentialConstraint>
             <Principal Role="Survey">
               <PropertyRef Name="SurveyId" />
@@ -1367,8 +1368,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Team_Survey">
-          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
-          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <End Type="Self.Survey" Multiplicity="1" Role="Survey" />
+          <End Type="Self.Team" Multiplicity="*" Role="Team" />
           <ReferentialConstraint>
             <Principal Role="Survey">
               <PropertyRef Name="SurveyId" />
@@ -1379,8 +1380,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Fk_User_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="Self.Team" Multiplicity="0..1" Role="Team" />
+          <End Type="Self.User" Multiplicity="*" Role="User" />
           <ReferentialConstraint>
             <Principal Role="Team">
               <PropertyRef Name="TeamId" />
@@ -1391,8 +1392,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Threads">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="FeedbackThread" Type="Self.FeedbackThread" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="User" />
+          <End Type="Self.FeedbackThread" Multiplicity="*" Role="FeedbackThread" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1403,8 +1404,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSessionMapping_AddedBy">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserSessionMapping" Type="Self.UserSessionMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.UserSessionMapping" Multiplicity="*" Role="UserSessionMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1415,8 +1416,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSessionMapping_Session">
-          <End Role="Session" Type="Self.Session" Multiplicity="0..1" />
-          <End Role="UserSessionMapping" Type="Self.UserSessionMapping" Multiplicity="*" />
+          <End Type="Self.Session" Multiplicity="0..1" Role="Session" />
+          <End Type="Self.UserSessionMapping" Multiplicity="*" Role="UserSessionMapping" />
           <ReferentialConstraint>
             <Principal Role="Session">
               <PropertyRef Name="SessionId" />
@@ -1427,8 +1428,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSessionMapping_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserSessionMapping" Type="Self.UserSessionMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.UserSessionMapping" Multiplicity="*" Role="UserSessionMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1439,8 +1440,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSkillMapping_SkillId">
-          <End Role="Skills" Type="Self.Skills" Multiplicity="0..1" />
-          <End Role="UserSkillMapping" Type="Self.UserSkillMapping" Multiplicity="*" />
+          <End Type="Self.Skills" Multiplicity="0..1" Role="Skills" />
+          <End Type="Self.UserSkillMapping" Multiplicity="*" Role="UserSkillMapping" />
           <ReferentialConstraint>
             <Principal Role="Skills">
               <PropertyRef Name="SkillId" />
@@ -1451,8 +1452,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSkillMapping_USER">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserSkillMapping" Type="Self.UserSkillMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.UserSkillMapping" Multiplicity="*" Role="UserSkillMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1463,8 +1464,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_UserSkillMapping_UserAddedBy">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserSkillMapping" Type="Self.UserSkillMapping" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="0..1" Role="User" />
+          <End Type="Self.UserSkillMapping" Multiplicity="*" Role="UserSkillMapping" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -1475,8 +1476,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WeeklyFeedbackSurveyMapping_Feedback">
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="1" />
-          <End Role="WeeklyFeedbackSurveyMapping" Type="Self.WeeklyFeedbackSurveyMapping" Multiplicity="*" />
+          <End Type="Self.Feedback" Multiplicity="1" Role="Feedback" />
+          <End Type="Self.WeeklyFeedbackSurveyMapping" Multiplicity="*" Role="WeeklyFeedbackSurveyMapping" />
           <ReferentialConstraint>
             <Principal Role="Feedback">
               <PropertyRef Name="FeedbackId" />
@@ -1487,8 +1488,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WeeklyFeedbackSurveyMapping_SurveyCompletedMetaData">
-          <End Role="SurveyCompletedMetaData" Type="Self.SurveyCompletedMetaData" Multiplicity="1" />
-          <End Role="WeeklyFeedbackSurveyMapping" Type="Self.WeeklyFeedbackSurveyMapping" Multiplicity="*" />
+          <End Type="Self.SurveyCompletedMetaData" Multiplicity="1" Role="SurveyCompletedMetaData" />
+          <End Type="Self.WeeklyFeedbackSurveyMapping" Multiplicity="*" Role="WeeklyFeedbackSurveyMapping" />
           <ReferentialConstraint>
             <Principal Role="SurveyCompletedMetaData">
               <PropertyRef Name="SurveyCompletedMetaDataId" />
@@ -1556,300 +1557,300 @@
           <EntitySet Name="UserSkillMapping" EntityType="Self.UserSkillMapping" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="WeeklyFeedbackSurveyMapping" EntityType="Self.WeeklyFeedbackSurveyMapping" Schema="tt_capitalized" store:Type="Tables" />
           <AssociationSet Name="FK__UserNotif__Notif__5D95E53A" Association="Self.FK__UserNotif__Notif__5D95E53A">
-            <End Role="Notification" EntitySet="Notification" />
-            <End Role="UserNotificationMapping" EntitySet="UserNotificationMapping" />
+            <End EntitySet="Notification" Role="Notification" />
+            <End EntitySet="UserNotificationMapping" Role="UserNotificationMapping" />
           </AssociationSet>
           <AssociationSet Name="FK__UserNotif__UserI__5E8A0973" Association="Self.FK__UserNotif__UserI__5E8A0973">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserNotificationMapping" EntitySet="UserNotificationMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="UserNotificationMapping" Role="UserNotificationMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_Assignment_User" Association="Self.FK_Assignment_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Assignment" EntitySet="Assignment" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Assignment" Role="Assignment" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentFeedbackMapping_Assignment" Association="Self.FK_AssignmentFeedbackMapping_Assignment">
-            <End Role="Assignment" EntitySet="Assignment" />
-            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMapping" />
+            <End EntitySet="Assignment" Role="Assignment" />
+            <End EntitySet="AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentFeedbackMapping_Feedback" Association="Self.FK_AssignmentFeedbackMapping_Feedback">
-            <End Role="Feedback" EntitySet="Feedback" />
-            <End Role="AssignmentFeedbackMapping" EntitySet="AssignmentFeedbackMapping" />
+            <End EntitySet="Feedback" Role="Feedback" />
+            <End EntitySet="AssignmentFeedbackMapping" Role="AssignmentFeedbackMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentSubtopicMap_Assignment" Association="Self.FK_AssignmentSubtopicMap_Assignment">
-            <End Role="Assignment" EntitySet="Assignment" />
-            <End Role="AssignmentSubtopicMap" EntitySet="AssignmentSubtopicMap" />
+            <End EntitySet="Assignment" Role="Assignment" />
+            <End EntitySet="AssignmentSubtopicMap" Role="AssignmentSubtopicMap" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentSubtopicMap_CourseSubtopic" Association="Self.FK_AssignmentSubtopicMap_CourseSubtopic">
-            <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
-            <End Role="AssignmentSubtopicMap" EntitySet="AssignmentSubtopicMap" />
+            <End EntitySet="CourseSubtopic" Role="CourseSubtopic" />
+            <End EntitySet="AssignmentSubtopicMap" Role="AssignmentSubtopicMap" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentUseraMap_User" Association="Self.FK_AssignmentUseraMap_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMap" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="AssignmentUserMap" Role="AssignmentUserMap" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentUserMap_User" Association="Self.FK_AssignmentUserMap_User">
-            <End Role="Assignment" EntitySet="Assignment" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMap" />
+            <End EntitySet="Assignment" Role="Assignment" />
+            <End EntitySet="AssignmentUserMap" Role="AssignmentUserMap" />
           </AssociationSet>
           <AssociationSet Name="FK_AssignmentUserMap_UserTrainee" Association="Self.FK_AssignmentUserMap_UserTrainee">
-            <End Role="User" EntitySet="User" />
-            <End Role="AssignmentUserMap" EntitySet="AssignmentUserMap" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="AssignmentUserMap" Role="AssignmentUserMap" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_User" Association="Self.FK_Course_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Course" EntitySet="Course" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Course" Role="Course" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseSubtopic_Course" Association="Self.FK_CourseSubtopic_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
+            <End EntitySet="Course" Role="Course" />
+            <End EntitySet="CourseSubtopic" Role="CourseSubtopic" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseSubtopic_User" Association="Self.FK_CourseSubtopic_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="CourseSubtopic" Role="CourseSubtopic" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseSubtopicDiscussion_CourseSubtopic" Association="Self.FK_CourseSubtopicDiscussion_CourseSubtopic">
-            <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
-            <End Role="CourseSubtopicDiscussion" EntitySet="CourseSubtopicDiscussion" />
+            <End EntitySet="CourseSubtopic" Role="CourseSubtopic" />
+            <End EntitySet="CourseSubtopicDiscussion" Role="CourseSubtopicDiscussion" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseSubtopicDiscussion_User" Association="Self.FK_CourseSubtopicDiscussion_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="CourseSubtopicDiscussion" EntitySet="CourseSubtopicDiscussion" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="CourseSubtopicDiscussion" Role="CourseSubtopicDiscussion" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseUserMapping_Course" Association="Self.FK_CourseUserMapping_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="CourseUserMapping" EntitySet="CourseUserMapping" />
+            <End EntitySet="Course" Role="Course" />
+            <End EntitySet="CourseUserMapping" Role="CourseUserMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseUserMapping_User" Association="Self.FK_CourseUserMapping_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="CourseUserMapping" EntitySet="CourseUserMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="CourseUserMapping" Role="CourseUserMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailAlertSubscription_User_SubscribedBy" Association="Self.FK_EmailAlertSubscription_User_SubscribedBy">
-            <End Role="User" EntitySet="User" />
-            <End Role="EmailAlertSubscription" EntitySet="EmailAlertSubscription" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="EmailAlertSubscription" Role="EmailAlertSubscription" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailAlertSubscription_User_SubscribedFor" Association="Self.FK_EmailAlertSubscription_User_SubscribedFor">
-            <End Role="User" EntitySet="User" />
-            <End Role="EmailAlertSubscription" EntitySet="EmailAlertSubscription" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="EmailAlertSubscription" Role="EmailAlertSubscription" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailContent_SchedulerJob" Association="Self.FK_EmailContent_SchedulerJob">
-            <End Role="TaskSchedulerJob" EntitySet="TaskSchedulerJob" />
-            <End Role="EmailContent" EntitySet="EmailContent" />
+            <End EntitySet="TaskSchedulerJob" Role="TaskSchedulerJob" />
+            <End EntitySet="EmailContent" Role="EmailContent" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailRecipient_EmailContent" Association="Self.FK_EmailRecipient_EmailContent">
-            <End Role="EmailContent" EntitySet="EmailContent" />
-            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
+            <End EntitySet="EmailContent" Role="EmailContent" />
+            <End EntitySet="EmailRecipient" Role="EmailRecipient" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailRecipient_EmailRecipientType" Association="Self.FK_EmailRecipient_EmailRecipientType">
-            <End Role="EmailRecipientType" EntitySet="EmailRecipientType" />
-            <End Role="EmailRecipient" EntitySet="EmailRecipient" />
+            <End EntitySet="EmailRecipientType" Role="EmailRecipientType" />
+            <End EntitySet="EmailRecipient" Role="EmailRecipient" />
           </AssociationSet>
           <AssociationSet Name="fk_Feedback_AddedBy" Association="Self.fk_Feedback_AddedBy">
-            <End Role="User" EntitySet="User" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Feedback" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="fk_Feedback_AddedFor" Association="Self.fk_Feedback_AddedFor">
-            <End Role="User" EntitySet="User" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Feedback" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="fk_Feedback_FeedbackType" Association="Self.fk_Feedback_FeedbackType">
-            <End Role="FeedbackType" EntitySet="FeedbackType" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End EntitySet="FeedbackType" Role="FeedbackType" />
+            <End EntitySet="Feedback" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="FK_Feedback_Threads" Association="Self.FK_Feedback_Threads">
-            <End Role="Feedback" EntitySet="Feedback" />
-            <End Role="FeedbackThread" EntitySet="FeedbackThread" />
+            <End EntitySet="Feedback" Role="Feedback" />
+            <End EntitySet="FeedbackThread" Role="FeedbackThread" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumDiscussionPosts_Category" Association="Self.FK_ForumDiscussionPosts_Category">
-            <End Role="ForumDiscussionCategories" EntitySet="ForumDiscussionCategories" />
-            <End Role="ForumDiscussionPosts" EntitySet="ForumDiscussionPosts" />
+            <End EntitySet="ForumDiscussionCategories" Role="ForumDiscussionCategories" />
+            <End EntitySet="ForumDiscussionPosts" Role="ForumDiscussionPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumDiscussionPosts_Status" Association="Self.FK_ForumDiscussionPosts_Status">
-            <End Role="ForumDiscussionStatus" EntitySet="ForumDiscussionStatus" />
-            <End Role="ForumDiscussionPosts" EntitySet="ForumDiscussionPosts" />
+            <End EntitySet="ForumDiscussionStatus" Role="ForumDiscussionStatus" />
+            <End EntitySet="ForumDiscussionPosts" Role="ForumDiscussionPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumDiscussionPosts_User" Association="Self.FK_ForumDiscussionPosts_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ForumDiscussionPosts" EntitySet="ForumDiscussionPosts" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="ForumDiscussionPosts" Role="ForumDiscussionPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumDiscussionThreads_Post" Association="Self.FK_ForumDiscussionThreads_Post">
-            <End Role="ForumDiscussionPosts" EntitySet="ForumDiscussionPosts" />
-            <End Role="ForumDiscussionThreads" EntitySet="ForumDiscussionThreads" />
+            <End EntitySet="ForumDiscussionPosts" Role="ForumDiscussionPosts" />
+            <End EntitySet="ForumDiscussionThreads" Role="ForumDiscussionThreads" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumDiscussionThreads_User" Association="Self.FK_ForumDiscussionThreads_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ForumDiscussionThreads" EntitySet="ForumDiscussionThreads" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="ForumDiscussionThreads" Role="ForumDiscussionThreads" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumUserHelpPosts_Category" Association="Self.FK_ForumUserHelpPosts_Category">
-            <End Role="ForumUserHelpCategories" EntitySet="ForumUserHelpCategories" />
-            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+            <End EntitySet="ForumUserHelpCategories" Role="ForumUserHelpCategories" />
+            <End EntitySet="ForumUserHelpPosts" Role="ForumUserHelpPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumUserHelpPosts_Status" Association="Self.FK_ForumUserHelpPosts_Status">
-            <End Role="ForumUserHelpStatus" EntitySet="ForumUserHelpStatus" />
-            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+            <End EntitySet="ForumUserHelpStatus" Role="ForumUserHelpStatus" />
+            <End EntitySet="ForumUserHelpPosts" Role="ForumUserHelpPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumUserHelpPosts_User" Association="Self.FK_ForumUserHelpPosts_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="ForumUserHelpPosts" Role="ForumUserHelpPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumUserHelpThreads_Post" Association="Self.FK_ForumUserHelpThreads_Post">
-            <End Role="ForumUserHelpPosts" EntitySet="ForumUserHelpPosts" />
-            <End Role="ForumUserHelpThreads" EntitySet="ForumUserHelpThreads" />
+            <End EntitySet="ForumUserHelpPosts" Role="ForumUserHelpPosts" />
+            <End EntitySet="ForumUserHelpThreads" Role="ForumUserHelpThreads" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumUserHelpThreads_User" Association="Self.FK_ForumUserHelpThreads_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ForumUserHelpThreads" EntitySet="ForumUserHelpThreads" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="ForumUserHelpThreads" Role="ForumUserHelpThreads" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMap_Team" Association="Self.FK_LearningMap_Team">
-            <End Role="Team" EntitySet="Team" />
-            <End Role="LearningMap" EntitySet="LearningMap" />
+            <End EntitySet="Team" Role="Team" />
+            <End EntitySet="LearningMap" Role="LearningMap" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMap_User" Association="Self.FK_LearningMap_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="LearningMap" EntitySet="LearningMap" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="LearningMap" Role="LearningMap" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_Course" Association="Self.FK_LearningMapCourseMappping_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMapping" />
+            <End EntitySet="Course" Role="Course" />
+            <End EntitySet="LearningMapCourseMapping" Role="LearningMapCourseMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapCourseMappping_LearningMap" Association="Self.FK_LearningMapCourseMappping_LearningMap">
-            <End Role="LearningMap" EntitySet="LearningMap" />
-            <End Role="LearningMapCourseMapping" EntitySet="LearningMapCourseMapping" />
+            <End EntitySet="LearningMap" Role="LearningMap" />
+            <End EntitySet="LearningMapCourseMapping" Role="LearningMapCourseMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_LearningMap" Association="Self.FK_LearningMapUserMappping_LearningMap">
-            <End Role="LearningMap" EntitySet="LearningMap" />
-            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMapping" />
+            <End EntitySet="LearningMap" Role="LearningMap" />
+            <End EntitySet="LearningMapUserMapping" Role="LearningMapUserMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_LearningMapUserMappping_User" Association="Self.FK_LearningMapUserMappping_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="LearningMapUserMapping" EntitySet="LearningMapUserMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="LearningMapUserMapping" Role="LearningMapUserMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_Notification_NotificationType" Association="Self.fk_Notification_NotificationType">
-            <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Notification" EntitySet="Notification" />
+            <End EntitySet="NotificationType" Role="NotificationType" />
+            <End EntitySet="Notification" Role="Notification" />
           </AssociationSet>
           <AssociationSet Name="fk_Notification_User" Association="Self.fk_Notification_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Notification" EntitySet="Notification" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Notification" Role="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_QuestionLevelMapping_QuestionId" Association="Self.FK_QuestionLevelMapping_QuestionId">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="QuestionLevelMapping" EntitySet="QuestionLevelMapping" />
+            <End EntitySet="Questions" Role="Questions" />
+            <End EntitySet="QuestionLevelMapping" Role="QuestionLevelMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_Questions_SkillId" Association="Self.FK_Questions_SkillId">
-            <End Role="Skills" EntitySet="Skills" />
-            <End Role="Questions" EntitySet="Questions" />
+            <End EntitySet="Skills" Role="Skills" />
+            <End EntitySet="Questions" Role="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_Questions_UserId" Association="Self.FK_Questions_UserId">
-            <End Role="User" EntitySet="User" />
-            <End Role="Questions" EntitySet="Questions" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Questions" Role="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_Release_UserId" Association="Self.FK_Release_UserId">
-            <End Role="User" EntitySet="User" />
-            <End Role="Release" EntitySet="Release" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Release" Role="Release" />
           </AssociationSet>
           <AssociationSet Name="fk_Session_User" Association="Self.fk_Session_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Session" EntitySet="Session" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Session" Role="Session" />
           </AssociationSet>
           <AssociationSet Name="fk_Skills_User" Association="Self.fk_Skills_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Skills" EntitySet="Skills" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="Skills" Role="Skills" />
           </AssociationSet>
           <AssociationSet Name="FK_SubtopicContent_CourseSubtopic" Association="Self.FK_SubtopicContent_CourseSubtopic">
-            <End Role="CourseSubtopic" EntitySet="CourseSubtopic" />
-            <End Role="SubtopicContent" EntitySet="SubtopicContent" />
+            <End EntitySet="CourseSubtopic" Role="CourseSubtopic" />
+            <End EntitySet="SubtopicContent" Role="SubtopicContent" />
           </AssociationSet>
           <AssociationSet Name="FK_SubtopicContent_User" Association="Self.FK_SubtopicContent_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="SubtopicContent" EntitySet="SubtopicContent" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="SubtopicContent" Role="SubtopicContent" />
           </AssociationSet>
           <AssociationSet Name="FK_SubtopicContentUserMap_SubtopicContent" Association="Self.FK_SubtopicContentUserMap_SubtopicContent">
-            <End Role="SubtopicContent" EntitySet="SubtopicContent" />
-            <End Role="SubtopicContentUserMap" EntitySet="SubtopicContentUserMap" />
+            <End EntitySet="SubtopicContent" Role="SubtopicContent" />
+            <End EntitySet="SubtopicContentUserMap" Role="SubtopicContentUserMap" />
           </AssociationSet>
           <AssociationSet Name="FK_SubtopicContentUserMap_User" Association="Self.FK_SubtopicContentUserMap_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="SubtopicContentUserMap" EntitySet="SubtopicContentUserMap" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="SubtopicContentUserMap" Role="SubtopicContentUserMap" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyAnswer_SurveyQuestion" Association="Self.FK_SurveyAnswer_SurveyQuestion">
-            <End Role="SurveyQuestion" EntitySet="SurveyQuestion" />
-            <End Role="SurveyAnswer" EntitySet="SurveyAnswer" />
+            <End EntitySet="SurveyQuestion" Role="SurveyQuestion" />
+            <End EntitySet="SurveyAnswer" Role="SurveyAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCompletedMetaData_Survey" Association="Self.FK_SurveyCompletedMetaData_Survey">
-            <End Role="Survey" EntitySet="Survey" />
-            <End Role="SurveyCompletedMetaData" EntitySet="SurveyCompletedMetaData" />
+            <End EntitySet="Survey" Role="Survey" />
+            <End EntitySet="SurveyCompletedMetaData" Role="SurveyCompletedMetaData" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCompletedMetaData_SurveyUser" Association="Self.FK_SurveyCompletedMetaData_SurveyUser">
-            <End Role="User" EntitySet="User" />
-            <End Role="SurveyCompletedMetaData" EntitySet="SurveyCompletedMetaData" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="SurveyCompletedMetaData" Role="SurveyCompletedMetaData" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyQuestion_SurveyQuestionResponseType" Association="Self.FK_SurveyQuestion_SurveyQuestionResponseType">
-            <End Role="SurveyQuestionResponseType" EntitySet="SurveyQuestionResponseType" />
-            <End Role="SurveyQuestion" EntitySet="SurveyQuestion" />
+            <End EntitySet="SurveyQuestionResponseType" Role="SurveyQuestionResponseType" />
+            <End EntitySet="SurveyQuestion" Role="SurveyQuestion" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyQuestion_SurveySection" Association="Self.FK_SurveyQuestion_SurveySection">
-            <End Role="SurveySection" EntitySet="SurveySection" />
-            <End Role="SurveyQuestion" EntitySet="SurveyQuestion" />
+            <End EntitySet="SurveySection" Role="SurveySection" />
+            <End EntitySet="SurveyQuestion" Role="SurveyQuestion" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyAnswer" Association="Self.FK_SurveyResponse_SurveyAnswer">
-            <End Role="SurveyAnswer" EntitySet="SurveyAnswer" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End EntitySet="SurveyAnswer" Role="SurveyAnswer" />
+            <End EntitySet="SurveyResponse" Role="SurveyResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyCompletedMetaData" Association="Self.FK_SurveyResponse_SurveyCompletedMetaData">
-            <End Role="SurveyCompletedMetaData" EntitySet="SurveyCompletedMetaData" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End EntitySet="SurveyCompletedMetaData" Role="SurveyCompletedMetaData" />
+            <End EntitySet="SurveyResponse" Role="SurveyResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyQuestion" Association="Self.FK_SurveyResponse_SurveyQuestion">
-            <End Role="SurveyQuestion" EntitySet="SurveyQuestion" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End EntitySet="SurveyQuestion" Role="SurveyQuestion" />
+            <End EntitySet="SurveyResponse" Role="SurveyResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveySection_Survey" Association="Self.FK_SurveySection_Survey">
-            <End Role="Survey" EntitySet="Survey" />
-            <End Role="SurveySection" EntitySet="SurveySection" />
+            <End EntitySet="Survey" Role="Survey" />
+            <End EntitySet="SurveySection" Role="SurveySection" />
           </AssociationSet>
           <AssociationSet Name="FK_Team_Survey" Association="Self.FK_Team_Survey">
-            <End Role="Survey" EntitySet="Survey" />
-            <End Role="Team" EntitySet="Team" />
+            <End EntitySet="Survey" Role="Survey" />
+            <End EntitySet="Team" Role="Team" />
           </AssociationSet>
           <AssociationSet Name="Fk_User_Team" Association="Self.Fk_User_Team">
-            <End Role="Team" EntitySet="Team" />
-            <End Role="User" EntitySet="User" />
+            <End EntitySet="Team" Role="Team" />
+            <End EntitySet="User" Role="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Threads" Association="Self.FK_User_Threads">
-            <End Role="User" EntitySet="User" />
-            <End Role="FeedbackThread" EntitySet="FeedbackThread" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="FeedbackThread" Role="FeedbackThread" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSessionMapping_AddedBy" Association="Self.fk_UserSessionMapping_AddedBy">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserSessionMapping" EntitySet="UserSessionMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="UserSessionMapping" Role="UserSessionMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSessionMapping_Session" Association="Self.fk_UserSessionMapping_Session">
-            <End Role="Session" EntitySet="Session" />
-            <End Role="UserSessionMapping" EntitySet="UserSessionMapping" />
+            <End EntitySet="Session" Role="Session" />
+            <End EntitySet="UserSessionMapping" Role="UserSessionMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSessionMapping_User" Association="Self.fk_UserSessionMapping_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserSessionMapping" EntitySet="UserSessionMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="UserSessionMapping" Role="UserSessionMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSkillMapping_SkillId" Association="Self.fk_UserSkillMapping_SkillId">
-            <End Role="Skills" EntitySet="Skills" />
-            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
+            <End EntitySet="Skills" Role="Skills" />
+            <End EntitySet="UserSkillMapping" Role="UserSkillMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSkillMapping_USER" Association="Self.fk_UserSkillMapping_USER">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="UserSkillMapping" Role="UserSkillMapping" />
           </AssociationSet>
           <AssociationSet Name="fk_UserSkillMapping_UserAddedBy" Association="Self.fk_UserSkillMapping_UserAddedBy">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserSkillMapping" EntitySet="UserSkillMapping" />
+            <End EntitySet="User" Role="User" />
+            <End EntitySet="UserSkillMapping" Role="UserSkillMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_WeeklyFeedbackSurveyMapping_Feedback" Association="Self.FK_WeeklyFeedbackSurveyMapping_Feedback">
-            <End Role="Feedback" EntitySet="Feedback" />
-            <End Role="WeeklyFeedbackSurveyMapping" EntitySet="WeeklyFeedbackSurveyMapping" />
+            <End EntitySet="Feedback" Role="Feedback" />
+            <End EntitySet="WeeklyFeedbackSurveyMapping" Role="WeeklyFeedbackSurveyMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_WeeklyFeedbackSurveyMapping_SurveyCompletedMetaData" Association="Self.FK_WeeklyFeedbackSurveyMapping_SurveyCompletedMetaData">
-            <End Role="SurveyCompletedMetaData" EntitySet="SurveyCompletedMetaData" />
-            <End Role="WeeklyFeedbackSurveyMapping" EntitySet="WeeklyFeedbackSurveyMapping" />
+            <End EntitySet="SurveyCompletedMetaData" Role="SurveyCompletedMetaData" />
+            <End EntitySet="WeeklyFeedbackSurveyMapping" Role="WeeklyFeedbackSurveyMapping" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2904,6 +2905,7 @@
           <NavigationProperty Name="UserSessionMappings1" Relationship="TrainingTrackerModel.fk_UserSessionMapping_User" FromRole="User" ToRole="UserSessionMapping" />
           <NavigationProperty Name="UserSkillMappings" Relationship="TrainingTrackerModel.fk_UserSkillMapping_USER" FromRole="User" ToRole="UserSkillMapping" />
           <NavigationProperty Name="UserSkillMappings1" Relationship="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" FromRole="User" ToRole="UserSkillMapping" />
+          <Property Name="EmployeeId" Type="String" FixedLength="false" MaxLength="50" Unicode="false" />
         </EntityType>
         <EntityType Name="UserNotificationMapping">
           <Key>
@@ -4446,6 +4448,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TrainingTrackerModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="TeamId" ColumnName="TeamId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateAddedToSystem" ColumnName="DateAddedToSystem" />

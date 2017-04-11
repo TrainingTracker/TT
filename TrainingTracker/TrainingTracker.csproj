@@ -59,6 +59,10 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -119,11 +123,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +287,7 @@
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
     <Content Include="Scripts\Custom\Mirror.Js" />
+    <Content Include="Scripts\Custom\MemberDetails.js" />
     <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
@@ -347,6 +347,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
     <Content Include="StyleSheets\DiscussionThread.css" />
+    <Content Include="StyleSheets\GpsUserSetting.css" />
     <Content Include="StyleSheets\HelpForum.css" />
     <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
@@ -419,6 +420,7 @@
     <Content Include="Views\Mirror\Mirror.cshtml" />
     <Content Include="Views\Shared\_MirrorSummary.cshtml" />
     <Content Include="Views\Shared\_MirrorReport.cshtml" />
+    <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,11 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using System.Web;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
+using System.Dynamic;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace TrainingTracker.Common.Utility
 {
@@ -333,6 +338,30 @@ namespace TrainingTracker.Common.Utility
                 return 4;
             }
             return 0;
+        }
+
+        public static List<User> GetMembersUnderLead(string leadId)
+        {
+            HttpClient client = new HttpClient(new HttpClientHandler { Credentials = new NetworkCredential(Constants.Constants.GpsWebApiUsername, Constants.Constants.GpsWebApiPassword) });
+            client.BaseAddress = new Uri(Constants.Constants.GpsWebApiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            var uri = client.BaseAddress + "Users/" + leadId + "/TeamMembers";
+            HttpResponseMessage response = client.GetAsync(uri).Result;
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
+                var data = Get(response);
+                return data.Result;
+            }
+            return null;
+        }
+
+        public  static async Task<List<User>> Get(HttpResponseMessage response)
+        {
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
+            return data;
         }
     }
 }
