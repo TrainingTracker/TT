@@ -298,7 +298,7 @@ namespace TrainingTracker.Controllers
         [HttpGet]
         public ActionResult GetMembersUnderLead()                                                                 
         {
-            return Json(UtilityFunctions.GetMembersUnderLead(CurrentUser.EmployeeId), JsonRequestBehavior.AllowGet);
+            return Json(UtilityFunctions.GetMembersUnderLead("0710-00336"), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

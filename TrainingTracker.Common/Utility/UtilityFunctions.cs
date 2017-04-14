@@ -12,13 +12,15 @@ using System.Net;
 using System.Dynamic;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Net.Http.Headers;
 
 namespace TrainingTracker.Common.Utility
 {
     /// <summary>
     /// Common Utility Functions to be used through the application
     /// </summary>
-    public static class UtilityFunctions
+    public static class UtilityFunctions 
     {
         /// <summary>
         /// Static Function that returns the Last Date on the given day
@@ -342,12 +344,15 @@ namespace TrainingTracker.Common.Utility
 
         public static List<User> GetMembersUnderLead(string leadId)
         {
-            HttpClient client = new HttpClient(new HttpClientHandler { Credentials = new NetworkCredential(Constants.Constants.GpsWebApiUsername, Constants.Constants.GpsWebApiPassword) });
+            HMACMessageRequestFormatBuilder customDelegatingHandler = new HMACMessageRequestFormatBuilder();
+            HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
+            //HttpClient client = new HttpClient(new HttpClientHandler { Credentials = new NetworkCredential(Constants.Constants.GpsWebApiUsername, Constants.Constants.GpsWebApiPassword) });
+
             client.BaseAddress = new Uri(Constants.Constants.GpsWebApiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             var uri = client.BaseAddress + "Users/" + leadId + "/TeamMembers";
-            HttpResponseMessage response = client.GetAsync(uri).Result;
+            HttpResponseMessage response =  client.GetAsync(uri).Result;
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
@@ -357,11 +362,13 @@ namespace TrainingTracker.Common.Utility
             return null;
         }
 
-        public  static async Task<List<User>> Get(HttpResponseMessage response)
+        public static async Task<List<User>> Get(HttpResponseMessage response)
         {
             var responseBody = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
             return data;
         }
+
     }
 }
+
