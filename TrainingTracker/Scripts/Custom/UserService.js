@@ -94,7 +94,7 @@
         importGPSUser : function(callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/ImportGPSUser", null , callback);
         } ,
-        syncGPSUsers: function (user, callback) {
+        syncGPSUsers: function (callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SyncGPSUsers", null, callback);
         },
     };

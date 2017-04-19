@@ -17,6 +17,7 @@ using Session = TrainingTracker.Common.Entity.Session;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
 using TrainingTracker.Common.Utility;
+using TrainingTracker.Common.Constants;
 
 namespace TrainingTracker.BLL
 {
@@ -244,9 +245,9 @@ namespace TrainingTracker.BLL
             return SkillDataAccesor.GetAllSkillsForApp();
         }
 
-        public bool SyncGPSUsers(User currentUser)
+        public async Task<bool> SyncGPSUsers(User currentUser)
         {
-            List<User> gpsMembersUnderLead = UtilityFunctions.GetMembersUnderLead("0710-00336");
+            List<User> gpsMembersUnderLead = await GetMembersUnderLead("0710-00336");
             List<User> ttMembersUnderLead = GetManageProfileVm(currentUser).AllUser;
             bool flag = true;
             foreach (var gpsMember in gpsMembersUnderLead)
@@ -264,6 +265,13 @@ namespace TrainingTracker.BLL
                 }
             }
             return flag;
+        }
+
+        public async Task<List<User>> GetMembersUnderLead(string userId)
+        {
+            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers" , Constants.ApiKey, Constants.AppId);
+            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
+            return (data != null ? data : null);
         }
     }
 }

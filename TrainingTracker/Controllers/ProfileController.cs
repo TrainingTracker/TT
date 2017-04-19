@@ -296,9 +296,9 @@ namespace TrainingTracker.Controllers
         /// </summary>
         /// <returns> Returns list of users working under a lead as json object.</returns>
         [HttpGet]
-        public ActionResult GetMembersUnderLead()                                                                 
+        public async System.Threading.Tasks.Task<ActionResult> GetMembersUnderLead()                                                                 
         {
-            return Json(UtilityFunctions.GetMembersUnderLead("0710-00336"), JsonRequestBehavior.AllowGet);
+            return Json(await new UserBl().GetMembersUnderLead("0710-00336"), JsonRequestBehavior.AllowGet);           
         }
 
         /// <summary>
@@ -306,9 +306,10 @@ namespace TrainingTracker.Controllers
         /// </summary>
         /// <returns>Json Result</returns>
         [HttpPost]
-        public ActionResult SyncGPSUsers() 
+        public async System.Threading.Tasks.Task<ActionResult> SyncGPSUsers() 
         {
-            return Json(new { status = new UserBl().SyncGPSUsers(CurrentUser) });
+            bool status =  await new UserBl().SyncGPSUsers(CurrentUser);
+            return Json(new { status = status });
         }
     }
 }

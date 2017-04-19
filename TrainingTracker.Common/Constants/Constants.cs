@@ -23,7 +23,11 @@ namespace TrainingTracker.Common.Constants
 
         public static readonly string GpsWebApiUsername = ConfigurationManager.AppSettings.Get("GpsWebApiUsername");
 
-        public static readonly string GpsWebApiPassword = ConfigurationManager.AppSettings.Get("GpsWebApiPassword"); 
+        public static readonly string GpsWebApiPassword = ConfigurationManager.AppSettings.Get("GpsWebApiPassword");
+
+        public static readonly string ApiKey = ConfigurationManager.AppSettings.Get("ApiKey");
+
+        public static readonly string AppId = ConfigurationManager.AppSettings.Get("AppId"); 
     }
     /// <summary>
     /// Contains all user roles.

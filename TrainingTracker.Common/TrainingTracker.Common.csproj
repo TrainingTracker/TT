@@ -90,10 +90,8 @@
     <Compile Include="Entity\User.cs" />
     <Compile Include="Entity\UserNotification.cs" />
     <Compile Include="Enumerations\CommonEnumeration.cs" />
-    <Compile Include="Interface\IBuildMessageRequestFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Constant.cs" />
-    <Compile Include="Utility\HMACMessageRequestFormatBuilder.cs" />
     <Compile Include="Utility\LogUtility.cs" />
     <Compile Include="Utility\SqlUtility.cs" />
     <Compile Include="Utility\TemplateContentBuilder.cs" />

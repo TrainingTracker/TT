@@ -341,34 +341,6 @@ namespace TrainingTracker.Common.Utility
             }
             return 0;
         }
-
-        public static List<User> GetMembersUnderLead(string leadId)
-        {
-            HMACMessageRequestFormatBuilder customDelegatingHandler = new HMACMessageRequestFormatBuilder();
-            HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-            //HttpClient client = new HttpClient(new HttpClientHandler { Credentials = new NetworkCredential(Constants.Constants.GpsWebApiUsername, Constants.Constants.GpsWebApiPassword) });
-
-            client.BaseAddress = new Uri(Constants.Constants.GpsWebApiUrl);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            var uri = client.BaseAddress + "Users/" + leadId + "/TeamMembers";
-            HttpResponseMessage response =  client.GetAsync(uri).Result;
-            response.EnsureSuccessStatusCode();
-            if (response.IsSuccessStatusCode)
-            {
-                var data = Get(response);
-                return data.Result;
-            }
-            return null;
-        }
-
-        public static async Task<List<User>> Get(HttpResponseMessage response)
-        {
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
-            return data;
-        }
-
     }
 }
 

@@ -165,7 +165,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                         IsManager = x.IsManager ?? false ,
                                                         IsActive = x.IsActive ?? false ,
                                                         DateAddedToSystem = x.DateAddedToSystem ,
-                                                        TeamId = x.TeamId
+                                                        TeamId = x.TeamId  ,
+                                                        EmployeeId = x.EmployeeId
                                                     }).ToList();
                 }
             }
