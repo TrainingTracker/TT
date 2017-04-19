@@ -298,7 +298,7 @@ namespace TrainingTracker.Controllers
         [HttpGet]
         public async System.Threading.Tasks.Task<ActionResult> GetMembersUnderLead()                                                                 
         {
-            return Json(await new UserBl().GetMembersUnderLead("0710-00336"), JsonRequestBehavior.AllowGet);           
+            return Json(await new UserBl().GetMembersUnderLead(CurrentUser.EmployeeId), JsonRequestBehavior.AllowGet);           
         }
 
         /// <summary>

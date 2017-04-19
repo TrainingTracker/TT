@@ -247,7 +247,7 @@ namespace TrainingTracker.BLL
 
         public async Task<bool> SyncGPSUsers(User currentUser)
         {
-            List<User> gpsMembersUnderLead = await GetMembersUnderLead("0710-00336");
+            List<User> gpsMembersUnderLead = await GetMembersUnderLead(currentUser.EmployeeId);
             List<User> ttMembersUnderLead = GetManageProfileVm(currentUser).AllUser;
             bool flag = true;
             foreach (var gpsMember in gpsMembersUnderLead)
