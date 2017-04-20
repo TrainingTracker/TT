@@ -157,8 +157,8 @@
                                 </div>
                                 if (HttpContext.Current.User.IsInRole("Manager"))
                                 {
-                                    <div class="col-xs-12" data-bind="visible: (my.meta.isAdministrator() || my.meta.isManager()) ">
-                                        <div class="form-group">
+                                    <div class="col-xs-12" data-bind="visible: (my.meta.isManager()) ">
+                                        <div class="form-group" data-bind="enableChildren: ((my.meta.isManager()) && (!my.addUserVm.user.IsReadOnly()))">
                                             <label class="col-xs-12 col-md-4 ">Employee Id</label>
                                             <div class="col-md-8">
                                                 <input data-bind="value: my.addUserVm.user.EmployeeId"
