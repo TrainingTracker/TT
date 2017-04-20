@@ -1,8 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Configuration;
 using System.Web.Configuration;
-
 namespace TrainingTracker.Common.Constants
 {
     /// <summary>
@@ -19,7 +17,17 @@ namespace TrainingTracker.Common.Constants
 
         public static readonly string AppDomainUrl = ConfigurationManager.AppSettings.Get("AppDomainUrl"); 
 
-        public static readonly int AppBotUserId = Int32.Parse(ConfigurationManager.AppSettings.Get("TTBotId")); 
+        public static readonly int AppBotUserId = Int32.Parse(ConfigurationManager.AppSettings.Get("TTBotId"));
+
+        public static readonly string GpsWebApiUrl = ConfigurationManager.AppSettings.Get("GpsWebApiUrl");
+
+        public static readonly string GpsWebApiUsername = ConfigurationManager.AppSettings.Get("GpsWebApiUsername");
+
+        public static readonly string GpsWebApiPassword = ConfigurationManager.AppSettings.Get("GpsWebApiPassword");
+
+        public static readonly string ApiKey = ConfigurationManager.AppSettings.Get("ApiKey");
+
+        public static readonly string AppId = ConfigurationManager.AppSettings.Get("AppId"); 
     }
     /// <summary>
     /// Contains all user roles.
@@ -120,3 +128,4 @@ namespace TrainingTracker.Common.Constants
     }
 
 }
+

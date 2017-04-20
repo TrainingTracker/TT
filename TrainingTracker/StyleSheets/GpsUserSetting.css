@@ -1,0 +1,31 @@
+﻿#divGPSUserHeader {
+    color: #2196f3;
+    font-size: 14px;
+    font-weight: bold;
+   background-color: #e5f3fe;
+    border: 1px solid #ccc;
+    border-radius: 5px 5px 0 0;
+}
+
+#divGPSUserMainHeader {
+    color: #fff;
+    font-size: 16px;
+    background-color: #2596F1;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+}
+#divGPSUserSubHeader div{
+  background-color: #e5f3fe;
+}
+.gps-user-row {
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+}
+#divSyncContainer {
+    margin-bottom: 10px;
+}
+.selected {
+    background-color: #2596F1;
+}

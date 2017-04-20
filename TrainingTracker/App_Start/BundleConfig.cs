@@ -144,6 +144,13 @@ namespace TrainingTracker
                "~/Scripts/Custom/Shared/MirrorReport.js"
              ));
 
+             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+                 "~/Scripts/Custom/MemberDetails.js",
+                "~/Scripts/Custom/AddEditProfile.js",
+                "~/Scripts/Custom/NotificationSetting.js",
+                "~/Scripts/Custom/UserSetting.js",
+                "~/Scripts/notify.js"               
+               ));
             #endregion
 
             #region Styles
@@ -216,7 +223,8 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/UserSettingViewStyles").Include(
                     "~/StyleSheets/UserSetting.css",
                     "~/StyleSheets/ProfileSetting.css",
-                    "~/StyleSheets/NotificationSetting.css"
+                    "~/StyleSheets/NotificationSetting.css",
+                    "~/StyleSheets/GpsUserSetting.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/MirrorViewStyles").Include(
