@@ -3,6 +3,7 @@
         <div class="modal-header" data-bind="visible: my.memberDetailsVm.lstUsers().length <=0 ">            
             <span class="modal-title" data-bind="text: my.memberDetailsVm.message"></span>
         </div>
+        <div class="modal-title col-xs-12 alert alert-info" id="divSaveMessage" data-bind="text: my.memberDetailsVm.saveMessage , visible: !(typeof (my.memberDetailsVm.saveMessage()) == 'undefined' || my.memberDetailsVm.saveMessage() == '') ">
         </div>
         <div class="modal-title custom-margin-top-10">
             Note:
