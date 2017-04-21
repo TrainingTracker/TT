@@ -1,6 +1,31 @@
 ﻿<div id="gpsMembersSettingPannel" style="display: none" data-bind="visible: my.memberDetailsVm.isVisible">
     <div class="panel-body container-fluid custom-margin-top-10">
-        <div class="col-xs-12" id="divSyncContainer">
+        <div class="modal-header" data-bind="visible: my.memberDetailsVm.lstUsers().length <=0 ">            
+            <span class="modal-title" data-bind="text: my.memberDetailsVm.message"></span>
+        </div>
+        </div>
+        <div class="modal-title custom-margin-top-10">
+            Note:
+            <span class="col-xs-12">This page shows the TT user matching with GPS user under a lead.  </span>
+            <br />
+            <span class="col-xs-12" data-bind="visible : my.memberDetailsVm.messageVisibilityForImport()">Import to add GPS user to TT</span>
+            <span class="col-xs-12" data-bind="visible: my.memberDetailsVm.visibilityForSync()">Sync button syncs all the TT members to GPS.</span>
+        </div>
+        <br /><br /> <hr />
+        <div class="modal-title custom-margin-top-10" data-bind="visible: my.memberDetailsVm.unsyncedUsers().length > 0">
+            <span class=" col-xs-12">
+                Details of following TT users was not found in GPS!
+                <br />
+                This may cause because of mismatch of username.
+                <br />
+            </span>
+            <div class="custom-margin-top-10" data-bind="foreach: my.memberDetailsVm.unsyncedUsers">
+                <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
+                    <a data-bind="text: UserName , attr:{href:'/Profile/UserProfile?userId='+ UserId} "></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 custom-margin-top-10" id="divSyncContainer">
             <button class="btn btn-primary pull-right" type="button"
                     data-bind="visible: my.memberDetailsVm.visibilityForSync() , click:function(){ my.memberDetailsVm.syncGPSUser()}">
                 Sync
@@ -21,7 +46,7 @@
                     <div class="col-xs-2 no-left-margin  margin-top spacer-top-bottom">Edit / Import</div>
                 </div>
             </div>
-            <div data-bind="foreach: my.memberDetailsVm.lstUsers">
+            <div class="custom-margin-top-10" data-bind="foreach: my.memberDetailsVm.lstUsers">
                 <div class="col-xs-12 gps-user-row no-left-margin no-right-margin text-align-center">
                     <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
                         <a data-bind="text: FullName , attr : { href : my.gpsUrl + '/PublicProfile.aspx?id=' + GPSId() } "></a>
