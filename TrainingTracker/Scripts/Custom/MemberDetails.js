@@ -39,7 +39,11 @@
 
         membersUnderLead = ko.observableArray([]),
 
+        unsyncedUsers =  ko.observableArray([]),
+
         gpsId = ko.observable(),
+
+        saveMessage = ko.observable(),
 
         getMembersUnderLeadCallback = function () {
             lstUsers([]),
@@ -64,20 +68,27 @@
                 lstUsers.push(item);
                 visibilityForSyncCallback(visibilityForSync);
             });
+            my.memberDetailsVm.lstUsers().length <= 0 ? my.memberDetailsVm.message("No members available!") : my.memberDetailsVm.message("");
         },
 
         getMembersUnderLead = function () {
+            unsyncedUsers([]),
+            my.memberDetailsVm.saveMessage('');
             my.userService.getMembersUnderLead(getAllUsers);
             isVisible(true);
         },
 
+        closeDialogue = function () {
+            
+        }
+
         saveUserCallback = function (jsonData) {
-            if (jsonData.status) {
-                my.memberDetailsVm.message("User saved successfully!");
+            if (jsonData.status) {                
                 getMembersUnderLead();
+                my.memberDetailsVm.saveMessage("User saved successfully!");
             }
             else {
-                my.memberDetailsVm.message("User saving unsuccessful!");
+                my.memberDetailsVm.saveMessage("User saving unsuccessful!");
             }
         },
 
@@ -118,13 +129,12 @@
         },
 
         syncGPSUsersCallback = function (jsonData) {
-            if (jsonData.status) {
-                my.memberDetailsVm.message("User synced successfully!");
+            if (jsonData != null) {
                 getMembersUnderLead();
             }
-            else {
-               my.memberDetailsVm.message("User syncng unsuccessful!");
-            }
+            ko.utils.arrayForEach(jsonData, function (item) {                
+                unsyncedUsers.push(item);
+            });
         },
 
         syncGPSUser = function () {
@@ -155,6 +165,16 @@
 
         closeGpsUserSetting = function () {
             isVisible(false);
+        },
+
+        messageVisibilityForImport = function () {
+            for(i=0 ; i< lstUsers().length ; i++)
+            {
+                if(lstUsers()[i].Status() == false)
+                {
+                    return true;
+                }
+            }
         }
 
         return {
@@ -176,7 +196,10 @@
             trainingMembers: trainingMembers,
             closeGpsUserSetting: closeGpsUserSetting,
             isVisible: isVisible,
-            gpsId: gpsId
+            gpsId: gpsId,
+            unsyncedUsers: unsyncedUsers,
+            messageVisibilityForImport: messageVisibilityForImport,
+            saveMessage : saveMessage
         }
     }();
 });
