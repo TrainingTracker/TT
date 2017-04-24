@@ -245,11 +245,12 @@ namespace TrainingTracker.BLL
             return SkillDataAccesor.GetAllSkillsForApp();
         }
 
-        public async Task<bool> SyncGPSUsers(User currentUser)
+        public async Task<List<User>> SyncGPSUsers(User currentUser)
         {
             List<User> gpsMembersUnderLead = await GetMembersUnderLead(currentUser.EmployeeId);
             List<User> ttMembersUnderLead = GetManageProfileVm(currentUser).AllUser;
-            bool flag = true;
+            List<User> unsyncedMembers = new List<User>();
+            //bool flag = true;
             foreach (var gpsMember in gpsMembersUnderLead)
             {
                 foreach (var ttMember in ttMembersUnderLead)
@@ -259,12 +260,17 @@ namespace TrainingTracker.BLL
                         ttMember.EmployeeId = gpsMember.EmployeeId;
                         if (!UserDataAccesor.UpdateUser(ttMember))
                         {
-                            flag = false;
+                            //flag = false;
+                            unsyncedMembers.Add(ttMember);
                         }
+                    }
+                    else
+                    {
+                        unsyncedMembers.Add(ttMember);
                     }
                 }
             }
-            return flag;
+            return unsyncedMembers;
         }
 
         public async Task<List<User>> GetMembersUnderLead(string userId)

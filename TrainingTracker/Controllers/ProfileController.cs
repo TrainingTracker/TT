@@ -308,8 +308,7 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> SyncGPSUsers() 
         {
-            bool status =  await new UserBl().SyncGPSUsers(CurrentUser);
-            return Json(new { status = status });
+            return Json(await new UserBl().SyncGPSUsers(CurrentUser), JsonRequestBehavior.AllowGet);
         }
     }
 }
