@@ -250,7 +250,6 @@ namespace TrainingTracker.BLL
             List<User> gpsMembersUnderLead = await GetMembersUnderLead(currentUser.EmployeeId);
             List<User> ttMembersUnderLead = GetManageProfileVm(currentUser).AllUser;
             List<User> unsyncedMembers = new List<User>();
-            //bool flag = true;
             foreach (var gpsMember in gpsMembersUnderLead)
             {
                 foreach (var ttMember in ttMembersUnderLead)
@@ -260,7 +259,6 @@ namespace TrainingTracker.BLL
                         ttMember.EmployeeId = gpsMember.EmployeeId;
                         if (!UserDataAccesor.UpdateUser(ttMember))
                         {
-                            //flag = false;
                             unsyncedMembers.Add(ttMember);
                         }
                     }
@@ -275,9 +273,9 @@ namespace TrainingTracker.BLL
 
         public async Task<List<User>> GetMembersUnderLead(string userId)
         {
-            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers" , Constants.ApiKey, Constants.AppId);
-            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
-            return (data != null ? data : null);
+            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers", new Uri(Constants.GpsWebApiUrl), 
+                                     Constants.ApiKey, Constants.AppId);
+            return JsonConvert.DeserializeObject<List<User>>(responseBody);            
         }
     }
-}
+}                                                                                               

@@ -9,9 +9,9 @@ namespace TrainingTracker.Common.Constants
     public static class Constants
     {
         /// <summary>
-        /// SalesTracker Common Encryption Key
+        /// Common Encryption Key
         /// </summary>
-        public const string SalesTrackerEncryptionKey = "!#$a54?3";
+        public const string EncryptionKey = "!#$a54?3";
 
         public const string DefaultCourseIcon = "DefaultCourse.jpg";
 

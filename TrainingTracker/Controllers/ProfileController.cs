@@ -296,11 +296,11 @@ namespace TrainingTracker.Controllers
         /// </summary>
         /// <returns> Returns list of users working under a lead as json object.</returns>
         [HttpGet]
-        public async System.Threading.Tasks.Task<ActionResult> GetMembersUnderLead()                                                                 
+        public async System.Threading.Tasks.Task<ActionResult> GetMembersUnderLead()
         {
-            return Json(await new UserBl().GetMembersUnderLead(CurrentUser.EmployeeId), JsonRequestBehavior.AllowGet);           
+            return Json(await new UserBl().GetMembersUnderLead(CurrentUser.EmployeeId), JsonRequestBehavior.AllowGet);
         }
-
+                
         /// <summary>
         /// Updates the EmployeeId of TT members that matches with GPS API data
         /// </summary>

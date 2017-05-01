@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -48,34 +49,40 @@ namespace TrainingTracker.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(LoginModel objLoginModel, string returnUrl)
+        public async Task<ActionResult> Login(LoginModel objLoginModel, string returnUrl)
         {
             if (!ModelState.IsValid) return View("Login");
-
-            var userData = new LoginBl().AuthenticateUser(objLoginModel.UserName, Common.Encryption.Cryptography.Encrypt(objLoginModel.Password));
-
-            if (userData.IsValid)
+                        
+            var userData = await new LoginBl().AuthenticateUser(objLoginModel.UserName, objLoginModel.Password);
+            if(userData != null)
             {
-                User currentUser = new UserBl().GetUserByUserName(userData.UserName);
-                Session["currentUser"] = currentUser;
-                string serializedUser = new JavaScriptSerializer().Serialize(currentUser);
+                if (userData.IsValid)
+                {
+                    User currentUser = new UserBl().GetUserByUserName(userData.UserName);
+                    Session["currentUser"] = currentUser;
+                    string serializedUser = new JavaScriptSerializer().Serialize(currentUser);
 
-                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                  1,
-                  userData.UserName.ToString(),
-                  DateTime.Now,
-                  DateTime.Now.AddDays(7),
-                  false,
-                  serializedUser,
-                  "/");
-                Response.Cookies.Clear();
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
-                Response.SetCookie(cookie);
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                      1,
+                      userData.UserName.ToString(),
+                      DateTime.Now,
+                      DateTime.Now.AddDays(7),
+                      false,
+                      serializedUser,
+                      "/");
+                    Response.Cookies.Clear();
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                    Response.SetCookie(cookie);
 
-                return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
+                }
+
+                ModelState.AddModelError("", "Login Failed,Invalid Credentials");
             }
-
-            ModelState.AddModelError("", "Login Failed,Invalid Credentials");
+            else
+            {
+                ModelState.AddModelError("", "Your details are not found. Contact Manager for further queries!");
+            }
             return View("Login");
         }
 

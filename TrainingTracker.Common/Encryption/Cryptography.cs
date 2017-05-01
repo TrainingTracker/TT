@@ -28,7 +28,7 @@ namespace TrainingTracker.Common.Encryption
             MemoryStream objMemoryStream = new MemoryStream();
 
             // fetch the encryption key from constant
-            const string strEncryptionKey = Constants.Constants.SalesTrackerEncryptionKey;
+            const string strEncryptionKey = Constants.Constants.EncryptionKey;
 
             try
             {
@@ -93,7 +93,7 @@ namespace TrainingTracker.Common.Encryption
             RijndaelManaged objRijndaelCipher = new RijndaelManaged();
 
             // fetch the encryption key
-            const string strEncryptionKey = Constants.Constants.SalesTrackerEncryptionKey;
+            const string strEncryptionKey = Constants.Constants.EncryptionKey;
 
             try
             {
