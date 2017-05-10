@@ -277,5 +277,14 @@ namespace TrainingTracker.BLL
                                      Constants.ApiKey, Constants.AppId);
             return JsonConvert.DeserializeObject<List<User>>(responseBody);            
         }
+
+        /// <summary>
+        /// Get all designation
+        /// </summary>
+        /// <returns>List of Designation</returns>
+        public List<User> GetAllDesignation()
+        {
+            return UserDataAccesor.GetAllDesignation();
+        }
     }
 }                                                                                               

@@ -94,5 +94,11 @@ namespace TrainingTracker.DAL.Interface
         /// </summary>
         /// <returns>List of User</returns>
         List<User> GetAllTrainees(int teamId);
+
+        /// <summary>
+        /// Gets all Designation.
+        /// </summary>
+        /// <returns>List of all Designation.</returns>
+        List<User> GetAllDesignation();
     }
 }

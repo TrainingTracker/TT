@@ -11,14 +11,13 @@
     <link id="linkRootUrl" href="~/" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/StyleSheets/Login.css" rel="stylesheet" />
-    <title>Login</title>
+    <title>Login</title>    
 </head>
 <body>
-    @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    @using (Html.BeginForm("TTLogin", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
         <div class="login-page">
             <div class="form">
-                <span class="col-xs-12 alert alert-info">** Use GPS UserName and Password for login now **</span>
                 <label class="col-xs-4" for="">UserName :</label>
                 @Html.TextBoxFor(u => u.UserName, new { @class = "col-xs-8" })
 
@@ -35,6 +34,8 @@
     }
 </body>
 </html>
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+

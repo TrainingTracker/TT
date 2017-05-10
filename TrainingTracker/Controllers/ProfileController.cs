@@ -310,5 +310,15 @@ namespace TrainingTracker.Controllers
         {
             return Json(await new UserBl().SyncGPSUsers(CurrentUser), JsonRequestBehavior.AllowGet);
         }
+
+
+        /// <summary>
+        /// Get All Designation
+        /// </summary>
+        /// <returns>returns list of all designation</returns>
+        public JsonResult GetAllDesignation()
+        {
+            return Json(new UserBl().GetAllDesignation(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

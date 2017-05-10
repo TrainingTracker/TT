@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -417,6 +418,7 @@
     <Content Include="Views\Shared\_MirrorSummary.cshtml" />
     <Content Include="Views\Shared\_MirrorReport.cshtml" />
     <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
+    <Content Include="Views\Login\GPSLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

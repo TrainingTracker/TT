@@ -30,7 +30,7 @@ namespace TrainingTracker.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public ActionResult TTLogin(string returnUrl)
         {
             var formCookies = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
             ViewBag.ReturnUrl = returnUrl;
@@ -41,7 +41,7 @@ namespace TrainingTracker.Controllers
 
             if (authTicket != null && !authTicket.Expired)
             {
-               return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard");
             }
             return View("Login");
         }
@@ -49,40 +49,34 @@ namespace TrainingTracker.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> Login(LoginModel objLoginModel, string returnUrl)
+        public ActionResult TTLogin(LoginModel objLoginModel, string returnUrl)
         {
-            if (!ModelState.IsValid) return View("Login");
-                        
-            var userData = await new LoginBl().AuthenticateUser(objLoginModel.UserName, objLoginModel.Password);
-            if(userData != null)
+            if (!ModelState.IsValid) return View("TTLogin");
+
+            var userData = new LoginBl().AuthenticateUser(objLoginModel.UserName, Common.Encryption.Cryptography.Encrypt(objLoginModel.Password));
+
+            if (userData.IsValid)
             {
-                if (userData.IsValid)
-                {
-                    User currentUser = new UserBl().GetUserByUserName(userData.UserName);
-                    Session["currentUser"] = currentUser;
-                    string serializedUser = new JavaScriptSerializer().Serialize(currentUser);
+                User currentUser = new UserBl().GetUserByUserName(userData.UserName);
+                Session["currentUser"] = currentUser;
+                string serializedUser = new JavaScriptSerializer().Serialize(currentUser);
 
-                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                      1,
-                      userData.UserName.ToString(),
-                      DateTime.Now,
-                      DateTime.Now.AddDays(7),
-                      false,
-                      serializedUser,
-                      "/");
-                    Response.Cookies.Clear();
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
-                    Response.SetCookie(cookie);
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                  1,
+                  userData.UserName.ToString(),
+                  DateTime.Now,
+                  DateTime.Now.AddDays(7),
+                  false,
+                  serializedUser,
+                  "/");
+                Response.Cookies.Clear();
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                Response.SetCookie(cookie);
 
-                    return RedirectToLocal(returnUrl);
-                }
-
-                ModelState.AddModelError("", "Login Failed,Invalid Credentials");
+                return RedirectToLocal(returnUrl);
             }
-            else
-            {
-                ModelState.AddModelError("", "Your details are not found. Contact Manager for further queries!");
-            }
+
+            ModelState.AddModelError("", "Login Failed,Invalid Credentials");
             return View("Login");
         }
 
@@ -120,6 +114,63 @@ namespace TrainingTracker.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Login(string returnUrl)
+        {
+            var formCookies = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (formCookies == null) return View("GPSLogin");
+
+            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(formCookies.Value);
+
+            if (authTicket != null && !authTicket.Expired)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View("GPSLogin");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginModel objLoginModel, string returnUrl)
+        {
+            if (!ModelState.IsValid) return View("GPSLogin");
+
+            var userData = await new LoginBl().GPSAuthentication(objLoginModel.UserName, objLoginModel.Password);
+            if (userData != null)
+            {
+                if (userData.IsValid)
+                {
+                    User currentUser = new UserBl().GetUserByUserName(userData.UserName);
+                    Session["currentUser"] = currentUser;
+                    string serializedUser = new JavaScriptSerializer().Serialize(currentUser);
+
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                      1,
+                      userData.UserName.ToString(),
+                      DateTime.Now,
+                      DateTime.Now.AddDays(7),
+                      false,
+                      serializedUser,
+                      "/");
+                    Response.Cookies.Clear();
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                    Response.SetCookie(cookie);
+
+                    return RedirectToLocal(returnUrl);
+                }
+
+                ModelState.AddModelError("", "Login Failed,Invalid Credentials");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Your details are not found. Contact Manager for further queries!");
+            }
+            return View("GPSLogin");
         }
     }
 }

@@ -27,7 +27,7 @@
                 @if (HttpContext.Current.User.IsInRole("Manager"))
                 {
                     <li data-bind="click:function(){my.userSettingVm.markAsSelected('GPSMembers')}, css:{'active': my.userSettingVm.selectedSetting() == 'GPSMembers'}">
-                        <a href="#" data-bind="click:function(){ my.addUserVm.closeDialogue();  my.notificationSettingVm.closeNotificationSetting(); my.memberDetailsVm.getMembersUnderLead()}, visible:  my.meta.isManager()">
+                        <a href="#" data-bind="click:function(){ my.addUserVm.closeDialogue();  my.notificationSettingVm.closeNotificationSetting(); my.memberDetailsVm.getMembersUnderLead() , my.memberDetailsVm.getAllDesignation()}, visible:  my.meta.isManager()">
                             <span>GPS User</span><i class="pull-right fa fa-users" aria-hidden="true"></i>
                         </a>
 

@@ -10,7 +10,7 @@
 #divGPSUserMainHeader {
     color: #fff;
     font-size: 16px;
-    background-color: #2596F1;
+    background-color: #5093ca;
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
@@ -28,4 +28,23 @@
 }
 .selected {
     background-color: #2596F1;
+}
+
+#divAutoCompleteTrainee ul{
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 73.5%;
+    left: 14.9%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAutoCompleteTrainee li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
 }
