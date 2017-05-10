@@ -73,6 +73,7 @@
 
         getMembersUnderLead = function () {
             unsyncedUsers([]),
+            my.memberDetailsVm.saveMessage('');
             my.userService.getMembersUnderLead(getAllUsers);
             isVisible(true);
         },
