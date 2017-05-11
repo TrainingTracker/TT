@@ -231,7 +231,7 @@
         filterByDesignation = function (value) {
 
             filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                if (value == 'All') return 1 == 1;
+                if (value == 'All') return true;
                 return value == item.DesignationName;
             });
             filteredUsers([]);
