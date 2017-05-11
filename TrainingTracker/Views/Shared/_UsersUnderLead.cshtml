@@ -40,11 +40,11 @@
                                </div>
                                <input id="inputSelectedFilter" class="form-control col-xs-10 " type="text" disabled data-bind="text: my.memberDetailsVm.selectedDesignation">
                            </div>
-                           <div class="col-xs-6 no-margin-left no-padding-left">
+                           <div class="col-xs-6 no-margin-left no-padding-left no-padding-right no-margin-right">
                                <input type="hidden" name="search_param" value="all" id="search_param">
                                <input id="inputSearchBar" type="text" class="form-control" name="x" placeholder="Search by Name"
                                       data-bind="text: my.memberDetailsVm.filterKeyword , value: my.memberDetailsVm.filterKeyword , valueUpdate : 'afterkeydown',event : 'afterkeydown' , event : {keyup : getAutoCompleteUserData(filterKeyword)}">
-                               <span class="input-group-btn">
+                               <span class="col-xs-2 no-padding-left no-margin-left no-padding-right no-margin-right">
                                    <button class="btn btn-default" type="button" data-bind="click : function() {my.memberDetailsVm.searchByName(filterKeyword)}">
                                        <span class="glyphicon glyphicon-search"></span>
                                    </button>
@@ -71,7 +71,7 @@
                                <span class="glyphicon glyphicon-refresh"></span>
                        </button>
                    </div>
-                   <div data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-2 spacer-top-bottom no-margin-left">
+                   <div data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-2 spacer-top-bottom no-margin-left no-padding-left ">
                        @*<div class="dropdown">
                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                                Import

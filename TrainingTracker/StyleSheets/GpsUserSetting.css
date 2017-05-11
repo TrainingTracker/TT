@@ -102,6 +102,7 @@
 
 .div-search-bar .btn-default {
     color: #fff;
+    width: 100%;
 }
 
 .div-search-bar .btn:hover {
