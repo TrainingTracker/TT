@@ -97,5 +97,8 @@
         syncGPSUsers: function (callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SyncGPSUsers", null, callback);
         },
+        getAllDesignation: function (callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetAllDesignation", null, callback);
+        },
     };
 }(my));

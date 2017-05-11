@@ -33,6 +33,7 @@
                 selectedSetting("GPSMembers");
                 my.notificationSettingVm.closeNotificationSetting();
                 my.memberDetailsVm.getMembersUnderLead();
+                my.memberDetailsVm.getAllDesignation();
             }
             else {
                 selectedSetting("MyProfile");

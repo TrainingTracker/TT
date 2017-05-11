@@ -2,30 +2,244 @@
     color: #2196f3;
     font-size: 14px;
     font-weight: bold;
-   background-color: #e5f3fe;
+    background-color: #e5f3fe;
     border: 1px solid #ccc;
     border-radius: 5px 5px 0 0;
 }
 
+#gpsMembersSettingPannel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+
+#gpsMembersSettingPannel .panel-footer, #gpsMembersSettingPannel .panel-heading {
+    background-color: #fbfbfb;
+    border: none;
+}
+
+#inputSelectedFilter, #inputSearchBar {
+    width: 83.2% !important;
+    padding: 1.2em;
+    border-radius: 0;
+}
+
 #divGPSUserMainHeader {
     color: #fff;
+    padding: 9px;
     font-size: 16px;
-    background-color: #2596F1;
+    background-color: #5093ca;
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
-#divGPSUserSubHeader div{
-  background-color: #e5f3fe;
+
+#divDataArea > div {
+    padding-top: 10px;
 }
-.gps-user-row {
+
+    #divDataArea > div > div:not(:last-child) {
+        margin-top: 7px;
+    }
+
+#divGPSUserSubHeader div {
+    background-color: #e5f3fe;
+    padding: 8px;
+}
+
+/*.gps-user-row {
     background-color: #fff;
     border-bottom: 2px solid #ccc;
     border-left: 2px solid #ccc;
     border-right: 2px solid #ccc;
-}
-#divSyncContainer {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}*/
+
+#divSyncContainer, #divQuickImport {
     margin-bottom: 10px;
+    display: inline-block;
 }
+
+#divSyncContainer {
+    float: left;
+}
+
+#divQuickTools {
+    padding-top: 3px;
+}
+
+    #divQuickTools .btn {
+        border-color: #192741;
+        opacity: 1;
+        background-color: #192741;
+    }
+
+
 .selected {
     background-color: #2596F1;
+}
+
+#divAutoCompleteTrainee ul {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 41.5%;
+    left: 49.9%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAutoCompleteTrainee li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
+}
+
+.div-search-bar .btn {
+    border-radius: 0px;
+    background-color: #ff0000;
+    border-color: #ff0000;
+    padding: .49em 2em;
+    background-color: red;
+    opacity: .7;
+    font-weight: bold;
+    color: #fff;
+}
+
+.div-search-bar .btn-default {
+    color: #fff;
+    width: 100%;
+}
+
+.div-search-bar .btn:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+#inputSearchBar {
+    padding: 17px;
+}
+
+#divSearchBarContainer {
+    margin-bottom: 10px;
+}
+
+#divEditImport button {
+    background-color: #192741 !important;
+    border-color: #46b8da !important;
+    border-radius: 0px;
+    padding: .49em 2em;
+    opacity: 1;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+
+#divSearchBarContainer .dropdown-menu > li:hover, #divEditImport .dropdown-menu li:hover {
+    background-color: #2596F1;
+    color: #ffffff !important;
+    transition: all 0.2s ease;
+}
+
+#alertMismatch {
+    text-align: center;
+}
+
+#divSearchBarContainer .dropdown-menu > li, #divEditImport .dropdown-menu li {
+    font-weight: normal;
+    font-size: 12px;
+    display: block;
+    padding: 3px 3px 3px 20px;
+    white-space: normal;
+    display: block;
+    padding: 7px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+#divSearchBarContainer .dropdown-menu, #divEditImport .dropdown-menu {
+    padding: 0;
+    border-radius: 0;
+}
+
+#ulDesignationDropdown {
+    top: 35px;
+}
+
+
+
+
+.div-search-bar .btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover {
+    color: #fff;
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+/*Custom checkbox*/
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+
+    .custom-checkbox > .box {
+        position: relative;
+        cursor: pointer;
+        display: block;
+        width: 22px;
+        height: 22px;
+        border: 1px solid #838383;
+        background-color: #ffffff;
+        border-radius: 11px;
+    }
+
+        .custom-checkbox > .box > .tick {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            position: absolute;
+            top: 3px;
+            box-shadow: inset 1px -4px 20px 14px #838383;
+            left: 1px;
+            top: 1px;
+        }
+
+    .custom-checkbox > input:checked + .box > .tick {
+        display: block;
+    }
+
+    .custom-checkbox > input {
+        position: absolute;
+        cursor: pointer;
+        outline: none;
+        top: 0;
+        left: -20px;
+        padding: 0;
+        width: 16px;
+        height: 24px;
+        border: none;
+        margin: 0;
+        opacity: 0;
+        z-index: 1;
+        width: 50px;
+    }
+
+        .custom-checkbox > input:active + .box {
+            border-color: #838383;
+            background-color: #ffffff;
+        }
+
+.label-for-checkbox {
+    display: inline-block;
 }

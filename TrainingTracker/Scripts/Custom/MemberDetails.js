@@ -39,20 +39,43 @@
 
         membersUnderLead = ko.observableArray([]),
 
-        unsyncedUsers =  ko.observableArray([]),
+        unsyncedUsers = ko.observableArray([]),
+
+        lstUserMultipleImport = ko.observableArray([]),
+
+        filteredUsers = ko.observableArray([]),
 
         gpsId = ko.observable(),
 
         saveMessage = ko.observable(),
 
+        allDesignation = ko.observableArray([{ DesignationName: "All" }]),
+
+        //allDesignation([]),
+
+        filteredTrainee = ko.observableArray([]),
+
+        multipleImportStatus = ko.observable(),
+
+        filterKeyword = ko.observable(""),
+
+        selectedDesignation = ko.observable("All"),
+
+        autoCompleteUserData = ko.observableArray([]),
+
         getMembersUnderLeadCallback = function () {
             lstUsers([]),
+            filteredUsers([]),
             ko.utils.arrayForEach(membersUnderLead(), function (item) {
                 item.SelectedOption = ko.observable();
-                item.FullName = item.FirstName + " " + item.MiddleName + " " + item.LastName;
+                if (item.MiddleName != null && item.MiddleName != "") {
+                    item.FullName = item.FirstName + " " + item.MiddleName + " " + item.LastName;
+                } else {
+                    item.FullName = item.FirstName + " " + item.LastName;
+                }
                 var matchFoundForUsername = my.getMatchInArray(activeLstUsers(), item, "UserName");
                 if (matchFoundForUsername.length <= 0) {
-                    item.Status = ko.observable(false);                    
+                    item.Status = ko.observable(false);
                     item.IsReadOnly = ko.observable(false);
                     item.IsActive = ko.observable(false);
                 } else {
@@ -62,10 +85,12 @@
                     item.IsReadOnly = ko.observable(false);
                     item.SelectedOption = ko.observable(getSelectedValue(item));
                 }
+                item.IsChecked = ko.observable(false);
                 var matchFoundForEmployeeId = my.getMatchInArray(activeLstUsers(), item, "EmployeeId");
                 visibilityForSync = matchFoundForEmployeeId.length <= 0 ? true : false;
                 item.GPSId = ko.observable(my.getSubstring(item.EmployeeId, 5, item.EmployeeId.Length));
                 lstUsers.push(item);
+                filteredUsers.push(item);
                 visibilityForSyncCallback(visibilityForSync);
             });
             my.memberDetailsVm.lstUsers().length <= 0 ? my.memberDetailsVm.message("No members available!") : my.memberDetailsVm.message("");
@@ -79,11 +104,11 @@
         },
 
         closeDialogue = function () {
-            
+
         }
 
         saveUserCallback = function (jsonData) {
-            if (jsonData.status) {                
+            if (jsonData.status) {
                 getMembersUnderLead();
                 my.memberDetailsVm.saveMessage("User saved successfully!");
             }
@@ -132,7 +157,7 @@
             if (jsonData != null) {
                 getMembersUnderLead();
             }
-            ko.utils.arrayForEach(jsonData, function (item) {                
+            ko.utils.arrayForEach(jsonData, function (item) {
                 unsyncedUsers.push(item);
             });
         },
@@ -168,14 +193,96 @@
         },
 
         messageVisibilityForImport = function () {
-            for(i=0 ; i< lstUsers().length ; i++)
-            {
-                if(lstUsers()[i].Status() == false)
-                {
+            ko.utils.arrayForEach(lstUsers(), function (item) {
+                if (item.Status == false) {
                     return true;
                 }
-            }
+            });
+        },
+
+        importMultiple = function (isTrainee) {
+
+            ko.utils.arrayForEach(lstUsers(), function (item) {
+                if (item.IsChecked) {
+                    importGPSUser(item, isTrainee);
+                    item.IsChecked = ko.observable(false);
+                }
+            });
+            visibilityForMultipleImport();
+        },
+
+        visibilityForMultipleImport = function () {
+            ko.utils.arrayForEach(lstUsers(), function (item) {
+                ((!item.Status) && item.IsChecked) ? my.memberDetailsVm.multipleImportStatus(false) : my.memberDetailsVm.multipleImportStatus(true);
+            });
+        },
+
+        getAllDesignation = function () {
+            my.userService.getAllDesignation(getAllDesignationCallBack);
         }
+
+        getAllDesignationCallBack = function (jsonData) {
+           // allDesignation([]);
+            ko.utils.arrayForEach(jsonData, function (item) {
+                allDesignation.push(item);
+            });
+        },
+
+        filterByDesignation = function (value) {
+
+            filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
+                if (value == 'All') return true;
+                return value == item.DesignationName;
+            });
+            filteredUsers([]);
+            ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
+                ko.utils.arrayForEach(lstUsers(), function (item) {
+                    filteredUsers.push(item);
+                });
+            });
+            selectedDesignation(value);
+        },
+
+        searchByName = function (filterKeyword) {
+            searchByNameCallback(filterKeyword, "filteredUsers");
+        },
+
+        stringStartsWith = function (string, startsWith) {
+            string = string || "";
+            if (startsWith.length > string.length)
+                return false;
+            return string.substring(0, startsWith.length) === startsWith;
+        };
+
+        searchByNameCallback = function (filterKeyword, container) {
+            autoCompleteUserData([]);
+            if (!(typeof (my.memberDetailsVm.filterKeyword()) == 'undefined' || my.memberDetailsVm.filterKeyword() == '')) {
+                if (container == "filteredUsers") {
+                    filteredUsers([]);
+                    filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
+                        return item.FullName.toUpperCase().includes(my.memberDetailsVm.filterKeyword().trim().toUpperCase());
+                    });
+                } else if (container == "autoCompleteUserData") {
+                    filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
+                        return stringStartsWith(item.FullName.toUpperCase(), my.memberDetailsVm.filterKeyword().trim().toUpperCase());
+
+                    });
+                }
+                ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
+                    ko.utils.arrayForEach(lstUsers(), function (item) {
+                        eval(container).push(item);
+                    });
+                });
+            } else {
+                eval(container)([]);
+            }
+        },
+
+        getAutoCompleteUserData = function (filterKeyword) {
+            autoCompleteUserData([]);
+            searchByNameCallback(filterKeyword, "autoCompleteUserData");
+        }
+
 
         return {
             getMembersUnderLead: getMembersUnderLead,
@@ -199,7 +306,21 @@
             gpsId: gpsId,
             unsyncedUsers: unsyncedUsers,
             messageVisibilityForImport: messageVisibilityForImport,
-            saveMessage : saveMessage
+            saveMessage: saveMessage,
+            lstUserMultipleImport: lstUserMultipleImport,
+            multipleImportStatus: multipleImportStatus,
+            visibilityForMultipleImport: visibilityForMultipleImport,
+            importMultiple: importMultiple,
+            getAllDesignation: getAllDesignation,
+            allDesignation: allDesignation,
+            filterByDesignation: filterByDesignation,
+            filteredUsers: filteredUsers,
+            searchByName: searchByName,
+            filterKeyword: filterKeyword,
+            getAutoCompleteUserData: getAutoCompleteUserData,
+            autoCompleteUserData: autoCompleteUserData,
+            stringStartsWith: stringStartsWith,
+            selectedDesignation: selectedDesignation
         }
     }();
 });

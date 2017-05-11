@@ -54,6 +54,7 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Encryption\Cryptography.cs" />
     <Compile Include="Entity\Assignment.cs" />
+    <Compile Include="Entity\Designation.cs" />
     <Compile Include="Entity\EmailAlertSubscription.cs" />
     <Compile Include="Entity\Course.cs" />
     <Compile Include="Entity\CourseSubtopic.cs" />
@@ -108,7 +109,10 @@
     <Content Include="EmailTemplates\NewFeedback.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
