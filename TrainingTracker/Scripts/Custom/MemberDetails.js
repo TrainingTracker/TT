@@ -238,7 +238,7 @@
                     filteredUsers.push(item);
                 });
             });
-            selectedDesignation = ko.observable(value);
+            selectedDesignation(value);
         },
 
         searchByName = function (filterKeyword) {
@@ -266,7 +266,6 @@
 
                     });
                 }
-                my.memberDetailsVm.filterKeyword = ko.observable("");
                 ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
                     ko.utils.arrayForEach(lstUsers(), function (item) {
                         eval(container).push(item);
