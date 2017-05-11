@@ -50,9 +50,9 @@
 
         saveMessage = ko.observable(),
 
-        allDesignation = ko.observableArray([]),
+        //allDesignation = ko.observableArray([{ DesignationName: "All" }]),
 
-        allDesignation([]),
+        allDesignation = ko.observableArray([]),
 
         filteredTrainee = ko.observableArray([]),
 
@@ -60,7 +60,7 @@
 
         filterKeyword = ko.observable(""),
 
-        selectedDesignation = ko.observable(""),
+        selectedDesignation = ko.observable("All"),
 
         autoCompleteUserData = ko.observableArray([]),
 
@@ -231,11 +231,11 @@
         },
 
         filterByDesignation = function (value) {
+            filteredUsers([]);
             if (value != "All") {
                 filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
                     return value == item.DesignationName;
-                });
-                filteredUsers([]);
+                });                
                 ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
                     ko.utils.arrayForEach(lstUsers(), function (item) {
                         filteredUsers.push(item);

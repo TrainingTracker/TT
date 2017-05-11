@@ -122,8 +122,8 @@
                    <div class="col-xs-12 gps-user-row no-left-margin no-right-margin text-align-center">
                        <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
                            <div class="col-xs-1 margin-top spacer-top-bottom">
-                               <span class="custom-checkbox">
-                                   <input type="checkbox" id="ckbChecked" data-bind="checked: IsChecked , enable : !Status() , click : function(){visibilityForMultipleImport()}" />
+                               <span class="custom-checkbox" data-bind="style:{visibility: Status() ?  'visible' :'hidden' }">
+                                   <input type="checkbox" data-bind="attr:{id:'ckbChecked_' + UserId},checked: IsChecked() , enable : !Status() , click : function(){visibilityForMultipleImport()}" />
                                    <span class="box" style="right:20px">
                                        <span class="tick"></span>
                                    </span>

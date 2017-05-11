@@ -27,23 +27,21 @@
 
 #divGPSUserMainHeader {
     color: #fff;
-        padding: 9px;
+    padding: 9px;
     font-size: 16px;
     background-color: #5093ca;
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
 
-#divDataArea > div
-{
-    padding-top:10px;
+#divDataArea > div {
+    padding-top: 10px;
 }
 
-#divDataArea > div >div:not(:last-child)
-{
-    margin-top: 7px;
-}
-   
+    #divDataArea > div > div:not(:last-child) {
+        margin-top: 7px;
+    }
+
 #divGPSUserSubHeader div {
     background-color: #e5f3fe;
     padding: 8px;
@@ -143,16 +141,16 @@
 
 
 #divSearchBarContainer .dropdown-menu > li:hover, #divEditImport .dropdown-menu li:hover {
-        background-color: #2596F1;
+    background-color: #2596F1;
     color: #ffffff !important;
     transition: all 0.2s ease;
 }
 
-#alertMismatch{
-    text-align:center;
+#alertMismatch {
+    text-align: center;
 }
 
-#divSearchBarContainer .dropdown-menu > li,#divEditImport .dropdown-menu li {
+#divSearchBarContainer .dropdown-menu > li, #divEditImport .dropdown-menu li {
     font-weight: normal;
     font-size: 12px;
     display: block;
@@ -167,14 +165,13 @@
     white-space: nowrap;
 }
 
-#divSearchBarContainer .dropdown-menu,#divEditImport .dropdown-menu
-{
+#divSearchBarContainer .dropdown-menu, #divEditImport .dropdown-menu {
     padding: 0;
     border-radius: 0;
 }
 
-#ulDesignationDropdown{
-        top: 35px;
+#ulDesignationDropdown {
+    top: 35px;
 }
 
 
@@ -227,9 +224,10 @@
         cursor: pointer;
         outline: none;
         top: 0;
+        left: -20px;
         padding: 0;
         width: 16px;
-        height: 16px;
+        height: 24px;
         border: none;
         margin: 0;
         opacity: 0;
