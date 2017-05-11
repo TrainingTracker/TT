@@ -27,24 +27,36 @@
 
 #divGPSUserMainHeader {
     color: #fff;
+        padding: 9px;
     font-size: 16px;
     background-color: #5093ca;
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
 
-#divGPSUserSubHeader div {
-    background-color: #e5f3fe;
+#divDataArea > div
+{
+    padding-top:10px;
 }
 
-.gps-user-row {
+#divDataArea > div >div:not(:last-child)
+{
+    margin-top: 7px;
+}
+   
+#divGPSUserSubHeader div {
+    background-color: #e5f3fe;
+    padding: 8px;
+}
+
+/*.gps-user-row {
     background-color: #fff;
     border-bottom: 2px solid #ccc;
     border-left: 2px solid #ccc;
     border-right: 2px solid #ccc;
     margin-top: 4px;
     margin-bottom: 4px;
-}
+}*/
 
 #divSyncContainer, #divQuickImport {
     margin-bottom: 10px;
