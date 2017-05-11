@@ -7,6 +7,23 @@
     border-radius: 5px 5px 0 0;
 }
 
+#gpsMembersSettingPannel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+
+#gpsMembersSettingPannel .panel-footer, #gpsMembersSettingPannel .panel-heading {
+    background-color: #fbfbfb;
+    border: none;
+}
+
+#inputSelectedFilter,#inputSearchBar{
+        width: 83% !important;
+    padding: 1.2em;
+}
+
 #divGPSUserMainHeader {
     color: #fff;
     font-size: 16px;
