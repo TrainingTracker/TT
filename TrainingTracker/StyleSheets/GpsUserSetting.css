@@ -2,7 +2,7 @@
     color: #2196f3;
     font-size: 14px;
     font-weight: bold;
-   background-color: #e5f3fe;
+    background-color: #e5f3fe;
     border: 1px solid #ccc;
     border-radius: 5px 5px 0 0;
 }
@@ -10,22 +10,86 @@
 #divGPSUserMainHeader {
     color: #fff;
     font-size: 16px;
-    background-color: #2596F1;
+    background-color: #5093ca;
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
-#divGPSUserSubHeader div{
-  background-color: #e5f3fe;
+
+#divGPSUserSubHeader div {
+    background-color: #e5f3fe;
 }
+
 .gps-user-row {
     background-color: #fff;
     border-bottom: 2px solid #ccc;
     border-left: 2px solid #ccc;
     border-right: 2px solid #ccc;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
+
 #divSyncContainer {
     margin-bottom: 10px;
 }
+
 .selected {
     background-color: #2596F1;
+}
+
+#divAutoCompleteTrainee ul {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 73.5%;
+    left: 14.9%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAutoCompleteTrainee li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
+}
+
+.div-search-bar .btn {
+    border-radius: 0px;
+    background-color: #ff0000;
+    border-color: #ff0000;
+    padding: .49em 2em;
+    background-color: red;
+    opacity: .7;
+    font-weight: bold;
+    color: #fff;
+}
+
+.div-search-bar .btn-default {
+    color: #fff;
+}
+
+.div-search-bar .btn:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+#inputSearchBar {
+    padding: 17px;
+}
+
+#divSearchBarContainer {
+    margin-bottom: 10px;
+}
+
+#divEditImport button {
+    background-color: #2196f3 !important;
+    border-color: #46b8da !important;
+    border-radius: 0px;
+    padding: .49em 2em;
+    background-color: red;
+    opacity: .7;
+    font-weight: bold;
+    color: #fff;
 }

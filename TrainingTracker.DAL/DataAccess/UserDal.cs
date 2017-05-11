@@ -494,5 +494,28 @@ namespace TrainingTracker.DAL.DataAccess
                 return null;
             }
         }
+
+        /// <summary>
+        /// Gets all Designation.
+        /// </summary>
+        /// <returns>List of all designation.</returns>
+        public List<User> GetAllDesignation()
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    return context.Users.Select(x => new User
+                    {
+                        Designation = x.Designation
+                    }).Distinct().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
+        }
     }
 }

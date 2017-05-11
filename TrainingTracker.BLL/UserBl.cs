@@ -277,5 +277,14 @@ namespace TrainingTracker.BLL
             var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
             return (data != null ? data : null);
         }
+
+        /// <summary>
+        /// Get all designation
+        /// </summary>
+        /// <returns>List of Designation</returns>
+        public List<User> GetAllDesignation()
+        {
+            return UserDataAccesor.GetAllDesignation();
+        }
     }
 }                                                                                               
