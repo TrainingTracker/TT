@@ -59,6 +59,8 @@
 
         filterKeyword = ko.observable(""),
 
+        selectedDesignation = ko.observable(""),
+
         autoCompleteUserData = ko.observableArray([]),
 
         getMembersUnderLeadCallback = function () {
@@ -279,6 +281,7 @@
             searchByNameCallback(filterKeyword, "autoCompleteUserData");
         }
 
+
         return {
             getMembersUnderLead: getMembersUnderLead,
             lstUsers: lstUsers,
@@ -314,7 +317,8 @@
             filterKeyword: filterKeyword,
             getAutoCompleteUserData: getAutoCompleteUserData,
             autoCompleteUserData: autoCompleteUserData,
-            stringStartsWith: stringStartsWith
+            stringStartsWith: stringStartsWith,
+            selectedDesignation: selectedDesignation
         }
     }();
 });
