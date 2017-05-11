@@ -34,9 +34,10 @@
                                        <span class="glyphicon glyphicon-filter"></span>
                                        <span class="caret"></span>
                                    </button>
-                                   <ul id="ulDesignationDropdown" class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
-                                       <li style="cursor: pointer" data-bind="text: Designation , click:function(){ my.memberDetailsVm.filterByDesignation(Designation)}"></li>
-                                   </ul>
+
+                                       <ul id="ulDesignationDropdown" class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
+                                           <li style="cursor: pointer" data-bind="text: DesignationName , click:function(){ my.memberDetailsVm.filterByDesignation(DesignationName)}"></li>
+                                       </ul>
                                </div>
                                <input id="inputSelectedFilter" class="form-control col-xs-10 " type="text" disabled data-bind="value: my.memberDetailsVm.selectedDesignation">
                            </div>

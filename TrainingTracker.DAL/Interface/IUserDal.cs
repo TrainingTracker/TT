@@ -99,6 +99,6 @@ namespace TrainingTracker.DAL.Interface
         /// Gets all Designation.
         /// </summary>
         /// <returns>List of all Designation.</returns>
-        List<User> GetAllDesignation();
+        List<Designation> GetAllDesignation();
     }
 }

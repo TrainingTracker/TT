@@ -230,7 +230,7 @@
 
         filterByDesignation = function (value) {
             filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                return value == item.Designation;
+                return value == item.DesignationName;
             });
             filteredUsers([]);
             ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
