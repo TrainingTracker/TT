@@ -49,9 +49,9 @@
 
         saveMessage = ko.observable(),
 
-        allDesignation = ko.observableArray([]),
+        allDesignation = ko.observableArray([{ DesignationName: "All" }]),
 
-        allDesignation([]),
+        //allDesignation([]),
 
         filteredTrainee = ko.observableArray([]),
 
@@ -59,7 +59,7 @@
 
         filterKeyword = ko.observable(""),
 
-        selectedDesignation = ko.observable(""),
+        selectedDesignation = ko.observable("All"),
 
         autoCompleteUserData = ko.observableArray([]),
 
@@ -222,14 +222,16 @@
         }
 
         getAllDesignationCallBack = function (jsonData) {
-            allDesignation([]);
+           // allDesignation([]);
             ko.utils.arrayForEach(jsonData, function (item) {
                 allDesignation.push(item);
             });
         },
 
         filterByDesignation = function (value) {
+
             filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
+                if (value == 'All') return 1 == 1;
                 return value == item.DesignationName;
             });
             filteredUsers([]);
