@@ -273,9 +273,9 @@ namespace TrainingTracker.BLL
 
         public async Task<List<User>> GetMembersUnderLead(string userId)
         {
-            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers", new Uri(Constants.GpsWebApiUrl), 
-                                     Constants.ApiKey, Constants.AppId);
-            return JsonConvert.DeserializeObject<List<User>>(responseBody);            
+            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers", new Uri(Constants.GpsWebApiUrl), Constants.ApiKey, Constants.AppId);
+            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
+            return (data != null ? data : null);
         }
     }
 }                                                                                               
