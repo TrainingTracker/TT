@@ -19,10 +19,10 @@
     border: none;
 }
 
-#inputSelectedFilter,#inputSearchBar{
-        width: 83% !important;
+#inputSelectedFilter, #inputSearchBar {
+    width: 83.2% !important;
     padding: 1.2em;
-        border-radius: 0;
+    border-radius: 0;
 }
 
 #divGPSUserMainHeader {
@@ -46,25 +46,24 @@
     margin-bottom: 4px;
 }
 
-#divSyncContainer,#divQuickImport {
+#divSyncContainer, #divQuickImport {
     margin-bottom: 10px;
-    display:inline-block;
+    display: inline-block;
 }
-#divSyncContainer
-{
+
+#divSyncContainer {
     float: left;
 }
 
-#divQuickTools
-{
-    padding-top:3px;
+#divQuickTools {
+    padding-top: 3px;
 }
 
-#divQuickTools .btn{
-    border-color: #192741;
-   opacity:1;
-    background-color: #192741;
-}
+    #divQuickTools .btn {
+        border-color: #192741;
+        opacity: 1;
+        background-color: #192741;
+    }
 
 
 .selected {
@@ -122,7 +121,7 @@
     background-color: #192741 !important;
     border-color: #46b8da !important;
     border-radius: 0px;
-    padding: .49em 2em; 
+    padding: .49em 2em;
     opacity: 1;
     font-weight: bold;
     color: #fff;
@@ -133,19 +132,19 @@
     font-size: 12px;
 }
 
-#divQuickImport  .dropdown-menu>li>a:hover {
+#divQuickImport .dropdown-menu > li > a:hover {
     color: #262626;
     text-decoration: none;
     background-color: #f5f5f5;
 }
 
-#divQuickImport  .dropdown-menu > li  {
+#divQuickImport .dropdown-menu > li {
     display: block;
     padding: 3px 3px 3px 20px;
     white-space: normal;
 }
 
-#divQuickImport  .dropdown-menu>li {
+#divQuickImport .dropdown-menu > li {
     display: block;
     padding: 3px 20px;
     clear: both;
@@ -155,3 +154,9 @@
     white-space: nowrap;
 }
 
+.div-search-bar .btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover {
+    color: #fff;
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
