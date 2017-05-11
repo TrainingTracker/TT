@@ -499,15 +499,15 @@ namespace TrainingTracker.DAL.DataAccess
         /// Gets all Designation.
         /// </summary>
         /// <returns>List of all designation.</returns>
-        public List<User> GetAllDesignation()
+        public List<Designation> GetAllDesignation()
         {
             try
             {
                 using (TrainingTrackerEntities context = new TrainingTrackerEntities())
                 {
-                    return context.Users.Select(x => new User
+                    return context.Users.Select(x => new Designation
                     {
-                        Designation = x.Designation
+                        DesignationName = x.Designation
                     }).Distinct().ToList();
                 }
             }

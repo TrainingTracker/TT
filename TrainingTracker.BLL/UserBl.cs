@@ -282,7 +282,7 @@ namespace TrainingTracker.BLL
         /// Get all designation
         /// </summary>
         /// <returns>List of Designation</returns>
-        public List<User> GetAllDesignation()
+        public List<Designation> GetAllDesignation()
         {
             return UserDataAccesor.GetAllDesignation();
         }
