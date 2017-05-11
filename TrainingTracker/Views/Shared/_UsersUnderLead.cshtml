@@ -34,7 +34,7 @@
                                        <span class="glyphicon glyphicon-filter"></span>
                                        <span class="caret"></span>
                                    </button>
-                                   <ul class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
+                                   <ul id="ulDesignationDropdown" class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
                                        <li style="cursor: pointer" data-bind="text: Designation , click:function(){ my.memberDetailsVm.filterByDesignation(Designation)}"></li>
                                    </ul>
                                </div>
