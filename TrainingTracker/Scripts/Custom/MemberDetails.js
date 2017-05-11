@@ -238,6 +238,7 @@
                     filteredUsers.push(item);
                 });
             });
+            selectedDesignation = ko.observable(value);
         },
 
         searchByName = function (filterKeyword) {
