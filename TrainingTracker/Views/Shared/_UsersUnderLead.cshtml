@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container div-search-bar" id="divSearchBarContainer">
             <div class="row spacer-top-bottom">
                 <div class="col-xs-4 col-xs-offset-2 spacer-top-bottom">
                     <div class="input-group">
@@ -32,18 +32,18 @@
                                 <ul class="dropdown-menu" data-bind="foreach: my.memberDetailsVm.allDesignation">
                                     <li style="cursor: pointer" data-bind="text: Designation , click:function(){ my.memberDetailsVm.filterByDesignation(Designation)}"></li>
                                 </ul>
-                            </div>                           
+                            </div>
                         </div>
                         <input type="hidden" name="search_param" value="all" id="search_param">
-                        <input type="text" class="form-control" name="x" placeholder="Search by Name"
-                               data-bind="value: my.memberDetailsVm.filterKeyword , valueUpdate : 'afterkeydown',event : 'afterkeydown' , event : {keyup : getAutoCompleteUserData(filterKeyword)}">
+                        <input id="inputSearchBar" type="text" class="form-control" name="x" placeholder="Search by Name"
+                               data-bind="text: my.memberDetailsVm.filterKeyword , value: my.memberDetailsVm.filterKeyword , valueUpdate : 'afterkeydown',event : 'afterkeydown' , event : {keyup : getAutoCompleteUserData(filterKeyword)}">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click : function() {my.memberDetailsVm.searchByName(filterKeyword)}">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
-                        </span>                                               
+                        </span>
                     </div>
-                    <div class="col-xs-12 dropdown spacer-top-bottom" id="divAutoCompleteTrainee">                        
+                    <div class="col-xs-12 dropdown spacer-top-bottom" id="divAutoCompleteTrainee">
                         <ul data-bind="foreach:  my.memberDetailsVm.autoCompleteUserData" class="no-padding-left no-padding-right floating-trainee-filter">
                             <li class="col-xs-12" data-bind="click: function () { my.memberDetailsVm.searchByName(FullName) }">
                                 <div class="col-xs-10 no-padding-left">
@@ -79,7 +79,7 @@
             </div>
 
         </div>
-        <div class="col-xs-12 ">
+        <div class="col-xs-12">
             <div id="divGPSUserHeader">
                 <div id="divGPSUserMainHeader">
                     GPS Users
@@ -92,7 +92,7 @@
                         <span class="col-xs-12" data-bind="visible: my.memberDetailsVm.visibilityForSync()">Sync button syncs all the TT members to GPS.</span>
                     </div>
                 </div>
-                <div id="divGPSUserSubHeader" class="gps-user-row col-xs-12 no-left-margin no-right-margin text-align-center">                    
+                <div id="divGPSUserSubHeader" class="gps-user-row col-xs-12 no-left-margin no-right-margin text-align-center">
                     <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">Full Name</div>
                     <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">Designation</div>
                     <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom">Email</div>
