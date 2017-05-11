@@ -16,6 +16,7 @@
             IsTrainee: ko.observable(),
             IsManager: ko.observable(),
             IsActive: ko.observable(),
+            IsChecked: ko.observable(),
             ProfilePictureName: ko.observable("Dummy.jpg"),
             Password: ko.observable(),
             PhotoUrl: function () {
@@ -49,9 +50,9 @@
 
         saveMessage = ko.observable(),
 
-        allDesignation = ko.observableArray([{ DesignationName: "All" }]),
+        //allDesignation = ko.observableArray([{ DesignationName: "All" }]),
 
-        //allDesignation([]),
+        allDesignation = ko.observableArray([]),
 
         filteredTrainee = ko.observableArray([]),
 
@@ -213,8 +214,8 @@
 
         visibilityForMultipleImport = function () {
             ko.utils.arrayForEach(lstUsers(), function (item) {
-                ((!item.Status) && item.IsChecked) ? my.memberDetailsVm.multipleImportStatus(false) : my.memberDetailsVm.multipleImportStatus(true);
-            });
+                ((!item.Status) && item.IsChecked) ? my.memberDetailsVm.multipleImportStatus(false) : my.memberDetailsVm.multipleImportStatus(true);               
+            });            
         },
 
         getAllDesignation = function () {
@@ -222,24 +223,29 @@
         }
 
         getAllDesignationCallBack = function (jsonData) {
-           // allDesignation([]);
+            allDesignation([]);
             ko.utils.arrayForEach(jsonData, function (item) {
                 allDesignation.push(item);
             });
+            allDesignation.push({ DesignationName: "All" });
         },
 
         filterByDesignation = function (value) {
-
-            filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                if (value == 'All') return true;
-                return value == item.DesignationName;
-            });
             filteredUsers([]);
-            ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
-                ko.utils.arrayForEach(lstUsers(), function (item) {
+            if (value != "All") {
+                filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
+                    return value == item.DesignationName;
+                });                
+                ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
+                    ko.utils.arrayForEach(lstUsers(), function (item) {
+                        filteredUsers.push(item);
+                    });
+                });                
+            } else {
+                filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
                     filteredUsers.push(item);
                 });
-            });
+            }
             selectedDesignation(value);
         },
 
@@ -324,3 +330,4 @@
         }
     }();
 });
+
