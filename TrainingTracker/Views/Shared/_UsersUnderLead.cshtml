@@ -100,6 +100,14 @@
                     <div id="divGPSUserHeader">
                         <div id="divGPSUserMainHeader">
                             GPS Users
+                            @*<div class="modal-title custom-margin-top-10">
+                                    Note:
+                                    <span class="col-xs-12">This page shows the TT user matching with GPS user under a lead.  </span>
+                                    <br /><br />
+                                    <span class="col-xs-12" data-bind="visible : my.memberDetailsVm.messageVisibilityForImport()">Import to add GPS user to TT</span>
+                                    <hr /><br />
+                                    <span class="col-xs-12" data-bind="visible: my.memberDetailsVm.visibilityForSync()">Sync button syncs all the TT members to GPS.</span>
+                                </div>*@
                         </div>
                         <div id="divGPSUserSubHeader" class="gps-user-row col-xs-12 no-left-margin no-right-margin text-align-center">
                             <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">Full Name</div>
@@ -172,6 +180,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- ko if: my.memberDetailsVm.filteredUsers().length == 0 -->
+                    <div id="" class="custom-margin-top-10">
+                        <span style="text-align:center;display:block;color:red">NO DATA</span>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
         </div>
