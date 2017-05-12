@@ -50,8 +50,6 @@
 
         saveMessage = ko.observable(),
 
-        //allDesignation = ko.observableArray([{ DesignationName: "All" }]),
-
         allDesignation = ko.observableArray([]),
 
         filteredTrainee = ko.observableArray([]),
@@ -63,6 +61,8 @@
         selectedDesignation = ko.observable("All"),
 
         autoCompleteUserData = ko.observableArray([]),
+
+        visibilityForSelectAllRows = ko.observable(false);
 
         getMembersUnderLeadCallback = function () {
             lstUsers([]),
@@ -202,7 +202,6 @@
         },
 
         importMultiple = function (isTrainee) {
-
             ko.utils.arrayForEach(lstUsers(), function (item) {
                 if (item.IsChecked) {
                     importGPSUser(item, isTrainee);
@@ -210,12 +209,21 @@
                 }
             });
             visibilityForMultipleImport();
+            return true;
         },
 
         visibilityForMultipleImport = function () {
             ko.utils.arrayForEach(lstUsers(), function (item) {
-                ((!item.Status) && item.IsChecked) ? my.memberDetailsVm.multipleImportStatus(false) : my.memberDetailsVm.multipleImportStatus(true);               
-            });            
+                if ((!item.Status()) && item.IsChecked()) {
+                    my.memberDetailsVm.multipleImportStatus(true);
+                    visibilityForSelectAllRows(true);
+                } else {
+                    my.memberDetailsVm.multipleImportStatus(false);
+                    visibilityForSelectAllRows(false);
+                }
+            });
+
+            return true;
         },
 
         getAllDesignation = function () {
@@ -234,13 +242,13 @@
             filteredUsers([]);
             if (value != "All") {
                 filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                    return value == item.DesignationName;
-                });                
+                    return value == item.Designation;
+                });
                 ko.utils.arrayForEach(filteredTrainee, function (filteredItem) {
                     ko.utils.arrayForEach(lstUsers(), function (item) {
                         filteredUsers.push(item);
                     });
-                });                
+                });
             } else {
                 filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
                     filteredUsers.push(item);
@@ -262,6 +270,7 @@
 
         searchByNameCallback = function (filterKeyword, container) {
             autoCompleteUserData([]);
+            eval(container)([]);
             if (!(typeof (my.memberDetailsVm.filterKeyword()) == 'undefined' || my.memberDetailsVm.filterKeyword() == '')) {
                 if (container == "filteredUsers") {
                     filteredUsers([]);
@@ -287,8 +296,15 @@
         getAutoCompleteUserData = function (filterKeyword) {
             autoCompleteUserData([]);
             searchByNameCallback(filterKeyword, "autoCompleteUserData");
-        }
+        },
 
+        selectAllRows = function () {
+            ko.utils.arrayForEach(filteredUsers(), function (item) {
+                if (!item.Status()) {
+                    item.IsChecked(true);
+                }
+            });
+        }
 
         return {
             getMembersUnderLead: getMembersUnderLead,
@@ -326,7 +342,9 @@
             getAutoCompleteUserData: getAutoCompleteUserData,
             autoCompleteUserData: autoCompleteUserData,
             stringStartsWith: stringStartsWith,
-            selectedDesignation: selectedDesignation
+            selectedDesignation: selectedDesignation,
+            selectAllRows: selectAllRows,
+            visibilityForSelectAllRows: visibilityForSelectAllRows
         }
     }();
 });
