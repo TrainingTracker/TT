@@ -1,186 +1,178 @@
 ﻿<div id="gpsMembersSettingPannel" style="display: none" data-bind="visible: my.memberDetailsVm.isVisible">
-   <div class="panel">
-       <div class="panel-heading">
-           <span class="panel-title">SYNC PROFILES FROM GPS</span>
-       </div>
-       <div class="panel-body container-fluid custom-margin-top-10">
-           @*<div class="modal-header" data-bind="visible: my.memberDetailsVm.lstUsers().length <=0 ">
-               <span class="modal-title" data-bind="text: my.memberDetailsVm.message"></span>
-           </div>*@
-           <div class="modal-title col-xs-12 alert alert-info" id="divSaveMessage" data-bind="text: my.memberDetailsVm.saveMessage , visible: !(typeof (my.memberDetailsVm.saveMessage()) == 'undefined' || my.memberDetailsVm.saveMessage() == '') ">
-           </div>
-       
-           <div class="modal-title custom-margin-top-10 " data-bind="visible: my.memberDetailsVm.unsyncedUsers().length > 0">
-               <span id="alertMismatch" class=" col-xs-12 alert alert-danger">
-                   Details of following TT users was not found in GPS!
-                   <br />
-                   This may cause because of mismatch of username.
-                   <br />
-               </span>
-               <div class="custom-margin-top-10 alert alert-info " data-bind="foreach: my.memberDetailsVm.unsyncedUsers">
-                   <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
-                       <a data-bind="text: UserName , attr:{href:'/Profile/UserProfile?userId='+ UserId} "></a>
-                   </div>
-               </div>
-           </div>
-           <div class="col-xs-12 container div-search-bar " id="divSearchBarContainer">
-               <div class="row spacer-top-bottom no-margin-left no-margin-right no-padding-left no-padding-right">
-                   <div class="col-xs-12 spacer-top-bottom no-margin-left no-margin-right no-padding-left no-padding-right">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">SYNC PROFILES FROM GPS</span>
+        </div>
+        <div class="panel-body container-fluid custom-margin-top-10">
+            @*<div class="modal-header" data-bind="visible: my.memberDetailsVm.lstUsers().length <=0 ">
+                    <span class="modal-title" data-bind="text: my.memberDetailsVm.message"></span>
+                </div>*@
+            <div class="modal-title col-xs-12 alert alert-info" id="divSaveMessage" data-bind="text: my.memberDetailsVm.saveMessage , visible: !(typeof (my.memberDetailsVm.saveMessage()) == 'undefined' || my.memberDetailsVm.saveMessage() == '') ">
+            </div>
 
-                       <div class="input-group no-margin-left no-margin-right col-xs-12 no-margin-left no-margin-right">
-                           <div class="dropdown search-panel col-xs-6 no-margin-left no-margin-right no-padding-left">
-                               <div class="dropdown no-margin-left no-margin-right">
-                                   <button class="btn btn-primary dropdown-toggle col-xs-2" type="button" data-toggle="dropdown">
-                                       <span class="glyphicon glyphicon-filter"></span>
-                                       <span class="caret"></span>
-                                   </button>
+            <div class="modal-title custom-margin-top-10 " data-bind="visible: my.memberDetailsVm.unsyncedUsers().length > 0">
+                <span id="alertMismatch" class=" col-xs-12 alert alert-danger">
+                    Details of following TT users was not found in GPS!
+                    <br />
+                    This may cause because of mismatch of username.
+                    <br />
+                </span>
+                <div class="custom-margin-top-10 alert alert-info " data-bind="foreach: my.memberDetailsVm.unsyncedUsers">
+                    <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
+                        <a data-bind="text: UserName , attr:{href:'/Profile/UserProfile?userId='+ UserId} "></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 container div-search-bar " id="divSearchBarContainer">
+                <div class="row spacer-top-bottom no-margin-left no-margin-right no-padding-left no-padding-right">
+                    <div class="col-xs-12 spacer-top-bottom no-margin-left no-margin-right no-padding-left no-padding-right">
 
-                                       <ul id="ulDesignationDropdown" class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
-                                           <li style="cursor: pointer" data-bind="text: DesignationName , click:function(){ my.memberDetailsVm.filterByDesignation(DesignationName)}"></li>
-                                       </ul>
-                               </div>
-                               <input id="inputSelectedFilter" class="form-control col-xs-10 " type="text" disabled data-bind="value: my.memberDetailsVm.selectedDesignation">
-                           </div>
-                           <div class="col-xs-6 no-margin-left no-padding-left no-padding-right no-margin-right">
-                               <input type="hidden" name="search_param" value="all" id="search_param">
-                               <input id="inputSearchBar" type="text" class="form-control" name="x" placeholder="Search by Name"
-                                      data-bind="text: my.memberDetailsVm.filterKeyword , value: my.memberDetailsVm.filterKeyword , valueUpdate : 'afterkeydown',event : 'afterkeydown' , event : {keyup : getAutoCompleteUserData(filterKeyword)}">
-                               <span class="col-xs-2 no-padding-left no-margin-left no-padding-right no-margin-right">
-                                   <button class="btn btn-default" type="button" data-bind="click : function() {my.memberDetailsVm.searchByName(filterKeyword)}">
-                                       <span class="glyphicon glyphicon-search"></span>
-                                   </button>
-                               </span>
-                           </div>
-                       </div>
-                       <div class="col-xs-12 dropdown spacer-top-bottom" id="divAutoCompleteTrainee">
-                           <ul data-bind="foreach:  my.memberDetailsVm.autoCompleteUserData" class="no-padding-left no-padding-right floating-trainee-filter">
-                               <li class="col-xs-12" data-bind="click: function () { my.memberDetailsVm.searchByName(FullName) }">
-                                   <div class="col-xs-10 no-padding-left">
-                                       <div>
-                                           <span class="bold-font" data-bind="text: FullName"></span>
-                                       </div>
-                                   </div>
-                               </li>
-                           </ul>
-                       </div>
-                   </div>
-                   <div id="divQuickTools" class="col-xs-12  no-padding-left no-padding-right spacer-top-bottom custom-top-bottom-padding">
-                       <div class="spacer-top-bottom col-xs-6 " id="divSyncContainer">
-                           <button class="btn btn-primary pull-right" type="button"
-                                   data-bind="visible: my.memberDetailsVm.visibilityForSync() , click:function(){ my.memberDetailsVm.syncGPSUser()}">
-                               Sync
-                               <span class="glyphicon glyphicon-refresh"></span>
-                       </button>
-                   </div>
-                   <div data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-2 spacer-top-bottom no-margin-left no-padding-left ">
-                       @*<div class="dropdown">
-                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                               Import
-                               <span class="caret"></span>
-                           </button>
-                       </div>*@
-                       <div id="divQuickImport" data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-6 spacer-top-bottom no-padding-left">
-                           <div class="dropdown pull-left">
-                               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                   Import
-                                   <span class="caret"></span>
-                               </button>
-                               <ul class="dropdown-menu">
-                                   <li data-bind="click:function(){ my.memberDetailsVm.importMultiple(true)}"
-                                       style="cursor: pointer">As Trainee</li>
-                                   <li data-bind="click:function(){ my.memberDetailsVm.importMultiple(false)}"
-                                       style="cursor: pointer">As Trainer</li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-           <div class="col-xs-12 no-margin-left no-margin-right no-padding-right no-padding-left">
-               <div id="divGPSUserHeader">
-                   <div id="divGPSUserMainHeader">
-                       GPS Users
-                       @*<div class="modal-title custom-margin-top-10">
-                           Note:
-                           <span class="col-xs-12">This page shows the TT user matching with GPS user under a lead.  </span>
-                           <br /><br />
-                           <span class="col-xs-12" data-bind="visible : my.memberDetailsVm.messageVisibilityForImport()">Import to add GPS user to TT</span>
-                           <hr /><br />
-                           <span class="col-xs-12" data-bind="visible: my.memberDetailsVm.visibilityForSync()">Sync button syncs all the TT members to GPS.</span>
-                       </div>*@
-                   </div>
-                   <div id="divGPSUserSubHeader" class="gps-user-row col-xs-12 no-left-margin no-right-margin text-align-center">
-                       <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">Full Name</div>
-                       <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">Designation</div>
-                       <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom">Email</div>
-                       <div class="col-xs-2 no-left-margin  margin-top spacer-top-bottom">Trainer / Trainee</div>
-                       <div class="col-xs-1 no-left-margin  margin-top spacer-top-bottom">Active</div>
-                       <div class="col-xs-2 no-left-margin  margin-top spacer-top-bottom">Edit / Import</div>
-                   </div>
-               </div>
-               <div id="divDataArea" class="custom-margin-top-10" data-bind="foreach: my.memberDetailsVm.filteredUsers">
-                   <div class="col-xs-12 gps-user-row no-left-margin no-right-margin text-align-center">
-                       <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
-                           <div class="col-xs-1 margin-top spacer-top-bottom">
-                               <span class="custom-checkbox" data-bind="style:{visibility: !Status() ?  'visible' :'hidden' }">
-                                   <input type="checkbox" data-bind="attr:{id:'ckbChecked_' + UserId},checked: IsChecked , enable : !Status() , click : visibilityForMultipleImport" />
-                                   <span class="box" style="right:20px">
-                                       <span class="tick"></span>
-                                   </span>
-                               </span>
-                           </div>
-                           <a data-bind="text: FullName , attr : { href : my.gpsUrl + '/PublicProfile.aspx?id=' + GPSId() } "></a>
-                       </div>
-                       <div data-bind="text: Designation" class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom"></div>
-                       <div data-bind="text: Email" class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom"></div>
-                       <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">
-                           <div data-bind="visible: (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit')">
-                               <select id="selFeedbackType" class="input-sm form-control" data-bind="options: my.memberDetailsVm.trainingMembers,
+                        <div class="input-group no-margin-left no-margin-right col-xs-12 no-margin-left no-margin-right">
+                            <div class="dropdown search-panel col-xs-6 no-margin-left no-margin-right no-padding-left">
+                                <div class="dropdown no-margin-left no-margin-right">
+                                    <button class="btn btn-primary dropdown-toggle col-xs-2" type="button" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-filter"></span>
+                                        <span class="caret"></span>
+                                    </button>
+
+                                    <ul id="ulDesignationDropdown" class="dropdown-menu " data-bind="foreach: my.memberDetailsVm.allDesignation">
+                                        <li style="cursor: pointer" data-bind="text: DesignationName , click:function(){ my.memberDetailsVm.filterByDesignation(DesignationName)}"></li>
+                                    </ul>
+                                </div>
+                                <input id="inputSelectedFilter" class="form-control col-xs-10 " type="text" disabled data-bind="value: my.memberDetailsVm.selectedDesignation">
+                            </div>
+                            <div class="col-xs-6 no-margin-left no-padding-left no-padding-right no-margin-right">
+                                <input type="hidden" name="search_param" value="all" id="search_param">
+                                <input id="inputSearchBar" type="text" class="form-control" name="x" placeholder="Search by Name"
+                                       data-bind="text: my.memberDetailsVm.filterKeyword , value: my.memberDetailsVm.filterKeyword , valueUpdate : 'afterkeydown',event : 'afterkeydown' , event : {keyup : getAutoCompleteUserData(filterKeyword)}">
+                                <span class="col-xs-2 no-padding-left no-margin-left no-padding-right no-margin-right">
+                                    <button class="btn btn-default" type="button" data-bind="click : function() {my.memberDetailsVm.searchByName(filterKeyword)}">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 dropdown spacer-top-bottom" id="divAutoCompleteTrainee">
+                            <ul data-bind="foreach:  my.memberDetailsVm.autoCompleteUserData" class="no-padding-left no-padding-right floating-trainee-filter">
+                                <li class="col-xs-12" data-bind="click: function () { my.memberDetailsVm.searchByName(FullName) }">
+                                    <div class="col-xs-10 no-padding-left">
+                                        <div>
+                                            <span class="bold-font" data-bind="text: FullName"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="divQuickTools" class="col-xs-12  no-padding-left no-padding-right spacer-top-bottom custom-top-bottom-padding">
+                        <div class="spacer-top-bottom col-xs-2 no-margin-left no-padding-left" id="divSyncContainer">
+                            <button class="btn btn-primary pull-left" type="button"
+                                    data-bind="visible: my.memberDetailsVm.visibilityForSync() , click:function(){ my.memberDetailsVm.syncGPSUser()}">
+                                Sync
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </button>
+                        </div>
+                        <div data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-2 spacer-top-bottom no-margin-left no-padding-left ">
+                            <div id="divQuickImport" data-bind="visible : my.memberDetailsVm.multipleImportStatus()" class="col-xs-2 spacer-top-bottom no-padding-left">
+                                <div class="dropdown pull-left">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Import
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li data-bind="click:function(){ my.memberDetailsVm.importMultiple(true)}"
+                                            style="cursor: pointer">As Trainee</li>
+                                        <li data-bind="click:function(){ my.memberDetailsVm.importMultiple(false)}"
+                                            style="cursor: pointer">As Trainer</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spacer-top-bottom col-xs-2 no-margin-left no-padding-left" id="divSelectAllContainer">
+                            <button class="btn btn-primary pull-left " type="button"
+                                    data-bind="visible:  my.memberDetailsVm.visibilityForSelectAllRows() , click:function(){ my.memberDetailsVm.selectAllRows()}">
+                                Select All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 no-margin-left no-margin-right no-padding-right no-padding-left">
+                    <div id="divGPSUserHeader">
+                        <div id="divGPSUserMainHeader">
+                            GPS Users
+                        </div>
+                        <div id="divGPSUserSubHeader" class="gps-user-row col-xs-12 no-left-margin no-right-margin text-align-center">
+                            <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">Full Name</div>
+                            <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">Designation</div>
+                            <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom">Email</div>
+                            <div class="col-xs-2 no-left-margin  margin-top spacer-top-bottom">Trainer / Trainee</div>
+                            <div class="col-xs-1 no-left-margin  margin-top spacer-top-bottom">Active</div>
+                            <div class="col-xs-2 no-left-margin  margin-top spacer-top-bottom">Edit / Import</div>
+                        </div>
+                    </div>
+                    <div id="divDataArea" class="custom-margin-top-10" data-bind="foreach: my.memberDetailsVm.filteredUsers">
+                        <div class="col-xs-12 gps-user-row no-left-margin no-right-margin text-align-center">
+                            <div class="col-xs-2  no-right-margin margin-top spacer-top-bottom">
+                                <div class="col-xs-1 margin-top spacer-top-bottom">
+                                    <span class="custom-checkbox" data-bind="style:{visibility: !Status() ?  'visible' :'hidden' }">
+                                        <input type="checkbox" data-bind="attr:{id:'ckbChecked_' + UserId},checked: IsChecked , enable : !Status() , click : visibilityForMultipleImport" />
+                                        <span class="box" style="right:20px">
+                                            <span class="tick"></span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <a data-bind="text: FullName , attr : { href : my.gpsUrl + '/PublicProfile.aspx?id=' + GPSId() } "></a>
+                            </div>
+                            <div data-bind="text: Designation" class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom"></div>
+                            <div data-bind="text: Email" class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom"></div>
+                            <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">
+                                <div data-bind="visible: (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit')">
+                                    <select id="selFeedbackType" class="input-sm form-control" data-bind="options: my.memberDetailsVm.trainingMembers,
                                                                                                               optionsText: 'Description',
                                                                                                               optionsValue: 'Value',
                                                                                                               optionsCaption: 'Choose...',
                                                                                                               value: SelectedOption , enable: IsReadOnly()"></select>
-                           </div>
-                       </div>
-                       <div class="col-xs-1">
-                           <span class="custom-checkbox">
-                               <input type="checkbox" id="ckbActive" data-bind="checked: IsActive , enable : IsReadOnly()" />
-                               <span class="box" style="right:-20px">
-                                   <span class="tick"></span>
-                               </span>
-                           </span>
-                       </div>
-                       <div id="divEditImport">
-                           <div data-bind="visible: !Status()" class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">
-                               <div class="dropdown">
-                                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                       Import
-                                       <span class="caret"></span>
-                                   </button>
-                                   <ul class="dropdown-menu">
-                                       <li data-bind="click:function(){ my.memberDetailsVm.importGPSUser(my.memberDetailsVm.lstUsers()[$index()],true)}"
-                                           style="cursor: pointer">As Trainee</li>
-                                       <li data-bind="click:function(){ my.memberDetailsVm.importGPSUser(my.memberDetailsVm.lstUsers()[$index()],false)}"
-                                           style="cursor: pointer">As Trainer</li>
-                                   </ul>
-                               </div>
-                           </div>
-                           <div class="col-xs-2" data-bind="click:function(){ my.memberDetailsVm.makeEditable(my.memberDetailsVm.lstUsers()[$index()])} , visible : (!IsReadOnly() && (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit'))">
-                               <button class="btn btn-primary" type="button" data-toggle="dropdown">
-                                   Edit
-                                   <span class="glyphicon glyphicon-edit"></span>
-                               </button>
-                           </div>
-                           <div class="col-xs-2" data-bind="click:function(){ my.memberDetailsVm.editUser(my.memberDetailsVm.lstUsers()[$index()]),Status()} , visible : (IsReadOnly() && (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit'))">
-                               <button class="btn btn-primary" type="button" data-toggle="dropdown">
-                                   Save
-                                   <span class="glyphicon glyphicon-floppy-saved"></span>
-                               </button>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1">
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="ckbActive" data-bind="checked: IsActive , enable : IsReadOnly()" />
+                                    <span class="box" style="right:-20px">
+                                        <span class="tick"></span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div id="divEditImport">
+                                <div data-bind="visible: !Status()" class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Import
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li data-bind="click:function(){ my.memberDetailsVm.importGPSUser(my.memberDetailsVm.lstUsers()[$index()],true)}"
+                                                style="cursor: pointer">As Trainee</li>
+                                            <li data-bind="click:function(){ my.memberDetailsVm.importGPSUser(my.memberDetailsVm.lstUsers()[$index()],false)}"
+                                                style="cursor: pointer">As Trainer</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2" data-bind="click:function(){ my.memberDetailsVm.makeEditable(my.memberDetailsVm.lstUsers()[$index()])} , visible : (!IsReadOnly() && (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit'))">
+                                    <button class="btn btn-primary" type="button" data-toggle="dropdown">
+                                        Edit
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </div>
+                                <div class="col-xs-2" data-bind="click:function(){ my.memberDetailsVm.editUser(my.memberDetailsVm.lstUsers()[$index()]),Status()} , visible : (IsReadOnly() && (Status() == 'Trainer' || Status() == 'Trainee' || Status() == 'Edit'))">
+                                    <button class="btn btn-primary" type="button" data-toggle="dropdown">
+                                        Save
+                                        <span class="glyphicon glyphicon-floppy-saved"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

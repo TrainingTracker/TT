@@ -59,6 +59,7 @@
 #divSyncContainer, #divQuickImport {
     margin-bottom: 10px;
     display: inline-block;
+    margin-right: -28px;
 }
 
 #divSyncContainer {
@@ -242,4 +243,8 @@
 
 .label-for-checkbox {
     display: inline-block;
+}
+
+#divSelectAllContainer {
+    margin-left: -18px;
 }
