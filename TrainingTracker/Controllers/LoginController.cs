@@ -168,7 +168,7 @@ namespace TrainingTracker.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Your details are not found. Contact Manager for further queries!");
+                ModelState.AddModelError("", "Your details are not found in TT. Contact Manager for further queries!");
             }
             return View("GPSLogin");
         }
