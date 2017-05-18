@@ -24,7 +24,8 @@
             IsNewProfile: ko.observable(false),
             enableChangePassword: ko.observable(false),
             fileData: ko.observable(""),
-            TeamId :ko.observable()
+            TeamId :ko.observable(),
+            EmployeeId : ko.observable()
         },
             currentUser = {
                 UserId: ko.observable(),
@@ -41,7 +42,8 @@
                 Password: ko.observable(""),
                 IsFemale: ko.observable(""),
                 IsActive: ko.observable(),
-                TeamId: ko.observable()                
+                TeamId: ko.observable(),
+                EmployeeId : ko.observable()
             },
             getCurrentUserCallback = function (item) {
                 my.addUserVm.currentUser.UserId(item.UserId);
@@ -59,6 +61,7 @@
                 my.addUserVm.currentUser.TeamId(item.TeamId);
                 my.addUserVm.currentUser.IsFemale(item.IsFemale);
                 my.addUserVm.currentUser.IsActive(item.IsActive);
+                my.addUserVm.currentUser.EmployeeId(item.EmployeeId);
             },
             getCurrentUser = function () {
                 my.userService.getCurrentUser(my.addUserVm.getCurrentUserCallback);
@@ -81,6 +84,7 @@
                 my.addUserVm.user.IsActive(item.IsActive);
                 my.addUserVm.user.enableChangePassword(false);
                 my.addUserVm.user.TeamId(item.TeamId);
+                my.addUserVm.user.EmployeeId(item.EmployeeId);
             },
             saveUserCallback = function (jsonData) {
                 if (jsonData.status) {

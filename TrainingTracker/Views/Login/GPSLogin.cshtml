@@ -1,0 +1,67 @@
+﻿@model TrainingTracker.Common.Entity.LoginModel
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link id="linkRootUrl" href="~/" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/StyleSheets/Login.css" rel="stylesheet" />
+    <title>Login</title>    
+</head>
+<body>
+    <div class="login-page">
+        @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            <div class="box">
+                <div id="header">
+                    <div id="cont-lock"><div id="cont-lock"><img id="mindfireLogo" src="~/Uploads/Mindfire-Solutions.ico" /></div></div>
+                    
+                    <div id="bottom-head"><h1 id="logintoregister">Login</h1></div>
+                </div>
+                <form action="" method="post">
+                    <div class="group">
+                        @Html.TextBoxFor(u => u.UserName, new { @class = "inputMaterial", @required = "true" })
+                        <span class="bar"></span>
+                        <label>Username</label>
+                    </div>
+                    <div class="group">
+                        @Html.PasswordFor(u => u.Password, new { @class = "inputMaterial", @required = "true" })
+                        <span class="bar"></span>
+                        <label>Password</label>
+                    </div>
+                    <input type="submit" value="Log Me In"/>
+                    @Html.ValidationSummary(true, "", new { @class = "col-xs-12 validation-error" })
+                </form>
+                <div id="footer-box">
+                <p class="footer-text">
+                    <span> Use GPS Credentials for login!! </span><br/>
+                    <span> To login using TT username and password, click <a id="ttLoginUrl" href="">here</a></span>
+                 </p>                   
+                </div>
+            </div>
+        }
+    </div>    
+</body>
+</html>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+    var rootUrl = $("#linkRootUrl").attr("href");
+    $("#ttLoginUrl").attr("href", rootUrl + "Login/TTLogin");
+</script>
+
+
+
+
+

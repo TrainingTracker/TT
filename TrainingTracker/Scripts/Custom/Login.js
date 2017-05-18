@@ -20,7 +20,7 @@
             },
             authenticateUserCallback = function (response) {
                 if (response.IsValid) {
-                    window.location = my.rootUrl+'/Login/Valid';
+                    window.location = my.rootUrl + '/Login/Valid';
                 }
                 else {
                     my.loginVm.validationMessage("Invalid credentials.");

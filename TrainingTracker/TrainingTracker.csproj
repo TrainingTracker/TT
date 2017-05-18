@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,6 +58,10 @@
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -119,11 +124,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +288,7 @@
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
     <Content Include="Scripts\Custom\Mirror.Js" />
+    <Content Include="Scripts\Custom\MemberDetails.js" />
     <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
@@ -347,6 +348,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
     <Content Include="StyleSheets\DiscussionThread.css" />
+    <Content Include="StyleSheets\GpsUserSetting.css" />
     <Content Include="StyleSheets\HelpForum.css" />
     <Content Include="StyleSheets\LearningMap.css" />
     <Content Include="StyleSheets\AllCourse.css" />
@@ -375,10 +377,6 @@
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
     <Content Include="Uploads\ProfilePicture\harshw.JPG" />
-    <Content Include="Uploads\Temp\52ff94d2-063f-4de2-a25a-3de1dcf87e28.jpg" />
-    <Content Include="Uploads\Temp\a7bda3fd-17a0-4ca5-a149-2c74e1651a1a.jpg" />
-    <Content Include="Uploads\Temp\aa1b666b-8fc4-42ff-82d6-b9725092ad28.jpg" />
-    <Content Include="Uploads\Temp\f91248c3-3f34-4c12-9090-d0d8628e9e45.jpg" />
     <Content Include="Views\LearningPath\CourseEditor.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -419,9 +417,12 @@
     <Content Include="Views\Mirror\Mirror.cshtml" />
     <Content Include="Views\Shared\_MirrorSummary.cshtml" />
     <Content Include="Views\Shared\_MirrorReport.cshtml" />
+    <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
+    <Content Include="Views\Login\GPSLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\Temp\" />
     <Folder Include="Views\UserHelpForum\" />
   </ItemGroup>
   <ItemGroup>

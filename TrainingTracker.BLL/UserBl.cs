@@ -5,11 +5,19 @@ using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.ViewModel;
 using TrainingTracker.DAL.EntityFramework;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net;
+using System.Dynamic;
+using Newtonsoft.Json;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using Project = TrainingTracker.Common.Entity.Project;
 using Session = TrainingTracker.Common.Entity.Session;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
+using TrainingTracker.Common.Utility;
+using TrainingTracker.Common.Constants;
 
 namespace TrainingTracker.BLL
 {
@@ -25,10 +33,10 @@ namespace TrainingTracker.BLL
         /// <param name="userData">User data object.</param>
         /// <param name="userId">Out parameter created UserId.</param>
         /// <returns>True if added.</returns>
-        public bool AddUser( User userData , out int userId )
+        public bool AddUser(User userData, out int userId)
         {
             userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
-            return UserDataAccesor.AddUser(userData , out userId);
+            return UserDataAccesor.AddUser(userData, out userId);
         }
 
         /// <summary>
@@ -36,7 +44,7 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="userData">User data object.</param>
         /// <returns>True if updated.</returns>
-        public bool UpdateUser( User userData )
+        public bool UpdateUser(User userData)
         {
             userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
             return UserDataAccesor.UpdateUser(userData);
@@ -55,13 +63,13 @@ namespace TrainingTracker.BLL
         /// GEt all user
         /// </summary>
         /// <returns>List of User</returns>
-        public List<User> GetAllUsersByTeam( User currentUser )
+        public List<User> GetAllUsersByTeam(User currentUser)
         {
             if (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) return UserDataAccesor.GetAllUsers();
 
             return currentUser.TeamId.HasValue
                               ? UserDataAccesor.GetAllUsersForTeam(currentUser.TeamId.Value)
-                              : new List<User>();          
+                              : new List<User>();
         }
 
         /// <summary>
@@ -69,7 +77,7 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="userName">string of User Name</param>
         /// <returns>instance of User object</returns>
-        public User GetUserByUserName( string userName )
+        public User GetUserByUserName(string userName)
         {
             return (string.IsNullOrEmpty(userName)) ? new User() :  UserDataAccesor.GetUserByUserName(userName);
         }
@@ -79,7 +87,7 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="userId">UserId</param>
         /// <returns>instance of User object</returns>
-        public User GetUserByUserId( int userId )
+        public User GetUserByUserId(int userId)
         {
             return UserDataAccesor.GetUserById(userId);
         }
@@ -89,7 +97,7 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="userId">logged in user id</param>
         /// <returns>instance of User vm</returns>
-        public UserProfileVm GetUserProfileVm( int userId, User logedInUser)
+        public UserProfileVm GetUserProfileVm(int userId, User logedInUser)
         {
             User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
 
@@ -97,27 +105,27 @@ namespace TrainingTracker.BLL
             {
 
                 User = userId == logedInUser.UserId ? null : currentUser,
-                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null ,
+                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null,
                 TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
                 Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
-                Projects =  null,
-                Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId , 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
+                Projects = null,
+                Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x=>x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>() 
-            };            
+                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>()
+            };
         }
 
         /// <summary>
         /// Function for getting list of active user.
         /// </summary>
         /// <returns>Returns list of active user.</returns>
-        public List<User> GetActiveUsers( User currentUser )
+        public List<User> GetActiveUsers(User currentUser)
         {
             if (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) return UserDataAccesor.GetActiveUsers();
 
             return currentUser.TeamId.HasValue
-                              ? UserDataAccesor.GetActiveUsersByTeam(currentUser.TeamId.Value).Where(x => !currentUser.IsTrainee || !x.IsTrainee || x.UserId==currentUser.UserId ).ToList()
-                              : new List<User>();          
+                              ? UserDataAccesor.GetActiveUsersByTeam(currentUser.TeamId.Value).Where(x => !currentUser.IsTrainee || !x.IsTrainee || x.UserId == currentUser.UserId).ToList()
+                              : new List<User>();
         }
 
         /// <summary>
@@ -129,13 +137,13 @@ namespace TrainingTracker.BLL
         /// <param name="startAddedOn">start date </param>
         /// <param name="endAddedOn">end date</param>
         /// <returns></returns>
-        public List<Feedback> GetUserFeedbackOnFilter( int userId , int pageSize , int feedbackId , DateTime? startAddedOn = null , DateTime? endAddedOn = null )
+        public List<Feedback> GetUserFeedbackOnFilter(int userId, int pageSize, int feedbackId, DateTime? startAddedOn = null, DateTime? endAddedOn = null)
         {
             // truncate any time part from the filter, if only if the variables have any value
             if (startAddedOn.HasValue) startAddedOn = startAddedOn.Value.Date;
             if (endAddedOn.HasValue) endAddedOn = endAddedOn.Value.Date;
 
-            return FeedbackDataAccesor.GetUserFeedback(userId , pageSize , feedbackId , startAddedOn , endAddedOn);
+            return FeedbackDataAccesor.GetUserFeedback(userId, pageSize, feedbackId, startAddedOn, endAddedOn);
         }
 
         /// <summary>
@@ -147,27 +155,27 @@ namespace TrainingTracker.BLL
         /// <param name="arrayFeedbackType">array of feedback type</param>
         /// <param name="trainerId">trainer id</param>
         /// <returns>returns instances of Feedback Plots</returns>
-        public FeedbackPlot GetUserFeedbackOnFilterForPlot( int traineeId , DateTime? startDate , DateTime? endDate ,
-                                                                          string arrayFeedbackType , int trainerId )
+        public FeedbackPlot GetUserFeedbackOnFilterForPlot(int traineeId, DateTime? startDate, DateTime? endDate,
+                                                                          string arrayFeedbackType, int trainerId)
         {
 
             FeedbackPlot objfeedbackPlot = new FeedbackPlot
             {
-                AssignmentFeedbacks = new List<Feedback>() ,
-                CodeReviewFeedbacks = new List<Feedback>() ,
+                AssignmentFeedbacks = new List<Feedback>(),
+                CodeReviewFeedbacks = new List<Feedback>(),
                 WeeklyFeedbacks = new List<Feedback>()
             };
 
             if (string.IsNullOrEmpty(arrayFeedbackType)) return objfeedbackPlot;
 
-            int[] feedbackTypes = Array.ConvertAll(arrayFeedbackType.Split(',') , int.Parse);
+            int[] feedbackTypes = Array.ConvertAll(arrayFeedbackType.Split(','), int.Parse);
 
             foreach (var type in feedbackTypes)
             {
                 switch (type)
                 {
                     case 3:
-                        objfeedbackPlot.AssignmentFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId , 1000 , type)
+                        objfeedbackPlot.AssignmentFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
                                                                                  .Where(x =>
                                                                                      (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
                                                                                              (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
@@ -180,7 +188,7 @@ namespace TrainingTracker.BLL
                         //  var testtt = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type);
 
 
-                        objfeedbackPlot.CodeReviewFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId , 1000 , type)
+                        objfeedbackPlot.CodeReviewFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
                                                                                  .Where(x =>
                                                                                      (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
                                                                                              (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
@@ -190,7 +198,7 @@ namespace TrainingTracker.BLL
                         break;
 
                     case 5:
-                        objfeedbackPlot.WeeklyFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId , 1000 , type)
+                        objfeedbackPlot.WeeklyFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
                                                                               .Where(x =>
                                                                                      (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
                                                                                              ((!startDate.HasValue || x.StartDate > startDate.Value.AddDays(-1)) &&
@@ -207,11 +215,11 @@ namespace TrainingTracker.BLL
         /// Get manage Profile View model
         /// </summary>
         /// <param name="currentUser">current user</param>
-        public ManageProfileVm GetManageProfileVm( User currentUser )
+        public ManageProfileVm GetManageProfileVm(User currentUser)
         {
             return new ManageProfileVm
             {
-                AllTeams = TeamDataAccesor.GetAllTeam() ,
+                AllTeams = TeamDataAccesor.GetAllTeam(),
                 AllUser = GetAllUsersByTeam(currentUser)
             };
         }
@@ -236,5 +244,47 @@ namespace TrainingTracker.BLL
         {
             return SkillDataAccesor.GetAllSkillsForApp();
         }
+
+        public async Task<List<User>> SyncGPSUsers(User currentUser)
+        {
+            List<User> gpsMembersUnderLead = await GetMembersUnderLead(currentUser.EmployeeId);
+            List<User> ttMembersUnderLead = GetManageProfileVm(currentUser).AllUser;
+            List<User> unsyncedMembers = new List<User>();
+            foreach (var gpsMember in gpsMembersUnderLead)
+            {
+                foreach (var ttMember in ttMembersUnderLead)
+                {
+                    if(ttMember.UserName == gpsMember.UserName)
+                    {
+                        ttMember.EmployeeId = gpsMember.EmployeeId;
+                        if (!UserDataAccesor.UpdateUser(ttMember))
+                        {
+                            unsyncedMembers.Add(ttMember);
+                        }
+                    }
+                    else
+                    {
+                        unsyncedMembers.Add(ttMember);
+                    }
+                }
+            }
+            return unsyncedMembers;
+        }
+
+        public async Task<List<User>> GetMembersUnderLead(string userId)
+        {
+            var responseBody = await GPSService.GPSService.SendRequest(new Uri(Constants.GpsWebApiUrl) + "Users/" + userId + "/TeamMembers", new Uri(Constants.GpsWebApiUrl), Constants.ApiKey, Constants.AppId);
+            var data = JsonConvert.DeserializeObject<List<User>>(responseBody);
+            return (data != null ? data : null);
+        }
+
+        /// <summary>
+        /// Get all designation
+        /// </summary>
+        /// <returns>List of Designation</returns>
+        public List<Designation> GetAllDesignation()
+        {
+            return UserDataAccesor.GetAllDesignation();
+        }
     }
-}
+}                                                                                               

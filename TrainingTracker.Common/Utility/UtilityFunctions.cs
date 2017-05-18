@@ -7,13 +7,20 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using System.Web;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
+using System.Dynamic;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Net.Http.Headers;
 
 namespace TrainingTracker.Common.Utility
 {
     /// <summary>
     /// Common Utility Functions to be used through the application
     /// </summary>
-    public static class UtilityFunctions
+    public static class UtilityFunctions 
     {
         /// <summary>
         /// Static Function that returns the Last Date on the given day
@@ -336,3 +343,4 @@ namespace TrainingTracker.Common.Utility
         }
     }
 }
+

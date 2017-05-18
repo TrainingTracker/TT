@@ -66,6 +66,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public Nullable<System.DateTime> DateAddedToSystem { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<int> TeamId { get; set; }
+        public string EmployeeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> Assignments { get; set; }

@@ -73,7 +73,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                             IsManager = userData.IsManager ,
                                                             DateAddedToSystem = DateTime.Now ,
                                                             IsActive = userData.IsActive ,
-                                                            TeamId = userData.TeamId
+                                                            TeamId = userData.TeamId,
+                                                            EmployeeId = userData.EmployeeId
                                                         };
 
                     context.Users.Add(objUser);
@@ -118,6 +119,7 @@ namespace TrainingTracker.DAL.DataAccess
                     userContext.IsTrainee = userData.IsTrainee;
                     userContext.IsManager = userData.IsManager;
                     userContext.IsActive = userData.IsActive;
+                    userContext.EmployeeId = userData.EmployeeId;
                     if (!string.IsNullOrEmpty(userData.Password))
                     {
                         userContext.Password = userData.Password;
@@ -163,7 +165,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                         IsManager = x.IsManager ?? false ,
                                                         IsActive = x.IsActive ?? false ,
                                                         DateAddedToSystem = x.DateAddedToSystem ,
-                                                        TeamId = x.TeamId
+                                                        TeamId = x.TeamId  ,
+                                                        EmployeeId = x.EmployeeId
                                                     }).ToList();
                 }
             }
@@ -204,7 +207,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                     IsActive = x.IsActive ?? false ,
                                                     DateAddedToSystem = x.DateAddedToSystem,
                                                     UserRating = 0 ,
-                                                    TeamId = x.TeamId
+                                                    TeamId = x.TeamId,
+                                                    EmployeeId = x.EmployeeId
                                                 }).First();
 
                 }
@@ -246,7 +250,8 @@ namespace TrainingTracker.DAL.DataAccess
                                             IsActive = x.IsActive ?? false ,
                                             DateAddedToSystem = x.DateAddedToSystem ,
                                             UserRating = 0 ,
-                                            TeamId = x.TeamId
+                                            TeamId = x.TeamId,
+                                            EmployeeId = x.EmployeeId
                                         }).First();
                 }
             }
@@ -351,7 +356,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                         IsManager = x.IsManager ?? false ,
                                                         IsActive = x.IsActive ?? false ,
                                                         DateAddedToSystem = x.DateAddedToSystem ,
-                                                        TeamId = x.TeamId
+                                                        TeamId = x.TeamId,
+                                                        EmployeeId = x.EmployeeId
                                                     }).ToList();
                 }
             }
@@ -395,7 +401,8 @@ namespace TrainingTracker.DAL.DataAccess
                                             IsManager = x.IsManager ?? false ,
                                             IsActive = x.IsActive ?? false ,
                                             DateAddedToSystem = x.DateAddedToSystem ,
-                                            TeamId = x.TeamId
+                                            TeamId = x.TeamId,
+                                            EmployeeId = x.EmployeeId != null ? x.EmployeeId : ""
                                         }).ToList();
                 }
             }
@@ -434,7 +441,8 @@ namespace TrainingTracker.DAL.DataAccess
                         IsManager = x.IsManager ?? false ,
                         IsActive = x.IsActive ?? false ,
                         DateAddedToSystem = x.DateAddedToSystem ,
-                        TeamId = teamId
+                        TeamId = teamId,
+                        EmployeeId = x.EmployeeId
                     }).OrderBy(x=>x.UserName).ToList();
                 }
             }
@@ -478,6 +486,33 @@ namespace TrainingTracker.DAL.DataAccess
                             TeamId = x.TeamId
                         })
                         .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets all Designation.
+        /// </summary>
+        /// <returns>List of all designation.</returns>
+        public List<Designation> GetAllDesignation()
+        {
+            try
+            {
+                using (TrainingTrackerEntities context = new TrainingTrackerEntities())
+                {
+                    return context.Users.Select(x => new Designation
+                                                   {
+                                                       DesignationName = x.Designation
+                                                   })
+                                        .Where(x=>x.DesignationName != null)
+                                        .Distinct()
+                                        .OrderBy(x=>x.DesignationName)
+                                        .ToList();
                 }
             }
             catch (Exception ex)

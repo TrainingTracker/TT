@@ -87,6 +87,18 @@
         },
         getAllSkills : function() {
             return my.ajaxService.ajaxGetDeffered(my.rootUrl + "/Profile/GetAllSkills", null);
-        }
+        },
+        getMembersUnderLead : function(callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetMembersUnderLead", null, callback);
+        },
+        importGPSUser : function(callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/ImportGPSUser", null , callback);
+        } ,
+        syncGPSUsers: function (callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SyncGPSUsers", null, callback);
+        },
+        getAllDesignation: function (callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetAllDesignation", null, callback);
+        },
     };
 }(my));
