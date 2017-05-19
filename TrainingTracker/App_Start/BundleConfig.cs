@@ -145,7 +145,7 @@ namespace TrainingTracker
              ));
 
              bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-                 "~/Scripts/Custom/MemberDetails.js",
+                 "~/Scripts/Custom/GpsUserSetting.js",
                 "~/Scripts/Custom/AddEditProfile.js",
                 "~/Scripts/Custom/NotificationSetting.js",
                 "~/Scripts/Custom/UserSetting.js",

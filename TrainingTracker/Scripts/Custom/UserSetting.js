@@ -14,31 +14,31 @@
             if (requestedSettingName == undefined || requestedSettingName == "MyProfile") {
                 selectedSetting("MyProfile");
                 my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
+                my.gpsUserSettingVm.closeGpsUserSetting();
                 my.addUserVm.openUserProfile();
             }
             else if (requestedSettingName == "ManageUsers") {
                 selectedSetting("ManageUsers");
                 my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
+                my.gpsUserSettingVm.closeGpsUserSetting();
                 my.addUserVm.openAllUsersProfile();
             }
             else if (requestedSettingName == "Notification") {
                 selectedSetting("Notification");
                 my.addUserVm.closeDialogue();
-                my.memberDetailsVm.closeGpsUserSetting();
+                my.gpsUserSettingVm.closeGpsUserSetting();
                 my.notificationSettingVm.openNotificationSetting();
             }
             else if (requestedSettingName == "GPSMembers") {
                 selectedSetting("GPSMembers");
                 my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.getMembersUnderLead();
-                my.memberDetailsVm.getAllDesignation();
+                my.gpsUserSettingVm.getMembersUnderLead();
+                my.gpsUserSettingVm.getAllDesignation();
             }
             else {
                 selectedSetting("MyProfile");
                 my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
+                my.gpsUserSettingVm.closeGpsUserSetting();
                 my.addUserVm.openUserProfile();
             }        
             ko.applyBindings(my.userSettingVm);

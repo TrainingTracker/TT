@@ -51,7 +51,7 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public ActionResult TTLogin(LoginModel objLoginModel, string returnUrl)
         {
-            if (!ModelState.IsValid) return View("TTLogin");
+            if (!ModelState.IsValid) return View("Login");
 
             var userData = new LoginBl().AuthenticateUser(objLoginModel.UserName, Common.Encryption.Cryptography.Encrypt(objLoginModel.Password));
 

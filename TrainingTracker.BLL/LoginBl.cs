@@ -41,11 +41,11 @@ namespace TrainingTracker.BLL
 
             if (!userData.IsValid) return userData;
 
-            var userExists = UserDataAccesor.GetUserByUserName(userName);
-            if (userExists == null || userExists.UserId == 0) return null;
+            var userDetailsFromTT = UserDataAccesor.GetUserByUserName(userName);
+            if (userDetailsFromTT == null || userDetailsFromTT.UserId == 0) return null;
 
-            userExists.IsValid = userData.IsValid;
-            return userExists;
+            userDetailsFromTT.IsValid = userData.IsValid;
+            return userDetailsFromTT;
         }
 
     }

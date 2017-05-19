@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    my.memberDetailsVm = function () {
+    my.gpsUserSettingVm = function () {
         var user = {
             UserId: ko.observable(),
             FirstName: ko.observable(),
@@ -27,7 +27,7 @@
             enableChangePassword: ko.observable(false),
             fileData: ko.observable(""),
             TeamId: ko.observable(),
-        },
+        },        
         isVisible = ko.observable(false);
 
         message = ko.observable(),
@@ -41,8 +41,6 @@
         membersUnderLead = ko.observableArray([]),
 
         unsyncedUsers = ko.observableArray([]),
-
-        lstUserMultipleImport = ko.observableArray([]),
 
         filteredUsers = ko.observableArray([]),
 
@@ -77,29 +75,28 @@
                 var matchFoundForUsername = my.getMatchInArray(activeLstUsers(), item, "UserName");
                 if (matchFoundForUsername.length <= 0) {
                     item.Status = ko.observable(false);
-                    item.IsReadOnly = ko.observable(false);
                     item.IsActive = ko.observable(false);
                 } else {
                     item.Status = ko.observable(matchFoundForUsername[0].IsTrainee ? 'Trainee' : (matchFoundForUsername[0].IsTrainer ? 'Trainer' : 'Edit'));
                     item.IsActive = ko.observable(matchFoundForUsername[0].IsActive);
                     item.UserId = matchFoundForUsername[0].UserId;
-                    item.IsReadOnly = ko.observable(false);
                     item.SelectedOption = ko.observable(getSelectedValue(item));
                 }
+                item.IsReadOnly = ko.observable(false);
                 item.IsChecked = ko.observable(false);
                 var matchFoundForEmployeeId = my.getMatchInArray(activeLstUsers(), item, "EmployeeId");
-                visibilityForSync = matchFoundForEmployeeId.length <= 0 ? true : false;
+                visibilityForSync = matchFoundForEmployeeId.length <= 0;
                 item.GPSId = ko.observable(my.getSubstring(item.EmployeeId, 5, item.EmployeeId.Length));
                 lstUsers.push(item);
                 filteredUsers.push(item);
                 visibilityForSyncCallback(visibilityForSync);
             });
-            my.memberDetailsVm.lstUsers().length <= 0 ? my.memberDetailsVm.message("No members available!") : my.memberDetailsVm.message("");
+            my.gpsUserSettingVm.lstUsers().length <= 0 ? my.gpsUserSettingVm.message("No members available!") : my.gpsUserSettingVm.message("");
         },
 
         getMembersUnderLead = function () {
             unsyncedUsers([]),
-            my.memberDetailsVm.saveMessage('');
+            my.gpsUserSettingVm.saveMessage('');
             my.userService.getMembersUnderLead(getAllUsers);
             isVisible(true);
         },
@@ -111,10 +108,10 @@
         saveUserCallback = function (jsonData) {
             if (jsonData.status) {
                 getMembersUnderLead();
-                my.memberDetailsVm.saveMessage("User saved successfully!");
+                my.gpsUserSettingVm.saveMessage("User saved successfully!");
             }
             else {
-                my.memberDetailsVm.saveMessage("User saving unsuccessful!");
+                my.gpsUserSettingVm.saveMessage("User saving unsuccessful!");
             }
         },
 
@@ -127,28 +124,32 @@
         },
 
         importGPSUser = function (user, isTrainee) {
-            isTrainee ? user.IsTrainee = true : user.IsTrainer = true;
+            user.IsTrainee = isTrainee;
+            user.IsTrainer = !isTrainee;
             user.IsActive = true;
             user.IsValid = true;
             user.TeamId = my.meta.currentUser.TeamId;
-            my.userService.createUser(user, my.memberDetailsVm.saveUserCallback);
+            my.userService.createUser(user, saveUserCallback);
         },
 
         editUser = function (user) {
             var selectedOption = user.SelectedOption();
-            if (selectedOption == 1) {
-                user.IsTrainer = true;
-            } else if (selectedOption == 2) {
-                user.IsTrainee = true;
+            switch (selectedOption) {
+                case 1:
+                    user.IsTrainer = true;
+                    break;
+                case 2:
+                    user.IsTrainee = true;
+                    break;
             }
             user.IsValid = true;
             user.TeamId = my.meta.currentUser.TeamId;
-            my.userService.updateUser(user, my.memberDetailsVm.saveUserCallback);
+            my.userService.updateUser(user, saveUserCallback);
         },
 
         getAllUsers = function (jsonData) {
             membersUnderLead([]),
-            my.userService.getAllUsers(my.memberDetailsVm.getAllUsersCallback);
+            my.userService.getAllUsers(getAllUsersCallback);
             ko.utils.arrayForEach(jsonData, function (item) {
                 membersUnderLead.push(item);
             });
@@ -164,12 +165,12 @@
         },
 
         syncGPSUser = function () {
-            my.userService.syncGPSUsers(my.memberDetailsVm.syncGPSUsersCallback);
+            my.userService.syncGPSUsers(syncGPSUsersCallback);
         },
 
         visibilityForSyncCallback = function (visibility) {
             visibilityForSync = visibility;
-            my.memberDetailsVm.visibilityForSync(visibility);
+            my.gpsUserSettingVm.visibilityForSync(visibility);
         },
 
         makeEditable = function (user) {
@@ -195,9 +196,7 @@
 
         messageVisibilityForImport = function () {
             ko.utils.arrayForEach(lstUsers(), function (item) {
-                if (item.Status == false) {
-                    return true;
-                }
+                return (item.Status != false);
             });
         },
 
@@ -215,10 +214,10 @@
         visibilityForMultipleImport = function () {
             ko.utils.arrayForEach(lstUsers(), function (item) {
                 if ((!item.Status()) && item.IsChecked()) {
-                    my.memberDetailsVm.multipleImportStatus(true);
+                    my.gpsUserSettingVm.multipleImportStatus(true);
                     visibilityForSelectAllRows(true);
                 } else {
-                    my.memberDetailsVm.multipleImportStatus(false);
+                    my.gpsUserSettingVm.multipleImportStatus(false);
                     visibilityForSelectAllRows(false);
                 }
             });
@@ -271,15 +270,15 @@
         searchByNameCallback = function (filterKeyword, container) {
             autoCompleteUserData([]);
             eval(container)([]);
-            if (!(typeof (my.memberDetailsVm.filterKeyword()) == 'undefined' || my.memberDetailsVm.filterKeyword() == '')) {
+            if (!(typeof (my.gpsUserSettingVm.filterKeyword()) == 'undefined' || my.gpsUserSettingVm.filterKeyword() == '')) {
                 if (container == "filteredUsers") {
                     filteredUsers([]);
                     filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                        return item.FullName.toUpperCase().includes(my.memberDetailsVm.filterKeyword().trim().toUpperCase());
+                        return item.FullName.toUpperCase().includes(my.gpsUserSettingVm.filterKeyword().trim().toUpperCase());
                     });
                 } else if (container == "autoCompleteUserData") {
                     filteredTrainee = ko.utils.arrayFilter(lstUsers(), function (item) {
-                        return stringStartsWith(item.FullName.toUpperCase(), my.memberDetailsVm.filterKeyword().trim().toUpperCase());
+                        return stringStartsWith(item.FullName.toUpperCase(), my.gpsUserSettingVm.filterKeyword().trim().toUpperCase());
 
                     });
                 }
@@ -308,16 +307,10 @@
 
         return {
             getMembersUnderLead: getMembersUnderLead,
-            lstUsers: lstUsers,
             importGPSUser: importGPSUser,
-            getAllUsersCallback: getAllUsersCallback,
-            saveUserCallback: saveUserCallback,
-            activeLstUsers: activeLstUsers,
             lstUsers: lstUsers,
-            getAllUsers: getAllUsers,
             membersUnderLead: membersUnderLead,
             syncGPSUser: syncGPSUser,
-            syncGPSUsersCallback: syncGPSUsersCallback,
             message: message,
             visibilityForSync: visibilityForSync,
             editUser: editUser,
@@ -329,7 +322,6 @@
             unsyncedUsers: unsyncedUsers,
             messageVisibilityForImport: messageVisibilityForImport,
             saveMessage: saveMessage,
-            lstUserMultipleImport: lstUserMultipleImport,
             multipleImportStatus: multipleImportStatus,
             visibilityForMultipleImport: visibilityForMultipleImport,
             importMultiple: importMultiple,
@@ -341,7 +333,6 @@
             filterKeyword: filterKeyword,
             getAutoCompleteUserData: getAutoCompleteUserData,
             autoCompleteUserData: autoCompleteUserData,
-            stringStartsWith: stringStartsWith,
             selectedDesignation: selectedDesignation,
             selectAllRows: selectAllRows,
             visibilityForSelectAllRows: visibilityForSelectAllRows

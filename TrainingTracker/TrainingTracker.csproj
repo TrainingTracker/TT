@@ -288,7 +288,7 @@
     <Content Include="Scripts\Custom\Layout.js" />
     <Content Include="Scripts\Custom\Login.js" />
     <Content Include="Scripts\Custom\Mirror.Js" />
-    <Content Include="Scripts\Custom\MemberDetails.js" />
+    <Content Include="Scripts\Custom\GpsUserSetting.js" />
     <Content Include="Scripts\Custom\NotificationSetting.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
@@ -417,7 +417,7 @@
     <Content Include="Views\Mirror\Mirror.cshtml" />
     <Content Include="Views\Shared\_MirrorSummary.cshtml" />
     <Content Include="Views\Shared\_MirrorReport.cshtml" />
-    <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
+    <Content Include="Views\Shared\_GpsUserSetting.cshtml" />
     <Content Include="Views\Login\GPSLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
