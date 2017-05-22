@@ -144,13 +144,30 @@ namespace TrainingTracker
                "~/Scripts/Custom/Shared/MirrorReport.js"
              ));
 
-             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-                 "~/Scripts/Custom/MemberDetails.js",
-                "~/Scripts/Custom/AddEditProfile.js",
-                "~/Scripts/Custom/NotificationSetting.js",
-                "~/Scripts/Custom/UserSetting.js",
-                "~/Scripts/notify.js"               
-               ));
+            bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
+                "~/Scripts/Custom/MemberDetails.js",
+               "~/Scripts/Custom/AddEditProfile.js",
+               "~/Scripts/Custom/NotificationSetting.js",
+               "~/Scripts/Custom/UserSetting.js",
+               "~/Scripts/notify.js"
+              ));
+
+            bundles.Add(new ScriptBundle("~/bundles/PrintHandlerMirrorScripts").Include(
+                "~/Scripts/jquery-1.10.2.js",
+                  "~/Scripts/knockout-3.4.0.js",
+                "~/Scripts/bootstrap.min.js",
+                  "~/Scripts/moment.min.js",
+                 "~/Scripts/Custom/App.js",
+                 "~/Scripts/Custom/UserService.js",
+                "~/Scripts/Custom/AjaxService.js",
+                 "~/Scripts/Custom/BindingHandlers.js",
+             "~/Scripts/Custom/Chart.Scatter.Shekhar.js",
+              "~/Scripts/Custom/WebWorker/WebWorker.js",
+             "~/Scripts/Custom/Services/MirrorServices.js",
+             "~/Scripts/Custom/Shared/MirrorSummary.js",
+             "~/Scripts/Custom/Shared/PrintHandlerMirrorReport.js"
+              ));
+
             #endregion
 
             #region Styles
@@ -234,6 +251,14 @@ namespace TrainingTracker
                   "~/StyleSheets/MirrorSummary.css",
                   "~/StyleSheets/MirrorReport.css"
           ));
+
+            bundles.Add(new StyleBundle("~/bundles/PrintHandlerMirrorStyles").Include(
+                 "~/StyleSheets/Mirror.css",
+                "~/Content/bootstrap.min.css",
+                "~/StyleSheets/MirrorReport.css",
+                 "~/StyleSheets/MirrorSummary.css",
+                "~/StyleSheets/PrintHandlerMirrorReport.css"
+         ));
 
             #endregion
 

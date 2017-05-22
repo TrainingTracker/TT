@@ -6,11 +6,13 @@
     margin: auto;
     height: 450px;
 }
-#mindfireLogo{
+
+#mindfireLogo {
     height: 50px;
     margin-top: 8px;
     margin-left: 84px;
 }
+
 .form {
     position: relative;
     z-index: 1;
@@ -603,5 +605,5 @@ a:link, a:visited {
     position: relative;
 }*/
 input[type=text], input[type=password] {
-    margin: 0 0 0px 0 !important ;
+    margin: 0 0 0px 0 !important;
 }

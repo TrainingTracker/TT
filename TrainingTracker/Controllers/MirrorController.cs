@@ -24,6 +24,11 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
+        public ViewResult MirrorPrintHandler()
+        {
+            return View("PrintHandler");
+        }
+
         public JsonResult GetAssignmentFeedbackWithFilters(int userId, DateTime startDate, DateTime endDate)
         {
             return Json(new MirrorBl().GetFeedbacksWithFilters(userId, startDate, endDate, FeedbackType.Assignment),
@@ -95,6 +100,6 @@ namespace TrainingTracker.Controllers
                         JsonRequestBehavior.AllowGet);
         }
 
-
+        
     }
 }
