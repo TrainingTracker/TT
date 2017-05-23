@@ -68,6 +68,7 @@
                 setTimeout(function () {
                     $('#divWaitHandler').hide();
                     $('#printWrapper').css('opacity', 1);
+                    document.title = traineeDetails.FullName().replace(" ","") + '_' + moment(traineeDetails.StartDate()).format('DDMMMYYYY') + '_' + moment(traineeDetails.EndDate()).format('DDMMMYYYY');
                     window.print()
                 }, 5000);
 
