@@ -100,5 +100,8 @@
         getAllDesignation: function (callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetAllDesignation", null, callback);
         },
+        getUserDetailsWithFiltersPromise: function (userId) {
+            return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Profile/GetUserByUserId?userId=" + userId, null);
+        }
     };
 }(my));

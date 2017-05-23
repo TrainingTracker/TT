@@ -153,19 +153,19 @@ namespace TrainingTracker
               ));
 
             bundles.Add(new ScriptBundle("~/bundles/PrintHandlerMirrorScripts").Include(
-                "~/Scripts/jquery-1.10.2.js",
-                  "~/Scripts/knockout-3.4.0.js",
-                "~/Scripts/bootstrap.min.js",
-                  "~/Scripts/moment.min.js",
+                 "~/Scripts/jquery-1.10.2.js",
+                 "~/Scripts/knockout-3.4.0.js",
+                 "~/Scripts/bootstrap.min.js",
+                 "~/Scripts/moment.min.js",
                  "~/Scripts/Custom/App.js",
                  "~/Scripts/Custom/UserService.js",
-                "~/Scripts/Custom/AjaxService.js",
+                 "~/Scripts/Custom/AjaxService.js",
                  "~/Scripts/Custom/BindingHandlers.js",
-             "~/Scripts/Custom/Chart.Scatter.Shekhar.js",
-              "~/Scripts/Custom/WebWorker/WebWorker.js",
-             "~/Scripts/Custom/Services/MirrorServices.js",
-             "~/Scripts/Custom/Shared/MirrorSummary.js",
-             "~/Scripts/Custom/Shared/PrintHandlerMirrorReport.js"
+                 "~/Scripts/Custom/WebWorker/WebWorker.js",
+                 "~/Scripts/Custom/Services/MirrorServices.js",
+                 "~/Scripts/Custom/Shared/MirrorReport.js",
+                 "~/Scripts/Custom/Shared/PrintHandlerMirrorReport.js",
+                 "~/Scripts/Custom/Chart.Scatter.Shekhar.js"
               ));
 
             #endregion
@@ -253,7 +253,8 @@ namespace TrainingTracker
           ));
 
             bundles.Add(new StyleBundle("~/bundles/PrintHandlerMirrorStyles").Include(
-                 "~/StyleSheets/Mirror.css",
+                
+                "~/StyleSheets/Mirror.css",
                 "~/Content/bootstrap.min.css",
                 "~/StyleSheets/MirrorReport.css",
                  "~/StyleSheets/MirrorSummary.css",

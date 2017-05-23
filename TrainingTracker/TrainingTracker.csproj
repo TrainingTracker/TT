@@ -290,7 +290,7 @@
     <Content Include="Scripts\Custom\Mirror.Js" />
     <Content Include="Scripts\Custom\MemberDetails.js" />
     <Content Include="Scripts\Custom\NotificationSetting.js" />
-    <Content Include="Scripts\Custom\PrintHandlerMirrorReport.js" />
+    <Content Include="Scripts\Custom\Shared\PrintHandlerMirrorReport.js" />
     <Content Include="Scripts\Custom\Questions.js" />
     <Content Include="Scripts\Custom\QuestionsService.js" />
     <Content Include="Scripts\Custom\Release.js" />
