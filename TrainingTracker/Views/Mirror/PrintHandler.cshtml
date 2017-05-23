@@ -27,9 +27,9 @@
                     <span class="bold-font" data-bind="text: my.printHandlerVm.traineeDetails.Email"></span>
                     <div class="report-range pull-right">
                         <span class=""> Report Range: </span>
-                        <span class="bold-font" data-bind="text: my.printHandlerVm.traineeDetails.StartDate"></span>
+                        <span class="bold-font" data-bind="text: moment(my.printHandlerVm.traineeDetails.StartDate()).format('DD-MMM-YYYY')"></span>
                         <span class=""> to  </span>
-                        <span class="bold-font" data-bind="text: my.printHandlerVm.traineeDetails.EndDate"></span>
+                        <span class="bold-font" data-bind="text: moment(my.printHandlerVm.traineeDetails.EndDate()).format('DD-MMM-YYYY')"></span>
                     </div>
                 </div>
             </div>
