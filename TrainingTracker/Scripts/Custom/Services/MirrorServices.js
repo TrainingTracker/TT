@@ -40,6 +40,5 @@
         getAllAssignedCourseForTraineeWithFiltersPromise: function (userId, startDate, endDate) {
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Mirror/GetAllAssignedCourseForTrainee?userId=" + userId + "&startDate=" + startDate + "&endDate=" + endDate, null);
         },
-
     };
 }(my));

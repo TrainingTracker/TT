@@ -2,7 +2,6 @@
     my.mirrorVm = function () {
         var settings =
         {
-
             filteredTrainee: ko.observableArray([]),
             filterKeyword: ko.observable(""),
             filterForReports: {
@@ -207,6 +206,25 @@
                                                              settings.filterForReports.Session());
         };
 
+        var openPrintReportHandler = function () {
+
+            if (!(settings.selectedTrainee.UserId() > 0)) return;
+
+            var redirectionLink = my.rootUrl + '/Mirror/MirrorPrintHandler?UserId=' + settings.selectedTrainee.UserId() +
+                                                                           "&StartDate=" + settings.filterDateRange.StartDate() +
+                                                                           "&EndDate=" + settings.filterDateRange.EndDate() +
+                                                                           "&a=" + settings.filterForReports.Feedback.Assignment() +
+                                                                           "&cr=" + settings.filterForReports.Feedback.CodeReview() +
+                                                                           "&wf=" + settings.filterForReports.Feedback.WeeklyFeedback() +
+                                                                           "&rr=" + settings.filterForReports.Feedback.RandomReview() +
+                                                                           "&s=" + settings.filterForReports.Feedback.Skills() +
+                                                                           "&c=" + settings.filterForReports.Courses() +
+                                                                           "&sess=" + settings.filterForReports.Session() +
+                                                                           "&sa=" + settings.filterForReports.Session()
+
+            window.open(redirectionLink, '_blank');
+        };
+
         return {
             settings: settings,
             photoUrl: photoUrl,
@@ -217,6 +235,7 @@
             manageAllFeedbackClick: manageAllFeedbackClick,
             loadSummaryPanel: loadSummaryPanel,
             loadReportPanel: loadReportPanel,
+            openPrintReportHandler :openPrintReportHandler,
             setTraineeView: setTraineeView
         }
     }();

@@ -11,42 +11,42 @@
 
 <div class="col-md-12 no-padding-left no-padding-right" id="divMirrorArea">
     <div class="col-md-4 no-padding-right no-padding-left affix-top" id="divFilterArea">
-          @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
-          {
-              <div id="divMirrorSearch" class="col-md-12 no-padding-left no-padding-right ">
-                  <div class="col-md-12 no-padding-left no-padding-right" id="divSearch">
-                      <div class="col-md-12">
-                          <div class="input-group category-list-search col-md-12 custom-margin-top-10">
-                              <input type="text" data-bind="value: settings.filterKeyword, valueUpdate: 'afterkeydown', event: { keyup: filterTrainee }" class="form-control" placeholder="Search Trainee by Name, UserName or Email">
-                              <div class="input-group-btn">
-                                  <div id="divSearchBar" class="btn btn-default" data-bind="click: filterTrainee()">
-                                      <i class="fa fa-search icon-font"></i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-12" id="divAbsoluteTraineeFilter">
-                  <!-- ko if: settings.filteredTrainee().length > 0  -->
-                  <ul data-bind="foreach: settings.filteredTrainee" class="no-padding-left no-padding-right floating-trainee-filter">
-                      <li class="col-xs-12" data-bind="click: function () { my.mirrorVm.setSelectedTrainee(UserId) }">
-                          <div class="thumb col-xs-2 no-padding-right">
-                              <img src="" class="img-circle" data-bind="attr: { src: my.mirrorVm.photoUrl(ProfilePictureName) }" width="35" height="35" alt="" />
-                          </div>
-                          <div class="col-xs-10 no-padding-left">
-                              <div>
-                                  <span class="bold-font" data-bind="text: FullName"></span>
-                              </div>
-                              <div>
-                                  <span data-bind="text: Email"></span>
-                              </div>
-                          </div>
-                      </li>
-                  </ul>
-                  <!-- /ko -->
-              </div>
-          }
+        @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
+        {
+            <div id="divMirrorSearch" class="col-md-12 no-padding-left no-padding-right ">
+                <div class="col-md-12 no-padding-left no-padding-right" id="divSearch">
+                    <div class="col-md-12">
+                        <div class="input-group category-list-search col-md-12 custom-margin-top-10">
+                            <input type="text" data-bind="value: settings.filterKeyword, valueUpdate: 'afterkeydown', event: { keyup: filterTrainee }" class="form-control" placeholder="Search Trainee by Name, UserName or Email">
+                            <div class="input-group-btn">
+                                <div id="divSearchBar" class="btn btn-default" data-bind="click: filterTrainee()">
+                                    <i class="fa fa-search icon-font"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" id="divAbsoluteTraineeFilter">
+                <!-- ko if: settings.filteredTrainee().length > 0  -->
+                <ul data-bind="foreach: settings.filteredTrainee" class="no-padding-left no-padding-right floating-trainee-filter">
+                    <li class="col-xs-12" data-bind="click: function () { my.mirrorVm.setSelectedTrainee(UserId) }">
+                        <div class="thumb col-xs-2 no-padding-right">
+                            <img src="" class="img-circle" data-bind="attr: { src: my.mirrorVm.photoUrl(ProfilePictureName) }" width="35" height="35" alt="" />
+                        </div>
+                        <div class="col-xs-10 no-padding-left">
+                            <div>
+                                <span class="bold-font" data-bind="text: FullName"></span>
+                            </div>
+                            <div>
+                                <span data-bind="text: Email"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- /ko -->
+            </div>
+        }
 
         <div id="divSelectedTraineeWrapper">
             <div class="col-md-12">
@@ -174,8 +174,14 @@
                 </div>
             </div>
         </div>
-        <div id="divButtons">
-            <div class="col-md-12 custom-margin-top-10">              
+        <div id="divButtons" data-bind="visible: my.mirrorVm.settings.selectedTrainee.IsSelected()">
+            @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Trainer") || HttpContext.Current.User.IsInRole("Administrator"))
+            {
+                <div class="col-md-12 custom-margin-top-10">
+                    <input class="btn btn-info col-xs-10 col-xs-offset-1" type="button" value="Print" data-bind="click:my.mirrorVm.openPrintReportHandler" />
+                </div>
+            }
+            <div class="col-md-12 custom-margin-top-10">
                 <input class="btn btn-info col-xs-4 col-xs-offset-1" type="button" value="Summary" data-bind="click: my.mirrorVm.loadReportPanel" />
                 <input class="btn btn-info col-xs-4 col-xs-offset-2" type="button" value="Mirror" data-bind="click: my.mirrorVm.loadSummaryPanel" />
             </div>
@@ -188,19 +194,17 @@
             <span>TRAINING TRACKER</span>
         </div>
         <!--/ko-->
-        
         <!-- ko if:settings.panel.summaryPanel() == true -->
         <div class="col-xs-12 height-100-percent" id="divMirrorSummary">
             @Html.Partial("_MirrorSummary")
         </div>
         <!-- /ko -->
-        
         <!-- ko if:settings.panel.reportPanel() == true -->
         <div class="col-xs-12 height-100-percent" id="divMirrorReport">
-              @Html.Partial("_MirrorReport")
+            @Html.Partial("_MirrorReport")
         </div>
-        <!-- /ko -->      
-        
+        <!-- /ko -->
+
     </div>
 </div>
 

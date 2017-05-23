@@ -320,5 +320,11 @@ namespace TrainingTracker.Controllers
         {
             return Json(new UserBl().GetAllDesignation(), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetUserByUserId(int userId)
+        {
+            return Json(new UserBl().GetUserByUserId(userId), JsonRequestBehavior.AllowGet);
+        }
     }
 }
