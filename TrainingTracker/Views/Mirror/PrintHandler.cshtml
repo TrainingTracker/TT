@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "";
+}
+@{
+    ViewBag.Title = "PrintHandler";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link id="linkRootUrl" href="~/" />
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/PrintHandlerMirrorStyles")
+
+    <title>Print</title>
+</head>
+<body>
+    <div id="printWrapper" style="opacity:0">
+        <div id="divMirrorSummaryArea" class="col-xs-12 no-padding-left no-padding-right" style="background: #ECEAEB;">
+            <div class="thumb no-padding-right" style="width:60px;float:left">
+                <img src="" class="img-circle" data-bind="attr: { src:  my.printHandlerVm.traineeDetails.ProfilePictureFileName()}" width="50" height="50" alt="" />
+            </div>
+            <div class="col-xs-10 no-padding-left">
+                <div><span class="bold-font" data-bind="text: my.printHandlerVm.traineeDetails.FullName"></span></div>
+                <div>
+                    <span class="bold-font" data-bind="text: my.printHandlerVm.traineeDetails.Email"></span>
+                    <div class="report-range pull-right">
+                        <span class=""> Report Range: </span>
+                        <span class="bold-font" data-bind="text: moment(my.printHandlerVm.traineeDetails.StartDate()).format('DD-MMM-YYYY')"></span>
+                        <span class=""> to  </span>
+                        <span class="bold-font" data-bind="text: moment(my.printHandlerVm.traineeDetails.EndDate()).format('DD-MMM-YYYY')"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_MirrorReport")
+    </div>   
+
+    <div id="divWaitHandler">
+        <span>Please wait while we generate preview</span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+    @Scripts.Render("~/bundles/PrintHandlerMirrorScripts")
+</body>
+</html>
+
+
+
+
+
+
+

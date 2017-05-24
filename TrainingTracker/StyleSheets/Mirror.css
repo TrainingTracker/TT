@@ -249,5 +249,5 @@ div#divSelectedTrainee > div {
 }
 
  .metric-header .mute {
-    color: #ffffff;
+    color: #ffffff !important;
 }

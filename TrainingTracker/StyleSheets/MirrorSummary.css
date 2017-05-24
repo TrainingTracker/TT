@@ -80,8 +80,8 @@ div.text-muted {
         margin-left: 3%;
         margin-bottom: 5px;
         padding: 5px 5px 5px 5px;
-        background-color: #FFF8DC;
-        border-left: 3px solid #ffeb8e;
+        background-color: #FFF8DC !important;
+        border-left: 3px solid #ffeb8e !important;
         cursor: pointer;
     }
 
@@ -100,7 +100,7 @@ div.text-muted {
 
 .thread-counter {
     font-family: 'Orbitron';
-    color: red;
+    color: red !important;
     font-weight: bold;
     font-size: 12px;
 }
@@ -113,7 +113,7 @@ div.text-muted {
     text-align: center;
     display: block;
     margin: auto;
-    color: red;
+    color: red !important;
    padding-bottom: 5px;
 }
 

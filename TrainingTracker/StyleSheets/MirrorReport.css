@@ -34,31 +34,31 @@
 span.data-counter-value {
     font-size: 21px;
     font-family: "Orbitron";
-    color: #fff;
+    color: #fff !important;
 }
 
 div.exceptional-wrapper {
-    background-color: green;
+    background-color: green !important;
     border: 2px solid #fff;
 }
 
 div.slow-wrapper {
-    background-color: red;
+    background-color: red !important;
     border: 2px solid #fff;
 }
 
 div.fast-wrapper {
-    background-color: blue;
-    border: 2px solid #fff;
+    background-color: blue !important;
+    border: 2px solid #fff !important;
 }
 
 div.average-wrapper {
-    background-color: orange;
+    background-color: orange !important;
     border: 2px solid #fff;
 }
 
 .data-counter-wrapper .mute {
-       color: rgb(255, 247, 253);
+       color: rgb(255, 247, 253) !important;
 }
 
 #divReportRandomReview .feedback-details
@@ -73,8 +73,8 @@ div.average-wrapper {
        
     margin-bottom: 5px;
     padding: 5px 5px 5px 5px;
-    background-color: #FFF8DC;
-    border-left: 3px solid #ffeb8e;
+    background-color: #FFF8DC !important;
+    border-left: 3px solid #ffeb8e !important;
     display: block;
     font: inherit;
     font-size: 14px;
@@ -92,8 +92,8 @@ div.average-wrapper {
 }
 
 .list-container .feedback-notes>label{
-    background-color:rgba(214, 243, 247, 0.38);
-    border-left: 3px solid #2596F1 ;
+    background-color:rgba(214, 243, 247, 0.38) !important;
+    border-left: 3px solid #2596F1 !important ;
    
     font-weight: bold;
 }
