@@ -48,6 +48,8 @@ namespace TrainingTracker.DAL.EntityFramework
             this.UserSessionMappings1 = new HashSet<UserSessionMapping>();
             this.UserSkillMappings = new HashSet<UserSkillMapping>();
             this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
+            this.CodeReviewMetaDatas = new HashSet<CodeReviewMetaData>();
+            this.CodeReviewMetaDatas1 = new HashSet<CodeReviewMetaData>();
         }
     
         public int UserId { get; set; }
@@ -131,5 +133,9 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSkillMapping> UserSkillMappings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodeReviewMetaData> CodeReviewMetaDatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodeReviewMetaData> CodeReviewMetaDatas1 { get; set; }
     }
 }
