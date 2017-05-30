@@ -87,6 +87,18 @@
     <Compile Include="EntityFramework\AssignmentUserMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\CodeReviewMetaData.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewPoint.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewPointType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewTag.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\Comment.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>

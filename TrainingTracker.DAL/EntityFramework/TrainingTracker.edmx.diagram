@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8ca1dcd67da455c890bbb108d80136d" Name="Diagram1" ZoomLevel="53">
+      <Diagram DiagramId="a8ca1dcd67da455c890bbb108d80136d" Name="Diagram1" ZoomLevel="68">
         <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="1.5" PointX="7.5" PointY="65.875" />
         <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentFeedbackMapping" Width="1.5" PointX="12.75" PointY="58.125" />
         <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="9.75" PointY="66.5" />

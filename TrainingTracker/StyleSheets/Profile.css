@@ -830,3 +830,8 @@ label.lbl-data-info {
 background-color: red;
     color: white;
 }
+
+#CodeReviewSection{
+    display: inline-block;
+    width: 100%;
+}
