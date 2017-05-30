@@ -835,3 +835,105 @@ background-color: red;
     display: inline-block;
     width: 100%;
 }
+
+#divCodeReviewSkillsWizard
+{
+   height:50vh;
+}
+
+#divCrWizard,#divCrPointsArea{
+    top:1%;
+    height: 98%;
+    margin-bottom: 0;
+    background-color: #192741;
+    padding: 0;
+}
+
+#divCrPointsArea
+{
+    background-color:#fff;
+}
+
+#divCrWizard > .code-review-steps span{
+    color: #fff;
+    display: block;
+    text-align: center;
+}
+
+#divCrWizard > .code-review-steps
+{
+  padding: 10px 0;
+  cursor:pointer;
+  border-bottom: 1px solid #efefef;
+}
+
+#divCrWizard > .code-review-steps:not(:last-child):after
+{
+ border-bottom: 1px solid #efefef;
+ position:absolute;
+}
+
+#divCrWizard > .code-review-steps.current-selected-tab
+{
+    background-color:#337ab7;
+}
+
+#divCrWizard > .code-review-steps:hover{
+    background-color:#337ab7;
+    transition: background-color linear .25s
+}
+
+#divCrWizardTagPreview
+{
+    /*height:60%;*/
+}
+
+#divCrWizardTagPoints
+{
+    height:40%;
+}
+
+#divCrWizardTagPoints
+{
+    height:40%;
+}
+
+#divCrWizardTagPoints .cke_1_contents
+{
+    height:100px !important;
+
+}
+
+/*#divCrPointsArea .code-review-rating-Exceptional
+{
+    backg
+}*/
+
+.cr-ratings
+{
+    cursor:pointer;
+    border:1px solid red;
+    padding: 10px 0;
+}
+
+.cr-ratings i
+{
+    position:absolute;
+        right: 0;
+    top: 10px;
+}
+
+#divCrWizardPointsRatings
+{
+    padding-top:4px;
+    height: 100%;
+}
+
+#divCrWizardPointsRatings button
+{
+        position: absolute;
+    height: 34px;
+    width: 80%;
+    left: 17%;
+    bottom: 0
+}

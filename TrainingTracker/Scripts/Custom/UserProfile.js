@@ -61,7 +61,13 @@
                  Title: ko.observable(""),
                  Description: ko.observable(""),
                  Skills: ko.observableArray([])
-             }
+             },
+
+             codeReviewPoints = {
+                 Title: ko.observable(""),
+                 Description: ko.observable(""),
+                 PointsRating:ko.observable(0)
+             },
         controls = {
             skillOption: ko.observable("1"),
             assignmentOption: ko.observable(1),
@@ -588,7 +594,9 @@
             trainorSynopsis: trainorSynopsis,
             navigateToCourse: navigateToCourse,
             feedbackTypes: feedbackTypes,
-            codeReviewDetails: codeReviewDetails
+            codeReviewDetails: codeReviewDetails,
+            codeReviewPoints: codeReviewPoints,
+            codeReviewPointsTypes: codeReviewPointsTypes
 
         };
     }();
