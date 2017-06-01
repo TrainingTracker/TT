@@ -411,131 +411,143 @@
                                     </div>
                                 </div>
 
-                                <div id="divCodeReviewSkillsWizard" class="col-xs-12">
-                                    <div class="col-xs-2 no-padding-left" id="divCrWizard">
-                                        <div class="col-xs-12 no-padding-left no-padding-right code-review-steps current-selected-tab">
-                                            <span>General</span>
-                                            <span class="pull-right glyphicon glyphicon-question-sign" data-bind="wzTooltip: { tittle: 'All points common across technologies ', HtmlTag: 'false', ClickSticky: 'false', Above: 'true' }" style="position: absolute;right:0;cursor: pointer; color: #000"></span>
-                                        </div>
-                                        <!-- ko foreach: my.profileVm.codeReviewDetails.Skills  -->
-                                        <div class="col-xs-12 no-padding-left no-padding-right code-review-steps">
-                                            <span data-bind="text:Name"></span>
-                                        </div>
-                                        <!-- /ko -->
-                                    </div>
-                                    <div class="col-xs-10 no-padding-right" id="divCrPointsArea">
-                                        <div class="col-xs-12 no-padding-left no-padding-right" id="divCrWizardTagPreview">
+                                <div id="divCodeReviewTabs" class="col-xs-12">
+                                    
+                                    <ul class="nav nav-tabs col-xs-1 no-padding-right">
+                                        <li class="col-xs-12 no-padding-left no-padding-right active">
+                                            <a href="#divCodeReviewSkillsWizard" data-toggle="tab">1</a>
+                                        </li> 
+                                        <li class="col-xs-12 no-padding-left no-padding-right">
+                                            <a href="#divCrWizardTagPreview" data-toggle="tab">2</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content col-xs-11 no-padding-right">
+                                        <div id="divCodeReviewSkillsWizard" class="col-xs-12 no-padding-left no-padding-right tab-pane">
+                                            <div class="col-xs-2 no-padding-left" id="divCrWizard">
+                                                <div class="col-xs-12 no-padding-left no-padding-right code-review-steps current-selected-tab">
+                                                    <span>General</span>
+                                                    <span class="pull-right glyphicon glyphicon-question-sign" data-bind="wzTooltip: { tittle: 'All points common across technologies ', HtmlTag: 'false', ClickSticky: 'false', Above: 'true' }" style="position: absolute;right:0;cursor: pointer; color: #000"></span>
+                                                </div>
+                                                <!-- ko foreach: my.profileVm.codeReviewDetails.Skills  -->
+                                                <div class="col-xs-12 no-padding-left no-padding-right code-review-steps">
+                                                    <span data-bind="text:Name"></span>
+                                                </div>
+                                                <!-- /ko -->
+                                            </div>
+                                            <div class="col-xs-10 no-padding-right" id="divCrPointsArea">
+                                                <div class="col-xs-10 no-padding-left no-padding-right" id="divCrWizardTagPoints">
+                                                    <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
+                                                        <label>Review Point</label>
+                                                        <label class="danger">*</label>
+                                                        <input type="text" placeholder="eg : Folder structure not clean" class="input-sm form-control" data-bind="text:my.profileVm.codeReviewPoints.Title" />
+                                                    </div>
+                                                    <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
+                                                        <label>Additional Details</label>
+                                                        <textarea id="txtAreaFeedback" data-bind="CKEDITOR: my.profileVm.codeReviewPoints.Description"
+                                                                  class="form-control comment-input-control" rows="3" type="text" placeholder="Enter feedback" style=resize: vertical"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2 no-padding-right feedback-input" id="divCrWizardPointsRatings">
+                                                    <label>Category</label>
+                                                    <label class="danger">*</label>
+                                                    <span class="legends">
+                                                        <em>Legend</em>
+                                                        <span class="custom-tooltip legend-custom-tooltip">
+                                                            <span>
+                                                                <span class="point-type-exceptional">
+                                                                    <span>Exceptional - A piece of awesome work.</span>
+                                                                    <span class="col-xs-2 pull-left">
+                                                                        <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                                                        <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="point-type-good">
+                                                                    <span>Good - Good work.</span>
+                                                                    <span class="col-xs-2 pull-left ">
+                                                                        <i class="fa fa-plus single-child" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="point-type-corrected">
+                                                                    <span>Corrected - Corrected from previous review.</span>
+                                                                    <span class="col-xs-2 pull-left">
+                                                                        <i class="fa single-child " aria-hidden="true">&#10004;</i>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="point-type-poor">
+                                                                    <span>Poor - Poorly written code block.</span>
+                                                                    <span class="col-xs-2 pull-left">
+                                                                        <i class="fa fa-minus single-child" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="point-type-critical">
+                                                                    <span>Critical  - This is a disaster.</span>
+                                                                    <span class="col-xs-2 pull-left">
+                                                                        <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                                                        <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="point-type-suggestion">
+                                                                    <span>Suggestion - Food for thought.</span>
+                                                                    <span class="col-xs-2 pull-left">
+                                                                        <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </span>
 
-                                        </div>
-                                        <div class="col-xs-10 no-padding-left no-padding-right" id="divCrWizardTagPoints">
-                                            <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
-                                                <label>Review Point</label>
-                                                <label class="danger">*</label>
-                                                <input type="text" placeholder="eg : Folder structure not clean" class="input-sm form-control" data-bind="text:my.profileVm.codeReviewPoints.Title" />
-                                            </div>
-                                            <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
-                                                <label>Additional Details</label>
-                                                <textarea id="txtAreaFeedback" data-bind="CKEDITOR: my.profileVm.codeReviewPoints.Description"
-                                                          class="form-control comment-input-control" rows="3" type="text" placeholder="Enter feedback" style=resize: vertical"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-2 no-padding-right feedback-input" id="divCrWizardPointsRatings">
-                                            <label>Category</label>
-                                            <label class="danger">*</label>
-                                            <span class="legends">
-                                                <em>Legend</em>
-                                                <span class="custom-tooltip legend-custom-tooltip">
-                                                    <span>
+                                                    <div id="divRatingsButtonWrapper" class="col-xs-12 no-padding-left no-padding-right">
                                                         <span class="point-type-exceptional">
-                                                            <span>Exceptional - A piece of awesome work.</span>
-                                                            <span class="col-xs-2 pull-left">
+                                                            <span class="pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-plus double-child" aria-hidden="true"></i>
                                                                 <i class="fa fa-plus double-child" aria-hidden="true"></i>
                                                             </span>
+                                                            <span class="rating-details">Exceptional</span>
                                                         </span>
                                                         <span class="point-type-good">
-                                                            <span>Good - Good work.</span>
-                                                            <span class="col-xs-2 pull-left ">
+                                                            <span class="pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-plus single-child" aria-hidden="true"></i>
                                                             </span>
+                                                            <span class="rating-details">Good</span>
                                                         </span>
                                                         <span class="point-type-corrected">
-                                                            <span>Corrected - Corrected from previous review.</span>
-                                                            <span class="col-xs-2 pull-left">
+                                                            <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa single-child " aria-hidden="true">&#10004;</i>
                                                             </span>
+                                                            <span class="rating-details">Corrected</span>
                                                         </span>
                                                         <span class="point-type-poor">
-                                                            <span>Poor - poorly written code block</span>
-                                                            <span class="col-xs-2 pull-left">
+                                                            <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-minus single-child" aria-hidden="true"></i>
                                                             </span>
+                                                            <span class="rating-details">Poor</span>
                                                         </span>
                                                         <span class="point-type-critical">
-                                                            <span>Critical  - This is a disaster</span>
-                                                            <span class="col-xs-2 pull-left">
+                                                            <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-minus double-child" aria-hidden="true"></i>
                                                                 <i class="fa fa-minus double-child" aria-hidden="true"></i>
                                                             </span>
+                                                            <span class="rating-details">Critical</span>
                                                         </span>
                                                         <span class="point-type-suggestion">
-                                                            <span>Suggestion - Food for thought</span>
-                                                            <span class="col-xs-2 pull-left">
+                                                            <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
                                                             </span>
+                                                            <span class="rating-details">Suggestion</span>
                                                         </span>
-                                                    </span>
-                                                </span>
-                                            </span>
+                                                    </div>
 
-                                            <div id="divRatingsButtonWrapper" class="col-xs-12 no-padding-left no-padding-right">
-                                                <span class="point-type-exceptional">
-                                                    <span class="pull-left no-padding-left no-padding-right">
-                                                        <i class="fa fa-plus double-child" aria-hidden="true"></i>
-                                                        <i class="fa fa-plus double-child" aria-hidden="true"></i>
-                                                    </span>
-                                                    <span class="rating-details">Exceptional</span>
-                                                </span>
-                                                <span class="point-type-good">
-                                                    <span class="pull-left no-padding-left no-padding-right">
-                                                        <i class="fa fa-plus single-child" aria-hidden="true"></i>
-                                                    </span>
-                                                    <span class="rating-details">Good</span>
-                                                </span>
-                                                <span class="point-type-corrected">
-                                                    <span class=" pull-left no-padding-left no-padding-right">
-                                                        <i class="fa single-child " aria-hidden="true">&#10004;</i>
-                                                    </span>
-                                                    <span class="rating-details">Corrected</span>
-                                                </span>
-                                                <span class="point-type-poor">
-                                                    <span class=" pull-left no-padding-left no-padding-right">
-                                                        <i class="fa fa-minus single-child" aria-hidden="true"></i>
-                                                    </span>
-                                                    <span class="rating-details">Poor</span>
-                                                </span>
-                                                <span class="point-type-critical">
-                                                    <span class=" pull-left no-padding-left no-padding-right">
-                                                        <i class="fa fa-minus double-child" aria-hidden="true"></i>
-                                                        <i class="fa fa-minus double-child" aria-hidden="true"></i>
-                                                    </span>
-                                                    <span class="rating-details">Critical</span>
-                                                </span>
-                                                <span class="point-type-suggestion">
-                                                    <span class=" pull-left no-padding-left no-padding-right">
-                                                        <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
-                                                    </span>
-                                                    <span class="rating-details">Suggestion</span>
-                                                </span>
+
+                                                    <button style="height: 34px;" type="button" class="form-control btn btn-info  input-sm "> <i class="glyphicon glyphicon-plus"></i>Add Point</button>
+                                                </div>
+
                                             </div>
-
-
-                                            <button style="height: 34px;" type="button" class="form-control btn btn-info  input-sm ">Add Point <i class="glyphicon glyphicon-plus"></i></button>
                                         </div>
+                                        <div class="col-xs-12 no-padding-left no-padding-right tab-pane" id="divCrWizardTagPreview">
 
-                                    </div>
+                                        </div>
+                                    </div>                                  
                                 </div>
-
                             </div>
 
                             @* For Rest Feedback *@

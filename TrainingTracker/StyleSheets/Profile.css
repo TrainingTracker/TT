@@ -919,8 +919,8 @@ label.lbl-data-info {
      position: absolute;
      height: 34px;
      width: 80%;
-     left: 17%;
-     bottom: 0;
+    left: 13%;
+    bottom: 3%;
  }
 
  #divCrWizardPointsRatings .legends:hover > .custom-tooltip {
@@ -1088,6 +1088,7 @@ label.lbl-data-info {
    width:60%;
   visibility:visible;
   overflow: hidden;
+  font-weight: 500;
    opacity:1;
      transition:  width 0s linear 0.25s,opacity 0.5s linear
      /*transition: visibility linear .5s;*/  
