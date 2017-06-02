@@ -411,14 +411,14 @@
                                     </div>
                                 </div>
 
-                                <div id="divCodeReviewTabs" class="col-xs-12">                               
+                                <div id="divCodeReviewTabs" class="col-xs-12">
                                     <ul class="nav nav-tabs col-xs-1 no-padding-right">
                                         <li class="col-xs-12 no-padding-left no-padding-right active">
                                             <a href="#divCodeReviewSkillsWizard" data-toggle="tab">
                                                 <i class="fa fa-code" aria-hidden="true"></i>
                                                 <span>Add/Edit</span>
                                             </a>
-                                        </li> 
+                                        </li>
                                         <li class="col-xs-12 no-padding-left no-padding-right">
                                             <a href="#divCrWizardTagPreview" data-toggle="tab">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -549,9 +549,16 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 no-padding-left no-padding-right tab-pane" id="divCrWizardTagPreview">
-                                            This is where we will add some preview dor the feedback.
+                                            <div id="divTagPreviewForAddedCodeReviews"></div>
+                                            <div class="col-xs-12 col-md-11 ">
+                                                <label data-bind="text: my.profileVm.validationMessage" class="validation-error"></label>
+                                            </div>
+
+                                            <div class="comment-send col-xs-12 col-md-1 col-lg-1 no-left-margin no-right-margin">
+                                                <button data-bind="click: my.profileVm.addFeedback" type="button" class="btn btn-info pull-right">Add <i class="glyphicon glyphicon-send"></i></button>
+                                            </div>
                                         </div>
-                                    </div>                                  
+                                    </div>
                                 </div>
                             </div>
 

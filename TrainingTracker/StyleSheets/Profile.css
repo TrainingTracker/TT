@@ -840,13 +840,12 @@ label.lbl-data-info {
     width: 100%;
 }
 
-#divCodeReviewSkillsWizard {
+#divCodeReviewSkillsWizard,#divCrWizardTagPreview {
     height: 50vh;
 }
 
 #divCrWizard, #divCrPointsArea {
-    top: 1%;
-    height: 99%;
+    height: 100%;
     margin-bottom: 0;
     background-color: #192741;
     padding: 0;
@@ -1116,21 +1115,24 @@ label.lbl-data-info {
 #CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a i{
     text-align: center;
     display: block;
-    color:#fff;
 }
+
 
 #CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a
 {
-    background-color:#ccc;
-    color:#fff;
-    /*font-weight:bold;*/
-    border: 2px solid #fff;
+    background-color: #ccc;
+    color: #fff;
+    /* font-weight: bold; */
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-radius: 0;
 }
 
 #CodeReviewSection #divCodeReviewTabs .nav-tabs>li.active>a
 {
     background-color: red;
     opacity:.75;
+    transition:opacity linear .1s;
 }
 
 #CodeReviewSection #divCodeReviewTabs .tab-content>.tab-pane {
@@ -1141,6 +1143,7 @@ label.lbl-data-info {
 
 #CodeReviewSection #divCodeReviewTabs .tab-content>.tab-pane.active
 {
+
     width:99%;
     opacity:1;
     transition: opacity .5s ease ;
@@ -1156,10 +1159,27 @@ label.lbl-data-info {
     position: absolute;
     width: 89.2%;
     left: 9.5%;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+#divCodeReviewTabs:after{
+       content: "";
+    position: absolute;
+    width: 1%;
+    height: 100%;
+    left: 9.5%;
+    border-left: 1px solid #ccc;
 }
 
 #divCodeReviewTabs .panel-shadow
 {
     border-radius:2px ;
+}
+
+#divTagPreviewForAddedCodeReviews
+{
+    height:88%;
+}
+
+#divCodeReviewTabs .panel-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 5px;
 }
