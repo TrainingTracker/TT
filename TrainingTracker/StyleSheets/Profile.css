@@ -846,7 +846,7 @@ label.lbl-data-info {
 
 #divCrWizard, #divCrPointsArea {
     top: 1%;
-    height: 98%;
+    height: 99%;
     margin-bottom: 0;
     background-color: #192741;
     padding: 0;
@@ -1105,3 +1105,61 @@ label.lbl-data-info {
     transition: width linear .25s
 }
 
+#CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a
+{
+    margin-right: 0;
+    line-height: 1.42857143;
+    border: none;
+   
+}
+
+#CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a i{
+    text-align: center;
+    display: block;
+    color:#fff;
+}
+
+#CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a
+{
+    background-color:#ccc;
+    color:#fff;
+    /*font-weight:bold;*/
+    border: 2px solid #fff;
+}
+
+#CodeReviewSection #divCodeReviewTabs .nav-tabs>li.active>a
+{
+    background-color: red;
+    opacity:.75;
+}
+
+#CodeReviewSection #divCodeReviewTabs .tab-content>.tab-pane {
+    display: block;
+    width:0;
+    opacity:0;
+}
+
+#CodeReviewSection #divCodeReviewTabs .tab-content>.tab-pane.active
+{
+    width:99%;
+    opacity:1;
+    transition: opacity .5s ease ;
+}
+
+#divCodeReviewTabs
+{
+     margin-top: 4px;
+}
+
+#divCodeReviewTabs:before{
+     content: "";
+    position: absolute;
+    width: 89.2%;
+    left: 9.5%;
+    border-bottom: 2px solid #ccc;
+}
+
+#divCodeReviewTabs .panel-shadow
+{
+    border-radius:2px ;
+}
