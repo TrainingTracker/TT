@@ -102,6 +102,9 @@
         },
         getUserDetailsWithFiltersPromise: function (userId) {
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Profile/GetUserByUserId?userId=" + userId, null);
+        },
+        addUpdateCodeReviewDetailsWithPromise: function (codeReview) {
+            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/AddCodeReviewMetaData", codeReview);
         }
     };
 }(my));

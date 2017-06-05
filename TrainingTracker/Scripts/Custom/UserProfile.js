@@ -549,30 +549,112 @@
         var codeReviewDetails = {
             Id : ko.observable(0),
             Edited: ko.observable(false),
+            Deleted: ko.observable(false),
             Title: ko.observable(""),
             Description: ko.observable(""),
-            Skills: ko.observableArray([])
+            Skills: ko.observableArray([]),
+            ErrorMessage: ko.observable(""),
+            AddedBy: 0,
+            AddedFor: 0,
         };
+
+        var codeReviewSelectedTab = ko.observable(0);
+        var codeReviewSelectedTag = ko.observable(0);
 
         var setReviewPointRating = function (ratingId) {
             reviewPointsDetails.Rating(ratingId);
         };
+
+        var setSelectedTagId =function(tagId)
+        {
+            reviewPointsDetails.TagId(tagId);
+            codeReviewSelectedTag(tagId);
+        }
 
         var discardCodeReview =function(){
             // set is deleted true
         }
 
         var savePointsToCodeReview = function (){
-         // validate stuff here!!!
-            var CodeReviewPoints = {
-
-            }
+            // validate stuff here!!!        
+           
         };
+
+        var validateCodeReviewpoints =function()
+        {
+            var message = [];
+
+            if(my.isNullorEmpty(codeReviewDetails.Title()))
+            {
+                message.push("Title");
+            }
+
+            if (my.isNullorEmpty(codeReviewDetails.Description())) {
+                message.push("Description");
+            }
+
+            if (codeReviewDetails.Skills().length == 0) {
+                message.push("At least one tag");
+            }
+            return message;
+        }
+
+       
 
         var saveCodeReviewData = function ()
         {
-            // Save Code Review Add/ Edit Here
-            // Callback will Update the Given Id.
+            
+            var message = validateCodeReviewpoints();
+
+            if (message.length) {
+                codeReviewDetails.ErrorMessage(message.join() + " are required.");
+                return;
+            }
+
+            var codeReviewMetaData =
+                {
+                    Id : codeReviewDetails.Id(),
+                    Description: codeReviewDetails.Description(),
+                    Title: codeReviewDetails.Title(),
+                    IsDeleted: codeReviewDetails.Deleted(),
+                    AddedFor : { UserId: my.profileVm.userId },
+                    Tags : []
+                }
+
+            ko.utils.arrayForEach(codeReviewDetails.Skills() , function (tag) 
+            {
+                codeReviewMetaData.Tags.push({ Skill: tag });
+            });
+
+            updateSelectedCodereviewTag(1);
+
+            if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited())
+            {
+                PostDataUsingPromise(function () { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
+                  saveCodeReviewCallback, function () { console.log("Error Adding Points") });
+            }
+           
+        };
+
+        var saveCodeReviewCallback = function (data) {
+            codeReviewDetails.Id(data);
+            codeReviewDetails.Edited(false);
+        };
+
+        var PostDataUsingPromise = function (serviceMethod, callback, failureCallback) {
+            var deferredObject = $.Deferred();
+
+            serviceMethod().done(function (data) {
+                callback(data);
+                //my.toggleLoader();
+                deferredObject.resolve(data);
+            }).fail(function () {
+                failureCallback();
+            });
+        };
+
+        var updateSelectedCodereviewTag = function (tagId) {
+            codeReviewSelectedTab(tagId);
         };
 
       
@@ -624,8 +706,12 @@
             codeReviewDetails: codeReviewDetails,
             reviewPointsDetails: reviewPointsDetails,
             codeReviewPointsTypes: codeReviewPointsTypes,
-            setReviewPointRating: setReviewPointRating
-
+            setReviewPointRating: setReviewPointRating,
+            setSelectedTagId:setSelectedTagId,
+            saveCodeReviewData: saveCodeReviewData,
+            updateSelectedCodereviewTag: updateSelectedCodereviewTag,
+            codeReviewSelectedTab: codeReviewSelectedTab,
+            codeReviewSelectedTag: codeReviewSelectedTag,
         };
     }();
 
@@ -648,9 +734,16 @@
 
 
     my.profileVm.codeReviewDetails.Title.subscribe(function () {
-        var array = ko.utils.arrayFilter([], function () {
-            return true;
-        });
+        if( my.profileVm.codeReviewDetails.Id()>0)
+        {
+            my.profileVm.codeReviewDetails.Edited(true);
+        }
+    });
+
+    my.profileVm.codeReviewDetails.Description.subscribe(function () {
+        if (my.profileVm.codeReviewDetails.Id() > 0) {
+            my.profileVm.codeReviewDetails.Edited(true);
+        }
     });
 
     my.profileVm.feedbackPost.selectedOption.subscribe(function (selected) {

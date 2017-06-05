@@ -840,7 +840,7 @@ label.lbl-data-info {
     width: 100%;
 }
 
-#divCodeReviewSkillsWizard,#divCrWizardTagPreview {
+#divCodeReviewSkillsWizard,#divCrWizardTagPreview,#divCodeReviewProjectData {
     height: 50vh;
 }
 
@@ -1182,4 +1182,11 @@ label.lbl-data-info {
 
 #divCodeReviewTabs .panel-shadow {
     box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 5px;
+}
+
+#divCodeReviewProjectData > div:nth-child(3)
+{
+    position: absolute;
+    bottom: 7px;
+    width: 100%;
 }

@@ -12,7 +12,7 @@ namespace TrainingTracker.BLL
     /// <summary>
     /// Business class for feedback, Implemets Business base
     /// </summary>
-    public class FeedbackBl:BusinessBase
+    public class FeedbackBl : BusinessBase
     {
         /// <summary>
         /// Add New feedback for user
@@ -22,15 +22,15 @@ namespace TrainingTracker.BLL
         public bool AddFeedback(Feedback feedback)
         {
             feedback.Project = feedback.Project ?? new Project();
-           
-            if (feedback.FeedbackType.FeedbackTypeId == (int) Common.Enumeration.FeedbackType.Skill)
+
+            if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Skill)
             {
                 if (!string.IsNullOrEmpty(feedback.Title))
                 {
                     Skill newSkill = new Skill
                     {
-                        Name = feedback.Title ,
-                        AddedBy = feedback.AddedBy.UserId ,
+                        Name = feedback.Title,
+                        AddedBy = feedback.AddedBy.UserId,
                         AddedOn = DateTime.Now
                     };
 
@@ -40,7 +40,7 @@ namespace TrainingTracker.BLL
                     feedback.Skill.SkillId = newSkill.SkillId;
                     feedback.Skill.Name = feedback.Title;
                 }
-               
+
                 feedback.Title = feedback.Skill.Name;
                 feedback.Skill = new Skill
                 {
@@ -62,12 +62,12 @@ namespace TrainingTracker.BLL
             feedback.Title = string.IsNullOrEmpty(feedback.Title) ? feedback.FeedbackType.Description : feedback.Title;
 
             int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);
-           
-            if (!(feedbackId>0)) return false;
+
+            if (!(feedbackId > 0)) return false;
 
             feedback.FeedbackId = feedbackId;
 
-            return new NotificationBl().AddFeedbackNotification(feedback) ;
+            return new NotificationBl().AddFeedbackNotification(feedback);
         }
 
 
@@ -76,7 +76,7 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="feedbackId">feedbackId</param>
         /// <param name="currentUser">current user</param>
-        public List<Threads> GetFeedbackThreads( int feedbackId , User currentUser)
+        public List<Threads> GetFeedbackThreads(int feedbackId, User currentUser)
         {
             int feedbackForUserId = FeedbackDataAccesor.GetTraineebyFeedbackId(feedbackId);
 
@@ -90,11 +90,11 @@ namespace TrainingTracker.BLL
         /// </summary>
         /// <param name="feedbackId">feedbackId</param>
         /// <param name="currentUser">current user </param>
-        public Feedback GetFeedbackWithThreads( int feedbackId , User currentUser)
+        public Feedback GetFeedbackWithThreads(int feedbackId, User currentUser)
         {
             int feedbackForUserId = FeedbackDataAccesor.GetTraineebyFeedbackId(feedbackId);
 
-            if (!(currentUser.IsAdministrator || currentUser.IsManager || currentUser.IsTrainer || currentUser.UserId==feedbackForUserId) ) return null;
+            if (!(currentUser.IsAdministrator || currentUser.IsManager || currentUser.IsTrainer || currentUser.UserId == feedbackForUserId)) return null;
 
             return FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId);
         }
@@ -117,9 +117,50 @@ namespace TrainingTracker.BLL
         /// <returns>Success flag</returns>
         public bool AuthorizeCurrentUserForFeedback(int feedbackId, User currentUser)
         {
-            return  (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) 
-                    ||  FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.UserId == Constants.AppBotUserId
-                    ||  FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId ;
+            return (currentUser.IsAdministrator && !currentUser.TeamId.HasValue)
+                    || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.UserId == Constants.AppBotUserId
+                    || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId;
+        }
+
+        public int SubmitCodeReviewMetaData(CodeReview codeReview)
+        {
+            DAL.EntityFramework.CodeReviewMetaData crMetaData;
+            // exisiting
+            if(codeReview.Id > 0 )
+            {
+                crMetaData = UnitOfWork.CodeReviewRepository.Get(codeReview.Id);
+                if(crMetaData == null ) throw new Exception("No Record Found");
+
+                crMetaData.Description = codeReview.Description;
+                crMetaData.IsDiscarded = codeReview.IsDeleted;
+                crMetaData.ProjectName = codeReview.Title;
+            }
+            else
+            {
+                crMetaData = new DAL.EntityFramework.CodeReviewMetaData
+                                                                     {
+                                                                         AddedBy = codeReview.AddedBy.UserId,
+                                                                         AddedFor= codeReview.AddedFor.UserId,
+                                                                         CreatedOn = DateTime.Now,
+                                                                         Description =codeReview.Description,
+                                                                         IsDiscarded = false,
+                                                                         ProjectName = codeReview.Title
+                                                                     };    
+                 foreach(var tag in codeReview.Tags)
+                 {
+                     crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
+                                                    {
+                                                        CreatedOn = DateTime.Now,
+                                                        SkillId = tag.Skill.SkillId
+                                                    });
+                 }
+
+                 UnitOfWork.CodeReviewRepository.Add(crMetaData);
+                
+            }
+            UnitOfWork.Commit();
+            return crMetaData.CodeReviewMetaDataId;
+           
         }
 
         /// <summary>
@@ -131,17 +172,17 @@ namespace TrainingTracker.BLL
         internal bool GenerateCourseFeedback(int courseId, int userId)
         {
             Course course = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
-            
+
             Feedback feedback = new Feedback
             {
-                AddedBy = new User{UserId = Constants.AppBotUserId},
+                AddedBy = new User { UserId = Constants.AppBotUserId },
                 AddedFor = new User { UserId = userId },
-                FeedbackType = new FeedbackType{FeedbackTypeId = (int)Common.Enumeration.FeedbackType.Course},
+                FeedbackType = new FeedbackType { FeedbackTypeId = (int)Common.Enumeration.FeedbackType.Course },
                 FeedbackText = UtilityFunctions.GenerateHtmlForCourseFeedback(course),
                 Title = course.Name
             };
 
-          return  AddFeedback(feedback);
+            return AddFeedback(feedback);
 
         }
     }

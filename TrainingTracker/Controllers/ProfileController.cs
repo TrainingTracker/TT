@@ -326,5 +326,12 @@ namespace TrainingTracker.Controllers
         {
             return Json(new UserBl().GetUserByUserId(userId), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult AddCodeReviewMetaData(CodeReview codeReview)
+        {
+            codeReview.AddedBy = CurrentUser;
+            return Json(new FeedbackBl().SubmitCodeReviewMetaData(codeReview), JsonRequestBehavior.AllowGet);
+        }
     }
 }

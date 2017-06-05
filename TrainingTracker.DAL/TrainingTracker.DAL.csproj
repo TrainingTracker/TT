@@ -270,6 +270,7 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\ICodeReviewRepository.cs" />
     <Compile Include="Interface\INotificationRepository.cs" />
     <Compile Include="Interface\ISkillRepository.cs" />
     <Compile Include="Interface\ISubtopicContentRepository.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\CodeReviewRepository.cs" />
     <Compile Include="Repositories\MirrorRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
     <Compile Include="Repositories\SkillRepository.cs" />
