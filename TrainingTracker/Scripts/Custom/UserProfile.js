@@ -28,46 +28,6 @@
                                             { FeedbackTypeId: 6, Description: "Course Feedback" },
                                             { FeedbackTypeId: 7, Description: "Random Review" }])
             },
-            codeReviewPointsTypes = [{
-                Id: 1,
-                Title: "Exceptional",
-                Description: "Point better than expected"
-            },
-            {
-                Id: 2,
-                Title: "Good",
-                Description: "Point matching the expectations"
-            },
-            {
-                Id: 3,
-                Title: "Corrected",
-                Description: "Point corrected from previous review"
-            },
-             {
-                 Id: 4,
-                 Title: "Bad",
-                 Description: "Poorly written, Could have been better"
-             }, {
-                 Id: 5,
-                 Title: "Critical",
-                 Description: "Need immediate attentions"
-             }, {
-                 Id: 6,
-                 Title: "Suggestion",
-                 Description: "Suggestions"
-             }
-            ],
-             codeReviewDetails = {
-                 Title: ko.observable(""),
-                 Description: ko.observable(""),
-                 Skills: ko.observableArray([])
-             },
-
-             codeReviewPoints = {
-                 Title: ko.observable(""),
-                 Description: ko.observable(""),
-                 PointsRating:ko.observable(0)
-             },
         controls = {
             skillOption: ko.observable("1"),
             assignmentOption: ko.observable(1),
@@ -535,7 +495,6 @@
 
     },
 
-
     toggleCollapsedPanel = function () {
         my.profileVm.isCommentCollapsed(!my.profileVm.isCommentCollapsed());
     };
@@ -547,8 +506,76 @@
             else {
                 window.open(my.rootUrl + '/LearningPath/Course?courseId=' + courseId + '&traineeId=' + my.profileVm.userVm.User.UserId, '_blank');
             }
+        };
 
+        var codeReviewPointsTypes = [{
+            Id: 1,
+            Title: "Exceptional",
+            Description: "Point better than expected"
+        },
+            {
+                Id: 2,
+                Title: "Good",
+                Description: "Point matching the expectations"
+            },
+            {
+                Id: 3,
+                Title: "Corrected",
+                Description: "Point corrected from previous review"
+            },
+             {
+                 Id: 4,
+                 Title: "Bad",
+                 Description: "Poorly written, Could have been better"
+             }, {
+                 Id: 5,
+                 Title: "Critical",
+                 Description: "Need immediate attentions"
+             }, {
+                 Id: 6,
+                 Title: "Suggestion",
+                 Description: "Suggestions"
+             }
+        ];
+        var reviewPointsDetails = {
+            TagId: ko.observable(0),
+            Title: ko.observable(""),
+            Edited: ko.observable(false),
+            Deleted : ko.observable(false),
+            Description: ko.observable(""),
+            Rating: ko.observable(0)
+        };
+
+        var codeReviewDetails = {
+            Id : ko.observable(0),
+            Edited: ko.observable(false),
+            Title: ko.observable(""),
+            Description: ko.observable(""),
+            Skills: ko.observableArray([])
+        };
+
+        var setReviewPointRating = function (ratingId) {
+            reviewPointsDetails.Rating(ratingId);
+        };
+
+        var discardCodeReview =function(){
+            // set is deleted true
         }
+
+        var savePointsToCodeReview = function (){
+         // validate stuff here!!!
+            var CodeReviewPoints = {
+
+            }
+        };
+
+        var saveCodeReviewData = function ()
+        {
+            // Save Code Review Add/ Edit Here
+            // Callback will Update the Given Id.
+        };
+
+      
         return {
             userId: userId,
             getUserCallback: getUserCallback,
@@ -595,8 +622,9 @@
             navigateToCourse: navigateToCourse,
             feedbackTypes: feedbackTypes,
             codeReviewDetails: codeReviewDetails,
-            codeReviewPoints: codeReviewPoints,
-            codeReviewPointsTypes: codeReviewPointsTypes
+            reviewPointsDetails: reviewPointsDetails,
+            codeReviewPointsTypes: codeReviewPointsTypes,
+            setReviewPointRating: setReviewPointRating
 
         };
     }();
@@ -616,8 +644,14 @@
                 my.toggleLoader();
             });
         }
-
     }, null, "change");
+
+
+    my.profileVm.codeReviewDetails.Title.subscribe(function () {
+        var array = ko.utils.arrayFilter([], function () {
+            return true;
+        });
+    });
 
     my.profileVm.feedbackPost.selectedOption.subscribe(function (selected) {
 

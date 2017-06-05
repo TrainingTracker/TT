@@ -158,7 +158,10 @@
                         </div>
                         <i data-bind="visible: PendingAssignmentCount > 0" class="fa fa-exclamation pending-assignment pull-right" aria-hidden="true">
                             <span class="badge" data-bind="text: PendingAssignmentCount"></span>
-                            <span class="custom-tooltip" data-bind="text:PendingAssignmentCount + ' pending assignment to approve'"></span>
+                            <span class="custom-tooltip" >
+                                <span data-bind="text:PendingAssignmentCount + ' pending assignment to approve'"></span>
+                                <a style="display: block; color:darkblue" href="#" data-bind="click: function(){ my.profileVm.navigateToCourse(Id); }">Approve Now</a>
+                            </span>
                         </i>
 
                     </div>
@@ -444,11 +447,11 @@
                                                     <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
                                                         <label>Review Point</label>
                                                         <label class="danger">*</label>
-                                                        <input type="text" placeholder="eg : Folder structure not clean" class="input-sm form-control" data-bind="text:my.profileVm.codeReviewPoints.Title" />
+                                                        <input type="text" placeholder="eg : Folder structure not clean" class="input-sm form-control" data-bind="text:my.profileVm.reviewPointsDetails.Title" />
                                                     </div>
                                                     <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
                                                         <label>Additional Details</label>
-                                                        <textarea id="txtAreaFeedback" data-bind="CKEDITOR: my.profileVm.codeReviewPoints.Description"
+                                                        <textarea id="txtAreaFeedback" data-bind="CKEDITOR: my.profileVm.reviewPointsDetails.Description"
                                                                   class="form-control comment-input-control" rows="3" type="text" placeholder="Enter feedback" style=resize: vertical"></textarea>
                                                     </div>
                                                 </div>
@@ -502,39 +505,39 @@
                                                     </span>
 
                                                     <div id="divRatingsButtonWrapper" class="col-xs-12 no-padding-left no-padding-right">
-                                                        <span class="point-type-exceptional">
+                                                        <span class="point-type-exceptional" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 1 },click:function(){my.profileVm.setReviewPointRating(1)}">
                                                             <span class="pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-plus double-child" aria-hidden="true"></i>
                                                                 <i class="fa fa-plus double-child" aria-hidden="true"></i>
                                                             </span>
                                                             <span class="rating-details">Exceptional</span>
                                                         </span>
-                                                        <span class="point-type-good">
+                                                        <span class="point-type-good" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 2 },click:function(){my.profileVm.setReviewPointRating(2)}">
                                                             <span class="pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-plus single-child" aria-hidden="true"></i>
                                                             </span>
                                                             <span class="rating-details">Good</span>
                                                         </span>
-                                                        <span class="point-type-corrected">
+                                                        <span class="point-type-corrected" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 3 },click:function(){my.profileVm.setReviewPointRating(3)}">
                                                             <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa single-child " aria-hidden="true">&#10004;</i>
                                                             </span>
                                                             <span class="rating-details">Corrected</span>
                                                         </span>
-                                                        <span class="point-type-poor">
+                                                        <span class="point-type-poor" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 4 },click:function(){my.profileVm.setReviewPointRating(4)}">
                                                             <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-minus single-child" aria-hidden="true"></i>
                                                             </span>
                                                             <span class="rating-details">Poor</span>
                                                         </span>
-                                                        <span class="point-type-critical">
+                                                        <span class="point-type-critical" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 5 },click:function(){my.profileVm.setReviewPointRating(5)}">
                                                             <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-minus double-child" aria-hidden="true"></i>
                                                                 <i class="fa fa-minus double-child" aria-hidden="true"></i>
                                                             </span>
                                                             <span class="rating-details">Critical</span>
                                                         </span>
-                                                        <span class="point-type-suggestion">
+                                                        <span class="point-type-suggestion" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 6 },click:function(){my.profileVm.setReviewPointRating(6)}">
                                                             <span class=" pull-left no-padding-left no-padding-right">
                                                                 <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
                                                             </span>
