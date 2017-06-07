@@ -743,17 +743,14 @@
                     {
                         text: 'Yes, Discard this Review',
                         btnClass: 'btn-primary btn-success',
-                        action: function () {
-                            my.userService.discardCodeReviewFeedback(codeReviewDetails.Id(), discardCodeReviewCallback);
-                            return;
-                        }
+                        action:   my.userService.discardCodeReviewFeedback(codeReviewDetails.Id(), discardCodeReviewCallback)
                     },
                     cancel:
                     {
-                        text: 'No, Continue with WF',
+                        text: 'No',
                         btnClass: 'btn-primary btn-warning',
                         action: function () {
-                            bindSurveyQuestion(surveyQuestionJson);
+                           
                         }
                     }
                 }

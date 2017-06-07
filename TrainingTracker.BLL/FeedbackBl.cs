@@ -261,7 +261,7 @@ namespace TrainingTracker.BLL
 
             if(crMetaData.FeedbackId.HasValue) return false;
 
-            crMetaData.IsDiscarded = false;
+            crMetaData.IsDiscarded = true;
             return UnitOfWork.Commit() > 0;
             
         }

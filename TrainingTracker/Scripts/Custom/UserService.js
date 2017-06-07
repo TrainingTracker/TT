@@ -118,7 +118,7 @@
         },
 
          discardCodeReviewFeedback: function (codeReviewId, callback) {
-             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReviewId, callback);
+             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardCodeReviewFeedback?codeReviewId="+codeReviewId, null, callback);
         }
     };
 }(my));
