@@ -115,6 +115,10 @@
 
         submitCodeReviewFeedback: function (codeReview, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);
+        },
+
+         discardCodeReviewFeedback: function (codeReviewId, callback) {
+             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReviewId, callback);
         }
     };
 }(my));

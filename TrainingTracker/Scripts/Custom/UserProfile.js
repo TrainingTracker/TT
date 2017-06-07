@@ -107,6 +107,25 @@
                 my.discussionThreadsVm.loadDiscussionDialog(queryStringPostId);
             }
 
+            if(!my.isNullorEmpty(jsonData.SavedCodeReviewData))
+            {
+                codeReviewPreviewHtml(jsonData.SavedCodeReviewData);
+                feedbackPost.selectedOption(4);
+                codeReviewSelectedTab(2);
+
+                codeReviewDetails.Id(jsonData.SavedCodeReview.Id);
+                codeReviewDetails.Title(jsonData.SavedCodeReview.Title);
+                codeReviewDetails.Description(jsonData.SavedCodeReview.Description);
+
+
+                ko.utils.arrayForEach(jsonData.SavedCodeReview.Tags, function (tag) {
+                    if(tag.Skill.SkillId != 0)
+                    {
+                        codeReviewDetails.Skills.push(tag.Skill);
+                    }
+                });           
+            }
+
         },
         loadPlotData = function () {
             if (typeof (my.chartVm) !== 'undefined') {
@@ -571,9 +590,6 @@
             codeReviewSelectedTag(tagId);
         }
 
-        var discardCodeReview =function(){
-            // set is deleted true
-        }
 
         var savePointsToCodeReview = function (){           
             var message = validateTagsPoints();
@@ -714,6 +730,44 @@
 
         };
 
+        var discardCodeReview = function () {
+            // set is deleted true
+
+            $.confirm({
+                title: 'Discard saved Review Details?',
+                content: 'Are you sure want to discard this review and start over again?',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, Discard this Review',
+                        btnClass: 'btn-primary btn-success',
+                        action: function () {
+                            my.userService.discardCodeReviewFeedback(codeReviewDetails.Id(), discardCodeReviewCallback);
+                            return;
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No, Continue with WF',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function () {
+                            bindSurveyQuestion(surveyQuestionJson);
+                        }
+                    }
+                }
+            });            
+        }
+
+        var discardCodeReviewCallback = function () {
+            codeReviewSelectedTab(0);
+            codeReviewSelectedTag(0);
+            codeReviewPreviewHtml("");
+            flushCodeReviewDetails();
+            flushReviewPointsTab();
+        }
+
         var submitCodeReview = function () {
             if(validatePost())
             {
@@ -726,6 +780,18 @@
 
                 my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
             }
+        };
+
+        var flushCodeReviewDetails = function () {
+            codeReviewDetails.Id (0),
+            codeReviewDetails.Edited(false),
+            codeReviewDetails.Deleted(false),
+            codeReviewDetails.Title(""),
+            codeReviewDetails.Description(""),
+            codeReviewDetails.Skills([]),
+            codeReviewDetails.ErrorMessage(""),
+            codeReviewDetails.AddedBy = 0,
+            codeReviewDetails.AddedFor = 0
         };
 
         var flushReviewPointsTab = function () {          
@@ -795,7 +861,8 @@
             codeReviewSelectedTab: codeReviewSelectedTab,
             codeReviewSelectedTag: codeReviewSelectedTag,
             codeReviewPreviewHtml: codeReviewPreviewHtml,
-            submitCodeReview:submitCodeReview
+            submitCodeReview: submitCodeReview,
+            discardCodeReview: discardCodeReview
         };
     }();
 

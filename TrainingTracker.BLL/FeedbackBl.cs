@@ -146,7 +146,7 @@ namespace TrainingTracker.BLL
                                                                          Description = codeReview.Description,
                                                                          IsDiscarded = false,
                                                                          ProjectName = codeReview.Title,
-                                                                         
+
                                                                      };
                 foreach (var tag in codeReview.Tags)
                 {
@@ -183,7 +183,7 @@ namespace TrainingTracker.BLL
                 codeReviewPointCore = UnitOfWork.CodeReviewRepository
                                                 .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                                                 .CodeReviewTags
-                                                .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId )
+                                                .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId)
                                                 .CodeReviewPoints
                                                 .First(x => x.CodeReviewPointId == codeReviewPoint.PointId);
 
@@ -217,28 +217,53 @@ namespace TrainingTracker.BLL
 
         public string FetchCodeReviewPreview(int codeReviewMetaId)
         {
-            return UtilityFunctions.GenerateCodeReviewPreview(CodeReviewConverter.ConvertFromCore( UnitOfWork.CodeReviewRepository
+            return UtilityFunctions.GenerateCodeReviewPreview(CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
                                                                                                              .GetCodeReviewWithAllData(codeReviewMetaId)),
-                                                               false);                
+                                                               false);
         }
 
         public bool SubmitCodeReviewFeedback(CodeReview codeReview)
         {
-            CodeReview codeReviewDetailsFromCore = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
-                                                                                                    .GetCodeReviewWithAllData(codeReview.Id));
+
+            DAL.EntityFramework.CodeReviewMetaData codeReviewMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReview.Id);
+            CodeReview codeReviewDetailsFromCore = CodeReviewConverter.ConvertFromCore(codeReviewMetaData);
 
             Feedback feedback = new Feedback
             {
                 AddedBy = new User { UserId = codeReview.AddedBy.UserId },
                 AddedFor = new User { UserId = codeReview.AddedFor.UserId },
                 FeedbackType = new FeedbackType { FeedbackTypeId = (int)Common.Enumeration.FeedbackType.CodeReview },
-                FeedbackText = UtilityFunctions.GenerateCodeReviewPreview(codeReviewDetailsFromCore,true),
+                FeedbackText = UtilityFunctions.GenerateCodeReviewPreview(codeReviewDetailsFromCore, true),
+                Skill =new Skill(),
+                Project = new Project(),
                 Title = codeReviewDetailsFromCore.Title,
                 Rating = codeReview.Rating
             };
 
-            return AddFeedback(feedback);
+            int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);
 
+            if (!(feedbackId > 0)) return false;
+
+            codeReviewMetaData.FeedbackId = feedback.FeedbackId = feedbackId;
+
+            UnitOfWork.Commit();
+
+            return new NotificationBl().AddFeedbackNotification(feedback);
+
+            //  return AddFeedback(feedback);
+        }
+
+        public bool DiscardCodeReviewFeedback(int codeReviewId)
+        {
+            if (codeReviewId <= 0) return false;
+
+             DAL.EntityFramework.CodeReviewMetaData crMetaData =  UnitOfWork.CodeReviewRepository.Get(codeReviewId);
+
+            if(crMetaData.FeedbackId.HasValue) return false;
+
+            crMetaData.IsDiscarded = false;
+            return UnitOfWork.Commit() > 0;
+            
         }
 
         /// <summary>

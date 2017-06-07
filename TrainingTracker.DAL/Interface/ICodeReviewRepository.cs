@@ -10,5 +10,7 @@ namespace TrainingTracker.DAL.Interface
     {
 
         DAL.EntityFramework.CodeReviewMetaData GetCodeReviewWithAllData(int codeReviewMetaDataId);
+
+        DAL.EntityFramework.CodeReviewMetaData GetSavedCodeReviewForTrainee(int traineeId, int trainorId);
     }
 }
