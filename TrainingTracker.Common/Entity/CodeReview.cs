@@ -25,24 +25,4 @@ namespace TrainingTracker.Common.Entity
         public List<CodeReviewTag> Tags { get; set; }
 
     }
-
-    public class CodeReviewTag
-    {
-        public int CodeReviewTagId { get; set; }
-
-        public Skill Skill { get; set; }
-
-        public List<CodeReviewPoint> ReviewPoints { get; set; }
-    }
-
-    public class CodeReviewPoint
-    {
-        public int PointId { get; set; }
-
-        public int Rating { get; set; }
-
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-    }
 }

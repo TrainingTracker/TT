@@ -292,6 +292,9 @@
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
+    <Compile Include="ModelMapper\CodeReviewConverter.cs" />
+    <Compile Include="ModelMapper\CodeReviewPointConverter.cs" />
+    <Compile Include="ModelMapper\CodeReviewTagConverter.cs" />
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
     <Compile Include="ModelMapper\FeedbackConverter.cs" />

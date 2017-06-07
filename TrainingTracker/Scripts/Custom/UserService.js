@@ -104,7 +104,13 @@
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Profile/GetUserByUserId?userId=" + userId, null);
         },
         addUpdateCodeReviewDetailsWithPromise: function (codeReview) {
-            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/AddCodeReviewMetaData", codeReview);
-        }
+            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewMetaData", codeReview);
+        },
+        addUpdateTagPointsWithPromise: function (codeReview) {
+            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewPoint", codeReview);
+        },
+        getCodeReviewPreview: function (codeReviewId,callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId, null, callback);
+        },
     };
 }(my));

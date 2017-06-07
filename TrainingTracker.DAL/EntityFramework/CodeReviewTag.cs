@@ -22,6 +22,7 @@ namespace TrainingTracker.DAL.EntityFramework
     
         public int CodeReviewTagId { get; set; }
         public int CodeReviewMetaDataId { get; set; }
+        public bool IsDeleted { get; set; }
         public Nullable<int> SkillId { get; set; }
         public System.DateTime CreatedOn { get; set; }
     

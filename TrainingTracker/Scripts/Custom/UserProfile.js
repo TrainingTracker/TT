@@ -538,12 +538,12 @@
              }
         ];
         var reviewPointsDetails = {
-            TagId: ko.observable(0),
+            Id: ko.observable(0),
             Title: ko.observable(""),
-            Edited: ko.observable(false),
             Deleted : ko.observable(false),
             Description: ko.observable(""),
-            Rating: ko.observable(0)
+            Rating: ko.observable(0),
+            ErrorMessage : ko.observable("")
         };
 
         var codeReviewDetails = {
@@ -567,7 +567,7 @@
 
         var setSelectedTagId =function(tagId)
         {
-            reviewPointsDetails.TagId(tagId);
+           // reviewPointsDetails.TagId(tagId);
             codeReviewSelectedTag(tagId);
         }
 
@@ -575,12 +575,50 @@
             // set is deleted true
         }
 
-        var savePointsToCodeReview = function (){
-            // validate stuff here!!!        
+        var savePointsToCodeReview = function (){           
+            var message = validateTagsPoints();
+
+            if (message.length) {
+                reviewPointsDetails.ErrorMessage(message.join());
+                return;
+            }
+
+            var codeReviewPoints = {
+                PointId: reviewPointsDetails.Id(),
+                CodeReviewTagId: codeReviewSelectedTag(),
+                CodeReviewMetadataId : codeReviewDetails.Id(),
+                Rating :reviewPointsDetails.Rating(),
+                Title : reviewPointsDetails.Title(),
+                Description : reviewPointsDetails.Description(),
+                IsDeleted : reviewPointsDetails.Deleted()
+            }
+
+            PostDataUsingPromise(function () { return my.userService.addUpdateTagPointsWithPromise(codeReviewPoints); },
+               saveTagCallback, function () { console.log("Error Adding Points") });
            
         };
 
-        var validateCodeReviewpoints =function()
+        var saveTagCallback = function(data)
+        {
+            // flash the preview and show added flasher
+            console.log(data);
+            //console.log(codeReviewPoints);
+        }
+
+        var validateTagsPoints = function () {
+            var message = [];
+
+            if (my.isNullorEmpty(reviewPointsDetails.Title())) {
+                message.push("Add Review Points");
+            }
+
+            if (reviewPointsDetails.Rating()== 0) {
+                message.push("Select Point's Rating");
+            }
+            return message;
+        };
+
+        var validateCodeReviewPoints =function()
         {
             var message = [];
 
@@ -599,12 +637,10 @@
             return message;
         }
 
-       
-
         var saveCodeReviewData = function ()
         {
             
-            var message = validateCodeReviewpoints();
+            var message = validateCodeReviewPoints();
 
             if (message.length) {
                 codeReviewDetails.ErrorMessage(message.join() + " are required.");
@@ -631,7 +667,7 @@
             if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited())
             {
                 PostDataUsingPromise(function () { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
-                  saveCodeReviewCallback, function () { console.log("Error Adding Points") });
+                saveCodeReviewCallback, function () { console.log("Error Adding Points") });
             }
            
         };
@@ -655,7 +691,29 @@
 
         var updateSelectedCodereviewTag = function (tagId) {
             codeReviewSelectedTab(tagId);
+            if(tagId==2)
+            {
+                getCodeReviewPreview();
+            }
         };
+
+        var getCodeReviewPreview = function () {
+
+            if (codeReviewDetails.Id() <= 0) return;
+            my.userService.getCodeReviewPreview(codeReviewDetails.Id(), getCodeReviewPreviewCallback)
+        };
+
+        var getCodeReviewPreviewCallback = function (data) {
+            codeReviewPreviewHtml(data);
+        };
+
+        var codeReviewPreviewHtml = ko.observable("");
+
+        var removeCodeReviewTagAndRefresh = function()
+        {
+
+        }
+
 
       
         return {
@@ -709,9 +767,11 @@
             setReviewPointRating: setReviewPointRating,
             setSelectedTagId:setSelectedTagId,
             saveCodeReviewData: saveCodeReviewData,
+            savePointsToCodeReview:savePointsToCodeReview,
             updateSelectedCodereviewTag: updateSelectedCodereviewTag,
             codeReviewSelectedTab: codeReviewSelectedTab,
             codeReviewSelectedTag: codeReviewSelectedTag,
+            codeReviewPreviewHtml: codeReviewPreviewHtml
         };
     }();
 

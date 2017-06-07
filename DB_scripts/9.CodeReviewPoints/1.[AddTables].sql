@@ -24,6 +24,7 @@ CREATE TABLE CodeReviewMetaData (
 CREATE TABLE CodeReviewTag (
 `CodeReviewTagId` INT NOT NULL AUTO_INCREMENT, 
 `CodeReviewMetaDataId` INT NOT NULL,
+`IsDeleted` BIT NOT NULL,
 `SkillId` INT NULL, 
 `CreatedOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -51,10 +52,12 @@ PRIMARY KEY (`CodeReviewPointTypeId`)
 CREATE TABLE CodeReviewPoints (
 `CodeReviewPointId` INT NOT NULL AUTO_INCREMENT,
 `CodeReviewTagId` INT NOT NULL,
-`ReviewPoint` LONGTEXT NOT NULL,
+`PointTitle` LONGTEXT NOT NULL,
+`Description` LONGTEXT,
 `CodeReviewPointType` INT NOT NULL,
 `CreatedOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `ModifiedOn` TIMESTAMP,
+`IsDeleted` BIT NOT NULL ,
 
 PRIMARY KEY (`CodeReviewPointId`),
 

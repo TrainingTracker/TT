@@ -1122,7 +1122,6 @@ label.lbl-data-info {
 {
     background-color: #ccc;
     color: #fff;
-    /* font-weight: bold; */
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
     border-radius: 0;
@@ -1139,11 +1138,12 @@ label.lbl-data-info {
     display: block;
     width:0;
     opacity:0;
+    position:absolute;
 }
 
 #CodeReviewSection #divCodeReviewTabs .tab-content>.tab-pane.active
 {
-
+    position:static;
     width:99%;
     opacity:1;
     transition: opacity .5s ease ;
@@ -1188,5 +1188,164 @@ label.lbl-data-info {
 {
     position: absolute;
     bottom: 7px;
+    width: 98%;
+}
+
+#divTagPreviewForAddedCodeReviews .weekly-feedback
+{
+    padding:5px;
+    color:black;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-header span{
+    display:block;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-header span.code-review-header-title{
+    font-size:20px;
+    color: red;
+    font-weight:bold;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-header span.code-review-header-description{
+    font-size:16px;
+    color:black;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags
+{
+    padding-left:5px;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-tags-header-title
+{
+    font-size:18px;
+    color: #2596F1;
+    font-weight:bold;
+    /*font-style:italic;*/
+}
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-preview-tag-icon
+{
+    color: #2b96ed;
+    position: relative;
+    font-size: 12px;
+    bottom: 1px;
+    padding: 5px;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-title 
+{
+    display:block;
+    width:90%;
+    float:left;
+    /*margin-left: 3%;*/
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFF8DC;
+    border-left: 3px solid #ffeb8e;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-rating
+{
+    width: 3%;
+    display: block;
+    float: left;
+    font-size: 18px;
+    text-align: center;
+}
+
+#divTagPreviewForAddedCodeReviews code {
+     padding: 0; 
+     font-size: 100%; 
+     color: #000; 
+     background-color: inherit; 
+     border-radius: 0; 
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-button-wrapper i{
+margin:2px;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
+{
+  position: relative;
+    font-size: 12px;
+    left: -8%;
+    margin: 0px 2px 0px 3px;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating i.single-child
+{
+        margin-left: 1.4%;
+}
+/*#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-title
+{
+   left: -7.5%;
+}*/
+
+    /*margin-left: -8%;*/
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-exceptional i
+{
+    color : #1bf11b;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-good i
+{
+    color : #acf02c;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-corrected i
+{
+    color : blue;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-poor i
+{
+    color : #d9534f;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-critical i
+{
+    color : red;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-suggestion i
+{
+    color : orange;
+}
+
+#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-tags-body .code-review-review-points-body
+{
+    width: 97%;
+    margin-left: 3%;
+}
+
+#divTagPreviewForAddedCodeReviews
+{
+    overflow-y:auto;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: red; 
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px red;
+}
+
+.code-review-header:after {
+    content: "";
+    position: static;
+    display: block;
     width: 100%;
+    left: 0;
+    border-bottom: 2px solid #ccc;
+}
+
+.code-review-review-points-description pre{
+    width:93%;
 }

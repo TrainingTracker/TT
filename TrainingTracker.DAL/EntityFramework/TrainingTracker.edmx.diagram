@@ -136,9 +136,9 @@
         <AssociationConnector Association="TrainingTrackerModel.fk_UserSkillMapping_USER" />
         <AssociationConnector Association="TrainingTrackerModel.fk_UserSkillMapping_UserAddedBy" />
         <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewMetaData" Width="1.5" PointX="18.75" PointY="40.125" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewPoint" Width="1.5" PointX="23.25" PointY="57.25" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewPoint" Width="1.5" PointX="23.25" PointY="57.125" />
         <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewPointType" Width="1.5" PointX="21" PointY="53.375" />
-        <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewTag" Width="1.5" PointX="21" PointY="57.375" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CodeReviewTag" Width="1.5" PointX="21" PointY="57.25" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewMetaData_AddedBy" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewMetaData_AddedFor" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewMetaData_Feedback" />
@@ -146,7 +146,7 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewPointType" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewTag" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewTag_Skills" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -6,6 +6,7 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.DAL.DataAccess;
+using System.Linq;
 
 namespace TrainingTracker.BLL
 {
@@ -126,10 +127,10 @@ namespace TrainingTracker.BLL
         {
             DAL.EntityFramework.CodeReviewMetaData crMetaData;
             // exisiting
-            if(codeReview.Id > 0 )
+            if (codeReview.Id > 0)
             {
                 crMetaData = UnitOfWork.CodeReviewRepository.Get(codeReview.Id);
-                if(crMetaData == null ) throw new Exception("No Record Found");
+                if (crMetaData == null) throw new Exception("No Record Found");
 
                 crMetaData.Description = codeReview.Description;
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
@@ -140,27 +141,85 @@ namespace TrainingTracker.BLL
                 crMetaData = new DAL.EntityFramework.CodeReviewMetaData
                                                                      {
                                                                          AddedBy = codeReview.AddedBy.UserId,
-                                                                         AddedFor= codeReview.AddedFor.UserId,
+                                                                         AddedFor = codeReview.AddedFor.UserId,
                                                                          CreatedOn = DateTime.Now,
-                                                                         Description =codeReview.Description,
+                                                                         Description = codeReview.Description,
                                                                          IsDiscarded = false,
-                                                                         ProjectName = codeReview.Title
-                                                                     };    
-                 foreach(var tag in codeReview.Tags)
-                 {
-                     crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
-                                                    {
-                                                        CreatedOn = DateTime.Now,
-                                                        SkillId = tag.Skill.SkillId
-                                                    });
-                 }
+                                                                         ProjectName = codeReview.Title,
+                                                                         
+                                                                     };
+                foreach (var tag in codeReview.Tags)
+                {
+                    crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
+                                                   {
+                                                       CreatedOn = DateTime.Now,
+                                                       SkillId = tag.Skill.SkillId
+                                                   });
+                }
 
-                 UnitOfWork.CodeReviewRepository.Add(crMetaData);
-                
+                crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
+                {
+                    CreatedOn = DateTime.Now,
+                    SkillId = null
+                });
+
+                UnitOfWork.CodeReviewRepository.Add(crMetaData);
+
             }
             UnitOfWork.Commit();
             return crMetaData.CodeReviewMetaDataId;
-           
+
+        }
+
+        public int SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
+        {
+            DAL.EntityFramework.CodeReviewPoint codeReviewPointCore;
+
+            codeReviewPoint.CodeReviewTagId = codeReviewPoint.CodeReviewTagId == 0 ? null : codeReviewPoint.CodeReviewTagId;
+
+            // existing
+            if (codeReviewPoint.PointId > 0)
+            {
+                codeReviewPointCore = UnitOfWork.CodeReviewRepository
+                                                .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
+                                                .CodeReviewTags
+                                                .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId )
+                                                .CodeReviewPoints
+                                                .First(x => x.CodeReviewPointId == codeReviewPoint.PointId);
+
+                codeReviewPointCore.PointTitle = codeReviewPoint.Title;
+                codeReviewPointCore.Description = codeReviewPoint.Description;
+                codeReviewPointCore.CodeReviewPointType = codeReviewPoint.Rating;
+                codeReviewPointCore.IsDeleted = codeReviewPoint.IsDeleted;
+                codeReviewPointCore.ModifiedOn = DateTime.Now;
+            }
+            else
+            {
+                codeReviewPointCore = new DAL.EntityFramework.CodeReviewPoint
+                                           {
+                                               PointTitle = codeReviewPoint.Title,
+                                               Description = codeReviewPoint.Description,
+                                               CodeReviewPointType = codeReviewPoint.Rating,
+                                               IsDeleted = codeReviewPoint.IsDeleted,
+                                               CreatedOn = DateTime.Now,
+                                               ModifiedOn = DateTime.Now
+                                           };
+
+                UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
+                                                 .CodeReviewTags
+                                                 .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId)
+                                                 .CodeReviewPoints.Add(codeReviewPointCore);
+            }
+
+            UnitOfWork.Commit();
+            return codeReviewPointCore.CodeReviewPointId;
+        }
+
+        public string FetchCodeReviewPreview(int codeReviewMetaId)
+        {
+            return UtilityFunctions.GenerateCodeReviewPreview(CodeReviewConverter.ConvertFromCore( UnitOfWork.CodeReviewRepository
+                                                                                                             .GetCodeReviewWithAllData(codeReviewMetaId)),
+                                                               false);                
         }
 
         /// <summary>
@@ -185,5 +244,7 @@ namespace TrainingTracker.BLL
             return AddFeedback(feedback);
 
         }
+
+
     }
 }

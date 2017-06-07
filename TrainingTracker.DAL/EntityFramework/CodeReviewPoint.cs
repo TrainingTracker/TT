@@ -16,10 +16,12 @@ namespace TrainingTracker.DAL.EntityFramework
     {
         public int CodeReviewPointId { get; set; }
         public int CodeReviewTagId { get; set; }
-        public string ReviewPoint { get; set; }
+        public string PointTitle { get; set; }
+        public string Description { get; set; }
         public int CodeReviewPointType { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public System.DateTime ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual CodeReviewPointType CodeReviewPointType1 { get; set; }
         public virtual CodeReviewTag CodeReviewTag { get; set; }

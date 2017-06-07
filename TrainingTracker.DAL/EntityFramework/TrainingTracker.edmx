@@ -63,10 +63,12 @@
           </Key>
           <Property Name="CodeReviewPointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodeReviewTagId" Type="int" Nullable="false" />
-          <Property Name="ReviewPoint" Type="longtext" Nullable="false" />
+          <Property Name="PointTitle" Type="longtext" Nullable="false" />
+          <Property Name="Description" Type="longtext" />
           <Property Name="CodeReviewPointType" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ModifiedOn" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CodeReviewPointType">
           <Key>
@@ -85,6 +87,7 @@
           </Key>
           <Property Name="CodeReviewTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodeReviewMetaDataId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="SkillId" Type="int" />
           <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -2402,7 +2405,7 @@
             <End Role="Skill" EntitySet="Skills" />
             <End Role="CodeReviewTag" EntitySet="CodeReviewTags" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Assignment">
           <Key>
             <PropertyRef Name="Id" />
@@ -4072,12 +4075,14 @@
           </Key>
           <Property Name="CodeReviewPointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodeReviewTagId" Type="Int32" Nullable="false" />
-          <Property Name="ReviewPoint" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PointTitle" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="CodeReviewPointType" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="CodeReviewPointType1" Relationship="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewPointType" FromRole="CodeReviewPoint" ToRole="CodeReviewPointType" />
           <NavigationProperty Name="CodeReviewTag" Relationship="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewTag" FromRole="CodeReviewPoint" ToRole="CodeReviewTag" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CodeReviewPointType">
           <Key>
@@ -4097,6 +4102,7 @@
           </Key>
           <Property Name="CodeReviewTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodeReviewMetaDataId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="SkillId" Type="Int32" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CodeReviewMetaData" Relationship="TrainingTrackerModel.FK_CodeReviewTag_CodeReviewMetaData" FromRole="CodeReviewTag" ToRole="CodeReviewMetaData" />
@@ -4187,7 +4193,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -4872,10 +4878,12 @@
           <EntitySetMapping Name="CodeReviewPoints">
             <EntityTypeMapping TypeName="TrainingTrackerModel.CodeReviewPoint">
               <MappingFragment StoreEntitySet="CodeReviewPoints">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CodeReviewPointType" ColumnName="CodeReviewPointType" />
-                <ScalarProperty Name="ReviewPoint" ColumnName="ReviewPoint" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PointTitle" ColumnName="PointTitle" />
                 <ScalarProperty Name="CodeReviewTagId" ColumnName="CodeReviewTagId" />
                 <ScalarProperty Name="CodeReviewPointId" ColumnName="CodeReviewPointId" />
               </MappingFragment>
@@ -4898,12 +4906,13 @@
               <MappingFragment StoreEntitySet="CodeReviewTag">
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CodeReviewMetaDataId" ColumnName="CodeReviewMetaDataId" />
                 <ScalarProperty Name="CodeReviewTagId" ColumnName="CodeReviewTagId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

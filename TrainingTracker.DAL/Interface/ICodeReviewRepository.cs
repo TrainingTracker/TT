@@ -8,5 +8,7 @@ namespace TrainingTracker.DAL.Interface
 {
     public interface ICodeReviewRepository : IRepository<EntityFramework.CodeReviewMetaData>
     {
+
+        DAL.EntityFramework.CodeReviewMetaData GetCodeReviewWithAllData(int codeReviewMetaDataId);
     }
 }
