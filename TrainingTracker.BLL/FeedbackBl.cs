@@ -222,6 +222,25 @@ namespace TrainingTracker.BLL
                                                                false);                
         }
 
+        public bool SubmitCodeReviewFeedback(CodeReview codeReview)
+        {
+            CodeReview codeReviewDetailsFromCore = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
+                                                                                                    .GetCodeReviewWithAllData(codeReview.Id));
+
+            Feedback feedback = new Feedback
+            {
+                AddedBy = new User { UserId = codeReview.AddedBy.UserId },
+                AddedFor = new User { UserId = codeReview.AddedFor.UserId },
+                FeedbackType = new FeedbackType { FeedbackTypeId = (int)Common.Enumeration.FeedbackType.CodeReview },
+                FeedbackText = UtilityFunctions.GenerateCodeReviewPreview(codeReviewDetailsFromCore,true),
+                Title = codeReviewDetailsFromCore.Title,
+                Rating = codeReview.Rating
+            };
+
+            return AddFeedback(feedback);
+
+        }
+
         /// <summary>
         ///  Private to class method to generate course 
         /// </summary>

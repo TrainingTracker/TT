@@ -600,7 +600,7 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
 .custom-tooltip {
     background: #e89f32;
     top: -61px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.3rem;
 }
 
@@ -1197,34 +1197,34 @@ label.lbl-data-info {
     color:black;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-header span{
+ .code-review-header span{
     display:block;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-header span.code-review-header-title{
+ .code-review-header span.code-review-header-title{
     font-size:20px;
     color: red;
     font-weight:bold;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-header span.code-review-header-description{
+ .code-review-header span.code-review-header-description{
     font-size:16px;
     color:black;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags
+.code-review-tags
 {
     padding-left:5px;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-tags-header-title
+ .code-review-tags .code-review-tags-header-title
 {
     font-size:18px;
     color: #2596F1;
     font-weight:bold;
     /*font-style:italic;*/
 }
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-preview-tag-icon
+ .code-review-tags .code-review-preview-tag-icon
 {
     color: #2b96ed;
     position: relative;
@@ -1233,7 +1233,7 @@ label.lbl-data-info {
     padding: 5px;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-title 
+ .code-review-tags .code-review-review-points-title 
 {
     display:block;
     width:90%;
@@ -1245,7 +1245,7 @@ label.lbl-data-info {
     border-left: 3px solid #ffeb8e;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-rating
+ .code-review-tags .code-review-review-points-rating
 {
     width: 3%;
     display: block;
@@ -1262,11 +1262,10 @@ label.lbl-data-info {
      border-radius: 0; 
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-button-wrapper i{
+ .code-review-button-wrapper i{
 margin:2px;
 }
-
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
 {
   position: relative;
     font-size: 12px;
@@ -1274,7 +1273,7 @@ margin:2px;
     margin: 0px 2px 0px 3px;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating i.single-child
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating i.single-child
 {
         margin-left: 1.4%;
 }
@@ -1285,37 +1284,37 @@ margin:2px;
 
     /*margin-left: -8%;*/
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-exceptional i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-exceptional i
 {
     color : #1bf11b;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-good i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-good i
 {
     color : #acf02c;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-corrected i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-corrected i
 {
     color : blue;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-poor i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-poor i
 {
     color : #d9534f;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-critical i
+ .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-critical i
 {
     color : red;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-suggestion i
+.code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-suggestion i
 {
     color : orange;
 }
 
-#divTagPreviewForAddedCodeReviews .code-review-tags .code-review-tags-body .code-review-review-points-body
+ .code-review-tags .code-review-tags-body .code-review-review-points-body
 {
     width: 97%;
     margin-left: 3%;
@@ -1348,4 +1347,9 @@ margin:2px;
 
 .code-review-review-points-description pre{
     width:93%;
+}
+
+.code-review-header-description
+{
+    white-space:pre;
 }

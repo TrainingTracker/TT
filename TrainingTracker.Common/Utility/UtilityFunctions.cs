@@ -357,7 +357,7 @@ namespace TrainingTracker.Common.Utility
 
             foreach (var tags in codeReview.Tags.OrderBy(x => x.Skill.SkillId))
             {
-                strBuilder.Append("<div class='code-review-tags'>");
+                strBuilder.Append("<div class='code-review-tags clearfix'>");
                    
                    // tag header starts
                      strBuilder.Append("<div class='code-review-tags-header'>");
@@ -379,10 +379,10 @@ namespace TrainingTracker.Common.Utility
                         
                       foreach(var reviewPoints in tags.ReviewPoints.OrderBy(x=>x.Rating))
                       {
-                         
-                          strBuilder.Append("<div class='code-review-review-points'>");
+
+                          strBuilder.Append("<div class='code-review-review-points clearfix'>");
                           #region review point header
-                             strBuilder.Append("<div class='code-review-review-points-header'>");
+                          strBuilder.Append("<div class='code-review-review-points-header clearfix'>");
 
                              #region rating region
                              switch (reviewPoints.Rating)
@@ -432,9 +432,14 @@ namespace TrainingTracker.Common.Utility
                              strBuilder.Append("</div>");
                           #endregion
                              #region review point body
-                             strBuilder.Append("<div class='code-review-review-points-body'>");
-                             strBuilder.Append("<span class='code-review-review-points-description'>" + reviewPoints.Description + "</span>");
-                             strBuilder.Append("</div>");
+
+                            if (!string.IsNullOrEmpty(reviewPoints.Description))
+                              {
+                                strBuilder.Append("<div class='code-review-review-points-body'>");
+                                strBuilder.Append("<span class='code-review-review-points-description'>" + reviewPoints.Description + "</span>");
+                                strBuilder.Append("</div>");
+                              }
+                             
                              #endregion
 
                              strBuilder.Append("</div>");

@@ -112,5 +112,9 @@
         getCodeReviewPreview: function (codeReviewId,callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId, null, callback);
         },
+
+        submitCodeReviewFeedback: function (codeReview, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);
+        }
     };
 }(my));

@@ -121,7 +121,7 @@
 
             var validationMessageArray = [];
 
-            if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 5 && (my.profileVm.feedbackPost.FeedbackText() == undefined ||
+            if ((my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 5 && my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 4) && (my.profileVm.feedbackPost.FeedbackText() == undefined ||
                 my.profileVm.feedbackPost.FeedbackText() == "")) {
                 //   my.profileVm.validationMessage("You need to add feedback text.");
                 validationMessageArray.push(" add feedback text");
@@ -593,7 +593,7 @@
                 IsDeleted : reviewPointsDetails.Deleted()
             }
 
-            PostDataUsingPromise(function () { return my.userService.addUpdateTagPointsWithPromise(codeReviewPoints); },
+            PostDataUsingPromise(function () { flushReviewPointsTab(); return my.userService.addUpdateTagPointsWithPromise(codeReviewPoints); },
                saveTagCallback, function () { console.log("Error Adding Points") });
            
         };
@@ -691,6 +691,7 @@
 
         var updateSelectedCodereviewTag = function (tagId) {
             codeReviewSelectedTab(tagId);
+            flushReviewPointsTab();
             if(tagId==2)
             {
                 getCodeReviewPreview();
@@ -709,10 +710,32 @@
 
         var codeReviewPreviewHtml = ko.observable("");
 
-        var removeCodeReviewTagAndRefresh = function()
-        {
+        var removeCodeReviewTagAndRefresh = function () {
 
-        }
+        };
+
+        var submitCodeReview = function () {
+            if(validatePost())
+            {
+                var codeReview = {
+                    Id : codeReviewDetails.Id(),
+                    Rating :feedbackPost.Rating(),
+                    AddedFor :{ UserId: my.profileVm.userId },
+                    AddedBy: { UserId: my.profileVm.currentUser.UserId }              
+                };
+
+                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+            }
+        };
+
+        var flushReviewPointsTab = function () {          
+                reviewPointsDetails.Id(0);
+                reviewPointsDetails.Title("");
+                reviewPointsDetails.Deleted(false);
+                reviewPointsDetails.Description("");
+                reviewPointsDetails.Rating(0);
+                reviewPointsDetails.ErrorMessage("");
+        };
 
 
       
@@ -771,7 +794,8 @@
             updateSelectedCodereviewTag: updateSelectedCodereviewTag,
             codeReviewSelectedTab: codeReviewSelectedTab,
             codeReviewSelectedTag: codeReviewSelectedTag,
-            codeReviewPreviewHtml: codeReviewPreviewHtml
+            codeReviewPreviewHtml: codeReviewPreviewHtml,
+            submitCodeReview:submitCodeReview
         };
     }();
 

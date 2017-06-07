@@ -347,5 +347,12 @@ namespace TrainingTracker.Controllers
         {
             return Json(new FeedbackBl().FetchCodeReviewPreview(codeReviewId), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult SubmitCodeReviewFeedback(CodeReview codeReview)
+        {
+            return Json(new FeedbackBl().SubmitCodeReviewFeedback(codeReview), JsonRequestBehavior.AllowGet);
+        }
     }
 }
