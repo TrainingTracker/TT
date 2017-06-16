@@ -1,0 +1,189 @@
+﻿
+<div id="divCodeReviewTabs" class="col-xs-12 modal-content">
+    @*<ul class="nav nav-tabs col-xs-1 no-padding-right">
+            <li class="col-xs-12 no-padding-left no-padding-right" data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==0}">
+                <a href="#divCodeReviewProjectData" data-toggle="tab" data-bind="click:function(){my.profileVm.updateSelectedCodereviewTag(0)}">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <span>Summary</span>
+                </a>
+            </li>
+            <li class="col-xs-12 no-padding-left no-padding-right " data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==1}">
+                <a href="#divCodeReviewSkillsWizard" data-toggle="tab" data-bind="click:function(){my.profileVm.updateSelectedCodereviewTag(1)}">
+                    <i class=" fa fa-code" aria-hidden="true">
+                    </i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            <li class="col-xs-12 no-padding-left no-padding-right" data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==2}">
+                <a href="#divCrWizardTagPreview" data-toggle="tab" data-bind="click:function(){my.profileVm.updateSelectedCodereviewTag(2)}">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <span>Preview</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content col-xs-11 no-padding-left  no-padding-right  panel-shadow">
+            <div id="divCodeReviewProjectData" class="col-xs-12 no-padding-left no-padding-right tab-pane" data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==0}">
+                <div class="col-xs-6 no-padding-left">
+                    <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
+                        <label>Project/Assignment Title</label>
+                        <label class="danger">*</label>
+                        <input type="text" placeholder="Project/Assignment Name" class="input-sm form-control" data-bind="value:my.profileVm.codeReviewDetails.Title" />
+                    </div>
+                    <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
+                        <label>Description</label>
+                        <label class="danger">*</label>
+                        <textarea rows="5" style="resize:none" placeholder="This review is about? this review covers?" class="input-sm form-control" data-bind="value:my.profileVm.codeReviewDetails.Description"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
+                        <label>Tech. Stack:</label>
+                        <label class="danger">*</label>
+                        <span class="pull-right glyphicon glyphicon-question-sign" data-bind="wzTooltip: { tittle: 'Multi-select options for technologies used in this Project', HtmlTag: 'false', ClickSticky: 'false', Above: 'true' }" style="cursor: pointer; color: #000"></span>
+                        <select class="input-sm form-control"
+                                style="font-size:13px;"
+                                multiple="multiple"
+                                size="8"
+                                data-bind="options: my.profileVm.userVm.AllSkills(),
+                                                                           optionsText: 'Name' ,
+                                                                           selectedOptions : my.profileVm.codeReviewDetails.Skills "></select>
+                    </div>
+                </div>
+                <div class=" col-xs-11 no-left-margin no-right-margin">
+                    <label class="validation-error col-xs-8" data-bind="text:my.profileVm.codeReviewDetails.ErrorMessage"></label>
+                    <button data-bind="click: my.profileVm.saveCodeReviewData" type="button" class="btn btn-info pull-right">Next<i class="fa fa-chevron-right "></i></button>
+                </div>
+            </div>
+            <div id="divCodeReviewSkillsWizard" class="col-xs-12 no-padding-left no-padding-right tab-pane" data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==1}">
+                <div class="col-xs-2 no-padding-left no-padding-right" id="divCrWizard">
+                    <div class="col-xs-12 no-padding-left no-padding-right code-review-steps" data-bind="click:function(){my.profileVm.setSelectedTagId(0);return true;},css:{'current-selected-tab':my.profileVm.codeReviewSelectedTag()==0}">
+                        <span>General</span>
+                        <span class="pull-right glyphicon glyphicon-question-sign" data-bind="wzTooltip: { tittle: 'All points common across technologies ', HtmlTag: 'false', ClickSticky: 'false', Above: 'true' }" style="position: absolute;right:0;cursor: pointer; color: #000"></span>
+                    </div>
+                    <!-- ko foreach: my.profileVm.codeReviewDetails.Skills  -->
+                    <div class="col-xs-12 no-padding-left no-padding-right code-review-steps" data-bind="click:function(){my.profileVm.setSelectedTagId(SkillId);return true;},css:{'current-selected-tab':my.profileVm.codeReviewSelectedTag()==SkillId}">
+                        <span data-bind="text:Name"></span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="col-xs-10 no-padding-right" id="divCrPointsArea">
+                    <div class="col-xs-10 no-padding-left no-padding-right" id="divCrWizardTagPoints">
+                        <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
+                            <label>Review Point</label>
+                            <label class="danger">*</label>
+                            <input type="text" placeholder="eg : Folder structure not clean" class="input-sm form-control" data-bind="value:my.profileVm.reviewPointsDetails.Title" />
+                        </div>
+                        <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
+                            <label>Additional Details</label>
+                            <textarea id="txtAreaFeedback" data-bind="CKEDITOR: my.profileVm.reviewPointsDetails.Description"
+                                      class="form-control comment-input-control" rows="3" type="text" placeholder="Enter feedback" style=resize: vertical"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 no-padding-right feedback-input" id="divCrWizardPointsRatings">
+                        <label>Category</label>
+                        <label class="danger">*</label>
+                        <span class="legends">
+                            <em>Legend</em>
+                            <span class="custom-tooltip legend-custom-tooltip">
+                                <span>
+                                    <span class="point-type-exceptional">
+                                        <span>Exceptional - A piece of awesome work.</span>
+                                        <span class="col-xs-2 pull-left">
+                                            <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                            <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="point-type-good">
+                                        <span>Good - Good work.</span>
+                                        <span class="col-xs-2 pull-left ">
+                                            <i class="fa fa-plus single-child" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="point-type-corrected">
+                                        <span>Corrected - Corrected from previous review.</span>
+                                        <span class="col-xs-2 pull-left">
+                                            <i class="fa fa-check single-child " aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="point-type-poor">
+                                        <span>Poor - Poorly written code block.</span>
+                                        <span class="col-xs-2 pull-left">
+                                            <i class="fa fa-minus single-child" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="point-type-critical">
+                                        <span>Critical  - This is a disaster.</span>
+                                        <span class="col-xs-2 pull-left">
+                                            <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                            <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="point-type-suggestion">
+                                        <span>Suggestion - Food for thought.</span>
+                                        <span class="col-xs-2 pull-left">
+                                            <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+
+                        <div id="divRatingsButtonWrapper" class="col-xs-12 no-padding-left no-padding-right">
+                            <span class="point-type-exceptional" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 1 },click:function(){my.profileVm.setReviewPointRating(1)}">
+                                <span class="pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                    <i class="fa fa-plus double-child" aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Exceptional</span>
+                            </span>
+                            <span class="point-type-good" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 2 },click:function(){my.profileVm.setReviewPointRating(2)}">
+                                <span class="pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-plus single-child" aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Good</span>
+                            </span>
+                            <span class="point-type-corrected" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 3 },click:function(){my.profileVm.setReviewPointRating(3)}">
+                                <span class=" pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-check single-child " aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Corrected</span>
+                            </span>
+                            <span class="point-type-poor" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 4 },click:function(){my.profileVm.setReviewPointRating(4)}">
+                                <span class=" pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-minus single-child" aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Poor</span>
+                            </span>
+                            <span class="point-type-critical" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 5 },click:function(){my.profileVm.setReviewPointRating(5)}">
+                                <span class=" pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                    <i class="fa fa-minus double-child" aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Critical</span>
+                            </span>
+                            <span class="point-type-suggestion" data-bind="css:{'active' : my.profileVm.reviewPointsDetails.Rating() == 6 },click:function(){my.profileVm.setReviewPointRating(6)}">
+                                <span class=" pull-left no-padding-left no-padding-right">
+                                    <i class="fa fa-exclamation single-child" aria-hidden="true"></i>
+                                </span>
+                                <span class="rating-details">Suggestion</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 no-padding-left no-padding-right" style="position:absolute;bottom:0;">
+                        <label class="validation-error col-xs-8" data-bind="text:my.profileVm.reviewPointsDetails.ErrorMessage"></label>
+                        <button style="height: 34px;" type="button" class=" btn btn-info pull-right  input-sm " data-bind="click:my.profileVm.savePointsToCodeReview"> <i class="glyphicon glyphicon-plus"></i>Add Point</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 no-padding-left no-padding-right tab-pane" id="divCrWizardTagPreview" data-bind="css:{'active':my.profileVm.codeReviewSelectedTab()==2}">
+                <div id="divTagPreviewForAddedCodeReviews">
+                    <span data-bind="html:my.profileVm.codeReviewPreviewHtml">Change the Entire logic, need to implement edit/delete here</span>
+                </div>
+                <div class="col-xs-12 ">
+                    <label data-bind="text: my.profileVm.validationMessage" class="validation-error"></label>
+                    <button data-bind="click: my.profileVm.submitCodeReview" type="button" class="btn btn-info pull-right">Add Code Review <i class="glyphicon glyphicon-send"></i></button>
+                    <button data-bind="click: my.profileVm.discardCodeReview" type="button" class="btn btn-info pull-right">Discard Review <i class="glyphicon glyphicon-trash"></i></button>
+                </div>
+            </div>
+        </div>*@
+</div>

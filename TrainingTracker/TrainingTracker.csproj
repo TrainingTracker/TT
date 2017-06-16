@@ -422,6 +422,7 @@
     <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
     <Content Include="Views\Login\GPSLogin.cshtml" />
     <Content Include="Views\Mirror\PrintHandler.cshtml" />
+    <Content Include="Views\Shared\CodeReviewPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

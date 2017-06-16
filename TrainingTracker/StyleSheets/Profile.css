@@ -1151,7 +1151,7 @@ label.lbl-data-info {
 
 #divCodeReviewTabs
 {
-     margin-top: 4px;
+  height: 80%;
 }
 
 #divCodeReviewTabs:before{
