@@ -119,6 +119,9 @@
 
          discardCodeReviewFeedback: function (codeReviewId, callback) {
              my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardCodeReviewFeedback?codeReviewId="+codeReviewId, null, callback);
+        },
+         addCategory: function (category, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/AddCategory", category, callback);
         }
     };
 }(my));

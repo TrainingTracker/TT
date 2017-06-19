@@ -360,6 +360,12 @@ namespace TrainingTracker.Controllers
         public JsonResult DiscardCodeReviewFeedback(int codeReviewId)
         {
             return Json(new FeedbackBl().DiscardCodeReviewFeedback(codeReviewId), JsonRequestBehavior.AllowGet);
-        }        
+        }
+
+        [HttpPost]
+        public ActionResult AddCategory(Skill category)
+        {
+            return Json(new UserBl().AddSkill(category));
+        }
     }
 }

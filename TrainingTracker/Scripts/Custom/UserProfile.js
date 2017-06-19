@@ -663,7 +663,7 @@
             var message = validateCodeReviewPoints();
 
             if (message.length) {
-                codeReviewDetails.ErrorMessage(message.join() + " are required.");
+                codeReviewDetails.ErrorMessage('Add ' + message.join(", "));
                 return;
             }
 
@@ -853,6 +853,34 @@
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
         };
+
+        var addCategoryCallback = function (data) {
+            if(data == null)
+            {
+                console.log("Failed Adding Skill");
+                return;
+            }
+            my.profileVm.userVm.AllSkills(data);
+
+            var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (item) {
+                return item.Name == filterKeyWord();
+            });
+
+            if (filteredTag.length > 0) {
+                codeReviewDetails.Skills.push(filteredTag[0]);
+            }
+            my.profileVm.filterKeyWord("");
+            my.profileVm.filteredTag([]);
+
+        };
+
+        var addCategory = function () {
+            if (!my.isNullorEmpty(filterKeyWord().trim()))
+            {
+                my.userService.addCategory({ Name: filterKeyWord().trim(), AddedBy: my.meta.currentUser.UserId },
+               addCategoryCallback);
+            }          
+        };
       
         return {
             userId: userId,
@@ -915,7 +943,8 @@
             filteredTag:filteredTag,
             filterTag: filterTag,
             filterKeyWord: filterKeyWord,
-            addTagToCodeReviewDetails: addTagToCodeReviewDetails
+            addTagToCodeReviewDetails: addTagToCodeReviewDetails,
+            addCategory: addCategory
         };
     }();
 

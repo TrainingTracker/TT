@@ -292,5 +292,14 @@ namespace TrainingTracker.BLL
         {
             return UserDataAccesor.GetAllDesignation();
         }
+
+        public List<Skill> AddSkill(Skill category)
+        {
+          if(SkillDataAccesor.AddSkill(category))
+          {
+              return SkillDataAccesor.GetAllSkillsForApp();
+          }
+          return null;
+        }
     }
 }                                                                                               
