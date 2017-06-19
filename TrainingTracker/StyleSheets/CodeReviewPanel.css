@@ -1,0 +1,122 @@
+﻿#divCodeReviewTabs h4.mute {
+    display: inline-block;
+}
+
+#divCodeReviewAccordian {
+    max-height: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#divCodeReviewAccordian .panel {
+    border: none;
+    padding: 0;
+}
+
+#divCodeReviewAccordian .panel-heading {
+    padding: 0;
+}
+
+#divCodeReviewAccordian .panel-body {
+    padding: 0;
+}
+
+#divCodeReviewAccordian #divRatingsButtonWrapper > span {
+    width: 16%;
+    display: inline-block;
+}
+
+#divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span {
+    width: 8%;
+}
+
+ #divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span.active {
+     width: 56%;
+ }
+
+#divRatingsButtonWrapper > span {
+    display: block;
+    padding: 10px 0;
+    margin: 2px 0;
+    text-align: center;
+    opacity: .25;
+}
+
+#divRatingsButtonWrapper > span .rating-details {
+    width: 1%;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+    opacity: 0;
+}
+
+#divRatingsButtonWrapper > span:hover, #divRatingsButtonWrapper > span.active {
+    opacity: 1;
+}
+
+ #divRatingsButtonWrapper > span.active .rating-details {
+     width: 60%;
+     visibility: visible;
+     overflow: hidden;
+     font-weight: 500;
+     opacity: 1;
+     transition: width 0s linear 0.25s,opacity 0.5s linear;
+     /*transition: visibility linear .5s;*/
+ }
+
+#divRatingsButtonWrapper > span.active > span:nth-child(1) {
+    width: 36.66%;
+}
+
+#divRatingsButtonWrapper > span, #divRatingsButtonWrapper > span > span:nth-child(1) {
+    width: 99%;
+    margin-top: 2px;
+    transition: width linear .25s;
+}
+
+.panel-heading > div {
+    padding: 5px 0;
+    background-color: #1A2942;
+    color: #fff;
+}
+
+.panel-heading > div i.glyphicon {
+    margin-right: 5px;
+}
+
+.panel-heading label {
+    margin-left: 5px;
+}
+
+#divAbsoluteTagFilter ul {
+  position: absolute;
+    left: 0;
+    /* top: 0px; */
+    z-index: 10;
+    width: 94%;
+    /* left: 2.9%; */
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAbsoluteTagFilter ul > li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
+}
+
+#divAbsoluteTagFilter ul > li label {
+    cursor: pointer;
+}
+
+#divAbsoluteTagFilter ul > li:hover {
+    background: #2596F1;
+    transition: ease background .25s;
+}
+
+#divAbsoluteTagFilter ul > li:hover span {
+    color: #ffffff;
+    transition: ease color .25s;
+}

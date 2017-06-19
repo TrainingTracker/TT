@@ -348,6 +348,7 @@
     <Content Include="Scripts\wz_tooltip.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="StyleSheets\AddEditProfile.css" />
+    <Content Include="StyleSheets\CodeReviewPanel.css" />
     <Content Include="StyleSheets\DiscussionThread.css" />
     <Content Include="StyleSheets\GpsUserSetting.css" />
     <Content Include="StyleSheets\HelpForum.css" />
@@ -422,7 +423,7 @@
     <Content Include="Views\Shared\_UsersUnderLead.cshtml" />
     <Content Include="Views\Login\GPSLogin.cshtml" />
     <Content Include="Views\Mirror\PrintHandler.cshtml" />
-    <Content Include="Views\Shared\CodeReviewPanel.cshtml" />
+    <Content Include="Views\Shared\_CodeReviewPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

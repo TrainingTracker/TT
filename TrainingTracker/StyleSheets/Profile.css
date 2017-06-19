@@ -937,14 +937,16 @@ label.lbl-data-info {
 
 #divCrWizardPointsRatings .custom-tooltip
 {
-       top:-35%;
-    left: -144%;
-    width: 264%;
+     width: 70%;
+    left: 34%;
+    top: -163%;
 }
 
 #divCrWizardPointsRatings .legends {
-    color: #03fa42;
+       color: #03fa42;
     cursor: pointer;
+    float: right;
+    margin-right: 7%;
 }
 
 #divCrWizardPointsRatings .custom-tooltip span.point-type-exceptional i{
@@ -1059,50 +1061,7 @@ label.lbl-data-info {
     padding: 0 2px 0 0;
 }
 
-#divRatingsButtonWrapper>span{
-    display: block;
-    padding: 10px 0;
-    margin: 2px 0;
-    width: 100%;
-    text-align: center;
-    opacity:.25;
-}
 
-#divRatingsButtonWrapper>span .rating-details
-{
-    width:1%;
-    overflow:hidden;
-    visibility:hidden;
-     display:inline-block;
-    opacity:0;
-
-}
-
-#divRatingsButtonWrapper>span:hover,#divRatingsButtonWrapper>span.active{
-      opacity:1;
-}
-
-#divRatingsButtonWrapper>span.active .rating-details,#divRatingsButtonWrapper>span:hover .rating-details
-{
-   width:60%;
-  visibility:visible;
-  overflow: hidden;
-  font-weight: 500;
-   opacity:1;
-     transition:  width 0s linear 0.25s,opacity 0.5s linear
-     /*transition: visibility linear .5s;*/  
-}
-
-#divRatingsButtonWrapper>span.active>span:nth-child(1),#divRatingsButtonWrapper>span:hover>span:nth-child(1)
-{
-    width:36.66%;
-}
-
-#divRatingsButtonWrapper>span,#divRatingsButtonWrapper>span>span:nth-child(1)
-{
-    width:99%;
-    transition: width linear .25s
-}
 
 #CodeReviewSection #divCodeReviewTabs .nav-tabs>li>a
 {
@@ -1154,7 +1113,7 @@ label.lbl-data-info {
   height: 80%;
 }
 
-#divCodeReviewTabs:before{
+/*#divCodeReviewTabs:before{
      content: "";
     position: absolute;
     width: 89.2%;
@@ -1168,7 +1127,7 @@ label.lbl-data-info {
     height: 100%;
     left: 9.5%;
     border-left: 1px solid #ccc;
-}
+}*/
 
 #divCodeReviewTabs .panel-shadow
 {

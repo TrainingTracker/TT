@@ -586,7 +586,11 @@
 
         var setSelectedTagId =function(tagId)
         {
-           // reviewPointsDetails.TagId(tagId);
+            if (typeof (tagId) == 'undefined')
+            {
+                codeReviewSelectedTag(0);
+                return;
+            }
             codeReviewSelectedTag(tagId);
         }
 
@@ -800,7 +804,55 @@
                 reviewPointsDetails.ErrorMessage("");
         };
 
+        var filterKeyWord = ko.observable("");
+        var filteredTag = ko.observableArray([]);
 
+        var filterTag = function () {
+            if (my.profileVm.userVm.AllSkills().length == 0 || my.isNullorEmpty(my.profileVm.filterKeyWord().trim())) {
+                my.profileVm.filteredTag([]);
+                return;
+            }
+
+            var flattenedAllSkillArray = ko.utils.arrayMap(my.profileVm.userVm.AllSkills(), function (item) {
+                return item.Name.toUpperCase();
+            });
+            flattenedAllSkillArray = flattenedAllSkillArray.sort();
+
+            var flattenedSelectedSkillArray = ko.utils.arrayMap(codeReviewDetails.Skills(), function (item) {
+                return item.Name.toUpperCase();
+            });
+            flattenedSelectedSkillArray = flattenedSelectedSkillArray.sort();
+
+            //   var differences = ko.utils.compareArrays(my.profileVm.userVm.AllSkills(), codeReviewDetails.Skills());
+
+            var differences = ko.utils.compareArrays(flattenedAllSkillArray, flattenedSelectedSkillArray);
+
+            var filteredTag = ko.utils.arrayFilter(differences, function (item) {
+                return item.status === "deleted" ;
+            });
+
+            my.profileVm.filteredTag([]);
+            ko.utils.arrayForEach(filteredTag, function (item) {
+                var tags = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (allSkill) {
+                    return allSkill.Name.toUpperCase() == item.value && item.value.includes(my.profileVm.filterKeyWord().trim().toUpperCase());
+                });
+                if (tags.length>0)
+                my.profileVm.filteredTag.push(tags[0]);
+            });            
+        };
+
+        var addTagToCodeReviewDetails = function (skillId) {
+            var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (item) {
+                return item.SkillId == skillId ;
+            });
+
+            if(filteredTag.length>0)
+            {
+                codeReviewDetails.Skills.push(filteredTag[0]);
+            }
+            my.profileVm.filterKeyWord("");
+            my.profileVm.filteredTag([]);
+        };
       
         return {
             userId: userId,
@@ -859,7 +911,11 @@
             codeReviewSelectedTag: codeReviewSelectedTag,
             codeReviewPreviewHtml: codeReviewPreviewHtml,
             submitCodeReview: submitCodeReview,
-            discardCodeReview: discardCodeReview
+            discardCodeReview: discardCodeReview,
+            filteredTag:filteredTag,
+            filterTag: filterTag,
+            filterKeyWord: filterKeyWord,
+            addTagToCodeReviewDetails: addTagToCodeReviewDetails
         };
     }();
 
@@ -875,6 +931,7 @@
         else if ((my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 2 || my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4) && my.profileVm.userVm.AllSkills().length == 0) {
             my.userService.getAllSkills().done(function (data) {
                 my.profileVm.userVm.AllSkills(data);
+               // my.profileVm.filteredTag(data);
                 my.toggleLoader();
             });
         }
@@ -902,4 +959,5 @@
 
         my.profileVm.feedbackPost.FeedbackType(array[0]);
     }, null, "change");
+
 });
