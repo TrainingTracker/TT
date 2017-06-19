@@ -171,7 +171,7 @@ namespace TrainingTracker.BLL
 
         }
 
-        public int SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
+        public string SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
         {
             DAL.EntityFramework.CodeReviewPoint codeReviewPointCore;
 
@@ -212,7 +212,7 @@ namespace TrainingTracker.BLL
             }
 
             UnitOfWork.Commit();
-            return codeReviewPointCore.CodeReviewPointId;
+            return FetchCodeReviewPreview(codeReviewPoint.CodeReviewMetadataId);
         }
 
         public string FetchCodeReviewPreview(int codeReviewMetaId)

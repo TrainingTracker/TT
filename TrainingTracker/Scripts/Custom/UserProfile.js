@@ -562,7 +562,7 @@
             Deleted : ko.observable(false),
             Description: ko.observable(""),
             Rating: ko.observable(0),
-            ErrorMessage : ko.observable("")
+            ErrorMessage: ko.observable(""),
         };
 
         var codeReviewDetails = {
@@ -600,6 +600,7 @@
 
             if (message.length) {
                 reviewPointsDetails.ErrorMessage(message.join());
+                reviewPointsDetails.Rating(0);
                 return;
             }
 
@@ -610,7 +611,7 @@
                 Rating :reviewPointsDetails.Rating(),
                 Title : reviewPointsDetails.Title(),
                 Description : reviewPointsDetails.Description(),
-                IsDeleted : reviewPointsDetails.Deleted()
+                IsDeleted: reviewPointsDetails.Deleted()
             }
 
             PostDataUsingPromise(function () { flushReviewPointsTab(); return my.userService.addUpdateTagPointsWithPromise(codeReviewPoints); },
@@ -621,7 +622,7 @@
         var saveTagCallback = function(data)
         {
             // flash the preview and show added flasher
-            console.log(data);
+            codeReviewPreviewHtml(data);
             //console.log(codeReviewPoints);
         }
 
@@ -807,10 +808,10 @@
         var filterKeyWord = ko.observable("");
         var filteredTag = ko.observableArray([]);
 
-        var filterTag = function () {
+        var filterTag = function (data,event) {
             if (my.profileVm.userVm.AllSkills().length == 0 || my.isNullorEmpty(my.profileVm.filterKeyWord().trim())) {
                 my.profileVm.filteredTag([]);
-                return;
+                return true;
             }
 
             var flattenedAllSkillArray = ko.utils.arrayMap(my.profileVm.userVm.AllSkills(), function (item) {
@@ -838,7 +839,13 @@
                 });
                 if (tags.length>0)
                 my.profileVm.filteredTag.push(tags[0]);
-            });            
+            });
+
+            // Tabbing Support 
+            if (event.keyCode == 9) {
+                addTagToCodeReviewDetails(my.profileVm.filteredTag[0].SkillId);
+            };
+            return true;
         };
 
         var addTagToCodeReviewDetails = function (skillId) {
@@ -988,5 +995,10 @@
 
         my.profileVm.feedbackPost.FeedbackType(array[0]);
     }, null, "change");
+
+    my.profileVm.reviewPointsDetails.Rating.subscribe(function (selectedRating) {
+        if (selectedRating == 0) return;
+        my.profileVm.savePointsToCodeReview();
+    });
 
 });

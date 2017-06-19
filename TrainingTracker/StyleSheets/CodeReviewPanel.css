@@ -11,15 +11,22 @@
 #divCodeReviewAccordian .panel {
     border: none;
     padding: 0;
+    box-shadow: none;
 }
 
 #divCodeReviewAccordian .panel-heading {
     padding: 0;
+    border: none;
+
 }
 
 #divCodeReviewAccordian .panel-body {
     padding: 0;
+    border: none;
+
 }
+
+
 
 #divCodeReviewAccordian #divRatingsButtonWrapper > span {
     width: 16%;
@@ -119,4 +126,27 @@
 #divAbsoluteTagFilter ul > li:hover span {
     color: #ffffff;
     transition: ease color .25s;
+}
+
+#codeReveiewPreviewPanel h3{
+    color:#ccc;
+    text-align:center;
+    font-weight:bold;
+}
+
+#codeReveiewPreviewPanel .weekly-feedback  code{
+        padding: 0 !important;
+   font-size: 100% !important; 
+  color:inherit;
+   border-radius: 0 !important; 
+}
+
+#codeReveiewPreviewPanel{
+    height: 100%;
+}
+
+#divCodeReviewPreviewHtmlArea
+{
+    height:80%;
+    overflow-y:scroll;
 }

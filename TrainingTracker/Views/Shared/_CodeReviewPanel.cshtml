@@ -5,14 +5,14 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div data-toggle="collapse" data-parent="#divCodeReviewAccordian" data-target="#divCodeReviewSummaryCollapsable" class=" active no-padding-left no-padding-right">
+                <div data-toggle="collapse" data-parent="#divCodeReviewAccordian" data-target="#divCodeReviewSummaryCollapsable" class=" no-padding-left no-padding-right" >
                     <label>CR SUMMARY</label>
                     <span class="pull-right">
                         <i class="glyphicon  glyphicon-chevron-down custom-glyph"></i>
                     </span>
                 </div>
             </div>
-            <div id="divCodeReviewSummaryCollapsable" class="panel-collapse collapse in">
+            <div id="divCodeReviewSummaryCollapsable" class="panel-collapse collapse" data-bind="css:{ 'in' : my.profileVm.codeReviewDetails.Id() == 0 }">
                 <div class="panel-body">
                     <div class="col-xs-12 no-padding-left no-padding-right">
                         <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
@@ -30,7 +30,7 @@
                         <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
                             <h4 class="mute">TECHNOLOGY STACK</h4>
                             <label class="danger">*</label>
-                          
+
                             <!-- Filter Starts Here-->
 
                             <div id="divTagSearch" class="col-md-12 no-padding-left no-padding-right ">
@@ -96,23 +96,22 @@
                                     <span class="col-xs-10 no-padding-left" data-bind="text:Name">
                                     </span>
                                 </div>
-                            </div>                           
+                            </div>
                             <!--/ko-->
-
                             <!-- ko if: my.profileVm.codeReviewDetails.Skills().length == 0  -->
                             <h6 class="text-align-center col-xs-12 danger">No Tags Selected</h6>
                             <!--/ko-->
                         </div>
-                        </div>
+                    </div>
 
                     <div class=" col-xs-12 no-padding-left no-padding-right">
-                        <h6 class="validation-error col-xs-8" data-bind="text:my.profileVm.codeReviewDetails.ErrorMessage"></h6>
+                        <h6 class="danger col-xs-8" data-bind="text:my.profileVm.codeReviewDetails.ErrorMessage"></h6>
                         <button data-bind="click: my.profileVm.saveCodeReviewData" type="button" class="btn btn-info pull-right">Next<i class="fa fa-chevron-right "></i></button>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!-- ko if: my.profileVm.codeReviewDetails.Id() != 0  -->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div data-toggle="collapse" data-parent="#divCodeReviewAccordian" data-target="#divCodeReviewPointsCollapsable" class="no-padding-left no-padding-right">
@@ -122,7 +121,7 @@
                     </span>
                 </div>
             </div>
-            <div id="divCodeReviewPointsCollapsable" class="panel-collapse collapse ">
+            <div id="divCodeReviewPointsCollapsable" class="panel-collapse collapse " data-bind="css:{ 'in' : my.profileVm.codeReviewDetails.Id() != 0 }">
                 <div class="panel-body">
                     <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
                         <h4 class="mute">TECHNOLOGY</h4>
@@ -234,16 +233,24 @@
                             </span>
                         </div>
                     </div>
+                    <div class="col-xs-12 no-padding-right no-padding-left">
+                        <h6 class="danger col-xs-8" data-bind="text:my.profileVm.reviewPointsDetails.ErrorMessage"></h6>
+                    </div>
                     @*<div class="col-xs-12 no-padding-left no-padding-right" style="position:absolute;bottom:0;">
-                            <label class="validation-error col-xs-8" data-bind="text:my.profileVm.reviewPointsDetails.ErrorMessage"></label>
-                            <button style="height: 34px;" type="button" class=" btn btn-info pull-right  input-sm " data-bind="click:my.profileVm.savePointsToCodeReview"> <i class="glyphicon glyphicon-plus"></i>Add Point</button>
-                        </div>*@
+                    <label class="validation-error col-xs-8" data-bind="text:my.profileVm.reviewPointsDetails.ErrorMessage"></label>
+                    <button style="height: 34px;" type="button" class=" btn btn-info pull-right  input-sm " data-bind="click:my.profileVm.savePointsToCodeReview"> <i class="glyphicon glyphicon-plus"></i>Add Point</button>
+                </div>*@
                 </div>
             </div>
         </div>
+        <!--/ko-->
+
     </div>
-    <div class="col-xs-12 col-lg-7 no-padding-left">
-        Preview Details Goes here
+    <div class="col-xs-12 col-lg-7 no-padding-right" id="codeReveiewPreviewPanel" >
+        <h3 class="mute">PREVIEW</h3>
+        <div id="divCodeReviewPreviewHtmlArea" data-bind="html:my.profileVm.codeReviewPreviewHtml"></div>
+        <div id="divCodeReviewWrapperZone" >
+        </div>
     </div>
 
 </div>
