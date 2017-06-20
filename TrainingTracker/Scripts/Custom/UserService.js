@@ -109,8 +109,8 @@
         addUpdateTagPointsWithPromise: function (codeReview) {
             return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewPoint", codeReview);
         },
-        getCodeReviewPreview: function (codeReviewId,callback) {
-            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId, null, callback);
+        getCodeReviewPreview: function (codeReviewId,isFeedback,callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId + "&isFeedback=" + isFeedback, null, callback);
         },
 
         submitCodeReviewFeedback: function (codeReview, callback) {

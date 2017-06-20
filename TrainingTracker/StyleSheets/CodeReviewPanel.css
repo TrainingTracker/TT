@@ -81,17 +81,17 @@
     transition: width linear .25s;
 }
 
-.panel-heading > div {
+#divCodeReviewTabs .panel-heading > div {
     padding: 5px 0;
-    background-color: #1A2942;
+    background-color: #2596F1;
     color: #fff;
 }
 
-.panel-heading > div i.glyphicon {
+#divCodeReviewTabs .panel-heading > div i.glyphicon {
     margin-right: 5px;
 }
 
-.panel-heading label {
+#divCodeReviewTabs .panel-heading label {
     margin-left: 5px;
 }
 
@@ -149,4 +149,21 @@
 {
     height:80%;
     overflow-y:scroll;
+}
+
+#divCodeReviewButtonWrapperZone{
+    display:inline-block;
+    height: 7%;
+    margin-top: 15px;
+    margin-right:10px;
+}
+
+#divCodeReviewButtonWrapperZone .btn i{
+    margin-left:5px;
+    margin-right:5px;
+}
+
+#divCodeReviewTabs
+{
+    transition: width .4s linear;
 }

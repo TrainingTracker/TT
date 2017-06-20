@@ -26,5 +26,7 @@ namespace TrainingTracker.Common.Entity
 
         public List<CodeReviewTag> Tags { get; set; }
 
+        public string CodeReviewPreviewHtml { get; set; }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TrainingTracker.DAL.ModelMapper
 {
@@ -13,16 +15,25 @@ namespace TrainingTracker.DAL.ModelMapper
 
         public override Common.Entity.CodeReviewTag ConvertFromCore(DAL.EntityFramework.CodeReviewTag source)
         {
-            return new Common.Entity.CodeReviewTag
+            try
             {
-                CodeReviewTagId = source.CodeReviewTagId,
-                Skill = new Common.Entity.Skill
+                return new Common.Entity.CodeReviewTag
                 {
-                    SkillId = source.SkillId == null ? 0 : source.SkillId.Value,
-                    Name = source.SkillId == null ? "General"  : source.Skill.Name
-                },
-                ReviewPoints = CodeReviewPointConverter.ConvertListFromCore(source.CodeReviewPoints.ToList())
-            };
+                    CodeReviewTagId = source.CodeReviewTagId,
+                    Skill = new Common.Entity.Skill
+                    {
+                        SkillId = source.SkillId == null ? 0 : source.SkillId.Value,
+                        Name = source.SkillId == null ? "General" : source.Skill.Name
+                    },
+                    ReviewPoints = source.CodeReviewPoints != null ? CodeReviewPointConverter.ConvertListFromCore(source.CodeReviewPoints.ToList()) : new List<Common.Entity.CodeReviewPoint>()
+                };
+            }
+            catch(Exception ex)
+            {
+                Common.Utility.LogUtility.ErrorRoutine(ex);
+                throw ex;
+            }
+            
         }
 
         public override DAL.EntityFramework.CodeReviewTag ConvertToCore(Common.Entity.CodeReviewTag source)

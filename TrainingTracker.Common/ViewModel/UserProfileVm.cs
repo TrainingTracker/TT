@@ -53,7 +53,7 @@ namespace TrainingTracker.Common.ViewModel
         /// </summary>
         public List<CourseTrackerDetails> AllAssignedCourses { get; set; }
 
-        public string SavedCodeReviewData { get; set; }
+    //    public string SavedCodeReviewData { get; set; }
 
         public CodeReview SavedCodeReview { get; set; }
 

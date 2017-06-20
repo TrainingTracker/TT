@@ -107,26 +107,30 @@
                 my.discussionThreadsVm.loadDiscussionDialog(queryStringPostId);
             }
 
-            if(!my.isNullorEmpty(jsonData.SavedCodeReviewData))
+            if(!my.isNullorEmpty(jsonData.SavedCodeReview))
             {
-                codeReviewPreviewHtml(jsonData.SavedCodeReviewData);
-                feedbackPost.selectedOption(4);
-                codeReviewSelectedTab(2);
-
-                codeReviewDetails.Id(jsonData.SavedCodeReview.Id);
-                codeReviewDetails.Title(jsonData.SavedCodeReview.Title);
-                codeReviewDetails.Description(jsonData.SavedCodeReview.Description);
-
-
-                ko.utils.arrayForEach(jsonData.SavedCodeReview.Tags, function (tag) {
-                    if(tag.Skill.SkillId != 0)
-                    {
-                        codeReviewDetails.Skills.push(tag.Skill);
-                    }
-                });           
+                savedCodeReviewDataForTrainee(jsonData.SavedCodeReview);
             }
 
         },
+
+        savedCodeReviewDataForTrainee = function (jsonData) {
+            codeReviewPreviewHtml(jsonData.CodeReviewPreviewHtml);
+            feedbackPost.selectedOption(4);
+            codeReviewSelectedTab(1);
+
+            codeReviewDetails.Id(jsonData.Id);
+            codeReviewDetails.Title(jsonData.Title);
+            codeReviewDetails.Description(jsonData.Description);
+
+            codeReviewDetails.Skills([]);
+            ko.utils.arrayForEach(jsonData.Tags, function (tag) {
+                if (tag.Skill.SkillId != 0) {
+                    codeReviewDetails.Skills.push(tag.Skill);
+                }
+            });
+        },
+
         loadPlotData = function () {
             if (typeof (my.chartVm) !== 'undefined') {
                 my.chartVm.loadUserPlotData(plotFilter.TraineeId, plotFilter.StartDate(), plotFilter.EndDate(), plotFilter.FeedbackType(), typeof (plotFilter.Trainer()) == 'undefined' ? undefined : plotFilter.Trainer().UserId);
@@ -584,6 +588,11 @@
             reviewPointsDetails.Rating(ratingId);
         };
 
+        var setSelectedTab = function(tabId)
+        {
+            codeReviewSelectedTab(tabId);
+        }
+
         var setSelectedTagId =function(tagId)
         {
             if (typeof (tagId) == 'undefined')
@@ -621,9 +630,7 @@
 
         var saveTagCallback = function(data)
         {
-            // flash the preview and show added flasher
-            codeReviewPreviewHtml(data);
-            //console.log(codeReviewPoints);
+            savedCodeReviewDataForTrainee(data);
         }
 
         var validateTagsPoints = function () {
@@ -694,8 +701,11 @@
         };
 
         var saveCodeReviewCallback = function (data) {
-            codeReviewDetails.Id(data);
+            codeReviewDetails.Id(data.Id);
             codeReviewDetails.Edited(false);
+
+            savedCodeReviewDataForTrainee(data);
+            codeReviewSelectedTab(1);
         };
 
         var PostDataUsingPromise = function (serviceMethod, callback, failureCallback) {
@@ -703,7 +713,6 @@
 
             serviceMethod().done(function (data) {
                 callback(data);
-                //my.toggleLoader();
                 deferredObject.resolve(data);
             }).fail(function () {
                 failureCallback();
@@ -719,10 +728,10 @@
             }
         };
 
-        var getCodeReviewPreview = function () {
+        var getCodeReviewPreview = function (isFeedback) {
 
             if (codeReviewDetails.Id() <= 0) return;
-            my.userService.getCodeReviewPreview(codeReviewDetails.Id(), getCodeReviewPreviewCallback)
+            my.userService.getCodeReviewPreview(codeReviewDetails.Id(),isFeedback, getCodeReviewPreviewCallback)
         };
 
         var getCodeReviewPreviewCallback = function (data) {
@@ -736,8 +745,7 @@
         };
 
         var discardCodeReview = function () {
-            // set is deleted true
-
+          
             $.confirm({
                 title: 'Discard saved Review Details?',
                 content: 'Are you sure want to discard this review and start over again?',
@@ -747,12 +755,14 @@
                     confirm:
                     {
                         text: 'Yes, Discard this Review',
-                        btnClass: 'btn-primary btn-success',
-                        action:   my.userService.discardCodeReviewFeedback(codeReviewDetails.Id(), discardCodeReviewCallback)
+                        btnClass: 'btn-primary btn-danger',
+                        action: function () {
+                            my.userService.discardCodeReviewFeedback(codeReviewDetails.Id(), discardCodeReviewCallback);
+                        }
                     },
                     cancel:
                     {
-                        text: 'No',
+                        text: 'No, keep editing',
                         btnClass: 'btn-primary btn-warning',
                         action: function () {
                            
@@ -768,6 +778,7 @@
             codeReviewPreviewHtml("");
             flushCodeReviewDetails();
             flushReviewPointsTab();
+            toggleCodeReviewModal(false);
         }
 
         var submitCodeReview = function () {
@@ -797,12 +808,12 @@
         };
 
         var flushReviewPointsTab = function () {          
-                reviewPointsDetails.Id(0);
-                reviewPointsDetails.Title("");
-                reviewPointsDetails.Deleted(false);
-                reviewPointsDetails.Description("");
-                reviewPointsDetails.Rating(0);
-                reviewPointsDetails.ErrorMessage("");
+            reviewPointsDetails.Id(0);
+            reviewPointsDetails.Title("");
+            reviewPointsDetails.Deleted(false);
+            reviewPointsDetails.Description("");
+            reviewPointsDetails.Rating(0);
+            reviewPointsDetails.ErrorMessage("");
         };
 
         var filterKeyWord = ko.observable("");
@@ -823,8 +834,6 @@
                 return item.Name.toUpperCase();
             });
             flattenedSelectedSkillArray = flattenedSelectedSkillArray.sort();
-
-            //   var differences = ko.utils.compareArrays(my.profileVm.userVm.AllSkills(), codeReviewDetails.Skills());
 
             var differences = ko.utils.compareArrays(flattenedAllSkillArray, flattenedSelectedSkillArray);
 
@@ -888,6 +897,23 @@
                addCategoryCallback);
             }          
         };
+
+        var isCodeReviewModalOpen = ko.observable(false);
+
+        var toggleCodeReviewModal = function (openModal) {
+            isCodeReviewModalOpen(openModal);
+        };
+
+        var toggleTab = function () {
+            var currentSelection = codeReviewSelectedTab();
+            if(currentSelection == 0)
+            {
+                codeReviewSelectedTab(1);
+                return;
+            }
+            codeReviewSelectedTab(0);
+            return;
+        }
       
         return {
             userId: userId,
@@ -951,7 +977,12 @@
             filterTag: filterTag,
             filterKeyWord: filterKeyWord,
             addTagToCodeReviewDetails: addTagToCodeReviewDetails,
-            addCategory: addCategory
+            addCategory: addCategory,
+            isCodeReviewModalOpen: isCodeReviewModalOpen,
+            getCodeReviewPreview: getCodeReviewPreview,
+            toggleCodeReviewModal: toggleCodeReviewModal,
+            //setSelectedTab: setSelectedTab,
+            toggleTab:toggleTab
         };
     }();
 
@@ -1001,4 +1032,7 @@
         my.profileVm.savePointsToCodeReview();
     });
 
+    my.profileVm.isCodeReviewModalOpen.subscribe(function (isOpen) {
+        my.profileVm.getCodeReviewPreview(!isOpen);
+    });
 });

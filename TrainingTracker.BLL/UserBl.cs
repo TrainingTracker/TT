@@ -105,6 +105,12 @@ namespace TrainingTracker.BLL
                                         ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
                                         :null;
 
+            if(codeReview != null)
+            {
+                codeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(codeReview, true);
+            }
+           
+
             return new UserProfileVm
             {
 
@@ -117,7 +123,7 @@ namespace TrainingTracker.BLL
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
                 AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
                 SavedCodeReview = codeReview ,
-                SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, false) : string.Empty
+              //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
             };
         }
 

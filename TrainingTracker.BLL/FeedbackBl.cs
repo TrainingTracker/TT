@@ -123,18 +123,34 @@ namespace TrainingTracker.BLL
                     || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId;
         }
 
-        public int SubmitCodeReviewMetaData(CodeReview codeReview)
+        public CodeReview SubmitCodeReviewMetaData(CodeReview codeReview)
         {
             DAL.EntityFramework.CodeReviewMetaData crMetaData;
-            // exisiting
+            // existing
             if (codeReview.Id > 0)
             {
-                crMetaData = UnitOfWork.CodeReviewRepository.Get(codeReview.Id);
+                crMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReview.Id);
                 if (crMetaData == null) throw new Exception("No Record Found");
 
                 crMetaData.Description = codeReview.Description;
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
+
+                List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.ToList());
+
+                foreach (var tag in codeReview.Tags)
+                {
+                    if(existingTags.Where(x=>x.Skill.SkillId==tag.Skill.SkillId).Count()>0)
+                    {
+                        continue;
+                    }
+
+                    crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
+                    {
+                        CreatedOn = DateTime.Now,
+                        SkillId = tag.Skill.SkillId
+                    });
+                }
             }
             else
             {
@@ -166,12 +182,16 @@ namespace TrainingTracker.BLL
                 UnitOfWork.CodeReviewRepository.Add(crMetaData);
 
             }
-            UnitOfWork.Commit();
-            return crMetaData.CodeReviewMetaDataId;
 
+            UnitOfWork.Commit();
+
+            codeReview.Id = crMetaData.CodeReviewMetaDataId;
+
+            codeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(codeReview.Id,false);
+            return codeReview;
         }
 
-        public string SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
+        public CodeReview SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
         {
             DAL.EntityFramework.CodeReviewPoint codeReviewPointCore;
 
@@ -212,14 +232,23 @@ namespace TrainingTracker.BLL
             }
 
             UnitOfWork.Commit();
-            return FetchCodeReviewPreview(codeReviewPoint.CodeReviewMetadataId);
+
+            //return FetchCodeReviewPreview(codeReviewPoint.CodeReviewMetadataId,false);
+
+            CodeReview updatedCodeReviewPoint = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
+                                                                                              .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId));
+
+            updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
+
+            return updatedCodeReviewPoint;
+
         }
 
-        public string FetchCodeReviewPreview(int codeReviewMetaId)
+        public string FetchCodeReviewPreview(int codeReviewMetaId, bool isFeedback)
         {
             return UtilityFunctions.GenerateCodeReviewPreview(CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
                                                                                                              .GetCodeReviewWithAllData(codeReviewMetaId)),
-                                                               false);
+                                                               isFeedback);
         }
 
         public bool SubmitCodeReviewFeedback(CodeReview codeReview)

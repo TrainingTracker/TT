@@ -30,7 +30,7 @@ namespace TrainingTracker.DAL.ModelMapper
            catch(Exception ex)
             {
                 Common.Utility.LogUtility.ErrorRoutine(ex);
-                return new CodeReview();
+                return null;
             }
             
         }

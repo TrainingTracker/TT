@@ -324,10 +324,10 @@ td#WzBoDyI {
     outline: none;
 }
 
-#feedbackSection .weekly-feedback code, #divWizardFeedbackPreview .weekly-feedback code {
+ .weekly-feedback code {
     padding: 0;
     color: black;
-    background-color: #fff;
+    background-color: none;
     white-space: pre-line;
 }
 
@@ -1113,21 +1113,6 @@ label.lbl-data-info {
   height: 80%;
 }
 
-/*#divCodeReviewTabs:before{
-     content: "";
-    position: absolute;
-    width: 89.2%;
-    left: 9.5%;
-    border-bottom: 1px solid #ccc;
-}
-#divCodeReviewTabs:after{
-       content: "";
-    position: absolute;
-    width: 1%;
-    height: 100%;
-    left: 9.5%;
-    border-left: 1px solid #ccc;
-}*/
 
 #divCodeReviewTabs .panel-shadow
 {
@@ -1178,7 +1163,7 @@ label.lbl-data-info {
 
  .code-review-tags .code-review-tags-header-title
 {
-    font-size:18px;
+    font-size:16px;
     color: #2596F1;
     font-weight:bold;
     /*font-style:italic;*/

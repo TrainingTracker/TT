@@ -343,9 +343,9 @@ namespace TrainingTracker.Controllers
         }
 
         [HttpGet]
-        public JsonResult FetchCodeReviewPreview(int codeReviewId)
+        public JsonResult FetchCodeReviewPreview(int codeReviewId, bool isFeedback)
         {
-            return Json(new FeedbackBl().FetchCodeReviewPreview(codeReviewId), JsonRequestBehavior.AllowGet);
+            return Json(new FeedbackBl().FetchCodeReviewPreview(codeReviewId, isFeedback), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
