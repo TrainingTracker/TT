@@ -165,5 +165,19 @@
 
 #divCodeReviewTabs
 {
-    transition: width .4s linear;
+    transition: all .5s ease;
+}
+#divCodeReviewSummaryCollapsable button
+{
+    margin-right:5px;
+}
+
+#divCodeReviewSummaryCollapsable button i
+{
+        padding: 0 5px;
+}
+
+#divCodeReviewPreviewHtmlArea .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
+{
+    margin : 0px 0px 0px 2px;
 }

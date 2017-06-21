@@ -24,7 +24,7 @@ namespace TrainingTracker.DAL.ModelMapper
                     Description = sourceCodeReview.Description,
                     Title = sourceCodeReview.ProjectName,
                     IsDeleted = sourceCodeReview.IsDiscarded ?? false,
-                    Tags = CodeReviewTagConverter.ConvertListFromCore(sourceCodeReview.CodeReviewTags.ToList())
+                    Tags = CodeReviewTagConverter.ConvertListFromCore(sourceCodeReview.CodeReviewTags.Where(x=>!x.IsDeleted).ToList())
                 };
             }
            catch(Exception ex)

@@ -344,7 +344,7 @@ namespace TrainingTracker.Common.Utility
 
         public static string GenerateCodeReviewPreview(CodeReview codeReview, bool isFeedback)
         {
-            StringBuilder strBuilder = new StringBuilder();
+            StringBuilder strBuilder = new StringBuilder(@"");
             strBuilder.Append("<div class='weekly-feedback'><code>");
 
             // header Starts 
@@ -425,8 +425,8 @@ namespace TrainingTracker.Common.Utility
                                 if (!isFeedback)
                                 {
                                     strBuilder.Append("<span class='code-review-button-wrapper'>");
-                                    strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
-                                    strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," +reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
+                                    strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
                                     strBuilder.Append("</span>");
                                 }
                              strBuilder.Append("</div>");

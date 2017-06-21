@@ -115,9 +115,10 @@
         },
 
         savedCodeReviewDataForTrainee = function (jsonData) {
+            my.profileVm.userVm.SavedCodeReview = jsonData;
             codeReviewPreviewHtml(jsonData.CodeReviewPreviewHtml);
             feedbackPost.selectedOption(4);
-            codeReviewSelectedTab(1);
+          //  codeReviewSelectedTab(1);           
 
             codeReviewDetails.Id(jsonData.Id);
             codeReviewDetails.Title(jsonData.Title);
@@ -567,6 +568,7 @@
             Description: ko.observable(""),
             Rating: ko.observable(0),
             ErrorMessage: ko.observable(""),
+            EditMode:ko.observable(false)
         };
 
         var codeReviewDetails = {
@@ -588,12 +590,7 @@
             reviewPointsDetails.Rating(ratingId);
         };
 
-        var setSelectedTab = function(tabId)
-        {
-            codeReviewSelectedTab(tabId);
-        }
-
-        var setSelectedTagId =function(tagId)
+         var setSelectedTagId =function(tagId)
         {
             if (typeof (tagId) == 'undefined')
             {
@@ -630,7 +627,9 @@
 
         var saveTagCallback = function(data)
         {
+            var currentSelection = codeReviewSelectedTag();
             savedCodeReviewDataForTrainee(data);
+            codeReviewSelectedTag(currentSelection);
         }
 
         var validateTagsPoints = function () {
@@ -703,9 +702,9 @@
         var saveCodeReviewCallback = function (data) {
             codeReviewDetails.Id(data.Id);
             codeReviewDetails.Edited(false);
-
             savedCodeReviewDataForTrainee(data);
             codeReviewSelectedTab(1);
+            toggleTab(1);
         };
 
         var PostDataUsingPromise = function (serviceMethod, callback, failureCallback) {
@@ -748,7 +747,7 @@
           
             $.confirm({
                 title: 'Discard saved Review Details?',
-                content: 'Are you sure want to discard this review and start over again?',
+                content: 'Do you want discard this review draft and start over again?',
                 columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                 useBootstrap: true,
                 buttons: {
@@ -778,6 +777,7 @@
             codeReviewPreviewHtml("");
             flushCodeReviewDetails();
             flushReviewPointsTab();
+            toggleTab(0);
             toggleCodeReviewModal(false);
         }
 
@@ -814,6 +814,7 @@
             reviewPointsDetails.Description("");
             reviewPointsDetails.Rating(0);
             reviewPointsDetails.ErrorMessage("");
+            reviewPointsDetails.EditMode(false);
         };
 
         var filterKeyWord = ko.observable("");
@@ -868,6 +869,7 @@
             }
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
+            codeReviewDetails.Edited(true);
         };
 
         var addCategoryCallback = function (data) {
@@ -902,17 +904,172 @@
 
         var toggleCodeReviewModal = function (openModal) {
             isCodeReviewModalOpen(openModal);
+
+            if (my.profileVm.codeReviewDetails.Id() != 0 )
+            {
+                if (openModal)
+                {
+                    $('#divCodeReviewPointsCollapsable').addClass('show');
+                    $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
+
+                    $('#divCodeReviewSummaryCollapsable').removeClass('show');
+                    $('#divCodeReviewSummaryCollapsableHeader').addClass('collapsed');
+                }
+            }
         };
 
-        var toggleTab = function () {
-            var currentSelection = codeReviewSelectedTab();
-            if(currentSelection == 0)
+        var toggleTab = function (loadSelection) {
+            if (loadSelection == 1)
             {
-                codeReviewSelectedTab(1);
-                return;
+                $('#divCodeReviewSummaryCollapsable').removeClass('show');
+                $('#divCodeReviewSummaryCollapsableHeader').addClass('collapsed');
+
+                $('#divCodeReviewPointsCollapsable').addClass('show');
+                $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
+               
+                return false;
             }
-            codeReviewSelectedTab(0);
-            return;
+           
+            $('#divCodeReviewPointsCollapsable').removeClass('show');
+            $('#divCodeReviewPointsCollapsableHeader').addClass('collapsed');
+
+            $('#divCodeReviewSummaryCollapsable').addClass('show');
+            $('#divCodeReviewSummaryCollapsableHeader').removeClass('collapsed');
+           
+          
+            return false;
+        }
+
+        var removeCodeReviewTagAndRefresh = function (codeReviewTagId, skillId) {
+
+            var tag =  ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (allSkill) {
+                return allSkill.SkillId == skillId;
+                });
+
+
+            $.confirm({
+                title: 'Delete Tag!!',
+                content: 'Do you want to delete  <span class="danger">' + tag[0].Name + ' </span>  tag and all review points?',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, Delete this Tag',
+                        btnClass: 'btn-primary btn-danger',
+                        action: function () {
+                            my.userService.discardTagFromCodeReviewFeedback(codeReviewDetails.Id(),codeReviewTagId, discardTagFromCodeReviewFeedbackCallback);
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No, keep editing',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function () {
+
+                        }
+                    }
+                }
+            });
+        }
+
+        var discardTagFromCodeReviewFeedbackCallback = function(data) {
+            savedCodeReviewDataForTrainee(data);
+        }
+
+        var editCodeReviewPoint = function (codereviewTagId,skillId, codeReviewPointId) {
+
+            var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
+
+            codeReviewSelectedTag(skillId);
+
+            reviewPointsDetails.Id(codeReviewPointId);
+            reviewPointsDetails.EditMode(true);
+            reviewPointsDetails.Title(pointData.Title),
+            reviewPointsDetails.Description(pointData.Description),
+            reviewPointsDetails.Deleted(false);
+            setReviewPointRating(pointData.Rating);
+
+        };
+
+        var removeCodeReviewPoint = function (codereviewTagId, skillId, codeReviewPointId) {
+
+            var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
+
+            codeReviewSelectedTag(skillId);
+
+            reviewPointsDetails.Id(codeReviewPointId);
+            reviewPointsDetails.EditMode(true);
+            reviewPointsDetails.Title(pointData.Title);
+            reviewPointsDetails.Description(pointData.Description);
+            reviewPointsDetails.Deleted(true);
+            setReviewPointRating(pointData.Rating);
+
+            $.confirm({
+                title: 'Delete Review Point!!',
+                content: 'Do you want to delete  review point',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, Delete this Point',
+                        btnClass: 'btn-primary btn-danger',
+                        action: function () {
+                            savePointsToCodeReview();
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No, keep editing',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function () {
+
+                        }
+                    }
+                }
+            });
+
+        }
+
+        var filterReviewPoint = function (codereviewTagId, codeReviewPointId) {
+            var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.SavedCodeReview.Tags, function (tag) {
+                return tag.CodeReviewTagId == codereviewTagId;
+            });
+
+            var filteredPoint = ko.utils.arrayFilter(filteredTag[0].ReviewPoints, function (point) {
+                return point.PointId == codeReviewPointId;
+            });
+
+            return filteredPoint[0];
+
+        };
+
+        var updateReviewPointData = function () {
+            $.confirm({
+                title: 'Update Review Point!!',
+                content: 'Do you want to update review point?, this will update your existing data',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, Update ',
+                        btnClass: 'btn-primary btn-danger',
+                        action: function () {
+                            savePointsToCodeReview();
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function () {
+
+                        }
+                    }
+                }
+            });
         }
       
         return {
@@ -981,8 +1138,12 @@
             isCodeReviewModalOpen: isCodeReviewModalOpen,
             getCodeReviewPreview: getCodeReviewPreview,
             toggleCodeReviewModal: toggleCodeReviewModal,
+            removeCodeReviewTagAndRefresh:removeCodeReviewTagAndRefresh,
             //setSelectedTab: setSelectedTab,
-            toggleTab:toggleTab
+            toggleTab: toggleTab,
+            removeCodeReviewPoint: removeCodeReviewPoint,
+            editCodeReviewPoint: editCodeReviewPoint,
+            updateReviewPointData: updateReviewPointData
         };
     }();
 
@@ -1028,7 +1189,7 @@
     }, null, "change");
 
     my.profileVm.reviewPointsDetails.Rating.subscribe(function (selectedRating) {
-        if (selectedRating == 0) return;
+        if (selectedRating == 0 || my.profileVm.reviewPointsDetails.EditMode()) return;
         my.profileVm.savePointsToCodeReview();
     });
 

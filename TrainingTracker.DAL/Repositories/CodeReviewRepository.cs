@@ -23,7 +23,7 @@ namespace TrainingTracker.DAL.Repositories
        {
           // intentional use of First, let the system break in case of multiple data set
            return _context.CodeReviewMetaDatas.Include(x => x.CodeReviewTags)
-                                                .Include(x=>x.CodeReviewTags.Select(y=>y.Skill))
+                                              .Include(x=>x.CodeReviewTags.Select(y=>y.Skill))
                                               .Include(x => x.CodeReviewTags
                                                              .Select(y=>y.CodeReviewPoints))
                                               .First(x => x.CodeReviewMetaDataId == codeReviewMetaDataId);

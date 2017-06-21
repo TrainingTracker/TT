@@ -136,7 +136,7 @@ namespace TrainingTracker.BLL
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
 
-                List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.ToList());
+                List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x=>!x.IsDeleted).ToList());
 
                 foreach (var tag in codeReview.Tags)
                 {
@@ -203,7 +203,7 @@ namespace TrainingTracker.BLL
                 codeReviewPointCore = UnitOfWork.CodeReviewRepository
                                                 .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                                                 .CodeReviewTags
-                                                .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId)
+                                                .First(i => i.SkillId == (codeReviewPoint.CodeReviewTagId==0?null:codeReviewPoint.CodeReviewTagId) && !i.IsDeleted)
                                                 .CodeReviewPoints
                                                 .First(x => x.CodeReviewPointId == codeReviewPoint.PointId);
 
@@ -227,7 +227,7 @@ namespace TrainingTracker.BLL
 
                 UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                                                  .CodeReviewTags
-                                                 .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId)
+                                                 .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId && !i.IsDeleted)
                                                  .CodeReviewPoints.Add(codeReviewPointCore);
             }
 
@@ -294,6 +294,27 @@ namespace TrainingTracker.BLL
             return UnitOfWork.Commit() > 0;
             
         }
+
+        public CodeReview DiscardTagFromCodeReviewFeedback(int codeReviewId,int codeReviewTagId)
+        {
+
+            DAL.EntityFramework.CodeReviewMetaData crMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewId);
+           
+            crMetaData.CodeReviewTags
+                      .First(x => x.CodeReviewTagId == codeReviewTagId)
+                      .IsDeleted = true;
+
+            UnitOfWork.Commit();
+
+            CodeReview updatedCodeReviewPoint = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
+                                                                                              .GetCodeReviewWithAllData(codeReviewId));
+
+            updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
+
+            return updatedCodeReviewPoint;
+          
+        }
+
 
         /// <summary>
         ///  Private to class method to generate course 

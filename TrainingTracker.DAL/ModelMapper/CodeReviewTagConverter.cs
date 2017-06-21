@@ -25,7 +25,7 @@ namespace TrainingTracker.DAL.ModelMapper
                         SkillId = source.SkillId == null ? 0 : source.SkillId.Value,
                         Name = source.SkillId == null ? "General" : source.Skill.Name
                     },
-                    ReviewPoints = source.CodeReviewPoints != null ? CodeReviewPointConverter.ConvertListFromCore(source.CodeReviewPoints.ToList()) : new List<Common.Entity.CodeReviewPoint>()
+                    ReviewPoints = source.CodeReviewPoints != null ? CodeReviewPointConverter.ConvertListFromCore(source.CodeReviewPoints.Where(x=>!x.IsDeleted).ToList()) : new List<Common.Entity.CodeReviewPoint>()
                 };
             }
             catch(Exception ex)

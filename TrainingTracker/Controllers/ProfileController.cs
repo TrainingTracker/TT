@@ -363,6 +363,13 @@ namespace TrainingTracker.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult DiscardTagFromCodeReviewFeedback(int codeReviewId,int codeReviewTagId)
+        {
+            return Json(new FeedbackBl().DiscardTagFromCodeReviewFeedback(codeReviewId,codeReviewTagId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult AddCategory(Skill category)
         {
             return Json(new UserBl().AddSkill(category));
