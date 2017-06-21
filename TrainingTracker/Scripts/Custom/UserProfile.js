@@ -915,7 +915,10 @@
                     $('#divCodeReviewSummaryCollapsable').removeClass('show');
                     $('#divCodeReviewSummaryCollapsableHeader').addClass('collapsed');
                 }
+                return;
             }
+            $('#divCodeReviewSummaryCollapsable').addClass('show');
+            $('#divCodeReviewSummaryCollapsableHeader').removeClass('collapsed');
         };
 
         var toggleTab = function (loadSelection) {
