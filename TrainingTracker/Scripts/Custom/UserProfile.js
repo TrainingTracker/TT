@@ -107,8 +107,7 @@
                 my.discussionThreadsVm.loadDiscussionDialog(queryStringPostId);
             }
 
-            if(!my.isNullorEmpty(jsonData.SavedCodeReview))
-            {
+            if (!my.isNullorEmpty(jsonData.SavedCodeReview)) {
                 savedCodeReviewDataForTrainee(jsonData.SavedCodeReview);
             }
 
@@ -118,7 +117,7 @@
             my.profileVm.userVm.SavedCodeReview = jsonData;
             codeReviewPreviewHtml(jsonData.CodeReviewPreviewHtml);
             feedbackPost.selectedOption(4);
-          //  codeReviewSelectedTab(1);           
+            //  codeReviewSelectedTab(1);           
 
             codeReviewDetails.Id(jsonData.Id);
             codeReviewDetails.Title(jsonData.Title);
@@ -564,21 +563,22 @@
         var reviewPointsDetails = {
             Id: ko.observable(0),
             Title: ko.observable(""),
-            Deleted : ko.observable(false),
+            Deleted: ko.observable(false),
             Description: ko.observable(""),
             Rating: ko.observable(0),
             ErrorMessage: ko.observable(""),
-            EditMode:ko.observable(false)
+            EditMode: ko.observable(false)
         };
 
         var codeReviewDetails = {
-            Id : ko.observable(0),
+            Id: ko.observable(0),
             Edited: ko.observable(false),
             Deleted: ko.observable(false),
             Title: ko.observable(""),
             Description: ko.observable(""),
             Skills: ko.observableArray([]),
             ErrorMessage: ko.observable(""),
+            AutoSaveDateTimeStamp:ko.observable(),
             AddedBy: 0,
             AddedFor: 0,
         };
@@ -590,10 +590,8 @@
             reviewPointsDetails.Rating(ratingId);
         };
 
-         var setSelectedTagId =function(tagId)
-        {
-            if (typeof (tagId) == 'undefined')
-            {
+        var setSelectedTagId = function (tagId) {
+            if (typeof (tagId) == 'undefined') {
                 codeReviewSelectedTag(0);
                 return;
             }
@@ -601,7 +599,7 @@
         }
 
 
-        var savePointsToCodeReview = function (){           
+        var savePointsToCodeReview = function () {
             var message = validateTagsPoints();
 
             if (message.length) {
@@ -613,23 +611,24 @@
             var codeReviewPoints = {
                 PointId: reviewPointsDetails.Id(),
                 CodeReviewTagId: codeReviewSelectedTag(),
-                CodeReviewMetadataId : codeReviewDetails.Id(),
-                Rating :reviewPointsDetails.Rating(),
-                Title : reviewPointsDetails.Title(),
-                Description : reviewPointsDetails.Description(),
+                CodeReviewMetadataId: codeReviewDetails.Id(),
+                Rating: reviewPointsDetails.Rating(),
+                Title: reviewPointsDetails.Title(),
+                Description: reviewPointsDetails.Description(),
                 IsDeleted: reviewPointsDetails.Deleted()
             }
 
             PostDataUsingPromise(function () { flushReviewPointsTab(); return my.userService.addUpdateTagPointsWithPromise(codeReviewPoints); },
                saveTagCallback, function () { console.log("Error Adding Points") });
-           
+
         };
 
-        var saveTagCallback = function(data)
-        {
+        var saveTagCallback = function (data) {
             var currentSelection = codeReviewSelectedTag();
             savedCodeReviewDataForTrainee(data);
             codeReviewSelectedTag(currentSelection);
+
+            codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
 
         var validateTagsPoints = function () {
@@ -639,18 +638,16 @@
                 message.push("Add Review Points");
             }
 
-            if (reviewPointsDetails.Rating()== 0) {
+            if (reviewPointsDetails.Rating() == 0) {
                 message.push("Select Point's Rating");
             }
             return message;
         };
 
-        var validateCodeReviewPoints =function()
-        {
+        var validateCodeReviewPoints = function () {
             var message = [];
 
-            if(my.isNullorEmpty(codeReviewDetails.Title()))
-            {
+            if (my.isNullorEmpty(codeReviewDetails.Title())) {
                 message.push("Title");
             }
 
@@ -664,9 +661,8 @@
             return message;
         }
 
-        var saveCodeReviewData = function ()
-        {
-            
+        var saveCodeReviewData = function () {
+
             var message = validateCodeReviewPoints();
 
             if (message.length) {
@@ -676,27 +672,25 @@
 
             var codeReviewMetaData =
                 {
-                    Id : codeReviewDetails.Id(),
+                    Id: codeReviewDetails.Id(),
                     Description: codeReviewDetails.Description(),
                     Title: codeReviewDetails.Title(),
                     IsDeleted: codeReviewDetails.Deleted(),
-                    AddedFor : { UserId: my.profileVm.userId },
-                    Tags : []
+                    AddedFor: { UserId: my.profileVm.userId },
+                    Tags: []
                 }
 
-            ko.utils.arrayForEach(codeReviewDetails.Skills() , function (tag) 
-            {
+            ko.utils.arrayForEach(codeReviewDetails.Skills(), function (tag) {
                 codeReviewMetaData.Tags.push({ Skill: tag });
             });
 
             updateSelectedCodereviewTag(1);
 
-            if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited())
-            {
+            if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited()) {
                 PostDataUsingPromise(function () { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
                 saveCodeReviewCallback, function () { console.log("Error Adding Points") });
             }
-           
+
         };
 
         var saveCodeReviewCallback = function (data) {
@@ -705,6 +699,8 @@
             savedCodeReviewDataForTrainee(data);
             codeReviewSelectedTab(1);
             toggleTab(1);
+
+            codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         };
 
         var PostDataUsingPromise = function (serviceMethod, callback, failureCallback) {
@@ -721,8 +717,7 @@
         var updateSelectedCodereviewTag = function (tagId) {
             codeReviewSelectedTab(tagId);
             flushReviewPointsTab();
-            if(tagId==2)
-            {
+            if (tagId == 2) {
                 getCodeReviewPreview();
             }
         };
@@ -730,7 +725,7 @@
         var getCodeReviewPreview = function (isFeedback) {
 
             if (codeReviewDetails.Id() <= 0) return;
-            my.userService.getCodeReviewPreview(codeReviewDetails.Id(),isFeedback, getCodeReviewPreviewCallback)
+            my.userService.getCodeReviewPreview(codeReviewDetails.Id(), isFeedback, getCodeReviewPreviewCallback)
         };
 
         var getCodeReviewPreviewCallback = function (data) {
@@ -744,7 +739,7 @@
         };
 
         var discardCodeReview = function () {
-          
+
             $.confirm({
                 title: 'Discard saved Review Details?',
                 content: 'Do you want discard this review draft and start over again?',
@@ -764,11 +759,11 @@
                         text: 'No, keep editing',
                         btnClass: 'btn-primary btn-warning',
                         action: function () {
-                           
+
                         }
                     }
                 }
-            });            
+            });
         }
 
         var discardCodeReviewCallback = function () {
@@ -779,16 +774,16 @@
             flushReviewPointsTab();
             toggleTab(0);
             toggleCodeReviewModal(false);
+            codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
 
         var submitCodeReview = function () {
-            if(validatePost())
-            {
+            if (validatePost()) {
                 var codeReview = {
-                    Id : codeReviewDetails.Id(),
-                    Rating :feedbackPost.Rating(),
-                    AddedFor :{ UserId: my.profileVm.userId },
-                    AddedBy: { UserId: my.profileVm.currentUser.UserId }              
+                    Id: codeReviewDetails.Id(),
+                    Rating: feedbackPost.Rating(),
+                    AddedFor: { UserId: my.profileVm.userId },
+                    AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
                 my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
@@ -796,7 +791,7 @@
         };
 
         var flushCodeReviewDetails = function () {
-            codeReviewDetails.Id (0),
+            codeReviewDetails.Id(0),
             codeReviewDetails.Edited(false),
             codeReviewDetails.Deleted(false),
             codeReviewDetails.Title(""),
@@ -807,7 +802,7 @@
             codeReviewDetails.AddedFor = 0
         };
 
-        var flushReviewPointsTab = function () {          
+        var flushReviewPointsTab = function () {
             reviewPointsDetails.Id(0);
             reviewPointsDetails.Title("");
             reviewPointsDetails.Deleted(false);
@@ -820,7 +815,7 @@
         var filterKeyWord = ko.observable("");
         var filteredTag = ko.observableArray([]);
 
-        var filterTag = function (data,event) {
+        var filterTag = function (data, event) {
             if (my.profileVm.userVm.AllSkills().length == 0 || my.isNullorEmpty(my.profileVm.filterKeyWord().trim())) {
                 my.profileVm.filteredTag([]);
                 return true;
@@ -839,7 +834,7 @@
             var differences = ko.utils.compareArrays(flattenedAllSkillArray, flattenedSelectedSkillArray);
 
             var filteredTag = ko.utils.arrayFilter(differences, function (item) {
-                return item.status === "deleted" ;
+                return item.status === "deleted";
             });
 
             my.profileVm.filteredTag([]);
@@ -847,8 +842,8 @@
                 var tags = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (allSkill) {
                     return allSkill.Name.toUpperCase() == item.value && item.value.includes(my.profileVm.filterKeyWord().trim().toUpperCase());
                 });
-                if (tags.length>0)
-                my.profileVm.filteredTag.push(tags[0]);
+                if (tags.length > 0)
+                    my.profileVm.filteredTag.push(tags[0]);
             });
 
             // Tabbing Support 
@@ -860,11 +855,10 @@
 
         var addTagToCodeReviewDetails = function (skillId) {
             var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (item) {
-                return item.SkillId == skillId ;
+                return item.SkillId == skillId;
             });
 
-            if(filteredTag.length>0)
-            {
+            if (filteredTag.length > 0) {
                 codeReviewDetails.Skills.push(filteredTag[0]);
             }
             my.profileVm.filterKeyWord("");
@@ -873,8 +867,7 @@
         };
 
         var addCategoryCallback = function (data) {
-            if(data == null)
-            {
+            if (data == null) {
                 console.log("Failed Adding Skill");
                 return;
             }
@@ -890,14 +883,15 @@
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
 
+           
+
         };
 
         var addCategory = function () {
-            if (!my.isNullorEmpty(filterKeyWord().trim()))
-            {
+            if (!my.isNullorEmpty(filterKeyWord().trim())) {
                 my.userService.addCategory({ Name: filterKeyWord().trim(), AddedBy: my.meta.currentUser.UserId },
                addCategoryCallback);
-            }          
+            }
         };
 
         var isCodeReviewModalOpen = ko.observable(false);
@@ -905,10 +899,8 @@
         var toggleCodeReviewModal = function (openModal) {
             isCodeReviewModalOpen(openModal);
 
-            if (my.profileVm.codeReviewDetails.Id() != 0 )
-            {
-                if (openModal)
-                {
+            if (my.profileVm.codeReviewDetails.Id() != 0) {
+                if (openModal) {
                     $('#divCodeReviewPointsCollapsable').addClass('show');
                     $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
 
@@ -922,32 +914,31 @@
         };
 
         var toggleTab = function (loadSelection) {
-            if (loadSelection == 1)
-            {
+            if (loadSelection == 1) {
                 $('#divCodeReviewSummaryCollapsable').removeClass('show');
                 $('#divCodeReviewSummaryCollapsableHeader').addClass('collapsed');
 
                 $('#divCodeReviewPointsCollapsable').addClass('show');
                 $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
-               
+
                 return false;
             }
-           
+
             $('#divCodeReviewPointsCollapsable').removeClass('show');
             $('#divCodeReviewPointsCollapsableHeader').addClass('collapsed');
 
             $('#divCodeReviewSummaryCollapsable').addClass('show');
             $('#divCodeReviewSummaryCollapsableHeader').removeClass('collapsed');
-           
-          
+
+
             return false;
         }
 
         var removeCodeReviewTagAndRefresh = function (codeReviewTagId, skillId) {
 
-            var tag =  ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (allSkill) {
+            var tag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function (allSkill) {
                 return allSkill.SkillId == skillId;
-                });
+            });
 
 
             $.confirm({
@@ -961,7 +952,7 @@
                         text: 'Yes, Delete this Tag',
                         btnClass: 'btn-primary btn-danger',
                         action: function () {
-                            my.userService.discardTagFromCodeReviewFeedback(codeReviewDetails.Id(),codeReviewTagId, discardTagFromCodeReviewFeedbackCallback);
+                            my.userService.discardTagFromCodeReviewFeedback(codeReviewDetails.Id(), codeReviewTagId, discardTagFromCodeReviewFeedbackCallback);
                         }
                     },
                     cancel:
@@ -976,11 +967,11 @@
             });
         }
 
-        var discardTagFromCodeReviewFeedbackCallback = function(data) {
+        var discardTagFromCodeReviewFeedbackCallback = function (data) {
             savedCodeReviewDataForTrainee(data);
         }
 
-        var editCodeReviewPoint = function (codereviewTagId,skillId, codeReviewPointId) {
+        var editCodeReviewPoint = function (codereviewTagId, skillId, codeReviewPointId) {
 
             var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
 
@@ -1074,7 +1065,7 @@
                 }
             });
         }
-      
+
         return {
             userId: userId,
             getUserCallback: getUserCallback,
@@ -1124,16 +1115,16 @@
             reviewPointsDetails: reviewPointsDetails,
             codeReviewPointsTypes: codeReviewPointsTypes,
             setReviewPointRating: setReviewPointRating,
-            setSelectedTagId:setSelectedTagId,
+            setSelectedTagId: setSelectedTagId,
             saveCodeReviewData: saveCodeReviewData,
-            savePointsToCodeReview:savePointsToCodeReview,
+            savePointsToCodeReview: savePointsToCodeReview,
             updateSelectedCodereviewTag: updateSelectedCodereviewTag,
             codeReviewSelectedTab: codeReviewSelectedTab,
             codeReviewSelectedTag: codeReviewSelectedTag,
             codeReviewPreviewHtml: codeReviewPreviewHtml,
             submitCodeReview: submitCodeReview,
             discardCodeReview: discardCodeReview,
-            filteredTag:filteredTag,
+            filteredTag: filteredTag,
             filterTag: filterTag,
             filterKeyWord: filterKeyWord,
             addTagToCodeReviewDetails: addTagToCodeReviewDetails,
@@ -1141,7 +1132,7 @@
             isCodeReviewModalOpen: isCodeReviewModalOpen,
             getCodeReviewPreview: getCodeReviewPreview,
             toggleCodeReviewModal: toggleCodeReviewModal,
-            removeCodeReviewTagAndRefresh:removeCodeReviewTagAndRefresh,
+            removeCodeReviewTagAndRefresh: removeCodeReviewTagAndRefresh,
             //setSelectedTab: setSelectedTab,
             toggleTab: toggleTab,
             removeCodeReviewPoint: removeCodeReviewPoint,
@@ -1162,16 +1153,21 @@
         else if ((my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 2 || my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4) && my.profileVm.userVm.AllSkills().length == 0) {
             my.userService.getAllSkills().done(function (data) {
                 my.profileVm.userVm.AllSkills(data);
-               // my.profileVm.filteredTag(data);
+                // my.profileVm.filteredTag(data);
                 my.toggleLoader();
             });
         }
+        setTimeout(function () {
+            if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.Id() == 0) {
+                my.profileVm.toggleCodeReviewModal(true)
+            }
+        }, 1000);
+
     }, null, "change");
 
 
     my.profileVm.codeReviewDetails.Title.subscribe(function () {
-        if( my.profileVm.codeReviewDetails.Id()>0)
-        {
+        if (my.profileVm.codeReviewDetails.Id() > 0) {
             my.profileVm.codeReviewDetails.Edited(true);
         }
     });

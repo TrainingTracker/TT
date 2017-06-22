@@ -1,5 +1,6 @@
 ﻿#divCodeReviewTabs h4.mute {
     display: inline-block;
+    margin-bottom: 0.1%;
 }
 
 #divCodeReviewAccordian {
@@ -43,8 +44,8 @@
 
 #divRatingsButtonWrapper > span {
     display: block;
-    padding: 10px 0;
-    margin: 2px 0;
+    padding: 1% 0;
+    margin: 2% 0 2px 0;
     text-align: center;
     opacity: .25;
 }
@@ -82,7 +83,7 @@
 }
 
 #divCodeReviewTabs .panel-heading > div {
-    padding: 5px 0;
+    padding: .5% 0;
     background-color: #2596F1;
     color: #fff;
 }
@@ -93,6 +94,7 @@
 
 #divCodeReviewTabs .panel-heading label {
     margin-left: 5px;
+    margin-bottom: 0;
 }
 
 #divAbsoluteTagFilter ul {
@@ -154,7 +156,7 @@
 #divCodeReviewButtonWrapperZone{
     display:inline-block;
     height: 7%;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     margin-right:10px;
 }
 
@@ -164,8 +166,12 @@
 }
 
 #divCodeReviewTabs
-{
+{    
     transition: all .5s ease;
+    width: 98.5%;
+    /* padding: 1px; */
+    border-radius: 0;
+    margin-left: 1% !important;
 }
 #divCodeReviewSummaryCollapsable button
 {
@@ -180,4 +186,12 @@
 #divCodeReviewPreviewHtmlArea .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
 {
     margin : 0px 0px 0px 2px;
+}
+
+#divCloseCrModalButton{
+        position: absolute;
+    right: -4px;
+    top: -7px;
+    z-index: 1100;
+    zoom: 3;
 }

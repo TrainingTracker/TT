@@ -395,7 +395,7 @@
 
                                 <div class="comment-send col-xs-5 no-left-margin no-right-margin">
                                     <button data-bind="visible:my.profileVm.codeReviewDetails.Id()>0,click: my.profileVm.submitCodeReview" type="button" class="btn btn-success pull-right custom-margin-left-5">Submit CR <i class="glyphicon glyphicon-send"></i></button>
-                                    <button data-bind="click: function(){ my.profileVm.toggleCodeReviewModal(true)}" type="button" class="btn btn-warning pull-right">Format CR <i class="fa fa-code"></i></button>
+                                    <button data-bind="click: function(){ my.profileVm.toggleCodeReviewModal(true)}" type="button" class="btn btn-warning pull-right"><span data-bind="text:my.profileVm.codeReviewDetails.Id()>0 ? 'Format CR' : 'Add New' "></span> <i class="fa fa-code"></i></button>
                                     
                                 </div>
                                 <div class="clearfix"></div>
