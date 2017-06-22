@@ -101,7 +101,7 @@ namespace TrainingTracker.BLL
         {
             User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
 
-            CodeReview codeReview = logedInUser.IsTrainer 
+            CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager 
                                         ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
                                         :null;
 

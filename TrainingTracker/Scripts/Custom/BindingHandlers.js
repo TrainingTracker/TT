@@ -781,7 +781,7 @@ $(document).ready(function () {
                         clearInterval(interval); // If exceeded count , clear interval
                     }            
                     $(element).text(number); // Update the value in paragraph                  
-                }, 300); 
+                }, 100); 
             }
         }
     };
