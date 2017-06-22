@@ -975,6 +975,7 @@
 
             var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
 
+            if (skillId == 0) skillId = null;
             codeReviewSelectedTag(skillId);
 
             reviewPointsDetails.Id(codeReviewPointId);
@@ -990,6 +991,7 @@
 
             var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
 
+            if (skillId == 0) skillId = null;
             codeReviewSelectedTag(skillId);
 
             reviewPointsDetails.Id(codeReviewPointId);

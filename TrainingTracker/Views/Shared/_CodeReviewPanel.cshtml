@@ -1,5 +1,5 @@
 ﻿
-<div id="divCodeReviewTabs" class=" modal-content no-padding-left no-padding-right" data-bind="css:{'col-xs-7 col-xs-offset-4' : my.profileVm.codeReviewDetails.Id() == 0},style:{'height' :  my.profileVm.codeReviewDetails.Id() == 0 ?'62vh':'83vh' }">
+<div id="divCodeReviewTabs" class=" modal-content no-padding-left no-padding-right" data-bind="css:{'col-xs-7 col-xs-offset-4' : my.profileVm.codeReviewDetails.Id() == 0,'expandModal':my.profileVm.codeReviewDetails.Id() != 0},style:{'height' :  my.profileVm.codeReviewDetails.Id() == 0 ?'62vh':'83vh' }">
     <div id="divCloseCrModalButton" data-bind="click:function(){my.profileVm.toggleCodeReviewModal(false);}">
         <span><i class="glyphicon glyphicon-remove rating-slow "></i></span>
     </div>
@@ -252,7 +252,7 @@
         <h3 class="mute">PREVIEW</h3>
         <div id="divCodeReviewPreviewHtmlArea" data-bind="html:my.profileVm.codeReviewPreviewHtml"></div>
         <div style="color:#ccc;font-size:10px;margin-top: 14px;" class="col-xs-8" data-bind="visible:!my.isNullorEmpty(my.profileVm.codeReviewDetails.AutoSaveDateTimeStamp())">
-            <i   class="fa fa-info-circle mute"></i>
+            <i class="fa fa-info-circle mute"></i>
             <span class="mute" data-bind="text:'Draft saved at ' + my.profileVm.codeReviewDetails.AutoSaveDateTimeStamp()"></span>
         </div>
         <div id="divCodeReviewButtonWrapperZone" class="col-xs-3 pull-right no-padding-left no-padding-right" data-bind="visible: my.profileVm.codeReviewDetails.Id() > 0">

@@ -168,11 +168,17 @@
 #divCodeReviewTabs
 {    
     transition: all .5s ease;
-    width: 98.5%;
+   
     /* padding: 1px; */
     border-radius: 0;
+   
+}
+
+.expandModal{
+   width: 98.5%;
     margin-left: 1% !important;
 }
+
 #divCodeReviewSummaryCollapsable button
 {
     margin-right:5px;
@@ -191,7 +197,7 @@
 #divCloseCrModalButton{
         position: absolute;
     right: -4px;
-    top: -7px;
+    top: -6px;
     z-index: 1100;
     zoom: 3;
 }
