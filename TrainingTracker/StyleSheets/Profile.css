@@ -1194,7 +1194,7 @@ label.lbl-data-info {
 
  .code-review-tags .code-review-review-points-rating
 {
-    width: 3%;
+    width: 5%;
     display: block;
     float: left;
     font-size: 15px;
@@ -1264,7 +1264,7 @@ margin:2px;
  .code-review-tags .code-review-tags-body .code-review-review-points-body
 {
     width: 97%;
-    margin-left: 3%;
+    margin-left: 5%;
 }
 
 #divTagPreviewForAddedCodeReviews

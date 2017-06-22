@@ -168,7 +168,7 @@
 #divCodeReviewTabs
 {    
     transition: all .5s ease;
-   
+       margin-top: 2%;
     /* padding: 1px; */
     border-radius: 0;
    

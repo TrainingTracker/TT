@@ -98,8 +98,6 @@ namespace TrainingTracker.Controllers
 
             return Json(new MirrorBl().LoadAllAssignedCourseForTrainee(userId, startDate, endDate),
                         JsonRequestBehavior.AllowGet);
-        }
-
-        
+        }        
     }
 }
