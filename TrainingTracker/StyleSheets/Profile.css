@@ -836,7 +836,7 @@ label.lbl-data-info {
 }
 
 #CodeReviewSection {
-    display: inline-block;
+    display: table;
     width: 100%;
 }
 

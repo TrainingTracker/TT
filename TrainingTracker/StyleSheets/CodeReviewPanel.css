@@ -6,7 +6,7 @@
 #divCodeReviewAccordian {
     max-height: 100%;
     height: 100%;
-    overflow: hidden;
+   
 }
 
 #divCodeReviewAccordian .panel {
@@ -26,8 +26,6 @@
     border: none;
 
 }
-
-
 
 #divCodeReviewAccordian #divRatingsButtonWrapper > span {
     width: 16%;
@@ -151,6 +149,7 @@
 {
     height:80%;
     overflow-y:scroll;
+    overflow-x: hidden;
 }
 
 #divCodeReviewButtonWrapperZone{
@@ -167,16 +166,20 @@
 
 #divCodeReviewTabs
 {    
-    transition: all .5s ease;
-       margin-top: 2%;
+       transition: all .5s ease;
+    display: table-cell;
+    position: absolute;
+    vertical-align: middle;
     /* padding: 1px; */
     border-radius: 0;
-   
+    margin: 0 25%;
+    top: 15%;
 }
 
 .expandModal{
    width: 98.5%;
     margin-left: 1% !important;
+        top: 5% !important;
 }
 
 #divCodeReviewSummaryCollapsable button
