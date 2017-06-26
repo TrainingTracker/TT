@@ -1042,30 +1042,7 @@
         };
 
         var updateReviewPointData = function () {
-            $.confirm({
-                title: 'Update Review Point!!',
-                content: 'Do you want to update review point?, this will update your existing data',
-                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
-                useBootstrap: true,
-                buttons: {
-                    confirm:
-                    {
-                        text: 'Yes, Update ',
-                        btnClass: 'btn-primary btn-danger',
-                        action: function () {
-                            savePointsToCodeReview();
-                        }
-                    },
-                    cancel:
-                    {
-                        text: 'No',
-                        btnClass: 'btn-primary btn-warning',
-                        action: function () {
-
-                        }
-                    }
-                }
-            });
+            savePointsToCodeReview();
         }
 
         return {

@@ -1184,7 +1184,7 @@ label.lbl-data-info {
     font-weight: bold;
     font-style: italic;
     font-size:15px;
-    /* width: 90%; */
+     width: 90%; 
     float: left;
     /* margin-bottom: 5px; */
     padding: 0px 0px 0px 0px;
@@ -1210,7 +1210,8 @@ label.lbl-data-info {
 }
 
  .code-review-button-wrapper i{
-margin:2px;
+        font-size: 11px;
+    padding:5px 5px;
 }
  .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
 {

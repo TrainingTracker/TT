@@ -367,7 +367,9 @@ namespace TrainingTracker.Common.Utility
                          if (!(isFeedback || tags.Skill.SkillId == 0))
                          {
                              strBuilder.Append("<span class='code-review-button-wrapper'>");
-                             strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewTagAndRefresh(" + tags.CodeReviewTagId + ","+tags.Skill.SkillId+")'  class='glyphicon glyphicon-trash'></i>");
+                             strBuilder.Append("<span class='code-review-button-ellipses fa fa-ellipsis-h'>");
+                               strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewTagAndRefresh(" + tags.CodeReviewTagId + ","+tags.Skill.SkillId+")'  class='glyphicon glyphicon-trash'></i>");
+                             strBuilder.Append("</span>");
                              strBuilder.Append("</span>");
                          }
                         
@@ -425,8 +427,10 @@ namespace TrainingTracker.Common.Utility
                                 if (!isFeedback)
                                 {
                                     strBuilder.Append("<span class='code-review-button-wrapper'>");
-                                    strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," +reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
-                                    strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("<span class='code-review-button-ellipses fa fa-ellipsis-h'>");
+                                         strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," +reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
+                                         strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("</span>");
                                     strBuilder.Append("</span>");
                                 }
                              strBuilder.Append("</div>");

@@ -199,8 +199,48 @@
 
 #divCloseCrModalButton{
         position: absolute;
+        cursor:pointer;
     right: -4px;
     top: -6px;
     z-index: 1100;
     zoom: 3;
+}
+
+.code-review-button-ellipses:before{ 
+   color:#ccc;
+   cursor:pointer;
+   padding:0 5px;
+   display:inline-block;
+}
+
+.code-review-button-ellipses > i{
+    display:none;
+    color:#2596F1;
+}
+
+.code-review-review-points:hover .code-review-button-ellipses >i
+{
+   display:inline-block;
+   cursor:pointer;
+}
+.code-review-review-points:hover .code-review-button-ellipses:before{
+      display:none;
+}
+
+.code-review-tags-header:hover .code-review-button-ellipses >i
+{
+   display:inline-block;
+   cursor:pointer;
+}
+
+.code-review-tags-header:hover .code-review-button-ellipses:before
+{
+    display:none;
+}
+
+.code-review-button-wrapper
+{
+   position: relative;
+    display: inline-block;
+    width: 5%;
 }
