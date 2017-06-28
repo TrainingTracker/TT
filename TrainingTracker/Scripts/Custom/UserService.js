@@ -102,6 +102,31 @@
         },
         getUserDetailsWithFiltersPromise: function (userId) {
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Profile/GetUserByUserId?userId=" + userId, null);
+        },
+        addUpdateCodeReviewDetailsWithPromise: function (codeReview) {
+            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewMetaData", codeReview);
+        },
+        addUpdateTagPointsWithPromise: function (codeReview) {
+            return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewPoint", codeReview);
+        },
+        getCodeReviewPreview: function (codeReviewId,isFeedback,callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId + "&isFeedback=" + isFeedback, null, callback);
+        },
+
+        submitCodeReviewFeedback: function (codeReview, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);
+        },
+
+         discardCodeReviewFeedback: function (codeReviewId, callback) {
+             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardCodeReviewFeedback?codeReviewId="+codeReviewId, null, callback);
+         },
+
+         discardTagFromCodeReviewFeedback: function (codeReviewId,codeReviewTagId, callback) {
+             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardTagFromCodeReviewFeedback?codeReviewId=" + codeReviewId + "&codeReviewTagId=" + codeReviewTagId, null, callback);
+         },
+
+         addCategory: function (category, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/AddCategory", category, callback);
         }
     };
 }(my));

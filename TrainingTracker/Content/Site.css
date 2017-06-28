@@ -110,6 +110,10 @@
     margin-top: 10px;
 }
 
+.custom-margin-left-5 {
+    margin-left: 5px;
+}
+
 #page-wrapper{
     height: 90%;
 }

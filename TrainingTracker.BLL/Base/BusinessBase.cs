@@ -248,6 +248,19 @@ namespace TrainingTracker.BLL.Base
             get { return _feedbackConverter ?? (_feedbackConverter = new FeedbackConverter()); }
         }
 
+        private CodeReviewConverter _codeReviewConverter;
+
+        public CodeReviewConverter CodeReviewConverter
+        {
+            get { return _codeReviewConverter ?? (_codeReviewConverter = new CodeReviewConverter()); }
+        }
+
+        private CodeReviewTagsConverter _codeReviewTagConverter;
+
+        public CodeReviewTagsConverter CodeReviewTagConverter
+        {
+            get { return _codeReviewTagConverter ?? (_codeReviewTagConverter = new CodeReviewTagsConverter()); }
+        }
 
         #endregion
 

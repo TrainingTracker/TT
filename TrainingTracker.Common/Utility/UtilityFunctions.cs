@@ -341,6 +341,125 @@ namespace TrainingTracker.Common.Utility
             }
             return 0;
         }
+
+        public static string GenerateCodeReviewPreview(CodeReview codeReview, bool isFeedback)
+        {
+            StringBuilder strBuilder = new StringBuilder(@"");
+            strBuilder.Append("<div class='weekly-feedback'><code>");
+
+            // header Starts 
+            strBuilder.Append("<div class='code-review-header'>");
+                  strBuilder.Append("<span class='code-review-header-title'>"+codeReview.Title+"</span>");
+                  strBuilder.Append("<span class='code-review-header-description'>"+codeReview.Description+"</span>");
+            strBuilder.Append("</div>");
+
+            // header Ends
+
+            foreach (var tags in codeReview.Tags.OrderBy(x => x.Skill.SkillId))
+            {
+                strBuilder.Append("<div class='code-review-tags clearfix'>");
+                   
+                   // tag header starts
+                     strBuilder.Append("<div class='code-review-tags-header'>");
+                    
+                         strBuilder.Append("<span class='code-review-tags-header-title'><i class='fa fa-tags code-review-preview-tag-icon'></i>"+ tags.Skill.Name.ToUpper() + "</span>");
+
+                         if (!(isFeedback || tags.Skill.SkillId == 0))
+                         {
+                             strBuilder.Append("<span class='code-review-button-wrapper'>");
+                             strBuilder.Append("<span class='code-review-button-ellipses fa fa-ellipsis-h'>");
+                               strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewTagAndRefresh(" + tags.CodeReviewTagId + ","+tags.Skill.SkillId+")'  class='glyphicon glyphicon-trash'></i>");
+                             strBuilder.Append("</span>");
+                             strBuilder.Append("</span>");
+                         }
+                        
+
+                     strBuilder.Append("</div>");
+
+                   // tag header ends here -- body starts here
+                     strBuilder.Append("<div class='code-review-tags-body'>");
+                        
+                      foreach(var reviewPoints in tags.ReviewPoints.OrderBy(x=>x.Rating))
+                      {
+
+                          strBuilder.Append("<div class='code-review-review-points clearfix'>");
+                          #region review point header
+                          strBuilder.Append("<div class='code-review-review-points-header clearfix'>");
+
+                             #region rating region
+                             switch (reviewPoints.Rating)
+                                   {
+                                     case 1:
+                                           strBuilder.Append("<span class='code-review-review-points-rating point-type-exceptional'>");
+                                           strBuilder.Append("<i class='fa fa-plus double-child'></i><i class='fa fa-plus double-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                     case 2:
+                                      strBuilder.Append("<span class='code-review-review-points-rating point-type-good'>");
+                                           strBuilder.Append("<i class='fa fa-plus single-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                     case 3:
+                                      strBuilder.Append("<span class='code-review-review-points-rating point-type-corrected'>");
+                                           strBuilder.Append("<i class='fa fa-check single-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                     case 4:
+                                      strBuilder.Append("<span class='code-review-review-points-rating point-type-poor'>");
+                                           strBuilder.Append("<i class='fa fa-minus single-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                     case 5:
+                                      strBuilder.Append("<span class='code-review-review-points-rating point-type-critical'>");
+                                           strBuilder.Append("<i class='fa fa-minus double-child'></i><i class='fa fa-minus double-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                     case 6:
+                                      strBuilder.Append("<span class='code-review-review-points-rating point-type-suggestion'>");
+                                      strBuilder.Append("<i class='fa fa-exclamation single-child'></i>");
+                                           strBuilder.Append("</span>");
+                                      break;
+                                   }
+                             #endregion
+
+                                strBuilder.Append("<span class='code-review-review-points-title'>" +reviewPoints.Title+ "</span>");
+
+                                if (!isFeedback)
+                                {
+                                    strBuilder.Append("<span class='code-review-button-wrapper'>");
+                                    strBuilder.Append("<span class='code-review-button-ellipses fa fa-ellipsis-h'>");
+                                         strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," +reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
+                                         strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("</span>");
+                                    strBuilder.Append("</span>");
+                                }
+                             strBuilder.Append("</div>");
+                          #endregion
+                             #region review point body
+
+                            if (!string.IsNullOrEmpty(reviewPoints.Description))
+                              {
+                                strBuilder.Append("<div class='code-review-review-points-body'>");
+                                strBuilder.Append("<span class='code-review-review-points-description'>" + reviewPoints.Description + "</span>");
+                                strBuilder.Append("</div>");
+                              }
+                             
+                             #endregion
+
+                             strBuilder.Append("</div>");
+                      }
+               
+                     strBuilder.Append("</div>");
+                  // body ends here
+
+
+                strBuilder.Append("</div>");
+            }
+            
+
+            strBuilder.Append("</code></div>");
+            return strBuilder.ToString();
+        }
     }
 }
 

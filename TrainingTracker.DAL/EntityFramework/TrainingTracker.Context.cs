@@ -81,5 +81,9 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual DbSet<UserSessionMapping> UserSessionMappings { get; set; }
         public virtual DbSet<UserSkillMapping> UserSkillMappings { get; set; }
         public virtual DbSet<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
+        public virtual DbSet<CodeReviewMetaData> CodeReviewMetaDatas { get; set; }
+        public virtual DbSet<CodeReviewPoint> CodeReviewPoints { get; set; }
+        public virtual DbSet<CodeReviewPointType> CodeReviewPointTypes { get; set; }
+        public virtual DbSet<CodeReviewTag> CodeReviewTags { get; set; }
     }
 }

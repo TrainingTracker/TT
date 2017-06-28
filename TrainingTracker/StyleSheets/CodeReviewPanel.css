@@ -1,0 +1,246 @@
+﻿#divCodeReviewTabs h4.mute {
+    display: inline-block;
+    margin-bottom: 0.1%;
+}
+
+#divCodeReviewAccordian {
+    max-height: 100%;
+    height: 100%;
+   
+}
+
+#divCodeReviewAccordian .panel {
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+#divCodeReviewAccordian .panel-heading {
+    padding: 0;
+    border: none;
+
+}
+
+#divCodeReviewAccordian .panel-body {
+    padding: 0;
+    border: none;
+
+}
+
+#divCodeReviewAccordian #divRatingsButtonWrapper > span {
+    width: 16%;
+    display: inline-block;
+}
+
+#divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span {
+    width: 8%;
+}
+
+ #divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span.active {
+     width: 56%;
+ }
+
+#divRatingsButtonWrapper > span {
+    display: block;
+    padding: 1% 0;
+    margin: 2% 0 2px 0;
+    text-align: center;
+    opacity: .25;
+}
+
+#divRatingsButtonWrapper > span .rating-details {
+    width: 1%;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+    opacity: 0;
+}
+
+#divRatingsButtonWrapper > span:hover, #divRatingsButtonWrapper > span.active {
+    opacity: 1;
+}
+
+ #divRatingsButtonWrapper > span.active .rating-details {
+     width: 60%;
+     visibility: visible;
+     overflow: hidden;
+     font-weight: 500;
+     opacity: 1;
+     transition: width 0s linear 0.25s,opacity 0.5s linear;
+     /*transition: visibility linear .5s;*/
+ }
+
+#divRatingsButtonWrapper > span.active > span:nth-child(1) {
+    width: 36.66%;
+}
+
+#divRatingsButtonWrapper > span, #divRatingsButtonWrapper > span > span:nth-child(1) {
+    width: 99%;
+    margin-top: 2px;
+    transition: width linear .25s;
+}
+
+#divCodeReviewTabs .panel-heading > div {
+    padding: .5% 0;
+    background-color: #2596F1;
+    color: #fff;
+}
+
+#divCodeReviewTabs .panel-heading > div i.glyphicon {
+    margin-right: 5px;
+}
+
+#divCodeReviewTabs .panel-heading label {
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+#divAbsoluteTagFilter ul {
+  position: absolute;
+    left: 0;
+    /* top: 0px; */
+    z-index: 10;
+    width: 94%;
+    /* left: 2.9%; */
+    max-height: 300px;
+    overflow-y: auto;
+    background: #192741;
+    color: #ffffff;
+}
+
+#divAbsoluteTagFilter ul > li {
+    cursor: pointer !important;
+    list-style: none;
+    padding: 10px 0;
+}
+
+#divAbsoluteTagFilter ul > li label {
+    cursor: pointer;
+}
+
+#divAbsoluteTagFilter ul > li:hover {
+    background: #2596F1;
+    transition: ease background .25s;
+}
+
+#divAbsoluteTagFilter ul > li:hover span {
+    color: #ffffff;
+    transition: ease color .25s;
+}
+
+#codeReveiewPreviewPanel h3{
+    color:#ccc;
+    text-align:center;
+    font-weight:bold;
+}
+
+#codeReveiewPreviewPanel .weekly-feedback  code{
+        padding: 0 !important;
+   font-size: 100% !important; 
+  color:inherit;
+   border-radius: 0 !important; 
+}
+
+#codeReveiewPreviewPanel{
+    height: 100%;
+}
+
+#divCodeReviewPreviewHtmlArea
+{
+    height:80%;
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
+
+#divCodeReviewButtonWrapperZone{
+    display:inline-block;
+    height: 7%;
+    /*margin-top: 15px;*/
+    margin-right:10px;
+}
+
+#divCodeReviewButtonWrapperZone .btn i{
+    margin-left:5px;
+    margin-right:5px;
+}
+
+#divCodeReviewTabs
+{    
+       transition: all .5s ease;
+    display: table-cell;
+    position: absolute;
+    vertical-align: middle;
+    /* padding: 1px; */
+    border-radius: 0;
+    margin: 0 25%;
+    top: 15%;
+}
+
+.expandModal{
+   width: 98.5%;
+    margin-left: 1% !important;
+        top: 5% !important;
+}
+
+#divCodeReviewSummaryCollapsable button
+{
+    margin-right:5px;
+}
+
+#divCodeReviewSummaryCollapsable button i
+{
+        padding: 0 5px;
+}
+
+#divCodeReviewPreviewHtmlArea .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
+{
+    margin : 0px 0px 0px 2px;
+}
+
+#divCloseCrModalButton{
+        position: absolute;
+        cursor:pointer;
+    right: -4px;
+    top: -6px;
+    z-index: 1100;
+    zoom: 3;
+}
+
+.code-review-button-ellipses:before{ 
+   color:#ccc;
+   cursor:pointer;
+   padding:0 5px;
+   display:inline-block;
+}
+
+.code-review-button-ellipses > i{
+    display:none;
+    color:#2596F1;
+}
+
+.code-review-review-points:hover .code-review-button-ellipses >i
+{
+   display:inline-block;
+   cursor:pointer;
+}
+.code-review-review-points:hover .code-review-button-ellipses:before{
+      display:none;
+}
+
+.code-review-tags-header:hover .code-review-button-ellipses >i
+{
+   display:inline-block;
+   cursor:pointer;
+}
+
+.code-review-tags-header:hover .code-review-button-ellipses:before
+{
+    display:none;
+}
+
+.code-review-button-wrapper
+{
+   position: relative;
+    display: inline-block;
+    width: 5%;
+}

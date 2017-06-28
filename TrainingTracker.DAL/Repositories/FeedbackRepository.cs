@@ -42,10 +42,9 @@ namespace TrainingTracker.DAL.Repositories
                        .OrderBy(x=>x.AddedOn);
             }
             // for weekly feedback it should work onweekly start date and end date range
-
             return Find(x => x.FeedbackType == (int)feedbackType
                              && x.AddedFor == userId
-                             && (x.StartDate >= startDate || x.EndDate <= endDate))
+                             && (x.StartDate >= startDate && x.EndDate <= endDate))
                    .OrderBy(x=>x.AddedOn)
                    .ThenBy(x=>x.StartDate)
                    .ThenBy(x => x.EndDate);

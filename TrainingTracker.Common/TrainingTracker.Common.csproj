@@ -54,6 +54,9 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Encryption\Cryptography.cs" />
     <Compile Include="Entity\Assignment.cs" />
+    <Compile Include="Entity\CodeReview.cs" />
+    <Compile Include="Entity\CodeReviewPoint.cs" />
+    <Compile Include="Entity\CodeReviewTag.cs" />
     <Compile Include="Entity\Designation.cs" />
     <Compile Include="Entity\EmailAlertSubscription.cs" />
     <Compile Include="Entity\Course.cs" />
