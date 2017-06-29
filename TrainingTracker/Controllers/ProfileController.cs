@@ -321,10 +321,58 @@ namespace TrainingTracker.Controllers
             return Json(new UserBl().GetAllDesignation(), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
+        [HttpGet]       
         public JsonResult GetUserByUserId(int userId)
         {
             return Json(new UserBl().GetUserByUserId(userId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult SubmitCodeReviewMetaData(CodeReview codeReview)
+        {
+            codeReview.AddedBy = CurrentUser;
+            return Json(new FeedbackBl().SubmitCodeReviewMetaData(codeReview), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
+        {
+            return Json(new FeedbackBl().SubmitCodeReviewPoint(codeReviewPoint), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult FetchCodeReviewPreview(int codeReviewId, bool isFeedback)
+        {
+            return Json(new FeedbackBl().FetchCodeReviewPreview(codeReviewId, isFeedback), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult SubmitCodeReviewFeedback(CodeReview codeReview)
+        {
+            return Json(new FeedbackBl().SubmitCodeReviewFeedback(codeReview), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult DiscardCodeReviewFeedback(int codeReviewId)
+        {
+            return Json(new FeedbackBl().DiscardCodeReviewFeedback(codeReviewId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult DiscardTagFromCodeReviewFeedback(int codeReviewId,int codeReviewTagId)
+        {
+            return Json(new FeedbackBl().DiscardTagFromCodeReviewFeedback(codeReviewId,codeReviewTagId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddCategory(Skill category)
+        {
+            return Json(new UserBl().AddSkill(category));
         }
     }
 }

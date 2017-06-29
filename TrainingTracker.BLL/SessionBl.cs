@@ -171,7 +171,5 @@ namespace TrainingTracker.BLL
                            : SessionConverter.ConvertListFromCore(session.Results.ToList())
             };
         }
-
-
     }
 }

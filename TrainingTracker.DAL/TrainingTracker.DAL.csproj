@@ -87,6 +87,18 @@
     <Compile Include="EntityFramework\AssignmentUserMap.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\CodeReviewMetaData.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewPoint.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewPointType.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CodeReviewTag.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\Comment.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
@@ -258,6 +270,7 @@
     <Compile Include="EntityFramework\WeeklyFeedbackSurveyMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface\ICodeReviewRepository.cs" />
     <Compile Include="Interface\INotificationRepository.cs" />
     <Compile Include="Interface\ISkillRepository.cs" />
     <Compile Include="Interface\ISubtopicContentRepository.cs" />
@@ -279,6 +292,9 @@
     <Compile Include="Interface\ISurveyDal.cs" />
     <Compile Include="Interface\ITeamDal.cs" />
     <Compile Include="Interface\IUserDal.cs" />
+    <Compile Include="ModelMapper\CodeReviewConverter.cs" />
+    <Compile Include="ModelMapper\CodeReviewPointConverter.cs" />
+    <Compile Include="ModelMapper\CodeReviewTagConverter.cs" />
     <Compile Include="ModelMapper\EmailAlertSubscriptionConverter.cs" />
     <Compile Include="ModelMapper\EntityConverter.cs" />
     <Compile Include="ModelMapper\FeedbackConverter.cs" />
@@ -305,6 +321,7 @@
     <Compile Include="Interface\IEmailAlertSubscriptionRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Repositories\CodeReviewRepository.cs" />
     <Compile Include="Repositories\MirrorRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
     <Compile Include="Repositories\SkillRepository.cs" />

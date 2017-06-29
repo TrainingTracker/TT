@@ -101,6 +101,16 @@ namespace TrainingTracker.BLL
         {
             User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
 
+            CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager 
+                                        ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
+                                        :null;
+
+            if(codeReview != null)
+            {
+                codeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(codeReview, true);
+            }
+           
+
             return new UserProfileVm
             {
 
@@ -111,7 +121,9 @@ namespace TrainingTracker.BLL
                 Projects = null,
                 Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>()
+                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
+                SavedCodeReview = codeReview ,
+              //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
             };
         }
 
@@ -285,6 +297,15 @@ namespace TrainingTracker.BLL
         public List<Designation> GetAllDesignation()
         {
             return UserDataAccesor.GetAllDesignation();
+        }
+
+        public List<Skill> AddSkill(Skill category)
+        {
+          if(SkillDataAccesor.AddSkill(category))
+          {
+              return SkillDataAccesor.GetAllSkillsForApp();
+          }
+          return null;
         }
     }
 }                                                                                               

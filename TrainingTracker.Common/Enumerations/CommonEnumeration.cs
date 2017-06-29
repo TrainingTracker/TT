@@ -243,4 +243,14 @@
         Minor = 2 ,
         Major = 3 
     }
+
+    public enum CodeReviewRating
+    {
+        Exceptional = 1,
+        Good = 2,
+        Corrected = 3,
+        Poor = 4,
+        Critical = 5,
+        Suggestion= 6
+    }
 }

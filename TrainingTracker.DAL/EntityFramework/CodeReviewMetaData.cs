@@ -12,27 +12,26 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Skill
+    public partial class CodeReviewMetaData
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Skill()
+        public CodeReviewMetaData()
         {
-            this.Questions = new HashSet<Question>();
-            this.UserSkillMappings = new HashSet<UserSkillMapping>();
             this.CodeReviewTags = new HashSet<CodeReviewTag>();
         }
     
-        public int SkillId { get; set; }
-        public string Name { get; set; }
+        public int CodeReviewMetaDataId { get; set; }
+        public string ProjectName { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
-        public Nullable<int> AddedBy { get; set; }
+        public Nullable<int> FeedbackId { get; set; }
+        public int AddedBy { get; set; }
+        public int AddedFor { get; set; }
+        public Nullable<bool> IsDiscarded { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserSkillMapping> UserSkillMappings { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual Feedback Feedback { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReviewTag> CodeReviewTags { get; set; }
     }

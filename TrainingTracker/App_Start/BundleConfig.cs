@@ -183,7 +183,8 @@ namespace TrainingTracker
                       "~/StyleSheets/Profile.css",
                       "~/StyleSheets/FeedbackPlot.css",
                       "~/StyleSheets/FeedbackThread.css",
-                      "~/StyleSheets/DiscussionThread.css"
+                      "~/StyleSheets/DiscussionThread.css",
+                      "~/StyleSheets/CodeReviewPanel.css"
                       ));
 
             bundles.Add(new StyleBundle("~/bundles/ReleaseViewStyles").Include(

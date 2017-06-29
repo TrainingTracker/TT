@@ -154,6 +154,16 @@ namespace TrainingTracker.DAL
                 return _skillRepository ?? (_skillRepository = new SkillRepository(_context));
             }
         }
+
+        private ICodeReviewRepository _codeReviewRepository;
+        public ICodeReviewRepository CodeReviewRepository
+        {
+            get
+            {
+                return _codeReviewRepository ?? (_codeReviewRepository = new CodeReviewRepository(_context));
+            }
+        }
+
         #endregion
 
         #region CommonMethods

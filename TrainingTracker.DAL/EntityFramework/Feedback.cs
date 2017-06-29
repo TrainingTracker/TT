@@ -20,6 +20,7 @@ namespace TrainingTracker.DAL.EntityFramework
             this.AssignmentFeedbackMappings = new HashSet<AssignmentFeedbackMapping>();
             this.FeedbackThreads = new HashSet<FeedbackThread>();
             this.WeeklyFeedbackSurveyMappings = new HashSet<WeeklyFeedbackSurveyMapping>();
+            this.CodeReviewMetaDatas = new HashSet<CodeReviewMetaData>();
         }
     
         public int FeedbackId { get; set; }
@@ -44,5 +45,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<FeedbackThread> FeedbackThreads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeeklyFeedbackSurveyMapping> WeeklyFeedbackSurveyMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodeReviewMetaData> CodeReviewMetaDatas { get; set; }
     }
 }

@@ -100,6 +100,15 @@
                 contentType: "application/json"
             });
         },
+        ajaxPostDefferedCustomLoader = function (method, jsonIn) {
+            return $.ajax({
+                url: getServiceUrl(method),
+                type: "POST",
+                data: ko.toJSON(jsonIn),
+                dataType: "json",
+                contentType: "application/json"
+            });
+        },
 
         ajaxGetDefferedCustomLoader = function (method, jsonIn) {
             return $.ajax({
@@ -116,7 +125,8 @@
             ajaxUploadImage: ajaxUploadImage,
             ajaxPostDeffered: ajaxPostDeffered,
             ajaxGetDeffered: ajaxGetDeffered,
-            ajaxGetDefferedCustomLoader: ajaxGetDefferedCustomLoader
+            ajaxGetDefferedCustomLoader: ajaxGetDefferedCustomLoader,
+            ajaxPostDefferedCustomLoader:ajaxPostDefferedCustomLoader
         };
     })();
 }(my));
