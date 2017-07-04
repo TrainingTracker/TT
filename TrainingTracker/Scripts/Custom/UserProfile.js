@@ -816,6 +816,9 @@
         var filteredTag = ko.observableArray([]);
 
         var filterTag = function (data, event) {
+
+            my.profileVm.filterKeyWord( my.profileVm.filterKeyWord().replace(/[\.,:-]+/g, ""));
+
             if (my.profileVm.userVm.AllSkills().length == 0 || my.isNullorEmpty(my.profileVm.filterKeyWord().trim())) {
                 my.profileVm.filteredTag([]);
                 return true;
