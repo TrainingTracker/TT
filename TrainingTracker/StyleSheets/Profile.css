@@ -512,6 +512,14 @@ div#divWeeklyReviewcollapasable .tab-wrap span.glyphicon {
     background-color: #1A2942;
     min-height: 100%;
 }
+#divUserDetails>div {
+    position: fixed;
+    width: inherit;
+    top: 0;
+    padding-top: 12vh;
+    bottom: 0;
+    overflow-y: auto;
+}
 
 .list-group {
     padding-left: 0;
