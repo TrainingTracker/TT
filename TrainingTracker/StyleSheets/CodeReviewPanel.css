@@ -34,7 +34,10 @@
     display: inline-flex;
 }
 
-/*#divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span { width: 8%; }*/
+textarea {
+    resize: vertical;
+    max-height: 30vh !important;
+}
 
 #divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected:not(:hover) > span.active,
 #divCodeReviewAccordian #divRatingsButtonWrapper > span:hover {
@@ -232,4 +235,56 @@
     position: relative;
     display: inline-block;
     width: 5%;
+}
+
+.prev-reviews .prev-review {
+    margin: 1%;
+    padding: 1%;
+    border: solid 1px grey;
+    border-radius: 5px;
+}
+
+.prev-review-tags .prev-review-tag {
+    border-radius: 5px;
+    margin: 1%;
+    padding: 1%
+}
+
+.prev-reviews {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.prev-review .prev-review-header { font-weight: bold }
+/*.prev-review-tags .prev-review-tag {
+    color: white;
+}*/
+.prev-review-tags .prev-review-tag:nth-child(odd) { background: #d5f4e6;}
+
+.prev-review-tags .prev-review-tag:nth-child(even) { background: #80ced6; }
+
+.prev-review-tags-header { text-align: right; }
+
+.prev-review-tags-header-text {
+    background: #618685;
+    border-radius: 3px;
+    color: white;
+    padding: 1px 5px;
+}
+
+.prev-review-tag-review-point {
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+}
+
+.prev-review-button-wrapper {
+    position: absolute;
+    right: 0;
+}
+.prev-review-review-points-body {
+    font-style: italic;
+}
+#divCodeReviewPointsCollapsable > .panel-body {
+    max-height:90vh;
 }

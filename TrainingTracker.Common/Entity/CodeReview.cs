@@ -28,5 +28,7 @@ namespace TrainingTracker.Common.Entity
 
         public string CodeReviewPreviewHtml { get; set; }
 
+        public Feedback Feedback { get; set; }
+
     }
 }

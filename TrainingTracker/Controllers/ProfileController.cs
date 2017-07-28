@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Microsoft.SqlServer.Server;
 using TrainingTracker.Authorize;
 using TrainingTracker.BLL;
 using TrainingTracker.Common.Constants;
@@ -373,6 +374,12 @@ namespace TrainingTracker.Controllers
         public ActionResult AddCategory(Skill category)
         {
             return Json(new UserBl().AddSkill(category));
+        }
+
+        [HttpGet]
+        public ActionResult FetchPrevCodeReviewData(int traineeId, int count=5)
+        {
+            return Json(new FeedbackBl().GetPrevCodeReviewDataForTrainee(traineeId, count), JsonRequestBehavior.AllowGet);
         }
     }
 }

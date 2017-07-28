@@ -663,7 +663,13 @@
             return message;
         }
 
-        var saveCodeReviewData = function() {
+        var saveCodeReviewData = function(callback) {
+            var finalCallback = function(data) {
+                saveCodeReviewCallback(data);
+                if (typeof (callback) == "function") {
+                    callback(data);
+                }
+            }
 
             var message = validateCodeReviewPoints();
 
@@ -690,10 +696,8 @@
 
             if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited()) {
                 PostDataUsingPromise(function() { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
-                    saveCodeReviewCallback, function() { console.log("Error Adding Points") });
+                    finalCallback, function() { console.log("Error Adding Points") });
             }
-
-            toggleTab(1);
         };
 
         var saveCodeReviewCallback = function(data) {
@@ -858,7 +862,7 @@
             return true;
         };
 
-        var addTagToCodeReviewDetails = function(skillId) {
+        var addTagToCodeReviewDetails = function(skillId,save) {
             var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function(item) {
                 return item.SkillId == skillId;
             });
@@ -869,6 +873,9 @@
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
             codeReviewDetails.Edited(true);
+            if (save) {
+                saveCodeReviewData();
+            }
         };
 
         var addCategoryCallback = function(data) {
@@ -887,7 +894,7 @@
             }
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
-
+            saveCodeReviewData();
 
         };
 
@@ -901,6 +908,9 @@
         var isCodeReviewModalOpen = ko.observable(false);
 
         var toggleCodeReviewModal = function(openModal) {
+            if (openModal)
+                loadPrevCrPointData();
+
             isCodeReviewModalOpen(openModal);
 
             if (my.profileVm.codeReviewDetails.Id() != 0) {
@@ -916,14 +926,14 @@
 
             switch (loadSelection) {
             case 0:
-                $('#divCodeReviewPointsCollapsable').hide();
+                $('#divCodeReviewPointsCollapsable').slideUp('slow');
                 $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
 
                 $('#divCodeReviewSummaryCollapsable').slideDown('slow');
                 $('#divCodeReviewSummaryCollapsableHeader').addClass('collapsed');
                 break;
             case 1:
-                $('#divCodeReviewPointsCollapsable').show();
+                $('#divCodeReviewPointsCollapsable').slideDown('slow');
                 $('#divCodeReviewPointsCollapsableHeader').removeClass('collapsed');
 
                 $('#divCodeReviewSummaryCollapsable').slideUp('slow');
@@ -933,7 +943,7 @@
                 $('#divCodeReviewSummaryCollapsable').slideToggle('slow');
                 $('#divCodeReviewSummaryCollapsableHeader').toggleClass('collapsed');
 
-                $('#divCodeReviewPointsCollapsable').toggle();
+                $('#divCodeReviewPointsCollapsable').slideToggle('slow');
                 $('#divCodeReviewPointsCollapsableHeader').toggleClass('collapsed');
             }
 
@@ -1053,6 +1063,79 @@
             savePointsToCodeReview();
         }
 
+        var prevCrPointData = ko.observableArray([]);
+        var loadPrevCrPointData = function() {
+            my.userService.getPrevCrPointData(my.profileVm.userId, function(data) {
+                my.profileVm.prevCrPointData(data);
+            });
+        };
+        var getRatingCssClass = function(rating) {
+            switch (rating) {
+            case 1:
+                return 'point-type-exceptional fa-plus double-child';
+            case 2:
+                return 'point-type-good fa-plus single-child';
+            case 3:
+                return 'point-type-corrected fa-check single-child';
+            case 4:
+                return 'point-type-poor fa-minus single-child';
+            case 5:
+                return 'point-type-critical fa-minus double-child';
+            default:
+                return '';
+            }
+        }
+        var addExistingReviewPoint = function(skillData, pointData) {
+            //console.dir(pointData);
+            var existingSkill = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Skills(), function(skill) {
+                return skill.SkillId == skillData.SkillId || skillData.SkillId == 0;
+            });
+
+            if (existingSkill) {
+                codeReviewSelectedTag(skillData.SkillId == 0 ? null : skillData.SkillId);
+                reviewPointsDetails.Title(pointData.Title);
+                reviewPointsDetails.Description(pointData.Description);
+                reviewPointsDetails.Deleted(false);
+                $('#tabAddReviewPoint').click();
+                return;
+            }
+
+            $.confirm({
+                title: 'Add "' + skillData.Name + '" Tag to CR?',
+                content: 'To add the current review point "' + skillData.Name + '" tag needs to be added to the current CR.',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, add skill to current CR',
+                        btnClass: 'btn-primary btn-danger',
+                        action: function() {
+                            addTagToCodeReviewDetails(skillData.SkillId);
+                            saveCodeReviewData(function() {
+                                codeReviewSelectedTag(skillData.SkillId);
+                                reviewPointsDetails.Title(pointData.Title);
+                                reviewPointsDetails.Description(pointData.Description);
+                                reviewPointsDetails.Deleted(false);
+                                $('#tabAddReviewPoint').click();
+                            });
+
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function() {
+
+                        }
+                    }
+                }
+            });
+
+
+        };
+
         return {
             userId: userId,
             getUserCallback: getUserCallback,
@@ -1124,7 +1207,11 @@
             toggleTab: toggleTab,
             removeCodeReviewPoint: removeCodeReviewPoint,
             editCodeReviewPoint: editCodeReviewPoint,
-            updateReviewPointData: updateReviewPointData
+            updateReviewPointData: updateReviewPointData,
+            prevCrPointData: prevCrPointData,
+            loadPrevCrProints: loadPrevCrPointData,
+            getRatingCssClass: getRatingCssClass,
+            addExistingReviewPoint: addExistingReviewPoint
         };
     }();
 

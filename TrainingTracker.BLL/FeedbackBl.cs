@@ -315,7 +315,6 @@ namespace TrainingTracker.BLL
           
         }
 
-
         /// <summary>
         ///  Private to class method to generate course 
         /// </summary>
@@ -338,7 +337,15 @@ namespace TrainingTracker.BLL
             return AddFeedback(feedback);
 
         }
-
-
+        
+        public List<CodeReview> GetPrevCodeReviewDataForTrainee(int traineeId, int count)
+        {
+            var x= CodeReviewConverter.ConvertListFromCore(
+                UnitOfWork.CodeReviewRepository
+                          .GetPrevCodeReviewForTrainee(traineeId, count)
+                          .ToList()
+                );
+            return x;
+        }
     }
 }

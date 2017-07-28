@@ -1240,32 +1240,30 @@ label.lbl-data-info {
 
     /*margin-left: -8%;*/
 
- .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-exceptional i
+ .point-type-exceptional
 {
     color : #1bf11b;
 }
 
- .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-good i
+.point-type-good
 {
     color : #acf02c;
 }
 
- .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-corrected i
+.point-type-corrected
 {
     color : blue;
 }
-
- .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-poor i
+.point-type-poor
 {
     color : #d9534f;
 }
-
- .code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-critical i
+.point-type-critical
 {
     color : red;
 }
 
-.code-review-tags .code-review-review-points-header .code-review-review-points-rating.point-type-suggestion i
+.point-type-suggestion
 {
     color : orange;
 }
