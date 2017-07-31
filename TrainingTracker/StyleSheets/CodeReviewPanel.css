@@ -256,19 +256,12 @@ textarea {
 }
 
 .prev-review .prev-review-header { font-weight: bold }
-/*.prev-review-tags .prev-review-tag {
-    color: white;
-}*/
-.prev-review-tags .prev-review-tag:nth-child(odd) { background: #d5f4e6;}
-
-.prev-review-tags .prev-review-tag:nth-child(even) { background: #80ced6; }
 
 .prev-review-tags-header { text-align: right; }
 
 .prev-review-tags-header-text {
-    background: #618685;
     border-radius: 3px;
-    color: white;
+    font-weight: bold;
     padding: 1px 5px;
 }
 
@@ -287,4 +280,11 @@ textarea {
 }
 #divCodeReviewPointsCollapsable > .panel-body {
     max-height:90vh;
+}
+
+.prev-review-button-wrapper i:hover {
+    background: #2596F1;
+    color: white;
+    border-radius: 2px;
+    padding: 2px;
 }

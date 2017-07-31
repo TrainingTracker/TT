@@ -340,12 +340,11 @@ namespace TrainingTracker.BLL
         
         public List<CodeReview> GetPrevCodeReviewDataForTrainee(int traineeId, int count)
         {
-            var x= CodeReviewConverter.ConvertListFromCore(
+            return CodeReviewConverter.ConvertListFromCore(
                 UnitOfWork.CodeReviewRepository
                           .GetPrevCodeReviewForTrainee(traineeId, count)
                           .ToList()
                 );
-            return x;
         }
     }
 }

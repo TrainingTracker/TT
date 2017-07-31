@@ -214,26 +214,28 @@
                             </div>
                             <div class="prev-review-tags clearfix">
                                 <!-- ko foreach: Tags-->
-                                <div class="prev-review-tag" data-bind="visible:ReviewPoints && ReviewPoints.length>0">
-                                    <div class="prev-review-tags-header">
+                                <dl class="prev-review-tag" data-bind="visible:ReviewPoints && ReviewPoints.length>0">
+                                    <dt class=" bold-font text-info" data-bind="text: Skill.Name">
+                                          </dt>
+                                    @*<div class="prev-review-tags-header">
                                         <span class="prev-review-tags-header-text" data-bind="text: Skill.Name">
                                         </span>
-                                    </div>
-                                    <div>
+                                    </div>*@
+                                    <dd>
                                         <div class="prev-review-review-points" data-bind=" foreach: ReviewPoints">
                                             <div>
                                                 <div class="prev-review-tag-review-point clearfix">
-                                                    -&nbsp;<span data-bind="text: Title "></span>
+                                                    &bull;&nbsp;<span data-bind="text: Title "></span>
                                                     (<i class="fa" data-bind="css:  $root[0].getRatingCssClass(Rating) "></i>)
                                                     <span class="prev-review-button-wrapper">
-                                                        <a href="#" data-bind="click: function(){my.profileVm.addExistingReviewPoint($parent.Skill,this)}"><i class="glyphicon glyphicon-plus text-info"></i></a>
+                                                        <a href="#" data-bind="click: function(){my.profileVm.addExistingReviewPoint($parent.Skill,this)}"><i class="fa fa-copy text-info"></i></a>
                                                     </span>
                                                 </div>
                                                 <div class="prev-review-review-points-body"><span class="prev-review-review-points-description" data-bind="html: Description"></span></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </dd>
+                                </dl>
                                 <!-- /ko -->
                             </div>
                         </div>

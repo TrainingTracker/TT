@@ -69,9 +69,11 @@ namespace TrainingTracker.DAL.Repositories
                                                             cr.Feedback.User,
                                                             cr.Feedback.Rating
                                                         },
-                                             CodeReviewTags = cr.CodeReviewTags.Where(t => !t.IsDeleted).OrderBy(t=>t.SkillId)
+                                             CodeReviewTags = cr.CodeReviewTags
+                                                                .Where(t => !t.IsDeleted)
+                                                                .OrderBy(t => t.SkillId)
                                          })
-                           .ToList()
+                           .AsEnumerable()
                            .Select(cr => new CodeReviewMetaData
                                          {
                                              CodeReviewMetaDataId = cr.CodeReviewMetaDataId,
@@ -88,7 +90,14 @@ namespace TrainingTracker.DAL.Repositories
                                                             User = cr.Feedback.User,
                                                             Rating = cr.Feedback.Rating
                                                         },
-                                             CodeReviewTags = cr.CodeReviewTags.ToList()
+                                             CodeReviewTags = cr.CodeReviewTags
+                                                                .Select(tag =>
+                                                                        {
+                                                                            tag.CodeReviewPoints = tag.CodeReviewPoints
+                                                                                                      .Where(point => point.CodeReviewPointType != 3).ToList();
+                                                                            return tag;
+                                                                        })
+                                                                .ToList()
                                          });
         }
     }
