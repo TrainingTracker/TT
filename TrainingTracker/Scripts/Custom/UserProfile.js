@@ -599,8 +599,8 @@
 
 
         var savePointsToCodeReview = function() {
+            reviewPointsDetails.ErrorMessage("");
             var message = validateTagsPoints();
-
             if (message.length) {
                 reviewPointsDetails.ErrorMessage(message.join());
                 reviewPointsDetails.Rating(0);
@@ -663,11 +663,12 @@
             return message;
         }
 
-        var saveCodeReviewData = function(callback) {
+        var saveCodeReviewData = function (callbackOrToggleTab) {
+
             var finalCallback = function(data) {
                 saveCodeReviewCallback(data);
-                if (typeof (callback) == "function") {
-                    callback(data);
+                if (typeof (callbackOrToggleTab) == "function") {
+                    callbackOrToggleTab(data);
                 }
             }
 
@@ -697,6 +698,9 @@
             if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited()) {
                 PostDataUsingPromise(function() { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
                     finalCallback, function() { console.log("Error Adding Points") });
+            }
+            if (typeof (callbackOrToggleTab) == "boolean" && callbackOrToggleTab) {
+                toggleTab();
             }
         };
 
