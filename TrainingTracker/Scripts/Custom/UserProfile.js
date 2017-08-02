@@ -11,6 +11,7 @@
             commentFeedbacks = ko.observableArray([]),
             isCommentFeedbackModalVisible = ko.observable(false),
             trainorSynopsis = ko.observable(),
+            commonTags = [],
             feedbackTypes =
             {
                 NewFeedback: ko.observableArray([
@@ -84,7 +85,6 @@
                 if (my.profileVm.userId == my.meta.currentUser.UserId) {
                     jsonData.User = my.meta.currentUser;
                 }
-
                 jsonData.User.FullName = my.profileVm.fullName(jsonData.User);
                 jsonData.User.PhotoUrl = my.profileVm.photoUrl(jsonData.User);
                 $.each(jsonData.Feedbacks, function(arrayId, feedback) {
@@ -96,6 +96,7 @@
                 my.meta.loadedAllActiveUsersPromise().done(function() {
                     my.profileVm.tempAllTrainer(my.meta.allMentor());
                 });
+                my.profileVm.commonTags = jsonData.CommonTags;
                 my.profileVm.plotFilter.StartDate(moment(jsonData.User.DateAddedToSystem).format('MM/DD/YYYY'));
                 my.profileVm.plotFilter.TraineeId = jsonData.User.UserId;
                 my.profileVm.userVm = jsonData;
@@ -702,6 +703,7 @@
 
 
             updateSelectedCodereviewTag(1);
+            codeReviewDetails.Edited(true);
             if (codeReviewDetails.Id() == 0 || codeReviewDetails.Edited()) {
                 PostDataUsingPromise(function() { return my.userService.addUpdateCodeReviewDetailsWithPromise(codeReviewMetaData); },
                     finalCallback, function() { console.log("Error Adding Points") });
@@ -914,7 +916,6 @@
             }
             my.profileVm.filterKeyWord("");
             my.profileVm.filteredTag([]);
-            saveCodeReviewData();
 
         };
 
@@ -941,6 +942,7 @@
             }
 
             //in case no draft cr exists yet
+            my.profileVm.codeReviewDetails.Tags(my.profileVm.commonTags);
             toggleTab(0);
         };
 
@@ -1282,8 +1284,9 @@
             getRatingCssClass: getRatingCssClass,
             addExistingReviewPoint: addExistingReviewPoint,
             saveDraftCodeReview: saveDraftCodeReview,
-            codeReviewPointErrors: codeReviewPointErrors
-        };
+            codeReviewPointErrors: codeReviewPointErrors,
+            commonTags: commonTags
+    };
     }();
 
     my.profileVm.feedbackPost.FeedbackType(my.profileVm.feedbackTypes.NewFeedback()[0]);
@@ -1302,7 +1305,7 @@
         }
         setTimeout(function() {
             if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.Id() == 0) {
-                my.profileVm.toggleCodeReviewModal(true)
+                my.profileVm.toggleCodeReviewModal(true);
             }
         }, 1000);
 
@@ -1335,7 +1338,8 @@
         my.profileVm.savePointsToCodeReview();
     });
 
-    my.profileVm.isCodeReviewModalOpen.subscribe(function(isOpen) {
+    my.profileVm.isCodeReviewModalOpen.subscribe(function (isOpen) {
+        my.profileVm.validationMessage('');
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
 });

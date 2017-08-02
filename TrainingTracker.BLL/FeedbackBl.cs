@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
+using System.Linq;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
-using TrainingTracker.DAL.DataAccess;
-using System.Linq;
+
 
 namespace TrainingTracker.BLL
 {
@@ -341,11 +340,57 @@ namespace TrainingTracker.BLL
         
         public List<CodeReview> GetPrevCodeReviewDataForTrainee(int traineeId, int count)
         {
-            return CodeReviewConverter.ConvertListFromCore(
+            return
                 UnitOfWork.CodeReviewRepository
                           .GetPrevCodeReviewForTrainee(traineeId, count)
-                          .ToList()
-                );
+                          .Select(cr => new
+                                        {
+                                            cr.CodeReviewMetaDataId,
+                                            cr.Description,
+                                            cr.ProjectName,
+                                            cr.IsDiscarded,
+                                            cr.CreatedOn,
+                                            Feedback = new
+                                                       {
+                                                           cr.Feedback.FeedbackId,
+                                                           cr.Feedback.AddedOn,
+                                                           cr.Feedback.FeedbackType,
+                                                           cr.Feedback.User,
+                                                           cr.Feedback.Rating
+                                                       },
+                                            CodeReviewTags = cr.CodeReviewTags
+                                                               .Where(t => !t.IsDeleted)
+                                                               .OrderBy(t => t.SkillId)
+                                        })
+                          .AsEnumerable()
+                          .Select(cr => new CodeReview
+                                        {
+                                            Id = cr.CodeReviewMetaDataId,
+                                            Description = cr.Description,
+                                            Title= cr.ProjectName,
+                                            IsDeleted = cr.IsDiscarded.GetValueOrDefault(),
+                                            CreatedOn = cr.CreatedOn,
+                                            Feedback = new Feedback
+                                                       {
+                                                           FeedbackId = cr.Feedback.FeedbackId,
+                                                           AddedOn = cr.Feedback.AddedOn.GetValueOrDefault(),
+                                                           FeedbackText = string.Empty,
+                                                           FeedbackType =new FeedbackType{ FeedbackTypeId = cr.Feedback.FeedbackType.GetValueOrDefault()},
+                                                           AddedBy= UserConverter.ConvertFromCore(cr.Feedback.User),
+                                                           Rating = cr.Feedback.Rating.GetValueOrDefault()
+                                                       },
+                                            Tags = CodeReviewTagConverter.ConvertListFromCore( cr.CodeReviewTags
+                                                               .Select(tag =>
+                                                                       {
+                                                                           tag.CodeReviewPoints = tag.CodeReviewPoints
+                                                                                                     .Where(point => point.CodeReviewPointType != 3).ToList();
+                                                                           return tag;
+                                                                       })
+                                                               .ToList())
+                                        })
+                          .ToList();
+
         }
+
     }
 }

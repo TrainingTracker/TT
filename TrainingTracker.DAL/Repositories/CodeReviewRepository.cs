@@ -28,6 +28,7 @@ namespace TrainingTracker.DAL.Repositories
                                      .Include(x => x.CodeReviewTags.Select(y => y.Skill))
                                      .Include(x => x.CodeReviewTags
                                                     .Select(y => y.CodeReviewPoints))
+                                                    .Where(cr=>!(cr.IsDiscarded??false))
                                      .First(x => x.CodeReviewMetaDataId == codeReviewMetaDataId);
 
             codeReview.CodeReviewTags = codeReview.CodeReviewTags.OrderBy(t => t.SkillId).ToList();
@@ -47,8 +48,10 @@ namespace TrainingTracker.DAL.Repositories
                                              })
                                      .FirstOrDefault(x => x.AddedBy == trainorId
                                                           && x.AddedFor == traineeId
-                                                          && x.IsDiscarded == false
+                                                          && !(x.IsDiscarded ?? false)
                                                           && !x.FeedbackId.HasValue);
+
+
             if (codeReview != null)
                 codeReview.CodeReviewTags = codeReview.CodeReviewTags.OrderBy(t => t.SkillId).ToList();
 
@@ -60,58 +63,22 @@ namespace TrainingTracker.DAL.Repositories
         {
             return _context.CodeReviewMetaDatas
                            .Include(cr => cr.CodeReviewTags)
+                           .Include(cr => cr.CodeReviewTags.Select(t => t.Skill))
                            .Include(cr => cr.CodeReviewTags.Select(t => t.CodeReviewPoints))
                            .Include(cr => cr.Feedback)
                            .Where(cr => cr.AddedFor == traineeId
-                                        && cr.IsDiscarded == false
+                                        && !(cr.IsDiscarded ?? false)
                                         && cr.FeedbackId.HasValue)
                            .OrderByDescending(cr => cr.CreatedOn)
-                           .Take(count)
-                           .Select(cr => new
-                                         {
-                                             cr.CodeReviewMetaDataId,
-                                             cr.Description,
-                                             cr.ProjectName,
-                                             cr.IsDiscarded,
-                                             cr.CreatedOn,
-                                             Feedback = new
-                                                        {
-                                                            cr.Feedback.FeedbackId,
-                                                            cr.Feedback.AddedOn,
-                                                            cr.Feedback.FeedbackType,
-                                                            cr.Feedback.User,
-                                                            cr.Feedback.Rating
-                                                        },
-                                             CodeReviewTags = cr.CodeReviewTags
-                                                                .Where(t => !t.IsDeleted)
-                                                                .OrderBy(t => t.SkillId)
-                                         })
-                           .AsEnumerable()
-                           .Select(cr => new CodeReviewMetaData
-                                         {
-                                             CodeReviewMetaDataId = cr.CodeReviewMetaDataId,
-                                             Description = cr.Description,
-                                             ProjectName = cr.ProjectName,
-                                             IsDiscarded = cr.IsDiscarded,
-                                             CreatedOn = cr.CreatedOn,
-                                             Feedback = new Feedback
-                                                        {
-                                                            FeedbackId = cr.Feedback.FeedbackId,
-                                                            AddedOn = cr.Feedback.AddedOn,
-                                                            FeedbackText = string.Empty,
-                                                            FeedbackType = cr.Feedback.FeedbackType,
-                                                            User = cr.Feedback.User,
-                                                            Rating = cr.Feedback.Rating
-                                                        },
-                                             CodeReviewTags = cr.CodeReviewTags
-                                                                .Select(tag =>
-                                                                        {
-                                                                            tag.CodeReviewPoints = tag.CodeReviewPoints
-                                                                                                      .Where(point => point.CodeReviewPointType != 3).ToList();
-                                                                            return tag;
-                                                                        })
-                                                                .ToList()
-                                         });
+                           .Take(count);
         }
+
+        public IEnumerable<Skill> GetCommonlyUsedTags(int traineeId,int reviewCount)
+        {
+            return GetPrevCodeReviewForTrainee(traineeId, reviewCount)
+                .SelectMany(cr => cr.CodeReviewTags.Where(t => !t.IsDeleted && t.Skill != null).Select(t => t.Skill))
+                .Distinct();
+        }
+
     }
 }

@@ -428,8 +428,8 @@ namespace TrainingTracker.Common.Utility
                                 {
                                     strBuilder.Append("<span class='code-review-button-wrapper'>");
                                     strBuilder.Append("<span class='code-review-button-ellipses fa fa-ellipsis-h'>");
-                                         strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," +reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
-                                         strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("<i onclick='my.profileVm.editCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-pencil'></i>");
+                                    strBuilder.Append("<i onclick='my.profileVm.removeCodeReviewPoint(" + tags.CodeReviewTagId + "," + tags.Skill.SkillId + "," + reviewPoints.PointId + ")'  class='glyphicon glyphicon-trash'></i>");
                                     strBuilder.Append("</span>");
                                     strBuilder.Append("</span>");
                                 }
