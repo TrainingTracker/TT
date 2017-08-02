@@ -140,7 +140,7 @@ namespace TrainingTracker.BLL
 
                 foreach (var tag in codeReview.Tags)
                 {
-                    if(existingTags.Where(x=>x.Skill.SkillId==tag.Skill.SkillId).Count()>0)
+                    if(existingTags.Any(x => x.Skill.SkillId==tag.Skill.SkillId))
                     {
                         continue;
                     }
@@ -185,7 +185,8 @@ namespace TrainingTracker.BLL
 
             UnitOfWork.Commit();
 
-            codeReview.Id = crMetaData.CodeReviewMetaDataId;
+            //get new data in case of newly added tags
+            codeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(crMetaData.CodeReviewMetaDataId));
 
             codeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(codeReview.Id,false);
             return codeReview;

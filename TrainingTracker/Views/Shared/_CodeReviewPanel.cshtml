@@ -7,7 +7,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div id="divCodeReviewSummaryCollapsableHeader" class=" no-padding-left no-padding-right" data-bind="click:function(){my.profileVm.toggleTab()}" @*data-bind="css:{'collapsed':(my.profileVm.codeReviewSelectedTab() == 1)}"*@>
+                <div id="divCodeReviewSummaryCollapsableHeader" class=" no-padding-left no-padding-right" data-bind="click:function(){my.profileVm.saveCodeReviewData(true)}" @*data-bind="css:{'collapsed':(my.profileVm.codeReviewSelectedTab() == 1)}"*@>
                     @*data-toggle="collapse" data-parent="#divCodeReviewAccordian"
                         data-target="#divCodeReviewSummaryCollapsable">*@
                     <label>CR SUMMARY</label>
@@ -37,7 +37,7 @@
 
                             <!-- Filter Starts Here-->
 
-                            <div id="divTagSearch" class="col-md-12 no-padding-left no-padding-right ">
+                            <div id="divTagSearch" class="no-padding-left no-padding-right ">
                                 <div class="col-md-12 no-padding-left no-padding-right">
                                     <div class="col-md-12 no-padding-left no-padding-right">
                                         <div class="input-group category-list-search col-md-12 custom-margin-top-10">
@@ -51,15 +51,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12" id="divAbsoluteTagFilter">
+                            <div id="divAbsoluteTagFilter">
                                 <!-- ko if: my.profileVm.filteredTag().length > 0  -->
                                 <ul data-bind="foreach: my.profileVm.filteredTag" class="no-padding-left no-padding-right floating-trainee-filter">
-                                    <li class="col-xs-12" data-bind="click: function () { my.profileVm.addTagToCodeReviewDetails(SkillId,true);}">
+                                    <li class="col-xs-12" data-bind="click: function () { my.profileVm.addTagToCodeReviewDetails(SkillId);}">
                                         <span class="col-xs-1">
                                             <i class="fa fa-tags"></i>
                                         </span>
 
-                                        <div class="col-xs-10 no-padding-left">
+                                        <div class="col-xs-9 no-padding-left">
                                             <div>
                                                 <span class="bold-font" data-bind="text: Name"></span>
                                             </div>
@@ -77,7 +77,7 @@
                                         <span class="col-xs-1">
                                             <i class="fa fa-save"></i>
                                         </span>
-                                        <span class="col-xs-11" data-bind="text:'Add \' ' +my.profileVm.filterKeyWord()+ ' \' as new skill' ">
+                                        <span class="col-xs-10" data-bind="text:'Add \' ' +my.profileVm.filterKeyWord()+ ' \' as new skill' ">
                                         </span>
                                     </li>
                                 </ul>
@@ -90,18 +90,24 @@
 
                     <div class=" col-xs-12 no-padding-left no-padding-right">
                         <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
-                            <!-- ko if: my.profileVm.codeReviewDetails.Skills().length > 0  -->
-                            <div data-bind="foreach:my.profileVm.codeReviewDetails.Skills">
-                                <div class="col-xs-3 no-padding-left no-padding-right">
-                                    <span class="col-xs-2 no-padding-left no-padding-right">
-                                        <i class="fa fa-tags"></i>
+                            <!-- ko if: my.profileVm.codeReviewDetails.Tags().length > 0  -->
+                            <div data-bind="foreach:my.profileVm.codeReviewDetails.Tags">
+                                <!--ko data-bind="visible:Skill.SkillId!=0"-->
+                                    <span class="tag-cr-summary">
+                                        <span class="no-padding-left no-padding-right text-info">
+                                            <i class="fa fa-tags"></i>
+                                        </span>
+                                        <span class="no-padding-left text-info">
+                                            <span data-bind="text:Skill.Name"></span>
+                                            <span class="remove-tag-cr-summary">
+                                                <i class="fa fa-close" data-bind="click: function(){my.profileVm.removeCodeReviewTagAndRefresh(CodeReviewTagId,Skill.SkillId)}"></i>
+                                            </span>
+                                        </span>
                                     </span>
-                                    <span class="col-xs-10 no-padding-left" data-bind="text:Name">
-                                    </span>
-                                </div>
+                                <!--/ko-->
                             </div>
                             <!--/ko-->
-                            <!-- ko if: my.profileVm.codeReviewDetails.Skills().length == 0  -->
+                            <!-- ko if: my.profileVm.codeReviewDetails.Tags().length == 0  -->
                             <h6 class="text-align-center col-xs-12 danger">No Tags Selected</h6>
                             <!--/ko-->
                         </div>
@@ -117,7 +123,7 @@
 
         <div class="panel panel-default" data-bind="style:{'visibility':my.profileVm.codeReviewDetails.Id() != 0 ? 'visible' : 'hidden'}">
             <div class="panel-heading">
-                <div id="divCodeReviewPointsCollapsableHeader" class=" no-padding-left no-padding-right " data-bind="click:function(){my.profileVm.toggleTab()}" @*data-bind="css:{'collapsed': my.profileVm.codeReviewSelectedTab() ==  0}"*@>
+                <div id="divCodeReviewPointsCollapsableHeader" class=" no-padding-left no-padding-right " data-bind="click:function(){my.profileVm.saveCodeReviewData(true)}" @*data-bind="css:{'collapsed': my.profileVm.codeReviewSelectedTab() ==  0}"*@>
                     <label>REVIEW POINTS</label>
                     <span class="pull-right">
                         <i class="glyphicon  glyphicon-chevron-down custom-glyph"></i>
@@ -137,10 +143,9 @@
                         <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
                             <h4 class="mute">TECHNOLOGY</h4>
                             <label class="danger">*</label>
-                            <select class="form-control input-sm " data-bind="options: my.profileVm.codeReviewDetails.Skills,
-                                           optionsText: 'Name',
-                                           optionsValue: 'SkillId',
-                                           optionsCaption:'General',
+                            <select class="form-control input-sm " data-bind="options: my.profileVm.codeReviewDetails.Tags,
+                                           optionsText: function(tag){return  tag.Skill.Name;},
+                                           optionsValue: function(tag){return tag.Skill.SkillId},
                                            value: my.profileVm.codeReviewSelectedTag,
                                            event: {'change':  my.profileVm.setSelectedTagId(my.profileVm.codeReviewSelectedTag()) }"></select>
                         </div>
@@ -216,11 +221,11 @@
                                 <!-- ko foreach: Tags-->
                                 <dl class="prev-review-tag" data-bind="visible:ReviewPoints && ReviewPoints.length>0">
                                     <dt class=" bold-font text-info" data-bind="text: Skill.Name">
-                                          </dt>
+                                    </dt>
                                     @*<div class="prev-review-tags-header">
-                                        <span class="prev-review-tags-header-text" data-bind="text: Skill.Name">
-                                        </span>
-                                    </div>*@
+                                            <span class="prev-review-tags-header-text" data-bind="text: Skill.Name">
+                                            </span>
+                                        </div>*@
                                     <dd>
                                         <div class="prev-review-review-points" data-bind=" foreach: ReviewPoints">
                                             <div>
@@ -249,12 +254,15 @@
     <div class="col-xs-12 col-lg-7 no-padding-right" id="codeReveiewPreviewPanel" data-bind="visible:my.profileVm.codeReviewDetails.Id() > 0">
         <h3 class="mute">PREVIEW</h3>
         <div id="divCodeReviewPreviewHtmlArea" data-bind="html:my.profileVm.codeReviewPreviewHtml"></div>
+        <div class="col-xs-7">
+            <span class="danger" data-bind="text:my.profileVm.codeReviewPointErrors"></span>
+        </div>
         <div style="color: #ccc; font-size: 10px; margin-top: 14px;" class="col-xs-7" data-bind="visible:!my.isNullorEmpty(my.profileVm.codeReviewDetails.AutoSaveDateTimeStamp())">
             <i class="fa fa-info-circle mute"></i>
             <span class="mute" data-bind="text:'Draft saved at ' + my.profileVm.codeReviewDetails.AutoSaveDateTimeStamp()"></span>
         </div>
         <div id="divCodeReviewButtonWrapperZone" class="col-xs-4 pull-right no-padding-left no-padding-right" data-bind="visible: my.profileVm.codeReviewDetails.Id() > 0">
-            <button style="height: 34px;" type="button" class=" btn btn-success  input-sm " data-bind="click:function(){my.profileVm.toggleCodeReviewModal(false);}"> <i class="fa fa-save"></i>Save</button>
+            <button style="height: 34px;" type="button" class=" btn btn-success  input-sm " data-bind="click:function(){my.profileVm.saveDraftCodeReview();}"> <i class="fa fa-save"></i>Save</button>
             <button style="height: 34px;" type="button" class=" btn btn-danger  input-sm " data-bind="click:my.profileVm.discardCodeReview"> <i class="fa fa-trash"></i>Discard</button>
         </div>
     </div>

@@ -24,22 +24,35 @@ namespace TrainingTracker.DAL.Repositories
         public CodeReviewMetaData GetCodeReviewWithAllData(int codeReviewMetaDataId)
         {
             // intentional use of First, let the system break in case of multiple data set
-            return _context.CodeReviewMetaDatas.Include(x => x.CodeReviewTags)
-                           .Include(x => x.CodeReviewTags.Select(y => y.Skill))
-                           .Include(x => x.CodeReviewTags
-                                          .Select(y => y.CodeReviewPoints))
-                           .First(x => x.CodeReviewMetaDataId == codeReviewMetaDataId);
+            var codeReview = _context.CodeReviewMetaDatas.Include(x => x.CodeReviewTags)
+                                     .Include(x => x.CodeReviewTags.Select(y => y.Skill))
+                                     .Include(x => x.CodeReviewTags
+                                                    .Select(y => y.CodeReviewPoints))
+                                     .First(x => x.CodeReviewMetaDataId == codeReviewMetaDataId);
+
+            codeReview.CodeReviewTags = codeReview.CodeReviewTags.OrderBy(t => t.SkillId).ToList();
+            return codeReview;
         }
 
         public CodeReviewMetaData GetSavedCodeReviewForTrainee(int traineeId, int trainorId)
         {
-            return _context.CodeReviewMetaDatas.Include(x => x.CodeReviewTags)
-                           .Include(x => x.CodeReviewTags
-                                          .Select(y => y.CodeReviewPoints))
-                           .FirstOrDefault(x => x.AddedBy == trainorId
-                                                && x.AddedFor == traineeId
-                                                && x.IsDiscarded == false
-                                                && !x.FeedbackId.HasValue);
+            var codeReview = _context.CodeReviewMetaDatas.Include(x => x.CodeReviewTags)
+                                     .Include(x => x.CodeReviewTags
+                                                    .Select(y => y.CodeReviewPoints))
+                                     .AsEnumerable()
+                                     .Select(cr =>
+                                             {
+                                                 cr.CodeReviewTags = cr.CodeReviewTags.OrderBy(t => t.SkillId).ToList();
+                                                 return cr;
+                                             })
+                                     .FirstOrDefault(x => x.AddedBy == trainorId
+                                                          && x.AddedFor == traineeId
+                                                          && x.IsDiscarded == false
+                                                          && !x.FeedbackId.HasValue);
+            if (codeReview != null)
+                codeReview.CodeReviewTags = codeReview.CodeReviewTags.OrderBy(t => t.SkillId).ToList();
+
+            return codeReview;
         }
 
 
