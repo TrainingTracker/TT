@@ -58,8 +58,7 @@ textarea {
     -moz-transition: all .75s ease-out;
     -o-transition: all .75s ease-out;
     -webkit-transition: all .75s ease-out;
-    transition: all .75s ease-out;
-    
+    transition: all .75s ease-out;    
 }
 
 #divRatingsButtonWrapper :hover > span.active .rating-details:not(:hover),
@@ -74,19 +73,19 @@ textarea {
 #divRatingsButtonWrapper > span:hover,
 #divRatingsButtonWrapper:not(:hover) > span.active { opacity: 1; }
 
-    #divRatingsButtonWrapper > span:hover .rating-details,
-    #divRatingsButtonWrapper:not(:hover) > span.active .rating-details {
-        flex-grow: 1;
-        visibility: visible;
-        overflow: hidden;
-        font-weight: 500;
-        display: inline-flex;
-        opacity: 1;
-        -moz-transition-delay: 0.25s;
-        -o-transition-delay: 0.25s;
-        -webkit-transition-delay: 0.25s;
-        transition-delay: 0.25s;
-    }
+#divRatingsButtonWrapper > span:hover .rating-details,
+#divRatingsButtonWrapper:not(:hover) > span.active .rating-details {
+    flex-grow: 1;
+    visibility: visible;
+    overflow: hidden;
+    font-weight: 500;
+    display: inline-flex;
+    opacity: 1;
+    -moz-transition-delay: 0.25s;
+    -o-transition-delay: 0.25s;
+    -webkit-transition-delay: 0.25s;
+    transition-delay: 0.25s;
+}
 
 #divRatingsButtonWrapper > span:hover > span:nth-child(1),
 #divRatingsButtonWrapper:not(:hover) > span.active > span:nth-child(1) { width: 36.66%; }
@@ -280,7 +279,30 @@ textarea {
     right: 0;
 }
 
+.prev-review-filter {
+    position: absolute;
+    top: 0;
+    right: 1vw;
+    border-radius: 5px;
+    margin: 2px;
+    height: 36px;
+    border: solid 0.5px;
+}
+
+.prev-review-filter.nav-pills li.active > a {
+    background: #2596F1;
+    height: 80%;
+    margin: 1px;
+}
+.prev-review-filter.nav-pills li > a {
+    padding: 6px 9px;
+    min-width: 45px;
+    text-align: center;
+    height: 70%;
+}
 .prev-review-review-points-body { font-style: italic; }
+
+#divCodeReviewPointsCollapsable { position: relative; }
 
 #divCodeReviewPointsCollapsable > .panel-body { max-height: 90vh; }
 
@@ -297,6 +319,7 @@ textarea {
     margin: 2px;
     display: inline-block;
 }
+
 .tag-cr-summary .remove-tag-cr-summary > i.fa-close { color: tomato; }
 
 .tag-cr-summary .remove-tag-cr-summary > i.fa-close:hover {
@@ -304,18 +327,16 @@ textarea {
     cursor: pointer;
 }
 
-#divTagSearch,#divAbsoluteTagFilter {
-    max-width: 50%;
-}
-#divAbsoluteTagFilter {
-    margin-top: 2.4em;
-}
-#divAbsoluteTagFilter >ul {
+#divTagSearch, #divAbsoluteTagFilter { max-width: 50%; }
+
+#divAbsoluteTagFilter { margin-top: 2.4em; }
+
+#divAbsoluteTagFilter > ul {
     max-width: 49%;
     margin-left: 4px;
 }
 
-.code-review-button-ellipses  > i {
+.code-review-button-ellipses > i {
     margin: 0 2px;
-    font-size:0.92em;
- }
+    font-size: 0.92em;
+}

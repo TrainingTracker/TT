@@ -376,10 +376,12 @@ namespace TrainingTracker.Controllers
             return Json(new UserBl().AddSkill(category));
         }
 
-        [HttpGet]
-        public ActionResult FetchPrevCodeReviewData(int traineeId, int count=5)
+        [HttpPost]
+        public ActionResult FetchPrevCodeReviewData(int traineeId,int[] ratingFilter, int count=5)
         {
-            return Json(new FeedbackBl().GetPrevCodeReviewDataForTrainee(traineeId, count), JsonRequestBehavior.AllowGet);
+            ratingFilter = ratingFilter ?? new int[] {};
+
+            return Json(new FeedbackBl().GetPrevCodeReviewDataForTrainee(traineeId,ratingFilter, count), JsonRequestBehavior.AllowGet);
         }
     }
 }

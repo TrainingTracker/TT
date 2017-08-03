@@ -1,4 +1,8 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
+    //$(document).on('click','.prev-review-filter li',function() {
+    //    $(this).toggleClass('active');
+    //});
+
     my.profileVm = function() {
         var userId = my.queryParams["userId"],
             queryStringFeedbackId = my.queryParams["feedbackId"],
@@ -122,8 +126,6 @@
                 my.profileVm.userVm.SavedCodeReview = jsonData;
                 codeReviewPreviewHtml(jsonData.CodeReviewPreviewHtml);
                 feedbackPost.selectedOption(4);
-                //  codeReviewSelectedTab(1);           
-
                 codeReviewDetails.Id(jsonData.Id);
                 codeReviewDetails.Title(jsonData.Title);
                 codeReviewDetails.Description(jsonData.Description);
@@ -194,7 +196,7 @@
                         }
                     }
                 }
-                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('. ') +'.') : my.profileVm.validationMessage("");
+                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('. ') + '.') : my.profileVm.validationMessage("");
                 return result;
             },
             addFeedbackCallback = function(jsonData) {
@@ -1093,9 +1095,29 @@
             savePointsToCodeReview();
         }
 
+        var prevCrRatingFilter = ko.observableArray([4, 5, 6]);
+
+        var isRatingSelected = function (rating) {
+              return ko.utils.arrayFirst(my.profileVm.prevCrRatingFilter(), function(r) {
+                  if (r == rating) return r;
+                  else return undefined;
+              });
+        }
+
+        var toggleRatingFilter  = function(rating)
+        {
+            
+            if (isRatingSelected(rating)) {
+                my.profileVm.prevCrRatingFilter.remove(rating);
+            } else {
+                my.profileVm.prevCrRatingFilter.push(rating);
+            }
+
+            my.profileVm.loadPrevCrProints();
+        }
         var prevCrPointData = ko.observableArray([]);
         var loadPrevCrPointData = function() {
-            my.userService.getPrevCrPointData(my.profileVm.userId, function(data) {
+            my.userService.getPrevCrPointData(my.profileVm.userId,prevCrRatingFilter, function(data) {
                 my.profileVm.prevCrPointData(data);
             });
         };
@@ -1111,14 +1133,15 @@
                 return 'point-type-poor fa-minus single-child';
             case 5:
                 return 'point-type-critical fa-minus double-child';
+            case 6:
+                return 'point-type-suggestion fa-exclamation single-child';
             default:
                 return '';
             }
         }
         var addExistingReviewPoint = function(skillData, pointData) {
-            //console.dir(pointData);
             var existingSkill = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Tags(), function(tag) {
-                return tag.SkillId == skillData.SkillId || skillData.SkillId == 0;
+                return tag.Skill.SkillId == skillData.SkillId || skillData.SkillId == 0;
             });
 
             if (existingSkill) {
@@ -1285,8 +1308,11 @@
             addExistingReviewPoint: addExistingReviewPoint,
             saveDraftCodeReview: saveDraftCodeReview,
             codeReviewPointErrors: codeReviewPointErrors,
-            commonTags: commonTags
-    };
+            commonTags: commonTags,
+            prevCrRatingFilter: prevCrRatingFilter,
+            isRatingSelected: isRatingSelected,
+            toggleRatingFilter: toggleRatingFilter
+        };
     }();
 
     my.profileVm.feedbackPost.FeedbackType(my.profileVm.feedbackTypes.NewFeedback()[0]);
@@ -1338,8 +1364,28 @@
         my.profileVm.savePointsToCodeReview();
     });
 
-    my.profileVm.isCodeReviewModalOpen.subscribe(function (isOpen) {
+    my.profileVm.isCodeReviewModalOpen.subscribe(function(isOpen) {
         my.profileVm.validationMessage('');
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
+
+   
+    var observer = new MutationObserver(function (mutations) {
+                var doubleChildren = $('.double-child');
+                $.each(doubleChildren, function () {
+                    var item = $(this);
+                    if (item.siblings('.double-child').length) {
+                        return;
+                    }
+                    item.after(item.clone());
+                    item.after('&nbsp;');
+                });
+    });
+
+    var config = {
+        childList: true,
+        subtree:true
+    };
+
+    observer.observe(document.body, config);
 });

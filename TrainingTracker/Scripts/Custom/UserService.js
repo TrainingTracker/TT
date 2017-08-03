@@ -112,8 +112,8 @@
         getCodeReviewPreview: function (codeReviewId,isFeedback,callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId + "&isFeedback=" + isFeedback, null, callback);
         },
-        getPrevCrPointData:function (traineeId,callback) {
-            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchPrevCodeReviewData?traineeId=" + traineeId, null, callback);
+        getPrevCrPointData:function (traineeId,ratingFilter,callback) {
+            return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/FetchPrevCodeReviewData", {traineeId:traineeId, ratingFilter: ratingFilter }, callback);
         },
         submitCodeReviewFeedback: function (codeReview, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);

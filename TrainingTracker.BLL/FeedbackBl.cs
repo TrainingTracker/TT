@@ -5,6 +5,15 @@ using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
+using TrainingTracker.DAL.EntityFramework;
+using CodeReviewPoint = TrainingTracker.Common.Entity.CodeReviewPoint;
+using CodeReviewTag = TrainingTracker.Common.Entity.CodeReviewTag;
+using Course = TrainingTracker.Common.Entity.Course;
+using Feedback = TrainingTracker.Common.Entity.Feedback;
+using FeedbackType = TrainingTracker.Common.Enumeration.FeedbackType;
+using Project = TrainingTracker.Common.Entity.Project;
+using Skill = TrainingTracker.Common.Entity.Skill;
+using User = TrainingTracker.Common.Entity.User;
 
 
 namespace TrainingTracker.BLL
@@ -23,16 +32,16 @@ namespace TrainingTracker.BLL
         {
             feedback.Project = feedback.Project ?? new Project();
 
-            if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Skill)
+            if (feedback.FeedbackType.FeedbackTypeId == (int) FeedbackType.Skill)
             {
                 if (!string.IsNullOrEmpty(feedback.Title))
                 {
                     Skill newSkill = new Skill
-                    {
-                        Name = feedback.Title,
-                        AddedBy = feedback.AddedBy.UserId,
-                        AddedOn = DateTime.Now
-                    };
+                                     {
+                                         Name = feedback.Title,
+                                         AddedBy = feedback.AddedBy.UserId,
+                                         AddedOn = DateTime.Now
+                                     };
 
                     newSkill.SkillId = SkillDataAccesor.AddNewSkillForId(newSkill);
 
@@ -43,18 +52,17 @@ namespace TrainingTracker.BLL
 
                 feedback.Title = feedback.Skill.Name;
                 feedback.Skill = new Skill
-                {
-                    SkillId = feedback.Skill.SkillId
-                };
+                                 {
+                                     SkillId = feedback.Skill.SkillId
+                                 };
             }
             else
             {
                 feedback.Skill = new Skill();
             }
 
-
             // no way comment can have feedback rating
-            if (feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Comment || feedback.FeedbackType.FeedbackTypeId == (int)Common.Enumeration.FeedbackType.Course)
+            if (feedback.FeedbackType.FeedbackTypeId == (int) FeedbackType.Comment || feedback.FeedbackType.FeedbackTypeId == (int) FeedbackType.Course)
             {
                 feedback.Rating = 0;
             }
@@ -118,13 +126,13 @@ namespace TrainingTracker.BLL
         public bool AuthorizeCurrentUserForFeedback(int feedbackId, User currentUser)
         {
             return (currentUser.IsAdministrator && !currentUser.TeamId.HasValue)
-                    || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.UserId == Constants.AppBotUserId
-                    || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId;
+                   || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.UserId == Constants.AppBotUserId
+                   || FeedbackDataAccesor.GetFeedbackWithThreads(feedbackId).AddedBy.TeamId == currentUser.TeamId;
         }
 
         public CodeReview SubmitCodeReviewMetaData(CodeReview codeReview)
         {
-            DAL.EntityFramework.CodeReviewMetaData crMetaData;
+            CodeReviewMetaData crMetaData;
             // existing
             if (codeReview.Id > 0)
             {
@@ -135,51 +143,49 @@ namespace TrainingTracker.BLL
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
 
-                List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x=>!x.IsDeleted).ToList());
+                List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x => !x.IsDeleted).ToList());
 
                 foreach (var tag in codeReview.Tags)
                 {
-                    if(existingTags.Any(x => x.Skill.SkillId==tag.Skill.SkillId))
+                    if (existingTags.Any(x => x.Skill.SkillId == tag.Skill.SkillId))
                     {
                         continue;
                     }
 
                     crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
-                    {
-                        CreatedOn = DateTime.Now,
-                        SkillId = tag.Skill.SkillId
-                    });
+                                                  {
+                                                      CreatedOn = DateTime.Now,
+                                                      SkillId = tag.Skill.SkillId
+                                                  });
                 }
             }
             else
             {
-                crMetaData = new DAL.EntityFramework.CodeReviewMetaData
-                                                                     {
-                                                                         AddedBy = codeReview.AddedBy.UserId,
-                                                                         AddedFor = codeReview.AddedFor.UserId,
-                                                                         CreatedOn = DateTime.Now,
-                                                                         Description = codeReview.Description,
-                                                                         IsDiscarded = false,
-                                                                         ProjectName = codeReview.Title,
-
-                                                                     };
+                crMetaData = new CodeReviewMetaData
+                             {
+                                 AddedBy = codeReview.AddedBy.UserId,
+                                 AddedFor = codeReview.AddedFor.UserId,
+                                 CreatedOn = DateTime.Now,
+                                 Description = codeReview.Description,
+                                 IsDiscarded = false,
+                                 ProjectName = codeReview.Title,
+                             };
                 foreach (var tag in codeReview.Tags)
                 {
                     crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
-                                                   {
-                                                       CreatedOn = DateTime.Now,
-                                                       SkillId = tag.Skill.SkillId
-                                                   });
+                                                  {
+                                                      CreatedOn = DateTime.Now,
+                                                      SkillId = tag.Skill.SkillId
+                                                  });
                 }
 
                 crMetaData.CodeReviewTags.Add(new DAL.EntityFramework.CodeReviewTag
-                {
-                    CreatedOn = DateTime.Now,
-                    SkillId = null
-                });
+                                              {
+                                                  CreatedOn = DateTime.Now,
+                                                  SkillId = null
+                                              });
 
                 UnitOfWork.CodeReviewRepository.Add(crMetaData);
-
             }
 
             UnitOfWork.Commit();
@@ -187,7 +193,7 @@ namespace TrainingTracker.BLL
             //get new data in case of newly added tags
             codeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(crMetaData.CodeReviewMetaDataId));
 
-            codeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(codeReview.Id,false);
+            codeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(codeReview.Id, false);
             return codeReview;
         }
 
@@ -203,7 +209,7 @@ namespace TrainingTracker.BLL
                 codeReviewPointCore = UnitOfWork.CodeReviewRepository
                                                 .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                                                 .CodeReviewTags
-                                                .First(i => i.SkillId == (codeReviewPoint.CodeReviewTagId==0?null:codeReviewPoint.CodeReviewTagId) && !i.IsDeleted)
+                                                .First(i => i.SkillId == (codeReviewPoint.CodeReviewTagId == 0 ? null : codeReviewPoint.CodeReviewTagId) && !i.IsDeleted)
                                                 .CodeReviewPoints
                                                 .First(x => x.CodeReviewPointId == codeReviewPoint.PointId);
 
@@ -216,19 +222,19 @@ namespace TrainingTracker.BLL
             else
             {
                 codeReviewPointCore = new DAL.EntityFramework.CodeReviewPoint
-                                           {
-                                               PointTitle = codeReviewPoint.Title,
-                                               Description = codeReviewPoint.Description,
-                                               CodeReviewPointType = codeReviewPoint.Rating,
-                                               IsDeleted = codeReviewPoint.IsDeleted,
-                                               CreatedOn = DateTime.Now,
-                                               ModifiedOn = DateTime.Now
-                                           };
+                                      {
+                                          PointTitle = codeReviewPoint.Title,
+                                          Description = codeReviewPoint.Description,
+                                          CodeReviewPointType = codeReviewPoint.Rating,
+                                          IsDeleted = codeReviewPoint.IsDeleted,
+                                          CreatedOn = DateTime.Now,
+                                          ModifiedOn = DateTime.Now
+                                      };
 
                 UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
-                                                 .CodeReviewTags
-                                                 .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId && !i.IsDeleted)
-                                                 .CodeReviewPoints.Add(codeReviewPointCore);
+                          .CodeReviewTags
+                          .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId && !i.IsDeleted)
+                          .CodeReviewPoints.Add(codeReviewPointCore);
             }
 
             UnitOfWork.Commit();
@@ -241,33 +247,31 @@ namespace TrainingTracker.BLL
             updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
 
             return updatedCodeReviewPoint;
-
         }
 
         public string FetchCodeReviewPreview(int codeReviewMetaId, bool isFeedback)
         {
             return UtilityFunctions.GenerateCodeReviewPreview(CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
-                                                                                                             .GetCodeReviewWithAllData(codeReviewMetaId)),
-                                                               isFeedback);
+                                                                                                            .GetCodeReviewWithAllData(codeReviewMetaId)),
+                                                              isFeedback);
         }
 
         public bool SubmitCodeReviewFeedback(CodeReview codeReview)
         {
-
-            DAL.EntityFramework.CodeReviewMetaData codeReviewMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReview.Id);
+            CodeReviewMetaData codeReviewMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReview.Id);
             CodeReview codeReviewDetailsFromCore = CodeReviewConverter.ConvertFromCore(codeReviewMetaData);
 
             Feedback feedback = new Feedback
-            {
-                AddedBy = new User { UserId = codeReview.AddedBy.UserId },
-                AddedFor = new User { UserId = codeReview.AddedFor.UserId },
-                FeedbackType = new FeedbackType { FeedbackTypeId = (int)Common.Enumeration.FeedbackType.CodeReview },
-                FeedbackText = UtilityFunctions.GenerateCodeReviewPreview(codeReviewDetailsFromCore, true),
-                Skill =new Skill(),
-                Project = new Project(),
-                Title = codeReviewDetailsFromCore.Title,
-                Rating = codeReview.Rating
-            };
+                                {
+                                    AddedBy = new User {UserId = codeReview.AddedBy.UserId},
+                                    AddedFor = new User {UserId = codeReview.AddedFor.UserId},
+                                    FeedbackType = new Common.Entity.FeedbackType {FeedbackTypeId = (int) FeedbackType.CodeReview},
+                                    FeedbackText = UtilityFunctions.GenerateCodeReviewPreview(codeReviewDetailsFromCore, true),
+                                    Skill = new Skill(),
+                                    Project = new Project(),
+                                    Title = codeReviewDetailsFromCore.Title,
+                                    Rating = codeReview.Rating
+                                };
 
             int feedbackId = FeedbackDataAccesor.AddFeedback(feedback);
 
@@ -286,20 +290,18 @@ namespace TrainingTracker.BLL
         {
             if (codeReviewId <= 0) return false;
 
-             DAL.EntityFramework.CodeReviewMetaData crMetaData =  UnitOfWork.CodeReviewRepository.Get(codeReviewId);
+            CodeReviewMetaData crMetaData = UnitOfWork.CodeReviewRepository.Get(codeReviewId);
 
-            if(crMetaData.FeedbackId.HasValue) return false;
+            if (crMetaData.FeedbackId.HasValue) return false;
 
             crMetaData.IsDiscarded = true;
             return UnitOfWork.Commit() > 0;
-            
         }
 
-        public CodeReview DiscardTagFromCodeReviewFeedback(int codeReviewId,int codeReviewTagId)
+        public CodeReview DiscardTagFromCodeReviewFeedback(int codeReviewId, int codeReviewTagId)
         {
+            CodeReviewMetaData crMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewId);
 
-            DAL.EntityFramework.CodeReviewMetaData crMetaData = UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewId);
-           
             crMetaData.CodeReviewTags
                       .First(x => x.CodeReviewTagId == codeReviewTagId)
                       .IsDeleted = true;
@@ -312,7 +314,6 @@ namespace TrainingTracker.BLL
             updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
 
             return updatedCodeReviewPoint;
-          
         }
 
         /// <summary>
@@ -326,19 +327,18 @@ namespace TrainingTracker.BLL
             Course course = LearningPathDataAccessor.GetCourseWithAllData(courseId, userId);
 
             Feedback feedback = new Feedback
-            {
-                AddedBy = new User { UserId = Constants.AppBotUserId },
-                AddedFor = new User { UserId = userId },
-                FeedbackType = new FeedbackType { FeedbackTypeId = (int)Common.Enumeration.FeedbackType.Course },
-                FeedbackText = UtilityFunctions.GenerateHtmlForCourseFeedback(course),
-                Title = course.Name
-            };
+                                {
+                                    AddedBy = new User {UserId = Constants.AppBotUserId},
+                                    AddedFor = new User {UserId = userId},
+                                    FeedbackType = new Common.Entity.FeedbackType {FeedbackTypeId = (int) FeedbackType.Course},
+                                    FeedbackText = UtilityFunctions.GenerateHtmlForCourseFeedback(course),
+                                    Title = course.Name
+                                };
 
             return AddFeedback(feedback);
-
         }
-        
-        public List<CodeReview> GetPrevCodeReviewDataForTrainee(int traineeId, int count)
+
+        public List<CodeReview> GetPrevCodeReviewDataForTrainee(int traineeId, int[] ratingFilter, int count)
         {
             return
                 UnitOfWork.CodeReviewRepository
@@ -367,7 +367,7 @@ namespace TrainingTracker.BLL
                                         {
                                             Id = cr.CodeReviewMetaDataId,
                                             Description = cr.Description,
-                                            Title= cr.ProjectName,
+                                            Title = cr.ProjectName,
                                             IsDeleted = cr.IsDiscarded.GetValueOrDefault(),
                                             CreatedOn = cr.CreatedOn,
                                             Feedback = new Feedback
@@ -375,22 +375,23 @@ namespace TrainingTracker.BLL
                                                            FeedbackId = cr.Feedback.FeedbackId,
                                                            AddedOn = cr.Feedback.AddedOn.GetValueOrDefault(),
                                                            FeedbackText = string.Empty,
-                                                           FeedbackType =new FeedbackType{ FeedbackTypeId = cr.Feedback.FeedbackType.GetValueOrDefault()},
-                                                           AddedBy= UserConverter.ConvertFromCore(cr.Feedback.User),
+                                                           FeedbackType = new Common.Entity.FeedbackType {FeedbackTypeId = cr.Feedback.FeedbackType.GetValueOrDefault()},
+                                                           AddedBy = UserConverter.ConvertFromCore(cr.Feedback.User),
                                                            Rating = cr.Feedback.Rating.GetValueOrDefault()
                                                        },
-                                            Tags = CodeReviewTagConverter.ConvertListFromCore( cr.CodeReviewTags
-                                                               .Select(tag =>
-                                                                       {
-                                                                           tag.CodeReviewPoints = tag.CodeReviewPoints
-                                                                                                     .Where(point => point.CodeReviewPointType != 3).ToList();
-                                                                           return tag;
-                                                                       })
-                                                               .ToList())
+                                            Tags = CodeReviewTagConverter.ConvertListFromCore(cr.CodeReviewTags
+                                                                                                .Select(tag =>
+                                                                                                        {
+                                                                                                            tag.CodeReviewPoints = tag.CodeReviewPoints
+                                                                                                                                      .Where(point => point.CodeReviewPointType != 3
+                                                                                                                                                      && ratingFilter.Contains(point.CodeReviewPointType))
+                                                                                                                                      .ToList();
+                                                                                                            return tag;
+                                                                                                        })
+                                                                                                .ToList())
                                         })
+                          .Where(cr=>cr.Tags.Any() && cr.Tags.Any(tag=>tag.ReviewPoints.Any()))
                           .ToList();
-
         }
-
     }
 }
