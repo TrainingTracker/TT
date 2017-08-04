@@ -92,7 +92,7 @@
                         <div class="feedback-input meta  col-xs-12 no-padding-left no-padding-right">
                             <!-- ko if: my.profileVm.codeReviewDetails.Tags().length > 0  -->
                             <div data-bind="foreach: my.profileVm.codeReviewDetails.Tags">
-                                <span class="tag-cr-summary" data-bind="if: Skill.SkillId!=0">
+                                <span class="tag-cr-summary" data-bind="visible: Skill.SkillId!=0">
                                     <span class="no-padding-left no-padding-right text-info">
                                         <i class="fa fa-tags"></i>
                                     </span>
