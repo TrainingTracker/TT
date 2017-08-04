@@ -237,7 +237,8 @@
                             <!-- ko foreach:my.profileVm.prevCrPointData-->
                             <div class="prev-review">
                                 <div class="prev-review-header">
-                                    <span class="prev-review-header-title" data-bind="text:Title +' ('+moment(Feedback.AddedOn).format('DD/MM/YY')+')'"></span>
+                                    <span data-bind="text:Title"></span>
+                                    <em class="text-muted small  pull-right" data-bind="text:'Added by '+ Feedback.AddedBy.FullName + ' on '+moment(Feedback.AddedOn).format('DD/MM/YY') "></em>
                                 </div>
                                 <div class="prev-review-tags clearfix">
                                     <!-- ko foreach: Tags-->
