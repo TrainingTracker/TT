@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿/// <reference path="D:\Projects\Mindfire\TT\TrainingTracker\Views/Shared/_CodeReviewPanel.cshtml" />
+$(document).ready(function () {
     //$(document).on('click','.prev-review-filter li',function() {
     //    $(this).toggleClass('active');
     //});
@@ -1033,6 +1034,7 @@
                 reviewPointsDetails.Description(pointData.Description),
                 reviewPointsDetails.Deleted(false);
             setReviewPointRating(pointData.Rating);
+            $('#tabAddReviewPoint').click();
             toggleTab(1);
 
         };
@@ -1079,14 +1081,13 @@
         }
 
         var filterReviewPoint = function(codereviewTagId, codeReviewPointId) {
-            var filteredReviewTag = ko.utils.arrayFilter(my.profileVm.userVm.SavedCodeReview.Tags(), function(tag) {
+            var filteredReviewTag = ko.utils.arrayFilter(my.profileVm.userVm.SavedCodeReview.Tags, function(tag) {
                 return tag.CodeReviewTagId == codereviewTagId;
             });
 
             var filteredPoint = ko.utils.arrayFilter(filteredReviewTag[0].ReviewPoints, function(point) {
                 return point.PointId == codeReviewPointId;
             });
-
             return filteredPoint[0];
 
         };

@@ -58,7 +58,7 @@ textarea {
     -moz-transition: all .75s ease-out;
     -o-transition: all .75s ease-out;
     -webkit-transition: all .75s ease-out;
-    transition: all .75s ease-out;    
+    transition: all .75s ease-out;
 }
 
 #divRatingsButtonWrapper :hover > span.active .rating-details:not(:hover),
@@ -215,10 +215,6 @@ textarea {
     display: inline-block;
 }
 
-.code-review-button-ellipses > i {
-    display: none;
-    color: #2596F1;
-}
 
 .code-review-review-points:hover .code-review-button-ellipses > i {
     display: inline-block;
@@ -294,12 +290,14 @@ textarea {
     height: 80%;
     margin: 1px;
 }
+
 .prev-review-filter.nav-pills li > a {
     padding: 6px 9px;
     min-width: 45px;
     text-align: center;
     height: 70%;
 }
+
 .prev-review-review-points-body { font-style: italic; }
 
 #divCodeReviewPointsCollapsable { position: relative; }
@@ -339,4 +337,13 @@ textarea {
 .code-review-button-ellipses > i {
     margin: 0 2px;
     font-size: 0.92em;
+    display: none;
+    color: #2596F1;
+}
+
+
+.update-review-point-container {
+    top: 20%;
+    position: absolute;
+    right: 0;
 }
