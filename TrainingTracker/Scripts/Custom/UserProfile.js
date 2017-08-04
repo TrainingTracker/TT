@@ -1079,11 +1079,11 @@
         }
 
         var filterReviewPoint = function(codereviewTagId, codeReviewPointId) {
-            var filteredTag = ko.utils.arrayFilter(my.profileVm.userVm.SavedCodeReview.Tags, function(tag) {
+            var filteredReviewTag = ko.utils.arrayFilter(my.profileVm.userVm.SavedCodeReview.Tags(), function(tag) {
                 return tag.CodeReviewTagId == codereviewTagId;
             });
 
-            var filteredPoint = ko.utils.arrayFilter(filteredTag[0].ReviewPoints, function(point) {
+            var filteredPoint = ko.utils.arrayFilter(filteredReviewTag[0].ReviewPoints, function(point) {
                 return point.PointId == codeReviewPointId;
             });
 
