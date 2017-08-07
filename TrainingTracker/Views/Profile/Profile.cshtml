@@ -389,13 +389,19 @@
                                 <div class="col-xs-12" data-bind="visible: my.isNullorEmpty(my.profileVm.codeReviewPreviewHtml())">
                                     <h6 class="danger text-center">No saved draft for CR present, Add new. </h6>
                                 </div>
-                                <div class="col-xs-7">
-                                    <label data-bind="text: my.profileVm.validationMessage" class="validation-error"></label>
+                                <div class="col-xs-7" data-bind="visible:function(){return my.profileVm.validationMessage.length>0}">
+                                    <label data-bind="html: my.profileVm.validationMessage" class="validation-error"></label>
                                 </div>
 
                                 <div class="comment-send col-xs-5 no-left-margin no-right-margin">
-                                    <button data-bind="visible:my.profileVm.codeReviewDetails.Id()>0,click: my.profileVm.submitCodeReview" type="button" class="btn btn-success pull-right custom-margin-left-5">Submit CR <i class="glyphicon glyphicon-send"></i></button>
-                                    <button data-bind="click: function(){ my.profileVm.toggleCodeReviewModal(true)}" type="button" class="btn btn-warning pull-right"><span data-bind="text:my.profileVm.codeReviewDetails.Id()>0 ? 'Format CR' : 'Add New' "></span> <i class="fa fa-code"></i></button>
+                                    <button data-bind="visible:my.profileVm.codeReviewDetails.Id()>0,click: my.profileVm.submitCodeReview"
+                                            type="button" class="btn btn-success pull-right custom-margin-left-5">
+                                        <i class="glyphicon glyphicon-floppy-save"></i>&nbsp;Submit
+                                    </button>
+                                    <button data-bind="click: function(){ my.profileVm.toggleCodeReviewModal(true)}" type="button" class="btn btn-warning pull-right">
+                                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;
+                                        <span data-bind="text:my.profileVm.codeReviewDetails.Id()>0 ? 'Edit' : 'Add New' "></span>
+                                    </button>
                                     
                                 </div>
                                 <div class="clearfix"></div>

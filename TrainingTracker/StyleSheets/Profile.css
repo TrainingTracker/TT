@@ -1192,7 +1192,7 @@ label.lbl-data-info {
     font-weight: bold;
     font-style: italic;
     font-size:15px;
-     width: 90%; 
+     width: 85%; 
     float: left;
     /* margin-bottom: 5px; */
     padding: 0px 0px 0px 0px;
@@ -1303,3 +1303,8 @@ label.lbl-data-info {
     width:93%;
 }
 
+mark {
+    background: navajowhite;
+    color: red;
+    font-weight: bold;
+}
