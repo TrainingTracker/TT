@@ -6,7 +6,6 @@
 #divCodeReviewAccordian {
     max-height: 100%;
     height: 100%;
-   
 }
 
 #divCodeReviewAccordian .panel {
@@ -18,66 +17,86 @@
 #divCodeReviewAccordian .panel-heading {
     padding: 0;
     border: none;
-
 }
 
 #divCodeReviewAccordian .panel-body {
     padding: 0;
     border: none;
-
 }
+
+#divRatingsButtonWrapper { display: inline-flex; }
 
 #divCodeReviewAccordian #divRatingsButtonWrapper > span {
-    width: 16%;
-    display: inline-block;
+    margin: 1px;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    display: inline-flex;
 }
 
-#divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span {
-    width: 8%;
+textarea {
+    resize: vertical;
+    max-height: 30vh !important;
 }
 
- #divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected > span.active {
-     width: 56%;
- }
+#divCodeReviewAccordian #divRatingsButtonWrapper.rating-selected:not(:hover) > span.active,
+#divCodeReviewAccordian #divRatingsButtonWrapper > span:hover {
+    -ms-flex: 2;
+    -webkit-flex: 2;
+    flex: 2;
+    -moz-transition: all .5s ease-in;
+    -o-transition: all .5s ease-in;
+    -webkit-transition: all .5s ease-in;
+    transition: all .5s ease-in;
+}
 
 #divRatingsButtonWrapper > span {
-    display: block;
     padding: 1% 0;
     margin: 2% 0 2px 0;
     text-align: center;
-    opacity: .25;
+    opacity: .70;
+    -moz-transition: all .75s ease-out;
+    -o-transition: all .75s ease-out;
+    -webkit-transition: all .75s ease-out;
+    transition: all .75s ease-out;
 }
 
-#divRatingsButtonWrapper > span .rating-details {
+#divRatingsButtonWrapper :hover > span.active .rating-details:not(:hover),
+#divRatingsButtonWrapper > span:not(:hover) .rating-details {
     width: 1%;
     overflow: hidden;
     visibility: hidden;
-    display: inline-block;
+    display: inline-flex;
     opacity: 0;
 }
 
-#divRatingsButtonWrapper > span:hover, #divRatingsButtonWrapper > span.active {
+#divRatingsButtonWrapper > span:hover,
+#divRatingsButtonWrapper:not(:hover) > span.active { opacity: 1; }
+
+#divRatingsButtonWrapper > span:hover .rating-details,
+#divRatingsButtonWrapper:not(:hover) > span.active .rating-details {
+    flex-grow: 1;
+    visibility: visible;
+    overflow: hidden;
+    font-weight: 500;
+    display: inline-flex;
     opacity: 1;
+    -moz-transition-delay: 0.25s;
+    -o-transition-delay: 0.25s;
+    -webkit-transition-delay: 0.25s;
+    transition-delay: 0.25s;
 }
 
- #divRatingsButtonWrapper > span.active .rating-details {
-     width: 60%;
-     visibility: visible;
-     overflow: hidden;
-     font-weight: 500;
-     opacity: 1;
-     transition: width 0s linear 0.25s,opacity 0.5s linear;
-     /*transition: visibility linear .5s;*/
- }
+#divRatingsButtonWrapper > span:hover > span:nth-child(1),
+#divRatingsButtonWrapper:not(:hover) > span.active > span:nth-child(1) { width: 36.66%; }
 
-#divRatingsButtonWrapper > span.active > span:nth-child(1) {
-    width: 36.66%;
-}
-
-#divRatingsButtonWrapper > span, #divRatingsButtonWrapper > span > span:nth-child(1) {
+#divRatingsButtonWrapper > span > span:nth-child(1) {
     width: 99%;
     margin-top: 2px;
-    transition: width linear .25s;
+    -moz-transition: width linear .5s;
+    -o-transition: width linear .5s;
+    -webkit-transition: width linear .5s;
+    transition: width linear .5s;
 }
 
 #divCodeReviewTabs .panel-heading > div {
@@ -86,9 +105,7 @@
     color: #fff;
 }
 
-#divCodeReviewTabs .panel-heading > div i.glyphicon {
-    margin-right: 5px;
-}
+#divCodeReviewTabs .panel-heading > div i.glyphicon { margin-right: 5px; }
 
 #divCodeReviewTabs .panel-heading label {
     margin-left: 5px;
@@ -96,7 +113,7 @@
 }
 
 #divAbsoluteTagFilter ul {
-  position: absolute;
+    position: absolute;
     left: 0;
     /* top: 0px; */
     z-index: 10;
@@ -114,9 +131,7 @@
     padding: 10px 0;
 }
 
-#divAbsoluteTagFilter ul > li label {
-    cursor: pointer;
-}
+#divAbsoluteTagFilter ul > li label { cursor: pointer; }
 
 #divAbsoluteTagFilter ul > li:hover {
     background: #2596F1;
@@ -128,45 +143,41 @@
     transition: ease color .25s;
 }
 
-#codeReveiewPreviewPanel h3{
-    color:#ccc;
-    text-align:center;
-    font-weight:bold;
+#codeReveiewPreviewPanel h3 {
+    color: #ccc;
+    text-align: center;
+    font-weight: bold;
 }
 
-#codeReveiewPreviewPanel .weekly-feedback  code{
-        padding: 0 !important;
-   font-size: 100% !important; 
-  color:inherit;
-   border-radius: 0 !important; 
+#codeReveiewPreviewPanel .weekly-feedback code {
+    padding: 0 !important;
+    font-size: 100% !important;
+    color: inherit;
+    border-radius: 0 !important;
 }
 
-#codeReveiewPreviewPanel{
-    height: 100%;
-}
+#codeReveiewPreviewPanel { height: 100%; }
 
-#divCodeReviewPreviewHtmlArea
-{
-    height:80%;
-    overflow-y:scroll;
+#divCodeReviewPreviewHtmlArea {
+    height: 75%;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
-#divCodeReviewButtonWrapperZone{
-    display:inline-block;
+#divCodeReviewButtonWrapperZone {
+    display: inline-block;
     height: 7%;
     /*margin-top: 15px;*/
-    margin-right:10px;
+    margin-right: 10px;
 }
 
-#divCodeReviewButtonWrapperZone .btn i{
-    margin-left:5px;
-    margin-right:5px;
+#divCodeReviewButtonWrapperZone .btn i {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-#divCodeReviewTabs
-{    
-       transition: all .5s ease;
+#divCodeReviewTabs {
+    transition: all .5s ease;
     display: table-cell;
     position: absolute;
     vertical-align: middle;
@@ -176,71 +187,163 @@
     top: 15%;
 }
 
-.expandModal{
-   width: 98.5%;
+.expandModal {
+    width: 98.5%;
     margin-left: 1% !important;
-        top: 5% !important;
+    top: 5% !important;
 }
 
-#divCodeReviewSummaryCollapsable button
-{
-    margin-right:5px;
-}
+#divCodeReviewSummaryCollapsable button { margin-right: 5px; }
 
-#divCodeReviewSummaryCollapsable button i
-{
-        padding: 0 5px;
-}
+#divCodeReviewSummaryCollapsable button i { padding: 0 5px; }
 
-#divCodeReviewPreviewHtmlArea .code-review-tags .code-review-review-points-header .code-review-review-points-rating i
-{
-    margin : 0px 0px 0px 2px;
-}
+#divCodeReviewPreviewHtmlArea .code-review-tags .code-review-review-points-header .code-review-review-points-rating i { margin: 0px 0px 0px 2px; }
 
-#divCloseCrModalButton{
-        position: absolute;
-        cursor:pointer;
+#divCloseCrModalButton {
+    position: absolute;
+    cursor: pointer;
     right: -4px;
     top: -6px;
     z-index: 1100;
     zoom: 3;
 }
 
-.code-review-button-ellipses:before{ 
-   color:#ccc;
-   cursor:pointer;
-   padding:0 5px;
-   display:inline-block;
+.code-review-button-ellipses:before {
+    color: #ccc;
+    cursor: pointer;
+    padding: 0 5px;
+    display: inline-block;
 }
 
-.code-review-button-ellipses > i{
-    display:none;
-    color:#2596F1;
+
+.code-review-review-points:hover .code-review-button-ellipses > i {
+    display: inline-block;
+    cursor: pointer;
 }
 
-.code-review-review-points:hover .code-review-button-ellipses >i
-{
-   display:inline-block;
-   cursor:pointer;
-}
-.code-review-review-points:hover .code-review-button-ellipses:before{
-      display:none;
+.code-review-review-points:hover .code-review-button-ellipses:before { display: none; }
+
+.code-review-tags-header:hover .code-review-button-ellipses > i {
+    display: inline-block;
+    cursor: pointer;
 }
 
-.code-review-tags-header:hover .code-review-button-ellipses >i
-{
-   display:inline-block;
-   cursor:pointer;
-}
+.code-review-tags-header:hover .code-review-button-ellipses:before { display: none; }
 
-.code-review-tags-header:hover .code-review-button-ellipses:before
-{
-    display:none;
-}
-
-.code-review-button-wrapper
-{
-   position: relative;
+.code-review-button-wrapper {
+    position: relative;
     display: inline-block;
     width: 5%;
+}
+
+.prev-reviews .prev-review {
+    margin: 1%;
+    padding: 1%;
+    border: solid 1px grey;
+    border-radius: 5px;
+}
+
+.prev-review-tags .prev-review-tag {
+    border-radius: 5px;
+    margin: 1%;
+    padding: 1%
+}
+
+.prev-reviews {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.prev-review .prev-review-header { font-weight: bold }
+
+.prev-review-tags-header { text-align: right; }
+
+.prev-review-tags-header-text {
+    border-radius: 3px;
+    font-weight: bold;
+    padding: 1px 5px;
+}
+
+.prev-review-tag-review-point {
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+}
+
+.prev-review-button-wrapper {
+    position: absolute;
+    right: 0;
+}
+
+.prev-review-filter {
+    position: absolute;
+    top: 0;
+    right: 1vw;
+    border-radius: 5px;
+    margin: 2px;
+    height: 36px;
+    border: solid 0.5px;
+}
+
+.prev-review-filter.nav-pills li.active > a {
+    background: #2596F1;
+    height: 80%;
+    margin: 1px;
+}
+
+.prev-review-filter.nav-pills li > a {
+    padding: 6px 9px;
+    min-width: 45px;
+    text-align: center;
+    height: 70%;
+}
+
+.prev-review-review-points-body { font-style: italic; }
+
+#divCodeReviewPointsCollapsable { position: relative; }
+
+#divCodeReviewPointsCollapsable > .panel-body { max-height: 90vh; }
+
+.prev-review-button-wrapper i:hover {
+    background: #2596F1;
+    color: white;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.tag-cr-summary {
+    background: gainsboro;
+    padding: 2px;
+    margin: 2px;
+    display: inline-block;
+}
+
+.tag-cr-summary .remove-tag-cr-summary > i.fa-close { color: tomato; }
+
+.tag-cr-summary .remove-tag-cr-summary > i.fa-close:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#divTagSearch, #divAbsoluteTagFilter { max-width: 50%; }
+
+#divAbsoluteTagFilter { margin-top: 2.4em; }
+
+#divAbsoluteTagFilter > ul {
+    max-width: 49%;
+    margin-left: 4px;
+}
+
+.code-review-button-ellipses > i {
+    margin: 0 2px;
+    font-size: 0.92em;
+    display: none;
+    color: #2596F1;
+}
+
+
+.update-review-point-container {
+    top: 20%;
+    position: absolute;
+    right: 0;
 }

@@ -10,6 +10,7 @@ using TrainingTracker.Common.ViewModel;
 using TrainingTracker.DAL.EntityFramework;
 using TrainingTracker.DAL.Interface;
 using TrainingTracker.Common.Entity;
+using CodeReviewPoint = TrainingTracker.Common.Entity.CodeReviewPoint;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using FeedbackType = TrainingTracker.Common.Entity.FeedbackType;
 using Skill = TrainingTracker.Common.Entity.Skill;
@@ -521,5 +522,7 @@ namespace TrainingTracker.DAL.DataAccess
                 return null;
             }
         }
+
+
     }
 }
