@@ -1,5 +1,5 @@
 ﻿/// <reference path="D:\Projects\Mindfire\TT\TrainingTracker\Views/Shared/_CodeReviewPanel.cshtml" />
-$(document).ready(function () {
+$(document).ready(function() {
     //$(document).on('click','.prev-review-filter li',function() {
     //    $(this).toggleClass('active');
     //});
@@ -155,12 +155,6 @@ $(document).ready(function () {
                 }
 
                 if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 1) {
-                    if (my.profileVm.feedbackPost.Rating() == undefined ||
-                        my.profileVm.feedbackPost.Rating() == 0) {
-                        //  my.profileVm.validationMessage("You need to select a rating to add feedback.");
-                        validationMessageArray.push("Please select a rating to add feedback");
-                        result = false;
-                    }
 
                     if (my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 3 &&
                     (typeof (my.profileVm.feedbackPost.Title()) == 'undefined'
@@ -196,8 +190,16 @@ $(document).ready(function () {
                             result = false;
                         }
                     }
+                    if (result) {
+                        if (my.profileVm.feedbackPost.Rating() == undefined ||
+                            my.profileVm.feedbackPost.Rating() == 0) {
+                            //  my.profileVm.validationMessage("You need to select a rating to add feedback.");
+                            validationMessageArray.push("Please select a rating to add feedback");
+                            result = false;
+                        }
+                    } 
                 }
-                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('. ') + '.') : my.profileVm.validationMessage("");
+                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('.\n') + '.') : my.profileVm.validationMessage("");
                 return result;
             },
             addFeedbackCallback = function(jsonData) {
@@ -757,9 +759,45 @@ $(document).ready(function () {
 
         var codeReviewPreviewHtml = ko.observable("");
 
-        var removeCodeReviewTagAndRefresh = function() {
 
-        };
+        var removeCodeReviewTagAndRefresh = function(codeReviewTagId, skillId) {
+
+            var tag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function(allSkill) {
+                return allSkill.SkillId == skillId;
+            });
+
+            if (codeReviewTagId === undefined || codeReviewTagId <= 0) {
+                my.profileVm.codeReviewDetails.Tags.remove(function(tag) {
+                    return tag.Skill.SkillId == skillId;
+                });
+                return;
+            }
+
+            $.confirm({
+                title: 'Delete Tag!!',
+                content: 'Do you want to delete  <span class="danger">' + tag[0].Name + ' </span>  tag and all review points?',
+                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                useBootstrap: true,
+                buttons: {
+                    confirm:
+                    {
+                        text: 'Yes, Delete this Tag',
+                        btnClass: 'btn-primary btn-danger',
+                        action: function() {
+                            my.userService.discardTagFromCodeReviewFeedback(codeReviewDetails.Id(), codeReviewTagId, discardTagFromCodeReviewFeedbackCallback);
+                        }
+                    },
+                    cancel:
+                    {
+                        text: 'No, keep editing',
+                        btnClass: 'btn-primary btn-warning',
+                        action: function() {
+
+                        }
+                    }
+                }
+            });
+        }
 
         var discardCodeReview = function() {
 
@@ -932,14 +970,17 @@ $(document).ready(function () {
         var isCodeReviewModalOpen = ko.observable(false);
 
         var toggleCodeReviewModal = function(openModal) {
-            if (openModal)
-                loadPrevCrPointData();
+            if (openModal) {
+                  loadPrevCrPointData();
+            }
 
             isCodeReviewModalOpen(openModal);
 
             if (my.profileVm.codeReviewDetails.Id() != 0) {
                 if (openModal) {
                     toggleTab(1);
+                } else {
+                    saveCodeReviewData();
                 }
                 return;
             }
@@ -978,45 +1019,6 @@ $(document).ready(function () {
             return false;
         }
 
-        var removeCodeReviewTagAndRefresh = function(codeReviewTagId, skillId) {
-
-            var tag = ko.utils.arrayFilter(my.profileVm.userVm.AllSkills(), function(allSkill) {
-                return allSkill.SkillId == skillId;
-            });
-
-            if (codeReviewTagId === undefined || codeReviewTagId <= 0) {
-                my.profileVm.codeReviewDetails.Tags.remove(function(tag) {
-                    return tag.Skill.SkillId == skillId;
-                });
-                return;
-            }
-
-            $.confirm({
-                title: 'Delete Tag!!',
-                content: 'Do you want to delete  <span class="danger">' + tag[0].Name + ' </span>  tag and all review points?',
-                columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
-                useBootstrap: true,
-                buttons: {
-                    confirm:
-                    {
-                        text: 'Yes, Delete this Tag',
-                        btnClass: 'btn-primary btn-danger',
-                        action: function() {
-                            my.userService.discardTagFromCodeReviewFeedback(codeReviewDetails.Id(), codeReviewTagId, discardTagFromCodeReviewFeedbackCallback);
-                        }
-                    },
-                    cancel:
-                    {
-                        text: 'No, keep editing',
-                        btnClass: 'btn-primary btn-warning',
-                        action: function() {
-
-                        }
-                    }
-                }
-            });
-        }
-
         var discardTagFromCodeReviewFeedbackCallback = function(data) {
             savedCodeReviewDataForTrainee(data);
         }
@@ -1035,6 +1037,7 @@ $(document).ready(function () {
                 reviewPointsDetails.Deleted(false);
             setReviewPointRating(pointData.Rating);
             $('#tabAddReviewPoint').click();
+            toggleCodeReviewModal(true);
             toggleTab(1);
 
         };
@@ -1098,16 +1101,15 @@ $(document).ready(function () {
 
         var prevCrRatingFilter = ko.observableArray([4, 5, 6]);
 
-        var isRatingSelected = function (rating) {
-              return ko.utils.arrayFirst(my.profileVm.prevCrRatingFilter(), function(r) {
-                  if (r == rating) return r;
-                  else return undefined;
-              });
+        var isRatingSelected = function(rating) {
+            return ko.utils.arrayFirst(my.profileVm.prevCrRatingFilter(), function(r) {
+                if (r == rating) return r;
+                else return undefined;
+            });
         }
 
-        var toggleRatingFilter  = function(rating)
-        {
-            
+        var toggleRatingFilter = function(rating) {
+
             if (isRatingSelected(rating)) {
                 my.profileVm.prevCrRatingFilter.remove(rating);
             } else {
@@ -1118,7 +1120,7 @@ $(document).ready(function () {
         }
         var prevCrPointData = ko.observableArray([]);
         var loadPrevCrPointData = function() {
-            my.userService.getPrevCrPointData(my.profileVm.userId,prevCrRatingFilter, function(data) {
+            my.userService.getPrevCrPointData(my.profileVm.userId, prevCrRatingFilter, function(data) {
                 my.profileVm.prevCrPointData(data);
             });
         };
@@ -1199,37 +1201,13 @@ $(document).ready(function () {
                     } else {
                         errorMessage += ', ';
                     }
-                    errorMessage += tag.Skill.Name;
+                    errorMessage +='<span class= "badge">'+ tag.Skill.Name.toUpperCase()+'</span>';
                 }
             });
             if (errorMessage.length > 0) {
                 errorMessage += '.';
             }
             return errorMessage;
-        }
-        var saveDraftCodeReview = function() {
-            var hasError = false;
-            my.profileVm.codeReviewDetails.ErrorMessage('');
-            my.profileVm.codeReviewPointErrors('');
-
-            var message = validateCodeReviewPoints();
-            if (message != undefined && message.length > 0) {
-                my.profileVm.codeReviewPointErrors(message);
-                hasError = true;
-            }
-
-            message = validateCodeReviewDetails();
-            if (message.length > 0) {
-                my.profileVm.codeReviewDetails.ErrorMessage(message);
-                toggleTab(0);
-                hasError = true;
-            }
-
-            if (!hasError) {
-                saveCodeReviewData(function() {
-                    toggleCodeReviewModal(false);
-                });
-            }
         }
         return {
             userId: userId,
@@ -1307,7 +1285,6 @@ $(document).ready(function () {
             loadPrevCrProints: loadPrevCrPointData,
             getRatingCssClass: getRatingCssClass,
             addExistingReviewPoint: addExistingReviewPoint,
-            saveDraftCodeReview: saveDraftCodeReview,
             codeReviewPointErrors: codeReviewPointErrors,
             commonTags: commonTags,
             prevCrRatingFilter: prevCrRatingFilter,
@@ -1370,22 +1347,22 @@ $(document).ready(function () {
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
 
-   
-    var observer = new MutationObserver(function (mutations) {
-                var doubleChildren = $('.double-child');
-                $.each(doubleChildren, function () {
-                    var item = $(this);
-                    if (item.siblings('.double-child').length) {
-                        return;
-                    }
-                    item.after(item.clone());
-                    item.after('&nbsp;');
-                });
+
+    var observer = new MutationObserver(function(mutations) {
+        var doubleChildren = $('.double-child');
+        $.each(doubleChildren, function() {
+            var item = $(this);
+            if (item.siblings('.double-child').length) {
+                return;
+            }
+            item.after(item.clone());
+            item.after('&nbsp;');
+        });
     });
 
     var config = {
         childList: true,
-        subtree:true
+        subtree: true
     };
 
     observer.observe(document.body, config);
