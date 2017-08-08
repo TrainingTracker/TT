@@ -12,7 +12,8 @@ namespace TrainingTracker.DAL.ModelMapper
                 PointId = source.CodeReviewPointId,
                 Description = source.Description,
                 Title = source.PointTitle,
-                Rating =source.CodeReviewPointType
+                Rating =source.CodeReviewPointType,
+                CodeReviewTagId = source.CodeReviewTagId
             };
         }
 
