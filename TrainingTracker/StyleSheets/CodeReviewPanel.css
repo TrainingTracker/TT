@@ -358,6 +358,12 @@ textarea {
     padding: 2px;
 }
 
+.prev-review-button-wrapper i {
+    border: 1px solid white;
+    border-radius: 2px;
+    padding: 2px;
+}
+
 .tag-cr-summary {
     background: gainsboro;
     padding: 2px;
