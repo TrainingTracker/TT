@@ -131,6 +131,7 @@ $(document).ready(function() {
                 codeReviewDetails.Title(jsonData.Title);
                 codeReviewDetails.Description(jsonData.Description);
                 codeReviewDetails.Tags(jsonData.Tags);
+                calculateCodeReviewRating();
                 codeReviewSelectedTag(0);
             },
 
@@ -197,7 +198,7 @@ $(document).ready(function() {
                             validationMessageArray.push("Please select a rating to add feedback");
                             result = false;
                         }
-                    } 
+                    }
                 }
                 validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('.\n') + '.') : my.profileVm.validationMessage("");
                 return result;
@@ -683,6 +684,7 @@ $(document).ready(function() {
 
             var finalCallback = function(data) {
                 saveCodeReviewCallback(data);
+                calculateCodeReviewRating();
                 if (typeof (callbackOrToggleTab) == "function") {
                     callbackOrToggleTab(data);
                 }
@@ -971,7 +973,7 @@ $(document).ready(function() {
 
         var toggleCodeReviewModal = function(openModal) {
             if (openModal) {
-                  loadPrevCrPointData();
+                loadPrevCrPointData();
             }
 
             isCodeReviewModalOpen(openModal);
@@ -1201,7 +1203,7 @@ $(document).ready(function() {
                     } else {
                         errorMessage += ', ';
                     }
-                    errorMessage +='<span class= "badge">'+ tag.Skill.Name.toUpperCase()+'</span>';
+                    errorMessage += '<span class= "badge">' + tag.Skill.Name.toUpperCase() + '</span>';
                 }
             });
             if (errorMessage.length > 0) {
@@ -1209,6 +1211,48 @@ $(document).ready(function() {
             }
             return errorMessage;
         }
+
+        var calculateCodeReviewRating = function() {
+            var weights = {
+                1: 10,
+                2: 9.5,
+                3: 6,
+                4: 0.1,
+                5: 0,
+                6: 5
+            };
+            var scoreRange = { 1: 5, 2: 5.5, 3: 7, 4: 10 };
+            var scoreRangeMax = 4;
+            var score = 0, total = 0;
+            ko.utils.arrayForEach(my.profileVm.codeReviewDetails.Tags(), function(tag) {
+                if (!tag.ReviewPoints || tag.ReviewPoints.length <= 0) {
+                    return;
+                }
+
+                ko.utils.arrayForEach(tag.ReviewPoints, function(tag) {
+                    total++;
+                    score += weights[tag.Rating];
+                });
+            });
+
+            if (total < 0) {
+                return;
+            }
+
+            var finalScore = score / total;
+            var crRating;
+            for (var key in scoreRange) {
+                var value = scoreRange[key];
+                if (finalScore < value || (key == scoreRangeMax && finalScore == value)) {
+                    crRating = key;
+                    break;
+                }
+            }
+            if (crRating) {
+                my.profileVm.setRating(crRating);
+            }
+        };
+
         return {
             userId: userId,
             getUserCallback: getUserCallback,
