@@ -199,7 +199,7 @@ $(document).ready(function() {
                         }
                     } 
                 }
-                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('.<br/>') + '.') : my.profileVm.validationMessage("");
+                validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('.\n') + '.') : my.profileVm.validationMessage("");
                 return result;
             },
             addFeedbackCallback = function(jsonData) {
@@ -1197,15 +1197,15 @@ $(document).ready(function() {
             ko.utils.arrayForEach(my.profileVm.codeReviewDetails.Tags(), function(tag) {
                 if (!tag.ReviewPoints || tag.ReviewPoints.length <= 0) {
                     if (errorMessage.length == 0) {
-                        errorMessage = 'No review point added for <mark>';
+                        errorMessage = 'No review point added for ';
                     } else {
                         errorMessage += ', ';
                     }
-                    errorMessage += tag.Skill.Name.toUpperCase();
+                    errorMessage +='<span class= "badge">'+ tag.Skill.Name.toUpperCase()+'</span>';
                 }
             });
             if (errorMessage.length > 0) {
-                errorMessage += '</mark>.';
+                errorMessage += '.';
             }
             return errorMessage;
         }

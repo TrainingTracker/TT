@@ -41,8 +41,12 @@ p {
     padding-top: 15px;
     padding-left: 5px;
     color: red;
+    white-space: pre-wrap
 }
-
+.validation-error .badge {
+    background-color: navajowhite;
+    color: red;
+}
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -1301,10 +1305,4 @@ label.lbl-data-info {
 
 .code-review-review-points-description pre{
     width:93%;
-}
-
-mark {
-    background: navajowhite;
-    color: red;
-    font-weight: bold;
 }
