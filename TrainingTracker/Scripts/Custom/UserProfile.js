@@ -1215,13 +1215,13 @@ $(document).ready(function() {
         var calculateCodeReviewRating = function() {
             var weights = {
                 1: 10,
-                2: 9.5,
-                3: 6,
+                2: 6,
+                3: 5.5,
                 4: 0.1,
                 5: 0,
-                6: 5
+                6: 5.1
             };
-            var scoreRange = { 1: 5, 2: 5.5, 3: 7, 4: 10 };
+            var scoreRange = { 1: 5.1, 2: 5.5, 3: 6.1, 4: 10 };
             var scoreRangeMax = 4;
             var score = 0, total = 0;
             ko.utils.arrayForEach(my.profileVm.codeReviewDetails.Tags(), function(tag) {
