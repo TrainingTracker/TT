@@ -7,7 +7,6 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.DAL.EntityFramework;
-using TrainingTracker.DAL.ModelMapper;
 using CodeReviewPoint = TrainingTracker.Common.Entity.CodeReviewPoint;
 using CodeReviewTag = TrainingTracker.Common.Entity.CodeReviewTag;
 using Course = TrainingTracker.Common.Entity.Course;
@@ -203,9 +202,7 @@ namespace TrainingTracker.BLL
         {
             DAL.EntityFramework.CodeReviewPoint codeReviewPointCore;
 
-            codeReviewPoint.CodeReviewTagId = codeReviewPoint.CodeReviewTagId == 0
-                                                  ? null
-                                                  : codeReviewPoint.CodeReviewTagId;
+            codeReviewPoint.CodeReviewTagId = codeReviewPoint.CodeReviewTagId == 0 ? null : codeReviewPoint.CodeReviewTagId;
 
             // existing
             if (codeReviewPoint.PointId > 0)
@@ -213,12 +210,10 @@ namespace TrainingTracker.BLL
                 codeReviewPointCore = UnitOfWork.CodeReviewRepository
                                                 .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                                                 .CodeReviewTags
-                                                .Where(t => !t.IsDeleted)
-                                                .SelectMany(t => t.CodeReviewPoints)
-                                                .First(p => p.CodeReviewPointId == codeReviewPoint.PointId
-                                                            && !p.IsDeleted);
+                                                .First(i => i.SkillId == (codeReviewPoint.CodeReviewTagId == 0 ? null : codeReviewPoint.CodeReviewTagId) && !i.IsDeleted)
+                                                .CodeReviewPoints
+                                                .First(x => x.CodeReviewPointId == codeReviewPoint.PointId);
 
-                codeReviewPointCore.CodeReviewTagId = (int) codeReviewPoint.CodeReviewTagId;
                 codeReviewPointCore.PointTitle = codeReviewPoint.Title;
                 codeReviewPointCore.Description = codeReviewPoint.Description;
                 codeReviewPointCore.CodeReviewPointType = codeReviewPoint.Rating;
@@ -239,7 +234,7 @@ namespace TrainingTracker.BLL
 
                 UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId)
                           .CodeReviewTags
-                          .First(i => i.CodeReviewTagId == codeReviewPoint.CodeReviewTagId && !i.IsDeleted)
+                          .First(i => i.SkillId == codeReviewPoint.CodeReviewTagId && !i.IsDeleted)
                           .CodeReviewPoints.Add(codeReviewPointCore);
             }
 
@@ -396,7 +391,7 @@ namespace TrainingTracker.BLL
                                                                                                         })
                                                                                                 .ToList())
                                         })
-                          .Where(cr => cr.Tags.Any() && cr.Tags.Any(tag => tag.ReviewPoints.Any()))
+                          .Where(cr=>cr.Tags.Any() && cr.Tags.Any(tag=>tag.ReviewPoints.Any()))
                           .ToList();
         }
     }

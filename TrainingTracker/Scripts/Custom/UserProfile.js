@@ -131,7 +131,7 @@ $(document).ready(function() {
                 codeReviewDetails.Title(jsonData.Title);
                 codeReviewDetails.Description(jsonData.Description);
                 codeReviewDetails.Tags(jsonData.Tags);
-                setSelectedTagId(0);
+                codeReviewSelectedTag(0);
             },
 
             loadPlotData = function() {
@@ -577,7 +577,6 @@ $(document).ready(function() {
             Description: ko.observable(""),
             Rating: ko.observable(0),
             ErrorMessage: ko.observable(""),
-            CodeReviewTagId: ko.observable(0),
             EditMode: ko.observable(false)
         };
 
@@ -603,10 +602,10 @@ $(document).ready(function() {
 
         var setSelectedTagId = function(tagId) {
             if (typeof (tagId) == 'undefined') {
-                reviewPointsDetails.CodeReviewTagId(0);
+                codeReviewSelectedTag(0);
                 return;
             }
-            reviewPointsDetails.CodeReviewTagId(tagId);
+            codeReviewSelectedTag(tagId);
         }
 
 
@@ -621,7 +620,7 @@ $(document).ready(function() {
 
             var codeReviewPoints = {
                 PointId: reviewPointsDetails.Id(),
-                CodeReviewTagId: reviewPointsDetails.CodeReviewTagId(),
+                CodeReviewTagId: codeReviewSelectedTag(),
                 CodeReviewMetadataId: codeReviewDetails.Id(),
                 Rating: reviewPointsDetails.Rating(),
                 Title: reviewPointsDetails.Title(),
@@ -638,9 +637,9 @@ $(document).ready(function() {
         };
 
         var saveTagCallback = function(data) {
-            var currentSelection = reviewPointsDetails.CodeReviewTagId();
+            var currentSelection = codeReviewSelectedTag();
             savedCodeReviewDataForTrainee(data);
-            reviewPointsDetails.CodeReviewTagId(currentSelection);
+            codeReviewSelectedTag(currentSelection);
 
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
@@ -703,7 +702,6 @@ $(document).ready(function() {
                 Description: codeReviewDetails.Description(),
                 Title: codeReviewDetails.Title(),
                 IsDeleted: codeReviewDetails.Deleted(),
-                CodeReviewTagId:codeReviewDetails.CodeReviewTagId(),
                 AddedFor: { UserId: my.profileVm.userId },
                 Tags: codeReviewDetails.Tags()
             }
@@ -726,7 +724,7 @@ $(document).ready(function() {
             codeReviewDetails.Edited(false);
             savedCodeReviewDataForTrainee(data);
             codeReviewSelectedTab(1);
-            reviewPointsDetails.CodeReviewTagId(0);
+            codeReviewSelectedTag(0);
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         };
 
@@ -831,6 +829,7 @@ $(document).ready(function() {
 
         var discardCodeReviewCallback = function() {
             codeReviewSelectedTab(0);
+            codeReviewSelectedTag(0);
             codeReviewPreviewHtml("");
             flushCodeReviewDetails();
             flushReviewPointsTab();
@@ -870,7 +869,6 @@ $(document).ready(function() {
             reviewPointsDetails.Deleted(false);
             reviewPointsDetails.Description("");
             reviewPointsDetails.Rating(0);
-            reviewPointsDetails.CodeReviewTagId(0);
             reviewPointsDetails.ErrorMessage("");
             reviewPointsDetails.EditMode(false);
         };
@@ -1029,8 +1027,8 @@ $(document).ready(function() {
 
             var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
 
-            if (codereviewTagId == 0) codereviewTagId = null;
-            reviewPointsDetails.CodeReviewTagId(codereviewTagId);
+            if (skillId == 0) skillId = null;
+            codeReviewSelectedTag(skillId);
 
             reviewPointsDetails.Id(codeReviewPointId);
             reviewPointsDetails.EditMode(true);
@@ -1048,8 +1046,8 @@ $(document).ready(function() {
 
             var pointData = filterReviewPoint(codereviewTagId, codeReviewPointId);
 
-            if (codereviewTagId == 0) codereviewTagId= null;
-            reviewPointsDetails.CodeReviewTagId(codereviewTagId);
+            if (skillId == 0) skillId = null;
+            codeReviewSelectedTag(skillId);
 
             reviewPointsDetails.Id(codeReviewPointId);
             reviewPointsDetails.EditMode(true);
@@ -1090,9 +1088,10 @@ $(document).ready(function() {
                 return tag.CodeReviewTagId == codereviewTagId;
             });
 
-            return ko.utils.arrayFirst(filteredReviewTag[0].ReviewPoints, function (point) {
-                return point.PointId == codeReviewPointId?point:null;
+            var filteredPoint = ko.utils.arrayFilter(filteredReviewTag[0].ReviewPoints, function(point) {
+                return point.PointId == codeReviewPointId;
             });
+            return filteredPoint[0];
 
         };
 
@@ -1144,12 +1143,12 @@ $(document).ready(function() {
             }
         }
         var addExistingReviewPoint = function(skillData, pointData) {
-            var existingTag = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Tags(), function(tag) {
-                return tag.Skill.SkillId == skillData.SkillId ? tag : (skillData.SkillId == 0 ? 0 : false);
+            var existingSkill = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Tags(), function(tag) {
+                return tag.Skill.SkillId == skillData.SkillId || skillData.SkillId == 0;
             });
 
-            if (existingTag) {
-                reviewPointsDetails.CodeReviewTagId(existingTag.CodeReviewTagId == 0 ? null : existingTag.CodeReviewTagId);
+            if (existingSkill) {
+                codeReviewSelectedTag(skillData.SkillId == 0 ? null : skillData.SkillId);
                 reviewPointsDetails.Title(pointData.Title);
                 reviewPointsDetails.Description(pointData.Description);
                 reviewPointsDetails.Deleted(false);
@@ -1169,17 +1168,8 @@ $(document).ready(function() {
                         btnClass: 'btn-primary btn-danger',
                         action: function() {
                             addTagToCodeReviewDetails(skillData.SkillId);
-                            saveCodeReviewData(function () {
-                                var tag = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Tags(), function (tag) {
-                                    return tag.Skill.SkillId == skillData.SkillId ? tag : (skillData.SkillId == 0 ? 0 : false);
-                                });
-
-                                if (tag) {
-                                    reviewPointsDetails.CodeReviewTagId(tag.CodeReviewTagId);
-                                } else {
-                                    reviewPointsDetails.CodeReviewTagId(null);
-                                }
-
+                            saveCodeReviewData(function() {
+                                codeReviewSelectedTag(skillData.SkillId);
                                 reviewPointsDetails.Title(pointData.Title);
                                 reviewPointsDetails.Description(pointData.Description);
                                 reviewPointsDetails.Deleted(false);
