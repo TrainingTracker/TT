@@ -85,5 +85,8 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual DbSet<CodeReviewPoint> CodeReviewPoints { get; set; }
         public virtual DbSet<CodeReviewPointType> CodeReviewPointTypes { get; set; }
         public virtual DbSet<CodeReviewTag> CodeReviewTags { get; set; }
+        public virtual DbSet<CrRatingCalcConfig> CrRatingCalcConfigs { get; set; }
+        public virtual DbSet<CrRatingCalcRangeConfig> CrRatingCalcRangeConfigs { get; set; }
+        public virtual DbSet<CrRatingCalcWeightConfig> CrRatingCalcWeightConfigs { get; set; }
     }
 }

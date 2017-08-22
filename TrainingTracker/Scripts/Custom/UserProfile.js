@@ -1,9 +1,5 @@
 ﻿/// <reference path="D:\Projects\Mindfire\TT\TrainingTracker\Views/Shared/_CodeReviewPanel.cshtml" />
 $(document).ready(function() {
-    //$(document).on('click','.prev-review-filter li',function() {
-    //    $(this).toggleClass('active');
-    //});
-
     my.profileVm = function() {
         var userId = my.queryParams["userId"],
             queryStringFeedbackId = my.queryParams["feedbackId"],
@@ -590,6 +586,7 @@ $(document).ready(function() {
             Tags: ko.observableArray([]),
             ErrorMessage: ko.observable(""),
             AutoSaveDateTimeStamp: ko.observable(),
+            SystemRating: ko.observable(0),
             AddedBy: 0,
             AddedFor: 0,
         };
@@ -1212,45 +1209,26 @@ $(document).ready(function() {
             return errorMessage;
         }
 
-        var calculateCodeReviewRating = function() {
-            var weights = {
-                1: 10,
-                2: 6,
-                3: 5.5,
-                4: 0.1,
-                5: 0,
-                6: 5.1
+        var isOverridingCalculatedRating = ko.observable(false);
+        
+        var calculateCodeReviewRating = function () {
+            var codeReview = {
+                Id: codeReviewDetails.Id(),
+                Description: codeReviewDetails.Description(),
+                Title: codeReviewDetails.Title(),
+                IsDeleted: codeReviewDetails.Deleted(),
+                AddedFor: { UserId: my.profileVm.userId },
+                Tags: codeReviewDetails.Tags()
             };
-            var scoreRange = { 1: 5.1, 2: 5.5, 3: 6.1, 4: 10 };
-            var scoreRangeMax = 4;
-            var score = 0, total = 0;
-            ko.utils.arrayForEach(my.profileVm.codeReviewDetails.Tags(), function(tag) {
-                if (!tag.ReviewPoints || tag.ReviewPoints.length <= 0) {
-                    return;
-                }
 
-                ko.utils.arrayForEach(tag.ReviewPoints, function(tag) {
-                    total++;
-                    score += weights[tag.Rating];
-                });
+            my.userService.calculateCrRating(codeReview, function (crRating) {
+                if (crRating) {
+                    my.profileVm.codeReviewDetails.SystemRating(crRating);
+                    if (!isOverridingCalculatedRating()) {
+                        my.profileVm.setRating(crRating);
+                    }
+                }
             });
-
-            if (total < 0) {
-                return;
-            }
-
-            var finalScore = score / total;
-            var crRating;
-            for (var key in scoreRange) {
-                var value = scoreRange[key];
-                if (finalScore < value || (key == scoreRangeMax && finalScore == value)) {
-                    crRating = key;
-                    break;
-                }
-            }
-            if (crRating) {
-                my.profileVm.setRating(crRating);
-            }
         };
 
         return {
@@ -1333,7 +1311,8 @@ $(document).ready(function() {
             commonTags: commonTags,
             prevCrRatingFilter: prevCrRatingFilter,
             isRatingSelected: isRatingSelected,
-            toggleRatingFilter: toggleRatingFilter
+            toggleRatingFilter: toggleRatingFilter,
+            isOverridingCalculatedRating: isOverridingCalculatedRating
         };
     }();
 
@@ -1391,8 +1370,17 @@ $(document).ready(function() {
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
 
+    my.profileVm.isOverridingCalculatedRating.subscribe(function() {
+            my.profileVm.setRating(my.profileVm.codeReviewDetails.SystemRating());
+    });
+    my.profileVm.codeReviewDetails.SystemRating.subscribe(function (rating) {
+        if (my.profileVm.isOverridingCalculatedRating())
+            my.profileVm.setRating(rating);
+    });
 
     var observer = new MutationObserver(function(mutations) {
+        $('.btn-group.disabled').children('.btn:not(.disabled)').addClass('disabled');
+        $('.btn-group:not(.disabled)').children('.btn.disabled').removeClass('disabled');
         var doubleChildren = $('.double-child');
         $.each(doubleChildren, function() {
             var item = $(this);
@@ -1406,7 +1394,8 @@ $(document).ready(function() {
 
     var config = {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true
     };
 
     observer.observe(document.body, config);

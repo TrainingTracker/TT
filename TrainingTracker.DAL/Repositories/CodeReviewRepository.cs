@@ -79,5 +79,15 @@ namespace TrainingTracker.DAL.Repositories
                 .SelectMany(cr => cr.CodeReviewTags.Where(t => !t.IsDeleted && t.Skill != null).Select(t => t.Skill))
                 .Distinct();
         }
+
+        public IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId)
+        {
+            return _context.Users
+                           .First(u => u.UserId == 25)
+                           .Team
+                           .CrRatingCalcConfigs
+                           .AsQueryable()
+						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
+        }
     }
 }

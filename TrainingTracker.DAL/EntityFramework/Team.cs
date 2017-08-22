@@ -19,6 +19,7 @@ namespace TrainingTracker.DAL.EntityFramework
         {
             this.LearningMaps = new HashSet<LearningMap>();
             this.Users = new HashSet<User>();
+            this.CrRatingCalcConfigs = new HashSet<CrRatingCalcConfig>();
         }
     
         public int TeamId { get; set; }
@@ -32,5 +33,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual Survey Survey { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcConfig> CrRatingCalcConfigs { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8ca1dcd67da455c890bbb108d80136d" Name="Diagram1" ZoomLevel="68">
+      <Diagram DiagramId="a8ca1dcd67da455c890bbb108d80136d" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="TrainingTrackerModel.Assignment" Width="1.5" PointX="7.5" PointY="65.875" />
         <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentFeedbackMapping" Width="1.5" PointX="12.75" PointY="58.125" />
         <EntityTypeShape EntityType="TrainingTrackerModel.AssignmentSubtopicMap" Width="1.5" PointX="9.75" PointY="66.5" />
@@ -146,6 +146,17 @@
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewPointType" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewTag" />
         <AssociationConnector Association="TrainingTrackerModel.FK_CodeReviewTag_Skills" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CrRatingCalcConfig" Width="1.5" PointX="7.5" PointY="51.5" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CrRatingCalcRangeConfig" Width="1.5" PointX="13.5" PointY="36.375" />
+        <EntityTypeShape EntityType="TrainingTrackerModel.CrRatingCalcWeightConfig" Width="1.5" PointX="24.25" PointY="47.625" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcweightconfig_reviewpointtype" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crcalcconf_team" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crcalcconf_user" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_crratingcalcconfig" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcweightconfig_crratingcalcconfig" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_feedbacktype" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_user" />
+        <AssociationConnector Association="TrainingTrackerModel.fk_crratingcalcweightconfig_user" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

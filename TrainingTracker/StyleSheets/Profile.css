@@ -1306,3 +1306,6 @@ label.lbl-data-info {
 .code-review-review-points-description pre{
     width:93%;
 }
+.no-hover-effect{
+    pointer-events: none;
+}

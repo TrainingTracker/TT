@@ -28,6 +28,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public int AddedFor { get; set; }
         public Nullable<bool> IsDiscarded { get; set; }
         public System.DateTime CreatedOn { get; set; }
+        public Nullable<int> SystemRating { get; set; }
     
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }

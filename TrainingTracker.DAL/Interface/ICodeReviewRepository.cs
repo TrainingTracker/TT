@@ -7,15 +7,16 @@ using TrainingTracker.DAL.EntityFramework;
 
 namespace TrainingTracker.DAL.Interface
 {
-    public interface ICodeReviewRepository : IRepository<EntityFramework.CodeReviewMetaData>
+    public interface ICodeReviewRepository : IRepository<CodeReviewMetaData>
     {
+        CodeReviewMetaData GetCodeReviewWithAllData(int codeReviewMetaDataId);
 
-        DAL.EntityFramework.CodeReviewMetaData GetCodeReviewWithAllData(int codeReviewMetaDataId);
+        CodeReviewMetaData GetSavedCodeReviewForTrainee(int traineeId, int trainorId);
 
-        DAL.EntityFramework.CodeReviewMetaData GetSavedCodeReviewForTrainee(int traineeId, int trainorId);
-
-        IEnumerable<DAL.EntityFramework.CodeReviewMetaData> GetPrevCodeReviewForTrainee(int traineeId,int count);
+        IEnumerable<CodeReviewMetaData> GetPrevCodeReviewForTrainee(int traineeId, int count);
 
         IEnumerable<Skill> GetCommonlyUsedTags(int traineeId, int reviewCount);
+
+        IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId);
     }
 }

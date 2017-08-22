@@ -134,6 +134,7 @@ namespace TrainingTracker.BLL
         public CodeReview SubmitCodeReviewMetaData(CodeReview codeReview)
         {
             CodeReviewMetaData crMetaData;
+            
             // existing
             if (codeReview.Id > 0)
             {
@@ -143,6 +144,9 @@ namespace TrainingTracker.BLL
                 crMetaData.Description = codeReview.Description;
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
+
+                //Recalculate systemrating to prevent data tampering.
+                crMetaData.SystemRating = CalculateCodeReviewRating(codeReview);
 
                 List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x => !x.IsDeleted).ToList());
 
@@ -170,6 +174,7 @@ namespace TrainingTracker.BLL
                                  Description = codeReview.Description,
                                  IsDiscarded = false,
                                  ProjectName = codeReview.Title,
+                                 SystemRating = CalculateCodeReviewRating(codeReview)
                              };
                 foreach (var tag in codeReview.Tags)
                 {
@@ -391,8 +396,49 @@ namespace TrainingTracker.BLL
                                                                                                         })
                                                                                                 .ToList())
                                         })
-                          .Where(cr=>cr.Tags.Any() && cr.Tags.Any(tag=>tag.ReviewPoints.Any()))
+                          .Where(cr => cr.Tags.Any() && cr.Tags.Any(tag => tag.ReviewPoints.Any()))
                           .ToList();
+        }
+
+        public int? CalculateCodeReviewRating(CodeReview codeReview)
+        {
+            var total = 0f;
+            var score = 0f;
+
+            var ratingConfig = UnitOfWork.CodeReviewRepository.GetCrRatingCalcConfig(codeReview.AddedFor.UserId).FirstOrDefault();
+           // var traineeId
+            if (ratingConfig == null)
+                return null;
+
+            try
+            {
+                var reviewPoints = codeReview.Tags.SelectMany(t => t.ReviewPoints).ToList();
+
+                if (!reviewPoints.Any())
+                    return null;
+
+                foreach (var reviewPoint in reviewPoints)
+                {
+                    total++;
+                    score += ratingConfig.CrRatingCalcWeightConfigs.First(w => w.ReviewPointTypeId == reviewPoint.Rating).Weight;
+                }
+
+
+                var finalScore = score/total;
+                var maxScore = ratingConfig.CrRatingCalcRangeConfigs.Max(r => r.RangeMax);
+
+                return ratingConfig.CrRatingCalcRangeConfigs
+                                   .OrderBy(r => r.RangeMin)
+                                   .Last(r => finalScore >= r.RangeMin
+                                              && (finalScore < r.RangeMax
+                                                  || (finalScore == maxScore)))
+                                   .FeedbackTypeId;
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
         }
     }
 }

@@ -30,5 +30,7 @@ namespace TrainingTracker.Common.Entity
 
         public Feedback Feedback { get; set; }
 
+        public int? SystemRating { get; set; }
+
     }
 }

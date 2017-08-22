@@ -377,11 +377,19 @@ namespace TrainingTracker.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
         public ActionResult FetchPrevCodeReviewData(int traineeId,int[] ratingFilter, int count=5)
         {
             ratingFilter = ratingFilter ?? new int[] {};
 
             return Json(new FeedbackBl().GetPrevCodeReviewDataForTrainee(traineeId,ratingFilter, count), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [CustomAuthorize(Roles = UserRoles.Manager + "," + UserRoles.Trainer)]
+        public JsonResult CalculateCodeReviewRating(CodeReview codeReview)
+        {
+            return Json(new FeedbackBl().CalculateCodeReviewRating(codeReview), JsonRequestBehavior.AllowGet);
         }
     }
 }
