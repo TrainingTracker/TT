@@ -856,7 +856,7 @@ $(document).ready(function() {
                 }
 
                 $.confirm({
-                    title: 'Save wwithout override?',
+                    title: 'Save with generated rating?',
                     content: 'You have not overriden the feedback rating. Do you want to override or save with the system generated rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
@@ -865,15 +865,15 @@ $(document).ready(function() {
                         {
                             text: 'Override',
                             btnClass: 'btn-primary btn-warning',
-                            action: function () {
+                            action: function() {
                                 my.profileVm.isOverridingCalculatedRating(true);
                             }
                         },
                         cancel:
                         {
-                            text: 'Save with system generated rating',
+                            text: 'Save',
                             btnClass: 'btn-primary btn-success',
-                            action: function () {
+                            action: function() {
                                 my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
                             }
                         }
@@ -1242,8 +1242,8 @@ $(document).ready(function() {
         }
 
         var isOverridingCalculatedRating = ko.observable(false);
-        
-        var calculateCodeReviewRating = function () {
+
+        var calculateCodeReviewRating = function() {
             var codeReview = {
                 Id: codeReviewDetails.Id(),
                 Description: codeReviewDetails.Description(),
@@ -1253,7 +1253,7 @@ $(document).ready(function() {
                 Tags: codeReviewDetails.Tags()
             };
 
-            my.userService.calculateCrRating(codeReview, function (crRating) {
+            my.userService.calculateCrRating(codeReview, function(crRating) {
                 if (crRating) {
                     my.profileVm.codeReviewDetails.SystemRating(crRating);
                     if (!isOverridingCalculatedRating()) {
@@ -1402,10 +1402,10 @@ $(document).ready(function() {
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
 
-    my.profileVm.isOverridingCalculatedRating.subscribe(function() {
-            my.profileVm.setRating(my.profileVm.codeReviewDetails.SystemRating());
+    my.profileVm.isOverridingCalculatedRating.subscribe(function(isOverriding) {
+        my.profileVm.setRating(isOverriding ? null : my.profileVm.codeReviewDetails.SystemRating());
     });
-    my.profileVm.codeReviewDetails.SystemRating.subscribe(function (rating) {
+    my.profileVm.codeReviewDetails.SystemRating.subscribe(function(rating) {
         if (my.profileVm.isOverridingCalculatedRating())
             my.profileVm.setRating(rating);
     });
