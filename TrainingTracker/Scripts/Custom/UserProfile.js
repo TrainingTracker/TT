@@ -133,6 +133,7 @@ $(document).ready(function() {
                         my.profileVm.setRating(jsonData.SystemRating);
                     }
                 }
+                
                 codeReviewSelectedTag(0);
             },
 
@@ -1404,10 +1405,6 @@ $(document).ready(function() {
 
     my.profileVm.isOverridingCalculatedRating.subscribe(function(isOverriding) {
         my.profileVm.setRating(isOverriding ? null : my.profileVm.codeReviewDetails.SystemRating());
-    });
-    my.profileVm.codeReviewDetails.SystemRating.subscribe(function(rating) {
-        if (my.profileVm.isOverridingCalculatedRating())
-            my.profileVm.setRating(rating);
     });
 
     var observer = new MutationObserver(function(mutations) {
