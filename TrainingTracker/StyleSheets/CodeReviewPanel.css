@@ -402,3 +402,10 @@ textarea {
     position: absolute;
     right: 0;
 }
+.cr-feedback-rating-preview {
+    margin-right: 2%;
+    width: 50%;
+    position: absolute;
+    right: 0;
+    align-items: flex-end;
+}

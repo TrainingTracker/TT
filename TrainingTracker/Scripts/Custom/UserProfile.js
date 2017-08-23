@@ -127,7 +127,12 @@ $(document).ready(function() {
                 codeReviewDetails.Title(jsonData.Title);
                 codeReviewDetails.Description(jsonData.Description);
                 codeReviewDetails.Tags(jsonData.Tags);
-                calculateCodeReviewRating();
+                if (jsonData.SystemRating) {
+                    my.profileVm.codeReviewDetails.SystemRating(jsonData.SystemRating);
+                    if (!isOverridingCalculatedRating()) {
+                        my.profileVm.setRating(jsonData.SystemRating);
+                    }
+                }
                 codeReviewSelectedTag(0);
             },
 
@@ -681,7 +686,6 @@ $(document).ready(function() {
 
             var finalCallback = function(data) {
                 saveCodeReviewCallback(data);
-                calculateCodeReviewRating();
                 if (typeof (callbackOrToggleTab) == "function") {
                     callbackOrToggleTab(data);
                 }
@@ -846,7 +850,35 @@ $(document).ready(function() {
                     AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
-                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                if (my.profileVm.isOverridingCalculatedRating()) {
+                    my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                    return;
+                }
+
+                $.confirm({
+                    title: 'Save wwithout override?',
+                    content: 'You have not overriden the feedback rating. Do you want to override or save with the system generated rating?',
+                    columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                    useBootstrap: true,
+                    buttons: {
+                        confirm:
+                        {
+                            text: 'Override',
+                            btnClass: 'btn-primary btn-warning',
+                            action: function () {
+                                my.profileVm.isOverridingCalculatedRating(true);
+                            }
+                        },
+                        cancel:
+                        {
+                            text: 'Save with system generated rating',
+                            btnClass: 'btn-primary btn-success',
+                            action: function () {
+                                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                            }
+                        }
+                    }
+                });
             }
         };
 
@@ -1379,8 +1411,8 @@ $(document).ready(function() {
     });
 
     var observer = new MutationObserver(function(mutations) {
-        $('.btn-group.disabled').children('.btn:not(.disabled)').addClass('disabled');
-        $('.btn-group:not(.disabled)').children('.btn.disabled').removeClass('disabled');
+        $('.btn-group.disabled .btn:not(.disabled)').addClass('disabled no-pointer-events');
+        $('.btn-group:not(.disabled) .btn.disabled').removeClass('disabled no-pointer-events');
         var doubleChildren = $('.double-child');
         $.each(doubleChildren, function() {
             var item = $(this);

@@ -343,14 +343,17 @@
                                 <div data-bind="visible: my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 1 " class="feedback-input meta col-xs-12 col-md-5  no-right-margin no-left-margin">
 
                                     <div data-bind="visible: my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.SystemRating()" class="col-xs-12">
-                                        <label class="col-xs-5">System Rating:</label>
-                                        <button class="btn col-xs-6 col-xs-offset-1 no-hover-effect" data-bind=" css: {
-                                                        'btn-danger': my.profileVm.codeReviewDetails.SystemRating() == 1,
-                                                        'btn-warning': my.profileVm.codeReviewDetails.SystemRating() == 2,
-                                                        'btn-primary': my.profileVm.codeReviewDetails.SystemRating() == 3,
-                                                        'btn-success': my.profileVm.codeReviewDetails.SystemRating() == 4
-                                                    },click:function(){my.profileVm.isOverridingCalculatedRating(true);}">
-                                            <span data-bind="text:function(){
+                                        <div class="col-xs-12">
+                                            <label class="col-xs-12 no-padding-left">System Generated Rating:&nbsp;</label>
+                                            <h3 class="col-xs-5 no-margin-top no-margin-bottom no-padding-left text-left">
+                                                <span class="label col-xs-12 text-align-center" data-bind=" css: {
+                                                        'label-danger': my.profileVm.codeReviewDetails.SystemRating() == 1,
+                                                        'label-warning': my.profileVm.codeReviewDetails.SystemRating() == 2,
+                                                        'label-primary': my.profileVm.codeReviewDetails.SystemRating() == 3,
+                                                        'label-success': my.profileVm.codeReviewDetails.SystemRating() == 4,
+                                                        'label-faded': my.profileVm.isOverridingCalculatedRating()
+                                                    },
+                                                text:function(){
                                                 switch(my.profileVm.codeReviewDetails.SystemRating())
                                                 {
                                                     case 1: return 'Slow';
@@ -358,23 +361,24 @@
                                                     case 3: return 'Fast';
                                                     case 4: return 'Exceptional';
                                                 }}()">
-                                            </span>
-                                        </button>
+                                                </span>
+                                            </h3>
+                                            <div class="col-xs-5 pull-right no-padding-right" data-bind="visible: my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.SystemRating()">
+                                                <span class="col-xs-10 no-right-margin no-left-margin text-right">Override?&nbsp;</span>
+                                                <span class="pull-right "><input type="checkbox" data-bind="checked:my.profileVm.isOverridingCalculatedRating" /></span>
 
+                                            </div>
+                                        </div>
                                         @*<button class="btn btn-info" data-bind="click:function(){my.profileVm.isOverridingCalculatedRating(true);}">
                 Override Rating
             </button>*@
                                     </div>
                                     <div class="col-xs-12">
                                         <label class="col-xs-6">Rating:</label>
-                                        <div class="col-xs-6" data-bind="visible: my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.SystemRating()">
-                                            <span class="col-xs-11 no-right-margin no-left-margin text-right">Override?&nbsp;</span>
-                                            <span class="pull-right "><input type="checkbox" data-bind="checked:my.profileVm.isOverridingCalculatedRating" /></span>
-
-                                        </div>
+                                        
                                         <div class="btn-group col-xs-12 col-md-12 no-right-margin"
                                              data-bind="css:{'disabled': !my.profileVm.isOverridingCalculatedRating()
-                                                                              && my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4,
+                                                                              && my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId == 4 && my.profileVm.codeReviewDetails.SystemRating(),
                                                              '':my.profileVm.isOverridingCalculatedRating()
                                                                               || my.profileVm.feedbackPost.FeedbackType().FeedbackTypeId != 4}">
                                             <button data-bind="click: my.profileVm.setRating(1)"
