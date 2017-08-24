@@ -133,7 +133,7 @@ $(document).ready(function() {
                         my.profileVm.setRating(jsonData.SystemRating);
                     }
                 }
-                
+
                 codeReviewSelectedTag(0);
             },
 
@@ -841,7 +841,20 @@ $(document).ready(function() {
             toggleCodeReviewModal(false);
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
+        var ratingText = ko.computed(function () {
 
+            switch (codeReviewDetails.SystemRating()) {
+            case 1:
+                return 'Slow';
+            case 2:
+                return 'Average';
+            case 3:
+                return 'Fast';
+            case 4:
+                return 'Exceptional';
+            }
+            return '';
+        },my.profileVm);
         var submitCodeReview = function() {
             if (validatePost()) {
                 var codeReview = {
@@ -858,13 +871,13 @@ $(document).ready(function() {
 
                 $.confirm({
                     title: 'Save with generated rating?',
-                    content: 'You have not overriden the feedback rating. Do you want to override or save with the system generated rating?',
+                    content: 'System had rated the CR as ' + ratingText() + '. Do you want to go ahead with the system rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
                     buttons: {
                         confirm:
                         {
-                            text: 'Override',
+                            text: 'Override and select new Rating',
                             btnClass: 'btn-primary btn-warning',
                             action: function() {
                                 my.profileVm.isOverridingCalculatedRating(true);
@@ -1345,7 +1358,8 @@ $(document).ready(function() {
             prevCrRatingFilter: prevCrRatingFilter,
             isRatingSelected: isRatingSelected,
             toggleRatingFilter: toggleRatingFilter,
-            isOverridingCalculatedRating: isOverridingCalculatedRating
+            isOverridingCalculatedRating: isOverridingCalculatedRating,
+            ratingText: ratingText
         };
     }();
 
