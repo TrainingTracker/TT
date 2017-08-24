@@ -839,9 +839,10 @@ $(document).ready(function() {
             flushReviewPointsTab();
             toggleTab(0);
             toggleCodeReviewModal(false);
+            setRating(null);
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
-        var ratingText = ko.computed(function () {
+        var ratingText = ko.computed(function() {
 
             switch (codeReviewDetails.SystemRating()) {
             case 1:
@@ -854,7 +855,7 @@ $(document).ready(function() {
                 return 'Exceptional';
             }
             return '';
-        },my.profileVm);
+        }, my.profileVm);
         var submitCodeReview = function() {
             if (validatePost()) {
                 var codeReview = {
@@ -870,25 +871,25 @@ $(document).ready(function() {
                 }
 
                 $.confirm({
-                    title: 'Save with generated rating?',
+                    title: 'Save code review',
                     content: 'System had rated the CR as ' + ratingText() + '. Do you want to go ahead with the system rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
                     buttons: {
                         confirm:
                         {
-                            text: 'Override and select new Rating',
-                            btnClass: 'btn-primary btn-warning',
+                            text: 'Yes',
+                            btnClass: 'btn-primary btn-success',
                             action: function() {
-                                my.profileVm.isOverridingCalculatedRating(true);
+                                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
                             }
                         },
                         cancel:
                         {
-                            text: 'Save',
-                            btnClass: 'btn-primary btn-success',
+                            text: 'No',
+                            btnClass: 'btn-primary btn-warning',
                             action: function() {
-                                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                                my.profileVm.isOverridingCalculatedRating(true);
                             }
                         }
                     }
@@ -897,15 +898,16 @@ $(document).ready(function() {
         };
 
         var flushCodeReviewDetails = function() {
-            codeReviewDetails.Id(0),
-                codeReviewDetails.Edited(false),
-                codeReviewDetails.Deleted(false),
-                codeReviewDetails.Title(""),
-                codeReviewDetails.Description(""),
-                codeReviewDetails.Tags([]),
-                codeReviewDetails.ErrorMessage(""),
-                codeReviewDetails.AddedBy = 0,
-                codeReviewDetails.AddedFor = 0
+            codeReviewDetails.Id(0);
+            codeReviewDetails.Edited(false);
+            codeReviewDetails.Deleted(false);
+            codeReviewDetails.Title("");
+            codeReviewDetails.Description("");
+            codeReviewDetails.Tags([]);
+            codeReviewDetails.ErrorMessage("");
+            codeReviewDetails.AddedBy = 0;
+            codeReviewDetails.AddedFor = 0;
+            codeReviewDetails.SystemRating(null);
         };
 
         var flushReviewPointsTab = function() {
