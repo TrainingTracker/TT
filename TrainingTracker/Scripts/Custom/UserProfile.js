@@ -34,6 +34,12 @@ $(document).ready(function() {
                     { FeedbackTypeId: 7, Description: "Random Review" }
                 ])
             },
+            ratingDictionary = {
+                1: 'Slow',
+                2: 'Average',
+                3: 'Fast',
+                4: 'Exceptional',
+            },
             controls = {
                 skillOption: ko.observable("1"),
                 assignmentOption: ko.observable(1),
@@ -842,20 +848,11 @@ $(document).ready(function() {
             setRating(null);
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
-        var ratingText = ko.computed(function() {
-
-            switch (codeReviewDetails.SystemRating()) {
-            case 1:
-                return 'Slow';
-            case 2:
-                return 'Average';
-            case 3:
-                return 'Fast';
-            case 4:
-                return 'Exceptional';
-            }
-            return '';
+        var submitRatingText = ko.computed(function() {
+            return ratingDictionary[codeReviewDetails.SystemRating()];
         }, my.profileVm);
+
+
         var submitCodeReview = function() {
             if (validatePost()) {
                 var codeReview = {
@@ -865,14 +862,12 @@ $(document).ready(function() {
                     AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
-                if (my.profileVm.isOverridingCalculatedRating()) {
-                    my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
-                    return;
-                }
 
                 $.confirm({
-                    title: 'Submit code review',
-                    content: 'System had rated the CR as ' + ratingText() + '. Do you want to go ahead with the system rating?',
+                    title: 'Submit code review feedback',
+                    content: my.profileVm.isOverridingCalculatedRating()
+                        ? 'Code review feedback will be submitted with the rating <strong>' + ratingDictionary[parseInt(codeReview.Rating)] + '</strong>. Do you want to submit feedback?'
+                        : 'System has rated the CR as <strong>' + submitRatingText() + '</strong>. Do you want to go ahead with the system rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
                     buttons: {
@@ -888,7 +883,7 @@ $(document).ready(function() {
                         {
                             text: 'No',
                             btnClass: 'btn-primary btn-warning'
-                            
+
                         }
                     }
                 });
@@ -1359,7 +1354,7 @@ $(document).ready(function() {
             isRatingSelected: isRatingSelected,
             toggleRatingFilter: toggleRatingFilter,
             isOverridingCalculatedRating: isOverridingCalculatedRating,
-            ratingText: ratingText
+            submitRatingText: submitRatingText
         };
     }();
 
