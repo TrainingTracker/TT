@@ -871,7 +871,7 @@ $(document).ready(function() {
                 }
 
                 $.confirm({
-                    title: 'Save code review',
+                    title: 'Submit code review',
                     content: 'System had rated the CR as ' + ratingText() + '. Do you want to go ahead with the system rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
@@ -887,10 +887,8 @@ $(document).ready(function() {
                         cancel:
                         {
                             text: 'No',
-                            btnClass: 'btn-primary btn-warning',
-                            action: function() {
-                                my.profileVm.isOverridingCalculatedRating(true);
-                            }
+                            btnClass: 'btn-primary btn-warning'
+                            
                         }
                     }
                 });
