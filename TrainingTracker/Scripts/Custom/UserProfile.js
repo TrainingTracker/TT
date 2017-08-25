@@ -714,7 +714,6 @@ $(document).ready(function() {
                 Description: codeReviewDetails.Description(),
                 Title: codeReviewDetails.Title(),
                 IsDeleted: codeReviewDetails.Deleted(),
-                CodeReviewTagId:codeReviewDetails.CodeReviewTagId(),
                 AddedFor: { UserId: my.profileVm.userId },
                 Tags: codeReviewDetails.Tags()
             }
