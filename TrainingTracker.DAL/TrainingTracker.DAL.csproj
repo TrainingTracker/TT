@@ -114,6 +114,15 @@
     <Compile Include="EntityFramework\CourseUserMapping.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\CrRatingCalcConfig.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CrRatingCalcRangeConfig.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CrRatingCalcWeightConfig.cs">
+      <DependentUpon>TrainingTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\EmailAlertSubscription.cs">
       <DependentUpon>TrainingTracker.tt</DependentUpon>
     </Compile>

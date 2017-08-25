@@ -12,28 +12,26 @@ namespace TrainingTracker.DAL.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Team
+    public partial class CrRatingCalcConfig
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Team()
+        public CrRatingCalcConfig()
         {
-            this.LearningMaps = new HashSet<LearningMap>();
-            this.Users = new HashSet<User>();
-            this.CrRatingCalcConfigs = new HashSet<CrRatingCalcConfig>();
+            this.CrRatingCalcRangeConfigs = new HashSet<CrRatingCalcRangeConfig>();
+            this.CrRatingCalcWeightConfigs = new HashSet<CrRatingCalcWeightConfig>();
         }
     
+        public int Id { get; set; }
         public int TeamId { get; set; }
-        public string TeamName { get; set; }
-        public bool IsDeleted { get; set; }
-        public System.DateTime DateInserted { get; set; }
-        public int WeeklySurveyId { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<int> LastModifiedById { get; set; }
+        public Nullable<System.DateTime> LastModifiedOn { get; set; }
     
+        public virtual Team Team { get; set; }
+        public virtual User LastModifiedBy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LearningMap> LearningMaps { get; set; }
-        public virtual Survey Survey { get; set; }
+        public virtual ICollection<CrRatingCalcRangeConfig> CrRatingCalcRangeConfigs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CrRatingCalcConfig> CrRatingCalcConfigs { get; set; }
+        public virtual ICollection<CrRatingCalcWeightConfig> CrRatingCalcWeightConfigs { get; set; }
     }
 }

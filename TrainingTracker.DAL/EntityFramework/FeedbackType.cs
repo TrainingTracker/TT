@@ -18,6 +18,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public FeedbackType()
         {
             this.Feedbacks = new HashSet<Feedback>();
+            this.CrRatingCalcRangeConfigs = new HashSet<CrRatingCalcRangeConfig>();
         }
     
         public int FeedbackTypeId { get; set; }
@@ -26,5 +27,7 @@ namespace TrainingTracker.DAL.EntityFramework
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Feedback> Feedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcRangeConfig> CrRatingCalcRangeConfigs { get; set; }
     }
 }

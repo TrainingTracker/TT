@@ -50,6 +50,9 @@ namespace TrainingTracker.DAL.EntityFramework
             this.UserSkillMappings1 = new HashSet<UserSkillMapping>();
             this.CodeReviewMetaDatas = new HashSet<CodeReviewMetaData>();
             this.CodeReviewMetaDatas1 = new HashSet<CodeReviewMetaData>();
+            this.CrRatingCalcConfigs = new HashSet<CrRatingCalcConfig>();
+            this.CrRatingCalcRangeConfigs = new HashSet<CrRatingCalcRangeConfig>();
+            this.CrRatingCalcWeightConfigs = new HashSet<CrRatingCalcWeightConfig>();
         }
     
         public int UserId { get; set; }
@@ -137,5 +140,11 @@ namespace TrainingTracker.DAL.EntityFramework
         public virtual ICollection<CodeReviewMetaData> CodeReviewMetaDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReviewMetaData> CodeReviewMetaDatas1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcConfig> CrRatingCalcConfigs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcRangeConfig> CrRatingCalcRangeConfigs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcWeightConfig> CrRatingCalcWeightConfigs { get; set; }
     }
 }

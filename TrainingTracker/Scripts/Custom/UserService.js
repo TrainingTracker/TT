@@ -115,6 +115,9 @@
         getPrevCrPointData:function (traineeId,ratingFilter,callback) {
             return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/FetchPrevCodeReviewData", {traineeId:traineeId, ratingFilter: ratingFilter }, callback);
         },
+        calculateCrRating: function(codeReview,callback) {  
+            return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/CalculateCodeReviewRating", codeReview, callback);
+        },
         submitCodeReviewFeedback: function (codeReview, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);
         },

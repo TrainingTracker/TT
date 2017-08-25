@@ -1306,3 +1306,9 @@ label.lbl-data-info {
 .code-review-review-points-description pre{
     width:93%;
 }
+.label.label-faded {
+    opacity: 0.65;
+}
+.no-pointer-events{
+    pointer-events: none;
+}

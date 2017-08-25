@@ -111,6 +111,7 @@ namespace TrainingTracker.BLL
             if(codeReview != null)
             {
                 codeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(codeReview, true);
+                codeReview.SystemRating = new FeedbackBl().CalculateCodeReviewRating(codeReview);
             }
            
 

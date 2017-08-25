@@ -133,6 +133,7 @@ namespace TrainingTracker.BLL
         public CodeReview SubmitCodeReviewMetaData(CodeReview codeReview)
         {
             CodeReviewMetaData crMetaData;
+
             // existing
             if (codeReview.Id > 0)
             {
@@ -142,6 +143,7 @@ namespace TrainingTracker.BLL
                 crMetaData.Description = codeReview.Description;
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
+
 
                 List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x => !x.IsDeleted).ToList());
 
@@ -169,6 +171,7 @@ namespace TrainingTracker.BLL
                                  Description = codeReview.Description,
                                  IsDiscarded = false,
                                  ProjectName = codeReview.Title,
+                                 SystemRating = CalculateCodeReviewRating(codeReview)
                              };
                 foreach (var tag in codeReview.Tags)
                 {
@@ -190,11 +193,14 @@ namespace TrainingTracker.BLL
 
             UnitOfWork.Commit();
 
-            //get new data in case of newly added tags
-            codeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(crMetaData.CodeReviewMetaDataId));
+            //get new data
+            var newCodeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetCodeReviewWithAllData(crMetaData.CodeReviewMetaDataId));
 
-            codeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(codeReview.Id, false);
-            return codeReview;
+            newCodeReview.CodeReviewPreviewHtml = FetchCodeReviewPreview(crMetaData.CodeReviewMetaDataId, false);
+
+            newCodeReview.SystemRating = CalculateCodeReviewRating(codeReview);
+
+            return newCodeReview;
         }
 
         public CodeReview SubmitCodeReviewPoint(CodeReviewPoint codeReviewPoint)
@@ -204,7 +210,6 @@ namespace TrainingTracker.BLL
             codeReviewPoint.CodeReviewTagId = codeReviewPoint.CodeReviewTagId == 0
                                                   ? null
                                                   : codeReviewPoint.CodeReviewTagId;
-
             // existing
             if (codeReviewPoint.PointId > 0)
             {
@@ -245,12 +250,13 @@ namespace TrainingTracker.BLL
 
             //return FetchCodeReviewPreview(codeReviewPoint.CodeReviewMetadataId,false);
 
-            CodeReview updatedCodeReviewPoint = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
+            CodeReview updatedCodeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
                                                                                               .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId));
 
-            updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
+            updatedCodeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReview, false);
+            updatedCodeReview.SystemRating = CalculateCodeReviewRating(updatedCodeReview);
 
-            return updatedCodeReviewPoint;
+            return updatedCodeReview;
         }
 
         public string FetchCodeReviewPreview(int codeReviewMetaId, bool isFeedback)
@@ -282,6 +288,7 @@ namespace TrainingTracker.BLL
             if (!(feedbackId > 0)) return false;
 
             codeReviewMetaData.FeedbackId = feedback.FeedbackId = feedbackId;
+            codeReviewMetaData.SystemRating = CalculateCodeReviewRating(codeReviewDetailsFromCore);
 
             UnitOfWork.Commit();
 
@@ -316,7 +323,7 @@ namespace TrainingTracker.BLL
                                                                                               .GetCodeReviewWithAllData(codeReviewId));
 
             updatedCodeReviewPoint.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReviewPoint, false);
-
+            updatedCodeReviewPoint.SystemRating = CalculateCodeReviewRating(updatedCodeReviewPoint);
             return updatedCodeReviewPoint;
         }
 
@@ -396,6 +403,51 @@ namespace TrainingTracker.BLL
                                         })
                           .Where(cr => cr.Tags.Any() && cr.Tags.Any(tag => tag.ReviewPoints.Any()))
                           .ToList();
+        }
+
+        public int? CalculateCodeReviewRating(CodeReview codeReview)
+        {
+            var total = 0f;
+            var score = 0f;
+
+            var ratingConfig = UnitOfWork.CodeReviewRepository.GetCrRatingCalcConfig(codeReview.AddedFor.UserId).FirstOrDefault();
+            // var traineeId
+            if (ratingConfig == null)
+                return null;
+
+            try
+            {
+                var reviewPoints = codeReview.Tags
+                                             .SelectMany(t => t.ReviewPoints??new List<CodeReviewPoint>())
+                                             .ToList();
+
+                if (!reviewPoints.Any())
+                    return null;
+
+                foreach (var reviewPoint in reviewPoints)
+                {
+                    total++;
+                    score += ratingConfig.CrRatingCalcWeightConfigs
+                                         .Where(w => w.ReviewPointTypeId == reviewPoint.Rating)
+                                         .Select(w => w.Weight)
+                                         .FirstOrDefault();
+                }
+
+                var finalScore = score/total;
+                var maxScore = ratingConfig.CrRatingCalcRangeConfigs.Max(r => r.RangeMax);
+
+                return ratingConfig.CrRatingCalcRangeConfigs
+                                   .OrderBy(r => r.RangeMin)
+                                   .Last(r => finalScore >= r.RangeMin
+                                              && (finalScore < r.RangeMax
+                                                  || (finalScore == maxScore)))
+                                   .FeedbackTypeId;
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                return null;
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using AutoMapper;
 using TrainingTracker.Common.Utility;
 
 
@@ -21,6 +22,8 @@ namespace TrainingTracker
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             SqlUtility.ConnectionString =
                 System.Configuration.ConfigurationManager.ConnectionStrings["TTConStr"].ConnectionString;
+
+            Mapper.Initialize(cfg => cfg.AddProfile<BLL.ModelMapper.BLLMappingProfile>());
         }
 
         private void Application_Error()

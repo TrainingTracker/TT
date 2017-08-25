@@ -56,6 +56,7 @@
           <Property Name="AddedFor" Type="int" Nullable="false" />
           <Property Name="IsDiscarded" Type="bit" />
           <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SystemRating" Type="int" />
         </EntityType>
         <EntityType Name="CodeReviewPoints">
           <Key>
@@ -148,6 +149,41 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="StartedOn" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="CompletedOn" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="CrRatingCalcConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="int" />
+          <Property Name="LastModifiedOn" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="CrRatingCalcRangeConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedbackTypeId" Type="int" Nullable="false" />
+          <Property Name="RangeMin" Type="float" Nullable="false" />
+          <Property Name="RangeMax" Type="float" Nullable="false" />
+          <Property Name="CrRatingCalcConfigId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="int" />
+          <Property Name="LastModifiedOn" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="CrRatingCalcWeightConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReviewPointTypeId" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="CrRatingCalcConfigId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="int" />
+          <Property Name="LastModifiedOn" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="EmailAlertSubscription">
           <Key>
@@ -946,6 +982,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_crcalcconf_team">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="CrRatingCalcConfig" Type="Self.CrRatingCalcConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcConfig">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crcalcconf_user">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CrRatingCalcConfig" Type="Self.CrRatingCalcConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcConfig">
+              <PropertyRef Name="LastModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_crratingcalcconfig">
+          <End Role="CrRatingCalcConfig" Type="Self.CrRatingCalcConfig" Multiplicity="1" />
+          <End Role="CrRatingCalcRangeConfig" Type="Self.CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrRatingCalcConfig">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="CrRatingCalcConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_feedbacktype">
+          <End Role="FeedbackType" Type="Self.FeedbackType" Multiplicity="1" />
+          <End Role="CrRatingCalcRangeConfig" Type="Self.CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedbackType">
+              <PropertyRef Name="FeedbackTypeId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="FeedbackTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_user">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CrRatingCalcRangeConfig" Type="Self.CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="LastModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcweightconfig_crratingcalcconfig">
+          <End Role="CrRatingCalcConfig" Type="Self.CrRatingCalcConfig" Multiplicity="1" />
+          <End Role="CrRatingCalcWeightConfig" Type="Self.CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrRatingCalcConfig">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="CrRatingCalcConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcweightconfig_reviewpointtype">
+          <End Role="CodeReviewPointType" Type="Self.CodeReviewPointType" Multiplicity="1" />
+          <End Role="CrRatingCalcWeightConfig" Type="Self.CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReviewPointType">
+              <PropertyRef Name="CodeReviewPointTypeId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="ReviewPointTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcweightconfig_user">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CrRatingCalcWeightConfig" Type="Self.CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="LastModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmailAlertSubscription_User_SubscribedBy">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="EmailAlertSubscription" Type="Self.EmailAlertSubscription" Multiplicity="*" />
@@ -1644,6 +1776,9 @@
           <EntitySet Name="CourseSubtopic" EntityType="Self.CourseSubtopic" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="CourseSubtopicDiscussion" EntityType="Self.CourseSubtopicDiscussion" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="CourseUserMapping" EntityType="Self.CourseUserMapping" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="CrRatingCalcConfig" EntityType="Self.CrRatingCalcConfig" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="CrRatingCalcRangeConfig" EntityType="Self.CrRatingCalcRangeConfig" Schema="tt_capitalized" store:Type="Tables" />
+          <EntitySet Name="CrRatingCalcWeightConfig" EntityType="Self.CrRatingCalcWeightConfig" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="EmailAlertSubscription" EntityType="Self.EmailAlertSubscription" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="EmailContent" EntityType="Self.EmailContent" Schema="tt_capitalized" store:Type="Tables" />
           <EntitySet Name="EmailRecipient" EntityType="Self.EmailRecipient" Schema="tt_capitalized" store:Type="Tables" />
@@ -1786,6 +1921,38 @@
           <AssociationSet Name="FK_CourseUserMapping_User" Association="Self.FK_CourseUserMapping_User">
             <End Role="User" EntitySet="User" />
             <End Role="CourseUserMapping" EntitySet="CourseUserMapping" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crcalcconf_team" Association="Self.fk_crcalcconf_team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crcalcconf_user" Association="Self.fk_crcalcconf_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_crratingcalcconfig" Association="Self.fk_crratingcalcrangeconfig_crratingcalcconfig">
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfig" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_feedbacktype" Association="Self.fk_crratingcalcrangeconfig_feedbacktype">
+            <End Role="FeedbackType" EntitySet="FeedbackType" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_user" Association="Self.fk_crratingcalcrangeconfig_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcweightconfig_crratingcalcconfig" Association="Self.fk_crratingcalcweightconfig_crratingcalcconfig">
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfig" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcweightconfig_reviewpointtype" Association="Self.fk_crratingcalcweightconfig_reviewpointtype">
+            <End Role="CodeReviewPointType" EntitySet="CodeReviewPointType" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcweightconfig_user" Association="Self.fk_crratingcalcweightconfig_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfig" />
           </AssociationSet>
           <AssociationSet Name="FK_EmailAlertSubscription_User_SubscribedBy" Association="Self.FK_EmailAlertSubscription_User_SubscribedBy">
             <End Role="User" EntitySet="User" />
@@ -2405,6 +2572,41 @@
             <End Role="Skill" EntitySet="Skills" />
             <End Role="CodeReviewTag" EntitySet="CodeReviewTags" />
           </AssociationSet>
+          <EntitySet Name="CrRatingCalcConfigs" EntityType="TrainingTrackerModel.CrRatingCalcConfig" />
+          <EntitySet Name="CrRatingCalcRangeConfigs" EntityType="TrainingTrackerModel.CrRatingCalcRangeConfig" />
+          <EntitySet Name="CrRatingCalcWeightConfigs" EntityType="TrainingTrackerModel.CrRatingCalcWeightConfig" />
+          <AssociationSet Name="fk_crratingcalcweightconfig_reviewpointtype" Association="TrainingTrackerModel.fk_crratingcalcweightconfig_reviewpointtype">
+            <End Role="CodeReviewPointType" EntitySet="CodeReviewPointTypes" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crcalcconf_team" Association="TrainingTrackerModel.fk_crcalcconf_team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crcalcconf_user" Association="TrainingTrackerModel.fk_crcalcconf_user">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_crratingcalcconfig" Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_crratingcalcconfig">
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfigs" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcweightconfig_crratingcalcconfig" Association="TrainingTrackerModel.fk_crratingcalcweightconfig_crratingcalcconfig">
+            <End Role="CrRatingCalcConfig" EntitySet="CrRatingCalcConfigs" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_feedbacktype" Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_feedbacktype">
+            <End Role="FeedbackType" EntitySet="FeedbackTypes" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcrangeconfig_user" Association="TrainingTrackerModel.fk_crratingcalcrangeconfig_user">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CrRatingCalcRangeConfig" EntitySet="CrRatingCalcRangeConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_crratingcalcweightconfig_user" Association="TrainingTrackerModel.fk_crratingcalcweightconfig_user">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CrRatingCalcWeightConfig" EntitySet="CrRatingCalcWeightConfigs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Assignment">
           <Key>
@@ -2622,6 +2824,7 @@
           <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Sequence" Type="Int32" />
           <NavigationProperty Name="Feedbacks" Relationship="TrainingTrackerModel.fk_Feedback_FeedbackType" FromRole="FeedbackType" ToRole="Feedback" />
+          <NavigationProperty Name="CrRatingCalcRangeConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_feedbacktype" FromRole="FeedbackType" ToRole="CrRatingCalcRangeConfig" />
         </EntityType>
         <EntityType Name="ForumDiscussionCategory">
           <Key>
@@ -3049,6 +3252,7 @@
           <NavigationProperty Name="LearningMaps" Relationship="TrainingTrackerModel.FK_LearningMap_Team" FromRole="Team" ToRole="LearningMap" />
           <NavigationProperty Name="Survey" Relationship="TrainingTrackerModel.FK_Team_Survey" FromRole="Team" ToRole="Survey" />
           <NavigationProperty Name="Users" Relationship="TrainingTrackerModel.Fk_User_Team" FromRole="Team" ToRole="User" />
+          <NavigationProperty Name="CrRatingCalcConfigs" Relationship="TrainingTrackerModel.fk_crcalcconf_team" FromRole="Team" ToRole="CrRatingCalcConfig" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -3105,6 +3309,9 @@
           <Property Name="EmployeeId" Type="String" FixedLength="false" MaxLength="50" Unicode="false" />
           <NavigationProperty Name="CodeReviewMetaDatas" Relationship="TrainingTrackerModel.FK_CodeReviewMetaData_AddedBy" FromRole="User" ToRole="CodeReviewMetaData" />
           <NavigationProperty Name="CodeReviewMetaDatas1" Relationship="TrainingTrackerModel.FK_CodeReviewMetaData_AddedFor" FromRole="User" ToRole="CodeReviewMetaData" />
+          <NavigationProperty Name="CrRatingCalcConfigs" Relationship="TrainingTrackerModel.fk_crcalcconf_user" FromRole="User" ToRole="CrRatingCalcConfig" />
+          <NavigationProperty Name="CrRatingCalcRangeConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_user" FromRole="User" ToRole="CrRatingCalcRangeConfig" />
+          <NavigationProperty Name="CrRatingCalcWeightConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_user" FromRole="User" ToRole="CrRatingCalcWeightConfig" />
         </EntityType>
         <EntityType Name="UserNotificationMapping">
           <Key>
@@ -4068,6 +4275,7 @@
           <NavigationProperty Name="User1" Relationship="TrainingTrackerModel.FK_CodeReviewMetaData_AddedFor" FromRole="CodeReviewMetaData" ToRole="User" />
           <NavigationProperty Name="Feedback" Relationship="TrainingTrackerModel.FK_CodeReviewMetaData_Feedback" FromRole="CodeReviewMetaData" ToRole="Feedback" />
           <NavigationProperty Name="CodeReviewTags" Relationship="TrainingTrackerModel.FK_CodeReviewTag_CodeReviewMetaData" FromRole="CodeReviewMetaData" ToRole="CodeReviewTag" />
+          <Property Name="SystemRating" Type="Int32" />
         </EntityType>
         <EntityType Name="CodeReviewPoint">
           <Key>
@@ -4095,6 +4303,7 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CodeReviewPoints" Relationship="TrainingTrackerModel.FK_CodeReviewPoints_CodeReviewPointType" FromRole="CodeReviewPointType" ToRole="CodeReviewPoint" />
+          <NavigationProperty Name="CrRatingCalcWeightConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_reviewpointtype" FromRole="CodeReviewPointType" ToRole="CrRatingCalcWeightConfig" />
         </EntityType>
         <EntityType Name="CodeReviewTag">
           <Key>
@@ -4190,6 +4399,147 @@
             </Principal>
             <Dependent Role="CodeReviewTag">
               <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CrRatingCalcConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="Int32" />
+          <Property Name="LastModifiedOn" Type="DateTime" />
+          <NavigationProperty Name="Team" Relationship="TrainingTrackerModel.fk_crcalcconf_team" FromRole="CrRatingCalcConfig" ToRole="Team" />
+          <NavigationProperty Name="LastModifiedBy" Relationship="TrainingTrackerModel.fk_crcalcconf_user" FromRole="CrRatingCalcConfig" ToRole="User" />
+          <NavigationProperty Name="CrRatingCalcRangeConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_crratingcalcconfig" FromRole="CrRatingCalcConfig" ToRole="CrRatingCalcRangeConfig" />
+          <NavigationProperty Name="CrRatingCalcWeightConfigs" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_crratingcalcconfig" FromRole="CrRatingCalcConfig" ToRole="CrRatingCalcWeightConfig" />
+        </EntityType>
+        <EntityType Name="CrRatingCalcRangeConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeedbackTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RangeMin" Type="Single" Nullable="false" />
+          <Property Name="RangeMax" Type="Single" Nullable="false" />
+          <Property Name="CrRatingCalcConfigId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="Int32" />
+          <Property Name="LastModifiedOn" Type="DateTime" />
+          <NavigationProperty Name="CrRatingCalcConfig" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_crratingcalcconfig" FromRole="CrRatingCalcRangeConfig" ToRole="CrRatingCalcConfig" />
+          <NavigationProperty Name="FeedbackType" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_feedbacktype" FromRole="CrRatingCalcRangeConfig" ToRole="FeedbackType" />
+          <NavigationProperty Name="LastModifiedBy" Relationship="TrainingTrackerModel.fk_crratingcalcrangeconfig_user" FromRole="CrRatingCalcRangeConfig" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CrRatingCalcWeightConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewPointTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Single" Nullable="false" />
+          <Property Name="CrRatingCalcConfigId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastModifiedById" Type="Int32" />
+          <Property Name="LastModifiedOn" Type="DateTime" />
+          <NavigationProperty Name="CodeReviewPointType" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_reviewpointtype" FromRole="CrRatingCalcWeightConfig" ToRole="CodeReviewPointType" />
+          <NavigationProperty Name="CrRatingCalcConfig" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_crratingcalcconfig" FromRole="CrRatingCalcWeightConfig" ToRole="CrRatingCalcConfig" />
+          <NavigationProperty Name="LastModifiedBy" Relationship="TrainingTrackerModel.fk_crratingcalcweightconfig_user" FromRole="CrRatingCalcWeightConfig" ToRole="User" />
+        </EntityType>
+        <Association Name="fk_crratingcalcweightconfig_reviewpointtype">
+          <End Type="TrainingTrackerModel.CodeReviewPointType" Role="CodeReviewPointType" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcWeightConfig" Role="CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReviewPointType">
+              <PropertyRef Name="CodeReviewPointTypeId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="ReviewPointTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crcalcconf_team">
+          <End Type="TrainingTrackerModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcConfig" Role="CrRatingCalcConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcConfig">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crcalcconf_user">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcConfig" Role="CrRatingCalcConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcConfig">
+              <PropertyRef Name="LastModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_crratingcalcconfig">
+          <End Type="TrainingTrackerModel.CrRatingCalcConfig" Role="CrRatingCalcConfig" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcRangeConfig" Role="CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrRatingCalcConfig">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="CrRatingCalcConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcweightconfig_crratingcalcconfig">
+          <End Type="TrainingTrackerModel.CrRatingCalcConfig" Role="CrRatingCalcConfig" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcWeightConfig" Role="CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrRatingCalcConfig">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="CrRatingCalcConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_feedbacktype">
+          <End Type="TrainingTrackerModel.FeedbackType" Role="FeedbackType" Multiplicity="1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcRangeConfig" Role="CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedbackType">
+              <PropertyRef Name="FeedbackTypeId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="FeedbackTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcrangeconfig_user">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcRangeConfig" Role="CrRatingCalcRangeConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcRangeConfig">
+              <PropertyRef Name="LastModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_crratingcalcweightconfig_user">
+          <End Type="TrainingTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TrainingTrackerModel.CrRatingCalcWeightConfig" Role="CrRatingCalcWeightConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CrRatingCalcWeightConfig">
+              <PropertyRef Name="LastModifiedById" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4864,6 +5214,7 @@
           <EntitySetMapping Name="CodeReviewMetaDatas">
             <EntityTypeMapping TypeName="TrainingTrackerModel.CodeReviewMetaData">
               <MappingFragment StoreEntitySet="CodeReviewMetaData">
+                <ScalarProperty Name="SystemRating" ColumnName="SystemRating" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="IsDiscarded" ColumnName="IsDiscarded" />
                 <ScalarProperty Name="AddedFor" ColumnName="AddedFor" />
@@ -4909,6 +5260,44 @@
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CodeReviewMetaDataId" ColumnName="CodeReviewMetaDataId" />
                 <ScalarProperty Name="CodeReviewTagId" ColumnName="CodeReviewTagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CrRatingCalcConfigs">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.CrRatingCalcConfig">
+              <MappingFragment StoreEntitySet="CrRatingCalcConfig">
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CrRatingCalcRangeConfigs">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.CrRatingCalcRangeConfig">
+              <MappingFragment StoreEntitySet="CrRatingCalcRangeConfig">
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CrRatingCalcConfigId" ColumnName="CrRatingCalcConfigId" />
+                <ScalarProperty Name="RangeMax" ColumnName="RangeMax" />
+                <ScalarProperty Name="RangeMin" ColumnName="RangeMin" />
+                <ScalarProperty Name="FeedbackTypeId" ColumnName="FeedbackTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CrRatingCalcWeightConfigs">
+            <EntityTypeMapping TypeName="TrainingTrackerModel.CrRatingCalcWeightConfig">
+              <MappingFragment StoreEntitySet="CrRatingCalcWeightConfig">
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CrRatingCalcConfigId" ColumnName="CrRatingCalcConfigId" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ReviewPointTypeId" ColumnName="ReviewPointTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

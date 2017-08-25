@@ -1,9 +1,5 @@
 ﻿/// <reference path="D:\Projects\Mindfire\TT\TrainingTracker\Views/Shared/_CodeReviewPanel.cshtml" />
 $(document).ready(function() {
-    //$(document).on('click','.prev-review-filter li',function() {
-    //    $(this).toggleClass('active');
-    //});
-
     my.profileVm = function() {
         var userId = my.queryParams["userId"],
             queryStringFeedbackId = my.queryParams["feedbackId"],
@@ -37,6 +33,12 @@ $(document).ready(function() {
                     { FeedbackTypeId: 6, Description: "Course Feedback" },
                     { FeedbackTypeId: 7, Description: "Random Review" }
                 ])
+            },
+            ratingDictionary = {
+                1: 'Slow',
+                2: 'Average',
+                3: 'Fast',
+                4: 'Exceptional',
             },
             controls = {
                 skillOption: ko.observable("1"),
@@ -131,7 +133,15 @@ $(document).ready(function() {
                 codeReviewDetails.Title(jsonData.Title);
                 codeReviewDetails.Description(jsonData.Description);
                 codeReviewDetails.Tags(jsonData.Tags);
-                setSelectedTagId(0);
+              
+                if (jsonData.SystemRating) {
+                    my.profileVm.codeReviewDetails.SystemRating(jsonData.SystemRating);
+                    if (!isOverridingCalculatedRating()) {
+                        my.profileVm.setRating(jsonData.SystemRating);
+                    }
+                }
+
+                codeReviewSelectedTag(0);
             },
 
             loadPlotData = function() {
@@ -197,7 +207,7 @@ $(document).ready(function() {
                             validationMessageArray.push("Please select a rating to add feedback");
                             result = false;
                         }
-                    } 
+                    }
                 }
                 validationMessageArray.length ? my.profileVm.validationMessage(validationMessageArray.join('.\n') + '.') : my.profileVm.validationMessage("");
                 return result;
@@ -590,6 +600,7 @@ $(document).ready(function() {
             Tags: ko.observableArray([]),
             ErrorMessage: ko.observable(""),
             AutoSaveDateTimeStamp: ko.observable(),
+            SystemRating: ko.observable(0),
             AddedBy: 0,
             AddedFor: 0,
         };
@@ -836,8 +847,13 @@ $(document).ready(function() {
             flushReviewPointsTab();
             toggleTab(0);
             toggleCodeReviewModal(false);
+            setRating(null);
             codeReviewDetails.AutoSaveDateTimeStamp(moment(new Date()).format('Do MMMM YYYY, h:mm:ss a'));
         }
+        var submitRatingText = ko.computed(function() {
+            return ratingDictionary[codeReviewDetails.SystemRating()];
+        }, my.profileVm);
+
 
         var submitCodeReview = function() {
             if (validatePost()) {
@@ -848,20 +864,47 @@ $(document).ready(function() {
                     AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
-                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                if (my.profileVm.isOverridingCalculatedRating()) {
+                    my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                    return;
+                }
+
+                $.confirm({
+                    title: 'Submit code review',
+                    content: 'System has rated the CR as <strong>' + submitRatingText() + '</strong>. Do you want to go ahead with the system rating?',
+                    columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
+                    useBootstrap: true,
+                    buttons: {
+                        confirm:
+                        {
+                            text: 'Yes',
+                            btnClass: 'btn-primary btn-success',
+                            action: function() {
+                                my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                            }
+                        },
+                        cancel:
+                        {
+                            text: 'No',
+                            btnClass: 'btn-primary btn-warning'
+
+                        }
+                    }
+                });
             }
         };
 
         var flushCodeReviewDetails = function() {
-            codeReviewDetails.Id(0),
-                codeReviewDetails.Edited(false),
-                codeReviewDetails.Deleted(false),
-                codeReviewDetails.Title(""),
-                codeReviewDetails.Description(""),
-                codeReviewDetails.Tags([]),
-                codeReviewDetails.ErrorMessage(""),
-                codeReviewDetails.AddedBy = 0,
-                codeReviewDetails.AddedFor = 0
+            codeReviewDetails.Id(0);
+            codeReviewDetails.Edited(false);
+            codeReviewDetails.Deleted(false);
+            codeReviewDetails.Title("");
+            codeReviewDetails.Description("");
+            codeReviewDetails.Tags([]);
+            codeReviewDetails.ErrorMessage("");
+            codeReviewDetails.AddedBy = 0;
+            codeReviewDetails.AddedFor = 0;
+            codeReviewDetails.SystemRating(null);
         };
 
         var flushReviewPointsTab = function() {
@@ -973,7 +1016,7 @@ $(document).ready(function() {
 
         var toggleCodeReviewModal = function(openModal) {
             if (openModal) {
-                  loadPrevCrPointData();
+                loadPrevCrPointData();
             }
 
             isCodeReviewModalOpen(openModal);
@@ -1211,7 +1254,7 @@ $(document).ready(function() {
                     } else {
                         errorMessage += ', ';
                     }
-                    errorMessage +='<span class= "badge">'+ tag.Skill.Name.toUpperCase()+'</span>';
+                    errorMessage += '<span class= "badge">' + tag.Skill.Name.toUpperCase() + '</span>';
                 }
             });
             if (errorMessage.length > 0) {
@@ -1219,6 +1262,29 @@ $(document).ready(function() {
             }
             return errorMessage;
         }
+
+        var isOverridingCalculatedRating = ko.observable(false);
+
+        var calculateCodeReviewRating = function() {
+            var codeReview = {
+                Id: codeReviewDetails.Id(),
+                Description: codeReviewDetails.Description(),
+                Title: codeReviewDetails.Title(),
+                IsDeleted: codeReviewDetails.Deleted(),
+                AddedFor: { UserId: my.profileVm.userId },
+                Tags: codeReviewDetails.Tags()
+            };
+
+            my.userService.calculateCrRating(codeReview, function(crRating) {
+                if (crRating) {
+                    my.profileVm.codeReviewDetails.SystemRating(crRating);
+                    if (!isOverridingCalculatedRating()) {
+                        my.profileVm.setRating(crRating);
+                    }
+                }
+            });
+        };
+
         return {
             userId: userId,
             getUserCallback: getUserCallback,
@@ -1299,7 +1365,9 @@ $(document).ready(function() {
             commonTags: commonTags,
             prevCrRatingFilter: prevCrRatingFilter,
             isRatingSelected: isRatingSelected,
-            toggleRatingFilter: toggleRatingFilter
+            toggleRatingFilter: toggleRatingFilter,
+            isOverridingCalculatedRating: isOverridingCalculatedRating,
+            submitRatingText: submitRatingText
         };
     }();
 
@@ -1357,8 +1425,13 @@ $(document).ready(function() {
         my.profileVm.getCodeReviewPreview(!isOpen);
     });
 
+    my.profileVm.isOverridingCalculatedRating.subscribe(function(isOverriding) {
+        my.profileVm.setRating(isOverriding ? null : my.profileVm.codeReviewDetails.SystemRating());
+    });
 
     var observer = new MutationObserver(function(mutations) {
+        $('.btn-group.disabled .btn:not(.disabled)').addClass('disabled no-pointer-events');
+        $('.btn-group:not(.disabled) .btn.disabled').removeClass('disabled no-pointer-events');
         var doubleChildren = $('.double-child');
         $.each(doubleChildren, function() {
             var item = $(this);
@@ -1372,7 +1445,8 @@ $(document).ready(function() {
 
     var config = {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true
     };
 
     observer.observe(document.body, config);
