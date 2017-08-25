@@ -864,6 +864,7 @@ $(document).ready(function() {
 
                 if (my.profileVm.isOverridingCalculatedRating()) {
                     my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                    return;
                 }
 
                 $.confirm({
