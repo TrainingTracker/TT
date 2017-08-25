@@ -184,9 +184,8 @@
                             <label class="danger">*</label>
                             <select class="form-control input-sm " data-bind="options: my.profileVm.codeReviewDetails.Tags,
                                            optionsText: function(tag){return  tag.Skill.Name;},
-                                           optionsValue: function(tag){return tag.Skill.SkillId},
-                                           value: my.profileVm.codeReviewSelectedTag,
-                                           event: {'change':  my.profileVm.setSelectedTagId(my.profileVm.codeReviewSelectedTag()) }"></select>
+                                           optionsValue: function(tag){return tag.CodeReviewTagId},
+                                           value:$root[0].reviewPointsDetails.CodeReviewTagId"></select>
                         </div>
                         <div class="feedback-input meta  col-xs-12  no-padding-left no-padding-right">
                             <h4 class="mute">REVIEW POINT</h4>
