@@ -862,7 +862,7 @@ $(document).ready(function() {
                     AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
-                if (!my.profileVm.isOverridingCalculatedRating()) {
+                if (my.profileVm.isOverridingCalculatedRating()) {
                     my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
                 }
 
