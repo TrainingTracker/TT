@@ -862,12 +862,13 @@ $(document).ready(function() {
                     AddedBy: { UserId: my.profileVm.currentUser.UserId }
                 };
 
+                if (!my.profileVm.isOverridingCalculatedRating()) {
+                    my.userService.submitCodeReviewFeedback(codeReview, addFeedbackCallback);
+                }
 
                 $.confirm({
-                    title: 'Submit code review feedback',
-                    content: my.profileVm.isOverridingCalculatedRating()
-                        ? 'Code review feedback will be submitted with the rating <strong>' + ratingDictionary[parseInt(codeReview.Rating)] + '</strong>. Do you want to submit feedback?'
-                        : 'System has rated the CR as <strong>' + submitRatingText() + '</strong>. Do you want to go ahead with the system rating?',
+                    title: 'Submit code review',
+                    content: 'System has rated the CR as <strong>' + submitRatingText() + '</strong>. Do you want to go ahead with the system rating?',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
                     buttons: {
