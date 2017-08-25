@@ -1,6 +1,3 @@
-
-USE tt_capitalized;
-
 INSERT INTO CrRatingCalcConfig (TeamId)
 SELECT TeamId FROM Team WHERE TeamId IS NOT NULL;
 
