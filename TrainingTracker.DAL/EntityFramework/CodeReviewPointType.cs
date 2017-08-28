@@ -18,6 +18,7 @@ namespace TrainingTracker.DAL.EntityFramework
         public CodeReviewPointType()
         {
             this.CodeReviewPoints = new HashSet<CodeReviewPoint>();
+            this.CrRatingCalcWeightConfigs = new HashSet<CrRatingCalcWeightConfig>();
         }
     
         public int CodeReviewPointTypeId { get; set; }
@@ -29,5 +30,7 @@ namespace TrainingTracker.DAL.EntityFramework
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReviewPoint> CodeReviewPoints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrRatingCalcWeightConfig> CrRatingCalcWeightConfigs { get; set; }
     }
 }

@@ -1,24 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using TrainingTracker.BLL.Base;
-using TrainingTracker.Common.Entity;
-using TrainingTracker.Common.ViewModel;
-using TrainingTracker.DAL.EntityFramework;
-using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net;
-using System.Dynamic;
-using Newtonsoft.Json;
+using TrainingTracker.BLL.Base;
+using TrainingTracker.Common.Constants;
+using TrainingTracker.Common.Entity;
+using TrainingTracker.Common.Utility;
+using TrainingTracker.Common.ViewModel;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
-using Project = TrainingTracker.Common.Entity.Project;
-using Session = TrainingTracker.Common.Entity.Session;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
-using TrainingTracker.Common.Utility;
-using TrainingTracker.Common.Constants;
-
 namespace TrainingTracker.BLL
 {
     /// <summary>
@@ -104,10 +96,22 @@ namespace TrainingTracker.BLL
             CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager 
                                         ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
                                         :null;
+            var commonTags = UnitOfWork.CodeReviewRepository
+                .GetCommonlyUsedTags(userId, 5)
+                .Select(skill =>new CodeReviewTag
+                        {
+                            CodeReviewTagId = 0,
+                            Skill = new Skill
+                                    {
+                                      Name  = skill.Name,
+                                      SkillId = skill.SkillId
+                                    }
+                        }).ToList();
 
             if(codeReview != null)
             {
                 codeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(codeReview, true);
+                codeReview.SystemRating = new FeedbackBl().CalculateCodeReviewRating(codeReview);
             }
            
 
@@ -123,6 +127,7 @@ namespace TrainingTracker.BLL
                 TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
                 AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
                 SavedCodeReview = codeReview ,
+                CommonTags = commonTags
               //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
             };
         }
@@ -307,5 +312,6 @@ namespace TrainingTracker.BLL
           }
           return null;
         }
+
     }
 }                                                                                               

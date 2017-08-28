@@ -2,6 +2,9 @@
 
 
 $(document).ready(function () {
+    $(document.body).tooltip({ selector: '[data-toggle=tooltip]' ,container:'body',placement:'auto'});
+
+
     my.rootUrl = $("#linkRootUrl").attr("href");
     my.gpsUrl = 'http://ourgoalplan.com';
     if (my.rootUrl == "/") {

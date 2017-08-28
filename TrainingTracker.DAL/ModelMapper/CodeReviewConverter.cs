@@ -19,13 +19,19 @@ namespace TrainingTracker.DAL.ModelMapper
             try
             {
                 return new CodeReview
-                {
-                    Id = sourceCodeReview.CodeReviewMetaDataId,
-                    Description = sourceCodeReview.Description,
-                    Title = sourceCodeReview.ProjectName,
-                    IsDeleted = sourceCodeReview.IsDiscarded ?? false,
-                    Tags = CodeReviewTagConverter.ConvertListFromCore(sourceCodeReview.CodeReviewTags.Where(x=>!x.IsDeleted).ToList())
-                };
+                       {
+                           Id = sourceCodeReview.CodeReviewMetaDataId,
+                           Description = sourceCodeReview.Description,
+                           Title = sourceCodeReview.ProjectName,
+                           IsDeleted = sourceCodeReview.IsDiscarded ?? false,
+                           CreatedOn = sourceCodeReview.CreatedOn,
+                           Feedback = sourceCodeReview.Feedback != null ? new FeedbackConverter().ConvertFromCore(sourceCodeReview.Feedback) : null,
+                           AddedFor = new Common.Entity.User
+                                     {
+                                         UserId = sourceCodeReview.AddedFor
+                                     },
+                           Tags = CodeReviewTagConverter.ConvertListFromCore(sourceCodeReview.CodeReviewTags.Where(x => !x.IsDeleted).ToList())
+                       };
             }
            catch(Exception ex)
             {

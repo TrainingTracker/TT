@@ -57,6 +57,6 @@ namespace TrainingTracker.Common.ViewModel
 
         public CodeReview SavedCodeReview { get; set; }
 
-
+        public List<CodeReviewTag> CommonTags { get; set; }
     }
 }
