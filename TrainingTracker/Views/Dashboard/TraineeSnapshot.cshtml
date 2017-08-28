@@ -1,0 +1,211 @@
+﻿@{
+    ViewBag.Title = "Trainee Snapshot";
+}
+
+@section Styles
+{
+  <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/TraineeSnapshotViewStyles")
+}
+
+
+<div class="container custom-margin-top-10 col-xs-12">
+    <h3 class="text-center bg-primary col-xs-12"> Trainee Snapshot</h3>
+    <div class="trainee-cards">
+        <!-- ko foreach:users-->
+        <div class="trainee-card jumbotron">
+            <label data-bind="text:User.FirstName + ' '+ User.LastName"></label>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+
+@*<div class="container-fluid custom-margin-top-10">
+    <div class="col-xs-12 no-padding-left no-padding-right">
+        <div class=" col-xs-12  ">
+            <div id="divHeaderWrapper" class="col-xs-12 no-left-margin no-right-margin " >
+                <div id="traineeDashboardHeader" class="col-xs-12 no-left-margin no-right-margin" >
+                    <div id="divTraineeSnapshotMainHeader" class="col-xs-12 spacer-top-bottom font-bold"><span>TRAINEE SNAPSHOT</span></div>
+                    <div class="col-xs-3 no-left-margin no-right-margin margin-top spacer-top-bottom"><span style="margin-left: 15px;">Trainee</span></div>
+                    <div class="col-xs-2 no-left-margin no-right-margin margin-top spacer-top-bottom" style="padding-left: 7px;">
+                        <div class="col-xs-4 no-padding-left no-padding-right">
+                             <span>WF</span>
+                             <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { tittle: 'Pending Weekly Feedback', HtmlTag: 'false', ClickSticky: 'false', ClickClose: 'true' }"></span>                   
+                        </div>
+                        <div class="col-xs-4 no-padding-left no-padding-right">
+                            <span>CR</span>
+                            <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { tittle: 'Code Review in last 2 week', HtmlTag: 'false', ClickSticky: 'false', ClickClose: 'true' }"></span>                   
+                        </div>
+                        <div class="col-xs-4 no-padding-left no-padding-right">
+                            <span>Assign.</span>
+                            <span class="glyphicon glyphicon-question-sign" style="display: inline-block;zoom:0.75;top:-15px;color:black;" data-bind="wzTooltip: { HtmlId: 'ulLegendAssignment', HtmlTag: 'true', ClickSticky: 'true', ClickClose: 'true' }"></span>                   
+                             
+                            <ul style="display:none; " id="ulLegendAssignment" class=" list-unstyled" data-bind="visible: false">
+                                <li>
+                                    <span class="feedback-success" ></span>
+                                    <span>No Pending Assignments</span>
+                                </li>
+                                <li>
+                                    <span class="feedback-pending" ></span>
+                                    <span>Pending Assignments</span>
+                                </li>
+                                <li>
+                                    <span style="margin-top: 5px;text-align: center"  class="rating-Fast" >  --  </span>
+                                    <span>No courses Assigned</span>
+                                </li>
+                            </ul>
+                        </div>
+                   </div>
+                    <div class="col-xs-7 no-left-margin no-right-margin spacer-top-bottom">
+                        <div><span class="col-xs-12 no-left-margin no-right-margin" style="border-bottom: 2px solid #ccc; text-align: center;">Last Feedbacks</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Type</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Rating</span>
+                            <span class="col-xs-4 no-left-margin no-right-margin" >Added By</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 no-left-margin no-right-margin" data-bind="foreach: users">
+                <div class="dashboard-user-row clearfix" data-bind="attr:{id:'divUserId_' + User.UserId}" >
+                    <div class="user-collapser no-left-margin no-right-margin collapsed " data-toggle="collapse" data-bind=" attr: { 'data-target': '#divCollapsableUserId_' + User.UserId }">
+                        <div class="col-xs-12 no-left-margin no-right-margin ">
+                            <span class="pull-right" data-bind="visible: RemainingFeedbacks.length > 1">
+                                <i class="glyphicon glyphicon-chevron-down custom-glyph"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="dashboard-users col-xs-12 spacer-top-bottom " >
+                        <div class="col-xs-3 no-left-margin no-right-margin">
+                           
+                          <a data-bind="attr:{href:my.rootUrl + 'Profile/UserProfile?userId='+ User.UserId}" >  <span class="col-xs-11 col-xs-offset-1 no-left-margin no-right-margin " data-bind="    text: User.FirstName + ' ' + User.LastName" style="color:blue"></span></a>
+                           
+                        </div>                      
+                        <div class="col-xs-2 no-left-margin no-right-margin">
+                            <div class="col-xs-4 no-padding-left no-padding-right">
+                                <div data-bind="if: LastWeekFeedbackAdded === false" style="margin-left: 6%;">
+                                     <span data-bind="event: { mouseover: function () { my.dashboardVm.loadWeekForFeedbackNotPresent(WeekForFeedbackNotPresent) } }, text: WeekForFeedbackNotPresent.length, wzTooltip: { HtmlId: 'listNoFeedBack', HtmlTag: 'true' }" class="feedback-pending badge"></span>
+
+                                     <ul style="display:none; " id="listNoFeedBack" class="feedback-pending-contents list-unstyled" data-bind="foreach: my.dashboardVm.eachUserPendingFeedbackWeek(), visible: false">
+                                         <li data-bind="text: $data"></li>
+                                     </ul>
+                                 </div>
+                                 <div data-bind="if: LastWeekFeedbackAdded === true">
+                                     <div data-bind="if: my.dashboardVm.getFeedback('1', 'Weekly', User.UserId) === true">
+                                         <div
+                                             data-bind="css: {
+                                                             'rating-slow': my.dashboardVm.feedback.Rating == 1,
+                                                             'rating-Average': my.dashboardVm.feedback.Rating == 2,
+                                                             'rating-Fast': my.dashboardVm.feedback.Rating == 3,
+                                                             'rating-Exceptional': my.dashboardVm.feedback.Rating == 4
+                                                         }">
+                                             <!-- ko foreach: new Array(my.dashboardVm.feedback.Rating)  -->
+                                             <span class="glyphicon glyphicon-star" 
+                                                   style="display: inline-block;"></span>
+                                             <!-- /ko -->
+                                        
+                                         </div>
+                                         
+                                     </div>
+
+                                 </div>
+                            </div>                     
+                            <div class="col-xs-4 no-padding-left no-padding-right" >
+                                <span  data-bind="css: { 'feedback-pending': IsCodeReviewAdded == false, 'feedback-success': IsCodeReviewAdded == true }"></span>
+                            </div>
+                            <div class="col-xs-4 no-padding-left no-padding-right">
+                                <div style="margin-left: 6%;">
+                                     <!-- ko if: AllAssignedCourses.length > 0 && my.dashboardVm.loadTotalAssignmentPendingCount(AllAssignedCourses) > 0 -->                                  
+                                    <span data-bind="text: my.dashboardVm.loadTotalAssignmentPendingCount(AllAssignedCourses), wzTooltip: { HtmlId: 'listPendingAssignment_' + User.UserId, HtmlTag: 'true' }" class="feedback-pending badge"></span>
+                                    <ul style="display:none; " class="feedback-pending-contents list-unstyled" data-bind="attr: { Id: 'listPendingAssignment_' + User.UserId }, foreach: my.dashboardVm.eachUserPendingAssignment(AllAssignedCourses), visible: false">
+                                        <li class="pending-course" >
+                                            <span class="pending-course-name" data-bind="text:Name"></span>
+                                            <span>
+                                                <span style="">
+                                                    <i class="fa fa-exclamation" style="transform: scale(1.5); color: orange"></i>
+                                                </span>
+                                                <span>Pending Reviews :</span>   
+                                                <span class="pending-course-count" data-bind="text:PendingCount"></span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <!-- /ko -->
+                                    <!-- ko if: AllAssignedCourses.length == 0 && AnyActiveCourse == false  -->   
+                                    <span style="text-align: center;margin-left: 8%; " class="rating-Fast" >  --  </span>
+                                    <!-- /ko -->
+                                    <!-- ko if: AllAssignedCourses.length == 0 &&  AnyActiveCourse == true -->   
+                                    <span class="feedback-success" >  </span>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-xs-7 no-left-margin no-right-margin">
+                                                   
+                                <div data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === true">
+                                    
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 2 ">Skill Feedback</span>  
+                                    <span class="col-xs-4 no-padding-left no-padding-right " data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 3 ">Assignment</span>
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 4 ">Code Review</span>  
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>  
+                                    <span class="col-xs-4 no-padding-left no-padding-right" data-bind="visible: my.dashboardVm.feedback.FeedbackType.FeedbackTypeId == 7 ">Random Review</span>  
+                                    <div class="col-xs-4 no-padding-left no-padding-right" data-bind="css: {
+                                                        'rating-slow': my.dashboardVm.feedback.Rating == 1,
+                                                        'rating-Average': my.dashboardVm.feedback.Rating == 2,
+                                                        'rating-Fast': my.dashboardVm.feedback.Rating == 3,
+                                                        'rating-Exceptional': my.dashboardVm.feedback.Rating == 4
+                                                    }">
+                                        <!-- ko foreach: new Array(my.dashboardVm.feedback.Rating)  -->
+                                        <span class="glyphicon glyphicon-star"
+                                              style="display: inline-block;"></span><!-- /ko -->
+                                   
+                                    </div>
+                                    <span class=" col-xs-4 no-padding-left  no-padding-right" data-bind="text: my.dashboardVm.feedback.AddedBy.FullName"></span>
+                                </div>
+                                <div class="col-xs-offset-5 " data-bind="if: my.dashboardVm.getFeedback('1', 'All', User.UserId) === false" style="color:red">
+                                    No Feedbacks
+                                </div>
+                            </div>
+                       
+                        </div>
+                    <div class="col-xs-12   collapse no-left-margin no-right-margin"  data-bind="attr: { 'id': 'divCollapsableUserId_' + User.UserId }" >
+                        
+                        <div class="col-xs-3 no-left-margin no-right-margin"></div>
+                        <div class="col-xs-2 no-left-margin no-right-margin">
+                       
+                        </div>
+                        <div class="col-xs-7 no-left-margin no-right-margin">
+                            <div class="col-xs-12 no-padding-left no-padding-right" data-bind="if: my.dashboardVm.getFeedback('5', 'All', User.UserId) === true">
+                                <div class="col-xs-12 no-padding-left no-padding-right" data-bind="foreach: my.dashboardVm.feedback">
+                                     <span class="col-xs-4 spacer-top-bottom  no-padding-left no-padding-right" data-bind="visible: FeedbackType.FeedbackTypeId == 2 ">Skill Feedback</span>  
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible :FeedbackType.FeedbackTypeId == 3 ">Assignment</span>
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right" data-bind="visible: FeedbackType.FeedbackTypeId == 4 ">Code Review</span>   
+                                    <span class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right " data-bind="visible: FeedbackType.FeedbackTypeId == 5 ">Weekly Feedback</span>            
+                                    <span class="col-xs-4 spacer-top-bottom  no-padding-left no-padding-right" data-bind="visible: FeedbackType.FeedbackTypeId == 7 ">Random Review</span>                                 
+                                    <div class="col-xs-4  spacer-top-bottom no-padding-left no-padding-right" data-bind="css: {
+                                                        'rating-slow': Rating == 1,
+                                                        'rating-Average': Rating == 2,
+                                                        'rating-Fast': Rating == 3,
+                                                        'rating-Exceptional': Rating == 4
+                                                    }">
+                                        <!-- ko foreach: new Array(Rating)  -->
+                                        <span class="glyphicon glyphicon-star"
+                                              style="display: inline-block;"></span>
+                                        <!-- /ko -->
+                                   
+                                    </div>
+                                    <div class="col-xs-4 spacer-top-bottom no-padding-left no-padding-right name-trainee">
+                                        <span class="" data-bind="text:AddedBy.FullName"></span></div>
+                                </div> 
+                            </div>
+                        </div>                       
+                    </div>
+                </div>               
+            </div>
+        </div>
+    
+    </div>
+</div>*@
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/DashboardViewScripts")
+}

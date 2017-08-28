@@ -16,7 +16,8 @@ namespace TrainingTracker.Controllers
             {
                 if (HttpContext.User.IsInRole(UserRoles.Administrator) || HttpContext.User.IsInRole(UserRoles.Manager) || HttpContext.User.IsInRole(UserRoles.Trainer))
                 {
-                    return View("Dashboard");
+                    //return View("Dashboard");
+                    return View("TraineeSnapshot");
                 }
                 return RedirectToAction("UserProfile", "Profile", new { userId = CurrentUser.UserId });
             }
@@ -26,6 +27,10 @@ namespace TrainingTracker.Controllers
             }
         }
 
+        public ActionResult Dashboard()
+        {
+            return View("Dashboard");
+        }
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
         public ActionResult GetDashboardData()
         {

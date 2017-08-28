@@ -76,6 +76,9 @@ namespace TrainingTracker
                "~/Scripts/Custom/Dashboard.js",
                "~/Scripts/wz_tooltip.js"
                ));
+            bundles.Add(new ScriptBundle("~/bundles/TraineeSnapshotViewScripts").Include(
+                "~/Scripts/Custom/TraineeSnapshot.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/SessionViewScripts").Include(
               "~/Scripts/bootstrap-datepicker.min.js",
@@ -201,7 +204,9 @@ namespace TrainingTracker
             bundles.Add(new StyleBundle("~/bundles/DashboardViewStyles").Include(
                 "~/StyleSheets/Dashboard.css"
                 ));
-
+            bundles.Add(new StyleBundle("~/bundles/TraineeSnapshotViewStyles").Include(
+                "~/StyleSheets/TraineeSnapshot.css"
+                ));
             bundles.Add(new StyleBundle("~/bundles/SessionViewStyles").Include(
 
                "~/Content/DatePicker/bootstrap-datepicker3.css",

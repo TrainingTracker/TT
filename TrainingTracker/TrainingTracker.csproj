@@ -303,6 +303,7 @@
     <Content Include="Scripts\Custom\sessionService.js" />
     <Content Include="Scripts\Custom\Shared\MirrorReport.Js" />
     <Content Include="Scripts\Custom\Shared\MirrorSummary.js" />
+    <Content Include="Scripts\Custom\TraineeSnapshot.js" />
     <Content Include="Scripts\Custom\Unauthorized.js" />
     <Content Include="Scripts\Custom\UserProfile.js" />
     <Content Include="Scripts\Custom\UserService.js" />
@@ -380,6 +381,7 @@
     <Content Include="StyleSheets\Session.css" />
     <Content Include="StyleSheets\simple-sidebar.css" />
     <Content Include="StyleSheets\SurveyWizard.css" />
+    <Content Include="StyleSheets\TraineeSnapshot.css" />
     <Content Include="StyleSheets\UserSetting.css" />
     <Content Include="StyleSheets\Video-js.css" />
     <Content Include="Uploads\CourseIcon\DefaultCourse.jpg" />
@@ -428,6 +430,7 @@
     <Content Include="Views\Login\GPSLogin.cshtml" />
     <Content Include="Views\Mirror\PrintHandler.cshtml" />
     <Content Include="Views\Shared\_CodeReviewPanel.cshtml" />
+    <Content Include="Views\Dashboard\TraineeSnapshot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
