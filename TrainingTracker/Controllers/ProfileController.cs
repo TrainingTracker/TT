@@ -64,7 +64,7 @@ namespace TrainingTracker.Controllers
         {
             int userId;
             bool status = false;
-            status = new UserBl().AddUser(userData , out userId);
+            status = new UserBl().AddUser(userData ,CurrentUser.UserId , out userId);
             var data = new
             {
                 userId = userId ,

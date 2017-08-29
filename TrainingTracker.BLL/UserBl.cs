@@ -8,6 +8,8 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.Common.ViewModel;
+using TrainingTracker.DAL.EntityFramework;
+using CodeReviewTag = TrainingTracker.Common.Entity.CodeReviewTag;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
@@ -18,17 +20,29 @@ namespace TrainingTracker.BLL
     /// </summary>
     public class UserBl : BusinessBase
     {
-
         /// <summary>
         /// Calls stored procedure which adds user.
         /// </summary>
         /// <param name="userData">User data object.</param>
+        /// <param name="managerId">Id of manager adding.</param>
         /// <param name="userId">Out parameter created UserId.</param>
         /// <returns>True if added.</returns>
-        public bool AddUser(User userData, out int userId)
+        public bool AddUser(User userData, int managerId, out int userId)
         {
             userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
-            return UserDataAccesor.AddUser(userData, out userId);
+            var isUserAdded= UserDataAccesor.AddUser(userData, out userId) ;
+            
+            if (isUserAdded)
+            {
+                UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(new DAL.EntityFramework.EmailAlertSubscription
+                                                                {
+                                                                    SubscribedByUserId = managerId,
+                                                                    SubscribedForUserId = userId
+                                                                });
+                UnitOfWork.Commit();
+            }
+
+            return isUserAdded;
         }
 
         /// <summary>
@@ -39,7 +53,32 @@ namespace TrainingTracker.BLL
         public bool UpdateUser(User userData)
         {
             userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
-            return UserDataAccesor.UpdateUser(userData);
+            var isUserUpdated = UserDataAccesor.UpdateUser(userData);
+
+            try
+            {
+                if (isUserUpdated)
+                {
+                    var subscriptions = UnitOfWork.EmailAlertSubscriptionRepository
+                                                  .GetAllSubscribedMentors(userData.UserId
+                                                  ,includeDeleted:true);
+
+                    subscriptions.ForEach(s =>
+                                          {
+                                              s.IsDeleted = userData.IsActive;
+                                              UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
+                                          });
+                    UnitOfWork.Commit();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                isUserUpdated = false;
+            }
+
+            return isUserUpdated;
         }
 
         /// <summary>
