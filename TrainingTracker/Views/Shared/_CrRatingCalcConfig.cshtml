@@ -1,0 +1,22 @@
+﻿<div style="display: none" data-bind="visible: my.editCrSystemRatingConfigVm.isVisible">
+    <div class="panel" id="notificationPanel">
+
+        <div class="panel-heading">
+            <span class="panel-title">Set System Rating Configuration</span>
+        </div>
+        <div class="panel-body">
+            @if (HttpContext.Current.User.IsInRole("Administrator"))
+            {
+                <select data-bind="options:my.editCrSystemRatingConfigVm.teams,
+                                   optionsText:'TeamName',
+                                   value:my.editCrSystemRatingConfigVm.selectedTeam"></select>
+            }
+        </div>
+        <div class="panel-footer">
+            <button data-bind="click: my.editCrSystemRatingConfigVm.saveConfigSettings"
+                    type="button" class="btn btn-sm btn-primary col-sm-offset-10">
+                Save
+            </button>
+        </div>
+    </div>
+</div>

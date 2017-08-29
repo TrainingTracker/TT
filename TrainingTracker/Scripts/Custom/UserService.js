@@ -1,4 +1,4 @@
-﻿$(document).ready(function (my) {
+﻿$(document).ready(function(my) {
     "use strict";
     my.userService = {
         createUser: function(user, callback) {
@@ -85,53 +85,60 @@
         getAllActiveUsersPromise: function() {
             return my.ajaxService.ajaxGetDeffered(my.rootUrl + "/Profile/GetActiveUsers", null);
         },
-        getAllSkills : function() {
+        getAllSkills: function() {
             return my.ajaxService.ajaxGetDeffered(my.rootUrl + "/Profile/GetAllSkills", null);
         },
-        getMembersUnderLead : function(callback) {
+        getMembersUnderLead: function(callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetMembersUnderLead", null, callback);
         },
-        importGPSUser : function(callback) {
-            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/ImportGPSUser", null , callback);
-        } ,
-        syncGPSUsers: function (callback) {
+        importGPSUser: function(callback) {
+            return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/ImportGPSUser", null, callback);
+        },
+        syncGPSUsers: function(callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SyncGPSUsers", null, callback);
         },
-        getAllDesignation: function (callback) {
+        getAllDesignation: function(callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/GetAllDesignation", null, callback);
         },
-        getUserDetailsWithFiltersPromise: function (userId) {
+        getUserDetailsWithFiltersPromise: function(userId) {
             return my.ajaxService.ajaxGetDefferedCustomLoader(my.rootUrl + "/Profile/GetUserByUserId?userId=" + userId, null);
         },
-        addUpdateCodeReviewDetailsWithPromise: function (codeReview) {
+        addUpdateCodeReviewDetailsWithPromise: function(codeReview) {
             return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewMetaData", codeReview);
         },
-        addUpdateTagPointsWithPromise: function (codeReview) {
+        addUpdateTagPointsWithPromise: function(codeReview) {
             return my.ajaxService.ajaxPostDefferedCustomLoader(my.rootUrl + "/Profile/SubmitCodeReviewPoint", codeReview);
         },
-        getCodeReviewPreview: function (codeReviewId,isFeedback,callback) {
+        getCodeReviewPreview: function(codeReviewId, isFeedback, callback) {
             return my.ajaxService.ajaxGetJson(my.rootUrl + "/Profile/FetchCodeReviewPreview?codeReviewId=" + codeReviewId + "&isFeedback=" + isFeedback, null, callback);
         },
-        getPrevCrPointData:function (traineeId,ratingFilter,callback) {
-            return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/FetchPrevCodeReviewData", {traineeId:traineeId, ratingFilter: ratingFilter }, callback);
+        getPrevCrPointData: function(traineeId, ratingFilter, callback) {
+            return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/FetchPrevCodeReviewData", { traineeId: traineeId, ratingFilter: ratingFilter }, callback);
         },
-        calculateCrRating: function(codeReview,callback) {  
+        calculateCrRating: function(codeReview, callback) {
             return my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/CalculateCodeReviewRating", codeReview, callback);
         },
-        submitCodeReviewFeedback: function (codeReview, callback) {
+        submitCodeReviewFeedback: function(codeReview, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/SubmitCodeReviewFeedback", codeReview, callback);
         },
 
-         discardCodeReviewFeedback: function (codeReviewId, callback) {
-             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardCodeReviewFeedback?codeReviewId="+codeReviewId, null, callback);
-         },
+        discardCodeReviewFeedback: function(codeReviewId, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardCodeReviewFeedback?codeReviewId=" + codeReviewId, null, callback);
+        },
 
-         discardTagFromCodeReviewFeedback: function (codeReviewId,codeReviewTagId, callback) {
-             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardTagFromCodeReviewFeedback?codeReviewId=" + codeReviewId + "&codeReviewTagId=" + codeReviewTagId, null, callback);
-         },
+        discardTagFromCodeReviewFeedback: function(codeReviewId, codeReviewTagId, callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/DiscardTagFromCodeReviewFeedback?codeReviewId=" + codeReviewId + "&codeReviewTagId=" + codeReviewTagId, null, callback);
+        },
 
-         addCategory: function (category, callback) {
+        addCategory: function(category, callback) {
             my.ajaxService.ajaxPostJson(my.rootUrl + "/Profile/AddCategory", category, callback);
+        },
+        getAllTeams: function(callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + "/Setting/GetTeams", null, callback);
+        },
+        getCrRatingConfig: function(team, callback) {
+            var data = { teamId: team ? team.TeamId : null };
+            my.ajaxService.ajaxPostJson(my.rootUrl + '/Setting/GetCrRatingConfig', data, callback);
         }
     };
 }(my));

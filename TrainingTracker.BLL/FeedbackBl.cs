@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
@@ -448,6 +449,15 @@ namespace TrainingTracker.BLL
                 LogUtility.ErrorRoutine(ex);
                 return null;
             }
+        }
+
+        public Common.Entity.CrRatingCalcConfig GetCrRatingConfig(int teamId)
+        {
+            return
+                Mapper.Map<DAL.EntityFramework.CrRatingCalcConfig
+                    , Common.Entity.CrRatingCalcConfig>(UnitOfWork.CodeReviewRepository
+                                                                  .GetCrRatingCalcConfigForTeam(teamId)
+                                                                  .FirstOrDefault());
         }
     }
 }

@@ -1,51 +1,68 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function() {
 
-    my.userSettingVm = function () {
+    my.userSettingVm = function() {
 //        var requestedSettingName = my.queryParams["settingName"]
         var selectedSetting = ko.observable("");
 
         var markAsSelected = function(selectedSettingName) {
-            selectedSetting(selectedSettingName);
+            openSettingPanel(selectedSettingName);
         }
 
-        var openSettingPanel = function () {
-            
-            var requestedSettingName = my.queryParams["settingName"];
-            if (requestedSettingName == undefined || requestedSettingName == "MyProfile") {
-                selectedSetting("MyProfile");
-                my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
-                my.addUserVm.openUserProfile();
+        var openSettingPanel = function(settingName) {
+
+            var requestedSettingName = settingName||my.queryParams["settingName"];
+
+            switch (requestedSettingName) {
+                case 'ManageUsers':
+                {
+                    selectedSetting("ManageUsers");
+                    my.notificationSettingVm.closeNotificationSetting();
+                    my.memberDetailsVm.closeGpsUserSetting();
+                    my.addUserVm.openAllUsersProfile();
+                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    break;
+                }
+                case 'Notification':
+                {
+                    selectedSetting("Notification");
+                    my.addUserVm.closeDialogue();
+                    my.memberDetailsVm.closeGpsUserSetting();
+                    my.notificationSettingVm.openNotificationSetting();
+                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    break;
+                }
+                case 'GPSMembers':
+                {
+                    selectedSetting("GPSMembers");
+                    my.notificationSettingVm.closeNotificationSetting();
+                    my.memberDetailsVm.getMembersUnderLead();
+                    my.memberDetailsVm.getAllDesignation();
+                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    break;
+                }
+                case 'EditCrSystemRatingConfig':
+                {
+                    selectedSetting("EditCrSystemRatingConfig");
+                    my.notificationSettingVm.closeNotificationSetting();
+                    my.memberDetailsVm.closeGpsUserSetting();
+                    my.addUserVm.closeDialogue();
+                    my.editCrSystemRatingConfigVm.getRatingConfig();
+                    break;
+                }
+                case 'MyProfile':
+                default:
+                {
+                    selectedSetting("MyProfile");
+                    my.notificationSettingVm.closeNotificationSetting();
+                    my.memberDetailsVm.closeGpsUserSetting();
+                    my.addUserVm.openUserProfile();
+                    my.editCrSystemRatingConfigVm.isVisible(false);
+                }
             }
-            else if (requestedSettingName == "ManageUsers") {
-                selectedSetting("ManageUsers");
-                my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
-                my.addUserVm.openAllUsersProfile();
-            }
-            else if (requestedSettingName == "Notification") {
-                selectedSetting("Notification");
-                my.addUserVm.closeDialogue();
-                my.memberDetailsVm.closeGpsUserSetting();
-                my.notificationSettingVm.openNotificationSetting();
-            }
-            else if (requestedSettingName == "GPSMembers") {
-                selectedSetting("GPSMembers");
-                my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.getMembersUnderLead();
-                my.memberDetailsVm.getAllDesignation();
-            }
-            else {
-                selectedSetting("MyProfile");
-                my.notificationSettingVm.closeNotificationSetting();
-                my.memberDetailsVm.closeGpsUserSetting();
-                my.addUserVm.openUserProfile();
-            }        
-            ko.applyBindings(my.userSettingVm);
-            notifyStyle();
+           
         }
 
-        var notifyStyle = function () {
+        var notifyStyle = function() {
             $.notify.addStyle('customAlert', {
                 html: "<div data-notify-text /div>",
                 classes: {
@@ -73,10 +90,15 @@
             });
         }
         return {
-            openSettingPanel : openSettingPanel,
+            openSettingPanel: openSettingPanel,
             selectedSetting: selectedSetting,
-            markAsSelected: markAsSelected
+            markAsSelected: markAsSelected,
+            initialise: function() {
+                openSettingPanel();
+                ko.applyBindings(my.userSettingVm);
+                notifyStyle();
+            }
         }
     }();
-    my.userSettingVm.openSettingPanel();
+    my.userSettingVm.initialise();
 });

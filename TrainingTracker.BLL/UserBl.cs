@@ -8,6 +8,7 @@ using TrainingTracker.Common.Constants;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.Common.ViewModel;
+using TrainingTracker.DAL.DataAccess;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
@@ -311,6 +312,11 @@ namespace TrainingTracker.BLL
               return SkillDataAccesor.GetAllSkillsForApp();
           }
           return null;
+        }
+
+        public List<Team> GetAllTeams()
+        {
+            return  TeamDataAccesor.GetAllTeam();
         }
 
     }

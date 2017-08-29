@@ -83,11 +83,19 @@ namespace TrainingTracker.DAL.Repositories
         public IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId)
         {
             return _context.Users
-                           .First(u => u.UserId == 25)
+                           .First(u => u.UserId == traineeId)
                            .Team
                            .CrRatingCalcConfigs
                            .AsQueryable()
 						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
+        }
+        public IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfigForTeam(int teamId)
+        {
+            return _context.Teams
+                           .First(t => t.TeamId == teamId)
+                           .CrRatingCalcConfigs
+                           .AsQueryable()
+                           .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
         }
     }
 }

@@ -217,7 +217,6 @@
                     getAllActiveUsersCallback(response);
                 }
             }
-
         return {
             currentUser: currentUser,
             getAllActiveUsersPromise : getAllActiveUsersPromise,
