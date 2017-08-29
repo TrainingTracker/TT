@@ -139,6 +139,9 @@
         getCrRatingConfig: function(team, callback) {
             var data = { teamId: team ? team.TeamId : null };
             my.ajaxService.ajaxPostJson(my.rootUrl + '/Setting/GetCrRatingConfig', data, callback);
+        },
+        updateCrRatingConfig: function (data,callback) {
+            my.ajaxService.ajaxPostJson(my.rootUrl + '/Setting/UpdateCrRatingConfig', data, callback);
         }
     };
 }(my));

@@ -10,6 +10,7 @@ using TrainingTracker.DAL.EntityFramework;
 using CodeReviewPoint = TrainingTracker.Common.Entity.CodeReviewPoint;
 using CodeReviewTag = TrainingTracker.Common.Entity.CodeReviewTag;
 using Course = TrainingTracker.Common.Entity.Course;
+using CrRatingCalcConfig = TrainingTracker.Common.Entity.CrRatingCalcConfig;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using FeedbackType = TrainingTracker.Common.Enumeration.FeedbackType;
 using Project = TrainingTracker.Common.Entity.Project;
@@ -145,7 +146,6 @@ namespace TrainingTracker.BLL
                 crMetaData.IsDiscarded = codeReview.IsDeleted;
                 crMetaData.ProjectName = codeReview.Title;
 
-
                 List<CodeReviewTag> existingTags = CodeReviewTagConverter.ConvertListFromCore(crMetaData.CodeReviewTags.Where(x => !x.IsDeleted).ToList());
 
                 foreach (var tag in codeReview.Tags)
@@ -252,7 +252,7 @@ namespace TrainingTracker.BLL
             //return FetchCodeReviewPreview(codeReviewPoint.CodeReviewMetadataId,false);
 
             CodeReview updatedCodeReview = CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository
-                                                                                              .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId));
+                                                                                         .GetCodeReviewWithAllData(codeReviewPoint.CodeReviewMetadataId));
 
             updatedCodeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(updatedCodeReview, false);
             updatedCodeReview.SystemRating = CalculateCodeReviewRating(updatedCodeReview);
@@ -419,7 +419,7 @@ namespace TrainingTracker.BLL
             try
             {
                 var reviewPoints = codeReview.Tags
-                                             .SelectMany(t => t.ReviewPoints??new List<CodeReviewPoint>())
+                                             .SelectMany(t => t.ReviewPoints ?? new List<CodeReviewPoint>())
                                              .ToList();
 
                 if (!reviewPoints.Any())
@@ -451,13 +451,34 @@ namespace TrainingTracker.BLL
             }
         }
 
-        public Common.Entity.CrRatingCalcConfig GetCrRatingConfig(int teamId)
+        public CrRatingCalcConfig GetCrRatingConfig(int trainerId)
         {
             return
                 Mapper.Map<DAL.EntityFramework.CrRatingCalcConfig
-                    , Common.Entity.CrRatingCalcConfig>(UnitOfWork.CodeReviewRepository
-                                                                  .GetCrRatingCalcConfigForTeam(teamId)
-                                                                  .FirstOrDefault());
+                    , CrRatingCalcConfig>(UnitOfWork.CodeReviewRepository
+                                                    .GetCrRatingCalcConfig(trainerId)
+                                                    .FirstOrDefault());
+        }
+
+        public CrRatingCalcConfig UpdateCrRatingConfig(CrRatingCalcConfig config, int userId)
+        {
+            var mappedConfig = Mapper.Map< DAL.EntityFramework.CrRatingCalcConfig>(config);
+
+            mappedConfig.LastModifiedById = userId;
+            mappedConfig.LastModifiedOn = DateTime.Now;
+
+            //set each rangemin to previous element's rangemax
+            for (var index = 1 ; index < mappedConfig.CrRatingCalcRangeConfigs.Count; index++)
+            {
+                mappedConfig.CrRatingCalcRangeConfigs.ElementAt(index).RangeMin = mappedConfig.CrRatingCalcRangeConfigs
+                                                                                              .ElementAt(index-1)
+                                                                                              .RangeMax;
+            }
+            UnitOfWork.CodeReviewRepository.UpdateCrRatingCalcConfig(mappedConfig);
+            UnitOfWork.Commit();
+
+            return
+                GetCrRatingConfig(userId);
         }
     }
 }

@@ -2,48 +2,65 @@
 
     my.editCrSystemRatingConfigVm = function() {
 
-        var ratingConfig ={
-            rangeConfig: ko.observableArray([]),
-            weightConfig: ko.observableArray([])
-        };
-        var teams = ko.observableArray([]);
-        var selectedTeam = ko.observable({});
+        var ratingConfig = ko.observable({});
 
-        var getRatingCallback = function(data) {
-            ratingConfig.rangeConfig(data.CrRatingCalcRangeConfigs);
-            ratingConfig.weightConfig(data.CrRatingCalcWeightConfigs);
-        };
-
-        var getRatingConfigForTeam = function(team) {
-            my.userService.getCrRatingConfig(team, getRatingCallback);
-        };
-
-
-        var getRatingConfig = function () {
-            my.editCrSystemRatingConfigVm.isVisible(true);
-            if (my.meta.isAdministrator()) {
-                my.userService.getAllTeams(function(data) {
-                    my.editCrSystemRatingConfigVm.teams (data);
-                    my.editCrSystemRatingConfigVm.selectedTeam (my.editCrSystemRatingConfigVm.teams()[0]);
-                    getRatingConfigForTeam(my.editCrSystemRatingConfigVm.selectedTeam());
-                });
-                return;
-            }
-            my.userService.getCrRatingConfig(null, getRatingCallback);
+        var getRatingConfig = function() {
+            my.userService.getCrRatingConfig(null, function(data) {
+                ratingConfig(data);
+                my.editCrSystemRatingConfigVm.isVisible(true);
+            });
         }
+        var saveConfigSettings = function() {
+            my.userService.updateCrRatingConfig(ratingConfig(), function (data) {
+                console.dir(data);
+                ratingConfig(data);
+            });
+        };
+
         return {
             getRatingConfig: getRatingConfig,
-            getRatingConfigForTeam: getRatingConfigForTeam,
-            selectedTeam: selectedTeam,
             ratingConfig: ratingConfig,
-            teams: teams,
+
             isVisible: ko.observable(false),
-            saveConfigSettings: function() {
-                alert("Saved");
+            saveConfigSettings: saveConfigSettings,
+            updateConfigModel: function () {
+                my.editCrSystemRatingConfigVm.ratingConfig.valueHasMutated();
             }
         };
-
     }();
-    my.editCrSystemRatingConfigVm.selectedTeam.subscribe(my.editCrSystemRatingConfigVm.getRatingConfigForTeam);
-    //ko.applyBindings(my.editCrSystemRatingConfigVm);
 });
+
+function getReviewPointRating(ratingId) {
+    switch (ratingId) {
+        case 1:
+            return "Exceptional";
+        case 2:
+            return "Good";
+        case 3:
+            return "Corrected";
+        case 4:
+            return "Poor";
+        case 5:
+            return "Critical";
+        case 6:
+            return "Suggestion";
+    }
+};
+
+function getFeedbackRating(ratingId) {
+    switch (ratingId) {
+        case 1:
+            return "Slow";
+        case 2:
+            return "Average";
+        case 3:
+            return "Fast";
+        case 4:
+            return "Exceptional";
+    }
+}
+
+function getPrevMax(index) {
+    if (index > 0)
+        return my.editCrSystemRatingConfigVm.ratingConfig().CrRatingCalcRangeConfigs[index - 1].RangeMax;
+}

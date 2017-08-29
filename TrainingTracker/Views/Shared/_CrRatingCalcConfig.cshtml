@@ -1,16 +1,70 @@
-﻿<div style="display: none" data-bind="visible: my.editCrSystemRatingConfigVm.isVisible">
+﻿<div  data-bind="visible: my.editCrSystemRatingConfigVm.isVisible">
     <div class="panel" id="notificationPanel">
 
         <div class="panel-heading">
             <span class="panel-title">Set System Rating Configuration</span>
         </div>
         <div class="panel-body">
-            @if (HttpContext.Current.User.IsInRole("Administrator"))
-            {
-                <select data-bind="options:my.editCrSystemRatingConfigVm.teams,
-                                   optionsText:'TeamName',
-                                   value:my.editCrSystemRatingConfigVm.selectedTeam"></select>
-            }
+            <div class="col-xs-10 col-md-5 col-xs-offset-1 ">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr><th colspan="2" class="text-center">Review Point Weights</th></tr>
+                        <tr>
+                            <th class="text-center">Review Point Rating</th>
+                            <th class="text-center">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ko foreach:my.editCrSystemRatingConfigVm.ratingConfig().CrRatingCalcWeightConfigs-->
+                        <tr>
+                            <td data-bind="text:getReviewPointRating(ReviewPointTypeId)"></td>
+                            <td class="text-center">
+                                <span class="text-center col-xs-6 col-xs-offset-3">
+                                    <input type="number" step="0.01" class="form-control text-center"
+                                           data-bind="value:Weight,attr:{'disabled': Weight==10 || Weight==0 ?'disabled' :null}" />
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- /ko -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-10 col-md-4 col-xs-offset-1 col-md-offset-1">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr><th colspan="3" class="text-center">Feedback Rating Ranges</th></tr>
+                        <tr>
+                            <th class="text-center">Feedback Type</th>
+                            <th class="text-center">Minimum Score</th>
+                            <th class="text-center">Maximum Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ko foreach:my.editCrSystemRatingConfigVm.ratingConfig().CrRatingCalcRangeConfigs-->
+                        <tr>
+                            <td data-bind="text:getFeedbackRating(FeedbackTypeId)"></td>
+                            <td class="text-center">
+                                <!-- ko if:$index()==0-->
+                                0
+                                <!-- /ko -->
+                                <!-- ko if:$index()>0-->
+                                <span data-bind="text:getPrevMax($index())"></span>
+                                <!-- /ko -->
+                            </td>
+                            <td class ="text-center">
+                                <span class="col-xs-10 col-xs-offset-1">
+
+                                    <input type="number" step="0.01" class="form-control text-center"
+                                           data-bind="value:RangeMax,attr:{'disabled':RangeMax==10?'disabled':null},
+                                                      event:{blur:function(){my.editCrSystemRatingConfigVm.updateConfigModel();}}" />
+
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- /ko -->
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="panel-footer">
             <button data-bind="click: my.editCrSystemRatingConfigVm.saveConfigSettings"

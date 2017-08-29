@@ -19,6 +19,6 @@ namespace TrainingTracker.DAL.Interface
 
         IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId);
 
-        IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfigForTeam(int teamId);
+        void UpdateCrRatingCalcConfig(CrRatingCalcConfig config);
     }
 }

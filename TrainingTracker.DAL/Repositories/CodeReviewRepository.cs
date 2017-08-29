@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -87,15 +88,19 @@ namespace TrainingTracker.DAL.Repositories
                            .Team
                            .CrRatingCalcConfigs
                            .AsQueryable()
-						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
+						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs")
+                           .AsEnumerable()
+                           .Select(c=>new CrRatingCalcConfig
+                                      {
+                                          Id = c.Id,
+                                          CrRatingCalcWeightConfigs = c.CrRatingCalcWeightConfigs.OrderByDescending(w=>w.Weight).ToList(),
+                                          CrRatingCalcRangeConfigs = c.CrRatingCalcRangeConfigs.OrderBy(w=>w.RangeMin).ToList()
+                                      });
         }
-        public IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfigForTeam(int teamId)
+
+        public void UpdateCrRatingCalcConfig(CrRatingCalcConfig config)
         {
-            return _context.Teams
-                           .First(t => t.TeamId == teamId)
-                           .CrRatingCalcConfigs
-                           .AsQueryable()
-                           .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
+            _context.CrRatingCalcConfigs.AddOrUpdate(config);
         }
     }
 }

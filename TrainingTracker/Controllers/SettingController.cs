@@ -42,30 +42,9 @@ namespace TrainingTracker.Controllers
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager)]
-        public JsonResult GetCrRatingConfig(int? teamId)
+        public JsonResult GetCrRatingConfig()
         {
-            int teamIdNonNullable = teamId ?? CurrentUser.TeamId ?? 0;
-            JsonResult result;
-            try
-            {
-                if (teamIdNonNullable > 0)
-                {
-                    var x = Json(new FeedbackBl().GetCrRatingConfig(teamIdNonNullable), JsonRequestBehavior.AllowGet);
-                    return x;
-                }
-                throw new ArgumentException();
-            }
-            catch (ArgumentException)
-            {
-                var ex = new ArgumentException("Configuration for team Id" + teamIdNonNullable + " not found.");
-                LogUtility.ErrorRoutine(ex);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                LogUtility.ErrorRoutine(ex);
-                throw;
-            }
+            return Json(new FeedbackBl().GetCrRatingConfig(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
@@ -79,5 +58,12 @@ namespace TrainingTracker.Controllers
         {
             return Json(new EmailPreferencesBl().GetUserSubscriptionsById(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
         }
+
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager)]
+        public JsonResult UpdateCrRatingConfig( CrRatingCalcConfig config)
+        {
+            return Json(new FeedbackBl().UpdateCrRatingConfig( config,CurrentUser.UserId), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

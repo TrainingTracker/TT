@@ -12,13 +12,17 @@ namespace TrainingTracker.BLL.ModelMapper
     {
         public BLLMappingProfile ()
         {
-            CreateMap<CrRatingCalcConfig, Common.Entity.CrRatingCalcConfig>();
+            CreateMap<CrRatingCalcConfig, Common.Entity.CrRatingCalcConfig>().ReverseMap();
             CreateMap<CrRatingCalcRangeConfig, Common.Entity.CrRatingCalcRangeConfig>()
                 .ForMember(s => s.FeedbackType, opt => opt.MapFrom(s => s.FeedbackTypeId))
-                .ForMember(s=>s.CrRatingCalcConfig,opt=>opt.Ignore());
+                .ForMember(s=>s.CrRatingCalcConfig,opt=>opt.Ignore())
+                .ReverseMap()
+                .ForMember(s => s.FeedbackType, opt => opt.Ignore());
+
             CreateMap<CrRatingCalcWeightConfig, Common.Entity.CrRatingCalcWeightConfig>()
                 .ForMember(s => s.ReviewPointType, opt => opt.MapFrom(s => s.ReviewPointTypeId))
-                .ForMember(s => s.CrRatingCalcConfig, opt => opt.Ignore());
+                .ForMember(s => s.CrRatingCalcConfig, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }
