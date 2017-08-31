@@ -58,6 +58,7 @@ namespace TrainingTracker.BLL
         /// Calls stored procedure which updates user.
         /// </summary>
         /// <param name="userData">User data object.</param>
+        /// <param name="managerId">manager id</param>
         /// <returns>True if updated.</returns>
         public bool UpdateUser(User userData, int managerId)
         {
@@ -79,7 +80,9 @@ namespace TrainingTracker.BLL
 
                     UnitOfWork.Commit();
 
-                    new NotificationBl().UserNotification(userData, managerId, isNewUser: false);
+                    var dbUser = GetUserByUserId(userData.UserId);
+
+                    new NotificationBl().UserNotification(dbUser, managerId, isNewUser: false);
                 }
             }
             catch (Exception ex)
