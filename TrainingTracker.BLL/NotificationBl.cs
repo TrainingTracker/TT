@@ -334,9 +334,10 @@ namespace TrainingTracker.BLL
                                    ? "New user added!"
                                    : "User has been activated again.");
             ;
-            var description = user.FullName
-                              + (isNewUser ? " has been added as a new user." : " has been activated again.")
-                              + "\n Click to subscribe.";
+            var description = (isNewUser
+                                   ? string.Format(@"New user ""{0}"" has been added as a new user.", user.FullName)
+                                   : string.Format(@"User ""{0}"" has been activated again.", user.FullName))
+                              + "\nClick to subscribe.";
 
             var notification = new Notification
                                {
