@@ -18,7 +18,7 @@
         /// <summary>
         /// set value of Feature Notification to 3.
         /// </summary>
-        NewFeatureRequestNotification = 3 ,
+        NewFeatureRequestNotification = 3,
 
         /// <summary>
         /// set value of ReleaseNotification to 4.
@@ -28,22 +28,22 @@
         /// <summary>
         ///  set value of WeeklyNotification to 5.
         /// </summary>
-        WeeklyFeedbackNotification = 5 ,
+        WeeklyFeedbackNotification = 5,
 
         /// <summary>
         ///  set value of FeedbackNotification to 6.
         /// </summary>
-        AssignmentFeedbackNotification = 6 ,
+        AssignmentFeedbackNotification = 6,
 
         /// <summary>
         ///  set value of FeedbackNotification to 7.
         /// </summary>
-        CodeReviewFeedbackNotification = 7 ,
+        CodeReviewFeedbackNotification = 7,
 
         /// <summary>
         ///  set value of FeedbackNotification to 8.
         /// </summary>
-        SkillFeedbackNotification = 8 ,
+        SkillFeedbackNotification = 8,
 
         /// <summary>
         /// Enum for New Session Notification
@@ -58,7 +58,7 @@
         /// <summary>
         /// Enum For New note to feedback
         /// </summary>
-        NewNoteToFeedback= 11,
+        NewNoteToFeedback = 11,
 
         /// <summary>
         /// Enum for New course Notification
@@ -89,8 +89,16 @@
         /// Enum For New Random Reviews
         /// </summary>
         RandomReviewFeedbackNotification = 17,
-
-
+        
+        /// <summary>
+        /// Enum For New Users
+        /// </summary>
+        NewUserNotification = 18,
+        
+        /// <summary>
+        /// Enum For Activated Users
+        /// </summary>
+        UserActivatedNotification = 19
     }
 
 

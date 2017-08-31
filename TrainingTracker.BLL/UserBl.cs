@@ -5,12 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrainingTracker.BLL.Base;
 using TrainingTracker.Common.Constants;
+using TrainingTracker.Common.Encryption;
 using TrainingTracker.Common.Entity;
 using TrainingTracker.Common.Utility;
 using TrainingTracker.Common.ViewModel;
+using CodeReviewTag = TrainingTracker.Common.Entity.CodeReviewTag;
+using EmailAlertSubscription = TrainingTracker.DAL.EntityFramework.EmailAlertSubscription;
 using Feedback = TrainingTracker.Common.Entity.Feedback;
 using Skill = TrainingTracker.Common.Entity.Skill;
 using User = TrainingTracker.Common.Entity.User;
+
 namespace TrainingTracker.BLL
 {
     /// <summary>
@@ -18,28 +22,87 @@ namespace TrainingTracker.BLL
     /// </summary>
     public class UserBl : BusinessBase
     {
-
         /// <summary>
         /// Calls stored procedure which adds user.
         /// </summary>
         /// <param name="userData">User data object.</param>
+        /// <param name="managerId">Id of manager adding.</param>
         /// <param name="userId">Out parameter created UserId.</param>
         /// <returns>True if added.</returns>
-        public bool AddUser(User userData, out int userId)
+        public bool AddUser(User userData, int managerId, out int userId)
         {
-            userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
-            return UserDataAccesor.AddUser(userData, out userId);
+            userData.Password = Cryptography.Encrypt(userData.Password);
+            var isUserAdded = UserDataAccesor.AddUser(userData, out userId);
+
+            var dbUser = GetUserByUserId(userId);
+
+            var teamManagers = UnitOfWork.UserRepository
+                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                .Select(lead => lead.UserId)
+                .ToList();
+
+            if (isUserAdded)
+            {
+                teamManagers.ForEach(manager => UnitOfWork.EmailAlertSubscriptionRepository
+                                                          .AddOrUpdate(new EmailAlertSubscription
+                                                                       {
+                                                                           SubscribedByUserId = manager,
+                                                                           SubscribedForUserId = dbUser.UserId
+                                                                       }));
+                UnitOfWork.Commit();
+            }
+
+
+            if (isUserAdded)
+            {
+                new NotificationBl().UserNotification(dbUser, managerId);
+            }
+
+            return isUserAdded;
         }
 
         /// <summary>
         /// Calls stored procedure which updates user.
         /// </summary>
         /// <param name="userData">User data object.</param>
+        /// <param name="addedById">manager id</param>
         /// <returns>True if updated.</returns>
-        public bool UpdateUser(User userData)
+        public bool UpdateUser(User userData, int addedById)
         {
-            userData.Password = Common.Encryption.Cryptography.Encrypt(userData.Password);
-            return UserDataAccesor.UpdateUser(userData);
+            userData.Password = Cryptography.Encrypt(userData.Password);
+            var isUserUpdated = UserDataAccesor.UpdateUser(userData);
+            var dbUser = GetUserByUserId(userData.UserId);
+            var teamManagers = UnitOfWork.UserRepository
+                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                .Select(lead=>lead.UserId)
+                .ToList();
+
+            try
+            {
+                if (isUserUpdated)
+                {
+                    UnitOfWork.EmailAlertSubscriptionRepository
+                                  .GetAllSubscribedMentors(userData.UserId,includeDeleted:true)
+                                  .ForEach(s =>
+                                           {
+                                               s.IsDeleted = !userData.IsActive || !teamManagers.Contains(s.SubscribedByUserId);
+                                               UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
+                                           });
+
+
+                    UnitOfWork.Commit();
+
+
+                    new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.ErrorRoutine(ex);
+                isUserUpdated = false;
+            }
+
+            return isUserUpdated;
         }
 
         /// <summary>
@@ -60,8 +123,8 @@ namespace TrainingTracker.BLL
             if (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) return UserDataAccesor.GetAllUsers();
 
             return currentUser.TeamId.HasValue
-                              ? UserDataAccesor.GetAllUsersForTeam(currentUser.TeamId.Value)
-                              : new List<User>();
+                       ? UserDataAccesor.GetAllUsersForTeam(currentUser.TeamId.Value)
+                       : new List<User>();
         }
 
         /// <summary>
@@ -71,7 +134,7 @@ namespace TrainingTracker.BLL
         /// <returns>instance of User object</returns>
         public User GetUserByUserName(string userName)
         {
-            return (string.IsNullOrEmpty(userName)) ? new User() :  UserDataAccesor.GetUserByUserName(userName);
+            return (string.IsNullOrEmpty(userName)) ? new User() : UserDataAccesor.GetUserByUserName(userName);
         }
 
         /// <summary>
@@ -93,43 +156,41 @@ namespace TrainingTracker.BLL
         {
             User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
 
-            CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager 
-                                        ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
-                                        :null;
+            CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager
+                                        ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId))
+                                        : null;
             var commonTags = UnitOfWork.CodeReviewRepository
-                .GetCommonlyUsedTags(userId, 5)
-                .Select(skill =>new CodeReviewTag
-                        {
-                            CodeReviewTagId = 0,
-                            Skill = new Skill
-                                    {
-                                      Name  = skill.Name,
-                                      SkillId = skill.SkillId
-                                    }
-                        }).ToList();
+                                       .GetCommonlyUsedTags(userId, 5)
+                                       .Select(skill => new CodeReviewTag
+                                                        {
+                                                            CodeReviewTagId = 0,
+                                                            Skill = new Skill
+                                                                    {
+                                                                        Name = skill.Name,
+                                                                        SkillId = skill.SkillId
+                                                                    }
+                                                        }).ToList();
 
-            if(codeReview != null)
+            if (codeReview != null)
             {
                 codeReview.CodeReviewPreviewHtml = UtilityFunctions.GenerateCodeReviewPreview(codeReview, true);
                 codeReview.SystemRating = new FeedbackBl().CalculateCodeReviewRating(codeReview);
             }
-           
 
             return new UserProfileVm
-            {
-
-                User = userId == logedInUser.UserId ? null : currentUser,
-                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null,
-                TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
-                Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
-                Projects = null,
-                Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
-                TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
-                SavedCodeReview = codeReview ,
-                CommonTags = commonTags
-              //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
-            };
+                   {
+                       User = userId == logedInUser.UserId ? null : currentUser,
+                       Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null,
+                       TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
+                       Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
+                       Projects = null,
+                       Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
+                       TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
+                       AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
+                       SavedCodeReview = codeReview,
+                       CommonTags = commonTags
+                       //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
+                   };
         }
 
         /// <summary>
@@ -141,8 +202,8 @@ namespace TrainingTracker.BLL
             if (currentUser.IsAdministrator && !currentUser.TeamId.HasValue) return UserDataAccesor.GetActiveUsers();
 
             return currentUser.TeamId.HasValue
-                              ? UserDataAccesor.GetActiveUsersByTeam(currentUser.TeamId.Value).Where(x => !currentUser.IsTrainee || !x.IsTrainee || x.UserId == currentUser.UserId).ToList()
-                              : new List<User>();
+                       ? UserDataAccesor.GetActiveUsersByTeam(currentUser.TeamId.Value).Where(x => !currentUser.IsTrainee || !x.IsTrainee || x.UserId == currentUser.UserId).ToList()
+                       : new List<User>();
         }
 
         /// <summary>
@@ -173,15 +234,14 @@ namespace TrainingTracker.BLL
         /// <param name="trainerId">trainer id</param>
         /// <returns>returns instances of Feedback Plots</returns>
         public FeedbackPlot GetUserFeedbackOnFilterForPlot(int traineeId, DateTime? startDate, DateTime? endDate,
-                                                                          string arrayFeedbackType, int trainerId)
+                                                           string arrayFeedbackType, int trainerId)
         {
-
             FeedbackPlot objfeedbackPlot = new FeedbackPlot
-            {
-                AssignmentFeedbacks = new List<Feedback>(),
-                CodeReviewFeedbacks = new List<Feedback>(),
-                WeeklyFeedbacks = new List<Feedback>()
-            };
+                                           {
+                                               AssignmentFeedbacks = new List<Feedback>(),
+                                               CodeReviewFeedbacks = new List<Feedback>(),
+                                               WeeklyFeedbacks = new List<Feedback>()
+                                           };
 
             if (string.IsNullOrEmpty(arrayFeedbackType)) return objfeedbackPlot;
 
@@ -194,34 +254,33 @@ namespace TrainingTracker.BLL
                     case 3:
                         objfeedbackPlot.AssignmentFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
                                                                                  .Where(x =>
-                                                                                     (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
-                                                                                             (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
-                                                                                             (!endDate.HasValue || x.AddedOn < endDate.Value.AddDays(1))
-                                                                                     )
+                                                                                        (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
+                                                                                        (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
+                                                                                        (!endDate.HasValue || x.AddedOn < endDate.Value.AddDays(1))
+                            )
                                                                                  .ToList();
                         break;
 
                     case 4:
                         //  var testtt = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type);
 
-
                         objfeedbackPlot.CodeReviewFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
                                                                                  .Where(x =>
-                                                                                     (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
-                                                                                             (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
-                                                                                             (!endDate.HasValue || x.AddedOn < endDate.Value.AddDays(1))
-                                                                                     )
+                                                                                        (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
+                                                                                        (!startDate.HasValue || x.AddedOn > startDate.Value.AddDays(-1)) &&
+                                                                                        (!endDate.HasValue || x.AddedOn < endDate.Value.AddDays(1))
+                            )
                                                                                  .ToList();
                         break;
 
                     case 5:
                         objfeedbackPlot.WeeklyFeedbacks = FeedbackDataAccesor.GetUserFeedback(traineeId, 1000, type)
-                                                                              .Where(x =>
-                                                                                     (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
-                                                                                             ((!startDate.HasValue || x.StartDate > startDate.Value.AddDays(-1)) &&
-                                                                                             (!endDate.HasValue || x.EndDate < endDate.Value.AddDays(1)))
-                                                                                     )
-                                                                                 .ToList();
+                                                                             .Where(x =>
+                                                                                    (trainerId == 0 || x.AddedBy.UserId == trainerId) &&
+                                                                                    ((!startDate.HasValue || x.StartDate > startDate.Value.AddDays(-1)) &&
+                                                                                     (!endDate.HasValue || x.EndDate < endDate.Value.AddDays(1)))
+                            )
+                                                                             .ToList();
                         break;
                 }
             }
@@ -235,10 +294,10 @@ namespace TrainingTracker.BLL
         public ManageProfileVm GetManageProfileVm(User currentUser)
         {
             return new ManageProfileVm
-            {
-                AllTeams = TeamDataAccesor.GetAllTeam(),
-                AllUser = GetAllUsersByTeam(currentUser)
-            };
+                   {
+                       AllTeams = TeamDataAccesor.GetAllTeam(),
+                       AllUser = GetAllUsersByTeam(currentUser)
+                   };
         }
 
 
@@ -271,7 +330,7 @@ namespace TrainingTracker.BLL
             {
                 foreach (var ttMember in ttMembersUnderLead)
                 {
-                    if(ttMember.UserName == gpsMember.UserName)
+                    if (ttMember.UserName == gpsMember.UserName)
                     {
                         ttMember.EmployeeId = gpsMember.EmployeeId;
                         if (!UserDataAccesor.UpdateUser(ttMember))
@@ -306,12 +365,11 @@ namespace TrainingTracker.BLL
 
         public List<Skill> AddSkill(Skill category)
         {
-          if(SkillDataAccesor.AddSkill(category))
-          {
-              return SkillDataAccesor.GetAllSkillsForApp();
-          }
-          return null;
+            if (SkillDataAccesor.AddSkill(category))
+            {
+                return SkillDataAccesor.GetAllSkillsForApp();
+            }
+            return null;
         }
-
     }
-}                                                                                               
+}
