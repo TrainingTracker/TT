@@ -34,21 +34,28 @@ namespace TrainingTracker.BLL
             userData.Password = Cryptography.Encrypt(userData.Password);
             var isUserAdded = UserDataAccesor.AddUser(userData, out userId);
 
+            var dbUser = GetUserByUserId(userId);
+
+            var teamManagers = UnitOfWork.UserRepository
+                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                .Select(lead => lead.UserId)
+                .ToList();
+
             if (isUserAdded)
             {
-                UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(new EmailAlertSubscription
-                                                                        {
-                                                                            SubscribedByUserId = managerId,
-                                                                            SubscribedForUserId = userId
-                                                                        });
+                teamManagers.ForEach(manager => UnitOfWork.EmailAlertSubscriptionRepository
+                                                          .AddOrUpdate(new EmailAlertSubscription
+                                                                       {
+                                                                           SubscribedByUserId = manager,
+                                                                           SubscribedForUserId = dbUser.UserId
+                                                                       }));
                 UnitOfWork.Commit();
             }
 
-            var userAdded = new UserBl().GetUserByUserId(userId);
 
             if (isUserAdded)
             {
-                new NotificationBl().UserNotification(userAdded, managerId);
+                new NotificationBl().UserNotification(dbUser, managerId);
             }
 
             return isUserAdded;
@@ -58,12 +65,17 @@ namespace TrainingTracker.BLL
         /// Calls stored procedure which updates user.
         /// </summary>
         /// <param name="userData">User data object.</param>
-        /// <param name="managerId">manager id</param>
+        /// <param name="addedById">manager id</param>
         /// <returns>True if updated.</returns>
-        public bool UpdateUser(User userData, int managerId)
+        public bool UpdateUser(User userData, int addedById)
         {
             userData.Password = Cryptography.Encrypt(userData.Password);
             var isUserUpdated = UserDataAccesor.UpdateUser(userData);
+            var dbUser = GetUserByUserId(userData.UserId);
+            var teamManagers = UnitOfWork.UserRepository
+                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                .Select(lead=>lead.UserId)
+                .ToList();
 
             try
             {
@@ -73,16 +85,15 @@ namespace TrainingTracker.BLL
                                   .GetAllSubscribedMentors(userData.UserId,includeDeleted:true)
                                   .ForEach(s =>
                                            {
-                                               s.IsDeleted =!userData.IsActive || s.SubscribedByUserId != managerId;
+                                               s.IsDeleted = !userData.IsActive || !teamManagers.Contains(s.SubscribedByUserId);
                                                UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
                                            });
 
 
                     UnitOfWork.Commit();
 
-                    var dbUser = GetUserByUserId(userData.UserId);
 
-                    new NotificationBl().UserNotification(dbUser, managerId, isNewUser: false);
+                    new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
                 }
             }
             catch (Exception ex)
