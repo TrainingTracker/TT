@@ -70,6 +70,7 @@ namespace TrainingTracker.Controllers
                 userId = userId ,
                 status = status
             };
+
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -81,7 +82,7 @@ namespace TrainingTracker.Controllers
         [HttpPost]
         public ActionResult UpdateUser(User userData)
         {            
-            return Json(new { status= new UserBl().UpdateUser(userData)});
+            return Json(new { status= new UserBl().UpdateUser(userData,CurrentUser.UserId)});
         }
 
         [HttpPost]

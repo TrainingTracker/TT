@@ -5,6 +5,7 @@
 *   Modified Date:
 *   Description: Business class for Notification.
 **************************************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,20 +39,20 @@ namespace TrainingTracker.BLL
         /// <param name="notification">Notification class onject</param>
         /// <param name="listUserId">List of userId</param>
         /// <returns>Returns true if Notification is added successfully else false.</returns>
-        internal bool AddNotification(Common.Entity.Notification notification, List<int> listUserId)
+        internal bool AddNotification(Notification notification, List<int> listUserId)
         {
             DAL.EntityFramework.Notification coreNotification = NotificationConverter.ConvertToCore(notification);
 
             foreach (var userId in listUserId)
             {
                 coreNotification.UserNotificationMappings.Add(new UserNotificationMapping
-                {
-                    Seen = false,
-                    UserId = userId
-                });
+                                                              {
+                                                                  Seen = false,
+                                                                  UserId = userId
+                                                              });
             }
             UnitOfWork.NotificationRepository.Add(coreNotification);
-           return UnitOfWork.Commit() > 0;
+            return UnitOfWork.Commit() > 0;
         }
 
         /// <summary>
@@ -86,12 +87,12 @@ namespace TrainingTracker.BLL
         public List<Notification> GetNotification(int userId)
         {
             return NotificationConverter.ConvertListFromCore(UnitOfWork.NotificationRepository.Find(x => x.UserNotificationMappings.Any(y => !y.Seen
-                                                                                                                                      && y.UserId == userId))
-                                                                                              .ToList())
-                                                                                              .GroupBy(x => x.Link)
-                                                                                              .Select(grp => grp.First())
-                                                                                              .OrderBy(x => x.NotificationId)
-                                                                                              .ToList();
+                                                                                                                                             && y.UserId == userId))
+                                                                       .ToList())
+                                        .GroupBy(x => x.Link)
+                                        .Select(grp => grp.First())
+                                        .OrderBy(x => x.NotificationId)
+                                        .ToList();
         }
 
         /// <summary>
@@ -106,11 +107,11 @@ namespace TrainingTracker.BLL
             NotificationType notificationType;
             string featureText;
 
-            if ( !release.IsPublished)
+            if (!release.IsPublished)
             {
                 // This feature has gone obsolete.
 
-                if (release.IsNew) 
+                if (release.IsNew)
                 {
                     notificationType = NotificationType.NewFeatureRequestNotification;
                     featureText = "New Feature/Bug Request";
@@ -119,27 +120,26 @@ namespace TrainingTracker.BLL
                 {
                     notificationType = NotificationType.FeatureModifiedNotification;
                     featureText = "Feature Details Updated";
-                }             
+                }
             }
-            else 
+            else
             {
                 notificationType = NotificationType.NewReleaseNotification;
                 featureText = "New Release";
             }
-          
+
             var notification = new Notification
-            {
-                Description = ReleaseDescription + release.Major + "." + release.Minor + "." + release.Patch,
-                Link = string.Format(ReleaseLink,release.ReleaseId),
-                TypeOfNotification = notificationType,
-                AddedBy = userId,
-                Title = featureText ,
-                AddedOn = release.ReleaseDate ?? DateTime.Now,
-            };
+                               {
+                                   Description = ReleaseDescription + release.Major + "." + release.Minor + "." + release.Patch,
+                                   Link = string.Format(ReleaseLink, release.ReleaseId),
+                                   TypeOfNotification = notificationType,
+                                   AddedBy = userId,
+                                   Title = featureText,
+                                   AddedOn = release.ReleaseDate ?? DateTime.Now,
+                               };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
 
-      
 
         /// <summary>
         /// Function which takes feedback data and user list to whom notification is to be added,
@@ -152,7 +152,7 @@ namespace TrainingTracker.BLL
             NotificationType notificationType;
             string notificationText = string.Empty;
 
-            switch ((FeedbackType)feedback.FeedbackType.FeedbackTypeId)
+            switch ((FeedbackType) feedback.FeedbackType.FeedbackTypeId)
             {
                 case FeedbackType.Weekly:
                 {
@@ -205,14 +205,14 @@ namespace TrainingTracker.BLL
             var user = UserDataAccesor.GetUserById(feedback.AddedFor.UserId);
 
             var notification = new Notification
-            {
-                Description = user.FirstName  + " " + user.LastName    ,
-                Link = string.Format(FeedbackLink, feedback.AddedFor.UserId,feedback.FeedbackId),
-                TypeOfNotification = notificationType ,
-                AddedBy = feedback.AddedBy.UserId,
-                Title = notificationText ,
-                AddedOn = DateTime.Now,
-            };
+                               {
+                                   Description = user.FirstName + " " + user.LastName,
+                                   Link = string.Format(FeedbackLink, feedback.AddedFor.UserId, feedback.FeedbackId),
+                                   TypeOfNotification = notificationType,
+                                   AddedBy = feedback.AddedBy.UserId,
+                                   Title = notificationText,
+                                   AddedOn = DateTime.Now,
+                               };
 
             new MailerBl().AddNewFeedbackMail(notification, user, feedback.FeedbackId);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, feedback.AddedFor.UserId));
@@ -226,46 +226,45 @@ namespace TrainingTracker.BLL
         internal bool AddSessionNotification(Session session)
         {
             var notification = new Notification
-            {
-                Description = "New Session Added",
-                Link = string.Format(SessionLink, session.Id),
-                TypeOfNotification = session.IsNeW ? NotificationType.NewSessionNotification : NotificationType.SessionUpdatedNotification,
-                AddedBy = session.Presenter.UserId,
-                Title = session.IsNeW ? "New Session Added" : "Session Details Updated",
-                AddedOn = DateTime.Now,
-                AddedTo = session.Attendee
-            };
+                               {
+                                   Description = "New Session Added",
+                                   Link = string.Format(SessionLink, session.Id),
+                                   TypeOfNotification = session.IsNeW ? NotificationType.NewSessionNotification : NotificationType.SessionUpdatedNotification,
+                                   AddedBy = session.Presenter.UserId,
+                                   Title = session.IsNeW ? "New Session Added" : "Session Details Updated",
+                                   AddedOn = DateTime.Now,
+                                   AddedTo = session.Attendee
+                               };
 
-           new MailerBl().AddSessionMail(notification, session);
-           return AddNotification(notification , session.SessionAttendees.Where(x=> x.UserId != session.Presenter.UserId)
-                                                                         .Select(x=>x.UserId)
-                                                                         .ToList());
+            new MailerBl().AddSessionMail(notification, session);
+            return AddNotification(notification, session.SessionAttendees.Where(x => x.UserId != session.Presenter.UserId)
+                                                        .Select(x => x.UserId)
+                                                        .ToList());
         }
 
-     
+
         /// <summary>
         /// Add Notification for Thread
         /// </summary>
         /// <param name="thread"></param>
         internal bool AddNewThreadNotification(Threads thread)
         {
-
             int userId = FeedbackDataAccesor.GetTraineebyFeedbackId(thread.FeedbackId);
 
             if (userId == 0) return false;
 
             var notification = new Notification
-            {
-                Description = "New Note Added To Feedback" ,
-                Link = string.Format(FeedbackLink , userId , thread.FeedbackId) ,
-                TypeOfNotification = NotificationType.NewNoteToFeedback ,
-                AddedBy = thread.AddedBy.UserId ,
-                Title = "New Note Added to Feedback" ,
-                AddedOn = DateTime.Now ,
-            };
+                               {
+                                   Description = "New Note Added To Feedback",
+                                   Link = string.Format(FeedbackLink, userId, thread.FeedbackId),
+                                   TypeOfNotification = NotificationType.NewNoteToFeedback,
+                                   AddedBy = thread.AddedBy.UserId,
+                                   Title = "New Note Added to Feedback",
+                                   AddedOn = DateTime.Now,
+                               };
 
             new MailerBl().AddNewFeedbackThreadMail(notification, thread.FeedbackId);
-            return AddNotification(notification , UserDataAccesor.GetUserId(notification , userId));
+            return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
 
         /// <summary>
@@ -277,28 +276,28 @@ namespace TrainingTracker.BLL
         internal bool AddNewCourseNotification(List<User> trainees, int currentUserId)
         {
             var notification = new Notification
-            {
-                Description = "New Course Assigned " ,
-                Link = DashboardLink  ,
-                TypeOfNotification = NotificationType.NewCourseAssigned  ,
-                AddedBy = currentUserId ,
-                Title = "New Course Assigned" ,
-                AddedOn = DateTime.Now 
-            };           
-            return AddNotification(notification , trainees.Select(x=>x.UserId).ToList());
+                               {
+                                   Description = "New Course Assigned ",
+                                   Link = DashboardLink,
+                                   TypeOfNotification = NotificationType.NewCourseAssigned,
+                                   AddedBy = currentUserId,
+                                   Title = "New Course Assigned",
+                                   AddedOn = DateTime.Now
+                               };
+            return AddNotification(notification, trainees.Select(x => x.UserId).ToList());
         }
 
         public bool AddNewDiscussionPostNotification(ForumPost post)
         {
             var notification = new Notification
-            {
-                Description = post.AddedByUser.FirstName + " " + post.AddedByUser.LastName,
-                Link = string.Format(DiscussionPostLink, post.AddedBy, post.PostId),
-                TypeOfNotification = NotificationType.NewDiscussionPostNotification,
-                AddedBy = post.AddedBy,
-                Title = "New Post in Discussion Forum",
-                AddedOn = DateTime.Now,
-            };
+                               {
+                                   Description = post.AddedByUser.FirstName + " " + post.AddedByUser.LastName,
+                                   Link = string.Format(DiscussionPostLink, post.AddedBy, post.PostId),
+                                   TypeOfNotification = NotificationType.NewDiscussionPostNotification,
+                                   AddedBy = post.AddedBy,
+                                   Title = "New Post in Discussion Forum",
+                                   AddedOn = DateTime.Now,
+                               };
             new MailerBl().AddNewDiscussionMail(notification);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, post.AddedBy));
         }
@@ -306,17 +305,48 @@ namespace TrainingTracker.BLL
         public bool AddNewDiscussionThreadNotification(ForumThread thread)
         {
             var notification = new Notification
-            {
-                Description = thread.AddedByUser.FirstName + " " + thread.AddedByUser.LastName,
-                Link = string.Format(DiscussionPostLink, thread.AddedFor, thread.PostId),
-                TypeOfNotification = NotificationType.NewDiscussionThreadNotification,
-                AddedBy = thread.AddedBy,
-                Title = "New Comment on Discussion Post",
-                AddedOn = DateTime.Now,
-            };
+                               {
+                                   Description = thread.AddedByUser.FirstName + " " + thread.AddedByUser.LastName,
+                                   Link = string.Format(DiscussionPostLink, thread.AddedFor, thread.PostId),
+                                   TypeOfNotification = NotificationType.NewDiscussionThreadNotification,
+                                   AddedBy = thread.AddedBy,
+                                   Title = "New Comment on Discussion Post",
+                                   AddedOn = DateTime.Now,
+                               };
 
             new MailerBl().AddNewDiscussionThreadMail(notification, thread.PostId);
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, thread.AddedFor));
+        }
+
+
+        /// <summary>
+        /// Function which add user notification
+        /// Calls AddNotification() to save in the database.
+        /// </summary>
+        /// <param name="user">Release object</param>
+        /// <param name="managerId">manager Id</param>
+        /// <param name="isNewUser">true if user is new</param>
+        /// <returns>Returns true if Notification is added successfully else false.</returns>
+        internal bool UserNotification(User user, int managerId, bool isNewUser = true)
+        {
+            var profileLink = "/Setting/UserSetting?settingName=Notification";
+            var featureText = "New user added!";
+            var description = user.FullName
+                              + (isNewUser ? " has been added as a new user." : " has been activated again.")
+                              + " Click to subscribe.";
+
+            var notification = new Notification
+                               {
+                                   Description = "New User" + user.FullName + "has been added.",
+                                   Link = profileLink,
+                                   TypeOfNotification = isNewUser ? NotificationType.NewUserNotification
+                                                            : NotificationType.UserActivatedNotification,
+                                   AddedBy = managerId,
+                                   Title = featureText,
+                                   AddedOn = DateTime.Now,
+                               };
+
+            return AddNotification(notification, UserDataAccesor.GetUserId(notification, managerId));
         }
 
         /// <summary>
@@ -327,22 +357,22 @@ namespace TrainingTracker.BLL
         /// <param name="userId">UseId</param>
         /// <returns>Returns true if Notification is added successfully else false.</returns>
         internal bool AddHelpNotification(ForumPost forumPost, int userId)
-        {            
+        {
             string featureText, helpLink;
 
             switch (forumPost.CategoryId)
             {
-                case (int)ForumUserHelpCategories.Bug:
+                case (int) ForumUserHelpCategories.Bug:
                     featureText = "New Bug Raised";
                     helpLink = string.Format(HelpLink, "Bugs");
                     break;
 
-                case (int)ForumUserHelpCategories.Help:
+                case (int) ForumUserHelpCategories.Help:
                     featureText = "Need a Help ";
                     helpLink = string.Format(HelpLink, "Help");
                     break;
 
-                case (int)ForumUserHelpCategories.Idea:
+                case (int) ForumUserHelpCategories.Idea:
                     featureText = "New Idea for TT";
                     helpLink = string.Format(HelpLink, "Idea");
                     break;
@@ -352,16 +382,16 @@ namespace TrainingTracker.BLL
                     helpLink = string.Format(HelpLink, "");
                     break;
             }
-           
+
             var notification = new Notification
-            {
-                Description = "",
-                Link = helpLink,
-                TypeOfNotification = NotificationType.NewFeatureRequestNotification,
-                AddedBy = userId,
-                Title = featureText,
-                AddedOn =  DateTime.Now,
-            };
+                               {
+                                   Description = "",
+                                   Link = helpLink,
+                                   TypeOfNotification = NotificationType.NewFeatureRequestNotification,
+                                   AddedBy = userId,
+                                   Title = featureText,
+                                   AddedOn = DateTime.Now,
+                               };
             return AddNotification(notification, UserDataAccesor.GetUserId(notification, userId));
         }
     }

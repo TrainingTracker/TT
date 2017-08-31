@@ -306,6 +306,8 @@ namespace TrainingTracker.DAL.DataAccess
                                                 .Select(x => x.UserId)
                                                 .ToList();
 
+                        case Common.Enumeration.NotificationType.NewUserNotification:
+                        case Common.Enumeration.NotificationType.UserActivatedNotification:
                         case Common.Enumeration.NotificationType.NewSessionNotification:
                         case Common.Enumeration.NotificationType.SessionUpdatedNotification:
                             return context.Users.Where(x => (x.IsManager == true || x.IsTrainer == true) 
