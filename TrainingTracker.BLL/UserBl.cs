@@ -68,15 +68,15 @@ namespace TrainingTracker.BLL
             {
                 if (isUserUpdated)
                 {
-                    var subscriptions = UnitOfWork.EmailAlertSubscriptionRepository
-                                                  .GetAllSubscribedMentors(userData.UserId
-                                                                           , includeDeleted: true);
+                    UnitOfWork.EmailAlertSubscriptionRepository
+                                  .GetAllSubscribedMentors(userData.UserId,includeDeleted:true)
+                                  .ForEach(s =>
+                                           {
+                                               s.IsDeleted =!userData.IsActive || s.SubscribedByUserId != managerId;
+                                               UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
+                                           });
 
-                    subscriptions.ForEach(s =>
-                                          {
-                                              s.IsDeleted = userData.IsActive;
-                                              UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
-                                          });
+
                     UnitOfWork.Commit();
 
                     new NotificationBl().UserNotification(userData, managerId, isNewUser: false);

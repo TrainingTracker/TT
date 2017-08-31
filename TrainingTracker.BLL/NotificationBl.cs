@@ -330,14 +330,18 @@ namespace TrainingTracker.BLL
         internal bool UserNotification(User user, int managerId, bool isNewUser = true)
         {
             var profileLink = "/Setting/UserSetting?settingName=Notification";
-            var featureText = "New user added!";
+            var featureText = (isNewUser
+                                   ? "New user" + user.FullName + " added!"
+                                   : "User " + user.FullName + " has beed activated again.")
+                              + " Click to subscribe.";
+            ;
             var description = user.FullName
                               + (isNewUser ? " has been added as a new user." : " has been activated again.")
                               + " Click to subscribe.";
 
             var notification = new Notification
                                {
-                                   Description = "New User" + user.FullName + "has been added.",
+                                   Description = description,
                                    Link = profileLink,
                                    TypeOfNotification = isNewUser ? NotificationType.NewUserNotification
                                                             : NotificationType.UserActivatedNotification,
