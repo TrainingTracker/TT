@@ -307,11 +307,6 @@ namespace TrainingTracker.DAL.DataAccess
 
                         case NotificationType.NewUserNotification:
                         case NotificationType.UserActivatedNotification:
-                            return context.Users.Where(x => (x.IsManager == true || x.IsTrainer == true)
-                                                            && x.IsActive == true
-                                                            && (currentUser.TeamId.HasValue && x.TeamId == currentUser.TeamId))
-                                          .Select(x => x.UserId)
-                                          .ToList();
                         case NotificationType.NewSessionNotification:
                         case NotificationType.SessionUpdatedNotification:
                             return context.Users.Where(x => (x.IsManager == true || x.IsTrainer == true)

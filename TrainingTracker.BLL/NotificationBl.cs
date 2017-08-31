@@ -335,7 +335,7 @@ namespace TrainingTracker.BLL
                                    : "User has been activated again.");
             ;
             var description = (isNewUser
-                                   ? string.Format(@"New user ""{0}"" has been added as a new user.", user.FullName)
+                                   ? string.Format(@"New user ""{0}"" has been added.", user.FullName)
                                    : string.Format(@"User ""{0}"" has been activated again.", user.FullName))
                               + "\nClick to subscribe.";
 
