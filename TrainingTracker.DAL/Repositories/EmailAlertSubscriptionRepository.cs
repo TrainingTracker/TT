@@ -35,9 +35,15 @@ namespace TrainingTracker.DAL.Repositories
 
         public List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId)
         {
+            return GetAllSubscribedMentors(traineeId, false);
+        }
+
+        public List<EmailAlertSubscription> GetAllSubscribedMentors(int traineeId, bool includeDeleted)
+        {
             return _context.EmailAlertSubscriptions
                            .Include(x => x.User)
-                           .Where(x => x.SubscribedForUserId == traineeId && !x.IsDeleted)
+                           .Where(x => x.SubscribedForUserId == traineeId
+                                       && (includeDeleted || !x.IsDeleted))
                            .ToList();
         }
 
@@ -45,7 +51,7 @@ namespace TrainingTracker.DAL.Repositories
         public int GetId(int subscribedByUserId, int subscribedForUserId)
         {
             var entity = Find(x => x.SubscribedByUserId == subscribedByUserId
-                               && x.SubscribedForUserId == subscribedForUserId)
+                                   && x.SubscribedForUserId == subscribedForUserId)
                 .FirstOrDefault();
 
             if (entity == null) return 0;
