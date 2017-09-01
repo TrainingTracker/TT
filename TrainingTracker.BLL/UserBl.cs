@@ -97,8 +97,10 @@ namespace TrainingTracker.BLL
                                                                            }));
 
                     UnitOfWork.Commit();
-
-                    new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
+                    if (dbUser.IsActive)
+                    {
+                        new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
+                    }
                 }
             }
             catch (Exception ex)
