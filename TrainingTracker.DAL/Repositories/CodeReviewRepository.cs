@@ -100,7 +100,28 @@ namespace TrainingTracker.DAL.Repositories
 
         public void UpdateCrRatingCalcConfig(CrRatingCalcConfig config)
         {
-            _context.CrRatingCalcConfigs.AddOrUpdate(config);
+
+            var dbConfig = _context.CrRatingCalcConfigs.Find(config.Id);
+
+
+
+            foreach (var weightConfig in dbConfig.CrRatingCalcWeightConfigs)
+            {
+                var newConfig = config.CrRatingCalcWeightConfigs.First(c => c.Id == weightConfig.Id);
+
+                weightConfig.Weight = newConfig.Weight;
+
+                _context.CrRatingCalcWeightConfigs.AddOrUpdate(weightConfig);
+            }
+            foreach (var rangeConfig in dbConfig.CrRatingCalcRangeConfigs)
+            {
+                var newConfig = config.CrRatingCalcRangeConfigs.First(c => c.Id == rangeConfig.Id);
+
+                rangeConfig.RangeMax = newConfig.RangeMax;
+
+                _context.CrRatingCalcRangeConfigs.AddOrUpdate(rangeConfig);
+            }
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<div  data-bind="visible: my.editCrSystemRatingConfigVm.isVisible">
+﻿<div  data-bind="visible: my.editCrRatingConfigVm.isVisible">
     <div class="panel" id="notificationPanel">
 
         <div class="panel-heading">
@@ -15,12 +15,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ko foreach:my.editCrSystemRatingConfigVm.ratingConfig().CrRatingCalcWeightConfigs-->
+                        <!-- ko foreach:my.editCrRatingConfigVm.ratingConfig().CrRatingCalcWeightConfigs-->
                         <tr>
                             <td data-bind="text:getReviewPointRating(ReviewPointTypeId)"></td>
                             <td class="text-center">
                                 <span class="text-center col-xs-6 col-xs-offset-3">
-                                    <input type="number" step="0.01" class="form-control text-center"
+                                    <input type="number" step="0.1" class="form-control text-center"
                                            data-bind="value:Weight,attr:{'disabled': Weight==10 || Weight==0 ?'disabled' :null}" />
                                 </span>
                             </td>
@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ko foreach:my.editCrSystemRatingConfigVm.ratingConfig().CrRatingCalcRangeConfigs-->
+                        <!-- ko foreach:my.editCrRatingConfigVm.ratingConfig().CrRatingCalcRangeConfigs-->
                         <tr>
                             <td data-bind="text:getFeedbackRating(FeedbackTypeId)"></td>
                             <td class="text-center">
@@ -54,9 +54,9 @@
                             <td class ="text-center">
                                 <span class="col-xs-10 col-xs-offset-1">
 
-                                    <input type="number" step="0.01" class="form-control text-center"
+                                    <input type="number" step="0.1" class="form-control text-center"
                                            data-bind="value:RangeMax,attr:{'disabled':RangeMax==10?'disabled':null},
-                                                      event:{blur:function(){my.editCrSystemRatingConfigVm.updateConfigModel();}}" />
+                                                      event:{blur:function(){my.editCrRatingConfigVm.updateConfigModel();}}" />
 
                                 </span>
                             </td>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="panel-footer">
-            <button data-bind="click: my.editCrSystemRatingConfigVm.saveConfigSettings"
+            <button data-bind="click: my.editCrRatingConfigVm.saveConfigSettings"
                     type="button" class="btn btn-sm btn-primary col-sm-offset-10">
                 Save
             </button>

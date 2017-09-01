@@ -19,7 +19,7 @@
                     my.notificationSettingVm.closeNotificationSetting();
                     my.memberDetailsVm.closeGpsUserSetting();
                     my.addUserVm.openAllUsersProfile();
-                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    my.editCrRatingConfigVm.isVisible(false);
                     break;
                 }
                 case 'Notification':
@@ -28,7 +28,7 @@
                     my.addUserVm.closeDialogue();
                     my.memberDetailsVm.closeGpsUserSetting();
                     my.notificationSettingVm.openNotificationSetting();
-                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    my.editCrRatingConfigVm.isVisible(false);
                     break;
                 }
                 case 'GPSMembers':
@@ -37,7 +37,7 @@
                     my.notificationSettingVm.closeNotificationSetting();
                     my.memberDetailsVm.getMembersUnderLead();
                     my.memberDetailsVm.getAllDesignation();
-                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    my.editCrRatingConfigVm.isVisible(false);
                     break;
                 }
                 case 'EditCrSystemRatingConfig':
@@ -46,7 +46,7 @@
                     my.notificationSettingVm.closeNotificationSetting();
                     my.memberDetailsVm.closeGpsUserSetting();
                     my.addUserVm.closeDialogue();
-                    my.editCrSystemRatingConfigVm.getRatingConfig();
+                    my.editCrRatingConfigVm.getRatingConfig();
                     break;
                 }
                 case 'MyProfile':
@@ -56,7 +56,7 @@
                     my.notificationSettingVm.closeNotificationSetting();
                     my.memberDetailsVm.closeGpsUserSetting();
                     my.addUserVm.openUserProfile();
-                    my.editCrSystemRatingConfigVm.isVisible(false);
+                    my.editCrRatingConfigVm.isVisible(false);
                 }
             }
            
