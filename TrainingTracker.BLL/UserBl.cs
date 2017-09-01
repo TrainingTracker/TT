@@ -37,9 +37,9 @@ namespace TrainingTracker.BLL
             var dbUser = GetUserByUserId(userId);
 
             var teamManagers = UnitOfWork.UserRepository
-                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
-                .Select(lead => lead.UserId)
-                .ToList();
+                                         .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                                         .Select(lead => lead.UserId)
+                                         .ToList();
 
             if (isUserAdded)
             {
@@ -52,8 +52,7 @@ namespace TrainingTracker.BLL
                 UnitOfWork.Commit();
             }
 
-
-            if (isUserAdded)
+            if (isUserAdded && dbUser.IsTrainee)
             {
                 new NotificationBl().UserNotification(dbUser, managerId);
             }
@@ -73,27 +72,36 @@ namespace TrainingTracker.BLL
             var isUserUpdated = UserDataAccesor.UpdateUser(userData);
             var dbUser = GetUserByUserId(userData.UserId);
             var teamManagers = UnitOfWork.UserRepository
-                .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
-                .Select(lead=>lead.UserId)
-                .ToList();
+                                         .Find(u => u.TeamId == dbUser.TeamId && u.IsManager == true)
+                                         .Select(lead => lead.UserId)
+                                         .ToList();
 
             try
             {
-                if (isUserUpdated)
+                if (isUserUpdated && dbUser.IsTrainee)
                 {
                     UnitOfWork.EmailAlertSubscriptionRepository
-                                  .GetAllSubscribedMentors(userData.UserId,includeDeleted:true)
-                                  .ForEach(s =>
-                                           {
-                                               s.IsDeleted = !userData.IsActive || !teamManagers.Contains(s.SubscribedByUserId);
-                                               UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
-                                           });
+                              .GetAllSubscribedMentors(userData.UserId, includeDeleted: true)
+                              .ForEach(s =>
+                                       {
+                                           s.IsDeleted = !(userData.IsActive && teamManagers.Contains(s.SubscribedByUserId));
+                                           teamManagers.Remove(s.SubscribedByUserId);//Remove from managers if record exists. Also avoids duplicate notifications.
+                                           UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
+                                       });
 
+                    teamManagers.ForEach(manager => UnitOfWork.EmailAlertSubscriptionRepository
+                                                              .AddOrUpdate(new EmailAlertSubscription
+                                                                           {
+                                                                               SubscribedByUserId = manager,
+                                                                               SubscribedForUserId = dbUser.UserId
+                                                                           }));
 
                     UnitOfWork.Commit();
 
-
-                    new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
+                    if (dbUser.IsActive)
+                    {
+                        new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
+                    }
                 }
             }
             catch (Exception ex)
