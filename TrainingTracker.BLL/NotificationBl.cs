@@ -332,7 +332,7 @@ namespace TrainingTracker.BLL
             var notificationManagementLink = "/Setting/UserSetting?settingName=Notification&user=" + user.UserId;
             ;
             var description = (isNewUser
-                                   ? string.Format(@"New user ""{0}"" has added.", user.FullName)
+                                   ? string.Format(@"New user ""{0}"" added!", user.FullName)
                                    : string.Format(@"User ""{0}"" has been activated.", user.FullName));
 
             var notification = new Notification
