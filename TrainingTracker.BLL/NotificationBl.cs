@@ -329,15 +329,11 @@ namespace TrainingTracker.BLL
         /// <returns>Returns true if Notification is added successfully else false.</returns>
         internal bool UserNotification(User user, int managerId, bool isNewUser = true)
         {
-            var notificationManagementLink = "/Setting/UserSetting?settingName=Notification";
-            var featureText = (isNewUser
-                                   ? "New user added!"
-                                   : "User has been activated again.");
+            var notificationManagementLink = "/Setting/UserSetting?settingName=Notification&user=" + user.UserId;
             ;
             var description = (isNewUser
-                                   ? string.Format(@"New user ""{0}"" has been added.", user.FullName)
-                                   : string.Format(@"User ""{0}"" has been activated again.", user.FullName))
-                              + "\nClick to subscribe.";
+                                   ? string.Format(@"New user ""{0}"" has added.", user.FullName)
+                                   : string.Format(@"User ""{0}"" has been activated.", user.FullName));
 
             var notification = new Notification
                                {
@@ -346,7 +342,7 @@ namespace TrainingTracker.BLL
                                    TypeOfNotification = isNewUser ? NotificationType.NewUserNotification
                                                             : NotificationType.UserActivatedNotification,
                                    AddedBy = managerId,
-                                   Title = featureText,
+                                   Title = description,
                                    AddedOn = DateTime.Now,
                                };
 
