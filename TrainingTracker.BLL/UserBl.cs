@@ -84,8 +84,8 @@ namespace TrainingTracker.BLL
                               .GetAllSubscribedMentors(userData.UserId, includeDeleted: true)
                               .ForEach(s =>
                                        {
-                                           teamManagers.Remove(s.SubscribedByUserId);//Remove from managers if record exists. Also avoids duplicate notifications.
                                            s.IsDeleted = !(userData.IsActive && teamManagers.Contains(s.SubscribedByUserId));
+                                           teamManagers.Remove(s.SubscribedByUserId);//Remove from managers if record exists. Also avoids duplicate notifications.
                                            UnitOfWork.EmailAlertSubscriptionRepository.AddOrUpdate(s);
                                        });
 
@@ -97,6 +97,7 @@ namespace TrainingTracker.BLL
                                                                            }));
 
                     UnitOfWork.Commit();
+
                     if (dbUser.IsActive)
                     {
                         new NotificationBl().UserNotification(dbUser, addedById, isNewUser: false);
