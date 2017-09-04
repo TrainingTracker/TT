@@ -1,6 +1,6 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function() {
 
-    my.dashboardVm = function () {
+    my.dashboardVm = function() {
         var users = ko.observableArray([]),
             photoUrl = function(item) {
                 return my.rootUrl + "/Uploads/ProfilePicture/" + item.ProfilePictureName;
@@ -10,22 +10,21 @@
                     item.PhotoUrl = my.dashboardVm.photoUrl(item.User);
                     my.dashboardVm.users.push(item);
                 });
- 
+
                 ko.applyBindings(my.dashboardVm);
             },
             getDashboardVm = function() {
                 my.userService.getDashboardVm(my.dashboardVm.getDashboardVmCallback);
             },
-            feedback = [],            
-            getFeedback = function (size, feedbacktype, userId)
-            {
-               // var  allData = [],
-              var  allData  = $.grep(users(), function(value) {
+            feedback = [],
+            getFeedback = function(size, feedbacktype, userId) {
+                // var  allData = [],
+                var allData = $.grep(users(), function(value) {
                     //console.log("I was here");
                     return value.User.UserId == userId;
                 });
-                
-                switch(feedbacktype) {
+
+                switch (feedbacktype) {
                     case "Weekly":
                         my.dashboardVm.feedback = allData[0].WeeklyFeedback;
                         break;
@@ -35,55 +34,51 @@
                     case "All":
                         my.dashboardVm.feedback = allData[0].RemainingFeedbacks;
                         break;
-                    }
-                
-                if (my.dashboardVm.feedback.length ) {
-                    
+                }
+
+                if (my.dashboardVm.feedback.length) {
+
                     var temp = [];
-                    for (var i = 0; i < parseInt(size) && i < my.dashboardVm.feedback.length ; i++) {
+                    for (var i = 0; i < parseInt(size) && i < my.dashboardVm.feedback.length; i++) {
                         if (i == 0 && parseInt(size) > 1) continue;
                         temp.push(my.dashboardVm.feedback[i]);
-                       
+
                     }
                     my.dashboardVm.feedback = [];
-                    
-                    if (temp.length > 1 || parseInt(size) > 1)
-                    {                       
+
+                    if (temp.length > 1 || parseInt(size) > 1) {
                         my.dashboardVm.feedback = temp;
                     } else {
-                       
+
                         my.dashboardVm.feedback = temp[0];
                     }
                 }
 
-                return (my.dashboardVm.feedback.length) || (  typeof(my.dashboardVm.feedback.Title) != 'undefined' && my.dashboardVm.feedback.Title != "" )? true : false;
+                return (my.dashboardVm.feedback.length) || (typeof(my.dashboardVm.feedback.Title) != 'undefined' && my.dashboardVm.feedback.Title != "") ? true : false;
             },
             eachUserPendingFeedbackWeek = ko.observable([]),
-            loadTotalAssignmentPendingCount=function(courseData) {
+            loadTotalAssignmentPendingCount = function(courseData) {
                 var count = 0;
-                ko.utils.arrayForEach(courseData, function (course)
-                {
+                ko.utils.arrayForEach(courseData, function(course) {
                     count += course.PendingAssignmentCount;
                 });
                 return count;
             },
-            eachUserPendingAssignment = function (courseData,userId)
-            {
+            eachUserPendingAssignment = function(courseData, userId) {
                 var courseArray = new Array();
-                
-                ko.utils.arrayForEach(courseData, function (course)
-                {
+
+                ko.utils.arrayForEach(courseData, function(course) {
                     if (course.PendingAssignmentCount > 0)
-                    courseArray.push({Name:course.Name,PendingCount:course.PendingAssignmentCount});
+                        courseArray.push({ Name: course.Name, PendingCount: course.PendingAssignmentCount });
                 });
-                
-                
+
+
                 return courseArray;
             },
-            loadWeekForFeedbackNotPresent = function (data) {
+            loadWeekForFeedbackNotPresent = function(data) {
                 eachUserPendingFeedbackWeek(data);
             };
-        
+
 
         return {
             users: users,
@@ -101,5 +96,21 @@
 
     my.dashboardVm.getDashboardVm();
     //ko.applyBindings(my.dashboardVm);
-    
+
 });
+
+navigateToUser = function(id) {
+    window.location = my.rootUrl + 'Profile/UserProfile?userId=' + id;
+};
+getFeedbackText = function(rating) {
+    switch (parseInt(rating)) {
+        case 1:
+            return "Slow";
+        case 2:
+            return "Average";
+        case 3:
+            return "Fast";
+        case 4:
+            return "Exceptional";
+    }
+};

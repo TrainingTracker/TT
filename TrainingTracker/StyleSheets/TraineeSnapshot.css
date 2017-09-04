@@ -1,21 +1,74 @@
 ﻿.trainee-cards {
-    display: inline-flex;
     height: 100%;
     min-height: 100%;
-    -ms-align-content: flex-start;
-    -webkit-align-content: flex-start;
-    align-content: flex-start;
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
 }
+
+.trainee-card-wrapper {
+    height: 150px;
+    padding: 1%;
+}
+
+.tt-theme-background { background: #2596F1; }
+
+.tt-theme-color { color: #2596f1; }
+
 .trainee-card {
-    -ms-flex: 0 1 auto;
-    -webkit-flex: 0 1 auto;
-    flex: 0 1 auto;
-    max-width: 18%;
-    max-height: 150px;
-    border-radius: 0.25px;
-    border: black solid 1px;
-    margin: 1%;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    border: lightgray solid 1px;
+    padding: 5px;
+    color: gray;
+    background: aliceblue;
 }
+
+.dashboard-content {
+    padding: 0;
+    margin: 2%;
+    border-radius: 5px 5px 0 0;
+    border: lightgray solid 1px;
+    background: white;
+}
+
+.dashboard-content .dashboard-header {
+    margin: 0;
+    padding: 10px 0;
+    border-radius: 5px 5px 0 0;
+    color: white;
+    height: 50px;
+    vertical-align: central;
+}
+
+.profile-img {
+    float: left;
+    clear: right;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    margin: 5px;
+}
+
+.trainee-card-data {
+    width: calc(100% - 115px);
+    float: right
+}
+
+.trainee-card-data label[name="FullName"] {
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-wrap: none;
+    width: 100%;
+}
+
+.pointer-on-hover:hover { cursor: pointer; }
+
+.rating-slow { color: red; }
+
+.rating-Average { color: orange; }
+
+.rating-Fast { color: blue; }
+
+.rating-Exceptional { color: green; }
