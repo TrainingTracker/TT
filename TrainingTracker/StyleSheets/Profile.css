@@ -1244,34 +1244,6 @@ label.lbl-data-info {
 
     /*margin-left: -8%;*/
 
- .point-type-exceptional
-{
-    color : #1bf11b;
-}
-
-.point-type-good
-{
-    color : #acf02c;
-}
-
-.point-type-corrected
-{
-    color : blue;
-}
-.point-type-poor
-{
-    color : #d9534f;
-}
-.point-type-critical
-{
-    color : red;
-}
-
-.point-type-suggestion
-{
-    color : orange;
-}
-
  .code-review-tags .code-review-tags-body .code-review-review-points-body
 {
     width: 97%;

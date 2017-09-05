@@ -13,6 +13,25 @@ $(document).ready(function () {
     
     my.xhrRequestcount = 0;
     
+    my.getRatingCssClass = function (rating) {
+        switch (rating) {
+            case 1:
+                return 'point-type-exceptional fa fa-plus double-child';
+            case 2:
+                return 'point-type-good fa fa-plus single-child';
+            case 3:
+                return 'point-type-corrected fa fa-check single-child';
+            case 4:
+                return 'point-type-poor fa fa-minus single-child';
+            case 5:
+                return 'point-type-critical fa fa-minus double-child';
+            case 6:
+                return 'point-type-suggestion fa fa-exclamation single-child';
+            default:
+                return '';
+        }
+    }
+
     my.toggleLoader = function (load)
     {
         if (typeof (load) == 'undefined' || !load)
@@ -172,7 +191,39 @@ $(document).ready(function () {
         });
         return match;
     }
-    
+
+    my.mutationObservers = [];
+    my.mutationObservers.push(function() {
+        var doubleChildren = $('.double-child');
+        $.each(doubleChildren, function() {
+            var item = $(this);
+            if (item.siblings('.double-child').length) {
+                return;
+            }
+            item.after(item.clone());
+            item.after('&nbsp;');
+        });
+    });
+
+
+
+    var observer = new MutationObserver(function (mutations) {
+        for (var i = 0; i < my.mutationObservers.length; i++) {
+            if (typeof (my.mutationObservers[i]) == "function") {
+                my.mutationObservers[i](mutations);
+            }
+        }
+    });
+
+    var config = {
+        childList: true,
+        subtree: true,
+        attributes: true
+    };
+
+
+    observer.observe(document.body, config);
+
 });
 
 //On notification link click call
@@ -195,7 +246,4 @@ $(document).click(function ()
     $("#actionContainer").hide();
     $("#notificationContainer").hide();
 });
-
-
-
 

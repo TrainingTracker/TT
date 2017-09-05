@@ -18,11 +18,11 @@
             var configMax = 10;
             var configMin = 0;
             var weightConfigs = my.editCrRatingConfigVm.ratingConfig().CrRatingCalcWeightConfigs;
-            for (var i = 1; i < weightConfigs.length-1; i++) {
+            for (var i = 1; i < weightConfigs.length - 1; i++) {
                 var weightConfig = weightConfigs[i];
 
                 if (isNaN(parseFloat(weightConfig.Weight))) {
-                    message += 'Invalid weight format of <strong>' + getReviewPointRating(weightConfig.ReviewPointTypeId)+'</strong>';
+                    message += 'Invalid weight format of <strong>' + getReviewPointRating(weightConfig.ReviewPointTypeId) + '</strong>';
                     isValid = false;
                     message += '.<br/>';
                 }
@@ -38,45 +38,55 @@
                     isValid = false;
                     message += '.<br/>';
                 }
+
+
+            }
+
+            if (!isValid) {
+                message = "<h4>Validation Errors for Review Points: </h4>" + message;
             }
 
             var rangeConfigs = my.editCrRatingConfigVm.ratingConfig().CrRatingCalcRangeConfigs;
 
-            for (var i = 0; i < rangeConfigs.length-1; i++) {
+            var isRangeValid = true;
+
+            for (var i = 0; i < rangeConfigs.length - 1; i++) {
 
                 var rangeConfig = rangeConfigs[i];
+                var rangeInvalidMessage = "<h4>Validation Errors for Feedback Rating: </h4>";
 
                 if (isNaN(parseFloat(rangeConfig.RangeMax))) {
-                    message += 'Invalid upper limit format of <strong>' + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong>';
-                    isValid = false;
+                    message += (isRangeValid ? rangeInvalidMessage : '') + 'Invalid Maximum score format of <strong>'
+                        + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong>';
+                    isRangeValid = false;
                     message += '.<br/>';
                 }
 
                 if (rangeConfig.RangeMax <= configMin) {
-                    message += ' Upper limit format of <strong>' + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be less than or equal to ' + configMin;
-                    isValid = false;
+                    message += (isRangeValid ? rangeInvalidMessage : '') + ' Maximum score of <strong>'
+                        + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be less than or equal to ' + configMin;
+                    isRangeValid = false;
                     message += '.<br/>';
                 }
 
                 if (rangeConfig.RangeMax >= configMax) {
-                    message += 'Upper limit format of <strong>' + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be greater than or equal to' + configMax;
-                    isValid = false;
+                    message += (isRangeValid ? rangeInvalidMessage : '') + 'Maximum score of <strong>'
+                        + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be greater than or equal to' + configMax;
+                    isRangeValid = false;
                     message += '.<br/>';
                 }
 
-                if (rangeConfig.RangeMax >= rangeConfigs[i+1].RangeMax) {
-                    message += 'Upper limit format of <strong>' + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be greater than or equal to the upperlimit of next Feedback Type';
-                    isValid = false;
+                if (rangeConfig.RangeMax >= rangeConfigs[i + 1].RangeMax) {
+                    message += (isRangeValid ? rangeInvalidMessage : '') + 'Maximum score of <strong>'
+                        + getFeedbackRating(rangeConfig.FeedbackTypeId)
+                        + '</strong> should be less than maximum score of <strong>'
+                        + getFeedbackRating(rangeConfigs[i + 1].FeedbackTypeId) + '</strong>';
+                    isRangeValid = false;
                     message += '.<br/>';
                 }
-
-                if (i!=0 && rangeConfig.RangeMax <= rangeConfigs[i - 1].RangeMax) {
-                    message += 'Upper limit format of <strong>' + getFeedbackRating(rangeConfig.FeedbackTypeId) + '</strong> cannot be lesser than or equal to the upperlimit of previous Feedback Type';
-                    isValid = false;
-                    message += '.<br/>';
-                }
-
             }
+
+            isValid = isRangeValid && isValid;
             validationMessage = message;
             return isValid;
         }
@@ -86,7 +96,7 @@
 
             if (!validateConfig()) {
                 $.alert({
-                    title: 'Invalid Format',
+                    title: 'Invalid Input',
                     columnClass: 'col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10',
                     useBootstrap: true,
                     content: validationMessage,
