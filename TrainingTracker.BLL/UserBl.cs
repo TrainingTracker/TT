@@ -159,14 +159,15 @@ namespace TrainingTracker.BLL
         /// <summary>
         /// Get view model for user profile page
         /// </summary>
-        /// <param name="userId">logged in user id</param>
+        /// <param name="userId">user id</param>
+        /// <param name="loggedInUser"></param>
         /// <returns>instance of User vm</returns>
-        public UserProfileVm GetUserProfileVm(int userId, User logedInUser)
+        public UserProfileVm GetUserProfileVm(int userId, User loggedInUser)
         {
-            User currentUser = userId == logedInUser.UserId ? logedInUser : UserDataAccesor.GetUserById(userId);
+            User requestedUser = userId == loggedInUser.UserId ? loggedInUser : UserDataAccesor.GetUserById(userId);
 
-            CodeReview codeReview = logedInUser.IsTrainer || currentUser.IsManager 
-                                        ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, logedInUser.UserId)) 
+            CodeReview codeReview = loggedInUser.IsTrainer || loggedInUser.IsManager 
+                                        ? CodeReviewConverter.ConvertFromCore(UnitOfWork.CodeReviewRepository.GetSavedCodeReviewForTrainee(userId, loggedInUser.UserId)) 
                                         : null;
             var commonTags = UnitOfWork.CodeReviewRepository
                 .GetCommonlyUsedTags(userId, 5)
@@ -188,14 +189,14 @@ namespace TrainingTracker.BLL
            
             return new UserProfileVm
             {
-                User = userId == logedInUser.UserId ? null : currentUser,
-                Skills = currentUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null,
-                TraineeSynopsis = currentUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(currentUser.UserId) : null,
-                Sessions = currentUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
+                User = userId == loggedInUser.UserId ? null : requestedUser,
+                Skills = requestedUser.IsTrainee ? SkillDataAccesor.GetSkillsByUserId(userId) : null,
+                TraineeSynopsis = requestedUser.IsTrainee ? FeedbackDataAccesor.GetTraineeFeedbackSynopsis(requestedUser.UserId) : null,
+                Sessions = requestedUser.IsTrainee ? SessionConverter.ConvertListFromCore(UnitOfWork.SessionRepository.GetAllSessionForAttendee(userId)) : null,
                 Projects = null,
-                Feedbacks = currentUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
-                TrainorSynopsis = currentUser.IsTrainer || currentUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(currentUser.UserId) : null,
-                AllAssignedCourses = currentUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(currentUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
+                Feedbacks = requestedUser.IsTrainee ? FeedbackDataAccesor.GetUserFeedback(userId, 5) : FeedbackDataAccesor.GetFeedbackAddedByUser(userId),
+                TrainorSynopsis = requestedUser.IsTrainer || requestedUser.IsManager ? FeedbackDataAccesor.GetTrainorFeedbackSynopsis(requestedUser.UserId) : null,
+                AllAssignedCourses = requestedUser.IsTrainee ? LearningPathDataAccessor.GetAllCoursesForTrainee(requestedUser.UserId).OrderByDescending(x => x.PercentageCompleted).ToList() : new List<CourseTrackerDetails>(),
                        SavedCodeReview = codeReview,
                 CommonTags = commonTags
               //  SavedCodeReviewData = logedInUser.IsTrainer && (codeReview != null && codeReview.Id > 0) ? UtilityFunctions.GenerateCodeReviewPreview(codeReview, true) : string.Empty
