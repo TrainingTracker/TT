@@ -1,4 +1,6 @@
-﻿html,body {
+﻿@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+html,body {
     min-height: 100% !important;
     height: 100% !important;
     background-color: #f5f5f5;
@@ -314,4 +316,33 @@ h4.mute {
 
 .text-align-center {
     text-align:center;
+}
+
+
+ .point-type-exceptional
+{
+    color : #1bf11b;
+}
+
+.point-type-good
+{
+    color : #acf02c;
+}
+
+.point-type-corrected
+{
+    color : blue;
+}
+.point-type-poor
+{
+    color : #d9534f;
+}
+.point-type-critical
+{
+    color : red;
+}
+
+.point-type-suggestion
+{
+    color : orange;
 }

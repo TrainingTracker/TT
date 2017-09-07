@@ -127,12 +127,6 @@ namespace TrainingTracker
              "~/Scripts/autosize.js"
              ));
 
-            bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-               "~/Scripts/Custom/AddEditProfile.js",
-               "~/Scripts/Custom/NotificationSetting.js",
-               "~/Scripts/Custom/UserSetting.js",
-               "~/Scripts/notify.js"
-              ));
 
             bundles.Add(new ScriptBundle("~/bundles/MirrorViewScripts").Include(
               "~/Scripts/Custom/Chart.Scatter.Shekhar.js",
@@ -145,9 +139,12 @@ namespace TrainingTracker
              ));
 
             bundles.Add(new ScriptBundle("~/bundles/UserSettingViewScripts").Include(
-                "~/Scripts/Custom/MemberDetails.js",
+               "~/Scripts/jquery-ui.js",
+               "~/Scripts/jquery-confirm.js",
+               "~/Scripts/Custom/MemberDetails.js",
                "~/Scripts/Custom/AddEditProfile.js",
                "~/Scripts/Custom/NotificationSetting.js",
+               "~/Scripts/Custom/EditCrSystemRatingConfig.js",
                "~/Scripts/Custom/UserSetting.js",
                "~/Scripts/notify.js"
               ));
@@ -242,7 +239,8 @@ namespace TrainingTracker
                     "~/StyleSheets/UserSetting.css",
                     "~/StyleSheets/ProfileSetting.css",
                     "~/StyleSheets/NotificationSetting.css",
-                    "~/StyleSheets/GpsUserSetting.css"
+                    "~/StyleSheets/GpsUserSetting.css",
+                    "~/StyleSheets/jquery-confirm.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/MirrorViewStyles").Include(

@@ -1167,24 +1167,7 @@ $(document).ready(function() {
                 my.profileVm.prevCrPointData(data);
             });
         };
-        var getRatingCssClass = function(rating) {
-            switch (rating) {
-            case 1:
-                return 'point-type-exceptional fa-plus double-child';
-            case 2:
-                return 'point-type-good fa-plus single-child';
-            case 3:
-                return 'point-type-corrected fa-check single-child';
-            case 4:
-                return 'point-type-poor fa-minus single-child';
-            case 5:
-                return 'point-type-critical fa-minus double-child';
-            case 6:
-                return 'point-type-suggestion fa-exclamation single-child';
-            default:
-                return '';
-            }
-        }
+        
         var addExistingReviewPoint = function(skillData, pointData) {
             var existingTag = ko.utils.arrayFirst(my.profileVm.codeReviewDetails.Tags(), function(tag) {
                 return tag.Skill.SkillId == skillData.SkillId ? tag : (skillData.SkillId == 0 ? 0 : false);
@@ -1358,7 +1341,6 @@ $(document).ready(function() {
             updateReviewPointData: updateReviewPointData,
             prevCrPointData: prevCrPointData,
             loadPrevCrProints: loadPrevCrPointData,
-            getRatingCssClass: getRatingCssClass,
             addExistingReviewPoint: addExistingReviewPoint,
             codeReviewPointErrors: codeReviewPointErrors,
             commonTags: commonTags,
@@ -1428,25 +1410,11 @@ $(document).ready(function() {
         my.profileVm.setRating(isOverriding ? null : my.profileVm.codeReviewDetails.SystemRating());
     });
 
-    var observer = new MutationObserver(function(mutations) {
+
+    my.mutationObservers.push(function(mutations) {
         $('.btn-group.disabled .btn:not(.disabled)').addClass('disabled no-pointer-events');
         $('.btn-group:not(.disabled) .btn.disabled').removeClass('disabled no-pointer-events');
-        var doubleChildren = $('.double-child');
-        $.each(doubleChildren, function() {
-            var item = $(this);
-            if (item.siblings('.double-child').length) {
-                return;
-            }
-            item.after(item.clone());
-            item.after('&nbsp;');
-        });
     });
+    
 
-    var config = {
-        childList: true,
-        subtree: true,
-        attributes: true
-    };
-
-    observer.observe(document.body, config);
 });
