@@ -11,36 +11,42 @@
     <div id="divSettingContainer" class="col-sm-12 no-padding-left">
         <div class="col-sm-2 nav-panel panel">
             <ul class="nav nav-pills nav-stacked">
-                <li data-bind="click:function(){my.userSettingVm.markAsSelected('MyProfile')}, css:{'active': my.userSettingVm.selectedSetting() == 'MyProfile'}">
-                    <a href="#" data-bind="click: function(){ my.notificationSettingVm.closeNotificationSetting(); my.memberDetailsVm.closeGpsUserSetting(); my.addUserVm.openUserProfile(); }"><span>My Profile</span><i class="pull-right fa fa-user" aria-hidden="true"></i></a>
+                <li data-bind="click:function(){my.userSettingVm.openSettingPanel('MyProfile')}, css:{'active': my.userSettingVm.selectedSetting() == 'MyProfile'}">
+                    <a href="#"><span>My Profile</span><i class="pull-right fa fa-user" aria-hidden="true"></i></a>
                 </li>
                 @if (HttpContext.Current.User.IsInRole("Administrator") || HttpContext.Current.User.IsInRole("Manager"))
                 {
-                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('ManageUsers')}, css:{'active': my.userSettingVm.selectedSetting() == 'ManageUsers'}">
-                        <a href="#" data-bind="click:function(){my.notificationSettingVm.closeNotificationSetting(); my.memberDetailsVm.closeGpsUserSetting(); my.addUserVm.openAllUsersProfile()}, visible: (my.meta.isAdministrator() || my.meta.isManager())">
+                    <li data-bind="click:function(){my.userSettingVm.openSettingPanel('ManageUsers')}, css:{'active': my.userSettingVm.selectedSetting() == 'ManageUsers'}">
+                        <a href="#" data-bind="visible: (my.meta.isAdministrator() || my.meta.isManager())">
                             <span>Manage Users</span><i class="pull-right fa fa-users" aria-hidden="true"></i>
                         </a>
-                        
-                    </li>                      
+
+                    </li>
+                    <li data-bind="click:function(){my.userSettingVm.openSettingPanel('EditCrSystemRatingConfig')}, css:{'active': my.userSettingVm.selectedSetting() == 'EditCrSystemRatingConfig'}">
+                        <a href="#" data-bind="visible: (my.meta.isAdministrator() || my.meta.isManager())">
+                            <span>CR System Rating Settings</span><i class="pull-right fa fa-star" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 }
-                
+
                 @if (HttpContext.Current.User.IsInRole("Manager"))
                 {
-                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('GPSMembers')}, css:{'active': my.userSettingVm.selectedSetting() == 'GPSMembers'}">
-                        <a href="#" data-bind="click:function(){ my.addUserVm.closeDialogue();  my.notificationSettingVm.closeNotificationSetting(); my.memberDetailsVm.getMembersUnderLead() , my.memberDetailsVm.getAllDesignation()}, visible:  my.meta.isManager()">
+                    <li data-bind="click:function(){my.userSettingVm.openSettingPanel('GPSMembers')}, css:{'active': my.userSettingVm.selectedSetting() == 'GPSMembers'}">
+                        <a href="#" data-bind="visible:  my.meta.isManager()">
                             <span>GPS Profile Sync</span><i class="pull-right fa fa-refresh" aria-hidden="true"></i>
                         </a>
 
                     </li>
-                }  
+                }
 
-                @if (!HttpContext.Current.User.IsInRole("Trainee") )
-                { 
-                    <li data-bind="click:function(){my.userSettingVm.markAsSelected('Notification')}, css:{'active': my.userSettingVm.selectedSetting() == 'Notification'}">
-                        <a href="#" data-bind="click: function(){ my.addUserVm.closeDialogue(); my.notificationSettingVm.openNotificationSetting(); my.memberDetailsVm.closeGpsUserSetting();}"><span>Email Preferences </span><i class="pull-right fa fa-envelope" aria-hidden="true"></i></a>
+                @if (!HttpContext.Current.User.IsInRole("Trainee"))
+                {
+                    <li data-bind="click:function(){my.userSettingVm.openSettingPanel('Notification')}, css:{'active': my.userSettingVm.selectedSetting() == 'Notification'}">
+                        <a href="#"><span>Email Preferences </span><i class="pull-right fa fa-envelope" aria-hidden="true"></i></a>
                     </li>
-                }       
+                }
             </ul>
+
         </div>
         <div class="col-sm-9 content-div panel">
             @Html.Partial("_ProfileSetting")
@@ -52,6 +58,10 @@
             {
                 @Html.Partial("_UsersUnderLead")
             }
+            @if (HttpContext.Current.User.IsInRole("Manager") || HttpContext.Current.User.IsInRole("Administrator"))
+            {
+                @Html.Partial("_CrRatingCalcConfig")
+            }
         </div>
     </div>
 </div>
@@ -59,6 +69,5 @@
 
 @section Scripts
 {
-
     @Scripts.Render("~/bundles/UserSettingViewScripts")
 }

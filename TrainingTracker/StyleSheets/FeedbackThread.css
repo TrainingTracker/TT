@@ -1,9 +1,10 @@
 ﻿
-  #divFeedbackThread  #divThreadWrapper {
+#divFeedbackThread #divThreadWrapper {
     background: #000;
     opacity: 0.5;
-    min-height: 100vh;
-      cursor: pointer;
+    height: inherit;
+    cursor: pointer;
+    overflow-y: hidden;
 }
   #divFeedbackThread #divFeedbackContainer {
       width: 71%;
@@ -17,14 +18,17 @@
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 
-#divFeedbackThread   {
+#divFeedbackThread {
     margin: 0;
     left: 0;
     position: absolute;   
     height: 100%;
     width: 100%;
     top: 0;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.4);
     z-index: 1001;
+    overflow-y: auto;
     transition-property: all;
 	transition-duration: 2s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);

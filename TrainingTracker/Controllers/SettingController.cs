@@ -12,27 +12,39 @@ using TrainingTracker.Common.Utility;
 
 namespace TrainingTracker.Controllers
 {
-    [CustomAuthorizeAttribute]
+    [CustomAuthorize]
     public class SettingController : Controller
     {
         User CurrentUser
         {
-            get 
+            get
             {
                 if (Session["currentUser"] == null)
                 {
                     Session["currentUser"] = new UserBl().GetUserByUserName(User.Identity.Name);
                 }
-                
-                return (User)Session["currentUser"];
+
+                return (User) Session["currentUser"];
             }
         }
 
-        
-        [CustomAuthorize(Roles = UserRoles.Administrator+","+UserRoles.Manager+","+UserRoles.Trainer+","+UserRoles.Trainee)]
+
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer + "," + UserRoles.Trainee)]
         public ActionResult UserSetting()
         {
             return View("UserSetting");
+        }
+
+        [CustomAuthorize(Roles = UserRoles.Administrator)]
+        public JsonResult GetTeams()
+        {
+            return Json(new UserBl().GetAllTeams(), JsonRequestBehavior.AllowGet);
+        }
+
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager)]
+        public JsonResult GetCrRatingConfig()
+        {
+            return Json(new FeedbackBl().GetCrRatingConfig(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
         }
 
         [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager + "," + UserRoles.Trainer)]
@@ -46,5 +58,12 @@ namespace TrainingTracker.Controllers
         {
             return Json(new EmailPreferencesBl().GetUserSubscriptionsById(CurrentUser.UserId), JsonRequestBehavior.AllowGet);
         }
+
+        [CustomAuthorize(Roles = UserRoles.Administrator + "," + UserRoles.Manager)]
+        public JsonResult UpdateCrRatingConfig( CrRatingCalcConfig config)
+        {
+            return Json(new FeedbackBl().UpdateCrRatingConfig( config,CurrentUser.UserId), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

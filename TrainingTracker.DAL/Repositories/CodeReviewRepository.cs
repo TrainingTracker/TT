@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -83,11 +84,44 @@ namespace TrainingTracker.DAL.Repositories
         public IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId)
         {
             return _context.Users
-                           .First(u => u.UserId == 25)
+                           .First(u => u.UserId == traineeId)
                            .Team
                            .CrRatingCalcConfigs
                            .AsQueryable()
-						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs");
+						   .Include("CrRatingCalcRangeConfigs,CrRatingCalcWeightConfigs")
+                           .AsEnumerable()
+                           .Select(c=>new CrRatingCalcConfig
+                                      {
+                                          Id = c.Id,
+                                          CrRatingCalcWeightConfigs = c.CrRatingCalcWeightConfigs.OrderByDescending(w=>w.Weight).ToList(),
+                                          CrRatingCalcRangeConfigs = c.CrRatingCalcRangeConfigs.OrderBy(w=>w.RangeMin).ToList()
+                                      });
+        }
+
+        public void UpdateCrRatingCalcConfig(CrRatingCalcConfig config)
+        {
+
+            var dbConfig = _context.CrRatingCalcConfigs.Find(config.Id);
+
+
+
+            foreach (var weightConfig in dbConfig.CrRatingCalcWeightConfigs)
+            {
+                var newConfig = config.CrRatingCalcWeightConfigs.First(c => c.Id == weightConfig.Id);
+
+                weightConfig.Weight = newConfig.Weight;
+
+                _context.CrRatingCalcWeightConfigs.AddOrUpdate(weightConfig);
+            }
+            foreach (var rangeConfig in dbConfig.CrRatingCalcRangeConfigs)
+            {
+                var newConfig = config.CrRatingCalcRangeConfigs.First(c => c.Id == rangeConfig.Id);
+
+                rangeConfig.RangeMax = newConfig.RangeMax;
+
+                _context.CrRatingCalcRangeConfigs.AddOrUpdate(rangeConfig);
+            }
+
         }
     }
 }

@@ -18,5 +18,7 @@ namespace TrainingTracker.DAL.Interface
         IEnumerable<Skill> GetCommonlyUsedTags(int traineeId, int reviewCount);
 
         IEnumerable<CrRatingCalcConfig> GetCrRatingCalcConfig(int traineeId);
+
+        void UpdateCrRatingCalcConfig(CrRatingCalcConfig config);
     }
 }

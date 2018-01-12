@@ -162,13 +162,6 @@
             my.addUserVm.user.IsNewProfile(false);
             my.addUserVm.message("");
         },
-        addProfile = (function () {
-            resetUser();
-            my.addUserVm.user.IsReadOnly(false);
-            my.addUserVm.user.IsNewProfile(true);
-            my.addUserVm.user.TeamId(my.meta.currentUser.TeamId);
-            my.addUserVm.user.IsActive(true);
-        }),
             fullName = function (item) {
                 return item.FirstName + " " + item.LastName;
             },
@@ -256,7 +249,6 @@
             setUser: setUser,
             getUsersCallback: getUsersCallback,
             getUsers: getUsers,
-            addProfile: addProfile,
             user: user,
             fullName: fullName,
             showProfile: showProfile,

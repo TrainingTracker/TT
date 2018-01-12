@@ -23,6 +23,27 @@
 #profileSettingPanel .panel-footer button {
     width:150px;
 }
+
+#calcConfigPanel {
+    padding: 0;
+}
+#calcConfigPanel .panel-footer,#calcConfigPanel .panel-heading {
+    background-color: #fbfbfb;
+    border: none;
+}
+#calcConfigPanel .panel-heading {
+    color: #777;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+#calcConfigPanel .panel-body {
+    height: 70vh;
+    overflow: hidden;
+}
+#calcConfigPanel .panel-footer button {
+    width:150px;
+}
 .user-profile-img {
        width: 10vw !important;
        margin: auto;

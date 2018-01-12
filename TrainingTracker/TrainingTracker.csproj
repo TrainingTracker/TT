@@ -278,6 +278,7 @@
     <Content Include="Scripts\Custom\Chart.Scatter.Shekhar.js" />
     <Content Include="Scripts\Custom\DiscussionForum.js" />
     <Content Include="Scripts\Custom\DiscussionThread.js" />
+    <Content Include="Scripts\Custom\EditCrSystemRatingConfig.js" />
     <Content Include="Scripts\Custom\HelpForum.js" />
     <Content Include="Scripts\Custom\DiscussionForumService.js" />
     <Content Include="Scripts\Custom\HelpForumService.js" />
@@ -428,6 +429,7 @@
     <Content Include="Views\Login\GPSLogin.cshtml" />
     <Content Include="Views\Mirror\PrintHandler.cshtml" />
     <Content Include="Views\Shared\_CodeReviewPanel.cshtml" />
+    <Content Include="Views\Shared\_CrRatingCalcConfig.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
